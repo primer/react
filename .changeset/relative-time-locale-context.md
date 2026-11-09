@@ -2,4 +2,4 @@
 '@primer/react-tailwind': minor
 ---
 
-RelativeTime: Honor inherited language, time zone, and hour cycle, and support an explicit hour-cycle override. Use a consistent UTC timestamp before hydration.
+RelativeTime: Honor live language, time-zone, and hour-cycle context across documents and shadow roots, with safe runtime fallbacks. Preserve deterministic hydration for UTC and offsetless timestamps.

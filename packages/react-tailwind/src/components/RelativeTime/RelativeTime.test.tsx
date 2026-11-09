@@ -1597,10 +1597,56 @@ describe('automatic updates', () => {
       expect(time).toHaveTextContent(before.text)
       act(() => vi.advanceTimersByTime(1))
       expect(time).toHaveTextContent(represented.text)
-      act(() => vi.advanceTimersByTime(999))
-      expect(time).toHaveTextContent(represented.text)
       act(() => vi.advanceTimersByTime(1))
       expect(time).toHaveTextContent(after.text)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('updates past and future micro timestamps when they cross an explicit threshold', () => {
+    vi.useFakeTimers()
+    try {
+      const now = new Date('2026-06-15T12:00:00.000Z')
+      vi.setSystemTime(now)
+      const past = new Date(now.getTime() - 3_600_000 + 500)
+      const future = new Date(now.getTime() + 3_600_000 + 500)
+      const updated = vi.fn()
+      const {getByTestId} = render(
+        <>
+          <RelativeTime
+            date={past}
+            format="micro"
+            threshold="PT1H"
+            onRelativeTimeUpdated={updated}
+            data-testid="past"
+          />
+          <RelativeTime
+            date={future}
+            format="micro"
+            threshold="PT1H"
+            onRelativeTimeUpdated={updated}
+            data-testid="future"
+          />
+        </>,
+      )
+      const pastTime = getByTestId('past')
+      const futureTime = getByTestId('future')
+      const pastBefore = pastTime.textContent
+      const futureBefore = futureTime.textContent
+      updated.mockClear()
+
+      act(() => vi.advanceTimersByTime(502))
+
+      expect(pastTime.textContent).not.toBe(pastBefore)
+      expect(futureTime.textContent).not.toBe(futureBefore)
+      expect(updated).toHaveBeenCalledTimes(2)
+      expect(updated.mock.calls.map(([event]) => [event.oldText, event.newText])).toEqual(
+        expect.arrayContaining([
+          [pastBefore, pastTime.textContent],
+          [futureBefore, futureTime.textContent],
+        ]),
+      )
     } finally {
       vi.useRealTimers()
     }
@@ -1616,11 +1662,16 @@ describe('automatic updates', () => {
       const {container} = render(<RelativeTime date={date} {...options} noTitle />)
       const time = container.querySelector('time')
       const before = formatRelativeTime(date, now.getTime(), options)
-      const after = formatRelativeTime(date, now.getTime() + 1, options)
+      const equality = formatRelativeTime(date, now.getTime() + 1_000, options)
+      const after = formatRelativeTime(date, now.getTime() + 1_001, options)
 
       expect(before.resolvedFormat).toBe('datetime')
       expect(after.resolvedFormat).toBe('duration')
       expect(time).toHaveTextContent(before.text)
+      act(() => vi.advanceTimersByTime(999))
+      expect(time).toHaveTextContent(before.text)
+      act(() => vi.advanceTimersByTime(1))
+      expect(time).toHaveTextContent(equality.text)
       act(() => vi.advanceTimersByTime(1))
       expect(time).toHaveTextContent(after.text)
     } finally {

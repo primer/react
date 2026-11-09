@@ -1,4 +1,12 @@
-import {Duration, elapsedTime, getRelativeTimeUnit, isDuration, roundToSingleUnit, type Unit} from './duration'
+import {
+  Duration,
+  elapsedTime,
+  getRelativeTimeUnit,
+  isDuration,
+  roundToSingleUnit,
+  unitMilliseconds,
+  type Unit,
+} from './duration'
 
 export type Format = 'auto' | 'micro' | 'elapsed' | 'duration' | 'relative' | 'datetime'
 export type FormatStyle = 'long' | 'short' | 'narrow'
@@ -179,6 +187,28 @@ function resolveFormat(
   if (format === 'duration' || format === 'elapsed') return 'duration'
   if (format === 'micro') {
     const threshold = getExplicitThreshold(options)
+    if (threshold) {
+      const fixedThreshold = Duration.from(threshold).abs()
+      const fixedThresholdMilliseconds =
+        (((fixedThreshold.weeks * 7 + fixedThreshold.days) * 24 + fixedThreshold.hours) * 60 + fixedThreshold.minutes) *
+          60_000 +
+        fixedThreshold.seconds * 1000
+      if (
+        !fixedThreshold.years &&
+        !fixedThreshold.months &&
+        fixedThresholdMilliseconds < unitMilliseconds.month - unitMilliseconds.second
+      ) {
+        const elapsedMilliseconds =
+          (((Math.abs(thresholdDuration.weeks) * 7 + Math.abs(thresholdDuration.days)) * 24 +
+            Math.abs(thresholdDuration.hours)) *
+            60 +
+            Math.abs(thresholdDuration.minutes)) *
+            60_000 +
+          Math.abs(thresholdDuration.seconds) * 1000 +
+          Math.abs(thresholdDuration.milliseconds)
+        return elapsedMilliseconds > fixedThresholdMilliseconds ? 'datetime' : 'duration'
+      }
+    }
     return threshold && Duration.compare(thresholdDuration, threshold, now) === -1 ? 'datetime' : 'duration'
   }
   if (getTense(options) !== 'auto') return 'relative'

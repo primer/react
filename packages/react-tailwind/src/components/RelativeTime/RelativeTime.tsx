@@ -172,10 +172,9 @@ function getUpdateInterval(
             )
           : duration
       let untilThreshold = applyDuration(date, signedDuration).getTime() - now
-      // Below 30 days, elapsedTime has no calendar months and the formatter compares whole seconds.
       if (isFixedThreshold && thresholdMilliseconds < unitMilliseconds.month - unitMilliseconds.second) {
-        untilThreshold =
-          target > now ? target - now - thresholdMilliseconds - 999 : target - now + thresholdMilliseconds + 1000
+        untilThreshold = target > now ? target - now - thresholdMilliseconds : target - now + thresholdMilliseconds
+        if (untilThreshold === 0) untilThreshold = 1
       }
       if (untilThreshold > 0) interval = Math.min(interval, untilThreshold)
     } else if (
@@ -208,6 +207,19 @@ function getLocale(language: string | undefined) {
 
 function isHourCycle(value: string | undefined): value is NonNullable<Intl.DateTimeFormatOptions['hourCycle']> {
   return value === 'h11' || value === 'h12' || value === 'h23' || value === 'h24'
+}
+
+function isTimeZone(value: string, intl: typeof Intl) {
+  try {
+    new intl.DateTimeFormat(undefined, {timeZone: value})
+    return true
+  } catch {
+    return false
+  }
+}
+
+function isOffsetlessDateTime(value: string | undefined) {
+  return Boolean(value && !/(?:Z|[+-]\d{2}(?::?\d{2})?)$/i.test(value))
 }
 
 function getNextTimeZoneDayInterval(now: number, timeZone: string | undefined) {
@@ -312,7 +324,11 @@ export const RelativeTime = React.forwardRef<HTMLElement, RelativeTimeProps>(fun
   const context = useFormattingContext(element)
   const language = lang === undefined ? context.language : lang || context.documentLanguage
   const locale = getLocale(language)
-  const timeZone = timeZoneProp === undefined ? context.timeZone : timeZoneProp || context.documentTimeZone
+  const inheritedTimeZone = timeZoneProp === undefined
+  const timeZoneSetting = inheritedTimeZone ? context.timeZone : timeZoneProp || context.documentTimeZone
+  const intl = element?.ownerDocument.defaultView?.Intl ?? Intl
+  const timeZone =
+    inheritedTimeZone && timeZoneSetting && !isTimeZone(timeZoneSetting, intl) ? undefined : timeZoneSetting
   const hourCycleSetting = hourCycleProp ?? context.hourCycle
   const hourCycle = isHourCycle(hourCycleSetting) ? hourCycleSetting : context.defaultHourCycle
   const prefersAbsoluteTime = prefersAbsoluteTimeProp ?? context.prefersAbsoluteTime
@@ -360,7 +376,8 @@ export const RelativeTime = React.forwardRef<HTMLElement, RelativeTimeProps>(fun
     ],
   )
   if (value && timeZoneProp) Intl.DateTimeFormat('en', {timeZone: timeZoneProp})
-  const initialText = value?.toISOString() ?? ''
+  const offsetlessDateTime = isOffsetlessDateTime(datetime)
+  const initialText = value ? (offsetlessDateTime ? datetime : value.toISOString()) : ''
   const [currentTime, setCurrentTime] = React.useState<number | null>(null)
   const formatted = value && currentTime !== null ? formatRelativeTime(value, currentTime, options) : null
   const text = value ? (formatted?.text ?? initialText) : ''
@@ -384,12 +401,17 @@ export const RelativeTime = React.forwardRef<HTMLElement, RelativeTimeProps>(fun
       // eslint-disable-next-line no-console
       console.warn(`RelativeTime: "${hourCycleSetting}" is not a valid hour cycle; using the runtime's default.`)
     }
-  }, [element, hourCycleSetting, language, locale])
+    if (inheritedTimeZone && timeZoneSetting && !timeZone) {
+      // eslint-disable-next-line no-console
+      console.warn(`RelativeTime: "${timeZoneSetting}" is not a valid time zone; using the runtime's default.`)
+    }
+  }, [element, hourCycleSetting, inheritedTimeZone, language, locale, timeZone, timeZoneSetting])
 
   React.useEffect(() => {
     if (!value || !element) return
 
     let timer: number | undefined
+    let timerWindow: Window | null = null
     const update = () => {
       const now = Date.now()
       const next = formatRelativeTime(value, now, options)
@@ -397,7 +419,8 @@ export const RelativeTime = React.forwardRef<HTMLElement, RelativeTimeProps>(fun
       const nextTitle = providedTitle ?? (noTitle ? '' : next.title)
       const previous = previousRender.current
       if (nextText !== previous.text || nextTitle !== previous.title) {
-        const event = Object.assign(new Event('relative-time-updated', {bubbles: true, composed: true}), {
+        const EventConstructor = element.ownerDocument.defaultView?.Event ?? Event
+        const event = Object.assign(new EventConstructor('relative-time-updated', {bubbles: true, composed: true}), {
           oldText: previous.text,
           newText: nextText,
           oldTitle: previous.title,
@@ -410,13 +433,17 @@ export const RelativeTime = React.forwardRef<HTMLElement, RelativeTimeProps>(fun
       const interval = shouldDisplayPreferredAbsoluteTime(options)
         ? getNextTimeZoneDayInterval(now, options.timeZone)
         : getUpdateInterval(value, now, format, precision, threshold, tense)
-      if (interval !== null) timer = window.setTimeout(update, Math.max(0, now + interval - Date.now()))
+      const ownerWindow = element.ownerDocument.defaultView ?? window
+      if (interval !== null) {
+        timerWindow = ownerWindow
+        timer = ownerWindow.setTimeout(update, Math.max(0, now + interval - Date.now()))
+      }
     }
 
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-external-store-subscription -- The component owns and cleans up this timer.
     update()
     return () => {
-      if (timer !== undefined) window.clearTimeout(timer)
+      if (timer !== undefined) timerWindow?.clearTimeout(timer)
     }
   }, [element, format, noTitle, options, precision, providedTitle, tense, threshold, value])
 
@@ -425,7 +452,7 @@ export const RelativeTime = React.forwardRef<HTMLElement, RelativeTimeProps>(fun
       {...timeProps}
       lang={lang}
       ref={composedRef}
-      dateTime={value?.toISOString()}
+      dateTime={value ? (offsetlessDateTime && currentTime === null ? datetime : value.toISOString()) : undefined}
       title={title}
       data-component="RelativeTime"
     >

@@ -1,4 +1,5 @@
-import {act, cleanup, render} from '@testing-library/react'
+import {act, cleanup, render, waitFor} from '@testing-library/react'
+import {Profiler} from 'react'
 import {hydrateRoot} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
@@ -294,19 +295,30 @@ describe('inherited formatting context', () => {
     expect(getTime(container)).toHaveTextContent(dateText('fr', 'Asia/Tokyo', 'h12'))
   })
 
-  it('falls back to the runtime locale and clock for invalid inherited values with a warning', () => {
+  it('falls back safely for invalid inherited values, then uses html context when they are removed', async () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const runtime = new nativeIntl.DateTimeFormat(undefined, {hour: 'numeric'}).resolvedOptions()
     const hourCycle = runtime.hour12 ? 'h12' : 'h23'
-    const {container} = render(
-      <div lang="not_a_language" {...{'time-zone': 'UTC', 'hour-cycle': 'invalid'}}>
+    setAttribute(document.documentElement, 'lang', 'en-US')
+    setAttribute(document.documentElement, 'time-zone', 'UTC')
+    setAttribute(document.documentElement, 'hour-cycle', 'h23')
+    const {container, getByTestId} = render(
+      <div data-testid="context" lang="not_a_language" {...{'time-zone': 'Not/A_Timezone', 'hour-cycle': 'invalid'}}>
         <RelativeTime date={date} format="datetime" weekday="" year="numeric" hour="numeric" minute="2-digit" />
       </div>,
     )
+    const parent = getByTestId('context')
+    const time = getTime(container)
 
-    expect(getTime(container)).toHaveTextContent(dateText(runtime.locale, 'UTC', hourCycle))
+    expect(time).toHaveTextContent(dateText(runtime.locale, runtime.timeZone, hourCycle))
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('not_a_language'))
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('invalid'))
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('Not/A_Timezone'))
+
+    parent.removeAttribute('lang')
+    parent.removeAttribute('time-zone')
+    parent.removeAttribute('hour-cycle')
+    await waitFor(() => expect(time).toHaveTextContent(dateText('en-US', 'UTC', 'h23')))
   })
 
   it('responds to runtime language changes when no language is inherited', async () => {
@@ -421,6 +433,132 @@ describe('inherited formatting context', () => {
     expect(time.textContent).toBe(`${today.charAt(0).toLocaleUpperCase('fr')}${today.slice(1)} ${timeOnly}`)
   })
 
+  it('uses and follows the owner document when a mounted subtree moves to an iframe', async () => {
+    const iframe = document.createElement('iframe')
+    document.body.append(iframe)
+    const ownerDocument = iframe.contentDocument
+    if (!ownerDocument) throw new Error('Expected the iframe to have a document')
+    ownerDocument.documentElement.setAttribute('lang', 'de-DE')
+    ownerDocument.documentElement.setAttribute('time-zone', 'Europe/Berlin')
+    ownerDocument.documentElement.setAttribute('hour-cycle', 'h23')
+    const host = document.createElement('div')
+    document.body.append(host)
+    const updated = vi.fn()
+    const {container, unmount} = render(
+      <RelativeTime
+        date={date}
+        format="datetime"
+        weekday=""
+        year="numeric"
+        hour="numeric"
+        minute="2-digit"
+        onRelativeTimeUpdated={updated}
+      />,
+      {container: host},
+    )
+    const time = getTime(container)
+
+    try {
+      ownerDocument.body.append(host)
+      await waitFor(() => expect(time.textContent).toBe(dateText('de-DE', 'Europe/Berlin', 'h23')))
+      expect(updated.mock.lastCall?.[0]).toBeInstanceOf(ownerDocument.defaultView?.Event)
+
+      ownerDocument.body.setAttribute('data-prefers-absolute-time', 'true')
+      await waitFor(() => expect(time.textContent).not.toBe(dateText('de-DE', 'Europe/Berlin', 'h23')))
+      ownerDocument.body.removeAttribute('data-prefers-absolute-time')
+      await waitFor(() => expect(time.textContent).toBe(dateText('de-DE', 'Europe/Berlin', 'h23')))
+    } finally {
+      unmount()
+      host.remove()
+      iframe.remove()
+    }
+  })
+
+  it('tracks shadow-root context and the owner document after the host moves', async () => {
+    const iframe = document.createElement('iframe')
+    document.body.append(iframe)
+    const ownerDocument = iframe.contentDocument
+    if (!ownerDocument) throw new Error('Expected the iframe to have a document')
+    ownerDocument.documentElement.setAttribute('lang', 'fr-FR')
+    ownerDocument.documentElement.setAttribute('time-zone', 'Asia/Tokyo')
+    ownerDocument.documentElement.setAttribute('hour-cycle', 'h12')
+    const host = document.createElement('div')
+    host.setAttribute('lang', 'es-ES')
+    host.setAttribute('time-zone', 'America/Mexico_City')
+    host.setAttribute('hour-cycle', 'h12')
+    document.body.append(host)
+    const shadow = host.attachShadow({mode: 'open'})
+    const shadowContainer = document.createElement('div')
+    shadowContainer.setAttribute('lang', 'de-DE')
+    shadowContainer.setAttribute('time-zone', 'Europe/Berlin')
+    shadowContainer.setAttribute('hour-cycle', 'h23')
+    shadow.append(shadowContainer)
+    const {container, unmount} = render(
+      <RelativeTime date={date} format="datetime" weekday="" year="numeric" hour="numeric" minute="2-digit" />,
+      {container: shadowContainer},
+    )
+    const time = getTime(container)
+
+    try {
+      expect(time).toHaveTextContent(dateText('de-DE', 'Europe/Berlin', 'h23'))
+      shadowContainer.removeAttribute('lang')
+      shadowContainer.removeAttribute('time-zone')
+      shadowContainer.removeAttribute('hour-cycle')
+      await waitFor(() => expect(time).toHaveTextContent(dateText('es-ES', 'America/Mexico_City', 'h12')))
+      host.setAttribute('lang', 'ja-JP')
+      host.setAttribute('time-zone', 'Asia/Tokyo')
+      host.setAttribute('hour-cycle', 'h23')
+      await waitFor(() => expect(time).toHaveTextContent(dateText('ja-JP', 'Asia/Tokyo', 'h23')))
+      host.removeAttribute('lang')
+      host.removeAttribute('time-zone')
+      host.removeAttribute('hour-cycle')
+      ownerDocument.body.append(host)
+      await waitFor(() => expect(time.textContent).toBe(dateText('fr-FR', 'Asia/Tokyo', 'h12')))
+      shadowContainer.setAttribute('lang', 'en-GB')
+      await waitFor(() => expect(time.textContent).toBe(dateText('en-GB', 'Asia/Tokyo', 'h12')))
+    } finally {
+      unmount()
+      host.remove()
+      iframe.remove()
+    }
+  })
+
+  it('shares an observer and ignores unrelated DOM changes for many timestamps', async () => {
+    const observe = vi.spyOn(MutationObserver.prototype, 'observe')
+    const renders = vi.fn()
+    const unrelated = document.createElement('div')
+    document.body.append(unrelated)
+    try {
+      const {getAllByTestId, unmount} = render(
+        <Profiler id="timestamps" onRender={renders}>
+          <div>
+            {Array.from({length: 100}, (_, index) => (
+              <RelativeTime key={index} date={date} format="datetime" data-testid="timestamp" />
+            ))}
+          </div>
+        </Profiler>,
+      )
+      await waitFor(() => expect(getAllByTestId('timestamp')[0]).toHaveAttribute('title'))
+      const timeObservers = observe.mock.calls
+        .map(([, options], index) => ({
+          options,
+          observer: observe.mock.instances[index] as MutationObserver,
+        }))
+        .filter(({options}) => options?.attributeFilter?.includes('time-zone'))
+      expect(timeObservers).toHaveLength(1)
+      const disconnect = vi.spyOn(timeObservers[0]!.observer, 'disconnect')
+      renders.mockClear()
+      await act(async () => {
+        unrelated.setAttribute('lang', 'fr-FR')
+      })
+      expect(renders).not.toHaveBeenCalled()
+      unmount()
+      expect(disconnect).toHaveBeenCalledTimes(1)
+    } finally {
+      unrelated.remove()
+    }
+  })
+
   it('hydrates without a mismatch when server and browser Intl defaults conflict', async () => {
     setAttribute(document.documentElement, 'lang', 'en')
     const app = <RelativeTime date={date} format="relative" tense="past" />
@@ -481,6 +619,30 @@ describe('inherited formatting context', () => {
 
       expect(getTime(container)).toBe(serverTime)
       expect(serverTime).toHaveTextContent(dateText('en', 'UTC', 'h12'))
+      expect(onRecoverableError).not.toHaveBeenCalled()
+    } finally {
+      await act(async () => root?.unmount())
+      container.remove()
+    }
+  })
+
+  it('hydrates an offsetless datetime before interpreting it in the client time zone', async () => {
+    const datetime = '2026-06-15T12:34:56'
+    const container = document.createElement('div')
+    const time = document.createElement('time')
+    time.setAttribute('datetime', datetime)
+    time.setAttribute('data-component', 'RelativeTime')
+    time.textContent = datetime
+    container.append(time)
+    document.body.append(container)
+    const onRecoverableError = vi.fn()
+    let root: ReturnType<typeof hydrateRoot> | undefined
+    try {
+      await act(async () => {
+        root = hydrateRoot(container, <RelativeTime datetime={datetime} />, {onRecoverableError})
+      })
+      await waitFor(() => expect(time.textContent).not.toBe(datetime))
+      expect(time).toHaveAttribute('datetime', new Date(datetime).toISOString())
       expect(onRecoverableError).not.toHaveBeenCalled()
     } finally {
       await act(async () => root?.unmount())
