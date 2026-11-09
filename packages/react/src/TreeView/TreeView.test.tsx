@@ -1891,6 +1891,8 @@ describe('Keyboard interactions', () => {
     })
 
     it('supports multiple typed characters', async () => {
+      vi.useFakeTimers()
+
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">Apple</TreeView.Item>
