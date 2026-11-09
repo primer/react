@@ -38,16 +38,14 @@
 
   /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has([data-kbd-chord]) {
-    padding-inline-end: var(--base-size-6);
+    padding-inline: calc(var(--base-size-12) - var(--base-size-2)) var(--base-size-8);
 
     &:where([data-size='small']) {
-      /* stylelint-disable-next-line primer/spacing */
-      padding-inline-start: var(--control-small-paddingInline-condensed);
+      padding-inline: var(--base-size-8) var(--base-size-6);
     }
 
-    &:where([data-size='medium']) {
-      padding-inline-start: calc(var(--base-size-12) - var(--base-size-2));
-      padding-inline-end: var(--base-size-8);
+    &:where([data-size='large']) {
+      padding-inline: var(--base-size-12) calc(var(--base-size-12) - var(--base-size-2));
     }
   }
 
@@ -226,12 +224,6 @@
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-large-paddingInline-spacious);
     gap: var(--base-size-6);
-
-    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-    &:has([data-kbd-chord]) {
-      padding-inline-start: var(--base-size-12);
-      padding-inline-end: calc(var(--base-size-12) - var(--base-size-2));
-    }
   }
 
   /* Full width */
