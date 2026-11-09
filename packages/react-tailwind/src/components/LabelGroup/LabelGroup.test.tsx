@@ -134,6 +134,27 @@ describe('LabelGroup', () => {
     await waitFor(() => expect(screen.getByRole('button', {name: 'Show +1 more'})).toHaveFocus())
   })
 
+  it('skips hidden and disabled descendants when focusing an expanded label', async () => {
+    const user = userEvent.setup()
+    render(
+      <LabelGroup overflowStyle="inline" visibleChildCount={1}>
+        <span>one</span>
+        <span>
+          <span style={{display: 'none'}}>
+            <a href="#hidden">Hidden link</a>
+          </span>
+          <button type="button" aria-disabled="true">
+            Unavailable label
+          </button>
+          <button type="button">Visible label</button>
+        </span>
+      </LabelGroup>,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Show +1 more'}))
+    await waitFor(() => expect(screen.getByRole('button', {name: 'Visible label'})).toHaveFocus())
+  })
+
   it('opens an accessible overlay and closes it with its close button', async () => {
     const user = userEvent.setup()
     render(

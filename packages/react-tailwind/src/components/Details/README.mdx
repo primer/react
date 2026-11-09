@@ -21,6 +21,10 @@ import * as Examples from './Details.examples.stories'
 
 ```tsx
 import {Details} from '@primer/react-tailwind/Details'
+;<Details>
+  <Details.Summary>More information</Details.Summary>
+  <p>This content is revealed when the disclosure is open.</p>
+</Details>
 ```
 
 Place `Details.Summary` first, followed by the disclosure content.

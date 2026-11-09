@@ -31,9 +31,9 @@ export const Truncate = React.forwardRef<HTMLElement, TruncateProps>(function Tr
       data-component="Truncate"
       data-expandable={expandable || undefined}
       className={cn(
-        inline ? 'inline-block align-top' : 'block',
-        'max-w-(--truncate-max-width) truncate',
-        expandable && 'hover:max-w-[10000px] focus-within:max-w-[10000px]',
+        inline ? 'primer:inline-block primer:align-top' : 'primer:block',
+        'primer:max-w-(--truncate-max-width) primer:truncate',
+        expandable && 'primer:hover:max-w-[10000px] primer:focus-within:max-w-[10000px]',
         className,
       )}
       style={

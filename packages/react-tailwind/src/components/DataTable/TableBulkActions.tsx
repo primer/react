@@ -79,7 +79,7 @@ export const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkAction
       data-component="Table.BulkActions"
       role={active ? 'group' : undefined}
       className={cn(
-        'data-[active]:flex data-[active]:flex-wrap data-[active]:items-center data-[active]:gap-2',
+        'primer:data-[active]:flex primer:data-[active]:flex-wrap primer:data-[active]:items-center primer:data-[active]:gap-2',
         className,
       )}
       onBlurCapture={event => {
@@ -99,13 +99,15 @@ export const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkAction
         onFocusCapture?.(event)
       }}
     >
-      <span className={active ? undefined : 'sr-only'}>
-        <AriaStatus as="span" announceOnShow={active} className="font-semibold text-muted">
+      <span className={active ? undefined : 'primer:sr-only'}>
+        <AriaStatus as="span" announceOnShow={active} className="primer:font-semibold primer:text-muted">
           {getSelectedCountLabel(selectedCount)}
         </AriaStatus>
       </span>
       {active ? (
-        <div className="ms-auto flex flex-wrap items-center gap-2 [&_:focus]:scroll-m-1">{children}</div>
+        <div className="primer:ms-auto primer:flex primer:flex-wrap primer:items-center primer:gap-2 primer:[&_:focus]:scroll-m-1">
+          {children}
+        </div>
       ) : null}
     </div>
   )

@@ -30,8 +30,11 @@ describe('Truncate', () => {
         <Truncate title="Fixed">Fixed</Truncate>
       </>,
     )
-    expect(screen.getByTitle('Expandable')).toHaveClass('hover:max-w-[10000px]', 'focus-within:max-w-[10000px]')
-    expect(screen.getByTitle('Fixed')).not.toHaveClass('hover:max-w-[10000px]')
+    expect(screen.getByTitle('Expandable')).toHaveClass(
+      'primer:hover:max-w-[10000px]',
+      'primer:focus-within:max-w-[10000px]',
+    )
+    expect(screen.getByTitle('Fixed')).not.toHaveClass('primer:hover:max-w-[10000px]')
   })
 
   it('renders as a link and forwards inline to component targets', () => {
@@ -44,6 +47,6 @@ describe('Truncate', () => {
     const link = screen.getByRole('link', {name: 'GitHub'})
     expect(link).toHaveAttribute('href', 'https://github.com')
     expect(link).toHaveAttribute('data-inline', 'true')
-    expect(link).toHaveClass('truncate', 'inline-block')
+    expect(link).toHaveClass('primer:truncate', 'primer:inline-block')
   })
 })

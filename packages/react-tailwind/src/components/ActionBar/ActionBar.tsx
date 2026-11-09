@@ -85,6 +85,7 @@ type OverflowEntry =
       returnFocusRef?: React.RefObject<HTMLElement | null>
     }
 type OverflowEntries = Array<[string, OverflowItem<OverflowEntry>]>
+type OverflowItemFocus = (element: Element, returnFocusRef?: React.RefObject<HTMLElement | null>) => void
 
 const ActionBarContext = React.createContext<ControlSize>('medium')
 const ActionBarRegistryContext = React.createContext<RegisterOverflowItem<OverflowEntry> | null>(null)
@@ -128,7 +129,19 @@ function useActionBarItem(element: Element | null, entry: OverflowEntry) {
   return isOverflowing
 }
 
-function renderMenuItem(item: ActionBarMenuItemProps, index: number): React.ReactNode {
+/** Keeps render-chain handler changes from continuously updating the overflow registry. */
+function useOverflowClick(onClick: React.MouseEventHandler<HTMLElement> | undefined) {
+  const latestClick = React.useRef(onClick)
+  React.useLayoutEffect(() => {
+    latestClick.current = onClick
+  })
+  const handleClick = React.useCallback<React.MouseEventHandler<HTMLElement>>(event => {
+    latestClick.current?.(event)
+  }, [])
+  return onClick ? handleClick : undefined
+}
+
+function renderMenuItem(item: ActionBarMenuItemProps, index: number, onReturnFocus?: () => boolean): React.ReactNode {
   if (item.type === 'divider') return <ActionMenu.Divider key={index} />
 
   const {disabled, items, label, leadingVisual, onClick, trailingVisual, variant} = item
@@ -146,7 +159,9 @@ function renderMenuItem(item: ActionBarMenuItemProps, index: number): React.Reac
         <ActionMenu.SubmenuTrigger disabled={disabled} label={label}>
           {content}
         </ActionMenu.SubmenuTrigger>
-        <ActionMenu.Content side="right">{items.map(renderMenuItem)}</ActionMenu.Content>
+        <ActionMenu.Content side="right" finalFocus={onReturnFocus}>
+          {items.map((child, childIndex) => renderMenuItem(child, childIndex, onReturnFocus))}
+        </ActionMenu.Content>
       </ActionMenu.Submenu>
     )
   }
@@ -158,7 +173,11 @@ function renderMenuItem(item: ActionBarMenuItemProps, index: number): React.Reac
   )
 }
 
-function renderOverflowEntry([id, {entry}]: [string, OverflowItem<OverflowEntry>]): React.ReactNode {
+function renderOverflowEntry(
+  [id, {element, entry}]: [string, OverflowItem<OverflowEntry>],
+  onItemFocus: OverflowItemFocus,
+  onSubmenuReturnFocus: () => boolean,
+): React.ReactNode {
   if (entry.type === 'divider') return <ActionMenu.Divider key={id} />
 
   const visual =
@@ -169,26 +188,36 @@ function renderOverflowEntry([id, {entry}]: [string, OverflowItem<OverflowEntry>
   if (entry.type === 'menu') {
     return (
       <ActionMenu.Submenu key={id}>
-        <ActionMenu.SubmenuTrigger label={entry.label}>
+        <ActionMenu.SubmenuTrigger label={entry.label} onFocusCapture={() => onItemFocus(element)}>
           {visual}
           {entry.label}
         </ActionMenu.SubmenuTrigger>
-        <ActionMenu.Content side="right" finalFocus={entry.returnFocusRef}>
-          {entry.items.map(renderMenuItem)}
+        <ActionMenu.Content
+          side="right"
+          finalFocus={entry.returnFocusRef ?? onSubmenuReturnFocus}
+          onFocusCapture={() => onItemFocus(element, entry.returnFocusRef)}
+        >
+          {entry.items.map((item, index) => renderMenuItem(item, index, onSubmenuReturnFocus))}
         </ActionMenu.Content>
       </ActionMenu.Submenu>
     )
   }
 
   return (
-    <ActionMenu.Item key={id} disabled={entry.disabled} onClick={entry.onClick}>
+    <ActionMenu.Item
+      key={id}
+      disabled={entry.disabled}
+      onClick={entry.onClick}
+      onFocusCapture={() => onItemFocus(element)}
+    >
       {visual}
       {entry.label}
     </ActionMenu.Item>
   )
 }
 
-interface MenuTriggerProps extends Omit<IconButtonProps, 'data-component' | 'variant'> {
+interface MenuTriggerProps extends Omit<IconButtonProps, 'aria-label' | 'data-component' | 'variant'> {
+  'aria-label': string
   'data-component': string
   isOverflowing?: boolean
 }
@@ -243,11 +272,21 @@ const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(functi
 
 function OverflowMenu({
   entries,
+  onBlurCapture,
+  onFocusCapture,
+  onItemFocus,
+  onReturnFocus,
+  onSubmenuReturnFocus,
   onUnmount,
   popupRef,
   triggerRef,
 }: {
   entries: OverflowEntries
+  onBlurCapture: React.FocusEventHandler<HTMLDivElement>
+  onFocusCapture: React.FocusEventHandler<HTMLDivElement>
+  onItemFocus: OverflowItemFocus
+  onReturnFocus: () => boolean
+  onSubmenuReturnFocus: () => boolean
   onUnmount: () => void
   popupRef: React.RefObject<HTMLDivElement | null>
   triggerRef: React.RefObject<HTMLButtonElement | null>
@@ -261,8 +300,14 @@ function OverflowMenu({
         data-component="ActionBar.MoreButton"
         icon={KebabHorizontalIcon}
       />
-      <ActionMenu.Content ref={popupRef} sideOffset={4}>
-        {entries.map(renderOverflowEntry)}
+      <ActionMenu.Content
+        ref={popupRef}
+        sideOffset={4}
+        onBlurCapture={onBlurCapture}
+        onFocusCapture={onFocusCapture}
+        finalFocus={onReturnFocus}
+      >
+        {entries.map(entry => renderOverflowEntry(entry, onItemFocus, onSubmenuReturnFocus))}
       </ActionMenu.Content>
     </ActionMenu>
   )
@@ -289,8 +334,38 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
 
   const moreTriggerRef = React.useRef<HTMLButtonElement | null>(null)
   const morePopupRef = React.useRef<HTMLDivElement | null>(null)
+  const overflowFocusRef = React.useRef<HTMLElement | null>(null)
+  const overflowReturnFocusRef = React.useRef<React.RefObject<HTMLElement | null> | undefined>(undefined)
   const pendingFocusRef = React.useRef<HTMLElement | null>(null)
   const previousFocusRef = React.useRef<HTMLElement | null>(null)
+  // React capture events include portaled submenus that the outer popup does not contain.
+  const handleOverflowFocus = React.useCallback<React.FocusEventHandler<HTMLDivElement>>(event => {
+    if (event.target instanceof HTMLElement) overflowFocusRef.current = event.target
+  }, [])
+  const handleOverflowBlur = React.useCallback(() => {
+    overflowFocusRef.current = null
+    overflowReturnFocusRef.current = undefined
+  }, [])
+  const handleOverflowItemFocus = React.useCallback<OverflowItemFocus>((element, returnFocusRef) => {
+    if (element instanceof HTMLElement) previousFocusRef.current = element
+    overflowReturnFocusRef.current = returnFocusRef
+  }, [])
+  const handleSubmenuReturnFocus = React.useCallback(() => {
+    const trigger = moreTriggerRef.current
+    if (!trigger?.isConnected) return false
+    const activeElement = trigger.ownerDocument.activeElement
+    // A callback is explicit to Base UI, so retain automatic dismissal's outside-focus guard.
+    return (
+      activeElement === trigger.ownerDocument.body ||
+      activeElement === trigger ||
+      !!morePopupRef.current?.contains(activeElement) ||
+      activeElement === overflowFocusRef.current
+    )
+  }, [])
+  const handleOverflowReturnFocus = React.useCallback(() => {
+    if (overflowReturnFocusRef.current?.current?.isConnected) return false
+    return handleSubmenuReturnFocus()
+  }, [handleSubmenuReturnFocus])
   const handleItemClipped = React.useCallback((element: Element) => {
     const activeElement = element.ownerDocument.activeElement
     if (!(activeElement instanceof HTMLElement) || !element.contains(activeElement)) return
@@ -312,20 +387,35 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
   const handleOverflowUnmount = React.useCallback(() => {
     const trigger = moreTriggerRef.current
     const popup = morePopupRef.current
+    const overflowFocus = overflowFocusRef.current
+    const returnFocusRef = overflowReturnFocusRef.current
+    overflowFocusRef.current = null
+    overflowReturnFocusRef.current = undefined
     const activeElement = toolbar?.ownerDocument.activeElement
-    const hadOverflowFocus = activeElement === trigger || (activeElement && popup?.contains(activeElement))
+    const hadOverflowFocus =
+      activeElement === trigger ||
+      (activeElement && popup?.contains(activeElement)) ||
+      (overflowFocus &&
+        (activeElement === overflowFocus ||
+          (activeElement === toolbar?.ownerDocument.body && !overflowFocus.isConnected)))
     if (!hadOverflowFocus || !toolbar || !trigger) return
 
     queueMicrotask(() => {
       if (trigger.isConnected) return
       const currentFocus = toolbar.ownerDocument.activeElement
-      if (currentFocus !== toolbar.ownerDocument.body && currentFocus !== trigger && !popup?.contains(currentFocus)) {
+      if (
+        currentFocus !== toolbar.ownerDocument.body &&
+        currentFocus !== trigger &&
+        currentFocus !== overflowFocus &&
+        !popup?.contains(currentFocus)
+      ) {
         return
       }
-
       const previousFocus = previousFocusRef.current
       previousFocusRef.current = null
       pendingFocusRef.current = null
+      // The submenu's Base UI focus manager owns an explicit return target.
+      if (returnFocusRef?.current?.isConnected) return
       const canFocus = (element: HTMLElement) =>
         element.isConnected &&
         toolbar.contains(element) &&
@@ -358,7 +448,11 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
         ref={ref}
         data-component="ActionBar"
         data-flush={flush || undefined}
-        className={cn('flex items-center justify-end px-4', flush && 'px-0', className)}
+        className={cn(
+          'primer:flex primer:items-center primer:justify-end primer:px-[var(--base-size-16)]',
+          flush && 'primer:px-0',
+          className,
+        )}
       >
         <Toolbar.Root
           {...props}
@@ -370,13 +464,16 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
           data-has-overflow={hasOverflow || undefined}
           onKeyDown={handleKeyDown}
           className={cn(
-            'group relative -mb-px flex h-8 min-w-0 items-start overflow-hidden [contain:layout] data-[size=small]:h-7 data-[size=large]:h-10',
-            gap === 'condensed' && 'gap-2',
+            'primer:group primer:relative primer:-mb-px primer:flex primer:h-8 primer:min-w-0 primer:items-start primer:overflow-hidden primer:[contain:layout] primer:data-[size=small]:h-7 primer:data-[size=large]:h-10',
+            gap === 'condensed' && 'primer:gap-2',
           )}
         >
-          <div className="flex flex-wrap justify-end gap-[inherit] overflow-hidden [contain:layout]">
+          <div className="primer:flex primer:flex-wrap primer:justify-end primer:gap-[inherit] primer:overflow-hidden primer:[contain:layout]">
             {/* An empty first item lets even the first real item wrap onto the clipped second line. */}
-            <div aria-hidden="true" className="h-8 group-data-[size=small]:h-7 group-data-[size=large]:h-10" />
+            <div
+              aria-hidden="true"
+              className="primer:h-8 primer:group-data-[size=small]:h-7 primer:group-data-[size=large]:h-10"
+            />
             <OverflowObserverProvider root={toolbar}>
               <ActionBarRegistryContext.Provider value={register}>
                 <ActionBarFocusContext.Provider value={handleItemClipped}>
@@ -392,6 +489,11 @@ const Root = React.forwardRef<HTMLDivElement, ActionBarProps>(function ActionBar
           {hasOverflow ? (
             <OverflowMenu
               entries={overflowEntries}
+              onBlurCapture={handleOverflowBlur}
+              onFocusCapture={handleOverflowFocus}
+              onItemFocus={handleOverflowItemFocus}
+              onReturnFocus={handleOverflowReturnFocus}
+              onSubmenuReturnFocus={handleSubmenuReturnFocus}
               onUnmount={handleOverflowUnmount}
               popupRef={morePopupRef}
               triggerRef={moreTriggerRef}
@@ -414,6 +516,8 @@ const Button = React.forwardRef<HTMLButtonElement, ActionBarButtonProps>(functio
   const contextSize = React.useContext(ActionBarContext)
   const size = sizeProp ?? contextSize
   const [element, setElement] = React.useState<HTMLButtonElement | null>(null)
+  const elementRef = React.useMemo(() => mergeRefs(ref, setElement), [ref])
+  const overflowClick = useOverflowClick(onClick as React.MouseEventHandler<HTMLElement> | undefined)
   const isOverflowing = useActionBarItem(element, {
     type: 'action',
     label: children,
@@ -422,12 +526,12 @@ const Button = React.forwardRef<HTMLButtonElement, ActionBarButtonProps>(functio
         ? leadingVisual
         : undefined,
     disabled,
-    onClick: onClick as React.MouseEventHandler<HTMLElement> | undefined,
+    onClick: overflowClick,
   })
   return (
     <Toolbar.Button
       {...props}
-      ref={mergeRefs(ref, setElement)}
+      ref={elementRef}
       aria-disabled={disabled || isOverflowing ? true : props['aria-disabled']}
       aria-hidden={isOverflowing ? true : props['aria-hidden']}
       disabled={disabled || isOverflowing}
@@ -451,7 +555,9 @@ const Button = React.forwardRef<HTMLButtonElement, ActionBarButtonProps>(functio
   )
 })
 
-export type ActionBarIconButtonProps = Omit<IconButtonProps, 'data-component' | 'size' | 'variant'> & {
+export type ActionBarIconButtonProps = Omit<IconButtonProps, 'aria-label' | 'data-component' | 'size' | 'variant'> & {
+  /** Accessible name, also used as the label when the action overflows. */
+  'aria-label': string
   /** Height of the button. Defaults to the `size` of the `ActionBar`. */
   size?: IconButtonProps['size']
 }
@@ -462,17 +568,19 @@ const IconButton = React.forwardRef<HTMLButtonElement, ActionBarIconButtonProps>
   const contextSize = React.useContext(ActionBarContext)
   const size = sizeProp ?? contextSize
   const [element, setElement] = React.useState<HTMLButtonElement | null>(null)
+  const elementRef = React.useMemo(() => mergeRefs(ref, setElement), [ref])
+  const overflowClick = useOverflowClick(onClick as React.MouseEventHandler<HTMLElement> | undefined)
   const isOverflowing = useActionBarItem(element, {
     type: 'action',
     label: ariaLabel,
     icon,
     disabled,
-    onClick: onClick as React.MouseEventHandler<HTMLElement> | undefined,
+    onClick: overflowClick,
   })
   return (
     <Toolbar.Button
       {...props}
-      ref={mergeRefs(ref, setElement)}
+      ref={elementRef}
       aria-disabled={disabled || isOverflowing ? true : props['aria-disabled']}
       aria-hidden={isOverflowing ? true : props['aria-hidden']}
       aria-label={ariaLabel}
@@ -502,6 +610,7 @@ const Group = React.forwardRef<HTMLDivElement, ActionBarGroupProps>(function Act
   ref,
 ) {
   const [element, setElement] = React.useState<HTMLDivElement | null>(null)
+  const elementRef = React.useMemo(() => mergeRefs(ref, setElement), [ref])
   const isParentOverflowing = React.useContext(ActionBarGroupContext)
   const isClipped = useActionBarClipping(element, isParentOverflowing !== null)
   const isOverflowing = isParentOverflowing === true || isClipped
@@ -509,11 +618,11 @@ const Group = React.forwardRef<HTMLDivElement, ActionBarGroupProps>(function Act
     <ActionBarGroupContext.Provider value={isOverflowing}>
       <Toolbar.Group
         {...props}
-        ref={mergeRefs(ref, setElement)}
+        ref={elementRef}
         aria-hidden={isOverflowing ? true : props['aria-hidden']}
         data-component="ActionBar.Group"
         data-overflowing={isOverflowing || undefined}
-        className={cn('flex gap-[inherit]', className)}
+        className={cn('primer:flex primer:gap-[inherit]', className)}
       />
     </ActionBarGroupContext.Provider>
   )
@@ -525,15 +634,19 @@ const Divider = React.forwardRef<HTMLDivElement, ActionBarDividerProps>(function
   ref,
 ) {
   const [element, setElement] = React.useState<HTMLDivElement | null>(null)
+  const elementRef = React.useMemo(() => mergeRefs(ref, setElement), [ref])
   const isOverflowing = useActionBarItem(element, {type: 'divider'})
   return (
     <Toolbar.Separator
       {...props}
-      ref={mergeRefs(ref, setElement)}
+      ref={elementRef}
       aria-hidden={isOverflowing ? true : props['aria-hidden']}
       data-component="ActionBar.Divider"
       data-overflowing={isOverflowing || undefined}
-      className={cn('h-5 w-px self-center bg-muted group-data-[gap=none]:mx-2', className)}
+      className={cn(
+        'primer:h-5 primer:w-px primer:self-center primer:bg-muted primer:group-data-[gap=none]:mx-2',
+        className,
+      )}
     />
   )
 })
@@ -555,6 +668,7 @@ const Menu = React.forwardRef<HTMLButtonElement, ActionBarMenuProps>(function Ac
   ref,
 ) {
   const [element, setElement] = React.useState<HTMLButtonElement | null>(null)
+  const elementRef = React.useMemo(() => mergeRefs(ref, setElement), [ref])
   const overflowAnchor = React.useContext(OverflowAnchorContext)
   const isOverflowing = useActionBarItem(element, {
     type: 'menu',
@@ -567,7 +681,7 @@ const Menu = React.forwardRef<HTMLButtonElement, ActionBarMenuProps>(function Ac
     <ActionMenu>
       <MenuTrigger
         {...props}
-        ref={mergeRefs(ref, setElement)}
+        ref={elementRef}
         aria-label={ariaLabel}
         data-component="ActionBar.Menu.IconButton"
         icon={icon}
@@ -578,7 +692,7 @@ const Menu = React.forwardRef<HTMLButtonElement, ActionBarMenuProps>(function Ac
         finalFocus={returnFocusRef ?? (isOverflowing ? overflowAnchor?.triggerRef : undefined)}
         sideOffset={4}
       >
-        {items.map(renderMenuItem)}
+        {items.map((item, index) => renderMenuItem(item, index))}
       </ActionMenu.Content>
     </ActionMenu>
   )

@@ -2,6 +2,19 @@ export const unitNames = ['year', 'month', 'week', 'day', 'hour', 'minute', 'sec
 
 export type Unit = (typeof unitNames)[number]
 
+export const unitMilliseconds = {
+  year: 360 * 86_400_000,
+  month: 30 * 86_400_000,
+  week: 7 * 86_400_000,
+  day: 86_400_000,
+  hour: 3_600_000,
+  minute: 60_000,
+  second: 1000,
+  millisecond: 1,
+} as const satisfies Record<Unit, number>
+
+export const singleUnitRoundingThreshold = {second: 55, minute: 55} as const
+
 type Sign = -1 | 0 | 1
 
 const durationRe = /^[-+]?P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)W)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/
@@ -73,8 +86,7 @@ export class Duration {
     throw new RangeError('invalid duration')
   }
 
-  static compare(one: unknown, two: unknown): Sign {
-    const now = Date.now()
+  static compare(one: unknown, two: unknown, now: number): Sign {
     const oneApplied = Math.abs(applyDuration(now, Duration.from(one)).getTime() - now)
     const twoApplied = Math.abs(applyDuration(now, Duration.from(two)).getTime() - now)
     return oneApplied > twoApplied ? -1 : oneApplied < twoApplied ? 1 : 0
@@ -109,18 +121,19 @@ export function elapsedTime(date: Date, precision: Unit = 'second', now = Date.n
 
   const sign = Math.sign(delta)
   const milliseconds = Math.abs(delta)
-  const seconds = Math.floor(milliseconds / 1000)
-  const minutes = Math.floor(seconds / 60)
-  const hours = Math.floor(minutes / 60)
-  const days = Math.floor(hours / 24)
-  const months = Math.floor(days / 30)
-  const years = Math.floor(months / 12)
-  const precisionIndex = unitNames.indexOf(precision) || unitNames.length
+  const seconds = Math.floor(milliseconds / unitMilliseconds.second)
+  const minutes = Math.floor(milliseconds / unitMilliseconds.minute)
+  const hours = Math.floor(milliseconds / unitMilliseconds.hour)
+  const days = Math.floor(milliseconds / unitMilliseconds.day)
+  const months = Math.floor(milliseconds / unitMilliseconds.month)
+  const years = Math.floor(milliseconds / unitMilliseconds.year)
+  const weeks = precision === 'week' ? Math.floor((milliseconds % unitMilliseconds.month) / unitMilliseconds.week) : 0
+  const precisionIndex = unitNames.indexOf(precision)
 
   return new Duration(
     precisionIndex >= 0 ? years * sign : 0,
     precisionIndex >= 1 ? (months - years * 12) * sign : 0,
-    0,
+    weeks * sign,
     precisionIndex >= 3 ? (days - months * 30) * sign : 0,
     precisionIndex >= 4 ? (hours - days * 24) * sign : 0,
     precisionIndex >= 5 ? (minutes - hours * 60) * sign : 0,
@@ -145,9 +158,9 @@ export function roundToSingleUnit(duration: Duration, {relativeTo = Date.now()}:
 
   if (milliseconds >= 900) seconds += Math.round(milliseconds / 1000)
   if (seconds || minutes || hours || days || weeks || months || years) milliseconds = 0
-  if (seconds >= 55) minutes += Math.round(seconds / 60)
+  if (seconds >= singleUnitRoundingThreshold.second) minutes += Math.round(seconds / 60)
   if (minutes || hours || days || weeks || months || years) seconds = 0
-  if (minutes >= 55) hours += Math.round(minutes / 60)
+  if (minutes >= singleUnitRoundingThreshold.minute) hours += Math.round(minutes / 60)
   if (hours || days || weeks || months || years) minutes = 0
   if (days && hours >= 12) days += Math.round(hours / 24)
   if (!days && hours >= 21) days += Math.round(hours / 24)

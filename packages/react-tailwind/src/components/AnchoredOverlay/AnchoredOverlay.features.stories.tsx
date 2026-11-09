@@ -1,6 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
 import {ActionBar} from '../ActionBar'
+import {ActionMenu} from '../ActionMenu'
 import {Button} from '../Button'
 import {Dialog} from '../Dialog'
 import {Heading} from '../Heading'
@@ -152,6 +154,80 @@ export const FocusZoneOverrides: Story = {
     </AnchoredOverlay>
   ),
 }
+
+function NestedMenuFocusExample({separate}: {separate?: boolean}) {
+  const [separatePortal, setSeparatePortal] = React.useState<HTMLDivElement | null>(null)
+  return (
+    <>
+      {separate ? (
+        <>
+          <p>Known Base UI focus issue: a menu in a separate portal can leave its trigger out of the tab order.</p>
+          <div ref={setSeparatePortal} data-testid="separate-menu-portal" />
+        </>
+      ) : null}
+      <AnchoredOverlay>
+        <AnchoredOverlay.Trigger render={<Button>Open overlay</Button>} />
+        <AnchoredOverlay.Content aria-label="Overlay actions" role="dialog">
+          <Stack gap="normal" padding="normal">
+            <Button>Before menu</Button>
+            <ActionMenu>
+              <ActionMenu.Button>More actions</ActionMenu.Button>
+              <ActionMenu.Content container={separate ? separatePortal : undefined}>
+                <ActionMenu.Item>Copy</ActionMenu.Item>
+              </ActionMenu.Content>
+            </ActionMenu>
+            <Button>After menu</Button>
+          </Stack>
+        </AnchoredOverlay.Content>
+      </AnchoredOverlay>
+    </>
+  )
+}
+
+export const NestedMenuFocus: Story = {
+  render: () => <NestedMenuFocusExample />,
+}
+
+export const SeparatePortalFocusReproduction: Story = {
+  tags: ['!autodocs'],
+  render: () => <NestedMenuFocusExample separate />,
+}
+
+export const MenuInsideBaseUiPortal: Story = {
+  render: function MenuInsideBaseUiPortalExample() {
+    const [overlayRoot, setOverlayRoot] = React.useState<HTMLDivElement | null>(null)
+    const [overlayPortal, setOverlayPortal] = React.useState<HTMLDivElement | null>(null)
+    return (
+      <>
+        <div ref={setOverlayRoot} data-testid="base-ui-overlay-root" />
+        <BasePopover.Root modal={false}>
+          <BasePopover.Trigger render={<Button>Open Base UI overlay</Button>} />
+          <BasePopover.Portal container={overlayRoot} ref={setOverlayPortal}>
+            <BasePopover.Positioner sideOffset={4}>
+              <BasePopover.Popup
+                aria-label="Base UI overlay actions"
+                className="rounded-lg bg-default p-3 shadow-floating-sm"
+                role="dialog"
+              >
+                <Stack gap="normal">
+                  <Button>Before menu</Button>
+                  <ActionMenu>
+                    <ActionMenu.Button>More actions</ActionMenu.Button>
+                    <ActionMenu.Content container={overlayPortal}>
+                      <ActionMenu.Item>Copy</ActionMenu.Item>
+                    </ActionMenu.Content>
+                  </ActionMenu>
+                  <Button>After menu</Button>
+                </Stack>
+              </BasePopover.Popup>
+            </BasePopover.Positioner>
+          </BasePopover.Portal>
+        </BasePopover.Root>
+      </>
+    )
+  },
+}
+
 export const OverlayPropsOverrides: Story = {
   render: () => (
     <AnchoredOverlay>
@@ -227,7 +303,7 @@ export const AnchorPositionGrid: Story = {
           {gridPositions.map(({row, col}) => (
             <div
               key={`${row}-${col}`}
-              className="relative flex h-[200px] items-center justify-center border border-default p-4"
+              className="relative flex h-[200px] items-center justify-center border-thin border-default p-4"
             >
               <span className="absolute left-2 top-2 text-body-small text-muted">
                 {row} / {col}
@@ -244,7 +320,7 @@ export const AnchorPositionGrid: Story = {
 }
 export const ScrollWithAnchor: Story = {
   render: () => (
-    <div className="relative h-[400px] overflow-auto rounded-md border border-default">
+    <div className="relative h-[400px] overflow-auto rounded-md border-thin border-default">
       <div className="flex h-[1200px] items-center justify-center p-4">
         <AnchorPositionOverlay label="Scroll With Anchor Demo" />
       </div>
@@ -387,7 +463,7 @@ export const MultipleOverlays: Story = {
 }
 export const WithinStickyElement: Story = {
   render: () => (
-    <div className="relative h-[400px] overflow-auto rounded-md border border-default">
+    <div className="relative h-[400px] overflow-auto rounded-md border-thin border-default">
       <div className="sticky top-0 z-10 flex items-center justify-between border-b border-default bg-default px-4 py-2">
         <Heading as="h3">Sticky Header</Heading>
         <AnchorPositionOverlay label="Sticky Element Demo" />

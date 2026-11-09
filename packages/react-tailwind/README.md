@@ -38,11 +38,13 @@ import './signup.css'
 }
 ```
 
-`base.css`, `components.css`, `theme.css`, and `tailwind.css` are also available as CSS subpath exports. `base.css` is an optional small global normalization stylesheet for box sizing, body margin, and table border collapsing; it does not include Tailwind Preflight. `components.css` contains the package's non-utility component rules and keyframes. Do not combine `styles.css` with host-generated package utilities, or the component rules will be duplicated.
+`base.css`, `components.css`, `theme.css`, and `tailwind.css` are also available as CSS subpath exports. `base.css` is an optional small global normalization stylesheet for box sizing, body margin, and table border collapsing; it does not include Tailwind Preflight. `components.css` contains the package's non-utility component rules and keyframes. Do not combine `styles.css` with a separately generated package stylesheet, or the component rules will be duplicated.
+
+**Stacking tokens:** The current package CSS references Primer's `--zIndex-*` variables but does not define them. Hosts must supply these variables in every CSS setup. With a directly installed `@primer/primitives` 11.5.0 or later, include its `dist/css/functional/size/z-index.css` stylesheet. Earlier supported primitive versions do not contain that file, so those hosts need equivalent compatible variables from their existing theme. Without them, the overlay z-index utilities compute to `auto`.
 
 ## Tailwind v4
 
-To use Tailwind utilities in application code, install Tailwind v4 and compile both the app's classes and the package's classes with Primer's Tailwind configuration. For a stylesheet at `src/index.css`:
+Package-owned utilities use the `primer:` prefix in source (placed first, before variants, for example `primer:md:px-4`), so the package's default compiled `styles.css` emits only prefixed utilities and never your app's unprefixed classes. To use Tailwind utilities in application code, run your own Tailwind v4 build with Primer's configuration and unprefixed class names, and keep it separate from the package's stylesheet. For a stylesheet at `src/index.css`:
 
 ```css
 @layer theme, base, components, utilities;
@@ -53,22 +55,56 @@ To use Tailwind utilities in application code, install Tailwind v4 and compile b
 @import '@primer/tailwind-config';
 @import '@primer/react-tailwind/components.css';
 
-@source '../node_modules/@primer/react-tailwind/dist';
 @source './';
 ```
 
-Adjust the `@source` paths to your stylesheet, installed package, and app source locations; Tailwind must scan every directory containing the classes you use. A host-generated app can then use, for example, `<main className="mx-auto grid max-w-[28rem] gap-5 py-12">`. Import the generated stylesheet instead of `@primer/react-tailwind/styles.css`.
+Adjust the `@source` path to your app source locations; Tailwind must scan every directory containing the classes you use. Do not scan the package's `dist`: its utilities are prefixed and belong to the package's own stylesheet. Your app can then use unprefixed classes, for example `<main className="mx-auto grid max-w-[28rem] gap-5 py-12">`, while continuing to import `@primer/react-tailwind/styles.css` for the components. Caller `className` values are never prefixed, and the package's class merging lets them override package utilities, both prefixed and unprefixed.
 
-The package's `tailwind.css` subpath is a convenience entry point containing Primer theme CSS, `@primer/tailwind-config`, and a package source directive. Combine it with Tailwind's own entry point:
+The package's `tailwind.css` subpath is an optional, standalone Tailwind entry point for generating the package's own prefixed styles as a separate stylesheet. Do not import it into the same Tailwind stylesheet as your app's unprefixed utilities: a Tailwind build has one prefix, so the two would conflict. Use either compiled `styles.css` or a separately generated package stylesheet, not both. For granular host configuration, `@primer/tailwind-config` also provides modules such as `color`, `size`, `typography`, `shadow`, `radius`, `border`, `easing`, and `z-index`.
+
+For that optional mode, create a separate entry such as `src/primer-components.css`:
 
 ```css
-@import 'tailwindcss';
 @import '@primer/react-tailwind/tailwind.css';
 ```
 
-Use either compiled `styles.css` or host-generated utilities, not both. For granular host configuration, `@primer/tailwind-config` also provides modules such as `color`, `size`, `typography`, `shadow`, `radius`, `border`, `easing`, and `z-index`.
+Compile this entry independently from your application's Tailwind entry and load both generated stylesheets. Do not add another `@import 'tailwindcss'` to the package entry; it already supplies Tailwind's theme and utilities. This source configuration has not yet been verified against emitted CSS under the current build hold.
 
-**Legacy Primer CSS:** Both modes use unprefixed utility names. Legacy `@primer/css` utilities such as `px-6`, `py-8`, and `border` use `!important` and can override package styles with different values. CSS layer ordering alone does not isolate them, and this package does not yet provide a prefixed build. Verify stylesheet isolation before using the package alongside legacy Primer CSS.
+Load your application's utility stylesheet after the package stylesheet. Both use the `utilities` layer, so source order can decide equal-specificity rules that remain together, such as a package radius and a caller's partial-corner override. Class merging removes recognized full conflicts, not every combination of related properties.
+
+**Legacy Primer CSS:** Package-owned thin borders use Primer's `border-thin`, not `border`: legacy `@primer/css` defines `.border` as an important shorthand that otherwise overrides variant border colors. Use `border-thin` for app-authored borders too; adding `className="border"` opts back into that legacy shorthand. Consumer width overrides such as `border-0` and `border-2` still merge independently from border colors.
+
+The `primer:` prefix is a migration candidate for reducing collisions with legacy unprefixed utilities; it has not been validated in a built stylesheet or alongside legacy CSS. Shared `--tw-*` custom properties can still interact across stylesheets, so do not assume complete isolation. Verify computed styles in your host before relying on it.
+
+#### Hosts that still load legacy Primer CSS
+
+Legacy `@primer/css` utilities such as `.p-0`, `.py-2`, and `.px-6` are unlayered `!important` declarations. They beat every normal declaration, whatever its layer, specificity, or stylesheet order: the package's layered utilities and an unlayered CSS-module rule such as `padding: 0` both lose. Legacy utilities also use physical properties, so a later `.py-2` overrides the top and bottom of an earlier `.p-0` on the same element.
+
+Whenever a package component emits a class name that legacy CSS also defines, the legacy rule decides the value and blocks your overrides. In github-ui, an inset `ActionList` emitted `py-2`, so a CSS-module `padding: 0` computed as `8px 0`.
+
+To resolve a collision:
+
+- **Remove the package class.** Pass the replacement utility in `className`: package components merge classes with `tailwind-merge`, so `className="p-0"` drops the emitted `py-2` instead of competing with it. Prefer a variant that does not emit the class at all, such as ActionList's `horizontal-inset`.
+- **Use an important utility in a layer.** For important declarations the cascade reverses: an important declaration inside any cascade layer beats unlayered `!important`. An unprefixed utility with the important modifier (a trailing `!` on the class name) from your app's own layered Tailwind build therefore wins over legacy `.py-2`. The compiled `styles.css` contains only the package's own prefixed classes, so this requires your app's build.
+- **Do not rely on layer order or specificity** for normal declarations, including CSS modules, while a colliding legacy class is present.
+
+For example, `IconButton` emits `rounded-md`, which legacy Primer CSS also uses for a responsive radius. A partial override such as `rounded-s-none` does not remove `rounded-md`. A full replacement such as `rounded-none` removes the conflicting class; then a CSS module can set the desired corners:
+
+```tsx
+<IconButton aria-label="Add" icon={PlusIcon} className={`rounded-none ${styles.squareStart}`} />
+```
+
+```css
+.squareStart {
+  border-radius: var(--borderRadius-medium);
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+```
+
+The current compiled stylesheet includes `rounded-none`; your app's own Tailwind build must scan its own classes. This removes one collision, not other legacy rules or the need to verify the result in the host.
+
+These are per-site mitigations, not isolation. Audit computed styles where package components sit inside legacy layouts, and retest whenever legacy CSS is loaded on the page.
 
 ## Themes
 
@@ -87,12 +123,14 @@ import {ThemeProvider} from '@primer/react-tailwind'
 // High contrast is a scheme, not a separate colorMode
 <ThemeProvider
   colorMode="auto"
-  dayScheme="light-high-contrast"
-  nightScheme="dark-high-contrast"
+  dayScheme="light_high_contrast"
+  nightScheme="dark_high_contrast"
 >
   {app}
 </ThemeProvider>
 ```
+
+The built-in high-contrast scheme names use underscores, even though their CSS filenames use hyphens. Scheme strings are passed through unchanged; custom names require matching theme CSS.
 
 `colorMode` accepts `light`, `dark`, `day`, `night`, or `auto`. Use `defaultColorMode`, `defaultDayScheme`, and `defaultNightScheme` for uncontrolled state, or the corresponding controlled props with `onColorModeChange`, `onDaySchemeChange`, and `onNightSchemeChange`. Use `contextOnly` when the context is needed without adding the provider wrapper.
 
@@ -122,6 +160,20 @@ import {Dialog} from '@primer/react-tailwind/Dialog'
 import {Select} from '@primer/react-tailwind/Select'
 ```
 
+Two narrow foundation subpaths expose flat, server-component-safe named exports. They currently cover only portal routing; Base UI still owns portal mounting, focus, dismissal, and positioning for every pattern.
+
+```tsx
+import {BasePortalProvider, type PortalContainer} from '@primer/react-tailwind/base'
+import {usePortalContainer, usePortalRoot} from '@primer/react-tailwind/behaviors'
+```
+
+- `BasePortalProvider` is the same component as `Portal.Provider`. It renders no element and sets the default container for `Portal` and every Primer floating part beneath it. Use the flat export where a namespace member cannot be referenced, such as a React Server Component layout.
+- `usePortalContainer(container?)` returns the `container` to pass to a Base UI `Portal` part that the app composes directly, so it routes like Primer's floating components: an explicit container (including `null`), then the nearest provider (including `null`), then the default root. It returns `undefined` inside a Primer floating layer, letting Base UI keep nested content in that layer, and before the default root is known during SSR and hydration. Refs are returned unresolved.
+- `usePortalRoot()` returns the default root, ignoring providers: the nearest `BaseStyles`, then the first `[data-portal-root]`, then `document.body`; `null` during SSR and hydration. Pass it to a nested provider to replace an inherited container with the default root.
+- `PortalContainer` is an element, shadow root, ref to either, or `null` (wait for a container). Named registries are not supported.
+
+`BasePortalProvider` and both hooks are client modules. There is no `@primer/react-tailwind/base` portal component: use `Portal`, or a Base UI `Portal` part with `usePortalContainer`.
+
 CSS subpaths include `styles.css`, `theme.css`, `tailwind.css`, and `base.css`. `api-inventory.json` contains the machine-readable included/excluded API list.
 
 ## Composition and state
@@ -148,7 +200,9 @@ Base UI's `render` prop composes behavior onto an existing element rather than n
 </Dialog.Root>
 ```
 
-`Popover`, `Tooltip`, `ActionMenu`, `Autocomplete`, `SelectPanel`, and `AnchoredOverlay` use the same composable approach. Portal behavior is component-specific: menu-based primitives always use the Base UI portal required by their positioner, while components that support inline rendering expose `portal={false}`.
+`Popover`, `Tooltip`, `ActionMenu`, `Autocomplete`, `SelectPanel`, and `AnchoredOverlay` use the same composable approach. Portal behavior is component-specific: menu-based primitives always use the Base UI portal required by their positioner, while components that support inline rendering expose `portal={false}`. Wrap a subtree in `<Portal.Provider container={element}>` to set the default portal destination for every Primer portal and floating part inside it, including tooltips that `IconButton` and `SegmentedControl` create internally. The provider renders no element. An explicit `container` prop or `portal={false}` still takes precedence. Nested floating layers use their owning portal unless a nearer provider is supplied.
+
+When a `Dialog`, `ConfirmationDialog`, or dialog-presented `SelectPanel` is opened from a Primer floating layer, its backdrop and viewport use the popover layer so they can appear above the parent; top-level dialogs use the modal layer. This relies on the stacking tokens above and the normal nested portal order, not a global overlay-stack manager. An explicit container, a nearer portal provider, inline rendering, custom z-index, clipping, or an ancestor stacking context may change the result. Check pointer hit testing, nested overlays, backdrop, focus containment, Escape, and return focus in the host. A larger viewport z-index alone does not necessarily lift its backdrop or a popover opened inside it.
 
 ### Forms
 
@@ -196,11 +250,20 @@ The package does not implement `sx` or Primer system/styled-system props. Use CS
 
 `llms.txt` is a generated, machine-readable version of that guidance plus an index of every component, its intent, and its differences from `@primer/react`. Consumers can read it from the installed package:
 
-```tsx
-import guidance from '@primer/react-tailwind/llms.txt'
+```js
+import {readFile} from 'node:fs/promises'
+import {createRequire} from 'node:module'
+
+const require = createRequire(import.meta.url)
+const guidance = await readFile(require.resolve('@primer/react-tailwind/llms.txt'), 'utf8')
+const button = await readFile(require.resolve('@primer/react-tailwind/llms/Button.md'), 'utf8')
 ```
 
 Because guidance written for `@primer/react` is often wrong here, point AI tooling at these files rather than at general Primer React documentation.
+
+These are text-file exports, not JavaScript imports: no bundler text loader is needed. The package also exports `AGENTS.md` and `api-inventory.schema.json` explicitly. Each component guide contains usage examples and authored composition, state, accessibility, and styling guidance where documented, alongside generated props and migration notes. The guides are generated from the same component README and alignment notes used by people; there is no separate per-component agent specification to maintain.
+
+The generator discovers public component directories from their entry points, not from existing documentation, and fails if a README, alignment notes, API metadata, or fenced usage example is missing. `check:llms` also rejects missing or stale generated guides.
 
 ## Accessibility and SSR
 

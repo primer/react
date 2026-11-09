@@ -11,5 +11,6 @@ Tailwind `Link` keeps `muted`, `inline`, polymorphic `as`, children, and native 
 ## Migration notes
 
 - Preserve `muted`, `inline`, and `as` usage.
+- **Custom component props:** `as={RouterLink}` infers the router component's props and ref, including required destinations such as `to`, while retaining Primer's visual props. The selected component must forward its props and ref to the link it renders.
 - Replace `hoverColor` with supported token/class composition.
 - Remove `sx`, styled-system props, and legacy class selectors.

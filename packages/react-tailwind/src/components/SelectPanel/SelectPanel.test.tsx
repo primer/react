@@ -1,5 +1,5 @@
 import React from 'react'
-import {act, cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {act, cleanup, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import type {SelectPanelActionDetails, SelectPanelAnchorProps, SelectPanelItem, SelectPanelProps} from './SelectPanel'
@@ -10,6 +10,7 @@ import {Checkbox} from '../Checkbox'
 import {Dialog} from '../Dialog'
 import {FeatureFlags} from '../FeatureFlags'
 import {FormControl} from '../FormControl'
+import {Truncate} from '../Truncate'
 
 const items: SelectPanelItem[] = [
   {id: 'mona', text: 'Mona'},
@@ -41,6 +42,22 @@ function asItems(selection: SelectPanelItem | SelectPanelItem[] | undefined) {
   return Array.isArray(selection) ? selection : selection ? [selection] : []
 }
 
+function mockNarrowViewport(narrow: boolean) {
+  vi.stubGlobal(
+    'matchMedia',
+    vi.fn((query: string) => ({
+      matches: narrow && query === '(max-width: 767px)',
+      media: query,
+      onchange: null,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  )
+}
+
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
@@ -48,6 +65,42 @@ afterEach(() => {
 })
 
 describe('SelectPanel', () => {
+  it.each([false, true])('runs callback ref cleanups with virtualized=%s', virtualized => {
+    const contentCleanup = vi.fn()
+    const scrollCleanup = vi.fn()
+    const itemCleanup = vi.fn()
+    const contentRef = vi.fn((node: HTMLDivElement | null) => (node ? contentCleanup : undefined))
+    const scrollRef = vi.fn((node: HTMLDivElement | null) => (node ? scrollCleanup : undefined))
+    const itemRef = vi.fn((node: HTMLDivElement | null) => (node ? itemCleanup : undefined))
+    const options = [{id: 'mona', ref: itemRef, text: 'Mona'}]
+    const fixture = () => (
+      <SelectPanel
+        defaultOpen
+        items={options}
+        onSelectedChange={() => {}}
+        ref={contentRef}
+        scrollContainerRef={scrollRef}
+        selected={undefined}
+        title="Choose an item"
+        virtualized={virtualized}
+      />
+    )
+    const {rerender, unmount} = render(fixture())
+    expect(contentRef).toHaveBeenCalledWith(expect.any(HTMLDivElement))
+    expect(scrollRef).toHaveBeenCalledWith(expect.any(HTMLDivElement))
+    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLDivElement))
+
+    rerender(fixture())
+    unmount()
+
+    expect(contentRef).not.toHaveBeenCalledWith(null)
+    expect(scrollRef).not.toHaveBeenCalledWith(null)
+    expect(itemRef).not.toHaveBeenCalledWith(null)
+    expect(contentCleanup).toHaveBeenCalledTimes(contentRef.mock.calls.length)
+    expect(scrollCleanup).toHaveBeenCalledTimes(scrollRef.mock.calls.length)
+    expect(itemCleanup).toHaveBeenCalledTimes(itemRef.mock.calls.length)
+  })
+
   it.each(['anchored', 'modal'] as const)('keeps the %s filter independent from its enclosing field', async variant => {
     const user = userEvent.setup()
 
@@ -190,6 +243,39 @@ describe('SelectPanel', () => {
       const trigger = screen.getByRole('button', {name: 'Items'})
       expect(trigger).toHaveAccessibleDescription('Selection is invalid Choose an item Additional trigger help')
       expect(trigger).toHaveAttribute('aria-invalid', 'true')
+    },
+  )
+
+  it.each(['anchored', 'modal'] as const)(
+    'supports a custom %s trigger described by content alongside the panel',
+    async variant => {
+      const user = userEvent.setup()
+      render(
+        <>
+          <span id="reviewer-help">Reviewers are required</span>
+          <SelectPanel
+            {...(variant === 'modal' ? {variant, onCancel: () => {}} : {variant})}
+            items={items}
+            onSelectedChange={() => {}}
+            renderAnchor={() => (
+              <button aria-describedby="reviewer-help" type="button">
+                Reviewers
+              </button>
+            )}
+            selected={undefined}
+            title="Reviewers"
+          />
+        </>,
+      )
+
+      const trigger = screen.getByRole('button', {name: 'Reviewers'})
+      expect(trigger).toHaveAccessibleDescription('Reviewers are required')
+      await user.click(trigger)
+      const input = screen.getByRole('combobox', {name: 'Filter items'})
+      await waitFor(() => expect(input).toHaveFocus())
+      await user.keyboard('{Escape}')
+      await waitFor(() => expect(trigger).toHaveFocus())
+      expect(trigger).toHaveAccessibleDescription('Reviewers are required')
     },
   )
 
@@ -568,6 +654,64 @@ describe('SelectPanel', () => {
     expect(screen.getByRole('option', {name: 'String one'})).toHaveAttribute('aria-selected', 'true')
   })
 
+  it('reports selection shapes that match the selection mode and returns custom items unchanged', async () => {
+    const user = userEvent.setup()
+    type LabelItem = SelectPanelItem & {id: number; color: string}
+    const labels: LabelItem[] = [
+      {id: 1, text: 'Bug', color: 'red'},
+      {id: 2, text: 'Docs', color: 'blue'},
+    ]
+    const singleChange = vi.fn<(selected: LabelItem | undefined) => void>()
+    const multipleChange = vi.fn<(selected: LabelItem[]) => void>()
+
+    function SingleExample() {
+      const [selected, setSelected] = React.useState<LabelItem | undefined>(undefined)
+      return (
+        <SelectPanel
+          items={labels}
+          onSelectedChange={next => {
+            singleChange(next)
+            setSelected(next)
+          }}
+          selected={selected}
+          title="Single label"
+        />
+      )
+    }
+
+    const singleRender = render(<SingleExample />)
+    await user.click(screen.getByRole('button', {name: 'Single label'}))
+    await user.click(screen.getByRole('option', {name: 'Bug'}))
+    expect(singleChange).toHaveBeenLastCalledWith(labels[0])
+    await user.click(screen.getByRole('button', {name: 'Bug'}))
+    await user.click(screen.getByRole('option', {name: 'Bug'}))
+    expect(singleChange).toHaveBeenLastCalledWith(undefined)
+    singleRender.unmount()
+
+    function MultipleExample() {
+      const [selected, setSelected] = React.useState<LabelItem[]>([])
+      return (
+        <SelectPanel
+          items={labels}
+          onSelectedChange={next => {
+            multipleChange(next)
+            setSelected(next)
+          }}
+          selected={selected}
+          title="Labels"
+        />
+      )
+    }
+
+    render(<MultipleExample />)
+    await user.click(screen.getByRole('button', {name: 'Labels'}))
+    await user.click(screen.getByRole('option', {name: 'Docs'}))
+    expect(multipleChange).toHaveBeenLastCalledWith([labels[1]])
+    expect(multipleChange.mock.lastCall?.[0][0]).toBe(labels[1])
+    await user.click(screen.getByRole('option', {name: 'Docs'}))
+    expect(multipleChange).toHaveBeenLastCalledWith([])
+  })
+
   it('supports external anchors and forwards content refs and DOM props', async () => {
     const user = userEvent.setup()
     const anchorRef = React.createRef<HTMLButtonElement>()
@@ -653,7 +797,7 @@ describe('SelectPanel', () => {
     act(() => anchor.focus())
     await user.keyboard('{Enter}')
     expect(screen.getByRole('dialog', {name: 'Assignees'})).toBeVisible()
-    expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+    await waitFor(() => expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus())
     expect(onOpenChange).toHaveBeenCalledTimes(1)
 
     await user.keyboard('{Escape}')
@@ -789,7 +933,7 @@ describe('SelectPanel', () => {
 
       expect(screen.queryByRole('dialog', {name: 'Projects'})).not.toBeInTheDocument()
       rerender(<SelectPanel {...panelProps} open />)
-      expect(await screen.findByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+      await waitFor(() => expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus())
 
       rerender(<SelectPanel {...panelProps} open={false} />)
       rerender(<SelectPanel {...panelProps} open />)
@@ -797,7 +941,7 @@ describe('SelectPanel', () => {
         await new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
       })
       expect(screen.getByRole('dialog', {name: 'Projects'})).toBeVisible()
-      expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+      await waitFor(() => expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus())
 
       rerender(<SelectPanel {...panelProps} open={false} />)
       await waitFor(() => expect(screen.queryByText('Mona')).not.toBeInTheDocument())
@@ -983,19 +1127,7 @@ describe('SelectPanel', () => {
     {name: 'the flag enabled with the opt-out', flag: true, narrow: true, disabled: true, fullscreen: false},
     {name: 'a wider viewport', flag: true, narrow: false, disabled: false, fullscreen: false},
   ])('uses the correct narrow presentation with $name', async ({flag, narrow, disabled, fullscreen}) => {
-    vi.stubGlobal(
-      'matchMedia',
-      vi.fn((query: string) => ({
-        matches: narrow && query === '(max-width: 767px)',
-        media: query,
-        onchange: null,
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        addListener: vi.fn(),
-        removeListener: vi.fn(),
-        dispatchEvent: vi.fn(),
-      })),
-    )
+    mockNarrowViewport(narrow)
     const user = userEvent.setup()
     const panel = (
       <SelectPanel
@@ -1020,6 +1152,238 @@ describe('SelectPanel', () => {
 
     await user.keyboard('{Escape}')
     await waitFor(() => expect(screen.queryByRole('dialog', {name: 'Projects'})).not.toBeInTheDocument())
+  })
+
+  it.each([
+    {
+      name: 'multiple with cancellation',
+      multiple: true,
+      cancel: true,
+      narrow: true,
+      flag: true,
+      buttons: ['Cancel', 'Save'],
+      close: true,
+    },
+    {
+      name: 'multiple without cancellation',
+      multiple: true,
+      cancel: false,
+      narrow: true,
+      flag: true,
+      buttons: ['Save and close'],
+      close: false,
+    },
+    {
+      name: 'single with cancellation',
+      multiple: false,
+      cancel: true,
+      narrow: true,
+      flag: true,
+      buttons: [],
+      close: true,
+    },
+    {
+      name: 'single without cancellation',
+      multiple: false,
+      cancel: false,
+      narrow: true,
+      flag: true,
+      buttons: [],
+      close: true,
+    },
+    {
+      name: 'multiple with the flag disabled',
+      multiple: true,
+      cancel: true,
+      narrow: true,
+      flag: false,
+      buttons: [],
+      close: false,
+    },
+    {
+      name: 'multiple with the opt-out',
+      multiple: true,
+      cancel: true,
+      narrow: true,
+      flag: true,
+      disabled: true,
+      buttons: [],
+      close: false,
+    },
+    {
+      name: 'multiple on a wide viewport',
+      multiple: true,
+      cancel: true,
+      narrow: false,
+      flag: true,
+      buttons: [],
+      close: false,
+    },
+    {
+      name: 'multiple with a secondary action',
+      multiple: true,
+      cancel: true,
+      narrow: true,
+      flag: true,
+      secondary: true,
+      buttons: ['Cancel', 'Save'],
+      close: true,
+    },
+  ])(
+    'renders the correct fullscreen controls for $name',
+    async ({multiple, cancel, narrow, flag, disabled, secondary, buttons, close}) => {
+      mockNarrowViewport(narrow)
+      render(
+        <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: flag}}>
+          <SelectPanel
+            defaultOpen
+            disableFullscreenOnNarrow={disabled}
+            items={items}
+            onCancel={cancel ? () => {} : undefined}
+            onSelectedChange={() => {}}
+            secondaryAction={secondary ? <button type="button">Secondary action</button> : undefined}
+            {...(multiple ? {selected: []} : {selected: undefined})}
+            title="Projects"
+          />
+        </FeatureFlags>,
+      )
+      const dialog = await screen.findByRole('dialog', {name: 'Projects'})
+      for (const name of ['Cancel', 'Save', 'Save and close']) {
+        expect(Boolean(within(dialog).queryByRole('button', {name}))).toBe(buttons.some(button => button === name))
+      }
+      expect(Boolean(within(dialog).queryByRole('button', {name: 'Cancel and close'}))).toBe(close)
+      expect(Boolean(within(dialog).queryByRole('button', {name: 'Secondary action'}))).toBe(Boolean(secondary))
+    },
+  )
+
+  it.each([false, true])('keeps modal footer controls on a narrow viewport: %s', async narrow => {
+    mockNarrowViewport(narrow)
+    render(
+      <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: true}}>
+        <SelectPanel
+          defaultOpen
+          items={items}
+          onCancel={() => {}}
+          onSelectedChange={() => {}}
+          selected={undefined}
+          title="Projects"
+          variant="modal"
+        />
+      </FeatureFlags>,
+    )
+    const dialog = await screen.findByRole('dialog', {name: 'Projects'})
+    expect(within(dialog).getByRole('button', {name: 'Cancel'})).toBeVisible()
+    expect(within(dialog).getByRole('button', {name: 'Save'})).toBeVisible()
+    expect(within(dialog).getByRole('button', {name: 'Cancel and close'})).toBeVisible()
+  })
+
+  it('saves and cancels fullscreen multiple selection without changing request or focus behavior', async () => {
+    mockNarrowViewport(true)
+    const user = userEvent.setup()
+    const onCancel = vi.fn()
+    const onOpenChange = vi.fn()
+    const onSelectedChange = vi.fn()
+
+    function Example() {
+      const [selected, setSelected] = React.useState<SelectPanelItem[]>([])
+      const [open, setOpen] = React.useState(false)
+      return (
+        <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: true}}>
+          <SelectPanel
+            items={items}
+            onCancel={() => {
+              onCancel()
+              setSelected([items[0]])
+            }}
+            onOpenChange={(next, gesture) => {
+              onOpenChange(next, gesture)
+              setOpen(next)
+            }}
+            onSelectedChange={next => {
+              onSelectedChange(next)
+              setSelected(asItems(next))
+            }}
+            open={open}
+            selected={selected}
+            title="Projects"
+          />
+        </FeatureFlags>
+      )
+    }
+
+    render(<Example />)
+    const trigger = screen.getByRole('button', {name: 'Projects'})
+    await user.click(trigger)
+    await user.click(screen.getByRole('option', {name: 'Mona'}))
+    expect(onSelectedChange).toHaveBeenLastCalledWith([items[0]])
+    await user.click(screen.getByRole('button', {name: 'Save'}))
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'click-outside')
+    expect(onCancel).not.toHaveBeenCalled()
+    expect(trigger).toHaveFocus()
+
+    await user.click(trigger)
+    await user.click(screen.getByRole('option', {name: 'Hubot'}))
+    expect(onSelectedChange).toHaveBeenLastCalledWith([items[0], items[1]])
+    await user.click(screen.getByRole('button', {name: 'Cancel'}))
+    expect(onCancel).toHaveBeenCalledOnce()
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'cancel')
+    expect(trigger).toHaveFocus()
+    expect(trigger).toHaveTextContent('Mona')
+  })
+
+  it('keeps a fullscreen panel open when its owner declines Save or Cancel', async () => {
+    mockNarrowViewport(true)
+    const user = userEvent.setup()
+    const onCancel = vi.fn()
+    const onOpenChange = vi.fn()
+    render(
+      <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: true}}>
+        <SelectPanel
+          items={items}
+          onCancel={onCancel}
+          onOpenChange={onOpenChange}
+          onSelectedChange={() => {}}
+          open
+          selected={[items[0]]}
+          title="Projects"
+        />
+      </FeatureFlags>,
+    )
+    const dialog = await screen.findByRole('dialog', {name: 'Projects'})
+    await user.click(within(dialog).getByRole('button', {name: 'Save'}))
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'click-outside')
+    expect(onCancel).not.toHaveBeenCalled()
+    expect(dialog).toBeVisible()
+    await user.click(within(dialog).getByRole('button', {name: 'Cancel'}))
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'cancel')
+    expect(onCancel).toHaveBeenCalledOnce()
+    expect(dialog).toBeVisible()
+  })
+
+  it('closes an uncontrolled fullscreen multiple picker from the keyboard', async () => {
+    mockNarrowViewport(true)
+    const user = userEvent.setup()
+    const onOpenChange = vi.fn()
+    render(
+      <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: true}}>
+        <SelectPanel
+          items={items}
+          onOpenChange={onOpenChange}
+          onSelectedChange={() => {}}
+          selected={[]}
+          title="Projects"
+        />
+      </FeatureFlags>,
+    )
+    const trigger = screen.getByRole('button', {name: 'Projects'})
+    await user.click(trigger)
+    await waitFor(() => expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus())
+    await user.tab()
+    expect(screen.getByRole('button', {name: 'Save and close'})).toHaveFocus()
+    await user.keyboard('{Enter}')
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'click-outside')
+    await waitFor(() => expect(screen.queryByRole('dialog', {name: 'Projects'})).not.toBeInTheDocument())
+    expect(trigger).toHaveFocus()
   })
 
   it('uses modal cancellation, deferred single selection, focus management, and scroll locking', async () => {
@@ -1053,7 +1417,7 @@ describe('SelectPanel', () => {
     render(<Example />)
     await user.click(screen.getByRole('button', {name: 'Mona'}))
     expect(screen.getByRole('dialog', {name: 'Modal labels'})).toBeVisible()
-    expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+    await waitFor(() => expect(screen.getByRole('combobox', {name: 'Filter items'})).toHaveFocus())
     expect(document.body.style.overflow).toBe('hidden')
 
     await user.click(screen.getByRole('option', {name: 'Hubot'}))
@@ -1069,6 +1433,45 @@ describe('SelectPanel', () => {
     await user.click(screen.getByRole('option', {name: 'Hubot'}))
     await user.click(screen.getByRole('button', {name: 'Save'}))
     expect(onSelectedChange).toHaveBeenLastCalledWith(items[1])
+  })
+
+  it('retains the modal draft when a controlled close request is declined', async () => {
+    const user = userEvent.setup()
+    const onCancel = vi.fn()
+    const onOpenChange = vi.fn()
+    const onSelectedChange = vi.fn()
+    const panel = (open: boolean) => (
+      <SelectPanel
+        items={items}
+        onCancel={onCancel}
+        onOpenChange={onOpenChange}
+        onSelectedChange={onSelectedChange}
+        open={open}
+        selected={items[0]}
+        title="Modal labels"
+        variant="modal"
+      />
+    )
+    const {rerender} = render(panel(true))
+
+    await user.click(screen.getByRole('option', {name: 'Hubot'}))
+    expect(screen.getByRole('option', {name: 'Hubot'})).toHaveAttribute('aria-selected', 'true')
+
+    await user.click(screen.getByRole('button', {name: 'Cancel'}))
+    expect(onCancel).toHaveBeenCalledOnce()
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'cancel')
+    expect(screen.getByRole('dialog', {name: 'Modal labels'})).toBeVisible()
+    expect(screen.getByRole('option', {name: 'Hubot'})).toHaveAttribute('aria-selected', 'true')
+
+    await user.click(screen.getByRole('button', {name: 'Save'}))
+    expect(onSelectedChange).toHaveBeenLastCalledWith(items[1])
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'selection')
+    expect(screen.getByRole('option', {name: 'Hubot'})).toHaveAttribute('aria-selected', 'true')
+
+    rerender(panel(false))
+    await waitFor(() => expect(screen.queryByRole('dialog', {name: 'Modal labels'})).not.toBeInTheDocument())
+    rerender(panel(true))
+    expect(await screen.findByRole('option', {name: 'Mona'})).toHaveAttribute('aria-selected', 'true')
   })
 
   it('renders grouped options and applies select-all only to visible selectable items', async () => {
@@ -1313,7 +1716,195 @@ describe('SelectPanel', () => {
     expect(onScrollEnd).toHaveBeenCalledTimes(1)
   })
 
-  it('falls back to non-virtualized rendering for variable-height and custom rows', async () => {
+  it('virtualizes searchable custom labels and leading visuals through navigation, selection, and filtering', async () => {
+    const user = userEvent.setup()
+    const onSelectedChange = vi.fn()
+    const onDisabledAction = vi.fn()
+    const EmojiVisual = () => <span aria-hidden="true">icon</span>
+    const emojiItems: SelectPanelItem[] = Array.from({length: 200}, (_, index) => {
+      const name = `emoji ${index}`
+      return {
+        'aria-label': name,
+        children: (
+          <Truncate as="span" maxWidth="100%" title={name}>
+            {name}
+          </Truncate>
+        ),
+        disabled: index === 198,
+        id: name,
+        key: name,
+        leadingVisual: EmojiVisual,
+        onAction: index === 198 ? onDisabledAction : undefined,
+      }
+    })
+
+    function Panel() {
+      const [selected, setSelected] = React.useState<SelectPanelItem[]>([])
+      return (
+        <SelectPanel
+          items={emojiItems}
+          onSelectedChange={next => {
+            onSelectedChange(next)
+            setSelected(asItems(next))
+          }}
+          selected={selected}
+          selectionVariant="multiple"
+          title="Emoji"
+          virtualized
+        />
+      )
+    }
+
+    render(<Panel />)
+    await user.click(screen.getByRole('button', {name: 'Emoji'}))
+    const input = screen.getByRole('combobox', {name: 'Filter items'})
+    const list = document.querySelector<HTMLDivElement>('[data-component="SelectPanel.VirtualizedList"]')
+    expect(list).toBeInTheDocument()
+    expect(screen.getAllByRole('option').length).toBeLessThan(emojiItems.length)
+    expect(screen.getByRole('option', {name: 'emoji 0'})).toHaveAttribute('aria-setsize', '200')
+
+    await user.keyboard('{ArrowUp}')
+    const last = await screen.findByRole('option', {name: 'emoji 199'})
+    expect(last).toHaveAttribute('aria-posinset', '200')
+    expect(input).toHaveAttribute('aria-activedescendant', last.id)
+    await user.keyboard('{ArrowUp}')
+    const disabled = await screen.findByRole('option', {name: 'emoji 198'})
+    expect(disabled).toHaveAttribute('aria-disabled', 'true')
+    await user.keyboard('{Enter}')
+    expect(onSelectedChange).not.toHaveBeenCalled()
+    expect(onDisabledAction).not.toHaveBeenCalled()
+
+    await user.keyboard('{ArrowDown}{Enter}')
+    expect(onSelectedChange).toHaveBeenLastCalledWith([emojiItems[199]])
+    expect(last).toHaveAttribute('aria-selected', 'true')
+
+    await user.type(input, 'emoji 19')
+    expect(screen.getByRole('option', {name: 'emoji 19'})).toHaveAttribute('aria-setsize', '11')
+    await user.keyboard('{ArrowUp}')
+    const filteredLast = await screen.findByRole('option', {name: 'emoji 199'})
+    expect(filteredLast).toHaveAttribute('aria-setsize', '11')
+    expect(filteredLast).toHaveAttribute('aria-posinset', '11')
+    expect(filteredLast).toHaveAttribute('aria-selected', 'true')
+    expect(screen.queryByRole('option', {name: 'emoji 20'})).not.toBeInTheDocument()
+  })
+
+  it('requires searchable text for virtualized custom labels', async () => {
+    const user = userEvent.setup()
+    const OpaqueLabel = () => <span>Rendered label</span>
+    const makeItems = (searchable: boolean): SelectPanelItem[] =>
+      Array.from({length: 40}, (_, index) => ({
+        'aria-label': `Option ${index}`,
+        children: <OpaqueLabel />,
+        filterValue: searchable ? `Option ${index}` : undefined,
+        id: index,
+      }))
+    const panel = (searchable: boolean) => (
+      <SelectPanel
+        items={makeItems(searchable)}
+        onSelectedChange={() => {}}
+        selected={[]}
+        selectionVariant="multiple"
+        title="Labels"
+        virtualized
+      />
+    )
+    const {rerender} = render(panel(false))
+    await user.click(screen.getByRole('button', {name: 'Labels'}))
+    expect(document.querySelector('[data-component="SelectPanel.VirtualizedList"]')).toBeNull()
+    expect(screen.getAllByRole('option')).toHaveLength(40)
+
+    rerender(panel(true))
+    expect(document.querySelector('[data-component="SelectPanel.VirtualizedList"]')).toBeInTheDocument()
+    expect(screen.getAllByRole('option').length).toBeLessThan(40)
+    await user.type(screen.getByRole('combobox', {name: 'Filter items'}), 'Option 39')
+    expect(screen.getByRole('option', {name: 'Option 39'})).toHaveAttribute('aria-setsize', '1')
+  })
+
+  it.each([false, true])('respects cancelled and modified paging keys with virtualized=%s', async virtualized => {
+    const user = userEvent.setup()
+    let cancelPaging = true
+    const onKeyDown = vi.fn((event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (cancelPaging && event.key === 'PageDown') event.preventDefault()
+    })
+    render(
+      <SelectPanel
+        items={[{id: 'long', text: 'A long option'}]}
+        onSelectedChange={() => {}}
+        selected={[]}
+        selectionVariant="multiple"
+        textInputProps={{onKeyDown}}
+        title="Labels"
+        virtualized={virtualized}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Labels'}))
+    const input = screen.getByRole('combobox', {name: 'Filter items'})
+    const option = screen.getByRole('option', {name: 'A long option'})
+    const list = document.querySelector<HTMLDivElement>(
+      virtualized ? '[data-component="SelectPanel.VirtualizedList"]' : '[data-component="SelectPanel.List"]',
+    )!
+    Object.defineProperties(list, {
+      clientHeight: {configurable: true, value: 100},
+      scrollHeight: {configurable: true, value: 300},
+      scrollTop: {configurable: true, value: 0, writable: true},
+    })
+    vi.spyOn(list, 'getBoundingClientRect').mockReturnValue(new DOMRect(0, 0, 320, 100))
+    vi.spyOn(option, 'getBoundingClientRect').mockImplementation(() => new DOMRect(0, -list.scrollTop, 320, 300))
+    await user.keyboard('{ArrowDown}')
+
+    fireEvent.keyDown(input, {key: 'PageDown'})
+    expect(list.scrollTop).toBe(0)
+    expect(onKeyDown).toHaveBeenCalled()
+    cancelPaging = false
+    fireEvent.keyDown(input, {key: 'PageDown', shiftKey: true})
+    fireEvent.keyDown(input, {key: 'PageDown', ctrlKey: true})
+    fireEvent.keyDown(input, {key: 'PageDown', altKey: true})
+    fireEvent.keyDown(input, {key: 'PageDown', metaKey: true})
+    fireEvent.keyDown(input, {key: 'PageDown', isComposing: true})
+    expect(list.scrollTop).toBe(0)
+
+    fireEvent.keyDown(input, {key: 'PageDown'})
+    expect(list.scrollTop).toBe(50)
+    fireEvent.keyDown(input, {key: 'PageUp'})
+    expect(list.scrollTop).toBe(0)
+    expect(input).toHaveFocus()
+    expect(input).toHaveAttribute('aria-activedescendant', option.id)
+  })
+
+  it('reports the mounted active option when virtualized keyboard navigation wraps', async () => {
+    const user = userEvent.setup()
+    const onActiveDescendantChanged = vi.fn()
+    const largeItems = Array.from({length: 100}, (_, index) => ({id: index, text: `Item ${index}`}))
+
+    render(
+      <SelectPanel
+        items={largeItems}
+        onActiveDescendantChanged={onActiveDescendantChanged}
+        onSelectedChange={() => {}}
+        selected={[]}
+        selectionVariant="multiple"
+        title="Virtual labels"
+        virtualized
+      />,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Virtual labels'}))
+    await user.keyboard('{ArrowUp}')
+    await waitFor(() => {
+      const last = screen.getByRole('option', {name: 'Item 99'})
+      expect(onActiveDescendantChanged).toHaveBeenLastCalledWith(last, undefined, true)
+    })
+    const last = screen.getByRole('option', {name: 'Item 99'})
+
+    await user.keyboard('{ArrowDown}')
+    await waitFor(() => {
+      const first = screen.getByRole('option', {name: 'Item 0'})
+      expect(onActiveDescendantChanged).toHaveBeenLastCalledWith(first, last, true)
+    })
+  })
+
+  it('falls back to non-virtualized rendering for descriptions and custom rows', async () => {
     const user = userEvent.setup()
     const variableItems = Array.from({length: 20}, (_, index) => ({
       description: `Additional context for item ${index}`,
@@ -1353,6 +1944,187 @@ describe('SelectPanel', () => {
     expect(screen.getAllByRole('option')).toHaveLength(items.length)
   })
 
+  describe('selected-option ordering', () => {
+    const optionLabels = () => screen.getAllByRole('option').map(option => option.textContent)
+
+    it.each([
+      {enabled: false, showSelectedOptionsFirst: true},
+      {enabled: true, showSelectedOptionsFirst: false},
+    ])('preserves the input order when ordering is disabled: %o', async ({enabled, showSelectedOptionsFirst}) => {
+      const user = userEvent.setup()
+      render(
+        <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: enabled}}>
+          <SelectPanel
+            items={items}
+            onSelectedChange={() => {}}
+            selected={[items[1]]}
+            selectionVariant="multiple"
+            showSelectedOptionsFirst={showSelectedOptionsFirst}
+            title="Reviewers"
+          />
+        </FeatureFlags>,
+      )
+
+      await user.click(screen.getByRole('button', {name: 'Hubot'}))
+      expect(optionLabels()).toEqual(['Mona', 'Hubot', 'Robot'])
+    })
+
+    it('keeps the opening order while selecting and refreshes it when the filter clears or the panel reopens', async () => {
+      const user = userEvent.setup()
+
+      function Example() {
+        const [selected, setSelected] = React.useState<SelectPanelItem[]>([items[1]])
+        return (
+          <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+            <SelectPanel
+              items={items}
+              onSelectedChange={next => setSelected(asItems(next))}
+              renderAnchor={() => <button type="button">Reviewers</button>}
+              selected={selected}
+              selectionVariant="multiple"
+              title="Reviewers"
+            />
+          </FeatureFlags>
+        )
+      }
+
+      render(<Example />)
+      const trigger = screen.getByRole('button', {name: 'Reviewers'})
+      await user.click(trigger)
+      expect(optionLabels()).toEqual(['Hubot', 'Mona', 'Robot'])
+
+      await user.click(screen.getByRole('option', {name: 'Robot'}))
+      expect(screen.getByRole('option', {name: 'Robot'})).toHaveAttribute('aria-selected', 'true')
+      expect(optionLabels()).toEqual(['Hubot', 'Mona', 'Robot'])
+
+      const input = screen.getByRole('combobox', {name: 'Filter items'})
+      await user.type(input, 'o')
+      expect(optionLabels()).toEqual(['Hubot', 'Mona', 'Robot'])
+      await user.clear(input)
+      expect(optionLabels()).toEqual(['Hubot', 'Robot', 'Mona'])
+
+      await user.click(screen.getByRole('option', {name: 'Hubot'}))
+      expect(optionLabels()).toEqual(['Hubot', 'Robot', 'Mona'])
+      await user.keyboard('{Escape}')
+      await user.click(trigger)
+      expect(optionLabels()).toEqual(['Robot', 'Mona', 'Hubot'])
+    })
+
+    it('snapshots the current selection when an initially empty list is populated without replacing the input', async () => {
+      const committedOrders: string[][] = []
+      const renderPanel = (panelItems: SelectPanelItem[], selected: SelectPanelItem[]) => (
+        <React.Profiler
+          id="ordering"
+          onRender={() => {
+            const options = Array.from(document.querySelectorAll('[role="option"]'), option => option.textContent)
+            if (options.length) committedOrders.push(options)
+          }}
+        >
+          <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+            <SelectPanel
+              items={panelItems}
+              onSelectedChange={() => {}}
+              open
+              selected={selected}
+              selectionVariant="multiple"
+              title="Reviewers"
+            />
+          </FeatureFlags>
+        </React.Profiler>
+      )
+      const {rerender} = render(renderPanel([], [items[0]]))
+      const input = screen.getByRole('combobox', {name: 'Filter items'})
+      await waitFor(() => expect(input).toHaveFocus())
+      rerender(renderPanel([], [items[2]]))
+      committedOrders.length = 0
+      rerender(renderPanel(items, [items[2]]))
+
+      expect(committedOrders.length).toBeGreaterThan(0)
+      expect(committedOrders.every(order => order[0] === 'Robot')).toBe(true)
+      expect(optionLabels()).toEqual(['Robot', 'Mona', 'Hubot'])
+      expect(screen.getByRole('combobox', {name: 'Filter items'})).toBe(input)
+      expect(input).toHaveFocus()
+    })
+
+    it('refreshes the snapshot when a controlled filter is cleared', () => {
+      const renderPanel = (filterValue: string, selected: SelectPanelItem[]) => (
+        <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+          <SelectPanel
+            filterValue={filterValue}
+            items={items}
+            onSelectedChange={() => {}}
+            open
+            selected={selected}
+            selectionVariant="multiple"
+            title="Reviewers"
+          />
+        </FeatureFlags>
+      )
+      const {rerender} = render(renderPanel('', [items[1]]))
+      expect(optionLabels()).toEqual(['Hubot', 'Mona', 'Robot'])
+      rerender(renderPanel('o', [items[2]]))
+      expect(optionLabels()).toEqual(['Hubot', 'Mona', 'Robot'])
+      rerender(renderPanel('', [items[2]]))
+      expect(optionLabels()).toEqual(['Robot', 'Mona', 'Hubot'])
+    })
+
+    it('uses stable typed ids and object identity when ordering selected items', async () => {
+      const user = userEvent.setup()
+      const referenceItem = {text: 'Reference'}
+      const distinctItems = [{id: 1, text: 'Number'}, {id: '1', text: 'String'}, referenceItem]
+      render(
+        <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+          <SelectPanel
+            items={distinctItems}
+            onSelectedChange={() => {}}
+            renderAnchor={() => <button type="button">Reviewers</button>}
+            selected={[{id: '1', text: 'String'}, referenceItem]}
+            selectionVariant="multiple"
+            title="Reviewers"
+          />
+        </FeatureFlags>,
+      )
+
+      await user.click(screen.getByRole('button', {name: 'Reviewers'}))
+      expect(optionLabels()).toEqual(['String', 'Reference', 'Number'])
+    })
+
+    it('keeps the saved selection order while changing a single-select modal draft', async () => {
+      const user = userEvent.setup()
+
+      function Example() {
+        const [selected, setSelected] = React.useState<SelectPanelItem | undefined>(items[1])
+        return (
+          <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+            <SelectPanel
+              items={items}
+              onCancel={() => {}}
+              onSelectedChange={next => setSelected(Array.isArray(next) ? next[0] : next)}
+              renderAnchor={() => <button type="button">Reviewers</button>}
+              selected={selected}
+              title="Reviewers"
+              variant="modal"
+            />
+          </FeatureFlags>
+        )
+      }
+
+      render(<Example />)
+      const trigger = screen.getByRole('button', {name: 'Reviewers'})
+      await user.click(trigger)
+      expect(optionLabels()).toEqual(['Hubot', 'Mona', 'Robot'])
+      await user.click(screen.getByRole('option', {name: 'Robot'}))
+      expect(optionLabels()).toEqual(['Hubot', 'Mona', 'Robot'])
+      const input = screen.getByRole('combobox', {name: 'Filter items'})
+      await user.type(input, 'o')
+      await user.clear(input)
+      expect(optionLabels()).toEqual(['Hubot', 'Mona', 'Robot'])
+      await user.click(screen.getByRole('button', {name: /^Save$/}))
+      await user.click(trigger)
+      expect(optionLabels()).toEqual(['Robot', 'Mona', 'Hubot'])
+    })
+  })
+
   it('supports selected-first ordering, item renderers, inactive items, dividers, and prepended focus updates', async () => {
     const user = userEvent.setup()
     const first = {id: 'first', text: 'First'}
@@ -1385,12 +2157,16 @@ describe('SelectPanel', () => {
       )
     }
 
-    render(<Example />)
+    render(
+      <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+        <Example />
+      </FeatureFlags>,
+    )
     await user.click(screen.getByRole('button', {name: 'Second'}))
     expect(screen.getAllByRole('option')[0]).toHaveTextContent('Second')
     expect(screen.getByRole('option', {name: /Inactive/})).toHaveAttribute('aria-disabled', 'true')
     expect(screen.getByTestId('custom-second')).toBeVisible()
-    expect(screen.getByRole('option', {name: 'Second'})).toHaveClass('border-b')
+    expect(screen.getByRole('option', {name: 'Second'})).toHaveClass('primer:border-b')
 
     await user.clear(screen.getByRole('combobox', {name: 'Filter items'}))
     await user.type(screen.getByRole('combobox', {name: 'Filter items'}), 'prepend')
@@ -1422,6 +2198,37 @@ describe('SelectPanel', () => {
     expect(option.querySelector('[data-component="ActionList.LeadingVisual"]')).toHaveTextContent('visual')
     expect(option.querySelector('[data-component="ActionList.Description"]')).toHaveTextContent('Teammate')
     expect(option.querySelector('[data-component="ActionList.Item.Label"]')).toHaveTextContent(/^Mona$/)
+  })
+
+  it('names options from label and trailing visual, not a meaningful leading avatar, with or without descriptions', () => {
+    const avatar = <img alt="User campaign manager" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" />
+    render(
+      <SelectPanel
+        items={[
+          {id: 'hubot', text: 'hubot', leadingVisual: avatar},
+          {id: 'octocat', text: 'octocat', leadingVisual: avatar, trailingVisual: 'Admin'},
+          {id: 'mona', text: 'mona', leadingVisual: avatar, description: 'Mona Lisa Octocat'},
+          {
+            id: 'monalisa',
+            text: 'monalisa',
+            leadingVisual: avatar,
+            description: 'Mona Lisa',
+            descriptionVariant: 'block',
+            trailingVisual: 'Owner',
+          },
+        ]}
+        onSelectedChange={() => {}}
+        open
+        selected={[]}
+        title="Campaign managers"
+      />,
+    )
+
+    expect(screen.getByRole('option', {name: 'hubot'})).not.toHaveAccessibleDescription()
+    expect(screen.getByRole('option', {name: 'octocat Admin'})).not.toHaveAccessibleDescription()
+    expect(screen.getByRole('option', {name: 'mona'})).toHaveAccessibleDescription('Mona Lisa Octocat')
+    expect(screen.getByRole('option', {name: 'monalisa Owner'})).toHaveAccessibleDescription('Mona Lisa')
+    expect(screen.getAllByRole('img', {name: 'User campaign manager'})).toHaveLength(4)
   })
 
   it('exposes item descriptions separately from their accessible names', () => {
@@ -1515,7 +2322,7 @@ describe('SelectPanel', () => {
     expect(screen.getByRole('option', {name: 'Rich item Public'})).toHaveAccessibleDescription('Rich description')
     expect(screen.getByRole('option', {name: 'Inactive item'})).toHaveAccessibleDescription('Unavailable')
     expect(screen.getAllByText('Unavailable')).toHaveLength(1)
-    expect(screen.getByRole('option', {name: 'ImportantVisual item'})).toBeInTheDocument()
+    expect(screen.getByRole('option', {name: 'Visual item'})).toBeInTheDocument()
     const rendered = screen.getByRole('option', {name: 'Rendered item Premium'})
     expect(rendered.querySelector('[data-component="ActionList.TrailingVisual"]')).toHaveAttribute(
       'id',
@@ -1665,7 +2472,7 @@ describe('SelectPanel', () => {
 
     expect(input).toHaveFocus()
     const wrapper = input.closest('[data-component="TextInput"]')
-    expect(wrapper).toHaveClass('bg-default')
+    expect(wrapper).toHaveClass('primer:bg-default')
     expect(wrapper).not.toHaveAttribute('data-contrast')
   })
 

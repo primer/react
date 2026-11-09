@@ -9,7 +9,7 @@ import * as Examples from './Banner.examples.stories'
 
 # Banner
 
-`Banner` announces a page-level status or message that needs attention but does not interrupt the user. Use `Dialog` instead when the message must block the task, and inline validation for a single field.
+`Banner` displays a page-level status or message that needs attention but does not interrupt the user. Use `Dialog` instead when the message must block the task, and inline validation for a single field.
 
 ```tsx
 import {Banner} from '@primer/react-tailwind/Banner'
@@ -30,11 +30,47 @@ The `variant` values are `critical`, `info`, `success`, `upsell`, and `warning`.
 
 ## Composition
 
-Use `Banner.Title`, `Banner.Description`, `Banner.Actions`, `Banner.PrimaryAction`, and `Banner.SecondaryAction` for local composition, or pass the corresponding content props.
+Use `Banner.Title`, `Banner.Description`, `Banner.Actions`, `Banner.PrimaryAction`, and `Banner.SecondaryAction` for local composition, or pass the corresponding content props. For navigation, use `Banner.PrimaryActionLink` and `Banner.SecondaryActionLink`; they render links rather than applying button keyboard behavior to anchors. Link actions do not accept disabled, inactive, or loading props: use noninteractive content or an action button when navigation is unavailable. With the default and stacked layouts, actions use `width: fit-content` without a `max-width` rule and wrap onto new rows when they do not fit. Use `labelWrap` for long or localized action labels in narrow and right-to-left containers. The inline layout keeps actions beside the content until the viewport is narrower than 768px, matching Primer React, so prefer the stacked or default layout in narrow containers. `Banner.Actions` forwards its ref, `className`, and other `div` props to its outer element for host layout adjustments; the inner action row is not a styling API.
+
+### Migrating from Flash
+
+The deprecated `Flash` is not exported by this package. For a page-level message, a named `Banner` is a possible replacement: Flash's `default`, `warning`, `success`, and `danger` variants correspond most closely to Banner's `info`, `warning`, `success`, and `critical`. Review the icon, spacing, layout, and named section semantics rather than assuming a visual or DOM-equivalent replacement. `flush` is intended for confined surfaces, not as a direct replacement for Flash's `full`. See the [migration notes](./ALIGNMENT.md) for details.
 
 ## Accessibility
 
-Give a banner an accessible name when its title is absent. Dismiss controls receive an accessible label, and a hidden title remains available to assistive technology.
+A direct `Banner.Title`, including one grouped in a fragment, automatically labels the banner. The `title` prop takes precedence when both are supplied, and an explicit `aria-label` or `aria-labelledby` overrides the automatic name. If a custom wrapper renders the title, give it an `id` and pass that ID as the banner's `aria-labelledby`. Give a banner an accessible name when its title is absent. Dismiss controls receive an accessible label, and a hidden title remains available to assistive technology.
+
+When a field needs both a banner's summary and its validation details as a description, reference the title and details rather than the named banner section. Accessibility computations can resolve a reference to the section as only its name; local Playwright and Chromium accessibility-tree checks returned different results for that composition.
+
+```tsx
+import {useId} from 'react'
+import {Banner} from '@primer/react-tailwind/Banner'
+
+function Filter() {
+  const inputId = useId()
+  const titleId = useId()
+  const detailsId = useId()
+
+  return (
+    <>
+      <label htmlFor={inputId}>Filter</label>
+      <input id={inputId} aria-describedby={`${titleId} ${detailsId}`} aria-invalid="true" />
+      <Banner variant="warning">
+        <Banner.Title id={titleId}>Filter contains 1 issue:</Banner.Title>
+        <Banner.Description id={detailsId}>
+          <ul>
+            <li>Invalid value for state</li>
+          </ul>
+        </Banner.Description>
+      </Banner>
+    </>
+  )
+}
+```
+
+To keep a single description ID, put it on an unlabeled wrapper containing the title and details, and explicitly set the banner's `aria-labelledby` to the wrapped title's ID. Verify the resulting description in the host and with its supported assistive technologies.
+
+Rendering a Banner does not automatically announce it as a live status message. When a dynamically introduced status needs an announcement, use the host's supported announcement mechanism; github-ui uses `@github-ui/aria-live`.
 
 ## Data attributes
 
@@ -43,5 +79,7 @@ The section exposes `data-component="Banner"`, `data-variant`, `data-layout`, `d
 ## Features and examples
 
 <Canvas of={Features.Critical} />
+
+<Canvas of={Features.WithLinkActions} />
 
 <Canvas of={Examples.WithUserAction} />

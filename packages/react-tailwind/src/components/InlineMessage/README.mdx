@@ -32,6 +32,10 @@ import {InlineMessage} from '@primer/react-tailwind/InlineMessage'
 
 Place an inline message next to the field or content it describes. Use `leadingVisual` for a custom visual only when it reinforces the message; links and other inline content can be passed as children.
 
+`leadingVisual` accepts component types, including forwardRef Octicons and memo components, or already-rendered React nodes. Component visuals are decorative; rendered nodes retain their own props and accessibility attributes. Pass `null` to omit the visual.
+
+`size` controls the message typography and the built-in icon, but it does not pass a size to a custom `leadingVisual`. Component types receive `aria-hidden` and a layout class; rendered nodes are passed through unchanged. Size a custom visual yourself, for example `leadingVisual={<BookIcon size={12} aria-hidden="true" />}` for a small message. Keep custom decorative visuals hidden from assistive technology.
+
 ## Accessibility
 
 The default icon is decorative. Give the message clear text and connect it to a form control with the consumer's `aria-describedby` when appropriate. `InlineMessage` does not add a live-region or alert role.
@@ -52,4 +56,5 @@ The root exposes `data-component="InlineMessage"`, `data-size`, and `data-varian
 
 <Canvas of={Features.Multiline} />
 <Canvas of={Features.CustomLeadingVisual} />
+<Canvas of={Features.ComponentLeadingVisuals} />
 <Canvas of={Examples.FormValidation} />

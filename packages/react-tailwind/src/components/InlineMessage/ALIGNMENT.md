@@ -11,5 +11,7 @@ Tailwind `InlineMessage` retains the component name, message content, and semant
 ## Migration notes
 
 - Existing variant and content usage can be retained.
+- Pass a component such as `leadingVisual={InfoIcon}`, including forwardRef and memo components, or an already-rendered React node such as `leadingVisual={<InfoIcon />}`. Component visuals are decorative; rendered nodes retain their props. `null` omits the visual.
+- `size` adjusts the message typography and the built-in visual, but does not pass a size to custom `leadingVisual` components. Component types receive `aria-hidden` and a layout class; rendered nodes keep their own props. Size custom visuals explicitly, for example `<BookIcon size={12} aria-hidden="true" />` for a small message.
 - Add any required `role` or live-region behavior at the consumer boundary.
 - Remove `sx`, styled-system props, and legacy class selectors.

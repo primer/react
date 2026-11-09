@@ -24,9 +24,13 @@
   "props": [
     {
       "name": "as",
-      "type": "React.ElementType",
+      "type": "As",
       "defaultValue": "'a'",
-      "description": "Element to render. Use a non-anchor element when the link is handled by a router."
+      "description": "Element or component supplied by the wrapper."
+    },
+    {
+      "name": "className",
+      "type": "string"
     },
     {
       "name": "inline",
@@ -35,6 +39,10 @@
     {
       "name": "muted",
       "type": "boolean | null"
+    },
+    {
+      "name": "ref",
+      "type": "Ref<HTMLElement>"
     }
   ],
   "passthrough": {

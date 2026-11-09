@@ -78,7 +78,7 @@
         {
           "name": "loaderText",
           "type": "string",
-          "description": "Text announced to assistive technology while the input is loading."
+          "description": "Text included in the input's accessible description while loading."
         },
         {
           "name": "loading",

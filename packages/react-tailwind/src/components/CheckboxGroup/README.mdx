@@ -22,11 +22,56 @@ import * as Examples from './CheckboxGroup.examples.stories'
 ```tsx
 import {Checkbox} from '@primer/react-tailwind/Checkbox'
 import {CheckboxGroup} from '@primer/react-tailwind/CheckboxGroup'
+import {FormControl} from '@primer/react-tailwind/FormControl'
 ```
 
 Place `CheckboxGroup.Label`, `CheckboxGroup.Caption`, and `CheckboxGroup.Validation` directly inside the group, and compose `Checkbox` children in author order, each in a `FormControl` with its own label.
 
 ## Controlled and uncontrolled
+
+The group owns the checked state of each checkbox with a non-empty `value` (or `name` when no value is supplied). With no `value` or `defaultValue` on the group, that selection starts empty: a child's `checked` or `defaultChecked` does not initialize or control it. Put initial selections in the group's `defaultValue`:
+
+```tsx
+<CheckboxGroup defaultValue={['email']}>
+  <CheckboxGroup.Label>Notifications</CheckboxGroup.Label>
+  <FormControl>
+    <Checkbox value="email" />
+    <FormControl.Label>Email</FormControl.Label>
+  </FormControl>
+</CheckboxGroup>
+```
+
+For individually controlled values, derive the group `value` from the existing state and update that state in `onValueChange`; do not also control the participating children with `checked`:
+
+```tsx
+import React from 'react'
+
+function Notifications() {
+  const [email, setEmail] = React.useState(true)
+  const [web, setWeb] = React.useState(false)
+  const value = [...(email ? ['email'] : []), ...(web ? ['web'] : [])]
+
+  return (
+    <CheckboxGroup
+      value={value}
+      onValueChange={next => {
+        setEmail(next.includes('email'))
+        setWeb(next.includes('web'))
+      }}
+    >
+      <CheckboxGroup.Label>Notifications</CheckboxGroup.Label>
+      <FormControl>
+        <Checkbox value="email" />
+        <FormControl.Label>Email</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="web" />
+        <FormControl.Label>Web</FormControl.Label>
+      </FormControl>
+    </CheckboxGroup>
+  )
+}
+```
 
 <Canvas of={Examples.Controlled} />
 
@@ -38,7 +83,7 @@ Place `CheckboxGroup.Label`, `CheckboxGroup.Caption`, and `CheckboxGroup.Validat
 
 ## Keyboard, events, and state
 
-Space toggles the focused checkbox. `onValueChange` receives the selected value array and Base UI details. The root has `data-component="CheckboxGroup"`; children retain their checkbox `data-checked`, `data-indeterminate`, and `data-disabled` states.
+Space toggles the focused checkbox. Replace legacy `onChange(selectedValues, event)` with `onValueChange(selectedValues, details)`; `details` is Base UI event details, not the legacy React change event. A root `onChange` is a React change handler for events bubbling from nested inputs and receives an event, not the selected array. The root has `data-component="CheckboxGroup"`; children retain their checkbox `data-checked`, `data-indeterminate`, and `data-disabled` states.
 
 <Canvas of={Features.Checked} />
 

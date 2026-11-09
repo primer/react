@@ -152,7 +152,7 @@ export const ProfilePage: Story = {
             </div>
           </div>
         </div>
-        <div className="mt-2 box-border h-[300px] w-4/5 rounded-lg border border-default p-6">
+        <div className="mt-2 box-border h-[300px] w-4/5 rounded-lg border-thin border-default p-6">
           <Text> mona/README.md</Text>
         </div>
       </div>

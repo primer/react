@@ -1,40 +1,72 @@
 import {cva} from 'class-variance-authority'
-import React from 'react'
+import type React from 'react'
 import {cn} from '../../internal/cn'
+import {
+  splitTokenProps,
+  type BroadCompoundTokenProps,
+  type CompoundTokenProps,
+  type CompoundTokenRef,
+  type DefaultCompoundTokenProps,
+  type OptionalCompoundTokenProps,
+  type SpanTokenActionExclusions,
+  type TokenElement,
+} from '../../internal/token-props'
 import {VisuallyHidden} from '../VisuallyHidden'
-import {TokenBase, TokenRemoveButton, type TokenBaseProps, TokenTextContainer} from './TokenBase'
+import {TokenBaseInternal, TokenRemoveButton, type CompoundTokenOwnProps, TokenTextContainer} from './TokenBase'
 
-const token = cva('border border-muted bg-neutral-muted text-muted', {
-  variants: {selected: {true: 'border-emphasis text-default', false: ''}},
+const token = cva('primer:border-thin primer:border-muted primer:bg-neutral-muted primer:text-muted', {
+  variants: {selected: {true: 'primer:border-emphasis primer:text-default', false: ''}},
   defaultVariants: {selected: false},
 })
-export interface TokenProps extends TokenBaseProps {
+interface TokenOwnVisualProps extends CompoundTokenOwnProps {
   /** Icon shown before the token's text. */
   leadingVisual?: React.ElementType
 }
-export const Token = React.forwardRef<HTMLElement, TokenProps>(function Token(
-  {
-    children,
-    className,
-    hideRemoveButton,
-    leadingVisual: LeadingVisual,
-    onRemove,
-    size = 'medium',
-    isSelected,
-    text,
-    type,
-    ...rest
-  },
+export type TokenProps<As extends TokenElement = never, Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>> = [
+  As,
+] extends [never]
+  ? DefaultCompoundTokenProps<TokenOwnVisualProps>
+  : CompoundTokenProps<As, TokenOwnVisualProps, Ref>
+
+export function Token<Ref extends CompoundTokenRef<'span'> = CompoundTokenRef<'span'>>(
+  props: CompoundTokenProps<'span', TokenOwnVisualProps, Ref> & SpanTokenActionExclusions<TokenOwnVisualProps>,
+): React.ReactElement
+export function Token<As extends TokenElement, Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>>(
+  props: OptionalCompoundTokenProps<As, TokenOwnVisualProps, Ref>,
+): React.ReactElement
+export function Token<As extends TokenElement = 'span', Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>>(
+  props: CompoundTokenProps<As, TokenOwnVisualProps, Ref> & {as: As},
+): React.ReactElement
+export function Token<As extends TokenElement = 'span', Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>>(
+  props: CompoundTokenProps<As, CompoundTokenOwnProps, Ref> & {as: As},
+): React.ReactElement
+export function Token<Inferred extends DefaultCompoundTokenProps<TokenOwnVisualProps>>(
+  props: BroadCompoundTokenProps<TokenOwnVisualProps, Inferred>,
+): React.ReactElement
+export function Token<As extends TokenElement = 'span', Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>>({
+  children,
+  className,
+  hideRemoveButton,
+  leadingVisual: LeadingVisual,
+  onRemove,
+  removeButtonLabel,
+  size = 'medium',
+  isSelected,
+  text,
+  type,
+  as,
   ref,
-) {
+  ...rest
+}: CompoundTokenProps<As, TokenOwnVisualProps, Ref>) {
   const isParentInteractive =
-    rest.as === 'a' || rest.as === 'button' || Boolean(rest.onClick || rest.onFocus || rest.tabIndex !== undefined)
+    (as !== undefined && as !== 'span') || Boolean(rest.onClick || rest.onFocus || rest.tabIndex !== undefined)
   const hasMultipleActionTargets = isParentInteractive && Boolean(onRemove && !hideRemoveButton)
+  const {rootProps, actionProps} = splitTokenProps(rest, as, hasMultipleActionTargets)
 
   return (
-    <TokenBase
-      {...rest}
-      as={hasMultipleActionTargets ? 'span' : rest.as}
+    <TokenBaseInternal
+      {...rootProps}
+      as={hasMultipleActionTargets ? 'span' : as}
       ref={ref}
       className={cn(token({selected: isSelected}), className)}
       href={hasMultipleActionTargets ? undefined : rest.href}
@@ -49,13 +81,17 @@ export const Token = React.forwardRef<HTMLElement, TokenProps>(function Token(
       {LeadingVisual && size !== 'small' ? (
         <span
           aria-hidden="true"
-          className={cn('mr-1 shrink-0 leading-none', (size === 'large' || size === 'xlarge') && 'mr-1.5')}
+          className={cn(
+            'primer:mr-1 primer:shrink-0 primer:leading-none',
+            (size === 'large' || size === 'xlarge') && 'primer:mr-1.5',
+          )}
         >
           <LeadingVisual />
         </span>
       ) : null}
       <TokenTextContainer
-        as={hasMultipleActionTargets ? rest.as : undefined}
+        {...actionProps}
+        as={hasMultipleActionTargets ? as : undefined}
         disabled={rest.disabled}
         href={hasMultipleActionTargets ? rest.href : undefined}
         onClick={hasMultipleActionTargets ? rest.onClick : undefined}
@@ -66,8 +102,14 @@ export const Token = React.forwardRef<HTMLElement, TokenProps>(function Token(
       </TokenTextContainer>
       {children}
       {onRemove && !hideRemoveButton ? (
-        <TokenRemoveButton isParentInteractive={hasMultipleActionTargets} onRemove={onRemove} size={size} text={text} />
+        <TokenRemoveButton
+          isParentInteractive={hasMultipleActionTargets}
+          label={removeButtonLabel}
+          onRemove={onRemove}
+          size={size}
+          text={text}
+        />
       ) : null}
-    </TokenBase>
+    </TokenBaseInternal>
   )
-})
+}

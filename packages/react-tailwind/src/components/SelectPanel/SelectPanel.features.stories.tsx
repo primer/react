@@ -32,7 +32,13 @@ const meta = {
 export default meta
 type Story = StoryObj
 
-type StorySelectPanelProps = Partial<Omit<SelectPanelProps, 'anchorRef' | 'onCancel' | 'renderAnchor' | 'variant'>> & {
+type StorySelectPanelProps = Partial<
+  Omit<
+    SelectPanelProps,
+    'anchorRef' | 'onCancel' | 'onSelectedChange' | 'renderAnchor' | 'selected' | 'selectionVariant' | 'variant'
+  >
+> & {
+  onSelectedChange?: (selected: SelectPanelItem[]) => void
   onCancel?: () => void
   renderAnchor?: Exclude<SelectPanelProps['renderAnchor'], null>
   variant?: 'anchored' | 'modal'
@@ -42,7 +48,7 @@ function ColorCircle({color}: {color: string}) {
   return (
     <span
       aria-hidden="true"
-      className="size-3 rounded-full border"
+      className="size-3 rounded-full border-thin"
       style={{backgroundColor: color, borderColor: color}}
     />
   )
@@ -107,7 +113,24 @@ function LabelsPanel({
   const [open, setOpen] = React.useState(false)
   const [selected, setSelected] = React.useState<SelectPanelItem | SelectPanelItem[] | undefined>(initialSelection)
   const props = selectPanelProps ?? {}
-  const {onCancel, variant = 'anchored', ...restProps} = props
+  const {onCancel, onSelectedChange, variant = 'anchored', ...restProps} = props
+  const selectionProps = multiple
+    ? ({
+        selectionVariant: 'multiple',
+        selected: asItems(selected),
+        onSelectedChange: (next: SelectPanelItem[]) => {
+          setSelected(next)
+          onSelectedChange?.(next)
+        },
+      } as const)
+    : ({
+        selectionVariant: 'single',
+        selected: Array.isArray(selected) ? selected[0] : selected,
+        onSelectedChange: (next: SelectPanelItem | undefined) => {
+          setSelected(next)
+          onSelectedChange?.(asItems(next))
+        },
+      } as const)
   const currentFilterValue = props.filterValue ?? filterValue
   const filteredItems = panelItems.filter(item =>
     itemText(item).toLowerCase().startsWith(currentFilterValue.toLowerCase()),
@@ -117,16 +140,14 @@ function LabelsPanel({
     variant === 'modal' ? (
       <SelectPanel
         {...restProps}
+        {...selectionProps}
         filterValue={currentFilterValue}
         items={restProps.items ?? filteredItems}
         onCancel={onCancel ?? (() => {})}
         onFilterChange={restProps.onFilterChange ?? setFilterValue}
         onOpenChange={restProps.onOpenChange ?? setOpen}
-        onSelectedChange={restProps.onSelectedChange ?? setSelected}
         open={restProps.open ?? open}
         placeholder={restProps.placeholder ?? 'Select labels'}
-        selected={restProps.selected ?? selected}
-        selectionVariant={multiple ? 'multiple' : 'single'}
         subtitle={restProps.subtitle ?? 'Use labels to organize issues and pull requests'}
         title={title}
         variant="modal"
@@ -134,16 +155,14 @@ function LabelsPanel({
     ) : (
       <SelectPanel
         {...restProps}
+        {...selectionProps}
         filterValue={currentFilterValue}
         items={restProps.items ?? filteredItems}
         onCancel={onCancel}
         onFilterChange={restProps.onFilterChange ?? setFilterValue}
         onOpenChange={restProps.onOpenChange ?? setOpen}
-        onSelectedChange={restProps.onSelectedChange ?? setSelected}
         open={restProps.open ?? open}
         placeholder={restProps.placeholder ?? 'Select labels'}
-        selected={restProps.selected ?? selected}
-        selectionVariant={multiple ? 'multiple' : 'single'}
         subtitle={restProps.subtitle ?? 'Use labels to organize issues and pull requests'}
         title={title}
         variant="anchored"
@@ -174,6 +193,14 @@ export const SingleSelect: Story = {
 
 export const MultiSelect: Story = {
   render: () => <LabelsPanel />,
+}
+
+export const SelectedOptionsFirst: Story = {
+  render: () => (
+    <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+      <LabelsPanel initialSelected={[labels[2]]} />
+    </FeatureFlags>
+  ),
 }
 
 export const WithDisabledItem: Story = {
@@ -259,7 +286,7 @@ export const WithExternalAnchor: Story = {
           anchorRef={anchorRef}
           items={labels}
           onOpenChange={setOpen}
-          onSelectedChange={next => setSelected(asItems(next))}
+          onSelectedChange={setSelected}
           open={open}
           renderAnchor={null}
           selected={selected}
@@ -447,7 +474,7 @@ function AsyncLabelsPanel({
         message,
         onFilterChange: setFilterValue,
         onOpenChange: setOpen,
-        onSelectedChange: next => setSelected(asItems(next)),
+        onSelectedChange: setSelected,
         open,
         placeholder: 'Select Labels',
         placeholderText: 'Filter labels',
@@ -557,6 +584,30 @@ export const SingleSelectModal: Story = {
   ),
 }
 
+export const GuardedModalClose: Story = {
+  render: function GuardedModalCloseExample() {
+    const [open, setOpen] = React.useState(false)
+    const [mayClose, setMayClose] = React.useState(false)
+    const [selected, setSelected] = React.useState<SelectPanelItem | undefined>(labels[0])
+
+    return (
+      <SelectPanel
+        items={labels}
+        onCancel={() => {}}
+        onOpenChange={nextOpen => {
+          if (nextOpen || mayClose) setOpen(nextOpen)
+        }}
+        onSelectedChange={setSelected}
+        open={open}
+        secondaryAction={<Button onClick={() => setMayClose(true)}>Finish pending work</Button>}
+        selected={selected}
+        title="Select a label"
+        variant="modal"
+      />
+    )
+  },
+}
+
 function RequiredFieldPanel({modal = false}: {modal?: boolean}) {
   const [selected, setSelected] = React.useState<SelectPanelItem[]>([])
   const notificationHelpId = React.useId()
@@ -570,7 +621,7 @@ function RequiredFieldPanel({modal = false}: {modal?: boolean}) {
       <SelectPanel
         {...variantProps}
         items={labels}
-        onSelectedChange={next => setSelected(asItems(next))}
+        onSelectedChange={setSelected}
         secondaryAction={
           <div className="flex items-center gap-2">
             <Checkbox aria-describedby={notificationHelpId} aria-label="Notify me" />
@@ -598,6 +649,19 @@ export const FullscreenOnNarrow: Story = {
   render: () => (
     <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: true}}>
       <LabelsPanel initialSelected={null} label={null} title="Select labels" />
+    </FeatureFlags>
+  ),
+}
+
+export const FullscreenOnNarrowWithMaxHeight: Story = {
+  render: () => (
+    <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: true}}>
+      <LabelsPanel
+        initialSelected={null}
+        label={null}
+        selectPanelProps={{overlayProps: {maxHeight: 'xsmall'}}}
+        title="Select labels"
+      />
     </FeatureFlags>
   ),
 }

@@ -1,7 +1,10 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {useId, useState} from 'react'
-import type {DataTableRowId} from './DataTable'
-import {Table} from './index'
+import {Button} from '../Button'
+import {ToggleSwitch} from '../ToggleSwitch'
+import {VisuallyHidden} from '../VisuallyHidden'
+import type {Column, DataTableRowId} from './DataTable'
+import {DataTable, Table, type TableSubtitleProps, type TableTitleProps} from './index'
 
 const meta = {
   title: 'React Tailwind/Data/Table/Features',
@@ -10,6 +13,44 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
+
+function HeadingLevelsExample({
+  titleAs,
+  subtitleAs,
+}: {
+  titleAs: TableTitleProps['as']
+  subtitleAs: TableSubtitleProps['as']
+}) {
+  const id = useId()
+  return (
+    <section>
+      <h2>Project data</h2>
+      <Table.Container>
+        <Table.Title as={titleAs} id={`${id}-title`}>
+          Components
+        </Table.Title>
+        <Table.Subtitle as={subtitleAs} id={`${id}-subtitle`}>
+          Components available in this project
+        </Table.Subtitle>
+        <DataTable
+          aria-labelledby={`${id}-title`}
+          aria-describedby={`${id}-subtitle`}
+          data={[{id: 1, name: 'Button'}]}
+          columns={[{field: 'name', header: 'Name', rowHeader: true}]}
+        />
+      </Table.Container>
+    </section>
+  )
+}
+
+export const WithHeadingLevels: StoryObj<typeof HeadingLevelsExample> = {
+  args: {titleAs: 'h3', subtitleAs: 'p'},
+  argTypes: {
+    titleAs: {control: 'select', options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p']},
+    subtitleAs: {control: 'select', options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p']},
+  },
+  render: args => <HeadingLevelsExample {...args} />,
+}
 
 const groups = [
   {
@@ -127,7 +168,7 @@ function RowSelectionExample() {
               id={selectionColumnId}
               selection={allSelected ? 'all' : selectedCount > 0 ? 'some' : 'none'}
               disabled={selectableRows.length === 0}
-              aria-description={
+              description={
                 selectableRows.length > 0
                   ? `Select all ${selectableRows.length} ${selectableRows.length === 1 ? 'row' : 'rows'}`
                   : undefined
@@ -180,3 +221,89 @@ function RowSelectionExample() {
 }
 
 export const WithRowSelection: Story = {render: () => <RowSelectionExample />}
+
+export const OverflowWithHiddenCellLabel: Story = {
+  parameters: {layout: 'fullscreen'},
+  render: () => (
+    <div className="relative" data-testid="table-frame" style={{width: 'calc(100vw - 2px)'}}>
+      <Table.Container>
+        <Table aria-label="Security features" gridTemplateColumns="150px 150px 44px">
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Feature</Table.Header>
+              <Table.Header>Availability</Table.Header>
+              <Table.Header>On</Table.Header>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell scope="row">Alerts</Table.Cell>
+              <Table.Cell>Available</Table.Cell>
+              <Table.Cell align="end">
+                <ToggleSwitch aria-labelledby="security-alert-label" size="small" />
+                <VisuallyHidden id="security-alert-label">Enable security alerts</VisuallyHidden>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Table.Container>
+    </div>
+  ),
+}
+
+export const OverflowWithMultipleSwitches: Story = {
+  parameters: {layout: 'fullscreen'},
+  render: ({cellPadding}) => (
+    <div className="relative" data-testid="table-frame" style={{width: 'calc(100vw - 2px)'}}>
+      <Table.Container>
+        <Table aria-label="Security features" cellPadding={cellPadding} gridTemplateColumns="150px 150px 44px">
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Feature</Table.Header>
+              <Table.Header>Availability</Table.Header>
+              <Table.Header>On</Table.Header>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            {['Alerts', 'Audit logs', 'Policy checks'].map((feature, index) => (
+              <Table.Row key={feature}>
+                <Table.Cell scope="row" id={`security-feature-${index}`}>
+                  {feature}
+                </Table.Cell>
+                <Table.Cell>Available</Table.Cell>
+                <Table.Cell align="end">
+                  <ToggleSwitch aria-labelledby={`security-feature-${index}`} size="small" />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </Table.Container>
+    </div>
+  ),
+}
+
+const skeletonColumns: Column<{id: number; name: string; issues: number}>[] = [
+  {field: 'name', header: 'Repository', align: 'start', width: 'growCollapse', minWidth: 160},
+  {field: 'issues', header: () => <span>Open issues</span>, align: 'end', width: 96},
+]
+
+export const WithSkeletonColumns: Story = {
+  render: function SkeletonColumnsExample() {
+    const [loading, setLoading] = useState(true)
+    return (
+      <div className="flex flex-col gap-3">
+        <Button onClick={() => setLoading(!loading)}>{loading ? 'Show data' : 'Show loading'}</Button>
+        {loading ? (
+          <Table.Skeleton aria-label="Repository activity" columns={skeletonColumns} rows={3} />
+        ) : (
+          <DataTable
+            aria-label="Repository activity"
+            columns={skeletonColumns}
+            data={[{id: 1, name: 'primer/react', issues: 7}]}
+          />
+        )}
+      </div>
+    )
+  },
+}

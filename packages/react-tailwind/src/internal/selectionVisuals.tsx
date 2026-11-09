@@ -9,24 +9,24 @@ import {cn} from './cn'
  */
 
 const controlBoxClassName =
-  'grid size-4 shrink-0 place-items-center border border-[var(--control-borderColor-emphasis)] bg-default transition-colors duration-80 ease-[cubic-bezier(0.33,1,0.68,1)] data-[checked]:ease-[cubic-bezier(0.32,0,0.67,0)] motion-reduce:transition-none data-[disabled]:border-[var(--control-borderColor-disabled)] data-[disabled]:bg-[var(--control-bgColor-disabled)]'
+  'primer:grid primer:size-4 primer:shrink-0 primer:place-items-center primer:border-thin primer:border-[var(--control-borderColor-emphasis)] primer:bg-default primer:transition-colors primer:duration-80 primer:ease-[cubic-bezier(0.33,1,0.68,1)] primer:data-[checked]:ease-[cubic-bezier(0.32,0,0.67,0)] primer:motion-reduce:transition-none primer:data-[disabled]:border-[var(--control-borderColor-disabled)] primer:data-[disabled]:bg-[var(--control-bgColor-disabled)]'
 
 // Interactive controls carry upstream's 2px top margin, which centres them on a 20px label line.
 const controlInputClassName =
-  'mt-0.5 cursor-pointer data-[disabled]:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus'
+  'primer:mt-0.5 primer:cursor-pointer primer:data-[disabled]:cursor-not-allowed primer:focus-visible:outline-2 primer:focus-visible:outline-offset-2 primer:focus-visible:outline-focus'
 
-const checkboxBoxClassName = `${controlBoxClassName} rounded-sm text-[var(--control-checked-fgColor-rest)] data-[checked]:bg-[var(--control-checked-bgColor-rest)] data-[indeterminate]:border-[var(--control-checked-bgColor-rest)] data-[indeterminate]:bg-[var(--control-checked-bgColor-rest)] data-[checked]:data-[disabled]:border-[var(--control-checked-borderColor-disabled)] data-[checked]:data-[disabled]:bg-[var(--control-checked-bgColor-disabled)] data-[checked]:data-[disabled]:text-[var(--control-checked-fgColor-disabled)] data-[indeterminate]:data-[disabled]:border-[var(--control-checked-borderColor-disabled)] data-[indeterminate]:data-[disabled]:bg-[var(--control-checked-bgColor-disabled)] data-[indeterminate]:data-[disabled]:text-[var(--control-checked-fgColor-disabled)] forced-colors:data-[checked]:border-[CanvasText] forced-colors:data-[checked]:bg-[CanvasText] forced-colors:data-[indeterminate]:border-[CanvasText] forced-colors:data-[indeterminate]:bg-[CanvasText]`
+const checkboxBoxClassName = `${controlBoxClassName} primer:rounded-sm primer:text-[var(--control-checked-fgColor-rest)] primer:data-[checked]:bg-[var(--control-checked-bgColor-rest)] primer:data-[indeterminate]:border-[var(--control-checked-bgColor-rest)] primer:data-[indeterminate]:bg-[var(--control-checked-bgColor-rest)] primer:data-[checked]:data-[disabled]:border-[var(--control-checked-borderColor-disabled)] primer:data-[checked]:data-[disabled]:bg-[var(--control-checked-bgColor-disabled)] primer:data-[checked]:data-[disabled]:text-[var(--control-checked-fgColor-disabled)] primer:data-[indeterminate]:data-[disabled]:border-[var(--control-checked-borderColor-disabled)] primer:data-[indeterminate]:data-[disabled]:bg-[var(--control-checked-bgColor-disabled)] primer:data-[indeterminate]:data-[disabled]:text-[var(--control-checked-fgColor-disabled)] primer:forced-colors:data-[checked]:border-[CanvasText] primer:forced-colors:data-[checked]:bg-[CanvasText] primer:forced-colors:data-[indeterminate]:border-[CanvasText] primer:forced-colors:data-[indeterminate]:bg-[CanvasText]`
 
 /** Classes for the `Checkbox` root. Its checked border uses the background token so it doesn't change in high contrast themes. */
-export const checkboxClassName = `${checkboxBoxClassName} ${controlInputClassName} data-[checked]:border-[var(--control-checked-bgColor-rest)]`
+export const checkboxClassName = `${checkboxBoxClassName} ${controlInputClassName} primer:data-[checked]:border-[var(--control-checked-bgColor-rest)]`
 
 /** Classes for the `Radio` root, also used by radio row indicators. */
-export const radioClassName = `${controlBoxClassName} ${controlInputClassName} rounded-full data-[checked]:border-thicker data-[checked]:border-[var(--control-checked-bgColor-rest)] data-[checked]:bg-[var(--control-checked-fgColor-rest)] data-[checked]:data-[disabled]:border-[var(--control-checked-bgColor-disabled)] data-[checked]:data-[disabled]:bg-[var(--control-checked-fgColor-disabled)] forced-colors:data-[checked]:border-[CanvasText] forced-colors:data-[checked]:bg-[Canvas]`
+export const radioClassName = `${controlBoxClassName} ${controlInputClassName} primer:rounded-full primer:data-[checked]:border-thicker primer:data-[checked]:border-[var(--control-checked-bgColor-rest)] primer:data-[checked]:bg-[var(--control-checked-fgColor-rest)] primer:data-[checked]:data-[disabled]:border-[var(--control-checked-bgColor-disabled)] primer:data-[checked]:data-[disabled]:bg-[var(--control-checked-fgColor-disabled)] primer:forced-colors:data-[checked]:border-[CanvasText] primer:forced-colors:data-[checked]:bg-[Canvas]`
 
 /** Reveals a checkbox glyph from the bottom up, as upstream's check animation does. */
 export const checkboxGlyphRevealClassName =
-  'motion-safe:transition-[clip-path] motion-safe:duration-80 motion-safe:ease-[cubic-bezier(0.65,0,0.35,1)] motion-reduce:transition-none'
-const checkboxGlyphHiddenClassName = '[clip-path:inset(var(--base-size-16)_0_0_0)]'
+  'primer:motion-safe:transition-[clip-path] primer:motion-safe:duration-80 primer:motion-safe:ease-[cubic-bezier(0.65,0,0.35,1)] primer:motion-reduce:transition-none'
+const checkboxGlyphHiddenClassName = 'primer:[clip-path:inset(var(--base-size-16)_0_0_0)]'
 
 export interface CheckboxGlyphProps {
   className?: string
@@ -42,7 +42,7 @@ export function CheckboxGlyph({className, indeterminate = false}: CheckboxGlyphP
   return indeterminate ? (
     <svg
       aria-hidden="true"
-      className={cn('shrink-0 forced-colors:text-[Canvas]', className)}
+      className={cn('primer:shrink-0 primer:forced-colors:text-[Canvas]', className)}
       fill="currentColor"
       focusable="false"
       height="2.4"
@@ -54,7 +54,7 @@ export function CheckboxGlyph({className, indeterminate = false}: CheckboxGlyphP
   ) : (
     <svg
       aria-hidden="true"
-      className={cn('shrink-0 forced-colors:text-[Canvas]', className)}
+      className={cn('primer:shrink-0 primer:forced-colors:text-[Canvas]', className)}
       fill="currentColor"
       focusable="false"
       height="9"
@@ -77,6 +77,8 @@ export interface SelectionVisualProps extends Omit<React.ComponentPropsWithoutRe
   checked: boolean
   /** Draws the disabled control colours. */
   disabled?: boolean
+  /** Draws the mixed state of a multiple-selection indicator. */
+  indeterminate?: boolean
   /** `multiple` draws a checkbox, `radio` a radio, and `single` a checkmark. */
   variant: SelectionVisualVariant
 }
@@ -86,15 +88,25 @@ export interface SelectionVisualProps extends Omit<React.ComponentPropsWithoutRe
  * semantics, so the indicator is hidden from assistive technology.
  */
 export const SelectionVisual = React.forwardRef<HTMLSpanElement, SelectionVisualProps>(function SelectionVisual(
-  {checked, className, disabled = false, variant, ...rest},
+  {checked, className, disabled = false, indeterminate = false, variant, ...rest},
   ref,
 ) {
-  const stateAttributes = {'data-checked': checked ? '' : undefined, 'data-disabled': disabled ? '' : undefined}
+  const stateAttributes = {
+    'data-checked': checked ? '' : undefined,
+    'data-disabled': disabled ? '' : undefined,
+    'data-indeterminate': variant === 'multiple' && indeterminate ? '' : undefined,
+  }
 
   if (variant === 'single') {
     return (
-      <span {...rest} {...stateAttributes} ref={ref} aria-hidden="true" className={cn('flex shrink-0', className)}>
-        <CheckIcon className={cn('shrink-0', !checked && 'invisible')} />
+      <span
+        {...rest}
+        {...stateAttributes}
+        ref={ref}
+        aria-hidden="true"
+        className={cn('primer:flex primer:shrink-0', className)}
+      >
+        <CheckIcon className={cn('primer:shrink-0', !checked && 'primer:invisible')} />
       </span>
     )
   }
@@ -112,10 +124,18 @@ export const SelectionVisual = React.forwardRef<HTMLSpanElement, SelectionVisual
       ref={ref}
       aria-hidden="true"
       // Row checkboxes use the border token, which differs from the background in high contrast themes.
-      className={cn(checkboxBoxClassName, 'data-[checked]:border-[var(--control-checked-borderColor-rest)]', className)}
+      className={cn(
+        checkboxBoxClassName,
+        'primer:data-[checked]:border-[var(--control-checked-borderColor-rest)]',
+        className,
+      )}
     >
       <CheckboxGlyph
-        className={cn(checkboxGlyphRevealClassName, checked ? 'motion-safe:delay-80' : checkboxGlyphHiddenClassName)}
+        className={cn(
+          checkboxGlyphRevealClassName,
+          checked || indeterminate ? 'primer:motion-safe:delay-80' : checkboxGlyphHiddenClassName,
+        )}
+        indeterminate={indeterminate}
       />
     </span>
   )

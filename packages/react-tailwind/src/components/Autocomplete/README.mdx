@@ -21,6 +21,18 @@ The root forwards Base UI autocomplete props, including `items`, `value`, `onVal
 
 ```tsx
 import {Autocomplete} from '@primer/react-tailwind/Autocomplete'
+;<Autocomplete items={['React', 'TypeScript', 'CSS']}>
+  <Autocomplete.Input aria-label="Technology" />
+  <Autocomplete.Content>
+    <Autocomplete.List>
+      {(item: string) => (
+        <Autocomplete.Item key={item} value={item}>
+          {item}
+        </Autocomplete.Item>
+      )}
+    </Autocomplete.List>
+  </Autocomplete.Content>
+</Autocomplete>
 ```
 
 Compose `Input`, `Content`, `List`, and `Item` under the root. `Content` has `align`, `alignOffset`, `side`, `sideOffset`, `anchor`, `portal`, and `positionerClassName` options; set `portal={false}` to render the list in place. Use `Group`, `GroupLabel`, `Empty`, and `Status` for richer lists.
@@ -34,6 +46,10 @@ Compose `Input`, `Content`, `List`, and `Item` under the root. `Content` has `al
 ## Accessibility, forms, and validation
 
 Give `Input` an accessible name. Base UI owns combobox and option relationships, filtering, active descendant updates, and disabled option semantics. Use external `FormControl` labels, captions, and validation when the input is part of a form.
+
+With the input outside `Content`, Base UI can temporarily apply `aria-hidden` to sibling dialog controls while suggestions are open, including when `modal={false}` or `portal={false}`. A composition that keeps those controls exposed while preserving the popup's keyboard and selection behavior has not been established; seek accessibility review when that simultaneous access is required.
+
+Use `Autocomplete` to choose values, not as a guaranteed way to present navigable link results. An `Item` rendered as an anchor still has the option role rather than an exposed link role, and its keyboard behavior is owned by the combobox. The [listbox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) does not provide an accessible interaction model for a list of interactive links. For results that need link semantics, consider an ordinary list of links or a separately reviewed grid or dialog pattern; this package does not currently document an input-owned link-results composition.
 
 ## Keyboard, events, and state
 

@@ -58,16 +58,18 @@ import './layout.css'
 }
 ```
 
-**Host-generated** lets your own Tailwind v4 build emit both the package's utilities and the utilities used in your app:
+**App-owned Tailwind** is an optional addition, not a replacement: keep importing `styles.css` for package components, and run your own Tailwind v4 build with unprefixed class names for app code:
 
 ```css
 @import 'tailwindcss';
-@import '@primer/react-tailwind/tailwind.css';
+@import '@primer/tailwind-config';
+
+@source './';
 ```
 
-Ensure Tailwind scans your application source files as well as the package; add `@source` directives when your app's files are outside automatic source detection. Import your generated CSS instead of `styles.css`.
+Package-owned utilities use the `primer:` prefix and are emitted only by the package's `styles.css`. Do not scan the package's `dist` in your build. The optional `@primer/react-tailwind/tailwind.css` is a standalone entry for generating a separate package stylesheet; do not import it into the same Tailwind stylesheet as your app utilities, because a build has one prefix. Caller `className` stays unprefixed and overrides package utilities.
 
-Both modes use unprefixed utilities that can conflict with `@primer/css` `!important` rules. CSS layers alone do not isolate them, and a prefixed build is not yet available. Verify stylesheet isolation before using the package alongside legacy Primer CSS.
+The prefix is a migration candidate that has not been validated in a built stylesheet. Shared `--tw-*` properties can still interact with legacy `@primer/css`, so verify computed styles in your host before assuming isolation.
 
 ## Use a component
 
@@ -81,7 +83,7 @@ import {Button} from '@primer/react-tailwind/Button'
 
 ## Style a component
 
-Every component takes `className` and forwards unrecognized DOM props and its root ref to its root element. With host-generated Tailwind, use Primer's semantic utilities so themes and high-contrast schemes keep working, and reach for a token when no utility exists.
+Components take `className` and generally forward unrecognized DOM props and their root ref to the root element. Exceptions are documented per component: `TextInput` applies `className` to its wrapper, and its ref, native props, and `style` to the input. Component-owned style properties are layered over a caller's `style`. With Tailwind utilities in your own build, use Primer's semantic utilities so themes and high-contrast schemes keep working, and reach for a token when no utility exists.
 
 ```tsx
 <Button className="mt-2 w-full">Save</Button>

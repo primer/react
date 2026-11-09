@@ -5,7 +5,7 @@ import React from 'react'
 import {mergeClassName} from '../../internal/mergeClassName'
 import type {FloatingContentProps} from '../../utils/types'
 import {FloatingPortal} from '../../internal/FloatingPortal'
-import {usePortalContainer} from '../../internal/portalRoot'
+import {FloatingPortalParentContext, useFloatingPortalContainer} from '../../internal/portalRoot'
 import {TextInput, type TextInputProps} from '../TextInput'
 
 export type AutocompleteRootProps<ItemValue> = BaseAutocomplete.Root.Props<ItemValue>
@@ -96,14 +96,14 @@ const Content = React.forwardRef<HTMLDivElement, AutocompleteContentProps>(funct
       anchor={anchor}
       side={side}
       sideOffset={sideOffset}
-      className={mergeClassName('z-popover', positionerClassName)}
+      className={mergeClassName('primer:z-popover', positionerClassName)}
       data-component="Autocomplete.Positioner"
     >
       <BaseAutocomplete.Popup
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'min-w-48 overflow-auto rounded-md border border-default bg-default p-1 shadow-floating-lg outline-none',
+          'primer:min-w-48 primer:overflow-auto primer:rounded-md primer:border-thin primer:border-default primer:bg-default primer:p-1 primer:shadow-floating-lg primer:outline-none',
           className,
         )}
         data-component="Autocomplete.Content"
@@ -120,10 +120,10 @@ const Content = React.forwardRef<HTMLDivElement, AutocompleteContentProps>(funct
 })
 
 function Portal({children, container, ...rest}: BaseAutocomplete.Portal.Props) {
-  const portalContainer = usePortalContainer(container)
+  const portalContainer = useFloatingPortalContainer(container)
   return (
     <BaseAutocomplete.Portal {...rest} container={portalContainer}>
-      {children}
+      <FloatingPortalParentContext.Provider value>{children}</FloatingPortalParentContext.Provider>
     </BaseAutocomplete.Portal>
   )
 }
@@ -138,7 +138,7 @@ const Item = React.forwardRef<HTMLDivElement, AutocompleteItemProps>(function Au
       {...rest}
       ref={ref}
       className={mergeClassName(
-        'flex w-full cursor-default items-center rounded-md px-2 py-1.5 text-sm text-default outline-none data-[highlighted]:bg-neutral-muted data-[disabled]:cursor-not-allowed data-[disabled]:text-disabled',
+        'primer:flex primer:w-full primer:cursor-default primer:items-center primer:rounded-md primer:px-2 primer:py-1.5 primer:text-sm primer:text-default primer:outline-none primer:data-[highlighted]:bg-neutral-muted primer:data-[disabled]:cursor-not-allowed primer:data-[disabled]:text-disabled',
         className,
       )}
       data-component="Autocomplete.Item"
@@ -154,7 +154,10 @@ const List = React.forwardRef<HTMLDivElement, BaseAutocomplete.List.Props>(funct
     <BaseAutocomplete.List
       {...rest}
       ref={ref}
-      className={mergeClassName('m-0 max-h-72 list-none overflow-auto p-0', className)}
+      className={mergeClassName(
+        'primer:m-0 primer:max-h-72 primer:list-none primer:overflow-auto primer:p-0',
+        className,
+      )}
       data-component="Autocomplete.List"
     />
   )

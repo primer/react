@@ -1,5 +1,8 @@
 import React from 'react'
-import {act, cleanup, fireEvent, render, screen} from '@testing-library/react'
+import {Tooltip as BaseTooltip} from '@base-ui/react/tooltip'
+import {act, cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {hydrateRoot} from 'react-dom/client'
+import {renderToString} from 'react-dom/server'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {BaseStyles} from '../../BaseStyles'
@@ -22,6 +25,223 @@ describe('Tooltip', () => {
     expect(tooltip).toHaveAttribute('aria-hidden', 'true')
     expect(tooltip).not.toHaveAttribute('role')
     expect(screen.getByRole('button', {name: 'Save'})).toHaveAccessibleDescription('Save this file')
+  })
+
+  it('associates named triggers with their visual popups independently of ARIA references', () => {
+    render(
+      <>
+        <Tooltip id="plain-tooltip" open type="label">
+          <Tooltip.Trigger aria-label="Close">
+            <svg aria-hidden="true" />
+          </Tooltip.Trigger>
+          <Tooltip.Content data-testid="plain-popup">Close</Tooltip.Content>
+        </Tooltip>
+        <Tooltip id="hint-tooltip" keybindingHint="Control+K" open type="label">
+          <Tooltip.Trigger render={<button aria-label="Search" type="button" />} />
+          <Tooltip.Content data-testid="hint-popup">Search</Tooltip.Content>
+        </Tooltip>
+      </>,
+    )
+
+    const close = screen.getByRole('button', {name: 'Close'})
+    const search = screen.getByRole('button', {name: 'Search'})
+    const closeOwner = close.getAttribute('data-tooltip-trigger')
+    const searchOwner = search.getAttribute('data-tooltip-trigger')
+    expect(closeOwner).toBeTruthy()
+    expect(searchOwner).toBeTruthy()
+    expect(closeOwner).not.toBe(searchOwner)
+    expect(screen.getByTestId('plain-popup').getAttribute('data-tooltip-popup')).toBe(closeOwner)
+    expect(screen.getByTestId('hint-popup').getAttribute('data-tooltip-popup')).toBe(searchOwner)
+    expect(close).not.toHaveAttribute('aria-labelledby')
+    expect(close).not.toHaveAttribute('aria-describedby')
+    expect(search).not.toHaveAttribute('aria-labelledby')
+    expect(search).toHaveAccessibleDescription('(control k)')
+    expect(screen.getByTestId('hint-popup')).toHaveAttribute('aria-hidden', 'true')
+  })
+
+  it('forwards the association through trigger and popup render callbacks', () => {
+    render(
+      <Tooltip open>
+        <Tooltip.Trigger
+          render={props => (
+            <a {...props} href="#details">
+              Details
+            </a>
+          )}
+        />
+        <Tooltip.Content data-testid="popup" render={props => <div {...props} />}>
+          Open details
+        </Tooltip.Content>
+      </Tooltip>,
+    )
+
+    const trigger = screen.getByRole('link', {name: 'Details'})
+    const owner = trigger.getAttribute('data-tooltip-trigger')
+    expect(owner).toBeTruthy()
+    expect(screen.getByTestId('popup').getAttribute('data-tooltip-popup')).toBe(owner)
+    expect(trigger).toHaveAccessibleDescription('Open details')
+  })
+
+  it('moves the server-rendered reference target to the mounted popup without duplicating its ID', async () => {
+    const element = (
+      <Tooltip id="hydrated-tooltip" type="label">
+        <Tooltip.Trigger>
+          <svg aria-hidden="true" />
+        </Tooltip.Trigger>
+        <Tooltip.Content>Save changes</Tooltip.Content>
+      </Tooltip>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(element)
+    document.body.append(container)
+    const serverOwner = container.querySelector('button')?.getAttribute('data-tooltip-trigger')
+    const recoverableErrors: unknown[] = []
+    const root = hydrateRoot(container, element, {onRecoverableError: error => recoverableErrors.push(error)})
+
+    try {
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+
+      expect(serverOwner).toBeTruthy()
+      expect(await screen.findByRole('button', {name: 'Save changes'})).toHaveAttribute(
+        'aria-labelledby',
+        'hydrated-tooltip',
+      )
+      expect(document.querySelectorAll('#hydrated-tooltip')).toHaveLength(1)
+      expect(document.getElementById('hydrated-tooltip')).toHaveAttribute('data-component', 'Tooltip.Content')
+      expect(screen.getByRole('button', {name: 'Save changes'}).getAttribute('data-tooltip-trigger')).toBe(serverOwner)
+      expect(document.getElementById('hydrated-tooltip')?.getAttribute('data-tooltip-popup')).toBe(serverOwner)
+      expect(recoverableErrors).toEqual([])
+    } finally {
+      await act(async () => root.unmount())
+      container.remove()
+    }
+  })
+
+  it('hydrates a named tooltip with a shortcut without changing its popup association', async () => {
+    const element = (
+      <Tooltip id="hydrated-hint" keybindingHint="Control+K" type="label">
+        <Tooltip.Trigger aria-label="Search" />
+        <Tooltip.Content data-testid="popup">Search</Tooltip.Content>
+      </Tooltip>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(element)
+    document.body.append(container)
+    const serverOwner = container.querySelector('button')?.getAttribute('data-tooltip-trigger')
+    const recoverableErrors: unknown[] = []
+    const root = hydrateRoot(container, element, {onRecoverableError: error => recoverableErrors.push(error)})
+
+    try {
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+      const trigger = screen.getByRole('button', {name: 'Search'})
+      expect(serverOwner).toBeTruthy()
+      expect(trigger.getAttribute('data-tooltip-trigger')).toBe(serverOwner)
+      expect(screen.getByTestId('popup').getAttribute('data-tooltip-popup')).toBe(serverOwner)
+      expect(trigger).not.toHaveAttribute('aria-labelledby')
+      expect(trigger).toHaveAccessibleDescription('(control k)')
+      expect(document.querySelectorAll('#hydrated-hint')).toHaveLength(1)
+      expect(recoverableErrors).toEqual([])
+    } finally {
+      await act(async () => root.unmount())
+      container.remove()
+    }
+  })
+
+  it('keeps independently prefixed server roots associated through hydration', async () => {
+    const fixture = (name: string) => (
+      <Tooltip type="label">
+        <Tooltip.Trigger aria-label={name} />
+        <Tooltip.Content data-testid={`${name}-popup`}>{name}</Tooltip.Content>
+      </Tooltip>
+    )
+    const first = document.createElement('div')
+    const second = document.createElement('div')
+    first.innerHTML = renderToString(fixture('First'), {identifierPrefix: 'first-'})
+    second.innerHTML = renderToString(fixture('Second'), {identifierPrefix: 'second-'})
+    document.body.append(first, second)
+    const firstOwner = first.querySelector('button')?.getAttribute('data-tooltip-trigger')
+    const secondOwner = second.querySelector('button')?.getAttribute('data-tooltip-trigger')
+    const recoverableErrors: unknown[] = []
+    let firstRoot: ReturnType<typeof hydrateRoot> | undefined
+    let secondRoot: ReturnType<typeof hydrateRoot> | undefined
+
+    try {
+      await act(async () => {
+        firstRoot = hydrateRoot(first, fixture('First'), {
+          identifierPrefix: 'first-',
+          onRecoverableError: error => recoverableErrors.push(error),
+        })
+        secondRoot = hydrateRoot(second, fixture('Second'), {
+          identifierPrefix: 'second-',
+          onRecoverableError: error => recoverableErrors.push(error),
+        })
+      })
+
+      expect(firstOwner).toBeTruthy()
+      expect(secondOwner).toBeTruthy()
+      expect(firstOwner).not.toBe(secondOwner)
+      expect(screen.getByRole('button', {name: 'First'}).getAttribute('data-tooltip-trigger')).toBe(firstOwner)
+      expect(screen.getByRole('button', {name: 'Second'}).getAttribute('data-tooltip-trigger')).toBe(secondOwner)
+      expect(screen.getByTestId('First-popup').getAttribute('data-tooltip-popup')).toBe(firstOwner)
+      expect(screen.getByTestId('Second-popup').getAttribute('data-tooltip-popup')).toBe(secondOwner)
+      expect(recoverableErrors).toEqual([])
+    } finally {
+      await act(async () => {
+        firstRoot?.unmount()
+        secondRoot?.unmount()
+      })
+      first.remove()
+      second.remove()
+    }
+  })
+
+  it('keeps the reference target available while waiting for a portal container', () => {
+    render(
+      <Tooltip id="pending-tooltip" type="label">
+        <Tooltip.Trigger>
+          <svg aria-hidden="true" />
+        </Tooltip.Trigger>
+        <Tooltip.Content container={null}>Save changes</Tooltip.Content>
+      </Tooltip>,
+    )
+
+    expect(screen.getByRole('button', {name: 'Save changes'})).toHaveAttribute('aria-labelledby', 'pending-tooltip')
+    expect(document.getElementById('pending-tooltip')).not.toBeNull()
+    expect(document.querySelector('[data-component="Tooltip.Content"]')).toBeNull()
+  })
+
+  it('merges descriptions from rendered elements and render callbacks', () => {
+    render(
+      <>
+        <span id="existing-description">Existing context.</span>
+        <Tooltip>
+          <Tooltip.Trigger
+            render={
+              <a aria-describedby="existing-description" href="#first">
+                First
+              </a>
+            }
+          />
+          <Tooltip.Content>Opens first.</Tooltip.Content>
+        </Tooltip>
+        <Tooltip>
+          <Tooltip.Trigger
+            render={props => (
+              <a {...props} aria-describedby="existing-description" href="#second">
+                Second
+              </a>
+            )}
+          />
+          <Tooltip.Content>Opens second.</Tooltip.Content>
+        </Tooltip>
+      </>,
+    )
+    expect(screen.getByRole('link', {name: 'First'})).toHaveAccessibleDescription('Existing context. Opens first.')
+    expect(screen.getByRole('link', {name: 'Second'})).toHaveAccessibleDescription('Existing context. Opens second.')
   })
 
   it('describes the trigger with text and a keyboard hint, without the visual hint', () => {
@@ -49,7 +269,161 @@ describe('Tooltip', () => {
     )
     expect(screen.getByTestId('popup')).toHaveAttribute('aria-hidden', 'true')
     expect(screen.getByTestId('popup')).not.toHaveAttribute('role')
-    expect(screen.getByRole('button', {name: 'Save'})).toHaveAccessibleDescription('Save this file')
+    const trigger = screen.getByRole('button', {name: 'Save'})
+    expect(trigger).toHaveAccessibleDescription('Save this file')
+    expect(trigger.getAttribute('data-tooltip-trigger')).toBeTruthy()
+    expect(screen.getByTestId('popup').getAttribute('data-tooltip-popup')).toBe(
+      trigger.getAttribute('data-tooltip-trigger'),
+    )
+  })
+
+  it('only associates a trigger handle with the matching surrounding tooltip root', () => {
+    const matchingHandle = BaseTooltip.createHandle()
+    const otherHandle = BaseTooltip.createHandle()
+    render(
+      <Tooltip handle={matchingHandle} open>
+        <Tooltip.Trigger handle={matchingHandle}>Matching trigger</Tooltip.Trigger>
+        <Tooltip.Trigger handle={otherHandle}>Different handle</Tooltip.Trigger>
+        <Tooltip.Content data-testid="popup">Tooltip text</Tooltip.Content>
+      </Tooltip>,
+    )
+
+    const matchingTrigger = screen.getByRole('button', {name: 'Matching trigger'})
+    const otherTrigger = screen.getByRole('button', {name: 'Different handle'})
+    const owner = matchingTrigger.getAttribute('data-tooltip-trigger')
+    expect(owner).toBeTruthy()
+    expect(screen.getByTestId('popup').getAttribute('data-tooltip-popup')).toBe(owner)
+    expect(otherTrigger).not.toHaveAttribute('data-tooltip-trigger')
+  })
+
+  it('does not associate a detached handle trigger outside the owning root', () => {
+    const handle = BaseTooltip.createHandle()
+    render(
+      <>
+        <Tooltip.Trigger handle={handle}>Detached trigger</Tooltip.Trigger>
+        <Tooltip handle={handle} open>
+          <Tooltip.Content data-testid="popup">Tooltip text</Tooltip.Content>
+        </Tooltip>
+      </>,
+    )
+
+    expect(screen.getByRole('button', {name: 'Detached trigger'})).not.toHaveAttribute('data-tooltip-trigger')
+    expect(screen.getByTestId('popup').getAttribute('data-tooltip-popup')).toBeTruthy()
+  })
+
+  it('distinguishes identical tooltip text and tracks which shared trigger is open', async () => {
+    const user = userEvent.setup()
+    render(
+      <>
+        <Tooltip>
+          <Tooltip.Trigger>First</Tooltip.Trigger>
+          <Tooltip.Trigger>Second</Tooltip.Trigger>
+          <Tooltip.Content data-testid="shared-popup">Same text</Tooltip.Content>
+        </Tooltip>
+        <Tooltip>
+          <Tooltip.Trigger>Third</Tooltip.Trigger>
+          <Tooltip.Content data-testid="other-popup">Same text</Tooltip.Content>
+        </Tooltip>
+      </>,
+    )
+
+    const first = screen.getByRole('button', {name: 'First'})
+    const second = screen.getByRole('button', {name: 'Second'})
+    const third = screen.getByRole('button', {name: 'Third'})
+    const sharedOwner = first.getAttribute('data-tooltip-trigger')
+    const otherOwner = third.getAttribute('data-tooltip-trigger')
+    expect(sharedOwner).toBeTruthy()
+    expect(second.getAttribute('data-tooltip-trigger')).toBe(sharedOwner)
+    expect(otherOwner).toBeTruthy()
+    expect(otherOwner).not.toBe(sharedOwner)
+    expect(screen.getByTestId('shared-popup').getAttribute('data-tooltip-popup')).toBe(sharedOwner)
+    expect(screen.getByTestId('other-popup').getAttribute('data-tooltip-popup')).toBe(otherOwner)
+    expect(first).not.toHaveAttribute('data-popup-open')
+
+    await user.tab()
+    await waitFor(() => expect(first).toHaveAttribute('data-popup-open'))
+    expect(second).not.toHaveAttribute('data-popup-open')
+    await user.tab()
+    await waitFor(() => expect(second).toHaveAttribute('data-popup-open'))
+    expect(first).not.toHaveAttribute('data-popup-open')
+  })
+
+  it('keeps the association stable when a delayed portal becomes available', () => {
+    const container = document.createElement('div')
+    document.body.append(container)
+    const fixture = (portalContainer: HTMLElement | null) => (
+      <Tooltip open type="label">
+        <Tooltip.Trigger aria-label="Close" />
+        <Tooltip.Content container={portalContainer} data-testid="popup">
+          Close
+        </Tooltip.Content>
+      </Tooltip>
+    )
+    const {rerender, unmount} = render(fixture(null))
+    try {
+      const trigger = screen.getByRole('button', {name: 'Close'})
+      const owner = trigger.getAttribute('data-tooltip-trigger')
+      expect(owner).toBeTruthy()
+      expect(screen.queryByTestId('popup')).not.toBeInTheDocument()
+
+      rerender(fixture(container))
+      expect(screen.getByTestId('popup').getAttribute('data-tooltip-popup')).toBe(owner)
+      expect(container).toContainElement(screen.getByTestId('popup'))
+    } finally {
+      unmount()
+      container.remove()
+    }
+  })
+
+  it('keeps the association stable when an unmounted popup reopens', async () => {
+    const fixture = (open: boolean) => (
+      <Tooltip open={open}>
+        <Tooltip.Trigger>Details</Tooltip.Trigger>
+        <Tooltip.Content data-testid="popup" keepMounted={false}>
+          Open details
+        </Tooltip.Content>
+      </Tooltip>
+    )
+    const {rerender} = render(fixture(true))
+    const trigger = screen.getByRole('button', {name: 'Details'})
+    const owner = trigger.getAttribute('data-tooltip-trigger')
+    expect(owner).toBeTruthy()
+    expect(screen.getByTestId('popup').getAttribute('data-tooltip-popup')).toBe(owner)
+    expect(trigger).toHaveAccessibleDescription('Open details')
+
+    rerender(fixture(false))
+    await waitFor(() => expect(screen.queryByTestId('popup')).not.toBeInTheDocument())
+    expect(trigger.getAttribute('data-tooltip-trigger')).toBe(owner)
+    expect(trigger).toHaveAccessibleDescription('Open details')
+
+    rerender(fixture(true))
+    expect((await screen.findByTestId('popup')).getAttribute('data-tooltip-popup')).toBe(owner)
+    expect(trigger).toHaveAccessibleDescription('Open details')
+  })
+
+  it('preserves the association when a popup is portaled into an open shadow root', () => {
+    const host = document.createElement('div')
+    document.body.append(host)
+    const shadowRoot = host.attachShadow({mode: 'open'})
+    const portalContainer = document.createElement('div')
+    shadowRoot.append(portalContainer)
+    const {unmount} = render(
+      <Tooltip open type="label">
+        <Tooltip.Trigger aria-label="Close" />
+        <Tooltip.Content container={portalContainer}>Close</Tooltip.Content>
+      </Tooltip>,
+    )
+    try {
+      const trigger = screen.getByRole('button', {name: 'Close'})
+      const owner = trigger.getAttribute('data-tooltip-trigger')
+      expect(owner).toBeTruthy()
+      expect(shadowRoot.querySelector('[data-tooltip-popup]')?.getAttribute('data-tooltip-popup')).toBe(owner)
+      expect(document.querySelector('[data-tooltip-popup]')).toBeNull()
+      expect(trigger).not.toHaveAttribute('aria-labelledby')
+    } finally {
+      unmount()
+      host.remove()
+    }
   })
 
   it('portals into the nearest BaseStyles so content inherits its theme and typography', async () => {
@@ -128,7 +502,7 @@ describe('Tooltip', () => {
     )
 
     expect(ref.current).toBe(screen.getByRole('link', {name: 'Save'}))
-    expect(screen.getByTestId('arrow')).toHaveClass('[--arrow-bg-color:var(--tooltip-bgColor)]', 'open')
+    expect(screen.getByTestId('arrow')).toHaveClass('primer:[--arrow-bg-color:var(--tooltip-bgColor)]', 'open')
     expect(screen.getByTestId('arrow').querySelector('svg')).toHaveAttribute('aria-hidden', 'true')
   })
 
@@ -212,6 +586,238 @@ describe('Tooltip', () => {
       )
       expect(screen.getByRole('button', {name: 'External label'})).toHaveAttribute('aria-labelledby', 'external-label')
     })
+
+    it('preserves a render callback label without discarding explicit trigger references', async () => {
+      const user = userEvent.setup()
+      const onClick = vi.fn()
+      const ref = React.createRef<HTMLElement>()
+      render(
+        <>
+          <span id="callback-name">Callback reference</span>
+          <Tooltip type="label" id="callback-tooltip" keybindingHint="Control+K">
+            <Tooltip.Trigger
+              ref={ref}
+              render={props => <button {...props} aria-label="Caller-owned name" onClick={onClick} type="button" />}
+            >
+              <svg aria-hidden="true" />
+            </Tooltip.Trigger>
+            <Tooltip.Content>Visual label</Tooltip.Content>
+          </Tooltip>
+          <Tooltip type="label" id="referenced-tooltip">
+            <Tooltip.Trigger
+              aria-labelledby="referenced-tooltip"
+              render={props => <button {...props} aria-label="Fallback name" type="button" />}
+            />
+            <Tooltip.Content>Explicit tooltip reference</Tooltip.Content>
+          </Tooltip>
+          <Tooltip type="label">
+            <Tooltip.Trigger
+              render={props => (
+                <button {...props} aria-label="Fallback name" aria-labelledby="callback-name" type="button" />
+              )}
+            />
+            <Tooltip.Content>Other visual label</Tooltip.Content>
+          </Tooltip>
+        </>,
+      )
+      const trigger = screen.getByRole('button', {name: 'Caller-owned name'})
+      expect(trigger).not.toHaveAttribute('aria-labelledby')
+      expect(trigger).toHaveAccessibleDescription('(control k)')
+      expect(ref.current).toBe(trigger)
+      await user.click(trigger)
+      expect(onClick).toHaveBeenCalledOnce()
+      expect(screen.getByRole('button', {name: 'Explicit tooltip reference'})).toHaveAttribute(
+        'aria-labelledby',
+        'referenced-tooltip',
+      )
+      expect(screen.getByRole('button', {name: 'Callback reference'})).toHaveAttribute(
+        'aria-labelledby',
+        'callback-name',
+      )
+    })
+
+    it('honors content names with hints for default and custom popup rendering', () => {
+      render(
+        <>
+          <span id="content-reference">Referenced content name</span>
+          <Tooltip type="label" keybindingHint="Control+K">
+            <Tooltip.Trigger>
+              <svg aria-hidden="true" />
+            </Tooltip.Trigger>
+            <Tooltip.Content aria-label="Contextual label">Visible label</Tooltip.Content>
+          </Tooltip>
+          <Tooltip type="label" keybindingHint="Control+K">
+            <Tooltip.Trigger>
+              <svg aria-hidden="true" />
+            </Tooltip.Trigger>
+            <Tooltip.Content aria-label="Fallback" render={<div aria-labelledby="content-reference" role="group" />}>
+              Visible label
+            </Tooltip.Content>
+          </Tooltip>
+          <Tooltip type="label" keybindingHint="Control+K">
+            <Tooltip.Trigger>
+              <svg aria-hidden="true" />
+            </Tooltip.Trigger>
+            <Tooltip.Content
+              aria-label="Fallback"
+              render={props => <div {...props} aria-label="Callback content name" />}
+            >
+              Visible label
+            </Tooltip.Content>
+          </Tooltip>
+        </>,
+      )
+      for (const name of ['Contextual label', 'Fallback', 'Callback content name']) {
+        const trigger = screen.getByRole('button', {name})
+        expect(trigger).toHaveAccessibleDescription('(control k)')
+        const text = document.getElementById(trigger.getAttribute('aria-labelledby') ?? '')
+        expect(text).toHaveAttribute('role', 'group')
+      }
+    })
+
+    it.each([
+      ['empty aria-label', {'aria-label': ''}],
+      ['whitespace aria-label', {'aria-label': '   '}],
+      ['empty aria-labelledby', {'aria-labelledby': ''}],
+      ['whitespace aria-labelledby', {'aria-labelledby': '   '}],
+    ])('uses the tooltip when the trigger has %s', (_, triggerProps) => {
+      render(
+        <Tooltip type="label" id="fallback-tooltip">
+          <Tooltip.Trigger {...triggerProps}>
+            <svg aria-hidden="true" />
+          </Tooltip.Trigger>
+          <Tooltip.Content aria-label="   ">Meaningful tooltip</Tooltip.Content>
+        </Tooltip>,
+      )
+      expect(screen.getByRole('button', {name: 'Meaningful tooltip'})).toHaveAttribute(
+        'aria-labelledby',
+        'fallback-tooltip',
+      )
+    })
+
+    it('uses the tooltip when rendered elements replace trigger names with whitespace', () => {
+      render(
+        <>
+          <Tooltip type="label">
+            <Tooltip.Trigger
+              aria-label="Overridden label"
+              render={<button aria-label=" " aria-labelledby=" " type="button" />}
+            />
+            <Tooltip.Content>Element fallback</Tooltip.Content>
+          </Tooltip>
+          <Tooltip type="label">
+            <Tooltip.Trigger
+              aria-label="Overridden label"
+              render={props => <button {...props} aria-label=" " type="button" />}
+            />
+            <Tooltip.Content>Callback fallback</Tooltip.Content>
+          </Tooltip>
+          <Tooltip type="label">
+            <Tooltip.Trigger render={props => <button {...props} aria-label=" " aria-labelledby=" " type="button" />} />
+            <Tooltip.Content>Callback reference fallback</Tooltip.Content>
+          </Tooltip>
+        </>,
+      )
+      for (const name of ['Element fallback', 'Callback fallback', 'Callback reference fallback']) {
+        expect(screen.getByRole('button', {name})).toHaveAttribute('aria-labelledby')
+      }
+    })
+
+    it('updates callback names without replacing the trigger or popup', () => {
+      const triggerRef = React.createRef<HTMLElement>()
+      const contentRef = React.createRef<HTMLDivElement>()
+      const fixture = (triggerName: string, contentName: string) => (
+        <Tooltip type="label" keybindingHint="Control+K">
+          <Tooltip.Trigger
+            ref={triggerRef}
+            render={props => <button {...props} aria-label={triggerName} type="button" />}
+          />
+          <Tooltip.Content ref={contentRef} render={props => <div {...props} aria-label={contentName} role="group" />}>
+            Visible label
+          </Tooltip.Content>
+        </Tooltip>
+      )
+      const {rerender} = render(fixture('Caller name', 'First content name'))
+      const trigger = screen.getByRole('button', {name: 'Caller name'})
+      const content = contentRef.current
+      expect(triggerRef.current).toBe(trigger)
+      expect(content).not.toBeNull()
+
+      rerender(fixture(' ', 'Second content name'))
+      expect(screen.getByRole('button', {name: 'Second content name'})).toBe(trigger)
+      expect(contentRef.current).toBe(content)
+
+      rerender(fixture('Another caller name', 'Third content name'))
+      expect(screen.getByRole('button', {name: 'Another caller name'})).toBe(trigger)
+      expect(contentRef.current).toBe(content)
+    })
+  })
+
+  it('includes the content name and shortcut in a description', () => {
+    render(
+      <Tooltip id="description-tooltip" keybindingHint="Control+K">
+        <Tooltip.Trigger>Search</Tooltip.Trigger>
+        <Tooltip.Content aria-label="Search all repositories">Search</Tooltip.Content>
+      </Tooltip>,
+    )
+    expect(screen.getByRole('button', {name: 'Search'})).toHaveAttribute('aria-describedby', 'description-tooltip')
+    const description = document.getElementById('description-tooltip')
+    expect(description).toHaveAttribute('aria-label', 'Search all repositories (control k)')
+    expect(description).toHaveTextContent('Search (control k)')
+  })
+
+  it.each<[string, Pick<React.AriaAttributes, 'aria-label' | 'aria-labelledby'>]>([
+    ['aria-label', {'aria-label': 'Search all repositories'}],
+    ['aria-labelledby', {'aria-labelledby': 'tooltip-description-name'}],
+    ['both content names', {'aria-label': 'Search all repositories', 'aria-labelledby': 'tooltip-description-name'}],
+  ])('preserves %s and a shortcut in a description through hydration', async (_, contentProps) => {
+    const element = (
+      <>
+        <span id="tooltip-description-name">Search all projects</span>
+        <Tooltip id="server-description-tooltip" keybindingHint="Control+K">
+          <Tooltip.Trigger>Search</Tooltip.Trigger>
+          <Tooltip.Content {...contentProps}>Search</Tooltip.Content>
+        </Tooltip>
+      </>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(element)
+    document.body.append(container)
+    const recoverableErrors: unknown[] = []
+    let root: ReturnType<typeof hydrateRoot> | undefined
+    const expectReference = () => {
+      expect(container.querySelector('button')).toHaveAttribute('aria-describedby', 'server-description-tooltip')
+      const targets = document.querySelectorAll('#server-description-tooltip')
+      expect(targets).toHaveLength(1)
+      const text =
+        contentProps['aria-label'] !== undefined && contentProps['aria-labelledby'] === undefined
+          ? targets[0]
+          : targets[0].querySelector('[role="group"]')
+      if (contentProps['aria-label'] !== undefined) {
+        expect(text).toHaveAttribute(
+          'aria-label',
+          contentProps['aria-labelledby'] === undefined
+            ? `${contentProps['aria-label']} (control k)`
+            : contentProps['aria-label'],
+        )
+      }
+      if (contentProps['aria-labelledby'] !== undefined) {
+        expect(text).toHaveAttribute('aria-labelledby', contentProps['aria-labelledby'])
+      }
+      expect(text).toHaveTextContent('Search')
+      expect(targets[0]).toHaveTextContent('Search (control k)')
+    }
+    try {
+      expectReference()
+      await act(async () => {
+        root = hydrateRoot(container, element, {onRecoverableError: error => recoverableErrors.push(error)})
+      })
+      expectReference()
+      expect(recoverableErrors).toEqual([])
+    } finally {
+      await act(async () => root?.unmount())
+      container.remove()
+    }
   })
 
   it('uses a custom id for the tooltip text so other elements can reference it', () => {
@@ -255,6 +861,7 @@ describe('Tooltip', () => {
     const trigger = screen.getByRole('button', {name: 'Save'})
     expect(trigger).not.toHaveAttribute('aria-describedby')
     expect(trigger).not.toHaveAttribute('aria-labelledby')
+    expect(trigger).not.toHaveAttribute('data-tooltip-trigger')
     expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument()
   })
 

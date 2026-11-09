@@ -2,6 +2,8 @@ import {mkdir, readFile, writeFile} from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import glob from 'fast-glob'
+import {format, resolveConfig} from 'prettier'
+import {readComponentGuide} from './component-guide.mjs'
 
 const packageRoot = path.resolve(import.meta.dirname, '..')
 let outputRoot = packageRoot
@@ -28,27 +30,50 @@ function readIntent(source, name) {
 function readMigrationNotes(source) {
   const section = /^## Migration notes\n\n([\s\S]*?)(?=^## |(?![\s\S]))/m.exec(source)
   if (!section) return []
-  return section[1]
-    .split('\n')
-    .filter(line => line.startsWith('- '))
-    .map(line => line.slice(2).trim())
+  // A note keeps its indented continuation blocks (tables, code, nested lists) so nothing it refers to is dropped.
+  const notes = []
+  for (const line of section[1].split('\n')) {
+    if (line.startsWith('- ')) notes.push([line.slice(2).trim()])
+    else if (notes.length > 0 && (line.startsWith('  ') || line.trim() === '')) notes.at(-1).push(line.trimEnd())
+  }
+  return notes.map(note => note.join('\n').trimEnd())
 }
 
 const inventory = JSON.parse(await readFile(path.join(packageRoot, 'api-inventory.json'), 'utf8'))
-const {version} = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8'))
+const metadata = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8'))
+const {version} = metadata
 const agents = await readFile(path.join(packageRoot, 'AGENTS.md'), 'utf8')
 
-const componentDirectories = (await glob('src/components/*/README.mdx', {cwd: packageRoot, absolute: true})).sort(
+const componentDirectories = (await glob('src/components/*/index.ts', {cwd: packageRoot, absolute: true})).sort(
   (first, second) => first.localeCompare(second),
 )
 
 const problems = []
 const components = []
 
-for (const readmePath of componentDirectories) {
-  const directory = path.dirname(readmePath)
+for (const file of ['AGENTS.md', 'llms.txt', 'llms/*.md', 'api-inventory.json', 'api-inventory.schema.json']) {
+  if (metadata.exports?.[`./${file}`] !== `./${file}`) {
+    problems.push(`package.json must explicitly export "./${file}" as "./${file}" for documentation retrieval.`)
+  }
+  if (!metadata.files?.includes(file.split('/')[0])) {
+    problems.push(`package.json files must include "${file.split('/')[0]}" for documentation delivery.`)
+  }
+}
+
+for (const entryPath of componentDirectories) {
+  const directory = path.dirname(entryPath)
   const name = path.basename(directory)
-  const readme = await readFile(readmePath, 'utf8')
+  const sources = {}
+  for (const file of ['README.mdx', 'ALIGNMENT.md', `${name}.docs.json`]) {
+    try {
+      sources[file] = await readFile(path.join(directory, file), 'utf8')
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error
+      problems.push(`${name}: missing ${file}. Every public component directory needs consumer guidance.`)
+    }
+  }
+  if (Object.keys(sources).length !== 3) continue
+  const readme = sources['README.mdx']
   const intent = readIntent(readme, name)
 
   if (!intent) {
@@ -61,10 +86,52 @@ for (const readmePath of componentDirectories) {
     continue
   }
 
-  const alignment = await readFile(path.join(directory, 'ALIGNMENT.md'), 'utf8')
-  const docsPath = path.join(directory, `${name}.docs.json`)
-  const docs = JSON.parse(await readFile(docsPath, 'utf8'))
-  components.push({name, intent, notes: readMigrationNotes(alignment), docs})
+  const alignment = sources['ALIGNMENT.md']
+  const docs = JSON.parse(sources[`${name}.docs.json`])
+  components.push({
+    name,
+    intent,
+    guide: readComponentGuide(readme, name, problems),
+    notes: readMigrationNotes(alignment),
+    docs,
+  })
+}
+
+const themeGuide = await readFile(path.join(packageRoot, 'src/docs/ThemeProvider/GUIDE.md'), 'utf8')
+const themeIntent = readIntent(themeGuide, 'ThemeProvider and useTheme')
+if (!themeIntent) {
+  problems.push('ThemeProvider: GUIDE.md has no intent paragraph directly after its heading.')
+}
+
+const baseStylesReadme = await readFile(path.join(packageRoot, 'src/docs/BaseStyles/README.mdx'), 'utf8')
+const baseStylesIntent = readIntent(baseStylesReadme, 'BaseStyles')
+if (!baseStylesIntent) problems.push('BaseStyles: README.mdx has no intent paragraph directly after its heading.')
+const baseStylesSections = readComponentGuide(baseStylesReadme, 'BaseStyles', problems)
+const baseStylesGuide = [
+  '# BaseStyles',
+  '',
+  baseStylesIntent,
+  '',
+  "Import: `import {BaseStyles} from '@primer/react-tailwind'`. There is no supported BaseStyles component subpath.",
+  '',
+  'Read [package guidance](../AGENTS.md) for shared setup and styling contracts.',
+  '',
+  ...baseStylesSections.flatMap(({heading, text}) => [`## ${heading}`, '', text, '']),
+].join('\n')
+
+const documentedExports = new Set([
+  'BaseStyles',
+  'ThemeProvider',
+  ...components.flatMap(({name, docs}) => docs.exports ?? [name]),
+])
+for (const entry of inventory.included ?? []) {
+  if (
+    entry.rootExport !== false &&
+    ['component', 'provider'].includes(entry.kind) &&
+    !documentedExports.has(entry.name)
+  ) {
+    problems.push(`${entry.name}: public ${entry.kind} has no installed component or foundation guide.`)
+  }
 }
 
 if (problems.length > 0) {
@@ -73,7 +140,7 @@ if (problems.length > 0) {
   process.exit(1)
 }
 
-// AGENTS.md is the authored guidance; llms.txt republishes it with a generated component index.
+// AGENTS.md is the authored guidance; llms.txt republishes it with component and foundation indexes.
 const guidance = agents.replace(/^# .*\n\n/, '').trimEnd()
 
 /** Renders one prop row, keeping the table narrow enough to stay readable as plain text. */
@@ -101,7 +168,7 @@ function passthroughLine({element, url}) {
   return `Renders ${article} [\`<${element}>\`](${url}) and forwards unrecognized props to it, so it also accepts that element's native attributes.`
 }
 
-function renderComponent({name, intent, notes, docs}) {
+function renderComponent({name, intent, guide, notes, docs}) {
   const imports = (docs?.exports ?? [name]).join(', ')
   const lines = [
     `# ${name}`,
@@ -110,7 +177,13 @@ function renderComponent({name, intent, notes, docs}) {
     '',
     `Import: \`import {${imports}} from '@primer/react-tailwind/${name}'\``,
     '',
+    'Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.',
+    '',
   ]
+
+  for (const section of guide) {
+    lines.push(`## ${section.heading}`, '', section.text, '')
+  }
 
   if (docs?.passthrough) lines.push(passthroughLine(docs.passthrough), '')
 
@@ -130,11 +203,10 @@ function renderComponent({name, intent, notes, docs}) {
     lines.push('## Differences from `@primer/react`', '', ...notes.map(note => `- ${note}`), '')
   }
 
-  // Trimmed so generated output already matches Prettier and check:llms cannot fight format:diff.
   return `${lines.join('\n').trimEnd()}\n`
 }
 
-// llms.txt stays an index so an agent can load guidance plus one component, not all of them.
+// llms.txt stays an index so an agent can load guidance plus one focused guide, not all of them.
 const lines = [
   `# @primer/react-tailwind ${version}`,
   '',
@@ -142,9 +214,14 @@ const lines = [
   '',
   guidance,
   '',
+  '## Foundations',
+  '',
+  `- [BaseStyles](llms/BaseStyles.md): ${baseStylesIntent}`,
+  `- [ThemeProvider and useTheme](llms/ThemeProvider.md): ${themeIntent}`,
+  '',
   '## Components',
   '',
-  'Each component has a detail file with its props and migration notes. Load only the ones you need.',
+  'Each component has a detail file with usage examples, composition and state contracts, props, accessibility guidance, and migration notes. Load only the ones you need.',
   '',
   ...components.map(({name, intent}) => `- [${name}](llms/${name}.md): ${intent}`),
   '',
@@ -154,9 +231,18 @@ const lines = [
   '',
 ]
 
+// Detail files are formatted here so check:llms and format:diff agree, including on copied tables.
+const prettierOptions = {...(await resolveConfig(path.join(packageRoot, 'llms/index.md'))), parser: 'markdown'}
 const files = new Map([
   ['llms.txt', `${lines.join('\n')}\n`],
-  ...components.map(component => [`llms/${component.name}.md`, renderComponent(component)]),
+  ['llms/BaseStyles.md', await format(baseStylesGuide, prettierOptions)],
+  ['llms/ThemeProvider.md', await format(themeGuide, prettierOptions)],
+  ...(await Promise.all(
+    components.map(async component => [
+      `llms/${component.name}.md`,
+      await format(renderComponent(component), prettierOptions),
+    ]),
+  )),
 ])
 
 if (checkOnly) {
@@ -185,7 +271,7 @@ if (checkOnly) {
     process.exitCode = 1
   } else {
     // eslint-disable-next-line no-console
-    console.log(`llms.txt and ${components.length} component files are up to date.`)
+    console.log(`llms.txt, ${components.length} component files, and 2 foundation guides are up to date.`)
   }
 } else {
   await mkdir(path.join(outputRoot, 'llms'), {recursive: true})
@@ -193,5 +279,5 @@ if (checkOnly) {
     await writeFile(path.join(outputRoot, file), content)
   }
   // eslint-disable-next-line no-console
-  console.log(`Generated llms.txt index and ${components.length} component files.`)
+  console.log(`Generated llms.txt index, ${components.length} component files, and 2 foundation guides.`)
 }

@@ -7,20 +7,24 @@ import {Button} from '../Button'
 import {Link} from '../Link'
 import {LinkButton} from '../LinkButton'
 
-const blankslate = cva('grid justify-items-center p-8 text-center', {
+const blankslate = cva('primer:grid primer:justify-items-center primer:p-8 primer:text-center', {
   variants: {
     size: {
-      small: 'p-4',
-      medium: 'p-8 @max-[34rem]:p-5',
-      large: 'p-8 @max-[34rem]:p-5',
+      small: 'primer:p-4',
+      medium: 'primer:p-8 primer:@max-[34rem]:p-5',
+      large: 'primer:p-8 primer:@max-[34rem]:p-5',
     },
-    border: {true: 'rounded-md border border-default', false: ''},
-    narrow: {true: 'mx-auto max-w-[485px]', false: ''},
+    border: {true: 'primer:rounded-md primer:border-thin primer:border-default', false: ''},
+    narrow: {true: 'primer:mx-auto primer:max-w-[485px]', false: ''},
     spacious: {true: '', false: ''},
   },
   compoundVariants: [
-    {size: 'small', spacious: true, className: 'px-7 py-11'},
-    {size: ['medium', 'large'], spacious: true, className: 'px-10 py-20 @max-[34rem]:px-7 @max-[34rem]:py-11'},
+    {size: 'small', spacious: true, className: 'primer:px-7 primer:py-11'},
+    {
+      size: ['medium', 'large'],
+      spacious: true,
+      className: 'primer:px-10 primer:py-20 primer:@max-[34rem]:px-7 primer:@max-[34rem]:py-11',
+    },
   ],
   defaultVariants: {size: 'medium', border: false, narrow: false, spacious: false},
 })
@@ -41,7 +45,7 @@ export const Blankslate = React.forwardRef<HTMLDivElement, BlankslateProps>(func
 ) {
   return (
     <BlankslateSizeContext.Provider value={size}>
-      <div className="@container" data-component="Blankslate.Container">
+      <div className="primer:@container" data-component="Blankslate.Container">
         <div
           {...rest}
           ref={ref}
@@ -65,8 +69,8 @@ export const BlankslateVisual = React.forwardRef<HTMLSpanElement, React.Componen
         ref={ref}
         aria-hidden="true"
         className={cn(
-          'mb-2 inline-flex text-muted [&_svg]:w-full',
-          size === 'small' ? 'max-w-6' : 'max-w-8 @max-[34rem]:max-w-6',
+          'primer:mb-2 primer:inline-flex primer:text-muted primer:[&_svg]:w-full',
+          size === 'small' ? 'primer:max-w-6' : 'primer:max-w-8 primer:@max-[34rem]:max-w-6',
           className,
         )}
         data-component="Blankslate.Visual"
@@ -84,12 +88,12 @@ export function BlankslateHeading({as: Heading = 'h2', className, ...rest}: Blan
     <Heading
       {...rest}
       className={cn(
-        'm-0 mb-1 text-center text-balance font-semibold',
+        'primer:m-0 primer:mb-1 primer:text-center primer:text-balance primer:font-semibold',
         size === 'large'
-          ? 'mt-2 text-title-large @max-[34rem]:mt-0 @max-[34rem]:text-title-small'
+          ? 'primer:mt-2 primer:text-title-large primer:@max-[34rem]:mt-0 primer:@max-[34rem]:text-title-small'
           : size === 'medium'
-            ? 'text-title-medium @max-[34rem]:text-title-small'
-            : 'text-title-small',
+            ? 'primer:text-title-medium primer:@max-[34rem]:text-title-small'
+            : 'primer:text-title-small',
         className,
       )}
       data-component="Blankslate.Heading"
@@ -104,12 +108,12 @@ export const BlankslateDescription = React.forwardRef<HTMLParagraphElement, Reac
         {...rest}
         ref={ref}
         className={cn(
-          'm-0 text-center text-balance [color:var(--fgColor-muted)]',
+          'primer:m-0 primer:text-center primer:text-balance primer:[color:var(--fgColor-muted)]',
           size === 'small'
-            ? 'text-body-medium'
+            ? 'primer:text-body-medium'
             : size === 'large'
-              ? 'mb-2 text-body-large @max-[34rem]:text-body-medium'
-              : 'text-body-large @max-[34rem]:text-body-medium',
+              ? 'primer:mb-2 primer:text-body-large primer:@max-[34rem]:text-body-medium'
+              : 'primer:text-body-large primer:@max-[34rem]:text-body-medium',
           className,
         )}
         data-component="Blankslate.Description"
@@ -127,10 +131,10 @@ export function BlankslatePrimaryAction({children, className, href, ...rest}: Pr
   return (
     <div
       className={cn(
-        'mt-4 @max-[34rem]:mt-2 @max-[34rem]:first-of-type:mt-4 @max-[34rem]:last-of-type:mb-1',
+        'primer:mt-4 primer:@max-[34rem]:mt-2 primer:@max-[34rem]:first-of-type:mt-4 primer:@max-[34rem]:last-of-type:mb-1',
         size === 'small'
-          ? 'text-body-medium last-of-type:mb-3'
-          : 'text-body-large last-of-type:mb-4 @max-[34rem]:text-body-medium',
+          ? 'primer:text-body-medium primer:last-of-type:mb-3'
+          : 'primer:text-body-large primer:last-of-type:mb-4 primer:@max-[34rem]:text-body-medium',
       )}
       data-component="Blankslate.PrimaryAction"
     >
@@ -167,10 +171,10 @@ export function BlankslateSecondaryAction({
   return (
     <div
       className={cn(
-        'mt-4 @max-[34rem]:mt-2 @max-[34rem]:first-of-type:mt-4 @max-[34rem]:last-of-type:mb-1',
+        'primer:mt-4 primer:@max-[34rem]:mt-2 primer:@max-[34rem]:first-of-type:mt-4 primer:@max-[34rem]:last-of-type:mb-1',
         size === 'small'
-          ? 'text-body-medium last-of-type:mb-3'
-          : 'text-body-large last-of-type:mb-4 @max-[34rem]:text-body-medium',
+          ? 'primer:text-body-medium primer:last-of-type:mb-3'
+          : 'primer:text-body-large primer:last-of-type:mb-4 primer:@max-[34rem]:text-body-medium',
       )}
       data-component="Blankslate.SecondaryAction"
     >

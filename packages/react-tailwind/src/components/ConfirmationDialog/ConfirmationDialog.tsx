@@ -3,23 +3,34 @@
 import {Dialog as AlertDialog} from '@base-ui/react/dialog'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {DialogModalContext} from '../../internal/dialogModalContext'
+import {DialogModalRoot} from '../../internal/DialogModalRoot'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {mergeStyle} from '../../internal/mergeStyle'
 import {Button, type ButtonProps} from '../Button'
 import {getDialogSize, type DialogHeight, type DialogWidth} from '../Dialog/dialogLayout'
-import {usePortalContainer} from '../../internal/portalRoot'
+import {
+  FloatingPortalParentContext,
+  NestedModalLayerContext,
+  useFloatingPortalContainer,
+} from '../../internal/portalRoot'
 import {useFocusZone} from '../../internal/useFocusZone'
 
 const popupClassName =
-  'flex flex-col overflow-hidden rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
+  'primer:flex primer:flex-col primer:overflow-x-hidden primer:overflow-y-auto primer:rounded-lg primer:bg-[var(--overlay-bgColor)] primer:text-default primer:shadow-floating-sm primer:outline-none primer:contrast-more:border-current primer:data-[closed]:hidden primer:data-[starting-style]:opacity-0 primer:data-[ending-style]:opacity-0 primer:motion-safe:transition primer:motion-safe:duration-200 primer:motion-reduce:transition-none'
 
-const Root = AlertDialog.Root
+function Root<Payload>(props: AlertDialog.Root.Props<Payload>) {
+  return <DialogModalRoot {...props} />
+}
 
 function Portal({children, container, ...rest}: AlertDialog.Portal.Props) {
-  const portalContainer = usePortalContainer(container)
+  const nested = React.useContext(FloatingPortalParentContext)
+  const portalContainer = useFloatingPortalContainer(container)
   return (
     <AlertDialog.Portal {...rest} container={portalContainer}>
-      {children}
+      <NestedModalLayerContext.Provider value={nested}>
+        <FloatingPortalParentContext.Provider value>{children}</FloatingPortalParentContext.Provider>
+      </NestedModalLayerContext.Provider>
     </AlertDialog.Portal>
   )
 }
@@ -39,12 +50,18 @@ const Trigger = React.forwardRef<HTMLElement, Omit<AlertDialog.Trigger.Props, 'd
 
 const Backdrop = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Backdrop.Props, 'data-component'>>(
   function ConfirmationDialogBackdrop({className, ...rest}, ref) {
+    const nested = React.useContext(NestedModalLayerContext)
+    const modal = React.useContext(DialogModalContext)
     return (
       <AlertDialog.Backdrop
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'fixed inset-0 z-modal bg-[var(--overlay-backdrop-bgColor)] contrast-more:bg-neutral-emphasis data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition-opacity motion-safe:duration-200 motion-reduce:transition-none',
+          cn(
+            'primer:fixed primer:inset-0 primer:bg-[var(--overlay-backdrop-bgColor)] primer:contrast-more:bg-neutral-emphasis primer:data-[starting-style]:opacity-0 primer:data-[ending-style]:opacity-0 primer:motion-safe:transition-opacity primer:motion-safe:duration-200 primer:motion-reduce:transition-none',
+            nested ? 'primer:z-popover' : 'primer:z-modal',
+            modal !== undefined && modal !== true && 'primer:pointer-events-none',
+          ),
           className,
         )}
         data-component="ConfirmationDialog.Backdrop"
@@ -55,12 +72,18 @@ const Backdrop = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Backdrop.Prop
 
 const Viewport = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Viewport.Props, 'data-component'>>(
   function ConfirmationDialogViewport({className, ...rest}, ref) {
+    const nested = React.useContext(NestedModalLayerContext)
+    const modal = React.useContext(DialogModalContext)
     return (
       <AlertDialog.Viewport
         {...rest}
         ref={ref}
         className={mergeClassName(
-          'fixed inset-0 z-modal flex items-center justify-center overflow-y-auto p-8',
+          cn(
+            'primer:fixed primer:inset-0 primer:flex primer:items-center primer:justify-center primer:overflow-y-auto primer:p-8',
+            nested ? 'primer:z-popover' : 'primer:z-modal',
+            modal !== undefined && modal !== true && 'primer:pointer-events-none',
+          ),
           className,
         )}
         data-component="ConfirmationDialog.Viewport"
@@ -86,14 +109,19 @@ const Content = React.forwardRef<HTMLDivElement, ConfirmationDialogContentProps>
   {className, height = 'auto', role = 'alertdialog', style, width = 'medium', ...rest},
   ref,
 ) {
+  const modal = React.useContext(DialogModalContext)
   const size = getDialogSize({height, width})
   return (
     <AlertDialog.Popup
+      {...(modal === true && (role === 'alertdialog' || role === 'dialog') ? {'aria-modal': true} : {})}
       {...rest}
       {...size.dataAttributes}
       ref={ref}
       role={role}
-      className={mergeClassName(cn(popupClassName, size.className), className)}
+      className={mergeClassName(
+        cn(popupClassName, size.className, modal !== undefined && modal !== true && 'primer:pointer-events-auto'),
+        className,
+      )}
       style={mergeStyle(style, size.style)}
       data-component="ConfirmationDialog.Content"
     />
@@ -106,7 +134,10 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<AlertDialog.Title.Props,
       <AlertDialog.Title
         {...rest}
         ref={ref}
-        className={mergeClassName('text-sm font-semibold text-default', className)}
+        className={mergeClassName(
+          'primer:break-words primer:text-sm primer:font-semibold primer:text-default',
+          className,
+        )}
         data-component="ConfirmationDialog.Title"
       />
     )
@@ -119,7 +150,7 @@ const Description = React.forwardRef<HTMLParagraphElement, Omit<AlertDialog.Desc
       <AlertDialog.Description
         {...rest}
         ref={ref}
-        className={mergeClassName('mt-1 text-sm text-muted', className)}
+        className={mergeClassName('primer:mt-1 primer:text-sm primer:text-muted', className)}
         data-component="ConfirmationDialog.Description"
       />
     )
@@ -200,6 +231,7 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
     finalFocus,
     height,
     initialFocus,
+    modal = true,
     onCancel,
     onConfirm,
     onOpenChange,
@@ -235,20 +267,20 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
   }
 
   return (
-    <Root {...rootProps} onOpenChange={handleOpenChange}>
+    <Root {...rootProps} modal={modal} onOpenChange={handleOpenChange}>
       {trigger && <Trigger render={trigger} />}
       <Portal>
         <Backdrop />
         <Viewport>
           <Content ref={ref} initialFocus={popupInitialFocus} finalFocus={finalFocus} height={height} width={width}>
-            <div className="p-4" data-component="ConfirmationDialog.Body">
+            <div className="primer:p-4" data-component="ConfirmationDialog.Body">
               <Title>{title}</Title>
               {description && <Description>{description}</Description>}
-              {children && <div className="mt-4">{children}</div>}
+              {children && <div className="primer:mt-4">{children}</div>}
             </div>
             <div
               ref={footerRef}
-              className="flex flex-wrap justify-end gap-2 p-4"
+              className="primer:flex primer:flex-wrap primer:justify-end primer:gap-2 primer:p-4"
               data-component="ConfirmationDialog.Footer"
             >
               <Close
@@ -256,6 +288,7 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
                   <Button
                     ref={cancelRef}
                     disabled={cancelButtonDisabled}
+                    labelWrap
                     loading={cancelButtonLoading}
                     onClick={onCancel}
                     data-component="ConfirmationDialog.Cancel"
@@ -269,6 +302,7 @@ const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDi
                   <Button
                     ref={confirmRef}
                     disabled={confirmButtonDisabled}
+                    labelWrap
                     loading={confirmButtonLoading}
                     onClick={onConfirm}
                     variant={dangerous ? 'danger' : 'primary'}

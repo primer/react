@@ -30,8 +30,27 @@ import {NavList} from '@primer/react-tailwind/NavList'
 
 Use `NavList.SubNav.Trigger` and `NavList.SubNav.Panel` for expandable sections. Compose item metadata with `LeadingVisual`, `TrailingVisual`, and `Description`; use `TrailingAction` for a secondary interactive action that must remain outside the primary link. Give the navigation an accessible name, or include `NavList.Heading` to name it automatically, and preserve `aria-current` on the current destination.
 
-Pass a router link component with `as` and its destination with `to`. Use `tooltipText` for supplementary text shown in a tooltip on hover or focus. `NavList.GroupExpand` reveals more `items` behind a "Show more" button, optionally across `pages`, and focuses the first revealed item; pass `renderItem` to render each item yourself. When the `primer_react_action_list_item_gap` feature flag is on, items are separated by a small gap; pass `disableItemGap` to opt out.
+Legacy `<NavList.Item defaultOpen><NavList.SubNav>…</NavList.SubNav></NavList.Item>` is a breaking composition change: replace the parent item with `NavList.SubNav defaultOpen`, move its label into `NavList.SubNav.Trigger`, and move its destinations into `NavList.SubNav.Panel`. The [before/after migration example](./ALIGNMENT.md#migration-notes) shows the complete replacement. The trigger is a disclosure button, not another navigation item or link.
+
+An item's `Description` is exposed as an accessible description. When present, it causes the component to generate a name from the primary label and trailing visual. Explicit `aria-label` and `aria-labelledby` names and additional `aria-describedby` references are preserved. Pass a wrapped description through the `description` region.
+
+Long labels and trailing text wrap within the available navigation width; inline descriptions can move below the label. Custom fixed-size or non-wrapping content must provide its own responsive layout.
+
+`LeadingVisual` is not automatically hidden from assistive technology. Without an explicit name or an associated `Description`, text inside it can become part of the link's name; an associated `Description` causes the generated name to reference the primary label and trailing visual instead. For status that belongs in the description, hide the decorative visual from assistive technology and reference separate status text with `aria-describedby`, or use a `Description`. Verify the resulting name and description in the target experience.
+
+Use `NavList.GroupHeading as="h2"` (or another appropriate heading level) to fit a group into the page outline. By default, a group heading is one level below `NavList.Heading`, or `h3` when there is no navigation heading. Add `NavList.GroupHeading.TrailingAction` for an action beside, rather than inside, the heading. Use `NavList.Divider` to separate entries or groups; pass `hideDivider` to a following group when providing the divider yourself.
+
+For a custom heading wrapper, pass it through the group's `heading` prop and forward the supplied `id` to `NavList.GroupHeading` so the group list remains named. A group wrapper may return `NavList.Group` directly or in a fragment, including alongside a divider; do not add another `li` around the group.
+
+Pass a router link component with `as` and its required destination and options, such as `to`, `preload`, or `reloadDocument`. Props and refs follow the selected component, which must forward them to its interactive element. For intentional hard navigation, use a native item with `href`. Use `tooltipText` for supplementary text shown in a tooltip on hover or focus. `NavList.GroupExpand` reveals more `items` behind a "Show more" button, optionally across `pages`, and focuses the first revealed item; pass `renderItem` to render each item yourself. When the `primer_react_action_list_item_gap` feature flag is on, items are separated by a small gap; pass `disableItemGap` to opt out.
+
+For a typed wrapper, use `NavListItemProps<typeof RouterLink>` to include the router's props. Unparameterized `NavListItemProps` and `React.ComponentProps<typeof NavList.Item>` retain the legacy anchor-shaped props and broadly typed `as`.
+
+For an action rather than navigation, `NavList.Item as="button"` renders a native button. Pass `type="button"` for an action that must not submit a surrounding form; without a type, native button submission behavior applies.
+
+Items marked with `inactiveText` or `aria-disabled` remain focusable but suppress click and auxiliary-click activation. `inactiveText` is also exposed as a description. These items retain their destination, so browser context-menu navigation remains available.
 
 <Canvas of={Features.WithSubItems} />
+<Canvas of={Features.WithWrappedGroups} />
 <Canvas of={Features.WithGroupExpand} />
 <Canvas of={Examples.SettingsNavigation} />

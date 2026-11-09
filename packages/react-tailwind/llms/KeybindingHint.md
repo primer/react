@@ -4,6 +4,37 @@
 
 Import: `import {KeybindingHint} from '@primer/react-tailwind/KeybindingHint'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Import and usage
+
+```tsx
+import {KeybindingHint} from '@primer/react-tailwind/KeybindingHint'
+;<KeybindingHint keys="Mod+k g" format="full" />
+```
+
+Separate chords with spaces. Use `+` inside a chord for simultaneous keys.
+
+## Composition
+
+Place the hint beside the action it describes, such as a button or action-list item. Use `format="full"` when the shortcut needs maximum clarity; use `condensed` in dense controls.
+
+## Accessibility
+
+The component renders a `kbd` element. Sequence separators include visually hidden “then” text, while the visible plus signs are hidden from assistive technology. Keep the action's visible label separate so the shortcut is not its only accessible name.
+
+## Animation and reduced motion
+
+`KeybindingHint` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Use `variant` for the intended text context and `className` for local alignment. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; the component does not provide a theme-extension prop.
+
+### Data attributes
+
+The root exposes `data-component="KeybindingHint"` and the stable `data-testid="keybinding-hint"`.
+
 ## Props
 
 - `className`: `string`

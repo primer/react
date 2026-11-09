@@ -10,18 +10,23 @@ import {joinIdRefs} from '../../internal/idRefs'
 import {useFormControlForwardedProps, useFormControlValidationStatus} from '../FormControl/useFormControlForwardedProps'
 
 const textareaVariants = cva(
-  'block m-0 appearance-none rounded-md border border-[var(--control-borderColor-rest)] bg-default p-3 text-sm [line-height:normal] text-default shadow-[var(--shadow-inset)] placeholder:text-muted disabled:cursor-not-allowed disabled:resize-none disabled:border-[var(--control-borderColor-disabled)] disabled:bg-[var(--control-bgColor-disabled)] disabled:text-disabled disabled:shadow-none focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-[var(--borderColor-accent-emphasis)] data-[validation=success]:border-[var(--bgColor-success-emphasis)] aria-invalid:border-danger-emphasis aria-invalid:focus:border-[var(--control-borderColor-danger)] aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
+  'primer:block primer:m-0 primer:appearance-none primer:rounded-md primer:border-thin primer:border-[var(--control-borderColor-rest)] primer:bg-default primer:p-3 primer:text-sm primer:[line-height:normal] primer:text-default primer:shadow-[var(--shadow-inset)] primer:placeholder:text-muted primer:disabled:cursor-not-allowed primer:disabled:resize-none primer:disabled:border-[var(--control-borderColor-disabled)] primer:disabled:bg-[var(--control-bgColor-disabled)] primer:disabled:text-disabled primer:disabled:shadow-none primer:focus:border-accent-emphasis primer:focus:outline-2 primer:focus:outline-offset-[-1px] primer:focus:outline-[var(--borderColor-accent-emphasis)] primer:data-[validation=success]:border-[var(--bgColor-success-emphasis)] primer:aria-invalid:border-danger-emphasis primer:aria-invalid:focus:border-[var(--control-borderColor-danger)] primer:aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
   {
     variants: {
-      autoSize: {true: '[field-sizing:content]', false: ''},
-      block: {true: 'w-full', false: ''},
-      resize: {none: 'resize-none', vertical: 'resize-y', horizontal: 'resize-x', both: 'resize'},
+      autoSize: {true: 'primer:[field-sizing:content]', false: ''},
+      block: {true: 'primer:w-full', false: ''},
+      resize: {
+        none: 'primer:resize-none',
+        vertical: 'primer:resize-y',
+        horizontal: 'primer:resize-x',
+        both: 'primer:resize',
+      },
     },
     defaultVariants: {autoSize: false, block: false, resize: 'both'},
   },
 )
 
-// Primer measures min/max height inside the control border (its wrapper owns the border), so add our 1px `border` on both edges.
+// Primer measures min/max height inside the control border (its wrapper owns the border), so add our thin border on both edges.
 const withBorder = (size: number | undefined) => (size === undefined ? undefined : size + 2)
 
 export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'data-component'> {

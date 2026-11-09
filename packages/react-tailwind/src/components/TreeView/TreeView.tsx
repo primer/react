@@ -122,6 +122,8 @@ type TreeStore = ReturnType<typeof createTreeStore>
 type TreeViewContextValue = {
   announce: (message: string) => void
   flat: boolean
+  linkTree: boolean
+  showGuides: boolean
   store: TreeStore
   truncate: boolean
 }
@@ -166,21 +168,46 @@ const TYPEAHEAD_RESET_MS = 300
 // ----------------------------------------------------------------------------
 // TreeView
 
-export interface TreeViewProps extends Omit<React.ComponentPropsWithoutRef<'ul'>, 'data-component'> {
-  /** Removes the indentation guides, for a tree that is only one level deep. */
+interface TreeViewSharedProps {
+  /** Removes indentation and expansion toggles, for a tree that is only one level deep. */
   flat?: boolean
+  /** Shows indentation guides without changing the nesting or expansion controls. */
+  showGuides?: boolean
   /** Clips long item labels to one line instead of wrapping them. */
   truncate?: boolean
 }
 
-const Root = React.forwardRef<HTMLUListElement, TreeViewProps>(function TreeView(
-  {children, className, flat = false, truncate = true, onBlur, onFocus, onKeyDown, ...props},
-  ref,
-) {
+export interface TreeViewProps
+  extends Omit<React.ComponentPropsWithoutRef<'ul'>, 'data-component'>,
+    TreeViewSharedProps {}
+
+export interface TreeViewLinkTreeProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'data-component'>,
+    TreeViewSharedProps {}
+
+interface TreeViewRootImplementationProps extends React.HTMLAttributes<HTMLElement>, TreeViewSharedProps {
+  element: 'ul' | 'div'
+  forwardedRef: React.Ref<HTMLElement>
+}
+
+function TreeViewRootImplementation({
+  children,
+  className,
+  element: Tag,
+  flat = false,
+  forwardedRef,
+  showGuides = true,
+  truncate = true,
+  onBlur,
+  onFocus,
+  onKeyDown,
+  ...props
+}: TreeViewRootImplementationProps) {
+  const linkTree = Tag === 'div'
   const [store] = React.useState(createTreeStore)
   const [message, setMessage] = React.useState<{id: number; text: string} | null>(null)
   const pending = React.useRef<{frame?: number; query: string; timeout?: number}>({query: ''})
-  const rootRef = React.useMemo(() => mergeRefs(ref, store.connect), [ref, store])
+  const rootRef = React.useMemo(() => mergeRefs(forwardedRef, store.connect), [forwardedRef, store])
 
   // A new node for every message makes the status region announce repeated text, such as two loads of one folder.
   const announce = React.useCallback((text: string) => {
@@ -195,7 +222,7 @@ const Root = React.forwardRef<HTMLUListElement, TreeViewProps>(function TreeView
     }
   }, [])
 
-  const handleFocus = (event: React.FocusEvent<HTMLUListElement>) => {
+  const handleFocus = (event: React.FocusEvent<HTMLElement>) => {
     onFocus?.(event)
     const tree = event.currentTarget
     const target = event.target
@@ -217,13 +244,13 @@ const Root = React.forwardRef<HTMLUListElement, TreeViewProps>(function TreeView
     })
   }
 
-  const handleBlur = (event: React.FocusEvent<HTMLUListElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLElement>) => {
     onBlur?.(event)
     const next = event.relatedTarget
     if (!(next instanceof Node) || !event.currentTarget.contains(next)) store.setFocusWithin(false)
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     onKeyDown?.(event)
     const tree = event.currentTarget
     const target = event.target
@@ -272,23 +299,23 @@ const Root = React.forwardRef<HTMLUListElement, TreeViewProps>(function TreeView
   }
 
   return (
-    <TreeViewContext.Provider value={{announce, flat, store, truncate}}>
+    <TreeViewContext.Provider value={{announce, flat, linkTree, showGuides, store, truncate}}>
       <TreeItemContext.Provider value={null}>
-        <AriaStatus announceOnShow className="sr-only">
+        <AriaStatus announceOnShow className="primer:sr-only">
           {message ? <span key={message.id}>{message.text}</span> : null}
         </AriaStatus>
-        <ul
+        <Tag
           {...props}
           ref={rootRef}
           role="tree"
-          data-component="TreeView"
+          data-component={linkTree ? 'TreeView.LinkTree' : 'TreeView'}
           data-flat={flat || undefined}
           data-truncate={truncate || undefined}
           className={cn(
-            'm-0 list-none p-0 text-sm text-default',
-            '[--tree-min-item-height:2rem] [--tree-toggle-width:1rem] pointer-coarse:[--tree-min-item-height:2.75rem] pointer-coarse:[--tree-toggle-width:1.5rem]',
+            'primer:m-0 primer:list-none primer:p-0 primer:text-sm primer:text-default',
+            'primer:[--tree-min-item-height:2rem] primer:[--tree-toggle-width:1rem] primer:pointer-coarse:[--tree-min-item-height:2.75rem] primer:pointer-coarse:[--tree-toggle-width:1.5rem]',
             // Level lines show while a hover-capable pointer is over the tree or focus is in it, and always on touch.
-            '[@media(hover:hover)]:[--tree-line-color:transparent] [@media(hover:hover)]:hover:[--tree-line-color:var(--borderColor-muted)] [@media(hover:hover)]:focus-within:[--tree-line-color:var(--borderColor-muted)]',
+            'primer:[@media(hover:hover)]:[--tree-line-color:transparent] primer:[@media(hover:hover)]:hover:[--tree-line-color:var(--borderColor-muted)] primer:[@media(hover:hover)]:focus-within:[--tree-line-color:var(--borderColor-muted)]',
             className,
           )}
           onBlur={handleBlur}
@@ -296,10 +323,18 @@ const Root = React.forwardRef<HTMLUListElement, TreeViewProps>(function TreeView
           onKeyDown={handleKeyDown}
         >
           {children}
-        </ul>
+        </Tag>
       </TreeItemContext.Provider>
     </TreeViewContext.Provider>
   )
+}
+
+const Root = React.forwardRef<HTMLUListElement, TreeViewProps>(function TreeView(props, ref) {
+  return <TreeViewRootImplementation {...props} element="ul" forwardedRef={ref} />
+})
+
+const LinkTreeRoot = React.forwardRef<HTMLDivElement, TreeViewLinkTreeProps>(function TreeViewLinkTree(props, ref) {
+  return <TreeViewRootImplementation {...props} element="div" forwardedRef={ref} />
 })
 
 // ----------------------------------------------------------------------------
@@ -321,7 +356,7 @@ export type TreeViewSecondaryActions = {
 export interface TreeViewItemProps extends Omit<React.HTMLAttributes<HTMLElement>, 'data-component' | 'onSelect'> {
   /** Stable identity for the item, used to track focus and expansion. */
   id: string
-  /** Element to render. Anything other than `li` is wrapped in a presentational list item. */
+  /** Element to render. Use `as="a"` with `href` for a native link. */
   as?: React.ElementType
   /** Reserves a size for off-screen items so a long tree can skip rendering them. */
   containIntrinsicSize?: string
@@ -374,7 +409,7 @@ function resolvePart<Value, Props>(
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewItem(
   {
-    as: Component = 'li',
+    as,
     'aria-describedby': ariaDescribedby,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledby,
@@ -401,7 +436,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
 ) {
   const tree = React.useContext(TreeViewContext)
   if (!tree) throw new Error('TreeView.Item must be rendered within TreeView')
-  const {flat, store, truncate} = tree
+  const {flat, linkTree, showGuides, store, truncate} = tree
+  const Component = as ?? (linkTree ? 'div' : 'li')
   const parent = React.useContext(TreeItemContext)
   const isLoadingPlaceholder = React.useContext(LoadingPlaceholderContext)
   const platform = usePlatform()
@@ -427,7 +463,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
   const {matched, rest: label} = resolveRegions(children, {
     leadingAction: {match: isPartOf(LeadingAction)},
     leadingVisual: {match: isPartOf(LeadingVisual)},
-    subTree: {match: isPartOf(SubTree)},
+    subTree: {match: isSubTreePart},
     trailingVisual: {match: isPartOf(TrailingVisual)},
   })
   const leadingActionElement = resolvePart(
@@ -450,13 +486,13 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
   )
   const subTreeElement = resolvePart(
     subtree,
-    isPartOf(SubTree),
-    content => <SubTree>{content}</SubTree>,
+    isSubTreePart,
+    content => (linkTree ? <LinkSubTree>{content}</LinkSubTree> : <SubTree>{content}</SubTree>),
     matched.subTree[0],
   )
 
   const level = (parent?.level ?? 0) + 1
-  const isPolymorphic = Component !== 'li'
+  const isPolymorphic = Component !== (linkTree ? 'div' : 'li')
   const hasSubTree = subTreeElement !== undefined
   const subTreeState = subTreeElement?.props.state
   const isSubTreeEmpty =
@@ -474,6 +510,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
   }
 
   const actions = secondaryActions?.length ? secondaryActions : undefined
+  if (linkTree && isPolymorphic && (leadingActionElement || actions)) {
+    throw new Error('A polymorphic TreeView.LinkTree item cannot contain interactive row actions.')
+  }
   const shortcut = `Shift+${platform === 'apple' ? 'Meta' : 'Control'}+U`
   const shortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
   const labelledBy = ariaLabelledby || labelId
@@ -578,29 +617,35 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
 
   const row = (
     <div
+      data-component="TreeView.Row"
       className={cn(
-        'relative grid min-h-[var(--tree-min-item-height)] w-full rounded-md text-default [overflow-clip-margin:var(--base-size-8)]',
-        hasLeadingAction ? '[--tree-leading-action-width:1.5rem]' : '[--tree-leading-action-width:0px]',
+        'primer:relative primer:grid primer:min-h-[var(--tree-min-item-height)] primer:w-full primer:rounded-md primer:text-default primer:[overflow-clip-margin:var(--base-size-8)]',
+        hasLeadingAction ? 'primer:[--tree-leading-action-width:1.5rem]' : 'primer:[--tree-leading-action-width:0px]',
         flat
-          ? 'grid-cols-[0_var(--tree-leading-action-width)_0_minmax(0,1fr)_auto]'
-          : 'grid-cols-[calc((var(--tree-level)-1)*var(--tree-toggle-width)/2)_var(--tree-leading-action-width)_var(--tree-toggle-width)_minmax(0,1fr)_auto]',
-        '[[role=treeitem]:focus-visible>&]:shadow-[inset_0_0_0_var(--borderWidth-thick)_var(--fgColor-accent)]',
-        'forced-colors:[[role=treeitem]:focus-visible>&]:outline-2 forced-colors:[[role=treeitem]:focus-visible>&]:outline-offset-[-2px] forced-colors:[[role=treeitem]:focus-visible>&]:outline-[HighlightText]',
+          ? 'primer:grid-cols-[0_var(--tree-leading-action-width)_0_minmax(0,1fr)_auto]'
+          : 'primer:grid-cols-[calc((var(--tree-level)-1)*var(--tree-indent-size,calc(var(--tree-toggle-width)/2)))_var(--tree-leading-action-width)_var(--tree-toggle-width)_minmax(0,1fr)_auto]',
+        'primer:[[role=treeitem]:focus-visible>&]:shadow-[inset_0_0_0_var(--borderWidth-thick)_var(--fgColor-accent)]',
+        'primer:forced-colors:[[role=treeitem]:focus-visible>&]:outline-2 primer:forced-colors:[[role=treeitem]:focus-visible>&]:outline-offset-[-2px] primer:forced-colors:[[role=treeitem]:focus-visible>&]:outline-[HighlightText]',
         isLoadingPlaceholder
-          ? 'cursor-default'
-          : 'cursor-pointer forced-colors:hover:outline-2 forced-colors:hover:outline-offset-[-2px] forced-colors:hover:outline-transparent',
-        !isLoadingPlaceholder && !current && 'hover:bg-[var(--control-transparent-bgColor-hover)]',
+          ? 'primer:cursor-default'
+          : 'primer:cursor-pointer primer:forced-colors:hover:outline-2 primer:forced-colors:hover:outline-offset-[-2px] primer:forced-colors:hover:outline-transparent',
+        !isLoadingPlaceholder && !current && 'primer:hover:bg-[var(--control-transparent-bgColor-hover)]',
         current &&
-          'bg-[var(--control-transparent-bgColor-selected)] after:absolute after:top-[calc(50%-0.75rem)] after:-left-2 after:h-6 after:w-1 after:rounded-md after:bg-[var(--fgColor-accent)] forced-colors:after:bg-[HighlightText]',
+          'primer:bg-[var(--control-transparent-bgColor-selected)] primer:after:absolute primer:after:top-[calc(50%-0.75rem)] primer:after:-left-2 primer:after:h-6 primer:after:w-1 primer:after:rounded-md primer:after:bg-[var(--fgColor-accent)] primer:forced-colors:after:bg-[HighlightText]',
       )}
       style={rowStyle}
     >
-      {!flat && level > 1 ? (
-        <div aria-hidden="true" className="col-start-1 row-start-1 flex">
+      {!flat && showGuides && level > 1 ? (
+        <div
+          aria-hidden="true"
+          className="primer:col-start-1 primer:row-start-1 primer:flex"
+          data-component="TreeView.LevelGuides"
+        >
           {Array.from({length: level - 1}, (_, index) => (
             <div
               key={index}
-              className="h-full w-full border-r border-[color:var(--tree-line-color,var(--borderColor-muted))]"
+              className="primer:h-full primer:w-full primer:border-r primer:border-[color:var(--tree-line-color,var(--borderColor-muted))]"
+              data-component="TreeView.LevelGuide"
             />
           ))}
         </div>
@@ -611,17 +656,24 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
         <div
           data-component="TreeView.Toggle"
           className={cn(
-            'col-start-3 row-start-1 flex h-full items-start justify-center pt-[calc(var(--tree-min-item-height)/2-6px)] text-muted',
-            onSelect && 'hover:bg-[var(--control-transparent-bgColor-hover)]',
-            level === 1 && 'rounded-l-md',
+            'primer:col-start-3 primer:row-start-1 primer:flex primer:h-full primer:items-start primer:justify-center primer:pt-[calc(var(--tree-min-item-height)/2-6px)] primer:text-muted',
+            onSelect && 'primer:hover:bg-[var(--control-transparent-bgColor-hover)]',
+            level === 1 && 'primer:rounded-l-md',
           )}
         >
           {expanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
         </div>
       ) : null}
-      <div className="col-start-4 row-start-1 flex min-w-0 items-start gap-2 px-2 py-[calc((var(--tree-min-item-height)-var(--custom-line-height,1.3rem))/2)] leading-[var(--custom-line-height,var(--text-body-lineHeight-medium,1.4285))]">
+      <div
+        className="primer:col-start-4 primer:row-start-1 primer:flex primer:min-w-0 primer:items-start primer:gap-2 primer:px-2 primer:py-[calc((var(--tree-min-item-height)-var(--custom-line-height,1.3rem))/2)] primer:leading-[var(--custom-line-height,var(--text-body-lineHeight-medium,1.4285))]"
+        data-component="TreeView.ItemContent"
+      >
         {leadingVisualElement}
-        <span id={labelId} className={cn('min-w-0 flex-1', truncate ? 'truncate' : 'break-words')}>
+        <span
+          id={labelId}
+          className={cn('primer:min-w-0 primer:flex-1', truncate ? 'primer:truncate' : 'primer:break-words')}
+          data-component="TreeView.Item.Label"
+        >
           {label}
         </span>
         {trailingVisualElement}
@@ -660,11 +712,22 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
     'data-expanded': hasSubTree ? expanded : undefined,
     'data-has-leading-action': hasLeadingAction || undefined,
     'data-loading': isLoadingPlaceholder || undefined,
-    className: cn('list-none outline-none [overflow-clip-margin:var(--base-size-8)]', className),
+    className: cn(
+      'primer:list-none primer:outline-none primer:[overflow-clip-margin:var(--base-size-8)]',
+      linkTree && isPolymorphic && 'primer:block primer:no-underline',
+      className,
+    ),
     onAuxClick: handleAuxClick,
     onClick: handleClick,
     onKeyDown: handleKeyDown,
   }
+  const item = (
+    <Component {...itemProps} ref={mergedRef}>
+      {row}
+      {isPolymorphic ? null : subTreeElement}
+    </Component>
+  )
+  const Wrapper = linkTree ? 'div' : 'li'
 
   return (
     <TreeItemContext.Provider
@@ -681,18 +744,13 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(function TreeViewI
         trailingVisualId,
       }}
     >
-      {isPolymorphic ? (
-        <li role="none" className="list-none">
-          <Component {...itemProps} ref={mergedRef}>
-            {row}
-          </Component>
+      {isPolymorphic && (!linkTree || hasSubTree) ? (
+        <Wrapper role="none" className="primer:list-none">
+          {item}
           {subTreeElement}
-        </li>
+        </Wrapper>
       ) : (
-        <li {...itemProps} ref={mergedRef}>
-          {row}
-          {subTreeElement}
-        </li>
+        item
       )}
     </TreeItemContext.Provider>
   )
@@ -716,13 +774,13 @@ function TrailingAction({actions, id, itemRef, shortcutText}: TrailingActionProp
   const focusItem = () => itemRef.current?.focus()
   return (
     <>
-      <div id={id} className="sr-only">
+      <div id={id} className="primer:sr-only">
         - {shortcutText}
       </div>
       <div
         aria-hidden="true"
         data-component="TreeView.TrailingAction"
-        className="col-start-5 row-start-1 flex text-muted [&>*]:shrink"
+        className="primer:col-start-5 primer:row-start-1 primer:flex primer:text-muted primer:[&>*]:shrink"
       >
         {actions.map(({className, count, icon, label, onClick}) =>
           count === undefined ? (
@@ -808,7 +866,7 @@ function ActionDialog({actions, itemRef, onOpenChange, open}: ActionDialogProps)
 
 export type SubTreeState = 'initial' | 'loading' | 'done' | 'error'
 
-export interface TreeViewSubTreeProps extends Omit<React.ComponentPropsWithoutRef<'ul'>, 'data-component'> {
+interface TreeViewSharedSubTreeProps {
   /** Number of placeholder rows to show while the subtree loads. Without it, a spinner row is shown. */
   count?: number
   /**
@@ -818,15 +876,37 @@ export interface TreeViewSubTreeProps extends Omit<React.ComponentPropsWithoutRe
   state?: SubTreeState
 }
 
-const SubTree = React.forwardRef<HTMLUListElement, TreeViewSubTreeProps>(function TreeViewSubTree(
-  {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children, className, count, id, state, ...props},
-  ref,
-) {
+export interface TreeViewSubTreeProps
+  extends Omit<React.ComponentPropsWithoutRef<'ul'>, 'data-component'>,
+    TreeViewSharedSubTreeProps {}
+
+export interface TreeViewLinkSubTreeProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'data-component'>,
+    TreeViewSharedSubTreeProps {}
+
+interface TreeViewSubTreeImplementationProps extends React.HTMLAttributes<HTMLElement>, TreeViewSharedSubTreeProps {
+  element: 'ul' | 'div'
+  forwardedRef: React.Ref<HTMLElement>
+}
+
+function TreeViewSubTreeImplementation({
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
+  children,
+  className,
+  count,
+  element: Tag,
+  forwardedRef,
+  id,
+  state,
+  ...props
+}: TreeViewSubTreeImplementationProps) {
   const tree = React.useContext(TreeViewContext)
   const item = React.useContext(TreeItemContext)
   if (!tree || !item) throw new Error('TreeView.SubTree must be rendered within TreeView.Item')
   const {announce} = tree
   const {ariaLabel: itemLabel, expanded, groupId, itemRef, labelledBy} = item
+  const groupRef = React.useMemo(() => mergeRefs(forwardedRef), [forwardedRef])
   const previousState = React.useRef(state)
   const loadingFocused = React.useRef(false)
   const isEmpty = (state === undefined || state === 'done') && React.Children.toArray(children).length === 0
@@ -858,16 +938,16 @@ const SubTree = React.forwardRef<HTMLUListElement, TreeViewSubTreeProps>(functio
   const groupLabel = ariaLabel ?? (ariaLabelledby ? undefined : itemLabel)
 
   return (
-    <ul
+    <Tag
       {...props}
-      ref={ref}
+      ref={groupRef}
       id={id ?? groupId}
       role="group"
       aria-label={groupLabel}
       aria-labelledby={groupLabel ? undefined : (ariaLabelledby ?? labelledBy)}
       data-component="TreeView.SubTree"
       data-state={state}
-      className={cn('m-0 list-none p-0', className)}
+      className={cn('primer:m-0 primer:list-none primer:p-0', className)}
     >
       {state === 'loading' ? (
         <LoadingItem
@@ -884,9 +964,29 @@ const SubTree = React.forwardRef<HTMLUListElement, TreeViewSubTreeProps>(functio
         children
       )}
       {isEmpty ? <EmptyItem /> : null}
-    </ul>
+    </Tag>
   )
+}
+
+const SubTree = React.forwardRef<HTMLUListElement, TreeViewSubTreeProps>(function TreeViewSubTree(props, ref) {
+  const tree = React.useContext(TreeViewContext)
+  if (tree?.linkTree) throw new Error('Use TreeView.LinkTree.SubTree within TreeView.LinkTree.')
+  return <TreeViewSubTreeImplementation {...props} element="ul" forwardedRef={ref} />
 })
+
+const LinkSubTree = React.forwardRef<HTMLDivElement, TreeViewLinkSubTreeProps>(
+  function TreeViewLinkSubTree(props, ref) {
+    const tree = React.useContext(TreeViewContext)
+    if (!tree?.linkTree) throw new Error('TreeView.LinkTree.SubTree must be rendered within TreeView.LinkTree.')
+    return <TreeViewSubTreeImplementation {...props} element="div" forwardedRef={ref} />
+  },
+)
+
+function isSubTreePart(
+  child: React.ReactElement,
+): child is React.ReactElement<TreeViewSharedSubTreeProps & React.HTMLAttributes<HTMLElement>> {
+  return child.type === SubTree || child.type === LinkSubTree
+}
 
 const SKELETON_WIDTHS = ['67%', '47%', '73%', '64%', '50%']
 
@@ -899,7 +999,11 @@ function LoadingItem({count, ...props}: LoadingItemProps) {
       {count ? (
         <Item {...props} id={id}>
           {Array.from({length: count}, (_, index) => (
-            <span key={index} aria-hidden="true" className="flex h-8 items-center gap-2 pointer-coarse:h-11">
+            <span
+              key={index}
+              aria-hidden="true"
+              className="primer:flex primer:h-8 primer:items-center primer:gap-2 primer:pointer-coarse:h-11"
+            >
               <SkeletonAvatar size={16} square />
               <SkeletonText style={{width: SKELETON_WIDTHS[index % SKELETON_WIDTHS.length]}} />
             </span>
@@ -911,7 +1015,7 @@ function LoadingItem({count, ...props}: LoadingItemProps) {
           <LeadingVisual>
             <Spinner size="small" />
           </LeadingVisual>
-          <span className="text-muted">Loading...</span>
+          <span className="primer:text-muted">Loading...</span>
         </Item>
       )}
     </LoadingPlaceholderContext.Provider>
@@ -922,7 +1026,7 @@ function EmptyItem() {
   const id = React.useId()
   return (
     <Item id={id} expanded={null}>
-      <span className="text-muted">No items found</span>
+      <span className="primer:text-muted">No items found</span>
     </Item>
   )
 }
@@ -984,7 +1088,8 @@ export interface TreeViewVisualProps
 }
 
 // Visuals center within one line of text so they align with single-line labels and stay at the top of wrapped ones.
-const visualClassName = 'flex h-[var(--custom-line-height,1.3rem)] shrink-0 items-center text-muted'
+const visualClassName =
+  'primer:flex primer:h-[var(--custom-line-height,1.3rem)] primer:shrink-0 primer:items-center primer:text-muted'
 
 function renderContent(children: TreeViewVisualProps['children'], item: TreeItemContextValue | null) {
   return typeof children === 'function' ? children({expanded: item?.expanded ?? false}) : children
@@ -1004,7 +1109,7 @@ const LeadingVisual = React.forwardRef<HTMLSpanElement, TreeViewVisualProps>(fun
       data-component="TreeView.LeadingVisual"
     >
       {label ? (
-        <span id={item?.leadingVisualId} className="sr-only">
+        <span id={item?.leadingVisualId} className="primer:sr-only">
           {label}
         </span>
       ) : null}
@@ -1023,11 +1128,11 @@ const TrailingVisual = React.forwardRef<HTMLSpanElement, TreeViewVisualProps>(fu
       {...props}
       ref={ref}
       aria-hidden="true"
-      className={cn(visualClassName, 'ml-auto', className)}
+      className={cn(visualClassName, 'primer:ml-auto', className)}
       data-component="TreeView.TrailingVisual"
     >
       {label ? (
-        <span id={item?.trailingVisualId} className="sr-only">
+        <span id={item?.trailingVisualId} className="primer:sr-only">
           {label}
         </span>
       ) : null}
@@ -1047,6 +1152,7 @@ export interface TreeViewLeadingActionProps
 /**
  * A pointer affordance before the toggle, such as a drag handle. It is hidden from assistive technology and its
  * controls are removed from the tab order, so give keyboard users an equivalent through the item itself.
+ * Do not move keyboard focus into this hidden subtree; a reviewed keyboard-drag handle composition is not provided.
  */
 const LeadingAction = React.forwardRef<HTMLSpanElement, TreeViewLeadingActionProps>(function TreeViewLeadingAction(
   {children, className, label, ...props},
@@ -1068,9 +1174,12 @@ const LeadingAction = React.forwardRef<HTMLSpanElement, TreeViewLeadingActionPro
       ref={mergedRef}
       aria-hidden="true"
       data-component="TreeView.LeadingAction"
-      className={cn('col-start-2 row-start-1 flex text-muted [&>button]:shrink', className)}
+      className={cn(
+        'primer:col-start-2 primer:row-start-1 primer:flex primer:text-muted primer:[&>button]:shrink',
+        className,
+      )}
     >
-      {label ? <span className="sr-only">{label}</span> : null}
+      {label ? <span className="primer:sr-only">{label}</span> : null}
       {renderContent(children, item)}
     </span>
   )
@@ -1092,7 +1201,7 @@ const DirectoryIcon = React.forwardRef<HTMLSpanElement, TreeViewDirectoryIconPro
       {...props}
       ref={ref}
       aria-hidden="true"
-      className={cn('grid text-[var(--treeViewItem-leadingVisual-iconColor-rest)]', className)}
+      className={cn('primer:grid primer:text-[var(--treeViewItem-leadingVisual-iconColor-rest)]', className)}
       data-component="TreeView.DirectoryIcon"
     >
       <Icon size={16} />
@@ -1100,17 +1209,22 @@ const DirectoryIcon = React.forwardRef<HTMLSpanElement, TreeViewDirectoryIconPro
   )
 })
 
+const LinkTree = Object.assign(LinkTreeRoot, {SubTree: LinkSubTree})
+
 export const TreeView = Object.assign(Root, {
   DirectoryIcon,
   ErrorDialog,
   Item,
   LeadingAction,
   LeadingVisual,
+  LinkTree,
   SubTree,
   TrailingVisual,
 })
 
 Root.displayName = 'TreeView'
+LinkTreeRoot.displayName = 'TreeView.LinkTree'
+LinkSubTree.displayName = 'TreeView.LinkTree.SubTree'
 Item.displayName = 'TreeView.Item'
 SubTree.displayName = 'TreeView.SubTree'
 LeadingAction.displayName = 'TreeView.LeadingAction'

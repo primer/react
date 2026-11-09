@@ -18,6 +18,29 @@ const stories = [
   },
 ]
 
+test.describe('React Tailwind InlineMessage component visuals', () => {
+  for (const theme of themes) {
+    test(`forwardRef, memo and rendered nodes in ${theme} @aat`, async ({page}) => {
+      const errors: string[] = []
+      page.on('pageerror', error => errors.push(error.message))
+      await visit(page, {
+        id: 'react-tailwind-content-inlinemessage-features--component-leading-visuals',
+        globals: {colorScheme: theme},
+      })
+      for (const id of ['forward-ref-visual', 'memo-visual', 'element-visual']) {
+        await expect(page.getByTestId(id)).toBeVisible()
+        await expect(page.getByTestId(id).locator('svg')).toHaveCount(1)
+        await expect(page.getByTestId(id).locator('svg')).toHaveAttribute('aria-hidden', 'true')
+      }
+      await expect(page.getByTestId('element-visual').locator('svg')).toHaveAttribute('width', '24')
+      await expect(page.getByTestId('element-visual').locator('svg')).toHaveClass(/consumer-icon/)
+      await expect(page.getByTestId('node-visual').locator('[aria-hidden="true"]')).toHaveText('!')
+      await expect(page).toHaveNoViolations()
+      expect(errors).toEqual([])
+    })
+  }
+})
+
 const scenarios = matrix({
   size: ['small', 'medium'],
   variant: ['critical', 'success', 'unavailable', 'warning'],

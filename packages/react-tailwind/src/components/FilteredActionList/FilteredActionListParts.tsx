@@ -37,11 +37,19 @@ export function SelectAllRow({label, ...checkboxProps}: SelectAllRowProps) {
 
   return (
     <div
-      className="flex shrink-0 items-center border-b border-default bg-muted px-4 py-1"
+      className="primer:flex primer:shrink-0 primer:items-center primer:border-b primer:border-default primer:bg-muted primer:px-4 primer:py-1"
       data-component="FilteredActionList.SelectAll"
     >
-      <Checkbox {...checkboxProps} className="mt-1 mr-2 mb-[calc(var(--base-size-4)-1px)]" id={checkboxId} />
-      <label className="text-sm text-muted" data-component="FilteredActionList.SelectAllLabel" htmlFor={checkboxId}>
+      <Checkbox
+        {...checkboxProps}
+        className="primer:mt-1 primer:mr-2 primer:mb-[calc(var(--base-size-4)-1px)]"
+        id={checkboxId}
+      />
+      <label
+        className="primer:text-sm primer:text-muted"
+        data-component="FilteredActionList.SelectAllLabel"
+        htmlFor={checkboxId}
+      >
         {label}
       </label>
     </div>
@@ -76,12 +84,12 @@ export function BodyLoader({announce, loadingType}: BodyLoaderProps) {
   if (loadingType === FilteredActionListLoadingTypes.bodySpinner) {
     return (
       <div
-        className="flex h-full min-h-[200px] w-full flex-1 items-center justify-center p-4 text-muted"
+        className="primer:flex primer:h-full primer:min-h-[200px] primer:w-full primer:flex-1 primer:items-center primer:justify-center primer:p-4 primer:text-muted"
         data-component="FilteredActionList.Spinner"
         role={announce ? 'status' : undefined}
       >
         <Spinner data-testid="filtered-action-list-spinner" srText={null} />
-        {announce ? <span className="sr-only">Loading items</span> : null}
+        {announce ? <span className="primer:sr-only">Loading items</span> : null}
       </div>
     )
   }
@@ -91,16 +99,16 @@ export function BodyLoader({announce, loadingType}: BodyLoaderProps) {
 
   return (
     <div
-      className="flex h-full min-h-[200px] w-full flex-1 flex-col gap-2 p-2"
+      className="primer:flex primer:h-full primer:min-h-[200px] primer:w-full primer:flex-1 primer:flex-col primer:gap-2 primer:p-2"
       data-component="FilteredActionList.Skeleton"
       data-testid="filtered-action-list-skeleton"
       ref={setSkeletonElement}
       role={announce ? 'status' : undefined}
     >
-      {announce ? <span className="sr-only">Loading items</span> : null}
+      {announce ? <span className="primer:sr-only">Loading items</span> : null}
       {Array.from({length: skeletonRows}, (_, index) => (
-        <div key={index} className="flex items-center gap-2">
-          <SkeletonBox className="size-4 shrink-0" />
+        <div key={index} className="primer:flex primer:items-center primer:gap-2">
+          <SkeletonBox className="primer:size-4 primer:shrink-0" />
           <SkeletonBox height="10px" width={skeletonWidths[index % skeletonWidths.length]} />
         </div>
       ))}

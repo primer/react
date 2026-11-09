@@ -70,7 +70,7 @@
       "name": "size",
       "type": "\"bodyLarge\" | \"bodyMedium\" | \"bodySmall\" | \"display\" | \"subtitle\" | \"titleLarge\" | \"titleMedium\" | \"titleSmall\"",
       "defaultValue": "'bodyMedium'",
-      "description": "Line height, matching the text size it stands in for."
+      "description": "Typography size whose font height and line spacing the placeholder matches."
     }
   ],
   "passthrough": {

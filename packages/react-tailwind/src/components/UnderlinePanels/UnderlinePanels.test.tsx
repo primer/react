@@ -1,4 +1,4 @@
-import {act, cleanup, render, screen} from '@testing-library/react'
+import {act, cleanup, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
@@ -8,6 +8,54 @@ import {UnderlinePanels} from './UnderlinePanels'
 afterEach(cleanup)
 
 describe('UnderlinePanels', () => {
+  it('styles the outer wrapper independently while keeping list props and refs on the tablist', async () => {
+    const user = userEvent.setup()
+    const ref = React.createRef<HTMLElement>()
+    const example = (wrapperClassName?: string) => (
+      <UnderlinePanels defaultValue="activity">
+        <UnderlinePanels.List
+          ref={ref}
+          aria-label="Sections"
+          className="consumer-list gap-4"
+          data-testid="list"
+          wrapperClassName={wrapperClassName}
+        >
+          <UnderlinePanels.Tab value="activity">Activity</UnderlinePanels.Tab>
+          <UnderlinePanels.Tab value="security">Security</UnderlinePanels.Tab>
+        </UnderlinePanels.List>
+        <UnderlinePanels.Panel value="activity">Activity content</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel value="security">Security content</UnderlinePanels.Panel>
+      </UnderlinePanels>
+    )
+    const {rerender} = render(example('consumer-wrapper px-0 pt-0 shadow-none'))
+    const list = screen.getByRole('tablist', {name: 'Sections'})
+    const wrapper = list.parentElement
+    expect(ref.current).toBe(list)
+    expect(list).toBe(screen.getByTestId('list'))
+    expect(list).toHaveClass('consumer-list', 'gap-4')
+    expect(list).not.toHaveAttribute('wrapperClassName')
+    expect(list).not.toHaveClass('consumer-wrapper')
+    expect(list).not.toHaveClass('shadow-none')
+    expect(wrapper).toHaveClass('consumer-wrapper', 'px-0', 'pt-0', 'shadow-none')
+    for (const className of ['primer:px-4', 'primer:pt-2', 'primer:shadow-[inset_0_-1px_var(--borderColor-muted)]']) {
+      expect(wrapper).not.toHaveClass(className)
+    }
+    expect(wrapper).not.toHaveClass('consumer-list')
+    screen.getByRole('tab', {name: 'Activity'}).focus()
+    await user.keyboard('{ArrowRight}')
+    expect(screen.getByRole('tab', {name: 'Security'})).toHaveFocus()
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Security content')
+
+    rerender(example())
+    expect(list.parentElement).toHaveClass(
+      'primer:px-4',
+      'primer:pt-2',
+      'primer:shadow-[inset_0_-1px_var(--borderColor-muted)]',
+    )
+    expect(list.parentElement).not.toHaveClass('consumer-wrapper')
+    expect(list.parentElement).not.toHaveClass('primer:shadow-none')
+  })
+
   it('composes Tabs with accessible keyboard panel selection', async () => {
     const user = userEvent.setup()
     render(
@@ -223,6 +271,54 @@ describe('UnderlinePanels', () => {
   })
 
   describe('AnchoredOverlay composition', () => {
+    it.each([false, true])('preserves manual keyboard focus after reopening (StrictMode=%s)', async strictMode => {
+      const user = userEvent.setup()
+      const onChange = vi.fn()
+      const example = (
+        <AnchoredOverlay>
+          <AnchoredOverlay.Trigger>Code</AnchoredOverlay.Trigger>
+          <AnchoredOverlay.Content role="dialog" aria-label="Code options">
+            <UnderlinePanels defaultValue="local" activationMode="manual" onChange={onChange}>
+              <UnderlinePanels.List aria-label="Code source">
+                <UnderlinePanels.Tab value="local">Local</UnderlinePanels.Tab>
+                <UnderlinePanels.Tab value="codespaces">Codespaces</UnderlinePanels.Tab>
+              </UnderlinePanels.List>
+              <UnderlinePanels.Panel value="local">Clone locally</UnderlinePanels.Panel>
+              <UnderlinePanels.Panel value="codespaces">Create a codespace</UnderlinePanels.Panel>
+            </UnderlinePanels>
+          </AnchoredOverlay.Content>
+        </AnchoredOverlay>
+      )
+      render(strictMode ? <React.StrictMode>{example}</React.StrictMode> : example)
+      const trigger = screen.getByRole('button', {name: 'Code'})
+      for (let cycle = 0; cycle < 3; cycle += 1) {
+        await user.click(trigger)
+        const local = await screen.findByRole('tab', {name: 'Local'})
+        const codespaces = screen.getByRole('tab', {name: 'Codespaces'})
+        await waitFor(() => expect(local).toHaveFocus())
+        onChange.mockClear()
+        await user.keyboard('{ArrowRight}')
+        expect(codespaces).toHaveFocus()
+        expect(local).toHaveAttribute('aria-selected', 'true')
+        expect(codespaces).toHaveAttribute('tabindex', '0')
+        expect(local).toHaveAttribute('tabindex', '-1')
+        expect(onChange).not.toHaveBeenCalled()
+        await user.keyboard('{Enter}')
+        expect(codespaces).toHaveAttribute('aria-selected', 'true')
+        expect(onChange).toHaveBeenCalledExactlyOnceWith({value: 'codespaces'})
+        await user.keyboard('{ArrowLeft}')
+        expect(local).toHaveFocus()
+        expect(codespaces).toHaveAttribute('aria-selected', 'true')
+        await user.keyboard('{End}')
+        expect(codespaces).toHaveFocus()
+        await user.keyboard('{Home}')
+        expect(local).toHaveFocus()
+        await user.keyboard('{Escape}')
+        await waitFor(() => expect(screen.queryByRole('tablist')).not.toBeInTheDocument())
+        expect(trigger).toHaveFocus()
+      }
+    })
+
     it('keeps the tablist roving tabindex intact (exactly one tab is tabbable)', async () => {
       render(
         <AnchoredOverlay defaultOpen>

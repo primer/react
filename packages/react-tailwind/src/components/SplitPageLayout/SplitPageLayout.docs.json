@@ -18,6 +18,18 @@
       "id": "react-tailwind-layout-splitpagelayout-features--with-sidebar-end"
     },
     {
+      "id": "react-tailwind-layout-splitpagelayout-features--sidebar-fill-rail"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--sidebar-fill-rail-variants"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--sidebar-fill-fullscreen"
+    },
+    {
+      "id": "react-tailwind-layout-splitpagelayout-features--sidebar-fill-scrollable"
+    },
+    {
       "id": "react-tailwind-layout-splitpagelayout-features--with-resizable-sidebar"
     },
     {
@@ -53,6 +65,11 @@
       "description": "Maximum width of the centered content column."
     },
     {
+      "name": "contentRowClassName",
+      "type": "string",
+      "description": "Classes applied to the row containing the content and pane, not to `PageLayout.Content` itself."
+    },
+    {
       "name": "footer",
       "type": "React.ReactNode"
     },
@@ -75,6 +92,11 @@
     {
       "name": "sidebar",
       "type": "React.ReactNode"
+    },
+    {
+      "name": "wrapperClassName",
+      "type": "string",
+      "description": "Classes applied to the centered wrapper containing the header, content row, and footer."
     }
   ],
   "subcomponents": [
@@ -272,6 +294,11 @@
           "type": "PaneWidthValue",
           "defaultValue": "'medium'",
           "description": "Pane width, either a named size or a custom min/default/max triple."
+        },
+        {
+          "name": "widthMode",
+          "type": "\"default\" | \"fill\"",
+          "description": "Fills the sidebar's CSS-sized outer rail instead of applying the pane's pixel width.\nFill mode is only supported for non-resizable sidebars."
         },
         {
           "name": "widthStorageKey",

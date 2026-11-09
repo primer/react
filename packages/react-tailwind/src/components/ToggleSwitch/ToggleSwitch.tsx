@@ -6,34 +6,40 @@ import {cn} from '../../internal/cn'
 import {markFormControlInput} from '../../internal/formControlParts'
 import {joinIdRefs} from '../../internal/idRefs'
 import {mergeRefs} from '../../internal/refs'
-import {coarsePointerTouchTarget} from '../../internal/touchTarget'
-import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
+import {useFormControlChoiceForwardedProps} from '../FormControl/useFormControlForwardedProps'
 import {AriaStatus} from '../LiveRegion'
 import {Spinner} from '../Spinner'
 
-const switchTransition = 'duration-80 ease-[cubic-bezier(0.5,1,0.89,1)] motion-reduce:transition-none'
+const switchTransition =
+  'primer:duration-80 primer:ease-[cubic-bezier(0.5,1,0.89,1)] primer:motion-reduce:transition-none'
 
 const rootClassName = cn(
-  'group relative block shrink-0 cursor-pointer appearance-none overflow-hidden rounded-md border border-[var(--controlTrack-borderColor-rest)] bg-[var(--controlTrack-bgColor-rest)] p-0 transition-[background-color,border-color]',
+  'primer:group primer:relative primer:block primer:min-w-[24px] primer:shrink-0 primer:cursor-pointer primer:appearance-none primer:overflow-visible primer:rounded-md primer:border-thin primer:border-[var(--controlTrack-borderColor-rest)] primer:bg-[var(--controlTrack-bgColor-rest)] primer:p-0 primer:transition-[background-color,border-color]',
   switchTransition,
-  '[&:not([data-disabled],[data-loading]):hover]:bg-[var(--controlTrack-bgColor-hover)] [&:not([data-disabled],[data-loading]):focus-visible:not(:active)]:bg-[var(--controlTrack-bgColor-hover)] [&:not([data-disabled],[data-loading]):active]:bg-[var(--controlTrack-bgColor-active)]',
-  'data-[checked]:border-[var(--control-checked-borderColor-rest)] data-[checked]:bg-[var(--control-checked-bgColor-rest)] data-[checked]:[&:not([data-disabled],[data-loading]):hover]:bg-[var(--control-checked-bgColor-hover)] data-[checked]:[&:not([data-disabled],[data-loading]):focus-visible:not(:active)]:bg-[var(--control-checked-bgColor-hover)] data-[checked]:[&:not([data-disabled],[data-loading]):active]:bg-[var(--control-checked-bgColor-active)]',
-  '[&:is([data-disabled],[data-loading])]:cursor-not-allowed [&:is([data-disabled],[data-loading])]:border-transparent [&:is([data-disabled],[data-loading])]:bg-[var(--controlTrack-bgColor-disabled)] [&:is([data-disabled],[data-loading])]:transition-none forced-colors:[&:is([data-disabled],[data-loading])]:border-[GrayText]',
-  'focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus',
-  coarsePointerTouchTarget,
+  'primer:[&:not([data-disabled],[data-loading]):hover]:bg-[var(--controlTrack-bgColor-hover)] primer:[&:not([data-disabled],[data-loading]):focus-visible:not(:active)]:bg-[var(--controlTrack-bgColor-hover)] primer:[&:not([data-disabled],[data-loading]):active]:bg-[var(--controlTrack-bgColor-active)]',
+  'primer:data-[checked]:border-[var(--control-checked-borderColor-rest)] primer:data-[checked]:bg-[var(--control-checked-bgColor-rest)] primer:data-[checked]:[&:not([data-disabled],[data-loading]):hover]:bg-[var(--control-checked-bgColor-hover)] primer:data-[checked]:[&:not([data-disabled],[data-loading]):focus-visible:not(:active)]:bg-[var(--control-checked-bgColor-hover)] primer:data-[checked]:[&:not([data-disabled],[data-loading]):active]:bg-[var(--control-checked-bgColor-active)]',
+  'primer:[&:is([data-disabled],[data-loading])]:cursor-not-allowed primer:[&:is([data-disabled],[data-loading])]:border-transparent primer:[&:is([data-disabled],[data-loading])]:bg-[var(--controlTrack-bgColor-disabled)] primer:[&:is([data-disabled],[data-loading])]:transition-none primer:forced-colors:[&:is([data-disabled],[data-loading])]:border-[GrayText]',
+  'primer:focus-visible:outline-2 primer:focus-visible:outline-offset-[3px] primer:focus-visible:outline-focus',
+  'primer:before:absolute primer:before:-inset-x-px primer:before:top-1/2 primer:before:min-h-[max(24px,var(--control-minTarget-auto,1rem))] primer:before:-translate-y-1/2',
 )
 
 // Each icon fills half the track and slides out from under the knob, matching upstream's layout.
-const iconContainerClassName = cn('flex-[1_0_50%] leading-[0] transition-transform', switchTransition)
+const iconContainerClassName = cn(
+  'primer:flex-[1_0_50%] primer:leading-[0] primer:transition-transform',
+  switchTransition,
+)
 
 function SwitchIcons({size}: {size: 'small' | 'medium'}) {
   const dimension = size === 'small' ? 12 : 16
   return (
-    <span aria-hidden="true" className="flex size-full items-center overflow-hidden text-center">
+    <span
+      aria-hidden="true"
+      className="primer:flex primer:size-full primer:items-center primer:overflow-hidden primer:text-center"
+    >
       <span
         className={cn(
           iconContainerClassName,
-          '-translate-x-full text-[var(--control-checked-fgColor-rest)] group-data-[checked]:translate-x-0 group-data-[disabled]:text-[var(--control-checked-fgColor-disabled)] group-data-[loading]:text-[var(--control-checked-fgColor-disabled)]',
+          'primer:-translate-x-full primer:text-[var(--control-checked-fgColor-rest)] primer:group-data-[checked]:translate-x-0 primer:group-data-[disabled]:text-[var(--control-checked-fgColor-disabled)] primer:group-data-[loading]:text-[var(--control-checked-fgColor-disabled)]',
         )}
       >
         <svg aria-hidden="true" width={dimension} height={dimension} viewBox="0 0 16 16" fill="currentColor">
@@ -43,7 +49,7 @@ function SwitchIcons({size}: {size: 'small' | 'medium'}) {
       <span
         className={cn(
           iconContainerClassName,
-          'text-[var(--controlTrack-fgColor-rest)] group-data-[checked]:translate-x-full group-data-[disabled]:text-[var(--controlTrack-fgColor-disabled)] group-data-[loading]:text-[var(--controlTrack-fgColor-disabled)]',
+          'primer:text-[var(--controlTrack-fgColor-rest)] primer:group-data-[checked]:translate-x-full primer:group-data-[disabled]:text-[var(--controlTrack-fgColor-disabled)] primer:group-data-[loading]:text-[var(--controlTrack-fgColor-disabled)]',
         )}
       >
         <svg aria-hidden="true" width={dimension} height={dimension} viewBox="0 0 16 16" fill="currentColor">
@@ -105,13 +111,13 @@ export const ToggleSwitch = React.forwardRef<HTMLElement, ToggleSwitchProps>(fun
   },
   ref,
 ) {
-  const {'aria-describedby': ariaDescribedBy, ...forwardedProps} = useFormControlForwardedProps(rest)
+  const {'aria-describedby': ariaDescribedBy, ...forwardedProps} = useFormControlChoiceForwardedProps(rest)
   const switchRef = React.useRef<HTMLElement>(null)
   const loadingLabelId = React.useId()
   const [loadingDelayElapsed, setLoadingDelayElapsed] = React.useState(false)
   const isLoadingLabelVisible = loading && loadingDelayElapsed
   const acceptsInteraction = !forwardedProps.disabled && !loading
-  const sizeClassName = size === 'small' ? 'h-6 w-12' : 'h-8 w-16'
+  const sizeClassName = size === 'small' ? 'primer:h-6 primer:w-12' : 'primer:h-8 primer:w-16'
   const mergedClassName =
     typeof className === 'function'
       ? (state: BaseSwitch.Root.State) => cn(rootClassName, sizeClassName, className(state))
@@ -129,18 +135,18 @@ export const ToggleSwitch = React.forwardRef<HTMLElement, ToggleSwitchProps>(fun
   return (
     <span
       className={cn(
-        'group/toggle-switch inline-flex items-center',
-        statusLabelPosition === 'end' ? 'flex-row-reverse' : 'flex-row',
+        'primer:group/toggle-switch primer:inline-flex primer:min-h-[max(24px,var(--control-minTarget-auto,1rem))] primer:items-center',
+        statusLabelPosition === 'end' ? 'primer:flex-row-reverse' : 'primer:flex-row',
       )}
       data-component="ToggleSwitch.Container"
       data-status-label-position={statusLabelPosition}
     >
-      <AriaStatus announceOnShow className="sr-only" id={loadingLabelId}>
+      <AriaStatus announceOnShow className="primer:sr-only" id={loadingLabelId}>
         {isLoadingLabelVisible ? loadingLabel : null}
       </AriaStatus>
       {loading ? (
         <span
-          className={cn('inline-flex', statusLabelPosition === 'end' && 'ml-2')}
+          className={cn('primer:inline-flex', statusLabelPosition === 'end' && 'primer:ml-2')}
           data-component="ToggleSwitch.Spinner"
         >
           <Spinner size="small" srText={null} />
@@ -149,9 +155,9 @@ export const ToggleSwitch = React.forwardRef<HTMLElement, ToggleSwitchProps>(fun
       <span
         aria-hidden="true"
         className={cn(
-          'relative mx-2 cursor-pointer text-default',
-          size === 'small' ? 'text-xs' : 'text-sm',
-          !acceptsInteraction && 'cursor-not-allowed text-muted',
+          'primer:relative primer:mx-2 primer:grid primer:cursor-pointer primer:text-default',
+          size === 'small' ? 'primer:text-xs' : 'primer:text-sm',
+          !acceptsInteraction && 'primer:cursor-not-allowed primer:text-muted',
         )}
         data-component="ToggleSwitch.StatusLabel"
         data-disabled={!acceptsInteraction || undefined}
@@ -159,28 +165,29 @@ export const ToggleSwitch = React.forwardRef<HTMLElement, ToggleSwitchProps>(fun
           if (acceptsInteraction && !readOnly) switchRef.current?.click()
         }}
       >
-        <span className="block h-0 text-right invisible group-has-[[data-component=ToggleSwitch][data-checked]]/toggle-switch:visible group-has-[[data-component=ToggleSwitch][data-checked]]/toggle-switch:h-auto">
+        <span className="primer:col-start-1 primer:row-start-1 primer:text-right primer:invisible primer:group-has-[[data-component=ToggleSwitch][data-checked]]/toggle-switch:visible">
           {buttonLabelOn}
         </span>
-        <span className="block text-right group-has-[[data-component=ToggleSwitch][data-checked]]/toggle-switch:invisible group-has-[[data-component=ToggleSwitch][data-checked]]/toggle-switch:h-0">
+        <span className="primer:col-start-1 primer:row-start-1 primer:text-right primer:group-has-[[data-component=ToggleSwitch][data-checked]]/toggle-switch:invisible">
           {buttonLabelOff}
         </span>
       </span>
       <BaseSwitch.Root
         {...forwardedProps}
         aria-describedby={joinIdRefs(isLoadingLabelVisible && loadingLabelId, ariaDescribedBy)}
-        aria-disabled={loading || undefined}
+        {...(loading ? {'aria-disabled': true} : {})}
         ref={mergeRefs(ref, switchRef)}
         data-component="ToggleSwitch"
         data-loading={loading || undefined}
         data-size={size}
+        tabIndex={forwardedProps.tabIndex ?? 0}
         readOnly={readOnly || loading}
         className={mergedClassName}
       >
         <SwitchIcons size={size} />
         <BaseSwitch.Thumb
           className={cn(
-            'absolute top-px bottom-px left-px z-1 block w-1/2 rounded-[calc(var(--borderRadius-default)-var(--borderWidth-thick))] border border-[var(--controlKnob-borderColor-rest)] bg-[var(--controlKnob-bgColor-rest)] transition-transform data-[checked]:translate-x-[calc(100%_-_2px)] data-[checked]:border-[var(--controlKnob-borderColor-checked)] data-[disabled]:border-[var(--controlTrack-bgColor-disabled)] data-[disabled]:bg-[var(--controlKnob-bgColor-disabled)] group-data-[loading]:border-[var(--controlTrack-bgColor-disabled)] group-data-[loading]:bg-[var(--controlKnob-bgColor-disabled)]',
+            'primer:absolute primer:top-px primer:bottom-px primer:left-px primer:z-1 primer:block primer:w-1/2 primer:rounded-[calc(var(--borderRadius-default)-var(--borderWidth-thick))] primer:border-thin primer:border-[var(--controlKnob-borderColor-rest)] primer:bg-[var(--controlKnob-bgColor-rest)] primer:transition-transform primer:data-[checked]:translate-x-[calc(100%_-_2px)] primer:data-[checked]:border-[var(--controlKnob-borderColor-checked)] primer:data-[disabled]:border-[var(--controlTrack-bgColor-disabled)] primer:data-[disabled]:bg-[var(--controlKnob-bgColor-disabled)] primer:group-data-[loading]:border-[var(--controlTrack-bgColor-disabled)] primer:group-data-[loading]:bg-[var(--controlKnob-bgColor-disabled)]',
             switchTransition,
           )}
         />

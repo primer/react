@@ -4,6 +4,31 @@
 
 Import: `import {StateLabel} from '@primer/react-tailwind/StateLabel'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Usage
+
+```tsx
+import {StateLabel} from '@primer/react-tailwind/StateLabel'
+;<StateLabel status="pullMerged">Merged</StateLabel>
+```
+
+## API notes
+
+The default size is `medium`.
+
+## Composition
+
+Use the component-owned status icon with text children that name the state.
+
+## Accessibility
+
+Include visible state text. Component-owned issue, pull request, alert, and archived icons expose their artifact type to assistive technology; the unavailable icon is decorative because it does not identify an artifact type.
+
+## Data attributes
+
+The root exposes `data-component="StateLabel"` and `data-status`.
+
 Renders a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

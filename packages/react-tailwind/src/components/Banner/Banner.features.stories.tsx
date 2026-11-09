@@ -24,6 +24,14 @@ export const Info: Story = {args: {title: 'Info', description, onDismiss: () => 
 export const Success: Story = {args: {title: 'Success', description, onDismiss: () => {}, variant: 'success'}}
 export const Upsell: Story = {args: {title: 'Upsell', description, onDismiss: () => {}, variant: 'upsell'}}
 export const Warning: Story = {args: {title: 'Warning', description, onDismiss: () => {}, variant: 'warning'}}
+export const CompoundAlert: Story = {
+  render: () => (
+    <Banner role="alert" variant="critical">
+      <Banner.Title as="h3">Unable to save changes</Banner.Title>
+      <Banner.Description>Please try again.</Banner.Description>
+    </Banner>
+  ),
+}
 export const Dismiss: Story = {
   render: function DismissStory() {
     return <Banner title="Notice" description={description} onDismiss={() => {}} />
@@ -78,6 +86,36 @@ export const WithActions: Story = {
     primaryAction: <Banner.PrimaryAction>Button</Banner.PrimaryAction>,
     secondaryAction: <Banner.SecondaryAction>Button</Banner.SecondaryAction>,
   },
+}
+export const WithLinkActions: Story = {
+  args: {
+    title: 'Update available',
+    description: 'Review the details before updating.',
+    primaryAction: <Banner.PrimaryActionLink href="#update">Update</Banner.PrimaryActionLink>,
+    secondaryAction: <Banner.SecondaryActionLink href="#details">Details</Banner.SecondaryActionLink>,
+  },
+}
+export const WrappingLinkActions: Story = {
+  args: {
+    title: 'Security',
+    actionsLayout: 'stacked',
+    onDismiss: () => {},
+    primaryAction: (
+      <Banner.PrimaryActionLink href="#review" labelWrap lang="de">
+        Sicherheitseinstellungen für dieses Repository überprüfen
+      </Banner.PrimaryActionLink>
+    ),
+    secondaryAction: (
+      <Banner.SecondaryActionLink href="#details" labelWrap>
+        Learn more about private vulnerability reporting
+      </Banner.SecondaryActionLink>
+    ),
+  },
+  render: args => (
+    <div data-testid="banner-actions-container" style={{width: 320}}>
+      <Banner {...args} />
+    </div>
+  ),
 }
 export const CustomIcon: Story = {
   args: {

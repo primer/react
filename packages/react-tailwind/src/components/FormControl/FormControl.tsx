@@ -1,6 +1,8 @@
 'use client'
 
 import {Field} from '@base-ui/react/field'
+import {useFieldRootContext} from '@base-ui/react/internals/field-root-context'
+import {NOOP} from '@base-ui/react/internals/noop'
 import {useRender} from '@base-ui/react/use-render'
 import React from 'react'
 import {useChoiceGroupContext} from '../../internal/choiceGroupContext'
@@ -23,6 +25,7 @@ import {
   FormControlValidationStatusProvider,
   useFormControlContext,
   useFormControlForwardedProps,
+  useFormControlLabelId,
 } from './useFormControlForwardedProps'
 
 export interface FormControlProps
@@ -153,13 +156,11 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
     preparedValidationProp ?? regions.validation,
     Validation,
   )
-  const accessibleLabelId =
-    primaryControl &&
-    usesBaseUiAccessibleLabel(primaryControl) &&
-    labelRegion &&
-    (labelRegion.type === Label || labelRegion.props.id !== undefined)
+  const labelId =
+    labelRegion && (labelRegion.type === Label || labelRegion.props.id !== undefined)
       ? (labelRegion.props.id ?? `${controlId}-label`)
       : undefined
+  const accessibleLabelId = primaryControl && usesBaseUiAccessibleLabel(primaryControl) ? labelId : undefined
   const layout = layoutProp ?? (directMatches.control.some(isChoiceInput) ? 'horizontal' : 'vertical')
   const hasLeadingVisual = directRegions.leadingVisual !== undefined
   const validationStatus = validationRegion?.props.variant
@@ -173,8 +174,8 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
   const isLabelHidden = directLabel?.props.visuallyHidden === true
   // A visually hidden label leaves the flow, so it must not push the following control down.
   const verticalLayoutClassName = cn(
-    'flex flex-col items-start',
-    isLabelHidden ? '[&>*:not(label)+*]:mt-1' : '[&>*+*]:mt-1',
+    'primer:flex primer:flex-col primer:items-start',
+    isLabelHidden ? 'primer:[&>*:not(label)+*]:mt-1' : 'primer:[&>*+*]:mt-1',
   )
   const mergedClassName =
     typeof className === 'function'
@@ -182,10 +183,10 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
           cn(
             layout === 'horizontal'
               ? cn(
-                  "grid gap-0 [&>input]:mx-0 [&>[data-component='Checkbox']]:col-start-1 [&>[data-component='Checkbox']]:row-start-1 [&>[data-component='Radio']]:col-start-1 [&>[data-component='Radio']]:row-start-1 [&>[data-component='FormControl.Caption']]:row-start-2 [&>[data-component='FormControl.Label']]:row-start-1 [&>[data-component='FormControl.LeadingVisual']]:col-start-2 [&>[data-component='FormControl.LeadingVisual']]:row-start-1 [&>[data-component='FormControl.Validation']]:row-start-3",
+                  "primer:grid primer:gap-0 primer:[&>input]:mx-0 primer:[&>[data-component='Checkbox']]:col-start-1 primer:[&>[data-component='Checkbox']]:row-start-1 primer:[&>[data-component='Radio']]:col-start-1 primer:[&>[data-component='Radio']]:row-start-1 primer:[&>[data-component='FormControl.Caption']]:row-start-2 primer:[&>[data-component='FormControl.Label']]:row-start-1 primer:[&>[data-component='FormControl.LeadingVisual']]:col-start-2 primer:[&>[data-component='FormControl.LeadingVisual']]:row-start-1 primer:[&>[data-component='FormControl.Validation']]:row-start-3",
                   hasLeadingVisual
-                    ? "grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component='FormControl.Caption']]:col-start-3 [&>[data-component='FormControl.Label']]:col-start-3 [&>[data-component='FormControl.Validation']]:col-start-3"
-                    : "grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component='FormControl.Caption']]:col-start-2 [&>[data-component='FormControl.Label']]:col-start-2 [&>[data-component='FormControl.Validation']]:col-start-2",
+                    ? "primer:grid-cols-[auto_auto_minmax(0,1fr)] primer:items-center primer:[&>[data-component='FormControl.Caption']]:col-start-3 primer:[&>[data-component='FormControl.Label']]:col-start-3 primer:[&>[data-component='FormControl.Validation']]:col-start-3"
+                    : "primer:grid-cols-[auto_minmax(0,1fr)] primer:items-start primer:[&>[data-component='FormControl.Caption']]:col-start-2 primer:[&>[data-component='FormControl.Label']]:col-start-2 primer:[&>[data-component='FormControl.Validation']]:col-start-2",
                 )
               : verticalLayoutClassName,
             className(state),
@@ -193,10 +194,10 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
       : cn(
           layout === 'horizontal'
             ? cn(
-                "grid gap-0 [&>input]:mx-0 [&>[data-component='Checkbox']]:col-start-1 [&>[data-component='Checkbox']]:row-start-1 [&>[data-component='Radio']]:col-start-1 [&>[data-component='Radio']]:row-start-1 [&>[data-component='FormControl.Caption']]:row-start-2 [&>[data-component='FormControl.Label']]:row-start-1 [&>[data-component='FormControl.LeadingVisual']]:col-start-2 [&>[data-component='FormControl.LeadingVisual']]:row-start-1 [&>[data-component='FormControl.Validation']]:row-start-3",
+                "primer:grid primer:gap-0 primer:[&>input]:mx-0 primer:[&>[data-component='Checkbox']]:col-start-1 primer:[&>[data-component='Checkbox']]:row-start-1 primer:[&>[data-component='Radio']]:col-start-1 primer:[&>[data-component='Radio']]:row-start-1 primer:[&>[data-component='FormControl.Caption']]:row-start-2 primer:[&>[data-component='FormControl.Label']]:row-start-1 primer:[&>[data-component='FormControl.LeadingVisual']]:col-start-2 primer:[&>[data-component='FormControl.LeadingVisual']]:row-start-1 primer:[&>[data-component='FormControl.Validation']]:row-start-3",
                 hasLeadingVisual
-                  ? "grid-cols-[auto_auto_minmax(0,1fr)] items-center [&>[data-component='FormControl.Caption']]:col-start-3 [&>[data-component='FormControl.Label']]:col-start-3 [&>[data-component='FormControl.Validation']]:col-start-3"
-                  : "grid-cols-[auto_minmax(0,1fr)] items-start [&>[data-component='FormControl.Caption']]:col-start-2 [&>[data-component='FormControl.Label']]:col-start-2 [&>[data-component='FormControl.Validation']]:col-start-2",
+                  ? "primer:grid-cols-[auto_auto_minmax(0,1fr)] primer:items-center primer:[&>[data-component='FormControl.Caption']]:col-start-3 primer:[&>[data-component='FormControl.Label']]:col-start-3 primer:[&>[data-component='FormControl.Validation']]:col-start-3"
+                  : "primer:grid-cols-[auto_minmax(0,1fr)] primer:items-start primer:[&>[data-component='FormControl.Caption']]:col-start-2 primer:[&>[data-component='FormControl.Label']]:col-start-2 primer:[&>[data-component='FormControl.Validation']]:col-start-2",
               )
             : verticalLayoutClassName,
           className,
@@ -206,15 +207,18 @@ const Root = React.forwardRef<HTMLDivElement, FormControlProps>(function FormCon
   const disabled = rest.disabled || choiceGroup?.disabled
   const context = React.useMemo(
     () => ({
-      'aria-describedby': describedBy,
-      'aria-invalid': hasErrorValidation || undefined,
-      'aria-labelledby': accessibleLabelId,
-      disabled,
-      id: controlId,
-      name: rest.name,
-      required,
+      controlProps: {
+        'aria-describedby': describedBy,
+        'aria-invalid': hasErrorValidation || undefined,
+        'aria-labelledby': accessibleLabelId,
+        disabled,
+        id: controlId,
+        name: rest.name,
+        required,
+      },
+      labelId,
     }),
-    [accessibleLabelId, controlId, describedBy, disabled, hasErrorValidation, required, rest.name],
+    [accessibleLabelId, controlId, describedBy, disabled, hasErrorValidation, labelId, required, rest.name],
   )
 
   const overriddenParts = [
@@ -271,6 +275,7 @@ function FormControlLabel(
     className,
     htmlFor,
     id,
+    nativeLabel = true,
     requiredIndicator = true,
     requiredText,
     visuallyHidden,
@@ -279,25 +284,29 @@ function FormControlLabel(
   ref: React.ForwardedRef<HTMLElement>,
 ) {
   const context = useFormControlContext()
+  const contextLabelId = useFormControlLabelId()
   const layout = React.useContext(FormControlLayoutContext)
   const baseUiLabel = React.useContext(FormControlBaseLabelContext)
-  const labelFor =
-    baseUiLabel && (htmlFor === undefined || htmlFor === context?.id) ? undefined : (htmlFor ?? context?.id)
-  const labelId = id ?? context?.['aria-labelledby']
+  const labelFor = !nativeLabel
+    ? undefined
+    : baseUiLabel && (htmlFor === undefined || htmlFor === context?.id)
+      ? undefined
+      : (htmlFor ?? context?.id)
+  const labelId = id ?? contextLabelId
   const indicatorText = requiredText ?? (context?.required ? '*' : undefined)
   const mergedClassName =
     typeof className === 'function'
       ? (state: Field.Label.State) =>
           cn(
-            'block text-sm text-default data-[disabled]:text-[var(--control-fgColor-disabled)]',
-            layout === 'horizontal' ? 'pl-2 font-normal' : 'font-semibold',
-            visuallyHidden && 'sr-only',
+            'primer:block primer:text-sm primer:text-default primer:data-[disabled]:text-[var(--control-fgColor-disabled)]',
+            layout === 'horizontal' ? 'primer:pl-2 primer:font-normal' : 'primer:font-semibold',
+            visuallyHidden && 'primer:sr-only',
             className(state),
           )
       : cn(
-          'block text-sm text-default data-[disabled]:text-[var(--control-fgColor-disabled)]',
-          layout === 'horizontal' ? 'pl-2 font-normal' : 'font-semibold',
-          visuallyHidden && 'sr-only',
+          'primer:block primer:text-sm primer:text-default primer:data-[disabled]:text-[var(--control-fgColor-disabled)]',
+          layout === 'horizontal' ? 'primer:pl-2 primer:font-normal' : 'primer:font-semibold',
+          visuallyHidden && 'primer:sr-only',
           className,
         )
 
@@ -306,12 +315,13 @@ function FormControlLabel(
       {...rest}
       {...(labelFor === undefined ? {} : {htmlFor: labelFor})}
       {...(labelId === undefined ? {} : {id: labelId})}
+      nativeLabel={nativeLabel}
       ref={ref}
       data-component="FormControl.Label"
       className={mergedClassName}
     >
       {indicatorText ? (
-        <span className="flex gap-1">
+        <span className="primer:flex primer:gap-1">
           <span>{children}</span>
           <span aria-hidden={requiredIndicator ? undefined : true}>{indicatorText}</span>
         </span>
@@ -336,13 +346,13 @@ const Caption = React.forwardRef<HTMLParagraphElement, FormControlCaptionProps>(
     typeof className === 'function'
       ? (state: Field.Description.State) =>
           cn(
-            'm-0 text-xs leading-[18px] text-muted data-[disabled]:text-disabled',
-            layout === 'horizontal' && 'pl-2',
+            'primer:m-0 primer:text-xs primer:leading-[18px] primer:text-muted primer:data-[disabled]:text-disabled',
+            layout === 'horizontal' && 'primer:pl-2',
             className(state),
           )
       : cn(
-          'm-0 text-xs leading-[18px] text-muted data-[disabled]:text-disabled',
-          layout === 'horizontal' && 'pl-2',
+          'primer:m-0 primer:text-xs primer:leading-[18px] primer:text-muted primer:data-[disabled]:text-disabled',
+          layout === 'horizontal' && 'primer:pl-2',
           className,
         )
 
@@ -368,17 +378,19 @@ const Validation = React.forwardRef<HTMLDivElement, FormControlValidationProps>(
   ref,
 ) {
   const context = useFormControlContext()
+  const field = useFieldRootContext()
   const validationClassName = ValidationMessage.getClassName(variant, className)
   const validationId = id ?? (context?.id ? `${context.id}-validation` : undefined)
   const content = <ValidationMessage variant={variant}>{children}</ValidationMessage>
 
-  if (variant === 'success') {
+  // Base UI uses this same sentinel to distinguish its default context from a Field.Root provider.
+  if (variant === 'success' || field.setValidityData === NOOP) {
     return (
       <div
         {...rest}
         ref={ref}
         id={validationId}
-        role="status"
+        role={variant === 'success' ? 'status' : rest.role}
         data-component="FormControl.Validation"
         data-variant={variant}
         className={validationClassName}
@@ -417,10 +429,10 @@ const LeadingVisual = React.forwardRef<HTMLDivElement, FormControlLeadingVisualP
       data-component="FormControl.LeadingVisual"
       data-control-disabled={context?.disabled || undefined}
       className={cn(
-        'ml-2 flex shrink-0 items-center leading-none [&>*]:min-h-4 [&>*]:min-w-4 [&>*]:fill-current',
+        'primer:ml-2 primer:flex primer:shrink-0 primer:items-center primer:leading-none primer:[&>*]:min-h-4 primer:[&>*]:min-w-4 primer:[&>*]:fill-current',
         // The visual grows to sit beside a label and caption, even when they share a wrapper.
-        "[[data-component='FormControl']:has([data-component='FormControl.Caption'])_&>*]:min-h-6 [[data-component='FormControl']:has([data-component='FormControl.Caption'])_&>*]:min-w-6",
-        context?.disabled ? 'text-[var(--control-fgColor-disabled)]' : 'text-default',
+        "primer:[[data-component='FormControl']:has([data-component='FormControl.Caption'])_&>*]:min-h-6 primer:[[data-component='FormControl']:has([data-component='FormControl.Caption'])_&>*]:min-w-6",
+        context?.disabled ? 'primer:text-[var(--control-fgColor-disabled)]' : 'primer:text-default',
         className,
       )}
     />
@@ -436,7 +448,7 @@ const Control = React.forwardRef<HTMLElement, FormControlControlProps>(function 
       ref={ref}
       data-component="FormControl.Control"
       className={mergeClassName(
-        'm-0 h-8 appearance-none rounded-md border border-[var(--control-borderColor-rest)] bg-default px-3 text-sm leading-5 text-default shadow-[var(--shadow-inset)] placeholder:text-muted disabled:cursor-not-allowed disabled:border-[var(--control-borderColor-disabled)] disabled:bg-[var(--control-bgColor-disabled)] disabled:text-disabled disabled:shadow-none focus:border-accent-emphasis focus:outline-2 focus:outline-offset-[-1px] focus:outline-[var(--borderColor-accent-emphasis)] aria-invalid:border-danger-emphasis aria-invalid:focus:border-[var(--control-borderColor-danger)] aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
+        'primer:m-0 primer:h-8 primer:appearance-none primer:rounded-md primer:border-thin primer:border-[var(--control-borderColor-rest)] primer:bg-default primer:px-3 primer:text-sm primer:leading-5 primer:text-default primer:shadow-[var(--shadow-inset)] primer:placeholder:text-muted primer:disabled:cursor-not-allowed primer:disabled:border-[var(--control-borderColor-disabled)] primer:disabled:bg-[var(--control-bgColor-disabled)] primer:disabled:text-disabled primer:disabled:shadow-none primer:focus:border-accent-emphasis primer:focus:outline-2 primer:focus:outline-offset-[-1px] primer:focus:outline-[var(--borderColor-accent-emphasis)] primer:aria-invalid:border-danger-emphasis primer:aria-invalid:focus:border-[var(--control-borderColor-danger)] primer:aria-invalid:focus:outline-[var(--control-borderColor-danger)]',
         props.className,
       )}
       render={(elementProps, state) => (

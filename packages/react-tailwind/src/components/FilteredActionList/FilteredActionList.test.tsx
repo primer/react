@@ -5,7 +5,21 @@ import {afterEach, describe, expect, it, vi} from 'vitest'
 import {ActionList} from '../ActionList'
 import {FilteredActionList, FilteredActionListLoadingTypes} from './'
 
-afterEach(cleanup)
+afterEach(() => {
+  cleanup()
+  vi.unstubAllGlobals()
+})
+
+function stubResizeObserver() {
+  vi.stubGlobal(
+    'ResizeObserver',
+    class {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    },
+  )
+}
 
 const fruit = [
   {id: 'apple', text: 'Apple'},
@@ -13,6 +27,25 @@ const fruit = [
 ]
 
 describe('FilteredActionList', () => {
+  it('runs cleanup callbacks for the forwarded input and scroll container refs', () => {
+    const inputCleanup = vi.fn()
+    const scrollCleanup = vi.fn()
+    const inputRef = vi.fn((node: HTMLInputElement | null) => (node ? inputCleanup : undefined))
+    const scrollRef = vi.fn((node: HTMLDivElement | null) => (node ? scrollCleanup : undefined))
+    const fixture = () => <FilteredActionList inputRef={inputRef} items={fruit} scrollContainerRef={scrollRef} />
+    const {rerender, unmount} = render(fixture())
+
+    expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement))
+    expect(scrollRef).toHaveBeenCalledWith(expect.any(HTMLDivElement))
+    rerender(fixture())
+    unmount()
+
+    expect(inputRef).not.toHaveBeenCalledWith(null)
+    expect(scrollRef).not.toHaveBeenCalledWith(null)
+    expect(inputCleanup).toHaveBeenCalledTimes(inputRef.mock.calls.length)
+    expect(scrollCleanup).toHaveBeenCalledTimes(scrollRef.mock.calls.length)
+  })
+
   it('exposes whether its inline combobox has an available list', () => {
     const {rerender} = render(<FilteredActionList items={fruit} />)
     expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true')
@@ -42,7 +75,7 @@ describe('FilteredActionList', () => {
 
     const visualOf = (name: string) =>
       screen.getByRole('option', {name}).querySelector('[data-component="ActionList.Selection"] > span')
-    expect(visualOf('Apple')).toHaveClass('rounded-full')
+    expect(visualOf('Apple')).toHaveClass('primer:rounded-full')
     expect(visualOf('Apple')).toHaveAttribute('data-checked')
     expect(visualOf('Banana')).not.toHaveAttribute('data-checked')
   })
@@ -234,8 +267,8 @@ describe('FilteredActionList', () => {
       'First detail Second detail',
     )
     expect(screen.getByRole('option', {name: 'Hidden'})).toHaveAccessibleDescription('Hidden visual detail')
-    expect(screen.getByRole('option', {name: 'ImportantVisual enabled'})).toBeInTheDocument()
-    expect(screen.getByRole('option', {name: 'ImportantVisual disabled'})).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByRole('option', {name: 'Visual enabled'})).toBeInTheDocument()
+    expect(screen.getByRole('option', {name: 'Visual disabled'})).toHaveAttribute('aria-disabled', 'true')
     expect(screen.getByRole('option', {name: 'Custom label'})).toHaveAccessibleDescription('Label detail')
     expect(screen.getByRole('option', {name: 'Custom reference'})).toHaveAccessibleDescription('Reference detail')
   })
@@ -246,19 +279,64 @@ describe('FilteredActionList', () => {
     expect(screen.getByTestId('filtered-action-list-spinner')).toBeInTheDocument()
     expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-controls')
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
-    expect(document.querySelector('[data-component="FilteredActionList.Empty"]')).not.toBeInTheDocument()
+    const status = document.querySelector<HTMLElement>('[data-component="FilteredActionList.Empty"]')
+    expect(status).toBeEmptyDOMElement()
 
     rerender(<FilteredActionList items={fruit} message={<p>Nothing here</p>} />)
     expect(screen.getByText('Nothing here')).toBeInTheDocument()
     expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-controls')
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+    expect(status).toBeEmptyDOMElement()
 
     rerender(<FilteredActionList emptyStateText="No fruit" items={[]} />)
     const listbox = screen.getByRole('listbox')
-    const status = screen.getByRole('status')
+    expect(status).toBe(screen.getByRole('status'))
     expect(status).toHaveTextContent('No fruit')
     expect(listbox).not.toContainElement(status)
     expect(screen.getByRole('combobox')).toHaveAttribute('aria-controls', listbox.id)
+  })
+
+  it('keeps the empty status mounted while filtering changes the visible message', async () => {
+    const user = userEvent.setup()
+    const {container, rerender} = render(<FilteredActionList emptyStateText="No fruit" items={fruit} />)
+    const status = container.querySelector('[data-component="FilteredActionList.Empty"]')
+    const input = screen.getByRole('combobox')
+    expect(status).toHaveAttribute('role', 'status')
+    expect(status).toHaveAttribute('aria-live', 'polite')
+    expect(status).toBeEmptyDOMElement()
+
+    await user.type(input, 'no match')
+    expect(container.querySelector('[data-component="FilteredActionList.Empty"]')).toBe(status)
+    expect(status).toHaveTextContent('No fruit')
+    expect(screen.getByText('0 items available')).toHaveAttribute('aria-live', 'polite')
+    expect(input).toHaveAttribute('aria-controls', screen.getByRole('listbox').id)
+
+    await user.clear(input)
+    expect(status).toBeEmptyDOMElement()
+    rerender(<FilteredActionList emptyStateText="No fruit" items={[]} loading />)
+    expect(container.querySelector('[data-component="FilteredActionList.Empty"]')).toBe(status)
+    expect(status).toBeEmptyDOMElement()
+  })
+
+  it.each([null, false, true, ''])('does not render a padded empty message for %s', emptyStateText => {
+    const {container} = render(<FilteredActionList emptyStateText={emptyStateText} items={[]} />)
+    const status = container.querySelector('[data-component="FilteredActionList.Empty"]')
+    expect(status).toHaveAttribute('role', 'status')
+    expect(status).toBeEmptyDOMElement()
+    expect(status).not.toHaveClass('primer:flex-1')
+    expect(screen.getByText('0 items available')).toHaveAttribute('aria-live', 'polite')
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-controls', screen.getByRole('listbox').id)
+  })
+
+  it('renders zero as empty-state content', () => {
+    const {container} = render(<FilteredActionList emptyStateText={0} items={[]} />)
+    expect(container.querySelector('[data-component="FilteredActionList.Empty"]')).toHaveTextContent('0')
+  })
+
+  it('does not add a result-count announcement when announcements are disabled', () => {
+    const {container} = render(<FilteredActionList announcementsEnabled={false} emptyStateText={null} items={[]} />)
+    expect(container.querySelector('[data-component="FilteredActionList.Empty"]')).toBeEmptyDOMElement()
+    expect(screen.queryByText('0 items available')).not.toBeInTheDocument()
   })
 
   it('uses bodySpinner by default and supports input and body skeleton loading', () => {
@@ -288,11 +366,12 @@ describe('FilteredActionList', () => {
         loadingType={FilteredActionListLoadingTypes.bodySkeleton}
       />,
     )
-    expect(screen.getByRole('status')).toHaveTextContent('Loading items')
+    expect(screen.getByText('Loading items').closest('[role="status"]')).toHaveTextContent('Loading items')
     expect(screen.getAllByText('Loading items')).toHaveLength(1)
   })
 
   it('uses valid Base UI listbox virtualization with a subset of uniform options mounted', () => {
+    stubResizeObserver()
     const manyItems = Array.from({length: 100}, (_, index) => ({id: index, text: `Item ${index}`}))
     const {container} = render(<FilteredActionList items={manyItems} virtualized />)
     const listbox = screen.getByRole('listbox')
@@ -300,13 +379,14 @@ describe('FilteredActionList', () => {
     expect(listbox.tagName).toBe('DIV')
     expect(within(listbox).getAllByRole('option').length).toBeLessThan(manyItems.length)
     expect(listbox.querySelector(':scope > div[role="presentation"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="FilteredActionList.Empty"]')).not.toBeInTheDocument()
+    expect(container.querySelector('[data-component="FilteredActionList.Empty"]')).toBeEmptyDOMElement()
     expect(container.querySelector('ul')).not.toBeInTheDocument()
     expect(within(listbox).getByRole('option', {name: 'Item 0'})).toHaveAttribute('aria-posinset', '1')
     expect(within(listbox).getByRole('option', {name: 'Item 0'})).toHaveAttribute('aria-setsize', '100')
   })
 
   it('virtualizes uniform block-description rows with their visuals and metadata intact', () => {
+    stubResizeObserver()
     const manyItems = Array.from({length: 100}, (_, index) => ({
       id: index,
       text: `Repository ${index}`,
@@ -329,6 +409,7 @@ describe('FilteredActionList', () => {
   })
 
   it('keeps a virtualized list keyboard reachable beyond its initially mounted options', async () => {
+    stubResizeObserver()
     const user = userEvent.setup()
     const scrollRef = React.createRef<HTMLDivElement>()
     const manyItems = Array.from({length: 80}, (_, index) => ({id: index, text: `Item ${index}`}))
@@ -366,6 +447,47 @@ describe('FilteredActionList', () => {
         virtualized
       />,
     )
+    expect(screen.getAllByRole('option')).toHaveLength(manyItems.length)
+  })
+
+  it('renders disabled options without virtualization and skips them during keyboard navigation', async () => {
+    stubResizeObserver()
+    const user = userEvent.setup()
+    const onSelectedChange = vi.fn()
+    const manyItems = Array.from({length: 30}, (_, index) => ({
+      id: index,
+      text: `Item ${index}`,
+      disabled: index === 1,
+      trailingVisual: index === 1 ? 'Enterprise policy' : undefined,
+    }))
+    render(
+      <FilteredActionList
+        items={manyItems}
+        onSelectedChange={onSelectedChange}
+        selectionVariant="single"
+        virtualized
+      />,
+    )
+
+    expect(screen.getAllByRole('option')).toHaveLength(manyItems.length)
+    const disabled = screen.getByRole('option', {name: 'Item 1 Enterprise policy'})
+    expect(disabled).toHaveAttribute('aria-disabled', 'true')
+    await user.click(disabled)
+    expect(onSelectedChange).not.toHaveBeenCalled()
+
+    const input = screen.getByRole('combobox')
+    input.focus()
+    await user.keyboard('{ArrowDown}{ArrowDown}')
+    expect(input).toHaveAttribute('aria-activedescendant', screen.getByRole('option', {name: 'Item 2'}).id)
+    await user.keyboard('{Enter}')
+    expect(onSelectedChange).toHaveBeenCalledWith([2], expect.objectContaining({reason: 'item-press'}))
+  })
+
+  it('uses regular rendering when ResizeObserver is unavailable', () => {
+    vi.stubGlobal('ResizeObserver', undefined)
+    const manyItems = Array.from({length: 80}, (_, index) => ({id: index, text: `Item ${index}`}))
+    render(<FilteredActionList items={manyItems} virtualized />)
+
     expect(screen.getAllByRole('option')).toHaveLength(manyItems.length)
   })
 
@@ -504,9 +626,9 @@ describe('FilteredActionList', () => {
     expect(listbox).toHaveAttribute('aria-label', 'Fruit options')
     expect(listbox).toHaveAttribute('title', 'listbox')
     expect(input.closest('[data-component="TextInput"]')).toHaveClass(
-      'max-md:supports-[-webkit-touch-callout:none]:text-[var(--text-title-size-small)]',
+      'primer:max-md:supports-[-webkit-touch-callout:none]:text-[var(--text-title-size-small)]',
     )
-    expect(input).toHaveClass('[font-size:inherit]')
+    expect(input).toHaveClass('primer:[font-size:inherit]')
 
     input.focus()
     fireEvent.mouseMove(apple)

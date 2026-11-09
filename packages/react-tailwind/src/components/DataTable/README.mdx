@@ -3,6 +3,7 @@ import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
 import * as Stories from './DataTable.stories'
 import * as Features from './DataTable.features.stories'
 import * as Examples from './DataTable.examples.stories'
+import * as TableFeatures from './Table.features.stories'
 
 <Meta of={Stories} />
 
@@ -34,9 +35,51 @@ Set `sortBy` to `true`, `'alphanumeric'`, `'datetime'`, or a row comparator to m
 
 Columns grow by default. Use `width="auto"`, `width="growCollapse"`, an explicit CSS width, and optional `minWidth` or `maxWidth` when the table needs a deliberate layout.
 
+## Loading skeleton
+
+Pass the same `Column<Data>[]` to `Table.Skeleton` and `DataTable`. The skeleton evaluates callback headers and preserves each column's `align`, `width`, `minWidth`, and `maxWidth` without invoking cell renderers or enabling sorting. Header-only definitions remain supported, including rendered React nodes as headers.
+
+Like legacy Primer, each skeleton cell exposes one visually hidden “Loading” label; the placeholder lines are hidden from assistive technology and the table does not set `aria-busy` (prohibited by GitHub accessibility policy). The skeleton does not announce on its own: a status region mounted together with the skeleton is not reliably announced. When loading or completion must be announced, keep a persistent `AriaStatus`/`LiveRegion` outside the swapped content and update its message.
+
+```tsx
+const columns: Column<Issue>[] = [
+  {field: 'title', header: 'Title', width: 'growCollapse'},
+  {field: 'count', header: () => <span>Count</span>, align: 'end', width: 96},
+]
+
+loading ? (
+  <Table.Skeleton aria-label="Issues" columns={columns} rows={5} />
+) : (
+  <DataTable aria-label="Issues" columns={columns} data={issues} />
+)
+```
+
+<Canvas of={TableFeatures.WithSkeletonColumns} />
+
 ## Accessibility and composition
 
-Sortable headers use native buttons named by the column title, with the next sort action in `aria-description` and `aria-sort` on the header; row headers render as `<th scope="row">`. Hand-composed tables can use `Table.SelectionHeader`, `Table.RowSelection`, `Table.Group`, and `Table.BulkActions`. `Table.Title` is an `h2` and `Table.Subtitle` is a paragraph by default, so use `Heading` or your own labelled content when another document structure is needed. Compose table pagination with `Table.Pagination`, which translates its zero-based page index contract onto the shared `Pagination` primitive. Compose loading and error UI and row actions with `Table.Skeleton`, `ActionMenu`, and `Blankslate`.
+Sortable headers use native buttons named by the column title, with the next sort action as a hidden `aria-describedby` description and `aria-sort` on the header; row headers render as `<th scope="row">`. Hand-composed tables can use `Table.SelectionHeader`, `Table.RowSelection`, `Table.Group`, and `Table.BulkActions`. `Table.Title` defaults to `h2` and `Table.Subtitle` to `p`; both accept `as="h1"` through `as="h6"` or `as="p"` to fit the document structure without changing their visual style. Their refs, HTML props, IDs, and classes stay on that native element. Compose table pagination with `Table.Pagination`, which translates its zero-based page index contract onto the shared `Pagination` primitive. Compose loading and error UI and row actions with `Table.Skeleton`, `ActionMenu`, and `Blankslate`.
+
+An overflowing table has a focusable, named scroll region. If it stops overflowing while focused, the region remains focusable until focus leaves. The table establishes a containing block for otherwise unpositioned absolute descendants, keeping visually hidden cell labels inside that region. Give custom positioned content its own containing block when it needs to anchor to a cell; use a portal for overlays that need to escape the scroll region.
+
+The legacy `Table.ErrorDialog` is not exported here. For a retry/dismiss alert dialog, use the controlled `ConfirmationDialog` composition in the [migration notes](./ALIGNMENT.md#migration-notes) and choose a stable return-focus target for your error flow.
+
+```tsx
+<Table.Container>
+  <Table.Title as="h3" id="components">
+    Components
+  </Table.Title>
+  <Table.Subtitle id="components-description">Components available in this project</Table.Subtitle>
+  <DataTable
+    aria-labelledby="components"
+    aria-describedby="components-description"
+    data={components}
+    columns={columns}
+  />
+</Table.Container>
+```
+
+<Canvas of={TableFeatures.WithHeadingLevels} />
 
 <Canvas of={Features.WithSorting} />
 

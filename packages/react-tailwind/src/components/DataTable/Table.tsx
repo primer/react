@@ -7,21 +7,23 @@ import {joinIdRefs} from '../../internal/idRefs'
 import {UnstyledButton} from '../../internal/UnstyledButton'
 import {Checkbox} from '../Checkbox'
 import {Pagination, type PaginationProps} from '../Pagination'
-import {useOverflow} from '../ScrollableRegion/useOverflow'
+import {useOverflowWithFocusRetention} from '../ScrollableRegion/useOverflow'
 import {SkeletonText} from '../SkeletonText'
 import {VisuallyHidden} from '../VisuallyHidden'
+import {renderColumnHeader} from './column'
+import type {Column, UniqueRow} from './DataTable'
 import {getGridTemplateColumns, type TableColumnLayout} from './layout'
 import {TableGroupContext} from './TableGroupContext'
 
 const cellPaddingClassName =
-  'px-3 py-2 first:pl-4 last:pr-4 group-data-[cell-padding=condensed]:px-2 group-data-[cell-padding=condensed]:py-1 group-data-[cell-padding=spacious]:px-4 group-data-[cell-padding=spacious]:py-3'
+  'primer:px-3 primer:py-2 primer:first:pl-4 primer:last:pr-4 primer:group-data-[cell-padding=condensed]:px-2 primer:group-data-[cell-padding=condensed]:py-1 primer:group-data-[cell-padding=spacious]:px-4 primer:group-data-[cell-padding=spacious]:py-3'
 
 // Only the final visible row rounds its corners, and only when nothing (such as pagination) follows the table.
 const cellClassName = cn(
-  'flex items-center border-b border-default text-start first:border-l last:border-r data-[align=end]:justify-end data-[align=end]:text-end',
+  'primer:flex primer:items-center primer:border-b primer:border-default primer:text-start primer:first:border-l primer:last:border-r primer:data-[align=end]:justify-end primer:data-[align=end]:text-end',
   cellPaddingClassName,
-  "[[data-component='Table.OverflowWrapper']:last-child_tbody:last-of-type>tr:last-of-type>&:first-child]:rounded-bl-md",
-  "[[data-component='Table.OverflowWrapper']:last-child_tbody:last-of-type>tr:last-of-type>&:last-child]:rounded-br-md",
+  "primer:[[data-component='Table.OverflowWrapper']:last-child_tbody:last-of-type>tr:last-of-type>&:first-child]:rounded-bl-md",
+  "primer:[[data-component='Table.OverflowWrapper']:last-child_tbody:last-of-type>tr:last-of-type>&:last-child]:rounded-br-md",
 )
 
 function resolveHeaders(group: React.ContextType<typeof TableGroupContext>, headers: string | undefined) {
@@ -43,13 +45,13 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(function Tab
 ) {
   const inheritedGroup = React.useContext(TableGroupContext)
   const [wrapper, setWrapper] = React.useState<HTMLDivElement | null>(null)
-  const hasOverflow = useOverflow(wrapper)
+  const needsOverflowRegion = useOverflowWithFocusRetention(wrapper)
   const table = (
     <div
       ref={setWrapper}
-      className="overflow-x-auto"
+      className="primer:overflow-x-auto"
       data-component="Table.OverflowWrapper"
-      {...(hasOverflow
+      {...(needsOverflowRegion
         ? {
             role: 'region',
             tabIndex: 0,
@@ -71,7 +73,8 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(function Tab
           } as React.CSSProperties
         }
         className={cn(
-          'group grid w-full border-spacing-0 bg-default text-xs leading-[calc(20/12)] [grid-template-columns:var(--grid-template-columns)]',
+          // Keep absolutely positioned cell content within the overflow wrapper's clipping.
+          'primer:relative primer:group primer:grid primer:w-full primer:border-spacing-0 primer:bg-default primer:text-xs primer:leading-[calc(20/12)] primer:[grid-template-columns:var(--grid-template-columns)]',
           className,
         )}
       />
@@ -92,7 +95,7 @@ export const TableHead = React.forwardRef<HTMLTableSectionElement, TableHeadProp
       {...props}
       ref={ref}
       data-component="Table.Head"
-      className={cn('grid grid-cols-subgrid [grid-column:-1/1]', className)}
+      className={cn('primer:grid primer:grid-cols-subgrid primer:[grid-column:-1/1]', className)}
     />
   )
 })
@@ -107,7 +110,7 @@ export const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProp
       {...props}
       ref={ref}
       data-component="Table.Body"
-      className={cn('grid grid-cols-subgrid [grid-column:-1/1]', className)}
+      className={cn('primer:grid primer:grid-cols-subgrid primer:[grid-column:-1/1]', className)}
     />
   )
 })
@@ -122,7 +125,7 @@ export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(fun
       {...props}
       ref={ref}
       data-component="Table.Row"
-      className={cn('group/row grid grid-cols-subgrid [grid-column:-1/1]', className)}
+      className={cn('primer:group/row primer:grid primer:grid-cols-subgrid primer:[grid-column:-1/1]', className)}
     />
   )
 })
@@ -144,7 +147,7 @@ export const TableHeader = React.forwardRef<HTMLTableCellElement, TableHeaderPro
       scope="col"
       data-align={align}
       className={cn(
-        'flex items-center border-y border-default bg-muted px-3 py-2 text-start font-semibold text-muted first:rounded-tl-md first:border-l first:pl-4 last:rounded-tr-md last:border-r last:pr-4 aria-[sort=ascending]:text-default aria-[sort=descending]:text-default data-[align=end]:justify-end data-[align=end]:text-end group-data-[cell-padding=condensed]:px-2 group-data-[cell-padding=condensed]:py-1 group-data-[cell-padding=spacious]:px-4 group-data-[cell-padding=spacious]:py-3',
+        'primer:flex primer:items-center primer:border-y primer:border-default primer:bg-muted primer:px-3 primer:py-2 primer:text-start primer:font-semibold primer:text-muted primer:first:rounded-tl-md primer:first:border-l primer:first:pl-4 primer:last:rounded-tr-md primer:last:border-r primer:last:pr-4 primer:aria-[sort=ascending]:text-default primer:aria-[sort=descending]:text-default primer:data-[align=end]:justify-end primer:data-[align=end]:text-end primer:group-data-[cell-padding=condensed]:px-2 primer:group-data-[cell-padding=condensed]:py-1 primer:group-data-[cell-padding=spacious]:px-4 primer:group-data-[cell-padding=spacious]:py-3',
         className,
       )}
     />
@@ -162,6 +165,7 @@ export const TableSortHeader = React.forwardRef<HTMLTableCellElement, TableSortH
   {align, children, className, direction, onToggleSort, ...props},
   ref,
 ) {
+  const sortDescriptionId = `${React.useId()}-sort-description`
   return (
     <TableHeader
       {...props}
@@ -169,24 +173,27 @@ export const TableSortHeader = React.forwardRef<HTMLTableCellElement, TableSortH
       align={align}
       aria-sort={direction === 'ASC' ? 'ascending' : direction === 'DESC' ? 'descending' : undefined}
       data-component="Table.SortHeader"
-      className={cn('group/header', className)}
+      className={cn('primer:group/header', className)}
     >
       <UnstyledButton
         data-component="Table.SortHeader.Button"
         // The column name stays the button's name; the sort action it performs is supplementary.
-        aria-description={direction === 'ASC' ? 'Sort descending' : 'Sort ascending'}
+        aria-describedby={sortDescriptionId}
         onClick={onToggleSort}
-        className={cn('group/sort gap-x-2', align === 'end' && 'flex flex-row-reverse')}
+        className={cn('primer:group/sort primer:gap-x-2', align === 'end' && 'primer:flex primer:flex-row-reverse')}
       >
         {children}
         {direction !== 'DESC' ? (
           <SortAscIcon
             aria-hidden="true"
-            className="invisible group-hover/header:visible group-focus/sort:visible group-aria-[sort=ascending]/header:visible"
+            className="primer:invisible primer:group-hover/header:visible primer:group-focus/sort:visible primer:group-aria-[sort=ascending]/header:visible"
           />
         ) : null}
         {direction === 'DESC' ? <SortDescIcon aria-hidden="true" /> : null}
       </UnstyledButton>
+      <span hidden id={sortDescriptionId}>
+        {direction === 'ASC' ? 'Sort descending' : 'Sort ascending'}
+      </span>
     </TableHeader>
   )
 })
@@ -203,16 +210,19 @@ export interface TableSelectionHeaderProps
   checkboxRef?: React.Ref<HTMLElement>
   /** Accessible name for the selection checkbox. */
   'aria-label'?: string
-  /** Accessible description for the selection checkbox, such as how many rows it selects. */
-  'aria-description'?: string
+  /** IDs of elements that describe the selection checkbox. */
+  'aria-describedby'?: string
+  /** Supplementary description for the selection checkbox, such as how many rows it selects. */
+  description?: string
 }
 export const TableSelectionHeader = React.forwardRef<HTMLTableCellElement, TableSelectionHeaderProps>(
   function TableSelectionHeader(
     {
-      'aria-description': ariaDescription,
+      'aria-describedby': ariaDescribedBy,
       'aria-label': ariaLabel = 'Select rows',
       checkboxRef,
       className,
+      description,
       disabled,
       onToggleSelect,
       selection,
@@ -220,22 +230,28 @@ export const TableSelectionHeader = React.forwardRef<HTMLTableCellElement, Table
     },
     ref,
   ) {
+    const descriptionId = `${React.useId()}-description`
     return (
       <TableHeader
         {...props}
         ref={ref}
         data-component="Table.SelectionHeader"
-        className={cn('justify-center', className)}
+        className={cn('primer:justify-center', className)}
       >
         <Checkbox
           ref={checkboxRef}
-          aria-description={ariaDescription}
+          aria-describedby={joinIdRefs(description && descriptionId, ariaDescribedBy)}
           aria-label={ariaLabel}
           checked={selection === 'all'}
           disabled={disabled}
           indeterminate={selection === 'some'}
           onCheckedChange={() => onToggleSelect?.()}
         />
+        {description ? (
+          <span hidden id={descriptionId}>
+            {description}
+          </span>
+        ) : null}
       </TableHeader>
     )
   },
@@ -262,7 +278,7 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
       data-component="Table.Cell"
       data-align={align}
       data-scope={scope}
-      className={cn(cellClassName, 'data-[scope=row]:font-semibold', className)}
+      className={cn(cellClassName, 'primer:data-[scope=row]:font-semibold', className)}
     />
   )
 })
@@ -305,7 +321,7 @@ export const TableRowSelection = React.forwardRef<HTMLTableCellElement, TableRow
         ref={ref}
         headers={resolveHeaders(group, headers)}
         data-component="Table.RowSelection"
-        className={cn(cellClassName, 'justify-center', className)}
+        className={cn(cellClassName, 'primer:justify-center', className)}
       >
         {ariaLabelledBy ? <VisuallyHidden id={actionLabelId}>Select</VisuallyHidden> : null}
         <Checkbox
@@ -332,41 +348,58 @@ export const TableContainer = React.forwardRef<HTMLDivElement, TableContainerPro
       ref={ref}
       data-component="Table.Container"
       className={cn(
-        "grid grid-cols-[1fr_1fr] gap-x-2 [&>[data-component='Table.OverflowWrapper']]:col-span-2 [&>[data-component='Table.OverflowWrapper']:not(:first-child)]:mt-2",
+        "primer:grid primer:grid-cols-[1fr_1fr] primer:gap-x-2 primer:[&>[data-component='Table.OverflowWrapper']]:col-span-2 primer:[&>[data-component='Table.OverflowWrapper']:not(:first-child)]:mt-2",
         className,
       )}
     />
   )
 })
 
-export type TableTitleProps = React.ComponentPropsWithoutRef<'h2'>
+type TableTextElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
+
+export interface TableTitleProps extends React.ComponentPropsWithoutRef<'h2'> {
+  /**
+   * Native heading or paragraph element, chosen independently of the title's visual style.
+   * @default 'h2'
+   */
+  as?: TableTextElement
+}
 export const TableTitle = React.forwardRef<HTMLHeadingElement, TableTitleProps>(function TableTitle(
-  {children, className, ...props},
+  {as: Component = 'h2', children, className, ...props},
   ref,
 ) {
   return (
-    <h2
+    <Component
       {...props}
       ref={ref}
       data-component="Table.Title"
-      className={cn('m-0 self-center text-sm font-semibold leading-5', className)}
+      className={cn('primer:m-0 primer:self-center primer:text-sm primer:font-semibold primer:leading-5', className)}
     >
       {children}
-    </h2>
+    </Component>
   )
 })
 
-export type TableSubtitleProps = React.ComponentPropsWithoutRef<'p'>
+export interface TableSubtitleProps extends React.ComponentPropsWithoutRef<'p'> {
+  /**
+   * Native heading or paragraph element, chosen independently of the subtitle's visual style.
+   * @default 'p'
+   */
+  as?: TableTextElement
+}
 export const TableSubtitle = React.forwardRef<HTMLParagraphElement, TableSubtitleProps>(function TableSubtitle(
-  {className, ...props},
+  {as: Component = 'p', className, ...props},
   ref,
 ) {
   return (
-    <p
+    <Component
       {...props}
       ref={ref}
       data-component="Table.Subtitle"
-      className={cn('col-span-2 m-0 text-xs leading-[1.5]', className)}
+      className={cn(
+        'primer:col-span-2 primer:m-0 primer:text-xs primer:font-[number:inherit] primer:leading-[1.5]',
+        className,
+      )}
     />
   )
 })
@@ -378,18 +411,25 @@ export const TableActions = React.forwardRef<HTMLDivElement, React.ComponentProp
         {...props}
         ref={ref}
         data-component="Table.Actions"
-        className={cn('col-start-2 row-start-1 flex items-center justify-self-end gap-2', props.className)}
+        className={cn(
+          'primer:col-start-2 primer:row-start-1 primer:flex primer:items-center primer:justify-self-end primer:gap-2',
+          props.className,
+        )}
       />
     )
   },
 )
 
 export const TableDivider = () => (
-  <div aria-hidden="true" data-component="Table.Divider" className="col-span-2 mt-4 mb-2 h-px w-full bg-default" />
+  <div
+    aria-hidden="true"
+    data-component="Table.Divider"
+    className="primer:col-span-2 primer:mt-4 primer:mb-2 primer:h-px primer:w-full primer:bg-default"
+  />
 )
 
 export const TableCellPlaceholder = ({className, ...props}: React.ComponentPropsWithoutRef<'span'>) => (
-  <span {...props} data-component="Table.CellPlaceholder" className={cn('text-muted', className)} />
+  <span {...props} data-component="Table.CellPlaceholder" className={cn('primer:text-muted', className)} />
 )
 
 const defaultShowPages = {narrow: false} as const
@@ -397,14 +437,14 @@ const defaultShowPages = {narrow: false} as const
 // Previous and Next sit flush together wherever numbered pages are hidden.
 const paginationEdgeSpacing = {
   previous: {
-    narrow: {true: 'mr-4', false: 'mr-0'},
-    regular: {true: 'md:mr-4', false: 'md:mr-0'},
-    wide: {true: '2xl:mr-4', false: '2xl:mr-0'},
+    narrow: {true: 'primer:mr-4', false: 'primer:mr-0'},
+    regular: {true: 'primer:md:mr-4', false: 'primer:md:mr-0'},
+    wide: {true: 'primer:2xl:mr-4', false: 'primer:2xl:mr-0'},
   },
   next: {
-    narrow: {true: 'ml-4', false: 'ml-0'},
-    regular: {true: 'md:ml-4', false: 'md:ml-0'},
-    wide: {true: '2xl:ml-4', false: '2xl:ml-0'},
+    narrow: {true: 'primer:ml-4', false: 'primer:ml-0'},
+    regular: {true: 'primer:md:ml-4', false: 'primer:md:ml-0'},
+    wide: {true: 'primer:2xl:ml-4', false: 'primer:2xl:ml-0'},
   },
 } as const
 
@@ -442,7 +482,7 @@ export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProp
       {...props}
       ref={ref}
       className={cn(
-        'col-span-2 !m-0 flex min-h-[53px] w-full items-center justify-between gap-4 rounded-b-md border border-t-0 border-default px-4 py-2 [&_[role=presentation]]:mr-0 [&_[role=presentation]]:text-[14px] [&_[role=presentation]]:leading-5',
+        'primer:col-span-2 primer:!m-0 primer:flex primer:min-h-[53px] primer:w-full primer:items-center primer:justify-between primer:gap-4 primer:rounded-b-md primer:border-thin primer:border-t-0 primer:border-default primer:px-4 primer:py-2 primer:[&_[role=presentation]]:mr-0 primer:[&_[role=presentation]]:text-[14px] primer:[&_[role=presentation]]:leading-5',
         className,
       )}
       currentPage={pageIndex + 1}
@@ -459,9 +499,9 @@ export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProp
             aria-label={page['aria-label']}
             className={cn(
               pageClassName,
-              'mr-0 h-auto min-h-8 appearance-none border-0 bg-transparent [font-family:inherit] text-[14px] leading-5 aria-disabled:text-muted',
-              pageType === 'previous' && ['px-2', getPaginationEdgeSpacing(showPages, 'previous')],
-              pageType === 'next' && ['px-2', getPaginationEdgeSpacing(showPages, 'next')],
+              'primer:mr-0 primer:h-auto primer:min-h-8 primer:appearance-none primer:border-0 primer:bg-transparent primer:[font-family:inherit] primer:text-[14px] primer:leading-5 primer:aria-disabled:text-muted',
+              pageType === 'previous' && ['primer:px-2', getPaginationEdgeSpacing(showPages, 'previous')],
+              pageType === 'next' && ['primer:px-2', getPaginationEdgeSpacing(showPages, 'next')],
             )}
             data-component={
               pageType === 'previous'
@@ -478,7 +518,7 @@ export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProp
           >
             {pageType === 'previous' ? (
               <>
-                {!disabled ? <ChevronLeftIcon aria-hidden="true" className="size-4" /> : null}
+                {!disabled ? <ChevronLeftIcon aria-hidden="true" className="primer:size-4" /> : null}
                 <span>Previous</span>
                 <VisuallyHidden>&nbsp;page</VisuallyHidden>
               </>
@@ -486,7 +526,7 @@ export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProp
               <>
                 <span>Next</span>
                 <VisuallyHidden>&nbsp;page</VisuallyHidden>
-                {!disabled ? <ChevronRightIcon aria-hidden="true" className="size-4" /> : null}
+                {!disabled ? <ChevronRightIcon aria-hidden="true" className="primer:size-4" /> : null}
               </>
             ) : (
               children
@@ -501,7 +541,7 @@ export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProp
         onChange?.({pageIndex: nextPageIndex})
       }}
     >
-      <p className="m-0 text-xs text-muted" data-component="Table.Pagination.Range">
+      <p className="primer:m-0 primer:text-xs primer:text-muted" data-component="Table.Pagination.Range">
         {pageStart}
         <VisuallyHidden>&nbsp;through&nbsp;</VisuallyHidden>
         <span aria-hidden="true">‒</span>
@@ -511,37 +551,48 @@ export const TablePagination = React.forwardRef<HTMLElement, TablePaginationProp
   )
 })
 
-export interface TableSkeletonProps extends Omit<TableProps, 'children'> {
-  /** Column definitions the placeholder should mirror. */
-  columns: Array<TableColumnLayout & {header: React.ReactNode}>
+export interface TableSkeletonProps<Data extends UniqueRow = UniqueRow> extends Omit<TableProps, 'children'> {
+  /** DataTable columns or header-only definitions whose headers, alignment, and layout the placeholder mirrors. */
+  columns: Array<
+    | Column<Data>
+    | (TableColumnLayout & Pick<Column<Data>, 'align'> & {header: React.ReactNode | Column<Data>['header']})
+  >
   /** Number of placeholder rows to render while data loads. */
   rows?: number
 }
-export function TableSkeleton({columns, rows = 10, ...props}: TableSkeletonProps) {
+export function TableSkeleton<Data extends UniqueRow = UniqueRow>({
+  columns,
+  rows = 10,
+  ...props
+}: TableSkeletonProps<Data>) {
   return (
-    <Table {...props} aria-busy="true" gridTemplateColumns={getGridTemplateColumns(columns)}>
+    <Table {...props} gridTemplateColumns={getGridTemplateColumns(columns)}>
       <TableHead>
         <TableRow>
           {columns.map((column, index) => (
-            <TableHeader key={index}>{column.header}</TableHeader>
+            <TableHeader key={index} align={column.align}>
+              {renderColumnHeader(column.header)}
+            </TableHeader>
           ))}
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
-          {columns.map((_, columnIndex) => (
-            <TableCell key={columnIndex} className="p-0 first:pl-0 last:pr-0">
-              <div className="flex w-full flex-col">
+          {columns.map((column, columnIndex) => (
+            <TableCell key={columnIndex} align={column.align} className="primer:p-0 primer:first:pl-0 primer:last:pr-0">
+              <VisuallyHidden>Loading</VisuallyHidden>
+              <div aria-hidden="true" className="primer:flex primer:w-full primer:flex-col">
                 {Array.from({length: rows}, (_, rowIndex) => (
                   <div
                     key={rowIndex}
                     className={cn(
-                      'border-b border-default px-3 py-2 last:border-b-0',
-                      columnIndex === 0 && 'pl-4',
-                      columnIndex === columns.length - 1 && 'pr-4',
+                      'primer:flex primer:border-b primer:border-default primer:px-3 primer:py-2 primer:last:border-b-0',
+                      column.align === 'end' && 'primer:justify-end',
+                      columnIndex === 0 && 'primer:pl-4',
+                      columnIndex === columns.length - 1 && 'primer:pr-4',
                     )}
                   >
-                    <SkeletonText aria-label="Loading" style={{maxWidth: `${[85, 67.5, 80, 60, 75][rowIndex % 5]}%`}} />
+                    <SkeletonText maxWidth={`${[85, 67.5, 80, 60, 75][rowIndex % 5]}%`} />
                   </div>
                 ))}
               </div>

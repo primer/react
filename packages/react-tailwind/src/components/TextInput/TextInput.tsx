@@ -7,6 +7,7 @@ import {useCharacterLimit} from '../../internal/useCharacterLimit'
 import {cn} from '../../internal/cn'
 import {markFormControlInput} from '../../internal/formControlParts'
 import {joinIdRefs} from '../../internal/idRefs'
+import {mergeRefs} from '../../internal/refs'
 import type {ControlSize} from '../../utils/types'
 import {useFormControlForwardedProps, useFormControlValidationStatus} from '../FormControl/useFormControlForwardedProps'
 import {Spinner} from '../Spinner'
@@ -14,21 +15,21 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import {TextInputAction} from './TextInputAction'
 
 const inputVariants = cva(
-  'inline-flex cursor-text items-stretch overflow-hidden align-middle text-default border border-[var(--control-borderColor-rest)] bg-default shadow-[var(--shadow-inset)] rounded-md data-[focused]:border-accent-emphasis data-[focused]:outline-2 data-[focused]:outline-offset-[-1px] data-[focused]:outline-focus data-[disabled]:cursor-not-allowed data-[disabled]:border-[var(--control-borderColor-disabled)] data-[disabled]:bg-[var(--control-bgColor-disabled)] data-[disabled]:text-disabled data-[disabled]:shadow-none data-[validation=error]:border-danger-emphasis data-[validation=error]:data-[focused]:border-[var(--control-borderColor-danger)] data-[validation=error]:data-[focused]:outline-[var(--control-borderColor-danger)] data-[validation=success]:border-[var(--bgColor-success-emphasis)]',
+  'primer:box-border primer:inline-flex primer:cursor-text primer:items-stretch primer:overflow-hidden primer:align-middle primer:text-default primer:border-thin primer:border-[var(--control-borderColor-rest)] primer:bg-default primer:shadow-[var(--shadow-inset)] primer:rounded-md primer:data-[focused]:border-accent-emphasis primer:data-[focused]:outline-2 primer:data-[focused]:outline-offset-[-1px] primer:data-[focused]:outline-focus primer:data-[disabled]:cursor-not-allowed primer:data-[disabled]:border-[var(--control-borderColor-disabled)] primer:data-[disabled]:bg-[var(--control-bgColor-disabled)] primer:data-[disabled]:text-disabled primer:data-[disabled]:shadow-none primer:data-[validation=error]:border-danger-emphasis primer:data-[validation=error]:data-[focused]:border-[var(--control-borderColor-danger)] primer:data-[validation=error]:data-[focused]:outline-[var(--control-borderColor-danger)] primer:data-[validation=success]:border-[var(--bgColor-success-emphasis)]',
   {
     variants: {
       block: {
-        true: 'flex w-full self-stretch',
-        false: 'inline-flex',
+        true: 'primer:flex primer:w-full primer:self-stretch',
+        false: 'primer:inline-flex',
       },
       monospace: {
-        true: 'font-mono',
+        true: 'primer:font-mono',
         false: '',
       },
       size: {
-        small: 'min-h-7 py-[3px] text-xs leading-5 [--text-input-action-size:20px]',
-        medium: 'min-h-8 text-sm leading-5 [--text-input-action-size:24px]',
-        large: 'h-10 py-[10px] text-sm leading-5 [--text-input-action-size:28px]',
+        small: 'primer:min-h-7 primer:py-[3px] primer:text-xs primer:leading-5 primer:[--text-input-action-size:20px]',
+        medium: 'primer:min-h-8 primer:text-sm primer:leading-5 primer:[--text-input-action-size:24px]',
+        large: 'primer:h-10 primer:py-[10px] primer:text-sm primer:leading-5 primer:[--text-input-action-size:28px]',
       },
     },
     defaultVariants: {block: false, monospace: false, size: 'medium'},
@@ -48,7 +49,7 @@ export interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInput
   loading?: boolean
   /** Which end the spinner appears at, or `auto` to take the place of an existing visual. */
   loaderPosition?: 'auto' | 'leading' | 'trailing'
-  /** Text announced to assistive technology while the input is loading. */
+  /** Text included in the input's accessible description while loading. */
   loaderText?: string
   /** Renders the value in a monospace face, for code or identifiers. */
   monospace?: boolean
@@ -86,16 +87,21 @@ function VisualSlot({children, loading, position, slotId}: VisualSlotProps) {
   return (
     <span
       aria-hidden="true"
-      className="flex shrink-0 self-center text-muted"
+      className="primer:flex primer:shrink-0 primer:self-center primer:text-muted"
       data-component={`TextInput.${position}Visual`}
       id={slotId}
     >
-      <span className="relative flex">
-        {children !== undefined ? <span className={cn(loading && 'invisible')}>{renderVisual(children)}</span> : null}
+      <span className="primer:relative primer:flex">
+        {children !== undefined ? (
+          <span className={cn(loading && 'primer:invisible')}>{renderVisual(children)}</span>
+        ) : null}
         {loading ? (
           <Spinner
             aria-hidden="true"
-            className={cn(children !== undefined && 'absolute inset-0 m-auto max-h-full max-w-full')}
+            className={cn(
+              children !== undefined &&
+                'primer:absolute primer:inset-0 primer:m-auto primer:max-h-full primer:max-w-full',
+            )}
             size="small"
             srText={null}
           />
@@ -159,27 +165,19 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
     characterLimitId,
   )
 
-  const setInputRef = React.useCallback(
-    (node: HTMLInputElement | null) => {
-      inputRef.current = node
-      if (typeof ref === 'function') ref(node)
-      else if (ref) ref.current = node
-    },
-    [ref],
-  )
+  const setInputRef = React.useMemo(() => mergeRefs(inputRef, ref), [ref])
 
   return (
     <>
       {/* The wrapper only redirects pointer clicks on its visual affordances to the native input. */}
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <span
-        aria-busy={loading || undefined}
         className={cn(
           inputVariants({block, monospace, size}),
           // Match upstream: every inner part except the last is separated by 8px.
-          '[&>:not(:last-child)]:mr-2',
-          hasLeading && (size === 'large' ? 'pl-3' : 'pl-2'),
-          hasTrailing && !trailingAction && (size === 'large' ? 'pr-3' : 'pr-2'),
+          'primer:[&>:not(:last-child)]:mr-2',
+          hasLeading && (size === 'large' ? 'primer:pl-3' : 'primer:pl-2'),
+          hasTrailing && !trailingAction && (size === 'large' ? 'primer:pr-3' : 'primer:pr-2'),
           className,
         )}
         data-block={block || undefined}
@@ -208,10 +206,10 @@ const TextInputRoot = React.forwardRef<HTMLInputElement, TextInputProps>(functio
           aria-invalid={effectiveValidation === 'error' ? true : forwardedProps['aria-invalid']}
           aria-required={forwardedProps['aria-required'] ?? (effectiveRequired || undefined)}
           className={cn(
-            'm-0 w-full appearance-none border-0 bg-transparent px-0 [font-family:inherit] [font-size:inherit] text-[color:inherit] outline-none placeholder:text-muted disabled:cursor-not-allowed',
-            !hasLeading && !hasTrailing && !trailingAction && 'px-3',
-            hasLeading && !hasTrailing && !trailingAction && 'pr-2',
-            !hasLeading && (hasTrailing || trailingAction) && 'pl-2',
+            'primer:m-0 primer:w-full primer:appearance-none primer:border-0 primer:bg-transparent primer:px-0 primer:[font-family:inherit] primer:[font-size:inherit] primer:text-[color:inherit] primer:outline-none primer:placeholder:text-muted primer:disabled:cursor-not-allowed',
+            !hasLeading && !hasTrailing && !trailingAction && 'primer:px-3',
+            hasLeading && !hasTrailing && !trailingAction && 'primer:pr-2',
+            !hasLeading && (hasTrailing || trailingAction) && 'primer:pl-2',
           )}
           data-component={inputDataComponent}
           defaultValue={defaultValue}

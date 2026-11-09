@@ -36,9 +36,8 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
       ref={ref}
       role={rest.role ?? (rest['aria-label'] || rest['aria-labelledby'] ? 'img' : undefined)}
       data-component={dataComponent ?? 'SkeletonBox'}
-      aria-busy="true"
       className={cn(
-        'block h-4 w-full rounded-[var(--borderRadius-small)] bg-[var(--skeletonLoader-bgColor)] motion-safe:animate-[primer-skeleton-shimmer_var(--base-duration-1000)_infinite] motion-safe:[mask-image:linear-gradient(75deg,#000_30%,rgb(0_0_0/65%)_80%)] motion-safe:[mask-size:200%]',
+        'primer:block primer:h-4 primer:w-full primer:rounded-[var(--borderRadius-small)] primer:bg-[var(--skeletonLoader-bgColor)] primer:motion-safe:animate-[primer-skeleton-shimmer_var(--base-duration-1000)_infinite] primer:motion-safe:[mask-image:linear-gradient(75deg,#000_30%,rgb(0_0_0/65%)_80%)] primer:motion-safe:[mask-size:200%]',
         className,
       )}
       style={{height, width, ...style}}

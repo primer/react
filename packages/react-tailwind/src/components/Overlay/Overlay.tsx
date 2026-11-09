@@ -2,7 +2,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 
 const overlayClassName =
-  'absolute min-w-48 max-w-[calc(100vw-var(--base-size-32))] max-h-dvh overflow-auto rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
+  'primer:absolute primer:min-w-48 primer:max-w-[calc(100vw-var(--base-size-32))] primer:max-h-dvh primer:overflow-auto primer:rounded-lg primer:bg-[var(--overlay-bgColor)] primer:text-default primer:shadow-floating-sm primer:outline-none primer:contrast-more:border-current primer:motion-safe:transition primer:motion-safe:duration-200 primer:motion-reduce:transition-none'
 
 export type OverlayProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'data-component'>
 

@@ -6,6 +6,7 @@ export {
   type NavListGroupExpandItem,
   type NavListGroupExpandProps,
   type NavListGroupHeadingProps,
+  type NavListDividerProps,
   type NavListListProps,
   type NavListItemProps,
   type NavListLeadingVisualProps,

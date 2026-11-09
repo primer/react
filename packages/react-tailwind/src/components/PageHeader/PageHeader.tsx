@@ -3,6 +3,7 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 import {responsiveClasses} from '../../utils/responsive'
 import type {AsProp, ResponsiveValue} from '../../utils/types'
+import type {BroadAsProps, PolymorphicPropsWithDefaultRef} from '../../utils/types/component'
 
 type TitleVariant = 'subtitle' | 'medium' | 'large'
 
@@ -30,8 +31,8 @@ const Root = React.forwardRef<HTMLElement, PageHeaderProps>(function PageHeader(
       {...rest}
       ref={ref}
       className={cn(
-        "grid grid-cols-[auto_auto_auto_auto_1fr] grid-rows-[auto_auto_auto_auto] text-title-medium font-semibold [grid-template-areas:'context_context_context_context_context'_'leading_breadcrumbs_title_trailing_actions'_'description_description_description_description_description'_'navigation_navigation_navigation_navigation_navigation']",
-        hasBorder && 'border-b border-default pb-2',
+        "primer:grid primer:grid-cols-[auto_auto_auto_auto_1fr] primer:grid-rows-[auto_auto_auto_auto] primer:text-title-medium primer:font-semibold primer:[grid-template-areas:'context_context_context_context_context'_'leading_breadcrumbs_title_trailing_actions'_'description_description_description_description_description'_'navigation_navigation_navigation_navigation_navigation']",
+        hasBorder && 'primer:border-b primer:border-default primer:pb-2',
         className,
       )}
       data-component="PageHeader"
@@ -52,7 +53,7 @@ const ContextArea = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functi
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:context] flex items-center gap-2 pb-2 text-sm font-normal',
+        'primer:[grid-area:context] primer:flex primer:items-center primer:gap-2 primer:pb-2 primer:text-sm primer:font-normal',
         hiddenClasses(hidden, 'flex', hiddenOnRegularAndWide),
         className,
       )}
@@ -60,20 +61,28 @@ const ContextArea = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functi
     />
   )
 })
-export interface ParentLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'hidden'>, AsProp {
+interface ParentLinkOwnProps extends AsProp {
   /** Hides the parent link. Accepts a responsive object to hide it only at some viewports. */
   hidden?: ResponsiveValue<boolean>
 }
-const ParentLink = React.forwardRef<HTMLElement, ParentLinkProps>(function ParentLink(
-  {as: Component = 'a', className, hidden, ...rest},
-  ref,
-) {
+
+export type ParentLinkProps<As extends React.ElementType = never> = PolymorphicPropsWithDefaultRef<
+  As,
+  ParentLinkOwnProps,
+  'a',
+  HTMLElement
+>
+
+const ParentLinkRoot = React.forwardRef<
+  HTMLElement,
+  ParentLinkOwnProps & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'hidden'>
+>(function ParentLink({as: Component = 'a', className, hidden, ...rest}, ref) {
   return (
     <Component
       {...rest}
       ref={ref}
       className={cn(
-        'flex items-center gap-2 text-sm text-muted no-underline',
+        'primer:flex primer:items-center primer:gap-2 primer:text-sm primer:text-muted primer:no-underline',
         hiddenClasses(hidden, 'flex', hiddenOnRegularAndWide),
         className,
       )}
@@ -84,6 +93,14 @@ const ParentLink = React.forwardRef<HTMLElement, ParentLinkProps>(function Paren
     </Component>
   )
 })
+
+const ParentLink = ParentLinkRoot as {
+  <As extends React.ElementType>(props: ParentLinkProps<As> & {as: As}): React.ReactElement | null
+  (props: ParentLinkProps<'a'>): React.ReactElement | null
+  <As extends React.ElementType>(props: BroadAsProps<As, ParentLinkProps>): React.ReactElement | null
+  displayName?: string
+}
+
 const ContextBar = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(function ContextBar(
   {className, hidden, ...rest},
   ref,
@@ -92,7 +109,7 @@ const ContextBar = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functio
     <div
       {...rest}
       ref={ref}
-      className={cn('flex', hiddenClasses(hidden, 'flex', hiddenOnRegularAndWide), className)}
+      className={cn('primer:flex', hiddenClasses(hidden, 'flex', hiddenOnRegularAndWide), className)}
       data-component="PageHeader.ContextBar"
     />
   )
@@ -106,7 +123,7 @@ const ContextAreaActions = React.forwardRef<HTMLDivElement, PageHeaderPartProps>
       {...rest}
       ref={ref}
       className={cn(
-        'ml-auto flex items-center gap-2',
+        'primer:ml-auto primer:flex primer:items-center primer:gap-2',
         hiddenClasses(hidden, 'flex', hiddenOnRegularAndWide),
         className,
       )}
@@ -127,7 +144,7 @@ const TitleArea = React.forwardRef<HTMLDivElement, TitleAreaProps>(function Titl
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:title] flex items-start gap-2',
+        'primer:[grid-area:title] primer:flex primer:items-start primer:gap-2',
         responsiveClasses(
           variant,
           {
@@ -154,7 +171,7 @@ const LeadingAction = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(func
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:leading] flex h-[1lh] items-center pr-2',
+        'primer:[grid-area:leading] primer:flex primer:h-[1lh] primer:items-center primer:pr-2',
         hiddenClasses(hidden, 'flex', hiddenOnNarrow),
         className,
       )}
@@ -171,7 +188,7 @@ const Breadcrumbs = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functi
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:breadcrumbs] flex items-center pr-2 text-sm font-normal',
+        'primer:[grid-area:breadcrumbs] primer:flex primer:items-center primer:pr-2 primer:text-sm primer:font-normal',
         hiddenClasses(hidden, 'flex'),
         className,
       )}
@@ -187,7 +204,7 @@ const LeadingVisual = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(func
     <div
       {...rest}
       ref={ref}
-      className={cn('flex h-[1lh] items-center', hiddenClasses(hidden, 'flex'), className)}
+      className={cn('primer:flex primer:h-[1lh] primer:items-center', hiddenClasses(hidden, 'flex'), className)}
       data-component="PageHeader.LeadingVisual"
     />
   )
@@ -207,7 +224,7 @@ const Title = React.forwardRef<HTMLHeadingElement, TitleProps>(function Title(
       {...rest}
       ref={ref as React.Ref<HTMLDivElement>}
       className={cn(
-        'm-0 [font-size:inherit] [font-weight:inherit] [line-height:inherit]',
+        'primer:m-0 primer:[font-size:inherit] primer:[font-weight:inherit] primer:[line-height:inherit]',
         hiddenClasses(hidden),
         className,
       )}
@@ -223,7 +240,7 @@ const TrailingVisual = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(fun
     <div
       {...rest}
       ref={ref}
-      className={cn('flex h-[1lh] items-center', hiddenClasses(hidden, 'flex'), className)}
+      className={cn('primer:flex primer:h-[1lh] primer:items-center', hiddenClasses(hidden, 'flex'), className)}
       data-component="PageHeader.TrailingVisual"
     />
   )
@@ -237,7 +254,7 @@ const TrailingAction = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(fun
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:trailing] flex h-[1lh] items-center pl-2',
+        'primer:[grid-area:trailing] primer:flex primer:h-[1lh] primer:items-center primer:pl-2',
         hiddenClasses(hidden, 'flex', hiddenOnNarrow),
         className,
       )}
@@ -254,7 +271,7 @@ const Actions = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(function A
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:actions] flex h-[1lh] min-w-max items-center justify-end gap-2 pl-2',
+        'primer:[grid-area:actions] primer:flex primer:h-[1lh] primer:min-w-max primer:items-center primer:justify-end primer:gap-2 primer:pl-2',
         hiddenClasses(hidden, 'flex'),
         className,
       )}
@@ -271,7 +288,7 @@ const Description = React.forwardRef<HTMLDivElement, PageHeaderPartProps>(functi
       {...rest}
       ref={ref}
       className={cn(
-        '[grid-area:description] flex items-center gap-2 pt-2 text-sm font-normal',
+        'primer:[grid-area:description] primer:flex primer:items-center primer:gap-2 primer:pt-2 primer:text-sm primer:font-normal',
         hiddenClasses(hidden, 'flex'),
         className,
       )}
@@ -291,7 +308,11 @@ const Navigation = React.forwardRef<HTMLElement, NavigationProps>(function Navig
     <Component
       {...rest}
       ref={ref as React.Ref<HTMLDivElement>}
-      className={cn('[grid-area:navigation] block pt-2 text-sm font-normal', hiddenClasses(hidden), className)}
+      className={cn(
+        'primer:[grid-area:navigation] primer:block primer:pt-2 primer:text-sm primer:font-normal',
+        hiddenClasses(hidden),
+        className,
+      )}
       data-component="PageHeader.Navigation"
     />
   )

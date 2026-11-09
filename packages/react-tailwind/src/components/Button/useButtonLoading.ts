@@ -11,20 +11,20 @@ interface ButtonLoadingAriaProps {
 }
 
 /**
- * Loading semantics shared by Button and LinkButton. While loading, the control is busy and disabled for assistive
- * technology, keeps its visible label as its name, and adds the loading announcement ahead of consumer descriptions.
+ * Loading semantics shared by Button and LinkButton. While loading, the control is disabled for assistive technology (without
+ * `aria-busy`, which GitHub accessibility policy prohibits), keeps its visible label as its name, and adds any
+ * loading announcement ahead of consumer descriptions.
  */
-export function useButtonLoading(loading: boolean, props: ButtonLoadingAriaProps) {
+export function useButtonLoading(loading: boolean, loadingAnnouncement: string, props: ButtonLoadingAriaProps) {
   const id = React.useId()
   const labelId = `${id}-label`
-  const loadingAnnouncementId = `${id}-loading-announcement`
+  const loadingAnnouncementId = loading && loadingAnnouncement !== '' ? `${id}-loading-announcement` : undefined
 
   return {
     labelId,
     loadingAnnouncementId,
     ariaProps: {
-      'aria-busy': loading || undefined,
-      'aria-describedby': loading
+      'aria-describedby': loadingAnnouncementId
         ? joinIdRefs(loadingAnnouncementId, props['aria-describedby'])
         : props['aria-describedby'],
       'aria-disabled': loading || props['aria-disabled'],

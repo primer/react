@@ -6,7 +6,7 @@ import {mergeClassName} from '../../internal/mergeClassName'
 import {CheckboxGlyph, checkboxClassName, checkboxGlyphRevealClassName} from '../../internal/selectionVisuals'
 import {cn} from '../../internal/cn'
 import {markFormControlInput} from '../../internal/formControlParts'
-import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
+import {useFormControlChoiceForwardedProps} from '../FormControl/useFormControlForwardedProps'
 
 export interface CheckboxProps
   extends Omit<BaseCheckbox.Root.Props, 'className' | 'children' | 'data-component' | 'render'> {
@@ -15,7 +15,7 @@ export interface CheckboxProps
 
 /** A styled checkbox primitive. Pair with a native label or FormControl.Label. */
 export const Checkbox = React.forwardRef<HTMLElement, CheckboxProps>(function Checkbox({className, ...rest}, ref) {
-  const forwardedProps = useFormControlForwardedProps(rest)
+  const forwardedProps = useFormControlChoiceForwardedProps(rest)
 
   return (
     <BaseCheckbox.Root
@@ -26,7 +26,7 @@ export const Checkbox = React.forwardRef<HTMLElement, CheckboxProps>(function Ch
     >
       <BaseCheckbox.Indicator
         className={cn(
-          'flex [clip-path:inset(0)] motion-safe:delay-80 data-[starting-style]:[clip-path:inset(var(--base-size-16)_0_0_0)] data-[ending-style]:[clip-path:inset(var(--base-size-16)_0_0_0)] motion-safe:data-[ending-style]:delay-0',
+          'primer:flex primer:[clip-path:inset(0)] primer:motion-safe:delay-80 primer:data-[starting-style]:[clip-path:inset(var(--base-size-16)_0_0_0)] primer:data-[ending-style]:[clip-path:inset(var(--base-size-16)_0_0_0)] primer:motion-safe:data-[ending-style]:delay-0',
           checkboxGlyphRevealClassName,
         )}
         render={(props, state) => (

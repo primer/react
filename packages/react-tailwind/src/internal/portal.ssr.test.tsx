@@ -101,4 +101,22 @@ describe('portal-backed components on the server', () => {
   it('does not render portal content into the server markup', () => {
     expect(renderToString(<Portal>Portaled</Portal>)).toBe('')
   })
+
+  it('renders nested floating layers without accessing a portal container', () => {
+    expect(() =>
+      renderToString(
+        <Dialog defaultOpen>
+          <Dialog.Content>
+            <Dialog.Title>Settings</Dialog.Title>
+            <ActionMenu defaultOpen>
+              <ActionMenu.Button>Actions</ActionMenu.Button>
+              <ActionMenu.Content>
+                <ActionMenu.Item>Rename</ActionMenu.Item>
+              </ActionMenu.Content>
+            </ActionMenu>
+          </Dialog.Content>
+        </Dialog>,
+      ),
+    ).not.toThrow()
+  })
 })

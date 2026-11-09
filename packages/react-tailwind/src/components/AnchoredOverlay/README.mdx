@@ -28,6 +28,46 @@ import {AnchoredOverlay} from '@primer/react-tailwind'
 
 Keep the trigger mounted while the overlay is open. Give dialog content a role and accessible name, and retain a keyboard path to dismiss it.
 
+### Informational content
+
+For an informational popup, name both the trigger and the dialog, using `aria-label` or `AnchoredOverlay.Title` for the dialog. By default, `AnchoredOverlay.Trigger` exposes `aria-haspopup="dialog"`; keep that popup type aligned with the content instead of presenting it as a menu.
+
+```tsx
+import {AnchoredOverlay, Button} from '@primer/react-tailwind'
+;<AnchoredOverlay>
+  <AnchoredOverlay.Trigger render={<Button>About billing credits</Button>} />
+  <AnchoredOverlay.Content aria-label="Billing credits information" role="dialog">
+    <p>Billing credits apply to eligible usage.</p>
+    <a href="/billing-help">Learn more</a>
+  </AnchoredOverlay.Content>
+</AnchoredOverlay>
+```
+
+In the default non-modal mode, focus is not trapped. In this example, keyboard opening focuses the link; without a focusable child it focuses the dialog. Tab can move to the next control and dismiss the overlay, and Escape normally closes it and returns focus to the trigger. When the overlay is reopened immediately after a focus-out dismissal, automated Chromium tests have sometimes found focus on the document body after Escape instead; this remains an unresolved Base UI 1.6/1.8 focus-return issue. Custom initial focus, portal placement, content, and modality can also change the sequence, so verify keyboard behavior and assistive-technology announcements in the host.
+
+The canary does not trap focus by default. For a legacy overlay that relied on focus containment while allowing outside pointer interaction, `modal="trap-focus"` with an `AnchoredOverlay.Close` inside `Content` is a possible composition. This does not lock page scrolling or disable outside pointer interactions, but some host policies discourage trapping focus in non-modal UI; check the intended interaction with an accessibility specialist. Full `modal={true}` also blocks outside interaction and scrolling and only enables Base UI's focus trap when a close part is present. In either mode, provide an accessible close control and verify keyboard dismissal and focus return. See the [migration notes](./ALIGNMENT.md) for controlled overlays and the limits of this mapping.
+
+With `modal="trap-focus"`, Base UI 1.6 and 1.8 can request outside dismissal on mouse-down or touch movement before a gesture finishes. A canceled gesture can therefore dismiss the overlay and discard an uncontrolled draft. If the intended behavior is to keep the overlay open on **all** outside presses, cancel that request synchronously:
+
+```tsx
+<AnchoredOverlay
+  modal="trap-focus"
+  onOpenChange={(_, details) => {
+    if (details.reason === 'outside-press') details.cancel()
+  }}
+>
+  <AnchoredOverlay.Trigger>Open editor</AnchoredOverlay.Trigger>
+  <AnchoredOverlay.Content aria-label="Editor" role="dialog">
+    <label>
+      Draft <input />
+    </label>
+    <AnchoredOverlay.Close>Close</AnchoredOverlay.Close>
+  </AnchoredOverlay.Content>
+</AnchoredOverlay>
+```
+
+This opts out of normal outside-press dismissal; it does not preserve dismissal for completed presses while canceling only interrupted gestures. In a controlled overlay, also avoid updating `open` for the canceled request. Keep an explicit close action and verify the host's pointer, keyboard, and assistive-technology behavior.
+
 <Canvas of={Features.AnchorAlignment} />
 
 <Canvas of={Examples.ControlledMenu} />

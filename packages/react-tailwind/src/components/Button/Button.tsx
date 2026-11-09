@@ -3,6 +3,7 @@
 import {Button as BaseButton} from '@base-ui/react/button'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {mergeRenderDescription} from '../../internal/renderDescription'
 import type {ControlSize} from '../../utils/types'
 import {getButtonClassName} from './ButtonClassName'
 import {type ButtonVisual} from './ButtonVisual'
@@ -19,7 +20,7 @@ export interface ButtonBaseProps extends React.ComponentPropsWithoutRef<typeof B
 type ButtonBaseState = Parameters<Exclude<ButtonBaseProps['className'], string | undefined>>[0]
 
 export const ButtonBase = React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBase(
-  {className, 'data-component': dataComponent = 'ButtonBase', ...rest},
+  {className, 'data-component': dataComponent = 'ButtonBase', 'aria-describedby': describedBy, render, ...rest},
   ref,
 ) {
   const mergedClassName =
@@ -27,7 +28,16 @@ export const ButtonBase = React.forwardRef<HTMLElement, ButtonBaseProps>(functio
       ? (state: ButtonBaseState) => cn(buttonBaseClassName, className(state))
       : cn(buttonBaseClassName, className)
 
-  return <BaseButton {...rest} ref={ref} className={mergedClassName} data-component={dataComponent} />
+  return (
+    <BaseButton
+      {...rest}
+      ref={ref}
+      aria-describedby={describedBy}
+      className={mergedClassName}
+      data-component={dataComponent}
+      render={mergeRenderDescription(render, describedBy)}
+    />
+  )
 })
 
 export interface ButtonProps extends Omit<ButtonBaseProps, 'className' | 'children' | 'data-component' | 'disabled'> {
@@ -45,7 +55,7 @@ export interface ButtonProps extends Omit<ButtonBaseProps, 'className' | 'childr
   disabled?: boolean
   /** Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced. */
   inactive?: boolean
-  /** Lets a long label wrap onto more than one line instead of being clipped. */
+  /** Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`. */
   labelWrap?: boolean
   /** Icon shown before the label. */
   leadingVisual?: ButtonVisual
@@ -55,7 +65,7 @@ export interface ButtonProps extends Omit<ButtonBaseProps, 'className' | 'childr
   trailingVisual?: ButtonVisual
   /** Replaces the leading visual with a spinner and suppresses activation. */
   loading?: boolean
-  /** Text announced to assistive technology while the button is loading. */
+  /** Loading status text. Set to an empty string when an external announcer communicates loading. */
   loadingAnnouncement?: string
   /**
    * Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a
@@ -95,6 +105,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
     loadingAnnouncement = 'Loading',
     nativeButton = true,
     notificationIndicator,
+    render,
     size,
     trailingAction,
     trailingVisual,
@@ -105,7 +116,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
   ref,
 ) {
   const loadingState = Boolean(loading)
-  const {ariaProps, labelId, loadingAnnouncementId} = useButtonLoading(loadingState, rest)
+  const {ariaProps, labelId, loadingAnnouncementId} = useButtonLoading(loadingState, loadingAnnouncement, rest)
 
   if (process.env.NODE_ENV !== 'production' && notificationIndicator === 'leadingVisual' && !leadingVisual) {
     // eslint-disable-next-line no-console
@@ -122,6 +133,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
       type={nativeButton ? (type ?? 'button') : type}
       disabled={disabled}
       {...ariaProps}
+      render={mergeRenderDescription(render, ariaProps['aria-describedby'], loadingAnnouncementId)}
       data-component={dataComponent}
       data-block={block || undefined}
       data-inactive={inactive || undefined}
@@ -131,6 +143,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
       data-variant={variant}
       onClick={loadingState ? event => event.preventDefault() : rest.onClick}
       className={getButtonClassName({
+        autoWrapInActions: true,
         block,
         children,
         className: cn(notificationIndicator === 'button' && getNotificationIndicatorClassName('button'), className),
@@ -144,6 +157,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
     >
       <ButtonContent
         alignContent={alignContent}
+        autoWrapInActions
         count={count}
         labelId={labelId}
         labelWrap={labelWrap}

@@ -38,7 +38,7 @@ Include text that communicates the state; color should not be the only cue.
 
 ## Data attributes
 
-The rendered element has `data-component="Label"`.
+The rendered element has `data-component="Label"` and `data-variant`, which defaults to `default` and otherwise reflects the `variant` prop. Passing `variant={null}` removes the variant styling and omits the attribute. An explicitly supplied `data-variant` overrides this value, as in `@primer/react`.
 
 ## Features and examples
 

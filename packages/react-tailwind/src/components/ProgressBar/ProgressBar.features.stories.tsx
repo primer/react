@@ -1,4 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import {useState} from 'react'
 import {ProgressBar} from './ProgressBar'
 
 const meta = {
@@ -51,4 +52,33 @@ export const ClampedValues: Story = {
       <ProgressBar progress={140} aria-label="Progress over one hundred" />
     </div>
   ),
+}
+
+export const CustomFillWithEmptyValue: Story = {
+  render: () => (
+    <ProgressBar
+      aria-label="Storage usage"
+      aria-valuenow={0}
+      aria-valuetext="0% used"
+      fillColor="var(--bgColor-neutral-muted)"
+      progress={100}
+    />
+  ),
+}
+
+export const ConditionalSegments: Story = {
+  render: function ConditionalSegmentsExample() {
+    const [showSegment, setShowSegment] = useState(false)
+    return (
+      <div className="space-y-2">
+        <label>
+          <input checked={showSegment} onChange={event => setShowSegment(event.target.checked)} type="checkbox" /> Show
+          attachment segment
+        </label>
+        <ProgressBar aria-label="Attachments" aria-valuetext="No attachments">
+          {showSegment && <ProgressBar.Item aria-label="Uploaded attachments" progress={40} />}
+        </ProgressBar>
+      </div>
+    )
+  },
 }

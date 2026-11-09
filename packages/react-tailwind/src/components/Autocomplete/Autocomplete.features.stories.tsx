@@ -237,7 +237,7 @@ function AsyncAutocomplete() {
       }}
     >
       <Autocomplete.Input id="autocomplete-input" />
-      <Autocomplete.Content aria-busy={loading || undefined}>
+      <Autocomplete.Content>
         {loading ? (
           <Autocomplete.Status className="flex justify-center p-4">
             <Spinner srText={null} />
@@ -275,7 +275,7 @@ export const RenderingTheMenuOutsideAnOverlay: Story = {
 export const CustomOverlayMenuAnchor: Story = {
   render: () => (
     <FieldFixture caption="The overlay menu position is anchored to the div with the black border instead of to the text input">
-      <div className="flex grow basis-1/4 items-center border border-default p-4">
+      <div className="flex grow basis-1/4 items-center border-thin border-default p-4">
         <FruitAutocomplete />
       </div>
     </FieldFixture>

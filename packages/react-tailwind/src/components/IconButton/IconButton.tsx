@@ -2,18 +2,18 @@
 
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {renderIcon, type IconSource} from '../../internal/icon'
+import {renderIcon, type AccessibleIconName, type IconSource} from '../../internal/icon'
+import {IconControlTooltip} from '../../internal/IconControlTooltip'
 import {Button, type ButtonProps} from '../Button'
 import {getNotificationIndicatorClassName, type NotificationIndicatorPlacement} from '../Button/notificationIndicator'
-import {Tooltip} from '../Tooltip/Tooltip'
-import {useIsInsideTooltip} from '../Tooltip/TooltipContext'
-import {tooltipDirectionPlacement, type TooltipDirection} from '../Tooltip/direction'
+import type {TooltipDirection} from '../Tooltip/direction'
 import {getIconButtonClassName} from './iconButtonClassName'
 
-export interface IconButtonProps
-  extends Omit<ButtonProps, 'children' | 'leadingVisual' | 'notificationIndicator' | 'trailingVisual'> {
-  /** Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology. */
-  'aria-label': string
+interface IconButtonBaseProps
+  extends Omit<
+    ButtonProps,
+    'aria-label' | 'aria-labelledby' | 'children' | 'leadingVisual' | 'notificationIndicator' | 'trailingVisual'
+  > {
   /**
    * Icon to render: a component such as an Octicon, or a rendered element. Pass an element when the icon comes
    * from a Server Component.
@@ -25,8 +25,8 @@ export interface IconButtonProps
    */
   notificationIndicator?: Exclude<NotificationIndicatorPlacement, 'leadingVisual'>
   /**
-   * Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the
-   * tooltip repeats `aria-label` visually.
+   * Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, a
+   * supplied `aria-label` is repeated visually as a tooltip.
    */
   description?: string
   /**
@@ -46,6 +46,9 @@ export interface IconButtonProps
   unsafeDisableTooltip?: boolean
 }
 
+/** An icon-only button needs an accessible name from either `aria-label` or `aria-labelledby`. */
+export type IconButtonProps = IconButtonBaseProps & AccessibleIconName
+
 export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(function IconButton(
   {
     'aria-label': ariaLabel,
@@ -64,12 +67,11 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
   },
   ref,
 ) {
-  const insideTooltip = useIsInsideTooltip()
   const buttonProps = {
     ...rest,
     // `aria-labelledby` takes precedence, so a redundant `aria-label` is dropped.
     'aria-label': rest['aria-labelledby'] ? undefined : ariaLabel,
-    children: renderIcon(icon, 'block'),
+    children: renderIcon(icon, 'primer:block'),
     className: cn(
       getIconButtonClassName({inactive: rest.inactive, size, variant}),
       notificationIndicator && getNotificationIndicatorClassName(notificationIndicator),
@@ -82,29 +84,24 @@ export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(functio
     variant,
   } satisfies ButtonProps & {'data-notification-indicator'?: string}
 
-  if (unsafeDisableTooltip || insideTooltip || !ariaLabel) {
-    return <Button {...buttonProps} ref={ref} />
-  }
-
   const {'aria-expanded': expanded, 'aria-haspopup': hasPopup} = rest
   const hasActivePopup = (expanded === true || expanded === 'true') && Boolean(hasPopup) && hasPopup !== 'false'
-  const placement = tooltipDirectionPlacement[tooltipDirection]
-  // Render-element props override the trigger's, so ARIA references go through the trigger to merge with the tooltip,
-  // and `id` goes through it so the trigger tracks the same element it renders.
   const {'aria-describedby': describedBy, 'aria-labelledby': labelledBy, id, ...triggerButtonProps} = buttonProps
   return (
-    <Tooltip.Root keybindingHint={keybindingHint} type={description ? 'description' : 'label'}>
-      <Tooltip.Trigger
-        ref={ref}
-        id={id}
-        aria-describedby={describedBy}
-        aria-labelledby={labelledBy}
-        disabled={disabled || hasActivePopup}
-        render={<Button {...triggerButtonProps} />}
-      />
-      <Tooltip.Content align={placement.align} side={placement.side}>
-        {description || ariaLabel}
-      </Tooltip.Content>
-    </Tooltip.Root>
+    <IconControlTooltip
+      ref={ref}
+      id={id}
+      aria-describedby={describedBy}
+      aria-labelledby={labelledBy}
+      description={description}
+      disabled={disabled}
+      hasActivePopup={hasActivePopup}
+      keybindingHint={keybindingHint}
+      label={ariaLabel}
+      tooltipDirection={tooltipDirection}
+      unsafeDisableTooltip={unsafeDisableTooltip}
+    >
+      <Button {...triggerButtonProps} labelWrap={triggerButtonProps.labelWrap ?? false} />
+    </IconControlTooltip>
   )
 })

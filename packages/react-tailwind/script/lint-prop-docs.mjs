@@ -152,7 +152,7 @@ export function readProps(filePath) {
 export function collect() {
   // Shared vocabulary types are part of the public surface too, and they appear inlined in
   // many components' generated docs.
-  const files = glob.sync('src/{components,utils/types}/**/*.{ts,tsx}', {
+  const files = glob.sync('src/{base,components,utils/types}/**/*.{ts,tsx}', {
     absolute: true,
     cwd: packageDirectory,
     ignore: ['**/*.d.ts', '**/*.stories.*', '**/*.storyHelpers.*', '**/*.test.*'],

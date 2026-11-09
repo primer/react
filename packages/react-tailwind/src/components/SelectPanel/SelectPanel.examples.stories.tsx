@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import {TriangleDownIcon} from '@primer/octicons-react'
+import {SmileyIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React from 'react'
+import {expect, userEvent, within} from 'storybook/test'
 import {ActionMenu} from '../ActionMenu'
 import {Button} from '../Button'
 import {Checkbox} from '../Checkbox'
@@ -17,7 +18,13 @@ const meta = {
 export default meta
 type Story = StoryObj
 
-type StorySelectPanelProps = Partial<Omit<SelectPanelProps, 'anchorRef' | 'onCancel' | 'renderAnchor' | 'variant'>> & {
+type StorySelectPanelProps = Partial<
+  Omit<
+    SelectPanelProps,
+    'anchorRef' | 'onCancel' | 'onSelectedChange' | 'renderAnchor' | 'selected' | 'selectionVariant' | 'variant'
+  >
+> & {
+  onSelectedChange?: (selected: SelectPanelItem[]) => void
   onCancel?: () => void
   renderAnchor?: Exclude<SelectPanelProps['renderAnchor'], null>
   variant?: 'anchored' | 'modal'
@@ -27,7 +34,7 @@ function ColorCircle({color}: {color: string}) {
   return (
     <span
       aria-hidden="true"
-      className="size-3 rounded-full border"
+      className="size-3 rounded-full border-thin"
       style={{backgroundColor: color, borderColor: color}}
     />
   )
@@ -76,7 +83,24 @@ function ExamplePanel({
     initialSelected ?? (multiple ? items.slice(1, 3) : items[0]),
   )
   const props = selectPanelProps ?? {}
-  const {onCancel, variant = 'anchored', ...restProps} = props
+  const {onCancel, onSelectedChange, variant = 'anchored', ...restProps} = props
+  const selectionProps = multiple
+    ? ({
+        selectionVariant: 'multiple',
+        selected: asItems(selected),
+        onSelectedChange: (next: SelectPanelItem[]) => {
+          setSelected(next)
+          onSelectedChange?.(next)
+        },
+      } as const)
+    : ({
+        selectionVariant: 'single',
+        selected: Array.isArray(selected) ? selected[0] : selected,
+        onSelectedChange: (next: SelectPanelItem | undefined) => {
+          setSelected(next)
+          onSelectedChange?.(asItems(next))
+        },
+      } as const)
   const currentFilterValue = props.filterValue ?? filterValue
   const filteredItems = items.filter(item => textOf(item).toLowerCase().startsWith(currentFilterValue.toLowerCase()))
 
@@ -84,16 +108,14 @@ function ExamplePanel({
     variant === 'modal' ? (
       <SelectPanel
         {...restProps}
+        {...selectionProps}
         filterValue={currentFilterValue}
         items={restProps.items ?? filteredItems}
         onCancel={onCancel ?? (() => {})}
         onFilterChange={restProps.onFilterChange ?? setFilterValue}
         onOpenChange={restProps.onOpenChange ?? setOpen}
-        onSelectedChange={restProps.onSelectedChange ?? setSelected}
         open={restProps.open ?? open}
         placeholder="Select labels"
-        selected={restProps.selected ?? selected}
-        selectionVariant={multiple ? 'multiple' : 'single'}
         subtitle="Use labels to organize issues and pull requests"
         title={title}
         variant="modal"
@@ -101,16 +123,14 @@ function ExamplePanel({
     ) : (
       <SelectPanel
         {...restProps}
+        {...selectionProps}
         filterValue={currentFilterValue}
         items={restProps.items ?? filteredItems}
         onCancel={onCancel}
         onFilterChange={restProps.onFilterChange ?? setFilterValue}
         onOpenChange={restProps.onOpenChange ?? setOpen}
-        onSelectedChange={restProps.onSelectedChange ?? setSelected}
         open={restProps.open ?? open}
         placeholder="Select labels"
-        selected={restProps.selected ?? selected}
-        selectionVariant={multiple ? 'multiple' : 'single'}
         subtitle="Use labels to organize issues and pull requests"
         title={title}
         variant="anchored"
@@ -290,7 +310,7 @@ function RepositionAfterLoadingFixture({insideDialog = false}: {insideDialog?: b
         loading: open && loadedFilterValue !== filterValue,
         onFilterChange: setFilterValue,
         onOpenChange: setOpen,
-        onSelectedChange: next => setSelected(asItems(next)),
+        onSelectedChange: setSelected,
         open,
       }}
     />
@@ -331,7 +351,7 @@ export const SelectPanelRepositionInsideDialog: Story = {
   render: () => <RepositionAfterLoadingFixture insideDialog />,
 }
 
-function ProjectPickerPortalExample({modal = false}: {modal?: boolean}) {
+function ProjectPickerPortalExample({modal = false, namedPortal = true}: {modal?: boolean; namedPortal?: boolean}) {
   const [portalContainer, setPortalContainer] = React.useState<HTMLDivElement | null>(null)
   const [selected, setSelected] = React.useState<SelectPanelItem | undefined>()
   const variantProps = modal ? ({variant: 'modal', onCancel: () => {}} as const) : ({variant: 'anchored'} as const)
@@ -351,13 +371,16 @@ function ProjectPickerPortalExample({modal = false}: {modal?: boolean}) {
         <Dialog.Body>
           <Dialog.Description>Choose the project associated with this item.</Dialog.Description>
           <div data-testid="project-picker-portal" ref={setPortalContainer} />
-          <div className="h-52 w-48 overflow-auto rounded-md border border-default" data-testid="project-picker-scroll">
+          <div
+            className="h-52 w-48 overflow-auto rounded-md border-thin border-default"
+            data-testid="project-picker-scroll"
+          >
             <div aria-hidden="true" className="h-80" />
             <SelectPanel
               {...variantProps}
               items={projects}
-              onSelectedChange={next => setSelected(Array.isArray(next) ? next[0] : next)}
-              overlayProps={{container: portalContainer}}
+              onSelectedChange={setSelected}
+              overlayProps={namedPortal ? {container: portalContainer} : undefined}
               selected={selected}
               title="Projects"
             />
@@ -377,6 +400,46 @@ export const ModalInScrollableDialogPortal: Story = {
   render: () => <ProjectPickerPortalExample modal />,
 }
 
+export const DefaultPortalInDialog: Story = {
+  render: () => <ProjectPickerPortalExample namedPortal={false} />,
+}
+
+export const ModalWithDefaultPortalInDialog: Story = {
+  render: () => <ProjectPickerPortalExample modal namedPortal={false} />,
+}
+
+export const PortalInTransformedScrollContainer: Story = {
+  render: function PortalInTransformedScrollContainerStory() {
+    const [portalContainer, setPortalContainer] = React.useState<HTMLDivElement | null>(null)
+    const [selected, setSelected] = React.useState<SelectPanelItem[]>([])
+    const projects = Array.from({length: 20}, (_, index) => ({id: index, text: `Project ${index + 1}`}))
+
+    return (
+      <div
+        aria-label="Scrolled picker panel"
+        role="dialog"
+        style={{height: 600, overflow: 'auto', transform: 'translateX(0)'}}
+      >
+        <span data-prevent-scroll-on-focus tabIndex={-1} />
+        <div data-testid="scrolled-picker-portal" ref={setPortalContainer} style={{position: 'relative'}} />
+        <div aria-hidden="true" style={{height: 1000}} />
+        <SelectPanel
+          disableFullscreenOnNarrow
+          displayInViewport
+          items={projects}
+          onSelectedChange={setSelected}
+          overlayProps={{container: portalContainer, height: 'large', side: 'bottom', width: 'medium'}}
+          selected={selected}
+          selectionVariant="multiple"
+          setInitialFocus
+          showSelectedOptionsFirst={false}
+          title="Projects"
+        />
+      </div>
+    )
+  },
+}
+
 export const ActionMenuAnchor: Story = {
   render: function ActionMenuAnchorStory() {
     const [selected, setSelected] = React.useState<SelectPanelItem | undefined>()
@@ -388,7 +451,7 @@ export const ActionMenuAnchor: Story = {
           <SelectPanel
             anchorProps={{nativeButton: false, role: 'menuitem'}}
             items={labels}
-            onSelectedChange={next => setSelected(Array.isArray(next) ? next[0] : next)}
+            onSelectedChange={setSelected}
             renderAnchor={({children}) => <ActionMenu.Item closeOnClick={false}>{children}</ActionMenu.Item>}
             selected={selected}
             title="Select labels"
@@ -412,6 +475,7 @@ const renderMoreItems = Array.from({length: 1800}, (_, index) => ({
       ? 'This is being used to show what would happen if you returned an item that needed text wrapping'
       : `Item ${index}`,
 }))
+const virtualizableItems = renderMoreItems.map(item => ({id: item.id, text: item.text}))
 
 function RenderSubsetControl({
   caption,
@@ -496,8 +560,8 @@ export const VirtualizedBuiltIn: Story = {
         <p>Time to open (ms): (click to open)</p>
         <ExamplePanel
           initialSelected={[]}
-          items={renderMoreItems}
-          label={`Labels (${renderMoreItems.length} items)`}
+          items={virtualizableItems}
+          label={`Labels (${virtualizableItems.length} items)`}
           selectPanelProps={{height: 'large'}}
           title="Select labels"
         />
@@ -507,12 +571,59 @@ export const VirtualizedBuiltIn: Story = {
         <p>Time to open (ms): (click to open)</p>
         <ExamplePanel
           initialSelected={[]}
-          items={renderMoreItems}
-          label={`Labels (${renderMoreItems.length} items, virtualized)`}
+          items={virtualizableItems}
+          label={`Labels (${virtualizableItems.length} items, virtualized)`}
           selectPanelProps={{height: 'large', virtualized: true}}
           title="Select labels"
         />
       </form>
     </Stack>
   ),
+}
+
+const EmojiVisual = () => <SmileyIcon aria-hidden="true" />
+const emojiItems = Array.from({length: 400}, (_, index) => {
+  const name = index === 3 ? 'emoji-3-with-a-long-descriptive-name-that-wraps-in-the-picker' : `emoji-${index}`
+  return {
+    'aria-label': name,
+    children: (
+      <span className="block wrap-break-word" data-emoji-label="">
+        {name}
+      </span>
+    ),
+    disabled: index === 398,
+    id: name,
+    key: name,
+    leadingVisual: EmojiVisual,
+  }
+})
+
+export const VirtualizedEmojiPicker: Story = {
+  render: function VirtualizedEmojiPickerStory() {
+    const [selected, setSelected] = React.useState<SelectPanelItem | undefined>()
+    const selectedEmoji = emojiItems.find(item => item.id === selected?.id)
+    return (
+      <SelectPanel
+        items={emojiItems}
+        onSelectedChange={setSelected}
+        placeholder="Choose emoji"
+        renderAnchor={({children, ...props}) => (
+          <Button {...props} leadingVisual={selectedEmoji?.leadingVisual}>
+            {children}
+          </Button>
+        )}
+        selected={selected}
+        title="Choose emoji"
+        virtualized
+      />
+    )
+  },
+  play: async ({canvas}) => {
+    const trigger = canvas.getByRole('button', {name: 'Choose emoji'})
+    await userEvent.click(trigger)
+    const dialog = await within(document.body).findByRole('dialog', {name: 'Choose emoji'})
+    await expect(within(dialog).getByRole('option', {name: 'emoji-0'})).toHaveAttribute('aria-setsize', '400')
+    await userEvent.keyboard('{Escape}')
+    await expect(trigger).toHaveFocus()
+  },
 }

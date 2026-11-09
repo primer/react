@@ -9,6 +9,7 @@ const meta = {
     date: {control: 'date'},
     format: {control: 'select', options: ['relative', 'datetime', 'duration']},
     formatStyle: {control: 'select', options: ['long', 'short', 'narrow']},
+    hourCycle: {control: 'select', options: ['h11', 'h12', 'h23', 'h24']},
   },
 } satisfies Meta<typeof RelativeTime>
 export default meta

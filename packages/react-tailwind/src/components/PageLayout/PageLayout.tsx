@@ -2,10 +2,11 @@
 
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {mergeRefs} from '../../internal/refs'
 import {isMarkedWith, resolveRegions} from '../../internal/regions'
 import {responsiveClasses} from '../../utils/responsive'
 import type {AsProp, CSSPropertiesWithCustomProperties, RegionProps, ResponsiveValue} from '../../utils/types'
-import {useOverflow} from '../ScrollableRegion/useOverflow'
+import {useOverflowWithFocusRetention} from '../ScrollableRegion/useOverflow'
 import {DragHandle} from './DragHandle'
 import {
   markPageLayoutFooter,
@@ -28,35 +29,50 @@ import {
 
 type Spacing = 'none' | 'condensed' | 'normal'
 
-const spacing: Record<Spacing, string> = {none: 'p-0', condensed: 'p-4', normal: 'p-4 lg:p-6'}
+interface PageLayoutResizeTargets {
+  contentRef: React.RefObject<HTMLElement | null>
+  sidebarWrapperRef: React.RefObject<HTMLDivElement | null>
+}
+
+const PageLayoutResizeContext = React.createContext<PageLayoutResizeTargets | null>(null)
+
+const spacing: Record<Spacing, string> = {
+  none: 'primer:p-0',
+  condensed: 'primer:p-4',
+  normal: 'primer:p-4 primer:lg:p-6',
+}
 const paddingVariableClasses: Record<Spacing, string> = {
-  none: '[--page-layout-padding:0px]',
-  condensed: '[--page-layout-padding:1rem]',
-  normal: '[--page-layout-padding:1rem] lg:[--page-layout-padding:1.5rem]',
+  none: 'primer:[--page-layout-padding:0px]',
+  condensed: 'primer:[--page-layout-padding:1rem]',
+  normal: 'primer:[--page-layout-padding:1rem] primer:lg:[--page-layout-padding:1.5rem]',
 }
 // Narrow horizontal dividers bleed through the root padding to the viewport edges.
-const horizontalDividerBleed = 'max-md:-mx-[var(--page-layout-padding)]'
-const rowGapClasses: Record<Spacing, string> = {none: 'gap-y-0', condensed: 'gap-y-4', normal: 'gap-y-4 lg:gap-y-6'}
+const horizontalDividerBleed = 'primer:max-md:-mx-[var(--page-layout-padding)]'
+const rowGapClasses: Record<Spacing, string> = {
+  none: 'primer:gap-y-0',
+  condensed: 'primer:gap-y-4',
+  normal: 'primer:gap-y-4 primer:lg:gap-y-6',
+}
 const rowGapVariableClasses: Record<Spacing, string> = {
-  none: '[--page-layout-row-gap:0px]',
-  condensed: '[--page-layout-row-gap:1rem]',
-  normal: '[--page-layout-row-gap:1rem] lg:[--page-layout-row-gap:1.5rem]',
+  none: 'primer:[--page-layout-row-gap:0px]',
+  condensed: 'primer:[--page-layout-row-gap:1rem]',
+  normal: 'primer:[--page-layout-row-gap:1rem] primer:lg:[--page-layout-row-gap:1.5rem]',
 }
 const columnGapClasses: Record<Spacing, string> = {
-  none: 'gap-x-0',
-  condensed: 'gap-x-4',
-  normal: 'gap-x-4 lg:gap-x-6',
+  none: 'primer:gap-x-0',
+  condensed: 'primer:gap-x-4',
+  normal: 'primer:gap-x-4 primer:lg:gap-x-6',
 }
 const columnGapVariableClasses: Record<Spacing, string> = {
-  none: '[--page-layout-column-gap:0px]',
-  condensed: '[--page-layout-column-gap:1rem]',
-  normal: '[--page-layout-column-gap:1rem] lg:[--page-layout-column-gap:1.5rem]',
+  none: 'primer:[--page-layout-column-gap:0px]',
+  condensed: 'primer:[--page-layout-column-gap:1rem]',
+  normal: 'primer:[--page-layout-column-gap:1rem] primer:lg:[--page-layout-column-gap:1.5rem]',
 }
 const width: Record<'full' | 'medium' | 'large' | 'xlarge', string> = {
-  full: 'max-w-full',
-  medium: 'max-w-3xl',
-  large: 'max-w-[1012px]',
-  xlarge: 'max-w-7xl',
+  full: 'primer:max-w-full',
+  medium: 'primer:max-w-3xl',
+  large: 'primer:max-w-[1012px]',
+  xlarge: 'primer:max-w-7xl',
 }
 const hidden = (value: ResponsiveValue<boolean> | undefined, visibleClass = 'block') =>
   responsiveClasses(value, {true: 'hidden', false: visibleClass}, false)
@@ -64,37 +80,39 @@ type PanePosition = 'start' | 'end'
 type PaneDivider = 'none' | 'line' | 'filled'
 
 const panePositionClasses: Record<PanePosition, Record<'narrow' | 'regular' | 'wide', string>> = {
-  start: {narrow: 'order-1', regular: 'md:order-1', wide: '2xl:order-1'},
-  end: {narrow: 'order-3', regular: 'md:order-3', wide: '2xl:order-3'},
+  start: {narrow: 'primer:order-1', regular: 'primer:md:order-1', wide: 'primer:2xl:order-1'},
+  end: {narrow: 'primer:order-3', regular: 'primer:md:order-3', wide: 'primer:2xl:order-3'},
 }
 const sidebarPositionClasses: Record<PanePosition, Record<'narrow' | 'regular' | 'wide', string>> = {
-  start: {narrow: 'order-first', regular: 'md:order-first', wide: '2xl:order-first'},
-  end: {narrow: 'order-last', regular: 'md:order-last', wide: '2xl:order-last'},
+  start: {narrow: 'primer:order-first', regular: 'primer:md:order-first', wide: 'primer:2xl:order-first'},
+  end: {narrow: 'primer:order-last', regular: 'primer:md:order-last', wide: 'primer:2xl:order-last'},
 }
 
 const horizontalDividerClasses: Record<PaneDivider, Record<'narrow' | 'regular' | 'wide', string>> = {
-  none: {narrow: 'hidden', regular: 'md:hidden', wide: '2xl:hidden'},
+  none: {narrow: 'primer:hidden', regular: 'primer:md:hidden', wide: 'primer:2xl:hidden'},
   line: {
-    narrow: 'block h-px border-0 bg-[var(--borderColor-default)]',
-    regular: 'md:block md:h-px md:border-0 md:bg-[var(--borderColor-default)]',
-    wide: '2xl:block 2xl:h-px 2xl:border-0 2xl:bg-[var(--borderColor-default)]',
+    narrow: 'primer:block primer:h-px primer:border-0 primer:bg-[var(--borderColor-default)]',
+    regular: 'primer:md:block primer:md:h-px primer:md:border-0 primer:md:bg-[var(--borderColor-default)]',
+    wide: 'primer:2xl:block primer:2xl:h-px primer:2xl:border-0 primer:2xl:bg-[var(--borderColor-default)]',
   },
   filled: {
-    narrow: 'box-border block h-2 border-y border-default bg-inset',
-    regular: 'md:box-border md:block md:h-2 md:border-y md:border-default md:bg-inset',
-    wide: '2xl:box-border 2xl:block 2xl:h-2 2xl:border-y 2xl:border-default 2xl:bg-inset',
+    narrow: 'primer:box-border primer:block primer:h-2 primer:border-y primer:border-default primer:bg-inset',
+    regular:
+      'primer:md:box-border primer:md:block primer:md:h-2 primer:md:border-y primer:md:border-default primer:md:bg-inset',
+    wide: 'primer:2xl:box-border primer:2xl:block primer:2xl:h-2 primer:2xl:border-y primer:2xl:border-default primer:2xl:bg-inset',
   },
 }
 
 const verticalDividerClasses: Record<PaneDivider, Record<'regular' | 'wide', string>> = {
-  none: {regular: 'md:hidden', wide: '2xl:hidden'},
+  none: {regular: 'primer:md:hidden', wide: 'primer:2xl:hidden'},
   line: {
-    regular: 'md:block md:w-px md:border-0 md:bg-[var(--borderColor-default)]',
-    wide: '2xl:block 2xl:w-px 2xl:border-0 2xl:bg-[var(--borderColor-default)]',
+    regular: 'primer:md:block primer:md:w-px primer:md:border-0 primer:md:bg-[var(--borderColor-default)]',
+    wide: 'primer:2xl:block primer:2xl:w-px primer:2xl:border-0 primer:2xl:bg-[var(--borderColor-default)]',
   },
   filled: {
-    regular: 'md:box-border md:block md:w-2 md:border-x md:border-default md:bg-inset',
-    wide: '2xl:box-border 2xl:block 2xl:w-2 2xl:border-x 2xl:border-default 2xl:bg-inset',
+    regular:
+      'primer:md:box-border primer:md:block primer:md:w-2 primer:md:border-x primer:md:border-default primer:md:bg-inset',
+    wide: 'primer:2xl:box-border primer:2xl:block primer:2xl:w-2 primer:2xl:border-x primer:2xl:border-default primer:2xl:bg-inset',
   },
 }
 
@@ -132,12 +150,17 @@ function hasResponsiveDivider(value: ResponsiveValue<PaneDivider>) {
   return typeof value === 'string' ? value !== 'none' : Object.values(value).some(divider => divider !== 'none')
 }
 
-function getActivePanePosition(value: ResponsiveValue<PanePosition>) {
+function getActivePanePosition(value: ResponsiveValue<PanePosition>, element: HTMLElement | null) {
   const position = resolveResponsiveValue(value, 'end')
-  if (typeof window === 'undefined') return position.wide
-  if (window.innerWidth >= 1400) return position.wide
-  if (window.innerWidth >= 768) return position.regular
+  const view = element?.ownerDocument.defaultView
+  if (!view) return position.wide
+  if (view.innerWidth >= 1400) return position.wide
+  if (view.innerWidth >= 768) return position.regular
   return position.narrow
+}
+
+function isRightToLeft(element: HTMLElement | null) {
+  return element?.ownerDocument.defaultView?.getComputedStyle(element).direction === 'rtl'
 }
 
 export interface PageLayoutProps
@@ -151,6 +174,10 @@ export interface PageLayoutProps
   rowGap?: Spacing
   /** Horizontal spacing between the sidebar, content, and pane. */
   columnGap?: Spacing
+  /** Classes applied to the centered wrapper containing the header, content row, and footer. */
+  wrapperClassName?: string
+  /** Classes applied to the row containing the content and pane, not to `PageLayout.Content` itself. */
+  contentRowClassName?: string
 }
 
 const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayout(
@@ -159,16 +186,21 @@ const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayo
     className,
     columnGap = 'normal',
     containerWidth = 'xlarge',
+    contentRowClassName,
     footer: footerProp,
     header: headerProp,
     padding = 'normal',
     rowGap = 'normal',
     sidebar: sidebarProp,
+    wrapperClassName,
     ...rest
   },
   ref,
 ) {
   const markers = React.useContext(PageLayoutMarkerContext)
+  const contentRef = React.useRef<HTMLElement | null>(null)
+  const sidebarWrapperRef = React.useRef<HTMLDivElement | null>(null)
+  const resizeTargets = React.useMemo(() => ({contentRef, sidebarWrapperRef}), [])
   const {
     regions: {header, sidebar, footer},
     rest: content,
@@ -183,43 +215,48 @@ const Root = React.forwardRef<HTMLDivElement, PageLayoutProps>(function PageLayo
   )
 
   return (
-    <div
-      {...rest}
-      ref={ref}
-      className={cn(
-        spacing[padding],
-        paddingVariableClasses[padding],
-        rowGapVariableClasses[rowGap],
-        columnGapVariableClasses[columnGap],
-        sidebar && 'flex flex-row',
-        sidebar && columnGapClasses[columnGap],
-        className,
-      )}
-      data-component={markers.root}
-      data-has-sidebar={sidebar ? 'true' : undefined}
-    >
-      {sidebar}
+    <PageLayoutResizeContext.Provider value={resizeTargets}>
       <div
+        {...rest}
+        ref={ref}
         className={cn(
-          'mx-auto flex h-full w-full flex-wrap',
-          sidebar && 'min-w-0 shrink',
-          rowGapClasses[rowGap],
-          width[containerWidth],
+          spacing[padding],
+          paddingVariableClasses[padding],
+          rowGapVariableClasses[rowGap],
+          columnGapVariableClasses[columnGap],
+          sidebar && 'primer:flex primer:flex-row',
+          sidebar && columnGapClasses[columnGap],
+          className,
         )}
+        data-component={markers.root}
+        data-has-sidebar={sidebar ? 'true' : undefined}
       >
-        {header}
+        {sidebar}
         <div
+          ref={sidebarWrapperRef}
           className={cn(
-            'flex max-w-full flex-[1_1_100%] flex-col flex-nowrap md:flex-row md:flex-wrap',
+            'primer:mx-auto primer:flex primer:h-full primer:w-full primer:flex-wrap',
+            sidebar && 'primer:min-w-0 primer:shrink',
             rowGapClasses[rowGap],
-            columnGapClasses[columnGap],
+            width[containerWidth],
+            wrapperClassName,
           )}
         >
-          {content}
+          {header}
+          <div
+            className={cn(
+              'primer:flex primer:max-w-full primer:flex-[1_1_100%] primer:flex-col primer:flex-nowrap primer:md:flex-row primer:md:flex-wrap',
+              rowGapClasses[rowGap],
+              columnGapClasses[columnGap],
+              contentRowClassName,
+            )}
+          >
+            {content}
+          </div>
+          {footer}
         </div>
-        {footer}
       </div>
-    </div>
+    </PageLayoutResizeContext.Provider>
   )
 })
 
@@ -242,14 +279,14 @@ const Header = markPageLayoutHeader(
       <header
         {...rest}
         ref={ref}
-        className={cn('w-full', hidden(hiddenValue), className)}
+        className={cn('primer:w-full', hidden(hiddenValue), className)}
         data-component={markers.header}
       >
         <div className={spacing[padding]}>{children}</div>
         {hasResponsiveDivider(divider) ? (
           <div
             aria-hidden="true"
-            className={cn('mt-[var(--page-layout-row-gap)]', horizontalDividerBleed, dividerClass)}
+            className={cn('primer:mt-[var(--page-layout-row-gap)]', horizontalDividerBleed, dividerClass)}
           />
         ) : null}
       </header>
@@ -278,18 +315,22 @@ const Content = React.forwardRef<HTMLElement, PageLayoutContentProps>(function P
   ref,
 ) {
   const markers = React.useContext(PageLayoutMarkerContext)
+  const contentRef = React.useContext(PageLayoutResizeContext)?.contentRef
+  const mergedRef = React.useMemo(() => mergeRefs(ref, contentRef), [ref, contentRef])
   return (
     <Component
       {...rest}
-      ref={ref}
+      ref={mergedRef}
       className={cn(
-        'order-2 flex min-w-0 flex-1 basis-full flex-col md:basis-0',
+        'primer:order-2 primer:flex primer:min-w-0 primer:flex-1 primer:basis-full primer:flex-col primer:md:basis-0',
         hidden(hiddenValue, 'flex'),
         className,
       )}
       data-component={markers.content}
     >
-      <div className={cn('mx-auto w-full grow', width[contentWidth], spacing[padding])}>{children}</div>
+      <div className={cn('primer:mx-auto primer:w-full primer:grow', width[contentWidth], spacing[padding])}>
+        {children}
+      </div>
     </Component>
   )
 })
@@ -328,7 +369,11 @@ export interface PageLayoutPaneBaseProps extends Omit<React.HTMLAttributes<HTMLD
 }
 export type PageLayoutPaneProps = PageLayoutPaneBaseProps
 
-const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
+interface InternalPaneProps extends PageLayoutPaneProps {
+  fillSidebar?: boolean
+}
+
+const PaneContent = React.forwardRef<HTMLElement, InternalPaneProps>(function PaneContent(
   {
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
@@ -336,6 +381,7 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
     className,
     currentWidth: controlledWidth,
     divider: responsiveDivider = 'none',
+    fillSidebar = false,
     hidden: hiddenValue,
     minWidth = 256,
     offsetHeader = 0,
@@ -352,12 +398,15 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
   forwardedRef,
 ) {
   const markers = React.useContext(PageLayoutMarkerContext)
+  const resizeTargets = React.useContext(PageLayoutResizeContext)
   const isSidebar = markers.pane === markers.sidebar
-  const paneRef = React.useRef<HTMLDivElement | null>(null)
-  const [paneElement, setPaneElement] = React.useState<HTMLDivElement | null>(null)
-  const hasOverflow = useOverflow(paneElement)
+  const paneRef = React.useRef<HTMLElement | null>(null)
+  const [paneElement, setPaneElement] = React.useState<HTMLElement | null>(null)
+  const setPaneRef = React.useMemo(() => mergeRefs<HTMLElement>(paneRef, setPaneElement, forwardedRef), [forwardedRef])
+  const needsOverflowRegion = useOverflowWithFocusRetention(paneElement)
   const handleRef = React.useRef<HTMLDivElement | null>(null)
-  const dragStart = React.useRef({clientX: 0, width: 0, max: 0})
+  const dragStart = React.useRef({clientX: 0, width: 0, max: 0, rightToLeft: false})
+  const horizontalKeyboardRtl = React.useRef(false)
   const {currentWidth, currentWidthRef, getDefaultWidth, getMaxPaneWidth, maxPaneWidth, minPaneWidth, saveWidth} =
     usePaneWidth({
       width: paneWidth,
@@ -366,6 +415,7 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
       widthStorageKey,
       paneRef,
       handleRef,
+      constrainToViewport: isSidebar,
       onResizeEnd,
       currentWidth: controlledWidth,
     })
@@ -392,17 +442,18 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
   const paneContentStyle: CSSPropertiesWithCustomProperties = {
     '--pane-width': `${currentWidth}px`,
     '--pane-min-width': custom ? paneWidth.min : `${minWidth}px`,
-    '--pane-max-width': custom ? paneWidth.max : `${maxPaneWidth}px`,
+    '--pane-max-width': custom && (!resizable || !isSidebar) ? paneWidth.max : `${maxPaneWidth}px`,
   }
 
   return (
     <div
       {...rest}
       className={cn(
-        'relative flex min-h-0 w-full shrink-0 flex-col md:w-auto md:flex-row',
+        'primer:relative primer:flex primer:min-h-0 primer:w-full primer:shrink-0 primer:flex-col primer:md:w-auto primer:md:flex-row',
+        fillSidebar && 'primer:min-w-0 primer:flex-1',
         responsivePanePositionClasses(responsivePosition),
         hidden(hiddenValue, 'flex'),
-        sticky && 'md:sticky md:top-[var(--offset-header)] md:max-h-screen md:self-start',
+        sticky && 'primer:md:sticky primer:md:top-[var(--offset-header)] primer:md:max-h-screen primer:md:self-start',
         className,
       )}
       data-position={typeof responsivePosition === 'string' ? responsivePosition : undefined}
@@ -415,28 +466,26 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
           className={cn(
             horizontalDividerClasses[dividers.narrow].narrow,
             horizontalDividerBleed,
-            'md:hidden 2xl:hidden',
+            'primer:md:hidden primer:2xl:hidden',
             positions.narrow === 'start'
-              ? 'order-last mt-[var(--page-layout-row-gap)]'
-              : 'order-first mb-[var(--page-layout-row-gap)]',
+              ? 'primer:order-last primer:mt-[var(--page-layout-row-gap)]'
+              : 'primer:order-first primer:mb-[var(--page-layout-row-gap)]',
           )}
         />
       ) : null}
       <div
-        ref={node => {
-          paneRef.current = node
-          setPaneElement(node)
-          if (typeof forwardedRef === 'function') forwardedRef(node)
-          else if (forwardedRef) (forwardedRef as React.MutableRefObject<HTMLElement | null>).current = node
-        }}
+        ref={setPaneRef}
         className={cn(
-          'w-full min-w-0 flex-1 md:w-[var(--pane-width)] md:flex-none md:overflow-auto',
-          (resizable || custom) &&
-            'md:min-w-[var(--pane-min-width)] md:max-w-[var(--pane-max-width)] md:w-[clamp(var(--pane-min-width),var(--pane-width),var(--pane-max-width))]',
-          isSidebar && 'h-full overflow-auto',
+          'primer:w-full primer:min-w-0 primer:md:overflow-auto',
+          fillSidebar && 'primer:flex-1',
+          !fillSidebar && 'primer:md:w-[var(--pane-width)] primer:md:flex-none',
+          !fillSidebar &&
+            (resizable || custom) &&
+            'primer:md:min-w-[var(--pane-min-width)] primer:md:max-w-[var(--pane-max-width)] primer:md:w-[clamp(var(--pane-min-width),var(--pane-width),var(--pane-max-width))]',
+          isSidebar && 'primer:h-full primer:overflow-auto',
           spacing[padding],
         )}
-        {...(hasOverflow
+        {...(needsOverflowRegion
           ? {
               role: 'region',
               tabIndex: 0,
@@ -454,39 +503,47 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
         <div
           aria-hidden={resizable ? undefined : 'true'}
           className={cn(
-            'relative hidden shrink-0 self-stretch',
+            'primer:relative primer:hidden primer:shrink-0 primer:self-stretch',
             verticalDividerClasses[verticalDividers.regular].regular,
             verticalDividerClasses[verticalDividers.wide].wide,
-            positions.regular === 'start' ? 'md:order-last' : 'md:order-first',
-            positions.wide === 'start' ? '2xl:order-last' : '2xl:order-first',
+            positions.regular === 'start' ? 'primer:md:order-last' : 'primer:md:order-first',
+            positions.wide === 'start' ? 'primer:2xl:order-last' : 'primer:2xl:order-first',
             positions.regular === 'start'
-              ? 'md:ml-[var(--page-layout-column-gap)] md:mr-0'
-              : 'md:mr-[var(--page-layout-column-gap)] md:ml-0',
+              ? 'primer:md:ml-[var(--page-layout-column-gap)] primer:md:mr-0'
+              : 'primer:md:mr-[var(--page-layout-column-gap)] primer:md:ml-0',
             positions.wide === 'start'
-              ? '2xl:ml-[var(--page-layout-column-gap)] 2xl:mr-0'
-              : '2xl:mr-[var(--page-layout-column-gap)] 2xl:ml-0',
+              ? 'primer:2xl:ml-[var(--page-layout-column-gap)] primer:2xl:mr-0'
+              : 'primer:2xl:mr-[var(--page-layout-column-gap)] primer:2xl:ml-0',
           )}
         >
           {resizable ? (
             <DragHandle
               handleRef={handleRef}
+              dragTargetRef={paneRef}
+              contentWrapperRef={isSidebar ? resizeTargets?.sidebarWrapperRef : resizeTargets?.contentRef}
+              aria-label={ariaLabel?.trim() ? ariaLabel : undefined}
+              aria-labelledby={ariaLabelledBy?.trim() ? ariaLabelledBy : undefined}
               aria-valuemin={minPaneWidth}
               aria-valuemax={maxPaneWidth}
               aria-valuenow={currentWidth}
+              onKeyDownCapture={event => {
+                horizontalKeyboardRtl.current =
+                  (event.key === 'ArrowLeft' || event.key === 'ArrowRight') && isRightToLeft(event.currentTarget)
+              }}
               onDragStart={clientX => {
                 dragStart.current = {
                   clientX,
                   width: paneRef.current?.getBoundingClientRect().width ?? currentWidthRef.current,
                   max: getMaxPaneWidth(),
+                  rightToLeft: isRightToLeft(handleRef.current),
                 }
               }}
               onDrag={(value, isKeyboard) => {
-                const position = getActivePanePosition(responsivePosition)
-                const directed = position === 'end' ? -value : value
-                const next = isKeyboard
-                  ? currentWidthRef.current + directed
-                  : dragStart.current.width +
-                    (position === 'end' ? -(value - dragStart.current.clientX) : value - dragStart.current.clientX)
+                const position = getActivePanePosition(responsivePosition, handleRef.current)
+                const rightToLeft = isKeyboard ? horizontalKeyboardRtl.current : dragStart.current.rightToLeft
+                const delta = isKeyboard ? value : value - dragStart.current.clientX
+                const directed = (position === 'end') !== rightToLeft ? -delta : delta
+                const next = (isKeyboard ? currentWidthRef.current : dragStart.current.width) + directed
                 writeWidth(
                   Math.max(minPaneWidth, Math.min(isKeyboard ? getMaxPaneWidth() : dragStart.current.max, next)),
                 )
@@ -505,10 +562,19 @@ const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(
   )
 })
 
+const Pane = React.forwardRef<HTMLElement, PageLayoutPaneProps>(function Pane(props, ref) {
+  return <PaneContent {...props} ref={ref} />
+})
+
 // A sidebar sticks to the viewport rather than below a header, so it has no `offsetHeader`.
 export interface PageLayoutSidebarProps extends Omit<PageLayoutPaneBaseProps, 'offsetHeader'> {
   /** How the sidebar behaves on narrow viewports: inline by default, or as a fullscreen overlay. */
   responsiveVariant?: 'default' | 'fullscreen'
+  /**
+   * Fills the sidebar's CSS-sized outer rail instead of applying the pane's pixel width.
+   * Fill mode is only supported for non-resizable sidebars.
+   */
+  widthMode?: 'default' | 'fill'
 }
 const Sidebar = markPageLayoutSidebar(
   React.forwardRef<HTMLDivElement, PageLayoutSidebarProps>(function PageLayoutSidebar(
@@ -522,11 +588,16 @@ const Sidebar = markPageLayoutSidebar(
       resizable = false,
       style,
       sticky = false,
+      widthMode = 'default',
       widthStorageKey,
       ...rest
     },
     ref,
   ) {
+    if (widthMode === 'fill' && resizable) {
+      throw new Error('PageLayout.Sidebar widthMode="fill" does not support resizing')
+    }
+
     const markers = React.useContext(PageLayoutMarkerContext)
     const sidebarDivider = resolveResponsiveValue(divider, 'none')
     const sidebarPosition = resolveResponsiveValue(responsivePosition, 'start')
@@ -536,13 +607,13 @@ const Sidebar = markPageLayoutSidebar(
         <div
           aria-hidden="true"
           className={cn(
-            'shrink-0 self-stretch md:hidden',
+            'primer:shrink-0 primer:self-stretch primer:md:hidden',
             sidebarPosition.narrow === 'start'
-              ? 'order-last ms-[var(--page-layout-column-gap)]'
-              : 'order-first me-[var(--page-layout-column-gap)]',
+              ? 'primer:order-last primer:ms-[var(--page-layout-column-gap)]'
+              : 'primer:order-first primer:me-[var(--page-layout-column-gap)]',
             narrowDivider === 'line'
-              ? 'w-px bg-[var(--borderColor-default)]'
-              : 'box-border w-2 border-x border-default bg-inset',
+              ? 'primer:w-px primer:bg-[var(--borderColor-default)]'
+              : 'primer:box-border primer:w-2 primer:border-x primer:border-default primer:bg-inset',
           )}
         />
       )
@@ -550,12 +621,13 @@ const Sidebar = markPageLayoutSidebar(
       <div
         ref={ref}
         className={cn(
-          'flex h-full shrink-0 flex-row',
+          'primer:flex primer:h-full primer:shrink-0 primer:flex-row',
+          widthMode === 'fill' && 'primer:min-w-0 primer:w-full',
           responsiveSidebarPositionClasses(responsivePosition),
           hidden(hiddenValue, 'flex'),
-          sticky && 'sticky top-0 h-screen',
+          sticky && 'primer:sticky primer:top-0 primer:h-screen',
           responsiveVariant === 'fullscreen' &&
-            'max-md:fixed max-md:inset-0 max-md:z-[999] max-md:block max-md:h-screen max-md:w-screen max-md:bg-default',
+            'primer:max-md:fixed primer:max-md:inset-0 primer:max-md:z-[999] primer:max-md:block primer:max-md:h-screen primer:max-md:w-screen primer:max-md:bg-default',
           className,
         )}
         data-position={typeof responsivePosition === 'string' ? responsivePosition : undefined}
@@ -564,10 +636,11 @@ const Sidebar = markPageLayoutSidebar(
       >
         {sidebarPosition.narrow === 'end' ? narrowDividerNode : null}
         <PageLayoutMarkerContext.Provider value={{...markers, pane: markers.sidebar}}>
-          <Pane
+          <PaneContent
             {...rest}
-            className="block h-full md:flex"
+            className="primer:block primer:h-full primer:md:flex"
             divider={{narrow: 'none', regular: sidebarDivider.regular, wide: sidebarDivider.wide}}
+            fillSidebar={widthMode === 'fill'}
             hidden={false}
             padding={padding}
             // Pane falls back to `end` for omitted ranges, so it gets the sidebar's fully resolved position.
@@ -603,13 +676,13 @@ const Footer = markPageLayoutFooter(
       <footer
         {...rest}
         ref={ref}
-        className={cn('order-4 w-full', hidden(hiddenValue), className)}
+        className={cn('primer:order-4 primer:w-full', hidden(hiddenValue), className)}
         data-component={markers.footer}
       >
         {hasResponsiveDivider(divider) ? (
           <div
             aria-hidden="true"
-            className={cn('mb-[var(--page-layout-row-gap)]', horizontalDividerBleed, dividerClass)}
+            className={cn('primer:mb-[var(--page-layout-row-gap)]', horizontalDividerBleed, dividerClass)}
           />
         ) : null}
         <div className={spacing[padding]}>{children}</div>

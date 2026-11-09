@@ -4,11 +4,11 @@ import {cn} from '../../internal/cn'
 import type {AvatarSize, ResponsiveValue} from '../../utils/types'
 
 const avatarBaseClassName =
-  'inline-block shrink-0 overflow-hidden object-cover leading-none align-middle shadow-[0_0_0_1px_var(--avatar-borderColor)]'
+  'primer:inline-block primer:shrink-0 primer:overflow-hidden primer:object-cover primer:leading-none primer:align-middle primer:shadow-[0_0_0_1px_var(--avatar-borderColor)]'
 const avatarVariants = cva('', {
   variants: {
-    size: {small: 'size-5', medium: 'size-8', large: 'size-10', xlarge: 'size-12'},
-    shape: {circle: 'rounded-[50%]', square: 'rounded-md'},
+    size: {small: 'primer:size-5', medium: 'primer:size-8', large: 'primer:size-10', xlarge: 'primer:size-12'},
+    shape: {circle: 'primer:rounded-[50%]', square: 'primer:rounded-md'},
   },
   defaultVariants: {size: 'small', shape: 'circle'},
 })
@@ -54,17 +54,17 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function A
         avatarBaseClassName,
         responsive
           ? cn(
-              'size-[var(--avatar-size-narrow)] md:size-[var(--avatar-size-regular)] 2xl:size-[var(--avatar-size-wide)]',
+              'primer:size-[var(--avatar-size-narrow)] primer:md:size-[var(--avatar-size-regular)] primer:2xl:size-[var(--avatar-size-wide)]',
               square || shape === 'square'
-                ? 'rounded-[clamp(4px,calc(var(--avatar-size)-24px),var(--borderRadius-medium))]'
-                : 'rounded-[50%]',
+                ? 'primer:rounded-[clamp(4px,calc(var(--avatar-size)-24px),var(--borderRadius-medium))]'
+                : 'primer:rounded-[50%]',
             )
           : avatarVariants({
               shape: square ? 'square' : shape,
               size: typeof size === 'string' ? size : undefined,
             }),
         (square || shape === 'square') &&
-          'rounded-[clamp(4px,calc(var(--avatar-size)-24px),var(--borderRadius-medium))]',
+          'primer:rounded-[clamp(4px,calc(var(--avatar-size)-24px),var(--borderRadius-medium))]',
         className,
       )}
       style={{

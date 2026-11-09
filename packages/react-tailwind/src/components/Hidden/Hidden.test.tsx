@@ -7,24 +7,24 @@ describe('Hidden', () => {
   afterEach(cleanup)
 
   it.each([
-    ['narrow', ['max-md:hidden']],
-    ['regular', ['md:max-2xl:hidden']],
-    ['wide', ['2xl:hidden']],
+    ['narrow', ['primer:max-md:hidden']],
+    ['regular', ['primer:md:max-2xl:hidden']],
+    ['wide', ['primer:2xl:hidden']],
     [
       ['narrow', 'regular'],
-      ['max-md:hidden', 'md:max-2xl:hidden'],
+      ['primer:max-md:hidden', 'primer:md:max-2xl:hidden'],
     ],
     [
       ['narrow', 'wide'],
-      ['max-md:hidden', '2xl:hidden'],
+      ['primer:max-md:hidden', 'primer:2xl:hidden'],
     ],
     [
       ['regular', 'wide'],
-      ['md:max-2xl:hidden', '2xl:hidden'],
+      ['primer:md:max-2xl:hidden', 'primer:2xl:hidden'],
     ],
     [
       ['narrow', 'regular', 'wide'],
-      ['max-md:hidden', 'md:max-2xl:hidden', '2xl:hidden'],
+      ['primer:max-md:hidden', 'primer:md:max-2xl:hidden', 'primer:2xl:hidden'],
     ],
   ] as const)('uses the static utilities for %o', (when, expectedClasses) => {
     render(
@@ -53,9 +53,9 @@ describe('Hidden', () => {
 
     // max-md is below 48rem; md:max-2xl is 48rem through below 87.5rem;
     // 2xl begins at 87.5rem. @primer/tailwind-config defines those values.
-    expect(screen.getByTestId('narrow')).toHaveClass('max-md:hidden')
-    expect(screen.getByTestId('regular')).toHaveClass('md:max-2xl:hidden')
-    expect(screen.getByTestId('wide')).toHaveClass('2xl:hidden')
+    expect(screen.getByTestId('narrow')).toHaveClass('primer:max-md:hidden')
+    expect(screen.getByTestId('regular')).toHaveClass('primer:md:max-2xl:hidden')
+    expect(screen.getByTestId('wide')).toHaveClass('primer:2xl:hidden')
   })
 
   it('preserves the div root, children, DOM props, ref, and component identifier', () => {
@@ -80,7 +80,7 @@ describe('Hidden', () => {
     expect(hidden).toHaveAttribute('aria-label', 'Responsive content')
     expect(hidden).toHaveAttribute('id', 'responsive-content')
     expect(hidden).toHaveAttribute('data-component', 'Hidden')
-    expect(hidden).toHaveClass('max-md:hidden', '2xl:hidden', 'custom-class')
+    expect(hidden).toHaveClass('primer:max-md:hidden', 'primer:2xl:hidden', 'custom-class')
     expect(ref.current).toBe(hidden)
   })
 
@@ -92,7 +92,7 @@ describe('Hidden', () => {
     )
 
     expect(screen.getByTestId('hidden')).toHaveClass('md:max-2xl:block')
-    expect(screen.getByTestId('hidden')).not.toHaveClass('md:max-2xl:hidden')
+    expect(screen.getByTestId('hidden')).not.toHaveClass('primer:md:max-2xl:hidden')
   })
 
   it('owns its data-component identifier', () => {

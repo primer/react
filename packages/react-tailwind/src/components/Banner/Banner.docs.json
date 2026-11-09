@@ -3,7 +3,7 @@
   "name": "Banner",
   "status": "alpha",
   "importPath": "@primer/react-tailwind/Banner",
-  "description": "`Banner` announces a page-level status or message that needs attention but does not interrupt the user. Use `Dialog` instead when the message must block the task, and inline validation for a single field.",
+  "description": "`Banner` displays a page-level status or message that needs attention but does not interrupt the user. Use `Dialog` instead when the message must block the task, and inline validation for a single field.",
   "stories": [
     {
       "id": "react-tailwind-content-banner-examples--with-user-action"
@@ -42,6 +42,9 @@
       "id": "react-tailwind-content-banner-features--warning"
     },
     {
+      "id": "react-tailwind-content-banner-features--compound-alert"
+    },
+    {
       "id": "react-tailwind-content-banner-features--dismiss"
     },
     {
@@ -61,6 +64,12 @@
     },
     {
       "id": "react-tailwind-content-banner-features--with-actions"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--with-link-actions"
+    },
+    {
+      "id": "react-tailwind-content-banner-features--wrapping-link-actions"
     },
     {
       "id": "react-tailwind-content-banner-features--custom-icon"
@@ -157,7 +166,11 @@
           "type": "React.ReactNode",
           "description": "Supporting action, rendered after the primary one."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
     },
     {
       "name": "Banner.Description",
@@ -211,7 +224,7 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "leadingVisual",
@@ -226,7 +239,7 @@
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading."
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "notificationIndicator",
@@ -259,6 +272,71 @@
       "passthrough": {
         "element": "Button",
         "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "Banner.PrimaryActionLink",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the link to fill the width of its container."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLAnchorElement>",
+          "description": "Called when the link is activated."
+        },
+        {
+          "name": "render",
+          "type": "RenderProp<LinkButtonState>",
+          "description": "Renders the link as your own element, for a router link that still needs button styling."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the link."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
       }
     },
     {
@@ -305,7 +383,7 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "leadingVisual",
@@ -320,7 +398,7 @@
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading."
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "notificationIndicator",
@@ -353,6 +431,71 @@
       "passthrough": {
         "element": "Button",
         "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "Banner.SecondaryActionLink",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the link to fill the width of its container."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLAnchorElement>",
+          "description": "Called when the link is activated."
+        },
+        {
+          "name": "render",
+          "type": "RenderProp<LinkButtonState>",
+          "description": "Renders the link as your own element, for a router link that still needs button styling."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the link."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
       }
     },
     {

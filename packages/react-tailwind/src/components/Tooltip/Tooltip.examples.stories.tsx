@@ -7,6 +7,7 @@ import {Button} from '../Button'
 import {Dialog} from '../Dialog'
 import {IconButton} from '../IconButton'
 import {PageHeader} from '../PageHeader'
+import {TreeView} from '../TreeView'
 import {Tooltip} from './Tooltip'
 
 const meta = {
@@ -174,6 +175,38 @@ export const DialogTrigger: Story = {
       </Dialog>
     )
   },
+}
+
+export const HoveredFileInDialog: Story = {
+  render: () => (
+    <Dialog>
+      <Dialog.Trigger render={<Button>Open files</Button>} />
+      <Dialog.Content>
+        <Dialog.Header>
+          <Dialog.Title>Files</Dialog.Title>
+          <Dialog.CloseButton />
+        </Dialog.Header>
+        <Dialog.Body>
+          <Button>Keep focus here</Button>
+          <div className="mt-4 w-40">
+            <TreeView.LinkTree aria-label="Changed files">
+              <Tooltip>
+                <Tooltip.Trigger
+                  id="hovered-file"
+                  render={
+                    <TreeView.Item as="a" href="#file" id="hovered-file" aria-label="Long file name, modified">
+                      A-very-long-file-name.tsx
+                    </TreeView.Item>
+                  }
+                />
+                <Tooltip.Content side="right">A-very-long-file-name.tsx</Tooltip.Content>
+              </Tooltip>
+            </TreeView.LinkTree>
+          </div>
+        </Dialog.Body>
+      </Dialog.Content>
+    </Dialog>
+  ),
 }
 
 const emojis = [

@@ -1,43 +1,58 @@
 import {cva} from 'class-variance-authority'
-import React from 'react'
+import type React from 'react'
 import {cn} from '../../internal/cn'
-import type {AsProp, TextSize} from '../../utils/types'
+import type {TextSize} from '../../utils/types'
+import type {PolymorphicProps} from '../../utils/types/component'
 
 const textVariants = cva('', {
   variants: {
-    size: {small: 'text-xs', medium: 'text-sm', large: 'text-md'},
-    weight: {light: 'font-light', normal: 'font-normal', medium: 'font-medium', semibold: 'font-semibold'},
+    size: {small: 'primer:text-xs', medium: 'primer:text-sm', large: 'primer:text-md'},
+    weight: {
+      light: 'primer:font-light',
+      normal: 'primer:font-normal',
+      medium: 'primer:font-medium',
+      semibold: 'primer:font-semibold',
+    },
     whiteSpace: {
-      normal: 'whitespace-normal',
-      nowrap: 'whitespace-nowrap',
-      pre: 'whitespace-pre',
-      'pre-wrap': 'whitespace-pre-wrap',
-      'pre-line': 'whitespace-pre-line',
+      normal: 'primer:whitespace-normal',
+      nowrap: 'primer:whitespace-nowrap',
+      pre: 'primer:whitespace-pre',
+      'pre-wrap': 'primer:whitespace-pre-wrap',
+      'pre-line': 'primer:whitespace-pre-line',
     },
   },
 })
 
-export interface TextProps extends React.HTMLAttributes<HTMLElement>, AsProp {
-  /** Size from the Primer type scale. */
-  size?: TextSize
-  /** Font weight. */
-  weight?: 'light' | 'normal' | 'medium' | 'semibold'
-  /** How whitespace and line breaks in the content are treated. */
-  whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
-}
+export type TextProps<As extends React.ElementType = 'span'> = PolymorphicProps<
+  As,
+  {
+    /**
+     * Element to render. Its props, events, and ref follow the selected element.
+     * @default 'span'
+     */
+    as?: As
+    /** Size from the Primer type scale. */
+    size?: TextSize
+    /** Font weight. */
+    weight?: 'light' | 'normal' | 'medium' | 'semibold'
+    /** How whitespace and line breaks in the content are treated. */
+    whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
+  },
+  'span'
+>
 
-export const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
-  {as: Component = 'span', className, size, weight, whiteSpace, ...rest},
-  ref,
-) {
+export function Text<As extends React.ElementType = 'span'>({
+  as,
+  className,
+  size,
+  weight,
+  whiteSpace,
+  ...rest
+}: TextProps<As>) {
+  const Component = as ?? 'span'
   return (
-    <Component
-      {...rest}
-      ref={ref}
-      data-component="Text"
-      className={cn(textVariants({size, weight, whiteSpace}), className)}
-    />
+    <Component {...rest} data-component="Text" className={cn(textVariants({size, weight, whiteSpace}), className)} />
   )
-})
+}
 
 Text.displayName = 'Text'

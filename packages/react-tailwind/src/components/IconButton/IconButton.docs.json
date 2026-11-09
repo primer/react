@@ -3,7 +3,7 @@
   "name": "IconButton",
   "status": "alpha",
   "importPath": "@primer/react-tailwind/IconButton",
-  "description": "`IconButton` is a button whose only content is an icon. `aria-label` is required, because the control has no visible text.",
+  "description": "`IconButton` is a button whose only content is an icon. It requires an accessible name from either `aria-label` or `aria-labelledby`, because the control has no visible text.",
   "stories": [
     {
       "id": "react-tailwind-components-iconbutton-examples--item-actions"
@@ -71,9 +71,11 @@
     },
     {
       "name": "aria-label",
-      "type": "string",
-      "required": true,
-      "description": "Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology."
+      "type": "string"
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string"
     },
     {
       "name": "block",
@@ -98,7 +100,7 @@
     {
       "name": "description",
       "type": "string",
-      "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the\ntooltip repeats `aria-label` visually."
+      "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, a\nsupplied `aria-label` is repeated visually as a tooltip."
     },
     {
       "name": "disabled",
@@ -124,7 +126,7 @@
     {
       "name": "labelWrap",
       "type": "boolean",
-      "description": "Lets a long label wrap onto more than one line instead of being clipped."
+      "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
     },
     {
       "name": "loading",
@@ -134,7 +136,7 @@
     {
       "name": "loadingAnnouncement",
       "type": "string",
-      "description": "Text announced to assistive technology while the button is loading."
+      "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
     },
     {
       "name": "notificationIndicator",

@@ -9,6 +9,9 @@
       "id": "react-tailwind-navigation-underlinepanels-examples--repository-sections"
     },
     {
+      "id": "react-tailwind-navigation-underlinepanels-features--custom-list-wrapper"
+    },
+    {
       "id": "react-tailwind-navigation-underlinepanels-features--selected-tab"
     },
     {
@@ -80,7 +83,13 @@
   "subcomponents": [
     {
       "name": "UnderlinePanels.List",
-      "props": [],
+      "props": [
+        {
+          "name": "wrapperClassName",
+          "type": "string",
+          "description": "Styles the outer layout and bottom-border wrapper without changing the tablist's className or ref."
+        }
+      ],
       "passthrough": {
         "element": "Tabs.List",
         "url": "https://base-ui.com/react/components/tabs#list"

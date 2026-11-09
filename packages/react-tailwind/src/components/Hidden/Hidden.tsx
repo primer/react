@@ -7,9 +7,9 @@ import type {Viewport} from '../../utils/types'
 // narrow is below md (48rem), regular is md through below 2xl (87.5rem), and
 // wide begins at 2xl. Keep the utilities literal so Tailwind can emit them.
 const hiddenAtViewport: Record<Viewport, string> = {
-  narrow: 'max-md:hidden',
-  regular: 'md:max-2xl:hidden',
-  wide: '2xl:hidden',
+  narrow: 'primer:max-md:hidden',
+  regular: 'primer:md:max-2xl:hidden',
+  wide: 'primer:2xl:hidden',
 }
 
 export interface HiddenProps extends Omit<ComponentPropsWithoutRef<'div'>, 'data-component'> {

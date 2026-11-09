@@ -16,7 +16,7 @@ describe('SubNav', () => {
     )
     expect(screen.getByRole('navigation', {name: 'Repository'})).toBeVisible()
     expect(screen.getByRole('link', {name: 'Code'})).toHaveAttribute('aria-current', 'page')
-    expect(screen.getByRole('link', {name: 'Code'})).toHaveClass('min-h-[34px]', 'leading-5')
+    expect(screen.getByRole('link', {name: 'Code'})).toHaveClass('primer:min-h-[34px]', 'primer:leading-5')
   })
 
   it('preserves an explicit aria-label over the convenience label prop', () => {

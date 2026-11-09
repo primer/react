@@ -5,9 +5,9 @@ import {PlatformOverrideProvider, type Platform} from './utils'
 
 it('announces keys and sequence separators while hiding compact symbols', () => {
   render(<KeybindingHint keys="Mod+k g" />)
-  expect(screen.getByText('control')).toHaveClass('sr-only')
+  expect(screen.getByText('control')).toHaveClass('primer:sr-only')
   expect(screen.getByText('⌃')).toHaveAttribute('aria-hidden', 'true')
-  expect(screen.getByText('then')).toHaveClass('sr-only')
+  expect(screen.getByText('then')).toHaveClass('primer:sr-only')
   expect(screen.getByText('K')).toHaveAttribute('aria-hidden', 'true')
   expect(screen.getByText('G')).toHaveAttribute('aria-hidden', 'true')
 })
@@ -59,7 +59,7 @@ it.each<[Platform, string, string]>([
         <KeybindingHint keys="Meta+Alt+Mod" format={format} />
       </PlatformOverrideProvider>,
     )
-    const text = Array.from(container.querySelectorAll('[data-kbd-chord] > *:not(.sr-only)'))
+    const text = Array.from(container.querySelectorAll('[data-kbd-chord] > *:not(.primer\\:sr-only)'))
       .map(element => element.textContent)
       .join('')
     unmount()
@@ -77,6 +77,6 @@ it('only applies the minimum chord width to the default variant', () => {
     </>,
   )
   const [defaultChord, primaryChord] = Array.from(document.querySelectorAll('[data-kbd-chord]'))
-  expect(defaultChord).toHaveClass('min-w-5')
-  expect(primaryChord).not.toHaveClass('min-w-5')
+  expect(defaultChord).toHaveClass('primer:min-w-5')
+  expect(primaryChord).not.toHaveClass('primer:min-w-5')
 })

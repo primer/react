@@ -11,6 +11,7 @@ const requiredStyles = ['styles.css', 'theme.css', 'tailwind.css', 'base.css', '
 const reactVersions = ['19.2.0']
 const tailwindVersions = ['4.2.2', '4.3.3']
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm'
+const packageRequire = createRequire(import.meta.url)
 
 function run(command, args, {cwd, env, label}) {
   return new Promise((resolve, reject) => {
@@ -116,12 +117,47 @@ async function validateAgentDocs(consumerDirectory) {
   const packageDirectory = path.dirname(resolveFromConsumer.resolve('@primer/react-tailwind/package.json'))
   const guidance = await readFile(path.join(packageDirectory, 'llms.txt'), 'utf8')
   const buttonGuidance = await readFile(path.join(packageDirectory, 'llms/Button.md'), 'utf8')
+  const themeGuidance = await readFile(path.join(packageDirectory, 'llms/ThemeProvider.md'), 'utf8')
   if (!guidance.includes('does not generate arbitrary app-owned Tailwind classes')) {
     throw new Error('Packed agent guidance does not explain the compiled CSS boundary.')
   }
   if (!buttonGuidance.includes('Use `submit` to submit a form.')) {
     throw new Error('Packed Button guidance does not explain explicit form submission.')
   }
+  if (
+    !guidance.includes('[ThemeProvider and useTheme](llms/ThemeProvider.md)') ||
+    !themeGuidance.includes("resolvedColorMode === 'night'") ||
+    !themeGuidance.includes("resolvedColorMode === 'dark'") ||
+    !themeGuidance.includes('useTheme must be used within a ThemeProvider')
+  ) {
+    throw new Error(
+      'Packed theme guidance must include discovery, legacy/modern image comparisons and context ownership.',
+    )
+  }
+}
+
+async function validateDeclarations(consumerDirectory) {
+  const fixtures = [
+    'navigation-consumer.tsx',
+    'portal-foundation-consumer.tsx',
+    'select-panel-consumer.tsx',
+    'stack-consumer.tsx',
+    'token-consumer.tsx',
+  ]
+  await Promise.all(
+    fixtures.map(file => copyFile(path.join(packageRoot, 'fixtures', file), path.join(consumerDirectory, file))),
+  )
+  await writeFile(
+    path.join(consumerDirectory, 'tsconfig.json'),
+    JSON.stringify({
+      extends: path.join(packageRoot, 'fixtures/tsconfig.json'),
+      include: fixtures,
+    }),
+  )
+  await run(process.execPath, [packageRequire.resolve('typescript/bin/tsc'), '-p', consumerDirectory], {
+    cwd: consumerDirectory,
+    label: 'Packed navigation, portal foundation, SelectPanel, Stack, Text, and Token declarations',
+  })
 }
 
 async function findTailwindCli(consumerDirectory) {
@@ -138,6 +174,11 @@ async function findTailwindCli(consumerDirectory) {
       }
     }
   }
+}
+
+/** Escapes a class name the way Tailwind serializes it in a selector. */
+function classSelector(className) {
+  return `.${className.replace(/[^\w-]/g, character => `\\${character}`)}`
 }
 
 async function compileTailwindConsumer(consumerDirectory, name, source) {
@@ -157,17 +198,39 @@ async function compileTailwindConsumer(consumerDirectory, name, source) {
   } catch (error) {
     throw new Error(`Tailwind v4 ${name} mode emitted invalid CSS: ${getErrorMessage(error)}`, {cause: error})
   }
+  return css
+}
 
-  if (!css.includes('.rounded-md')) {
-    throw new Error(`Tailwind v4 ${name} mode did not emit utilities discovered in the packed package dist.`)
+const packageUtilities = [
+  'primer:rounded-md',
+  'primer:[position:absolute]',
+  'primer:[visibility:hidden]',
+  'primer:grid-cols-[fit-content(var(--available-width,100vw))]',
+  'primer:min-w-[min(--spacing(48),var(--available-width,100vw))]',
+  'primer:w-[min(30rem,var(--available-width,100vw))]',
+]
+const appUtilities = ['min-h-screen', 'max-w-[28rem]', 'gap-5', 'py-12']
+
+/** The standalone entry generates only the package's `primer:`-prefixed utilities and component CSS. */
+function assertStandalonePackageCss(css) {
+  for (const className of packageUtilities) {
+    if (!css.includes(classSelector(className))) {
+      throw new Error(`Tailwind v4 standalone package stylesheet did not emit the package utility ${className}.`)
+    }
   }
-  for (const selector of ['.min-h-screen', '.max-w-\\[28rem\\]', '.gap-5', '.py-12']) {
-    if (!css.includes(selector)) {
-      throw new Error(`Tailwind v4 ${name} mode did not emit the app-owned utility ${selector}.`)
+  for (const className of [...appUtilities, 'rounded-md']) {
+    if (css.includes(`${classSelector(className)}{`) || css.includes(`${classSelector(className)} {`)) {
+      throw new Error(`Tailwind v4 standalone package stylesheet emitted the unprefixed utility ${className}.`)
+    }
+  }
+  // `@primer/tailwind-config/border` is referenced, not imported, so its static unprefixed focus rules stay out.
+  for (const selector of ['.outline-focus', '.focus\\:outline-focus', '.focus-within\\:outline-focus']) {
+    if (css.includes(selector)) {
+      throw new Error(`Tailwind v4 standalone package stylesheet emitted the unprefixed static rule ${selector}.`)
     }
   }
   if (!css.includes('@keyframes primer-skeleton-shimmer') || !css.includes('data-token-kind')) {
-    throw new Error(`Tailwind v4 ${name} mode did not emit the package component CSS contract.`)
+    throw new Error('Tailwind v4 standalone package stylesheet did not emit the package component CSS contract.')
   }
   for (const fragment of [
     "[data-component='Dialog.CloseButton']",
@@ -177,8 +240,20 @@ async function compileTailwindConsumer(consumerDirectory, name, source) {
     "grid-template-areas: 'badge body' '. actions'",
   ]) {
     if (!css.includes(fragment)) {
-      throw new Error(`Tailwind v4 ${name} mode did not emit the expected utility for ${fragment}.`)
+      throw new Error(`Tailwind v4 standalone package stylesheet did not emit the expected utility for ${fragment}.`)
     }
+  }
+}
+
+/** The app's own Tailwind build keeps unprefixed utilities and must not generate package classes. */
+function assertAppCss(css) {
+  for (const className of appUtilities) {
+    if (!css.includes(classSelector(className))) {
+      throw new Error(`Tailwind v4 app stylesheet did not emit the app-owned utility ${className}.`)
+    }
+  }
+  if (css.includes('.primer\\:')) {
+    throw new Error('Tailwind v4 app stylesheet emitted package-prefixed utilities.')
   }
 }
 
@@ -191,26 +266,24 @@ async function validateTailwindConsumer(consumerDirectory) {
     // eslint-disable-next-line github/unescaped-html-literal
     '<main className="min-h-screen max-w-[28rem] gap-5 py-12">Consumer layout</main>\n',
   )
-  await compileTailwindConsumer(
-    consumerDirectory,
-    'explicit',
-    `@layer theme, base, components, utilities;
-@import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/utilities.css' layer(utilities);
-@import '@primer/react-tailwind/theme.css';
-@import '@primer/tailwind-config';
-@import '@primer/react-tailwind/components.css';
-@source '../node_modules/@primer/react-tailwind/dist';
-@source './';
+  // A Tailwind build has a single prefix, so the package stylesheet is generated separately from the app's.
+  assertStandalonePackageCss(
+    await compileTailwindConsumer(
+      consumerDirectory,
+      'standalone-package',
+      `@import '@primer/react-tailwind/tailwind.css';
 `,
+    ),
   )
-  await compileTailwindConsumer(
-    consumerDirectory,
-    'convenience',
-    `@import 'tailwindcss';
-@import '@primer/react-tailwind/tailwind.css';
+  assertAppCss(
+    await compileTailwindConsumer(
+      consumerDirectory,
+      'app',
+      `@import 'tailwindcss';
+@import '@primer/tailwind-config';
 @source './';
 `,
+    ),
   )
 }
 
@@ -247,6 +320,7 @@ async function validateConsumer(temporaryRoot, tarball, reactVersion, tailwindVe
   )
   await validateStyles(consumerDirectory)
   await validateAgentDocs(consumerDirectory)
+  await validateDeclarations(consumerDirectory)
   await validateTailwindConsumer(consumerDirectory)
   for (const mode of ['production', 'development']) {
     await run(process.execPath, [path.join(consumerDirectory, 'consumer.mjs')], {
@@ -292,7 +366,7 @@ async function main() {
   }
 
   process.stdout.write(
-    `Packed consumer validation passed (React ${reactVersions.join(', ')}; root and component subpaths; production and development SSR; styles; agent docs; Tailwind ${tailwindVersions.join(', ')}).\n`,
+    `Packed consumer validation passed (React ${reactVersions.join(', ')}; root, component, base, and behaviors subpaths; navigation, portal foundation, Stack, Text, and Token declarations; production and development SSR; styles; agent docs; Tailwind ${tailwindVersions.join(', ')}).\n`,
   )
 }
 

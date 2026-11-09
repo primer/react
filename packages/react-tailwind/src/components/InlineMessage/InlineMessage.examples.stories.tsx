@@ -14,7 +14,7 @@ export const FormValidation: Story = {
     <div className="space-y-3">
       <label className="block">
         Repository name
-        <input className="mt-1 block border border-danger-emphasis" aria-invalid="true" />
+        <input className="mt-1 block border-thin border-danger-emphasis" aria-invalid="true" />
       </label>
       <InlineMessage variant="critical" size="small">
         Repository name is already taken.

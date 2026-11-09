@@ -9,7 +9,13 @@
       "id": "react-tailwind-navigation-navlist-examples--settings-navigation"
     },
     {
+      "id": "react-tailwind-navigation-navlist-features--item-descriptions"
+    },
+    {
       "id": "react-tailwind-navigation-navlist-features--with-sub-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-wrapped-groups"
     },
     {
       "id": "react-tailwind-navigation-navlist-features--with-nested-sub-items"
@@ -178,10 +184,117 @@
     },
     {
       "name": "NavList.GroupHeading",
-      "props": [],
+      "props": [
+        {
+          "name": "as",
+          "type": "HeadingLevel",
+          "description": "Heading element to render, so the level fits the surrounding document outline."
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `NavList.GroupHeading.TrailingAction` child."
+        }
+      ],
       "passthrough": {
         "element": "h3",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#attributes"
+      }
+    },
+    {
+      "name": "NavList.GroupHeading.TrailingAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\"",
+          "defaultValue": "'button'",
+          "description": "Renders the action as a button.\nRenders the action as a link."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container.\nStretches the link to fill the width of its container."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity.\nNumber shown in a trailing counter."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents activation and removes the button from the keyboard order.\nRemoves the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Not available on a button action. Use `as=\"a\"` to make the action navigate."
+        },
+        {
+          "name": "icon",
+          "type": "(React.ElementType | undefined) & React.ElementType",
+          "required": true,
+          "description": "Icon component to render.\nIcon rendered inside the heading's trailing action."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.\nMarks the link temporarily unavailable while keeping it focusable."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the action, since the icon alone conveys nothing."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "defaultValue": "'Loading'",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'w'",
+          "description": "Side and alignment of the tooltip that shows `label` for an icon action."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
       }
     },
     {
@@ -193,18 +306,29 @@
       }
     },
     {
+      "name": "NavList.Divider",
+      "props": [],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
+    },
+    {
       "name": "NavList.Item",
       "props": [
         {
           "name": "as",
-          "type": "React.ElementType",
+          "type": "As",
           "defaultValue": "'a'",
-          "description": "Element to render in place of the anchor, such as a router's link component."
+          "description": "Element or component supplied by the wrapper."
+        },
+        {
+          "name": "className",
+          "type": "string"
         },
         {
           "name": "description",
-          "type": "React.ReactNode",
-          "description": "Supplies the description region. Takes precedence over a matching `NavList.Description` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "inactiveText",
@@ -213,13 +337,15 @@
         },
         {
           "name": "leadingVisual",
-          "type": "React.ReactNode",
-          "description": "Supplies the leadingVisual region. Takes precedence over a matching `NavList.LeadingVisual` child."
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLAnchorElement>"
         },
         {
           "name": "to",
-          "type": "string",
-          "description": "Route the item links to, forwarded to the element supplied with `as` for router integration."
+          "type": "string"
         },
         {
           "name": "tooltipText",
@@ -228,13 +354,11 @@
         },
         {
           "name": "trailingAction",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingAction region. Takes precedence over a matching `NavList.TrailingAction` child."
+          "type": "React.ReactNode"
         },
         {
           "name": "trailingVisual",
-          "type": "React.ReactNode",
-          "description": "Supplies the trailingVisual region. Takes precedence over a matching `NavList.TrailingVisual` child."
+          "type": "React.ReactNode"
         }
       ],
       "passthrough": {
@@ -264,6 +388,7 @@
         {
           "name": "alignContent",
           "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
           "description": "Whether the label sits centred or hugs the start edge when visuals are present."
         },
         {
@@ -289,7 +414,8 @@
         {
           "name": "disabled",
           "type": "boolean",
-          "description": "Prevents activation and removes the button from the keyboard order.\nPrevents navigation and removes the link from the keyboard order."
+          "defaultValue": "false",
+          "description": "Prevents activation and removes the button from the keyboard order.\nRemoves the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
         },
         {
           "name": "href",
@@ -315,17 +441,19 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "loading",
           "type": "boolean",
-          "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses navigation."
+          "defaultValue": "false",
+          "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
         },
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading.\nText announced to assistive technology while the link is loading."
+          "defaultValue": "'Loading'",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "style",
@@ -375,6 +503,22 @@
       "passthrough": {
         "element": "Collapsible.Root",
         "url": "https://base-ui.com/react/components/collapsible#root"
+      }
+    },
+    {
+      "name": "NavList.SubNav.Trigger",
+      "props": [],
+      "passthrough": {
+        "element": "Collapsible.Trigger",
+        "url": "https://base-ui.com/react/components/collapsible#trigger"
+      }
+    },
+    {
+      "name": "NavList.SubNav.Panel",
+      "props": [],
+      "passthrough": {
+        "element": "Collapsible.Panel",
+        "url": "https://base-ui.com/react/components/collapsible#panel"
       }
     }
   ],

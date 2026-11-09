@@ -39,6 +39,15 @@
       "id": "react-tailwind-components-selectpanel-examples--modal-in-scrollable-dialog-portal"
     },
     {
+      "id": "react-tailwind-components-selectpanel-examples--default-portal-in-dialog"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--modal-with-default-portal-in-dialog"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--portal-in-transformed-scroll-container"
+    },
+    {
       "id": "react-tailwind-components-selectpanel-examples--action-menu-anchor"
     },
     {
@@ -54,6 +63,9 @@
       "id": "react-tailwind-components-selectpanel-examples--virtualized-built-in"
     },
     {
+      "id": "react-tailwind-components-selectpanel-examples--virtualized-emoji-picker"
+    },
+    {
       "id": "react-tailwind-components-selectpanel-features--with-item-dividers"
     },
     {
@@ -64,6 +76,9 @@
     },
     {
       "id": "react-tailwind-components-selectpanel-features--multi-select"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--selected-options-first"
     },
     {
       "id": "react-tailwind-components-selectpanel-features--with-disabled-item"
@@ -111,6 +126,9 @@
       "id": "react-tailwind-components-selectpanel-features--single-select-modal"
     },
     {
+      "id": "react-tailwind-components-selectpanel-features--guarded-modal-close"
+    },
+    {
       "id": "react-tailwind-components-selectpanel-features--inside-required-form-control"
     },
     {
@@ -118,6 +136,9 @@
     },
     {
       "id": "react-tailwind-components-selectpanel-features--fullscreen-on-narrow"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--fullscreen-on-narrow-with-max-height"
     },
     {
       "id": "react-tailwind-components-selectpanel-features--with-inactive-items"
@@ -251,7 +272,7 @@
     },
     {
       "name": "items",
-      "type": "readonly SelectPanelItem[]",
+      "type": "readonly TItem[]",
       "required": true,
       "description": "Options to choose from."
     },
@@ -298,9 +319,9 @@
     },
     {
       "name": "onSelectedChange",
-      "type": "(selected: SelectPanelItem[] | SelectPanelItem | undefined, details?: ChangeEventDetails | undefined) => void",
+      "type": "((selected: TItem | TSelectedItem | undefined, details?: ChangeEventDetails | undefined) => void) | ((selected: (TItem | TSelectedItem)[], details?: ChangeEventDetails | undefined) => void)",
       "required": true,
-      "description": "Called with the new selection whenever it changes."
+      "description": "Called with the new selection: one option or `undefined` for single selection, or an array for multiple selection."
     },
     {
       "name": "open",
@@ -326,7 +347,7 @@
     {
       "name": "renderAnchor",
       "type": "((props: SelectPanelAnchorProps) => React.ReactElement) | null",
-      "description": "Set to null when the anchor is rendered outside the panel and referenced by `anchorRef`.\nRenders the anchor yourself, receiving the props that make it control the panel."
+      "description": "Set to null when the anchor is rendered outside the panel and referenced by `anchorRef`.\nReturns one ref-capable trigger element; the panel attaches its trigger behavior to that element."
     },
     {
       "name": "renderGroup",
@@ -335,7 +356,7 @@
     },
     {
       "name": "renderItem",
-      "type": "SelectPanelRenderItem",
+      "type": "SelectPanelRenderItem<TItem>",
       "description": "Renders each option yourself."
     },
     {
@@ -350,14 +371,14 @@
     },
     {
       "name": "selected",
-      "type": "readonly SelectPanelItem[] | SelectPanelItem | undefined",
+      "type": "TSelectedItem | readonly TSelectedItem[] | undefined",
       "required": true,
-      "description": "Currently selected option or options."
+      "description": "Currently selected option or options: one option or `undefined` for single selection, or an array (`[]` when empty) for multiple selection."
     },
     {
       "name": "selectionVariant",
       "type": "\"multiple\" | \"single\"",
-      "description": "Whether one option or several may be selected."
+      "description": "Selection mode. Defaults to `'multiple'` when `selected` is an array and `'single'` otherwise; when set, it must match the shape of `selected`."
     },
     {
       "name": "setInitialFocus",
@@ -381,7 +402,7 @@
       "name": "showSelectedOptionsFirst",
       "type": "boolean",
       "defaultValue": "true",
-      "description": "Moves selected options to the top of the list."
+      "description": "Moves selected options to the top when the selected-option ordering feature flag is enabled."
     },
     {
       "name": "subtitle",
@@ -408,7 +429,7 @@
       "name": "virtualized",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Renders only the visible options, for a long uniform list."
+      "description": "Renders only visible options for supported text or noninteractive label content."
     },
     {
       "name": "width",
@@ -498,7 +519,7 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "leadingVisual",
@@ -513,7 +534,7 @@
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading."
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "notificationIndicator",
@@ -560,6 +581,7 @@
         {
           "name": "alignContent",
           "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
           "description": "Whether the label sits centred or hugs the start edge when visuals are present."
         },
         {
@@ -579,7 +601,8 @@
         {
           "name": "disabled",
           "type": "boolean",
-          "description": "Prevents navigation and removes the link from the keyboard order."
+          "defaultValue": "false",
+          "description": "Removes the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
         },
         {
           "name": "href",
@@ -595,7 +618,7 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "leadingVisual",
@@ -605,12 +628,14 @@
         {
           "name": "loading",
           "type": "boolean",
-          "description": "Replaces the leading visual with a spinner and suppresses navigation."
+          "defaultValue": "false",
+          "description": "Replaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
         },
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the link is loading."
+          "defaultValue": "'Loading'",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "onClick",

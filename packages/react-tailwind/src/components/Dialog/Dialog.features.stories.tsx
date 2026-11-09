@@ -1,5 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import {useRef, useState} from 'react'
+import {useId, useRef, useState} from 'react'
 import {flushSync} from 'react-dom'
 import {ActionList} from '../ActionList'
 import {Button} from '../Button'
@@ -146,6 +146,58 @@ export const WithDirectSubcomponents: StoryObj<SubtitleArgs> = {
     </Dialog>
   ),
 }
+export const CenteredLongContent: Story = {
+  render: () => (
+    <Dialog>
+      <Dialog.Trigger render={<Button>Show dialog</Button>} />
+      <Dialog.Content width="xlarge">
+        <Dialog.Header>
+          <Dialog.Title lang="de">Repositoryzugriffsberechtigungsprüfung</Dialog.Title>
+          <Dialog.CloseButton />
+        </Dialog.Header>
+        <Dialog.Body>
+          {Array.from({length: 12}, (_, index) => (
+            <p className="mt-0 mb-4 last:mb-0" key={index}>
+              Rule {index + 1}: Review the repository access settings before continuing.
+            </p>
+          ))}
+        </Dialog.Body>
+        <Dialog.Footer>
+          <Dialog.Close render={<Button>Cancel</Button>} />
+          <Button lang="de">Repositoryzugriffsberechtigung überprüfen</Button>
+        </Dialog.Footer>
+      </Dialog.Content>
+    </Dialog>
+  ),
+}
+
+function HeaderWithoutCloseFixture() {
+  const titleId = useId()
+  return (
+    <Dialog>
+      <Dialog.Trigger render={<Button>Show dialog</Button>} />
+      <Dialog.Content width="small">
+        <Dialog.Header aria-labelledby={titleId} className="h-16" role="region">
+          <Dialog.Title id={titleId}>
+            Review repository access and visibility settings across your organization
+          </Dialog.Title>
+          <Dialog.Subtitle>
+            Scroll to read the complete summary of the changes before closing this dialog.
+          </Dialog.Subtitle>
+        </Dialog.Header>
+        <Dialog.Body>Review the current settings before continuing.</Dialog.Body>
+        <Dialog.Footer>
+          <Dialog.Close render={<Button>Close</Button>} />
+        </Dialog.Footer>
+      </Dialog.Content>
+    </Dialog>
+  )
+}
+
+export const ScrollableHeaderWithoutClose: Story = {
+  render: () => <HeaderWithoutCloseFixture />,
+}
+
 export const StressTest: StoryObj<SubtitleArgs> = {
   ...subtitleArgs,
   render: ({subtitle}) => (
@@ -283,6 +335,39 @@ const ReturnFocusRefDialog = () => {
   )
 }
 export const ReturnFocusRef: Story = {render: () => <ReturnFocusRefDialog />}
+
+const ReturnFocusToContainerDialog = () => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  return (
+    <>
+      <div ref={containerRef} tabIndex={-1} data-testid="return-focus-container">
+        <Button aria-disabled="true">Feedback action</Button>
+      </div>
+      <Dialog>
+        <Dialog.Trigger render={<Button>Open with ref</Button>} />
+        <Dialog.Content finalFocus={containerRef}>
+          <Dialog.Header>
+            <Dialog.Title>Ref focus target</Dialog.Title>
+            <Dialog.CloseButton />
+          </Dialog.Header>
+          <Dialog.Body>The return target contains a tabbable action.</Dialog.Body>
+        </Dialog.Content>
+      </Dialog>
+      <Dialog>
+        <Dialog.Trigger render={<Button>Open with callback</Button>} />
+        <Dialog.Content finalFocus={() => containerRef.current}>
+          <Dialog.Header>
+            <Dialog.Title>Callback focus target</Dialog.Title>
+            <Dialog.CloseButton />
+          </Dialog.Header>
+          <Dialog.Body>The return target contains a tabbable action.</Dialog.Body>
+        </Dialog.Content>
+      </Dialog>
+    </>
+  )
+}
+export const ReturnFocusToContainer: Story = {render: () => <ReturnFocusToContainerDialog />}
+
 const NewIssuesDialog = () => {
   const initialFocusRef = useRef<HTMLAnchorElement>(null)
   return (

@@ -30,6 +30,8 @@ import {Button} from '@primer/react-tailwind/Button'
 
 Use `Button` for the styled API. `ButtonBase` is the lower-level public primitive for custom button composition.
 
+Button labels wrap by default inside `Dialog.Footer` so actions can reflow in narrow dialogs. For non-link variants, set `labelWrap={false}` to retain the single-line treatment there. The link variant keeps its normal wrapping behavior.
+
 Buttons default to `type="button"` so actions do not accidentally submit an enclosing form. Set `type="submit"` on the form's submit action:
 
 ```tsx
@@ -43,7 +45,11 @@ Buttons default to `type="button"` so actions do not accidentally submit an encl
 
 ## Accessibility
 
-Use meaningful text or an `aria-label` for icon-only content. Loading state sets `aria-busy` and `aria-disabled`, suppresses activation without replacing the focused element, and provides a screen-reader announcement. Describe inactive controls with `aria-describedby` so the visual state has an accessible explanation.
+Use meaningful text or an `aria-label` for icon-only content. Loading state sets `aria-disabled` (not `aria-busy`, which GitHub accessibility policy prohibits) and suppresses activation without replacing the focused element. By default, `loadingAnnouncement` contributes a description and a status element that appears with its text when loading begins. That insertion alone does not guarantee a spoken announcement.
+
+When the host already announces loading through its own announcer, set `loadingAnnouncement=""` to omit the Button's status and loading description. The host must then communicate the loading state; GitHub applications use their centralized `@github-ui/aria-live` announcer. Any consumer-supplied `aria-describedby` remains intact. Verify the experience with the host's supported assistive technologies.
+
+Describe inactive controls with `aria-describedby` so the visual state has an accessible explanation.
 
 ## Data attributes
 

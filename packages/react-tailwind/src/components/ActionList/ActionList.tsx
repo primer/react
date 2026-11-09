@@ -1,9 +1,14 @@
 'use client'
 
+import {useRender} from '@base-ui/react/use-render'
+import type {ComponentRenderFn, HTMLProps} from '@base-ui/react/types'
 import {AlertIcon} from '@primer/octicons-react'
 import React from 'react'
+import {flattenChildren} from '../../internal/children'
 import {cn} from '../../internal/cn'
+import {getDisabledActivationHandlers, guardDisabledRender} from '../../internal/disabledActivation'
 import {renderIcon} from '../../internal/icon'
+import {joinIdRefs} from '../../internal/idRefs'
 import {useItemGap} from '../../internal/listContainer'
 import {mergeRefs} from '../../internal/refs'
 import {isPartOf, regionElements, resolveRegions} from '../../internal/regions'
@@ -22,12 +27,14 @@ import {
   actionItemPartClassName,
   getActionItemStateAttributes,
   getActionItemStateClassName,
+  staticActionItemClassName,
 } from './itemState'
 import {getSelectionAttribute, getSelectionRole, type SelectionVariant} from './selectionUtils'
 
 type ListContextValue = {
   groupLabelId?: string
   itemGap?: boolean
+  listboxComposition?: boolean
   role?: string
   selectionVariant?: SelectionVariant | false
   showDividers?: boolean
@@ -35,14 +42,23 @@ type ListContextValue = {
 }
 
 const ListContext = React.createContext<ListContextValue>({})
+const GroupHeadingContext = React.createContext<{auxiliaryText?: string; labelId?: string}>({})
+const DirectTreeItemContext = React.createContext(false)
 
-const listClassName = 'm-0 list-none p-0 text-default'
+const listClassName = 'primer:m-0 primer:list-none primer:p-0 primer:text-default'
 const actionItemDividerClassName = cn(
-  "relative before:absolute before:inset-x-0 before:-top-[7px] before:h-px before:bg-[var(--borderColor-muted)] before:content-['']",
-  "[li:first-of-type>*>&]:before:invisible [[data-component='ActionList.Divider']+li>*>&]:before:invisible",
-  '[[data-active]>&]:before:invisible [li:has(>[data-active])+li>*>&]:before:invisible',
-  '[:focus-visible>&]:before:invisible [li:has(>:focus-visible)+li>*>&]:before:invisible',
-  '[@media(hover:hover)]:[li:hover>*>&]:before:invisible [@media(hover:hover)]:[li:hover+li>*>&]:before:invisible',
+  "primer:relative primer:before:absolute primer:before:inset-x-0 primer:before:-top-[7px] primer:before:h-px primer:before:bg-[var(--borderColor-muted)] primer:before:content-['']",
+  "primer:[li:first-of-type>*>&]:before:invisible primer:[[data-component='ActionList.Divider']+li>*>&]:before:invisible",
+  'primer:[[data-active]>&]:before:invisible primer:[li:has(>[data-active])+li>*>&]:before:invisible',
+  'primer:[:focus-visible>&]:before:invisible primer:[li:has(>:focus-visible)+li>*>&]:before:invisible',
+  'primer:[@media(hover:hover)]:[li:hover>*>&]:before:invisible primer:[@media(hover:hover)]:[li:hover+li>*>&]:before:invisible',
+)
+const directItemDividerClassName = cn(
+  "primer:relative primer:before:absolute primer:before:inset-x-0 primer:before:-top-[7px] primer:before:h-px primer:before:bg-[var(--borderColor-muted)] primer:before:content-['']",
+  'primer:[:first-child>&]:before:invisible primer:[[data-list-divider]+*>&]:before:invisible primer:[[data-group-heading]+*>&]:before:invisible',
+  'primer:[[data-active]>&]:before:invisible primer:[[data-active]+*>&]:before:invisible',
+  'primer:[:focus-visible>&]:before:invisible primer:[:focus-visible+*>&]:before:invisible',
+  'primer:[@media(hover:hover)]:[:hover>&]:before:invisible primer:[@media(hover:hover)]:[:hover+*>&]:before:invisible',
 )
 
 interface ActionListTrailingActionBaseProps {
@@ -97,13 +113,13 @@ type TrailingActionSize = 'medium' | 'small'
 
 function getTrailingActionClassName(hasIcon: boolean, size: TrailingActionSize, loading = false) {
   return cn(
-    'relative inline-flex h-8 min-h-8 min-w-8 items-center justify-center rounded-md !border-0 px-2 text-sm !shadow-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed',
-    !hasIcon && '!px-[13px]',
+    'primer:relative primer:inline-flex primer:h-8 primer:min-h-8 primer:min-w-8 primer:items-center primer:justify-center primer:rounded-md primer:!border-0 primer:px-2 primer:text-sm primer:!shadow-none primer:focus-visible:outline-2 primer:focus-visible:outline-offset-[-2px] primer:focus-visible:outline-focus primer:disabled:cursor-not-allowed',
+    !hasIcon && 'primer:!px-[13px]',
     // A loading text action keeps its width and moves the spinner to the end, where an icon action's spinner sits.
     !hasIcon &&
       loading &&
-      "!pr-px !pl-[25px] [&_[data-component='buttonContent']>[data-component='leadingVisual']]:right-0 [&_[data-component='buttonContent']>[data-component='leadingVisual']]:left-auto [&_[data-component='buttonContent']>[data-component='leadingVisual']]:translate-x-0",
-    size === 'small' && 'size-7 min-h-7 min-w-7 !border p-0',
+      "primer:!pr-px primer:!pl-[25px] primer:[&_[data-component='buttonContent']>[data-component='leadingVisual']]:right-0 primer:[&_[data-component='buttonContent']>[data-component='leadingVisual']]:left-auto primer:[&_[data-component='buttonContent']>[data-component='leadingVisual']]:translate-x-0",
+    size === 'small' && 'primer:size-7 primer:min-h-7 primer:min-w-7 primer:!border primer:p-0',
   )
 }
 
@@ -148,7 +164,7 @@ function renderTrailingAction(
                 size={size}
                 variant="invisible"
               >
-                {renderIcon(Icon, 'block')}
+                {renderIcon(Icon, 'primer:block')}
               </LinkButton>
             }
           />
@@ -215,8 +231,8 @@ function renderTrailingAction(
   return (
     <span
       className={cn(
-        'ml-auto shrink-0',
-        size === 'small' ? 'inline-flex items-center' : 'self-stretch',
+        'primer:ms-auto primer:shrink-0',
+        size === 'small' ? 'primer:inline-flex primer:items-center' : 'primer:self-stretch',
         props.className,
       )}
       data-component={dataComponent}
@@ -235,7 +251,7 @@ const TrailingAction = React.forwardRef<HTMLElement, ActionListTrailingActionPro
 
 const focusZoneRoles = new Set(['menu', 'menubar', 'listbox'])
 
-export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'>, RegionProps<'heading'> {
+interface ActionListSharedRootProps extends RegionProps<'heading'> {
   /**
    * Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the
    * tab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys.
@@ -252,22 +268,33 @@ export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'
   showDividers?: boolean
 }
 
-const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function ActionListRoot(
-  {
-    children,
-    className,
-    disableFocusZone = false,
-    disableItemGap = false,
-    heading: headingProp,
-    role = 'list',
-    selectionVariant,
-    showDividers = false,
-    variant = 'inset',
-    ...rest
-  },
-  ref,
-) {
+export interface ActionListRootProps extends React.ComponentPropsWithoutRef<'ul'>, ActionListSharedRootProps {}
+
+export interface ActionListListboxProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'role'>,
+    ActionListSharedRootProps {}
+
+interface ActionListRootImplementationProps extends React.HTMLAttributes<HTMLElement>, ActionListSharedRootProps {
+  element: 'ul' | 'div'
+  forwardedRef: React.Ref<HTMLElement>
+}
+
+function ActionListRootImplementation({
+  children,
+  className,
+  disableFocusZone = false,
+  disableItemGap = false,
+  element: Element,
+  forwardedRef,
+  heading: headingProp,
+  role = 'list',
+  selectionVariant,
+  showDividers = false,
+  variant = 'inset',
+  ...rest
+}: ActionListRootImplementationProps) {
   const listRole = role
+  const listboxComposition = Element === 'div'
   const itemGap = useItemGap(disableItemGap)
   const generatedHeadingId = React.useId()
   const {
@@ -276,13 +303,13 @@ const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function Ac
   } = resolveRegions(children, {heading: {match: isPartOf(Heading)}}, {heading: headingProp})
   const heading = regionElements<ActionListHeadingProps>(headingProp, matchedHeadings).at(0)
   const headingId = heading ? (heading.props.id ?? generatedHeadingId) : undefined
-  const listRef = React.useRef<HTMLUListElement | null>(null)
-  const focusZoneRef = useFocusZone<HTMLUListElement>({
+  const listRef = React.useRef<HTMLElement | null>(null)
+  const focusZoneRef = useFocusZone<HTMLElement>({
     bindKeys: ['ArrowVertical', 'HomeAndEnd', 'PageUpDown'],
     disabled: disableFocusZone || !focusZoneRoles.has(role),
     focusOutBehavior: role === 'menu' ? 'wrap' : 'stop',
   })
-  const setListRef = React.useMemo(() => mergeRefs(listRef, ref, focusZoneRef), [ref, focusZoneRef])
+  const setListRef = React.useMemo(() => mergeRefs(listRef, forwardedRef, focusZoneRef), [forwardedRef, focusZoneRef])
 
   React.useEffect(() => {
     const list = listRef.current
@@ -294,28 +321,46 @@ const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function Ac
   })
 
   return (
-    <ListContext.Provider value={{itemGap, role: listRole, selectionVariant, showDividers, variant}}>
+    <ListContext.Provider
+      value={{itemGap, listboxComposition, role: listRole, selectionVariant, showDividers, variant}}
+    >
       {heading ? React.cloneElement(heading, {id: headingId}) : null}
-      <ul
+      <Element
         aria-labelledby={headingId}
         {...rest}
         ref={setListRef}
         role={role}
         className={cn(
           listClassName,
-          variant === 'inset' && 'py-2',
-          variant === 'horizontal-inset' && 'pb-2',
-          'data-[mixed-descriptions]:[&_[data-item-label]]:font-normal',
+          variant === 'inset' && 'primer:py-2',
+          variant === 'horizontal-inset' && 'primer:pb-2',
+          'primer:data-[mixed-descriptions]:[&_[data-item-label]]:font-normal',
           className,
         )}
-        data-component="ActionList"
+        data-component={listboxComposition ? 'ActionList.Listbox' : 'ActionList'}
         data-variant={variant}
         data-dividers={showDividers || undefined}
         data-item-gap={itemGap || undefined}
       >
         {listChildren}
-      </ul>
+      </Element>
     </ListContext.Provider>
+  )
+}
+
+const Root = React.forwardRef<HTMLUListElement, ActionListRootProps>(function ActionListRoot(props, ref) {
+  return <ActionListRootImplementation {...props} element="ul" forwardedRef={ref} />
+})
+
+const ListboxRoot = React.forwardRef<HTMLDivElement, ActionListListboxProps>(function ActionListListbox(props, ref) {
+  return (
+    <ActionListRootImplementation
+      {...props}
+      aria-multiselectable={props['aria-multiselectable'] ?? (props.selectionVariant === 'multiple' ? true : undefined)}
+      element="div"
+      forwardedRef={ref}
+      role="listbox"
+    />
   )
 })
 
@@ -325,11 +370,11 @@ export interface ActionListItemProps
   children?: React.ReactNode
   className?: string
   /**
-   * Prevents activation. In a list the item also leaves the keyboard order; in a menu or listbox it stays focusable
-   * and is marked `aria-disabled`, so keyboard users can still discover it.
+   * Prevents activation. In a plain list the item also leaves the keyboard order; in a menu, menubar, listbox, or
+   * tree it stays focusable and is marked `aria-disabled`, so keyboard users can still discover it.
    */
   disabled?: boolean
-  /** Marks the item temporarily unavailable and explains why. Unlike `disabled`, the item stays reachable. */
+  /** Marks the item temporarily unavailable and displays why. Unlike `disabled`, the item stays reachable. */
   inactiveText?: React.ReactNode
   /** Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation. */
   loading?: boolean
@@ -346,6 +391,57 @@ export interface ActionListItemProps
   /** Called when the item is activated by click or keyboard. */
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
 }
+
+export interface ActionListStaticItemProps
+  extends Omit<
+      React.ComponentPropsWithoutRef<'li'>,
+      'aria-checked' | 'aria-disabled' | 'aria-selected' | 'onClick' | 'onSelect' | 'role' | 'type'
+    >,
+    Pick<
+      ActionListItemProps,
+      | 'active'
+      | 'description'
+      | 'inactiveText'
+      | 'leadingVisual'
+      | 'size'
+      | 'trailingAction'
+      | 'trailingVisual'
+      | 'variant'
+    > {
+  /** Renders a static item in an ordinary list rather than an interactive action. */
+  role: 'listitem'
+  /** Checked state is not supported on a static list item. */
+  'aria-checked'?: never
+  /** Disabled state is not supported; use `inactiveText` only when a meaningful reason is available. */
+  'aria-disabled'?: never
+  /** Selected state is not supported on a static list item. */
+  'aria-selected'?: never
+  /** Static list items cannot be disabled. */
+  disabled?: false
+  /** Static list items do not manage disabled focus behavior. */
+  focusableWhenDisabled?: never
+  /** Loading state is not supported on a static list item. */
+  loading?: false
+  /** Static list items do not announce a loading state. */
+  loadingText?: never
+  /** Static list items are not buttons. */
+  nativeButton?: never
+  /** The static item itself cannot have an activation handler. */
+  onClick?: never
+  /** Selection handlers are not supported on a static list item. */
+  onSelect?: never
+  /** The static `li` root cannot be replaced through `render`. */
+  render?: never
+  /** Selection is not supported on a static list item. */
+  selected?: never
+  /** Button types are not supported on a static list item. */
+  type?: never
+}
+
+type ActionListItemComponent = <Role extends React.AriaRole | undefined = undefined>(
+  props: {role?: Role} & (Role extends 'listitem' ? ActionListStaticItemProps : ActionListItemProps) &
+    React.RefAttributes<HTMLElement>,
+) => React.ReactElement | null
 
 function getItemParts(children: React.ReactNode) {
   const {
@@ -382,6 +478,7 @@ function resolveItemRegions(
 ) {
   const {
     regions: {leadingVisual, trailingVisual, description, trailingAction},
+    matched: {description: matchedDescriptions},
     rest: label,
   } = resolveRegions(
     children,
@@ -401,7 +498,22 @@ function resolveItemRegions(
       {trailingVisual}
     </>
   )
-  return {itemChildren, hasDescription: description !== undefined && description !== null, trailingAction}
+  const descriptions =
+    overrides.description == null
+      ? (matchedDescriptions as React.ReactElement<ActionListDescriptionProps>[])
+      : flattenChildren(overrides.description).map((child, index) =>
+          React.isValidElement<ActionListDescriptionProps>(child) ? (
+            child
+          ) : (
+            <Description key={index}>{child}</Description>
+          ),
+        )
+  return {
+    itemChildren,
+    parts: {descriptions, label, leadingVisual, trailingVisual},
+    hasDescription: description !== undefined && description !== null,
+    trailingAction,
+  }
 }
 
 interface ActionItemContentRegions {
@@ -424,23 +536,62 @@ function resolveActionItemContent(
       : null,
     trailingVisual ? React.createElement(TrailingVisual, {key: 'trailing-visual'}, trailingVisual) : null,
   ]
-  const parts = getItemParts(composedChildren)
+  return resolveActionItemParts(getItemParts(composedChildren), accessibilityId)
+}
+
+interface ActionItemParts {
+  descriptions: React.ReactElement<ActionListDescriptionProps>[]
+  label: React.ReactNode
+  leadingVisual?: React.ReactNode
+  trailingVisual?: React.ReactNode
+}
+
+function resolveActionItemParts(parts: ActionItemParts, accessibilityId?: string) {
   const descriptions = accessibilityId
-    ? parts.descriptions.map((item, index) =>
-        React.cloneElement(item, {id: item.props.id ?? `${accessibilityId}-description-${index}`}),
-      )
+    ? parts.descriptions.map((item, index) => {
+        const generatedId = `${accessibilityId}-description-${index}`
+        if (item.type === Description || typeof item.type === 'string') {
+          return React.cloneElement(item, {id: item.props.id ?? generatedId})
+        }
+        return (
+          <span
+            key={item.key ?? index}
+            id={generatedId}
+            className={cn(
+              'primer:min-w-0 primer:max-w-full primer:text-xs primer:leading-4',
+              item.props.variant === 'block' && 'primer:block primer:w-full primer:basis-full',
+              item.props.truncate && 'primer:overflow-hidden primer:text-ellipsis primer:whitespace-nowrap',
+            )}
+          >
+            {item}
+          </span>
+        )
+      })
     : parts.descriptions
 
   return {
     ...parts,
-    blockDescriptions: descriptions.filter(item => item.props.variant === 'block'),
+    blockDescriptions: descriptions.filter((_, index) => parts.descriptions[index].props.variant === 'block'),
+    descriptionAliases: accessibilityId
+      ? parts.descriptions.flatMap((item, index) => {
+          const renderedId = descriptions[index].props.id
+          return item.props.id && renderedId && item.props.id !== renderedId
+            ? [{from: item.props.id, to: renderedId}]
+            : []
+        })
+      : [],
     descriptionIds: accessibilityId
-      ? descriptions
-          .filter(item => item.props['aria-hidden'] !== true && item.props['aria-hidden'] !== 'true')
-          .map(item => item.props.id)
+      ? parts.descriptions.flatMap((item, index) =>
+          !item.props.hidden && item.props['aria-hidden'] !== true && item.props['aria-hidden'] !== 'true'
+            ? [descriptions[index].props.id]
+            : [],
+        )
       : [],
     descriptions,
-    inlineDescriptions: descriptions.filter(item => item.props.variant !== 'block'),
+    hasWrappingInlineDescription: parts.descriptions.some(
+      description => description.props.variant !== 'block' && !description.props.truncate,
+    ),
+    inlineDescriptions: descriptions.filter((_, index) => parts.descriptions[index].props.variant !== 'block'),
     labelId: accessibilityId ? `${accessibilityId}-label` : undefined,
     trailingVisualId: accessibilityId && parts.trailingVisual ? `${accessibilityId}-trailing-visual` : undefined,
   }
@@ -497,6 +648,7 @@ function ActionItemContentRoot({
   const {
     blockDescriptions,
     descriptions,
+    hasWrappingInlineDescription,
     inlineDescriptions,
     label,
     labelId,
@@ -518,7 +670,7 @@ function ActionItemContentRoot({
       {selection ? (
         <span
           className={cn(
-            'flex min-h-5 min-w-max shrink-0 items-center leading-5',
+            'primer:flex primer:min-h-5 primer:min-w-max primer:shrink-0 primer:items-center primer:leading-5',
             actionItemPartClassName.leadingVisual,
           )}
           data-component="ActionList.Selection"
@@ -529,51 +681,61 @@ function ActionItemContentRoot({
       {renderedLeadingVisual}
       <span
         className={cn(
-          'flex min-w-0 flex-1 items-start',
-          supportingText ? 'flex-wrap gap-x-2 gap-y-0' : 'gap-2',
+          'primer:flex primer:min-w-0 primer:flex-1 primer:flex-col',
           showDivider && dividerClassName,
           // Upstream paints the divider a second time for items with inline descriptions.
-          showDivider && inlineDescriptions.length > 0 && 'before:shadow-[inset_0_1px_var(--borderColor-muted)]',
+          showDivider && inlineDescriptions.length > 0 && 'primer:before:shadow-[inset_0_1px_var(--borderColor-muted)]',
         )}
         data-component="ActionList.Item--DividerContainer"
       >
-        <span
-          className={cn(
-            'flex min-w-0 flex-1 gap-1',
-            supportingText && 'basis-full',
-            hasBlockDescription ? 'flex-col' : 'flex-row items-baseline gap-2',
-          )}
-          data-description-variant={hasBlockDescription ? 'block' : 'inline'}
-        >
-          <span className={cn('flex min-w-0 items-baseline', inlineDescriptions.length > 0 && 'gap-2')}>
+        <span className="primer:flex primer:min-w-0 primer:items-start primer:gap-2">
+          <span
+            className={cn(
+              'primer:flex primer:min-w-0 primer:flex-1 primer:gap-1',
+              hasBlockDescription ? 'primer:flex-col' : 'primer:flex-row primer:items-baseline primer:gap-2',
+            )}
+            data-description-variant={hasBlockDescription ? 'block' : 'inline'}
+          >
             <span
               className={cn(
-                'relative wrap-break-word',
-                actionItemPartClassName.label,
-                size === 'small' ? 'text-xs' : 'text-sm leading-5',
-                descriptions.length === 0 && 'min-w-0 flex-1',
-                descriptions.length > 0 && 'font-semibold',
+                'primer:flex primer:min-w-0 primer:items-baseline',
+                inlineDescriptions.length > 0 && 'primer:gap-x-2',
+                hasWrappingInlineDescription && 'primer:flex-wrap',
               )}
-              data-component="ActionList.Item.Label"
-              data-item-label=""
-              id={labelId}
             >
-              {label}
+              <span
+                className={cn(
+                  'primer:relative primer:min-w-0 primer:wrap-anywhere',
+                  actionItemPartClassName.label,
+                  size === 'small' ? 'primer:text-xs' : 'primer:text-sm primer:leading-5',
+                  descriptions.length === 0 && 'primer:flex-1',
+                  descriptions.length > 0 && 'primer:font-semibold',
+                )}
+                data-component="ActionList.Item.Label"
+                data-item-label=""
+                id={labelId}
+              >
+                {label}
+              </span>
+              {inlineDescriptions}
             </span>
-            {inlineDescriptions}
+            {blockDescriptions}
           </span>
-          {blockDescriptions}
+          {renderedTrailingVisual != null && typeof renderedTrailingVisual !== 'boolean' ? (
+            // Reference the visible wrapper so CSS-hidden visuals are omitted from the accessible name.
+            <span
+              className="primer:min-w-0 primer:max-w-1/2 primer:shrink-0 primer:wrap-anywhere"
+              id={trailingVisualId}
+            >
+              {renderedTrailingVisual}
+            </span>
+          ) : null}
         </span>
-        {trailingVisualId ? (
-          // Reference a visible wrapper so CSS-hidden visuals are omitted from the accessible name.
-          <span className="shrink-0" id={trailingVisualId}>
-            {renderedTrailingVisual}
-          </span>
-        ) : (
-          renderedTrailingVisual
-        )}
         {supportingText ? (
-          <span className="basis-full text-xs leading-4 text-attention" id={supportingTextId}>
+          <span
+            className="primer:min-w-0 primer:wrap-break-word primer:text-xs primer:leading-4 primer:text-attention"
+            id={supportingTextId}
+          >
             {supportingText}
           </span>
         ) : null}
@@ -582,11 +744,174 @@ function ActionItemContentRoot({
   )
 }
 
-export const ActionItemContent = Object.assign(ActionItemContentRoot, {resolveOption: resolveActionItemOptionContent})
+type ActionItemRender<State> = React.ReactElement | ComponentRenderFn<HTMLProps, State> | undefined
+
+function containsRenderedContent(node: React.ReactNode, content: React.ReactNode): boolean {
+  if (node === content) return true
+  if (Array.isArray(content)) {
+    return content
+      .filter(child => child !== null && child !== undefined && typeof child !== 'boolean')
+      .every(child => containsRenderedContent(node, child))
+  }
+  if (Array.isArray(node)) return node.some(child => containsRenderedContent(child, content))
+  if (!React.isValidElement<{children?: React.ReactNode; id?: string; resolvedContent?: unknown}>(node)) return false
+  if (
+    React.isValidElement<{children?: React.ReactNode; id?: string; resolvedContent?: unknown}>(content) &&
+    node.type === content.type &&
+    ((content.props.resolvedContent !== undefined && node.props.resolvedContent === content.props.resolvedContent) ||
+      (content.props.id !== undefined && node.props.id === content.props.id) ||
+      (content.props.children !== undefined && node.props.children === content.props.children))
+  ) {
+    return true
+  }
+  return containsRenderedContent(node.props.children, content)
+}
+
+function replaceDescriptionAliases(value: string | undefined, aliases: Array<{from: string; to: string}>) {
+  return joinIdRefs(...(value?.split(/\s+/).map(id => aliases.find(alias => alias.from === id)?.to ?? id) ?? []))
+}
+
+function omitIdRefs(value: string | undefined, omitted: Array<string | undefined>) {
+  return joinIdRefs(...(value?.split(/\s+/).filter(id => !omitted.includes(id)) ?? []))
+}
+
+function useActionItemAccessibility<State>({
+  describedBy,
+  label,
+  labelledBy,
+  loadingText,
+  render,
+  resolveContent,
+  skip,
+  supportingText,
+}: {
+  describedBy?: string
+  label?: string
+  labelledBy?: string
+  loadingText?: string
+  render: ActionItemRender<State>
+  resolveContent: (id?: string) => ReturnType<typeof resolveActionItemParts>
+  skip?: boolean
+  supportingText?: React.ReactNode
+}) {
+  const id = React.useId()
+  const content = resolveContent(id)
+  const renderReplacesChildren =
+    React.isValidElement<{children?: React.ReactNode}>(render) && 'children' in render.props
+  const hasDescription =
+    !skip &&
+    !renderReplacesChildren &&
+    (content.descriptionIds.length > 0 || Boolean(supportingText) || Boolean(loadingText))
+  const renderAria = React.isValidElement<React.AriaAttributes>(render) ? render.props : undefined
+  // Like upstream, the name is the label and trailing visual whether or not the item has a description, so a leading
+  // visual's label never changes the name. An item without label text is named from its content instead.
+  const nameFromLabel =
+    !skip &&
+    !renderReplacesChildren &&
+    React.Children.toArray(content.label).length > 0 &&
+    label === undefined &&
+    labelledBy === undefined &&
+    renderAria?.['aria-label'] === undefined &&
+    renderAria?.['aria-labelledby'] === undefined
+  const resolvedContent = hasDescription || nameFromLabel ? content : resolveContent()
+  const supportingTextId = hasDescription && supportingText ? `${id}-supporting-text` : undefined
+  const loadingTextId = hasDescription && loadingText ? `${id}-loading-text` : undefined
+  const generatedLabelledBy = nameFromLabel
+    ? joinIdRefs(resolvedContent.labelId, resolvedContent.trailingVisualId, loadingTextId)
+    : undefined
+  const descriptionIds = [
+    ...resolvedContent.descriptionIds,
+    ...(supportingTextId ? [supportingTextId] : []),
+    ...(loadingTextId && !generatedLabelledBy ? [loadingTextId] : []),
+  ]
+  const aliases = resolvedContent.descriptionAliases
+  const resolvedDescribedBy = joinIdRefs(
+    replaceDescriptionAliases(describedBy, aliases),
+    replaceDescriptionAliases(renderAria?.['aria-describedby'], aliases),
+    ...descriptionIds,
+  )
+
+  function withDescriptions(element: React.ReactElement, fromCallback: boolean, contentForwarded = true) {
+    if (!React.isValidElement<React.AriaAttributes>(element)) return element
+    const explicitRenderedName =
+      element.props['aria-label'] !== undefined ||
+      (element.props['aria-labelledby'] !== undefined && element.props['aria-labelledby'] !== generatedLabelledBy)
+    const aria: React.AriaAttributes = {
+      'aria-describedby': joinIdRefs(
+        replaceDescriptionAliases(describedBy, aliases),
+        replaceDescriptionAliases(
+          contentForwarded
+            ? element.props['aria-describedby']
+            : omitIdRefs(element.props['aria-describedby'], descriptionIds),
+          aliases,
+        ),
+        ...(contentForwarded ? descriptionIds : []),
+        ...(loadingTextId && generatedLabelledBy && contentForwarded && explicitRenderedName ? [loadingTextId] : []),
+      ),
+    }
+    if (fromCallback && generatedLabelledBy && (!contentForwarded || explicitRenderedName)) {
+      aria['aria-labelledby'] = omitIdRefs(element.props['aria-labelledby'], generatedLabelledBy.split(/\s+/))
+    }
+    return React.cloneElement(element, aria)
+  }
+
+  const resolvedRender =
+    !hasDescription && !generatedLabelledBy
+      ? render
+      : typeof render === 'function'
+        ? (props: HTMLProps, state: State) => {
+            const element = render(props, state)
+            return withDescriptions(
+              element,
+              true,
+              React.isValidElement<{children?: React.ReactNode}>(element) &&
+                containsRenderedContent(element.props.children, props.children),
+            )
+          }
+        : React.isValidElement<React.AriaAttributes>(render) && 'aria-describedby' in render.props
+          ? withDescriptions(render, false)
+          : render
+
+  return {
+    describedBy: resolvedDescribedBy,
+    labelledBy: labelledBy ?? generatedLabelledBy,
+    loadingTextId,
+    render: resolvedRender,
+    resolvedContent,
+    supportingTextId,
+  }
+}
+
+/**
+ * Names a generated option from its label and trailing visual, as `ActionList.Item` does, so a leading visual never
+ * joins the name, with or without a description. Content without label text keeps its subtree name.
+ */
+function getActionItemOptionLabelledBy(
+  resolvedContent: ReturnType<typeof resolveActionItemContent> | undefined,
+  ariaLabel: string | undefined,
+) {
+  if (ariaLabel !== undefined || !resolvedContent || React.Children.toArray(resolvedContent.label).length === 0) {
+    return undefined
+  }
+  return joinIdRefs(resolvedContent.labelId, resolvedContent.trailingVisualId)
+}
+
+export const ActionItemContent = Object.assign(ActionItemContentRoot, {
+  optionLabelledBy: getActionItemOptionLabelledBy,
+  resolve: resolveActionItemContent,
+  resolveParts: resolveActionItemParts,
+  resolveOption: resolveActionItemOptionContent,
+  useAccessibility: useActionItemAccessibility,
+})
 
 const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionListItem(
   {
     active,
+    'aria-checked': explicitChecked,
+    'aria-describedby': describedBy,
+    'aria-label': ariaLabel,
+    'aria-labelledby': labelledBy,
+    'aria-selected': explicitSelected,
     children,
     className,
     description: descriptionProp,
@@ -596,11 +921,18 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
     leadingVisual: leadingVisualProp,
     loading = false,
     loadingText,
+    onAuxClickCapture,
     onClick,
+    onClickCapture,
+    onKeyDown,
+    onKeyDownCapture,
+    onKeyUpCapture,
     onSelect: onSelectItem,
+    render,
     role: roleProp,
     selected,
     size = 'medium',
+    title,
     trailingAction: trailingActionProp,
     trailingVisual: trailingVisualProp,
     variant = 'default',
@@ -608,12 +940,25 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
   },
   ref,
 ) {
-  const {itemGap, role: listRole, selectionVariant, showDividers, variant: listVariant} = React.useContext(ListContext)
+  const {
+    itemGap,
+    listboxComposition,
+    role: listRole,
+    selectionVariant,
+    showDividers,
+    variant: listVariant,
+  } = React.useContext(ListContext)
+  const directTreeItem = React.useContext(DirectTreeItemContext)
+  const direct = Boolean(listboxComposition || directTreeItem)
   const role = roleProp ?? getSelectionRole(listRole, selectionVariant)
   const selectionAttribute = getSelectionAttribute(role)
+  const selectionState = explicitChecked ?? explicitSelected ?? selected
+  const isSelected = selectionState === true || selectionState === 'true'
+  const isIndeterminate = selectionState === 'mixed'
   const {
     itemChildren,
     hasDescription,
+    parts,
     trailingAction: resolvedTrailingAction,
   } = resolveItemRegions(children, {
     leadingVisual: leadingVisualProp,
@@ -621,12 +966,28 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
     description: descriptionProp,
     trailingAction: trailingActionProp,
   })
+  const isTreeItem = listRole === 'tree' || role === 'treeitem'
+  const accessibility = useActionItemAccessibility({
+    describedBy,
+    label: ariaLabel,
+    labelledBy,
+    loadingText: loading ? loadingText : undefined,
+    render,
+    resolveContent: id =>
+      isTreeItem ? resolveActionItemContent({children: itemChildren}, id) : resolveActionItemParts(parts, id),
+    skip: isTreeItem,
+    supportingText: inactiveText,
+  })
   const renderedTrailingAction = !inactiveText && !loading ? resolvedTrailingAction : null
+  if (direct && renderedTrailingAction) {
+    throw new Error('ActionList listbox options and tree items cannot contain a trailing action.')
+  }
   const trailingActionLoading = !disabled && isTrailingActionLoading(renderedTrailingAction)
-  const showInactiveWarning = Boolean(inactiveText && (listRole === 'menu' || listRole === 'listbox'))
-  // Menus and listboxes keep disabled items focusable, as the ARIA authoring practices recommend for composite widgets.
-  const focusableWhenDisabled =
-    Boolean(disabled) && (focusableWhenDisabledProp ?? (listRole === 'menu' || listRole === 'listbox'))
+  const showInactiveIndicator = Boolean(inactiveText && listRole !== 'menu' && listRole !== 'listbox')
+  // Composite widgets keep disabled items discoverable unless the caller explicitly opts out.
+  const focusableWhenDisabled = disabled
+    ? (focusableWhenDisabledProp ?? (focusZoneRoles.has(listRole ?? '') || listRole === 'tree' || role === 'treeitem'))
+    : Boolean(inactiveText || loading)
   const itemState = {
     active,
     disabled,
@@ -637,8 +998,9 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
   }
   const selection = selectionVariant ? (
     <SelectionVisual
-      checked={Boolean(selected)}
+      checked={isSelected}
       disabled={disabled}
+      indeterminate={isIndeterminate}
       // Menus draw a checkmark for every selection variant except radio, as upstream does.
       variant={
         selectionVariant === 'radio'
@@ -649,69 +1011,215 @@ const Item = React.forwardRef<HTMLElement, ActionListItemProps>(function ActionL
       }
     />
   ) : null
-  const statusIndicator =
-    inactiveText && !showInactiveWarning ? (
-      <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-muted" />
-    ) : loading ? (
-      <Spinner aria-hidden="true" className="shrink-0" size="small" srText={null} />
-    ) : null
+  const statusIndicator = showInactiveIndicator ? (
+    <AlertIcon aria-hidden="true" className="primer:size-4 primer:shrink-0 primer:text-muted" />
+  ) : loading ? (
+    <Spinner aria-hidden="true" className="primer:shrink-0" size="small" srText={null} />
+  ) : null
+
+  const stateAttributes = getActionItemStateAttributes(itemState)
+
+  if (roleProp === 'listitem') {
+    if (direct || listRole !== 'list') {
+      throw new Error('ActionList.Item with role="listitem" must be rendered within an ActionList with role="list".')
+    }
+    if (
+      render ||
+      onSelectItem ||
+      onClick ||
+      selected !== undefined ||
+      explicitSelected !== undefined ||
+      explicitChecked !== undefined ||
+      loading
+    ) {
+      throw new Error(
+        'ActionList.Item with role="listitem" is static content and cannot be selected, activated, or loading.',
+      )
+    }
+    if (disabled || rest['aria-disabled'] !== undefined) {
+      throw new Error(
+        'ActionList.Item with role="listitem" cannot be disabled: aria-disabled is deprecated on list items and does not prevent activation of descendants. Use inactiveText to explain why the row is unavailable.',
+      )
+    }
+    const listItemProps: Record<string, unknown> = {
+      ...rest,
+      onAuxClickCapture,
+      onClickCapture,
+      onKeyDown,
+      onKeyDownCapture,
+      onKeyUpCapture,
+    }
+    delete listItemProps.nativeButton
+    delete listItemProps.type
+    return (
+      <li
+        {...(listItemProps as React.ComponentPropsWithoutRef<'li'>)}
+        ref={ref as React.Ref<HTMLLIElement>}
+        aria-describedby={describedBy}
+        aria-label={ariaLabel}
+        aria-labelledby={labelledBy}
+        title={title}
+        data-component="ActionList.Item"
+        data-static=""
+        data-active={(active && !inactiveText) || undefined}
+        data-inactive={inactiveText ? true : undefined}
+        data-has-description={hasDescription}
+        data-size={size}
+        className={cn(
+          'primer:relative primer:list-none primer:rounded-md',
+          listVariant !== 'full' && 'primer:mx-2',
+          itemGap && "primer:[[data-component$='Item']+&]:mt-0.5",
+          renderedTrailingAction && 'primer:flex primer:items-center',
+          staticActionItemClassName,
+          inactiveText &&
+            'primer:[--action-list-item-fgColor:var(--fgColor-muted)] primer:[--action-list-item-label-fgColor:var(--fgColor-muted)]',
+          active &&
+            !inactiveText &&
+            'primer:bg-[var(--control-transparent-bgColor-selected)] primer:[&_[data-item-label]]:font-semibold',
+          className,
+        )}
+      >
+        <div
+          className={cn(
+            actionItemClassName,
+            size === 'small' && 'primer:py-1',
+            size === 'large' && 'primer:py-2.5',
+            renderedTrailingAction && 'primer:min-w-0 primer:flex-1',
+          )}
+          data-component="ActionList.Item.Content"
+        >
+          <ActionItemContent
+            indicator={statusIndicator}
+            resolvedContent={accessibility.resolvedContent}
+            showDivider={showDividers}
+            size={size}
+            supportingText={inactiveText}
+          />
+        </div>
+        {renderedTrailingAction}
+      </li>
+    )
+  }
+
+  const action = (
+    <ButtonBase
+      {...rest}
+      {...(direct ? stateAttributes : {})}
+      ref={ref}
+      role={role}
+      disabled={disabled || Boolean(inactiveText) || loading}
+      focusableWhenDisabled={focusableWhenDisabled}
+      aria-describedby={isTreeItem ? describedBy : accessibility.describedBy}
+      aria-label={ariaLabel}
+      aria-labelledby={isTreeItem ? labelledBy : accessibility.labelledBy}
+      aria-disabled={focusableWhenDisabled || inactiveText || loading ? true : undefined}
+      render={guardDisabledRender(
+        Boolean(disabled || inactiveText || loading),
+        isTreeItem ? render : accessibility.render,
+      )}
+      title={title ?? (typeof inactiveText === 'string' ? inactiveText : undefined)}
+      aria-selected={
+        explicitSelected ??
+        (explicitChecked === undefined && selectionAttribute === 'aria-selected' ? Boolean(selected) : undefined)
+      }
+      aria-checked={
+        explicitChecked ??
+        (explicitSelected === undefined && selectionAttribute === 'aria-checked' ? Boolean(selected) : undefined)
+      }
+      {...getDisabledActivationHandlers(Boolean(disabled || inactiveText || loading), {
+        onAuxClickCapture,
+        onClickCapture,
+        onKeyDownCapture,
+        onKeyUpCapture,
+      })}
+      onClick={event => {
+        onClick?.(event)
+        if (!event.defaultPrevented && !inactiveText && !loading) onSelectItem?.(event)
+      }}
+      onKeyDown={
+        directTreeItem
+          ? event => {
+              onKeyDown?.(event)
+              if (event.defaultPrevented) {
+                event.preventBaseUIHandler()
+              } else if (event.key === 'Enter' && event.target === event.currentTarget) {
+                // Base UI's non-native Enter handler passes a prevented key event to onClick.
+                event.preventDefault()
+                event.preventBaseUIHandler()
+                event.currentTarget.click()
+              }
+            }
+          : onKeyDown
+      }
+      className={cn(
+        actionItemClassName,
+        direct && 'primer:relative',
+        direct && listVariant !== 'full' && 'primer:mx-2 primer:w-[calc(100%-1rem)]',
+        direct && itemGap && 'primer:[[data-action-list-item]+&]:mt-0.5',
+        direct && getActionItemStateClassName(itemState),
+        size === 'small' && 'primer:py-1',
+        size === 'large' && 'primer:py-2.5',
+        renderedTrailingAction && 'primer:min-w-0 primer:flex-1',
+        className,
+      )}
+      data-component={directTreeItem ? 'ActionList.TreeItem' : direct ? 'ActionList.Item' : 'ActionList.Item.Action'}
+      data-action-list-item={direct || undefined}
+      data-active={direct ? stateAttributes['data-active'] : active || undefined}
+      data-has-description={hasDescription}
+      data-selected={isSelected || undefined}
+      data-indeterminate={isIndeterminate || undefined}
+      data-size={size}
+      data-variant={variant === 'danger' ? variant : undefined}
+    >
+      <ActionItemContent
+        dividerClassName={direct ? directItemDividerClassName : undefined}
+        indicator={statusIndicator}
+        resolvedContent={accessibility.resolvedContent}
+        selection={selection}
+        showDivider={showDividers}
+        size={size}
+        supportingText={inactiveText}
+        supportingTextId={accessibility.supportingTextId}
+      />
+      {loading && loadingText ? (
+        <span className="primer:sr-only" id={accessibility.loadingTextId}>
+          {loadingText}
+        </span>
+      ) : null}
+    </ButtonBase>
+  )
+
+  if (direct) return action
 
   return (
     <li
       role={getSelectionRole(listRole, selectionVariant) ? 'none' : undefined}
       data-component="ActionList.Item"
-      {...getActionItemStateAttributes(itemState)}
+      {...stateAttributes}
       data-trailing-action-loading={trailingActionLoading || undefined}
       className={cn(
-        'relative list-none rounded-md',
-        listVariant !== 'full' && 'mx-2',
-        itemGap && "[[data-component$='Item']+&]:mt-0.5",
-        renderedTrailingAction && 'flex items-center',
+        'primer:relative primer:list-none primer:rounded-md',
+        listVariant !== 'full' && 'primer:mx-2',
+        itemGap && "primer:[[data-component$='Item']+&]:mt-0.5",
+        renderedTrailingAction && 'primer:flex primer:items-center',
         getActionItemStateClassName(itemState),
       )}
     >
-      <ButtonBase
-        {...rest}
-        ref={ref}
-        role={role}
-        disabled={disabled}
-        focusableWhenDisabled={focusableWhenDisabled}
-        aria-disabled={focusableWhenDisabled || inactiveText || loading ? true : undefined}
-        title={typeof inactiveText === 'string' ? inactiveText : undefined}
-        aria-selected={selectionAttribute === 'aria-selected' ? Boolean(selected) : undefined}
-        aria-checked={selectionAttribute === 'aria-checked' ? Boolean(selected) : undefined}
-        onClick={event => {
-          onClick?.(event)
-          if (!event.defaultPrevented && !inactiveText && !loading) onSelectItem?.(event)
-        }}
-        className={cn(
-          actionItemClassName,
-          size === 'small' && 'py-1',
-          size === 'large' && 'py-2.5',
-          renderedTrailingAction && 'min-w-0 flex-1',
-          className,
-        )}
-        data-component="ActionList.Item.Action"
-        data-active={active || undefined}
-        data-has-description={hasDescription}
-        data-selected={selected || undefined}
-        data-size={size}
-        data-variant={variant === 'danger' ? variant : undefined}
-      >
-        <ActionItemContent
-          indicator={statusIndicator}
-          selection={selection}
-          showDivider={showDividers}
-          size={size}
-          supportingText={showInactiveWarning ? inactiveText : null}
-        >
-          {itemChildren}
-        </ActionItemContent>
-        {inactiveText && !showInactiveWarning ? <span className="sr-only">{inactiveText}</span> : null}
-        {loading && loadingText ? <span className="sr-only">{loadingText}</span> : null}
-      </ButtonBase>
+      {action}
       {renderedTrailingAction}
     </li>
+  )
+}) as ActionListItemComponent
+
+export type ActionListTreeItemProps = Omit<ActionListItemProps, 'nativeButton' | 'render' | 'role' | 'trailingAction'>
+
+const TreeItem = React.forwardRef<HTMLElement, ActionListTreeItemProps>(function ActionListTreeItem(props, ref) {
+  const {role} = React.useContext(ListContext)
+  if (role !== 'tree') throw new Error('ActionList.TreeItem must be rendered within an ActionList with role="tree".')
+  return (
+    <DirectTreeItemContext.Provider value>
+      <Item {...props} ref={ref} nativeButton={false} render={<li />} role="treeitem" />
+    </DirectTreeItemContext.Provider>
   )
 })
 
@@ -720,8 +1228,10 @@ export interface ActionListLinkItemProps
     RegionProps<'leadingVisual' | 'trailingVisual' | 'description' | 'trailingAction'> {
   /** Highlights the link as the current one. */
   active?: boolean
-  /** Marks the link temporarily unavailable and explains why. The link renders as text until it is available. */
+  /** Marks the link temporarily unavailable and displays why. The link cannot navigate until it is available. */
   inactiveText?: React.ReactNode
+  /** Renders the link using a ref-forwarding element, such as a router link. */
+  render?: useRender.RenderProp<{active: boolean}>
   /** Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target. */
   size?: 'small' | 'medium' | 'large'
   /** Use `danger` for a destructive navigation. */
@@ -731,12 +1241,24 @@ export interface ActionListLinkItemProps
 const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(function ActionListLinkItem(
   {
     active,
+    'aria-checked': explicitChecked,
+    'aria-describedby': describedBy,
+    'aria-label': ariaLabel,
+    'aria-labelledby': labelledBy,
+    'aria-selected': explicitSelected,
     children,
     className,
     description: descriptionProp,
     href,
     inactiveText,
     leadingVisual: leadingVisualProp,
+    onAuxClickCapture,
+    onClick,
+    onClickCapture,
+    onKeyDownCapture,
+    onKeyUpCapture,
+    render,
+    role: roleProp,
     size = 'medium',
     trailingAction: trailingActionProp,
     trailingVisual: trailingVisualProp,
@@ -747,17 +1269,110 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
 ) {
   const context = React.useContext(ListContext)
   const {showDividers} = context
-  const {itemChildren, hasDescription, trailingAction} = resolveItemRegions(children, {
+  const direct = Boolean(context.listboxComposition)
+  const role = roleProp ?? (direct ? 'option' : undefined)
+  const {itemChildren, parts, hasDescription, trailingAction} = resolveItemRegions(children, {
     leadingVisual: leadingVisualProp,
     trailingVisual: trailingVisualProp,
     description: descriptionProp,
     trailingAction: trailingActionProp,
   })
+  const isTreeItem = context.role === 'tree' || role === 'treeitem'
+  const accessibility = useActionItemAccessibility({
+    describedBy,
+    label: ariaLabel,
+    labelledBy,
+    render: inactiveText ? undefined : render,
+    resolveContent: id =>
+      isTreeItem ? resolveActionItemContent({children: itemChildren}, id) : resolveActionItemParts(parts, id),
+    skip: isTreeItem,
+    supportingText: inactiveText,
+  })
 
   const renderedTrailingAction = inactiveText ? null : trailingAction
+  if (direct && renderedTrailingAction) {
+    throw new Error('ActionList listbox options cannot contain a trailing action.')
+  }
   const trailingActionLoading = isTrailingActionLoading(renderedTrailingAction)
-  const LinkElement = inactiveText ? 'span' : 'a'
   const itemState = {active, inactive: Boolean(inactiveText), trailingActionLoading, variant}
+  const selectionState = explicitChecked ?? explicitSelected
+  const isSelected = selectionState === true || selectionState === 'true'
+  const isIndeterminate = selectionState === 'mixed'
+  const selection =
+    direct && context.selectionVariant ? (
+      <SelectionVisual
+        checked={isSelected}
+        indeterminate={isIndeterminate}
+        variant={context.selectionVariant === 'multiple' ? 'multiple' : context.selectionVariant}
+      />
+    ) : null
+  const link = useRender<{active: boolean}, HTMLAnchorElement>({
+    defaultTagName: 'a',
+    render: isTreeItem && !inactiveText ? render : accessibility.render,
+    ref,
+    state: {active: Boolean(active)},
+    props: {
+      ...rest,
+      ...(direct ? getActionItemStateAttributes(itemState) : {}),
+      ...(href !== undefined && !inactiveText ? {href} : {}),
+      role,
+      'aria-checked': explicitChecked,
+      'aria-describedby': isTreeItem ? describedBy : accessibility.describedBy,
+      'aria-disabled': inactiveText ? true : undefined,
+      'aria-label': ariaLabel,
+      'aria-labelledby': isTreeItem ? labelledBy : accessibility.labelledBy,
+      'aria-selected':
+        explicitSelected ?? (direct && role === 'option' && explicitChecked === undefined ? false : undefined),
+      className: cn(
+        actionItemClassName,
+        direct && 'primer:relative',
+        direct && context.variant !== 'full' && 'primer:mx-2 primer:w-[calc(100%-1rem)]',
+        direct && context.itemGap && 'primer:[[data-action-list-item]+&]:mt-0.5',
+        direct && getActionItemStateClassName(itemState),
+        size === 'small' && 'primer:py-1',
+        size === 'large' && 'primer:py-2.5',
+        renderedTrailingAction && 'primer:min-w-0 primer:flex-1',
+        inactiveText && 'primer:cursor-not-allowed',
+        className,
+      ),
+      'data-active': active || undefined,
+      'data-action-list-item': direct || undefined,
+      'data-component': direct ? 'ActionList.LinkItem' : undefined,
+      'data-has-description': hasDescription,
+      'data-inactive': inactiveText ? true : undefined,
+      'data-indeterminate': direct && isIndeterminate ? true : undefined,
+      'data-selected': direct && isSelected ? true : undefined,
+      'data-size': size,
+      ...getDisabledActivationHandlers(Boolean(inactiveText), {
+        onAuxClickCapture,
+        onClickCapture,
+        onKeyDownCapture,
+        onKeyUpCapture,
+      }),
+      onClick: inactiveText ? undefined : onClick,
+      tabIndex: inactiveText && direct ? (rest.tabIndex ?? 0) : rest.tabIndex,
+      children: (
+        <>
+          <ActionItemContent
+            dividerClassName={direct ? directItemDividerClassName : undefined}
+            indicator={
+              inactiveText ? (
+                <AlertIcon aria-hidden="true" className="primer:size-4 primer:shrink-0 primer:text-muted" />
+              ) : undefined
+            }
+            resolvedContent={accessibility.resolvedContent}
+            selection={selection}
+            showDivider={showDividers}
+            size={size}
+            supportingText={inactiveText}
+            supportingTextId={accessibility.supportingTextId}
+          />
+        </>
+      ),
+    },
+  })
+
+  if (direct) return link
 
   return (
     <li
@@ -765,40 +1380,14 @@ const LinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(fu
       {...getActionItemStateAttributes(itemState)}
       data-trailing-action-loading={trailingActionLoading || undefined}
       className={cn(
-        'relative list-none rounded-md',
-        context.variant !== 'full' && 'mx-2',
-        context.itemGap && "[[data-component$='Item']+&]:mt-0.5",
-        renderedTrailingAction && 'flex items-center',
+        'primer:relative primer:list-none primer:rounded-md',
+        context.variant !== 'full' && 'primer:mx-2',
+        context.itemGap && "primer:[[data-component$='Item']+&]:mt-0.5",
+        renderedTrailingAction && 'primer:flex primer:items-center',
         getActionItemStateClassName(itemState),
       )}
     >
-      <LinkElement
-        {...rest}
-        ref={ref}
-        href={inactiveText ? undefined : href}
-        aria-disabled={inactiveText ? true : undefined}
-        className={cn(
-          actionItemClassName,
-          size === 'small' && 'py-1',
-          size === 'large' && 'py-2.5',
-          renderedTrailingAction && 'min-w-0 flex-1',
-          inactiveText && 'cursor-not-allowed',
-          className,
-        )}
-        data-active={active || undefined}
-        data-has-description={hasDescription}
-        data-inactive={inactiveText ? true : undefined}
-        data-size={size}
-      >
-        <ActionItemContent
-          indicator={inactiveText ? <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-muted" /> : undefined}
-          showDivider={showDividers}
-          size={size}
-        >
-          {itemChildren}
-        </ActionItemContent>
-        {inactiveText ? <span className="sr-only">{inactiveText}</span> : null}
-      </LinkElement>
+      {link}
       {renderedTrailingAction}
     </li>
   )
@@ -809,16 +1398,23 @@ export interface ActionListGroupProps
     RegionProps<'heading'> {
   /** Heading text for the group, as an alternative to supplying a heading child. */
   title?: React.ReactNode
+  /** Secondary text shown below the group's first heading. */
+  auxiliaryText?: string
   /** Overrides the list's selection behaviour for this group. `false` renders the group's items without selection. */
   selectionVariant?: SelectionVariant | false
 }
 
-const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function ActionListGroup(
-  {children, className, heading: headingProp, selectionVariant, title, ...rest},
-  ref,
-) {
-  const context = React.useContext(ListContext)
-  const generatedGroupLabelId = React.useId()
+function resolveGroupContent({
+  children,
+  generatedGroupLabelId,
+  headingProp,
+  title,
+}: {
+  children: React.ReactNode
+  generatedGroupLabelId: string
+  headingProp: ActionListGroupProps['heading']
+  title: React.ReactNode
+}) {
   const {
     matched: {heading: matchedHeadings},
     rest: listChildren,
@@ -827,26 +1423,53 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
   const groupLabelId = title
     ? generatedGroupLabelId
     : (headingChildren[0]?.props.id ?? (headingChildren.length > 0 ? generatedGroupLabelId : undefined))
+  const headings = (
+    <>
+      {title ? <GroupHeading id={groupLabelId}>{title}</GroupHeading> : null}
+      {headingChildren.map((heading, index) =>
+        React.cloneElement(heading, {
+          id: heading.props.id ?? (!title && index === 0 ? groupLabelId : `${generatedGroupLabelId}-heading-${index}`),
+        }),
+      )}
+    </>
+  )
+  return {groupLabelId, headings, listChildren}
+}
+
+const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function ActionListGroup(
+  {auxiliaryText, children, className, heading: headingProp, selectionVariant, title, ...rest},
+  ref,
+) {
+  const context = React.useContext(ListContext)
+  const generatedGroupLabelId = React.useId()
+  if (context.listboxComposition) {
+    throw new Error('Use ActionList.Listbox.Group inside ActionList.Listbox.')
+  }
+  const {groupLabelId, headings, listChildren} = resolveGroupContent({
+    children,
+    generatedGroupLabelId,
+    headingProp,
+    title,
+  })
+  if (auxiliaryText && groupLabelId === undefined) {
+    throw new Error('ActionList.Group auxiliaryText requires a group heading.')
+  }
   return (
     <li
       {...rest}
       ref={ref}
       role={getSelectionRole(context.role, context.selectionVariant) ? 'none' : rest.role}
-      className={cn('not-first:mt-2', className)}
+      className={cn('primer:not-first:mt-2', className)}
       data-component="ActionList.Group"
     >
       <ListContext.Provider
         value={{...context, groupLabelId, selectionVariant: selectionVariant ?? context.selectionVariant}}
       >
-        {title ? <GroupHeading id={groupLabelId}>{title}</GroupHeading> : null}
-        {headingChildren.map((heading, index) =>
-          React.cloneElement(heading, {
-            id:
-              heading.props.id ?? (!title && index === 0 ? groupLabelId : `${generatedGroupLabelId}-heading-${index}`),
-          }),
-        )}
+        <GroupHeadingContext.Provider value={{auxiliaryText, labelId: groupLabelId}}>
+          {headings}
+        </GroupHeadingContext.Provider>
         <ul
-          className="m-0 list-none p-0"
+          className="primer:m-0 primer:list-none primer:p-0"
           aria-labelledby={groupLabelId}
           role={getSelectionRole(context.role, context.selectionVariant) ? 'group' : undefined}
         >
@@ -857,23 +1480,84 @@ const Group = React.forwardRef<HTMLLIElement, ActionListGroupProps>(function Act
   )
 })
 
+export interface ActionListListboxGroupProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'role' | 'title'>,
+    RegionProps<'heading'> {
+  /** Heading text for the group, as an alternative to supplying a heading child. */
+  title?: React.ReactNode
+  /** Secondary text shown below the group's first heading. */
+  auxiliaryText?: string
+  /** Overrides the list's selection behaviour for this group. */
+  selectionVariant?: SelectionVariant | false
+}
+
+const ListboxGroup = React.forwardRef<HTMLDivElement, ActionListListboxGroupProps>(function ActionListListboxGroup(
+  {auxiliaryText, children, className, heading: headingProp, selectionVariant, title, ...rest},
+  ref,
+) {
+  const context = React.useContext(ListContext)
+  const generatedGroupLabelId = React.useId()
+  if (!context.listboxComposition) {
+    throw new Error('ActionList.Listbox.Group must be rendered within ActionList.Listbox.')
+  }
+  const {groupLabelId, headings, listChildren} = resolveGroupContent({
+    children,
+    generatedGroupLabelId,
+    headingProp,
+    title,
+  })
+  if (auxiliaryText && groupLabelId === undefined) {
+    throw new Error('ActionList.Listbox.Group auxiliaryText requires a group heading.')
+  }
+  const labelledBy = rest['aria-labelledby'] ?? (rest['aria-label'] === undefined ? groupLabelId : undefined)
+  return (
+    <div
+      {...rest}
+      ref={ref}
+      aria-labelledby={labelledBy}
+      role="group"
+      className={cn('primer:not-first:mt-2', className)}
+      data-component="ActionList.Listbox.Group"
+    >
+      <ListContext.Provider
+        value={{...context, groupLabelId, selectionVariant: selectionVariant ?? context.selectionVariant}}
+      >
+        <GroupHeadingContext.Provider value={{auxiliaryText, labelId: groupLabelId}}>
+          {headings}
+        </GroupHeadingContext.Provider>
+        {listChildren}
+      </ListContext.Provider>
+    </div>
+  )
+})
+
 export interface ActionListGroupHeadingProps
   extends React.ComponentPropsWithoutRef<'h3'>,
     RegionProps<'trailingAction'> {
   /** Heading element to render, so the group heading fits the surrounding document outline. */
   as?: React.ElementType
+  /** Secondary text shown below the group heading. */
+  auxiliaryText?: string
   /** Use `filled` to give the heading a background and separate it from the items above. */
   variant?: 'subtle' | 'filled'
 }
 
 const groupHeadingWrapperClassName =
-  'flex min-h-[30px] items-center gap-2 px-4 py-1.5 text-xs leading-[18px] font-semibold text-muted'
+  'primer:flex primer:min-h-[30px] primer:items-center primer:gap-2 primer:px-4 primer:py-1.5 primer:text-xs primer:leading-[18px] primer:font-semibold primer:text-muted'
 
 const GroupHeading = React.forwardRef<HTMLElement, ActionListGroupHeadingProps>(function ActionListGroupHeading(
-  {as: Component = 'h3', children, className, id, trailingAction: trailingActionProp, variant = 'subtle', ...rest},
+  {as, auxiliaryText, children, className, id, trailingAction: trailingActionProp, variant = 'subtle', ...rest},
   ref,
 ) {
-  const {groupLabelId, role} = React.useContext(ListContext)
+  const {groupLabelId, listboxComposition, role} = React.useContext(ListContext)
+  const groupHeading = React.useContext(GroupHeadingContext)
+  const headingId = id ?? groupLabelId
+  const secondaryText =
+    auxiliaryText ??
+    (headingId !== undefined && headingId === groupHeading.labelId ? groupHeading.auxiliaryText : undefined)
+  const compositeHeading = listboxComposition || (role !== undefined && role !== 'list')
+  const menuOrListbox = listboxComposition || role === 'menu' || role === 'menubar' || role === 'listbox'
+  const Component = as ?? (compositeHeading ? 'span' : 'h3')
   const {
     regions: {trailingAction},
     rest: headingChildren,
@@ -882,21 +1566,46 @@ const GroupHeading = React.forwardRef<HTMLElement, ActionListGroupHeadingProps>(
     {trailingAction: {match: isPartOf(GroupHeadingTrailingAction)}},
     {trailingAction: trailingActionProp},
   )
+  if (menuOrListbox && ((typeof Component === 'string' && /^h[1-6]$/.test(Component)) || rest.role === 'heading')) {
+    throw new Error('A menu or listbox group heading cannot use a semantic heading element or role.')
+  }
+  if (listboxComposition && trailingAction) {
+    throw new Error('An ActionList.Listbox group heading cannot contain a trailing action.')
+  }
+  const heading = (
+    <Component
+      {...rest}
+      ref={ref}
+      id={headingId}
+      role={menuOrListbox ? rest.role : undefined}
+      className={cn(
+        'primer:m-0 primer:min-w-0 primer:wrap-break-word primer:text-xs primer:leading-[18px] primer:font-semibold primer:text-muted',
+        className,
+      )}
+    >
+      {headingChildren}
+    </Component>
+  )
   return (
     <div
-      className={cn(groupHeadingWrapperClassName, variant === 'filled' && 'mb-2 border-y border-muted bg-muted')}
+      className={cn(
+        groupHeadingWrapperClassName,
+        variant === 'filled' && 'primer:mb-2 primer:border-y primer:border-muted primer:bg-muted',
+      )}
       data-component="ActionList.GroupHeading"
+      data-group-heading={listboxComposition || undefined}
       data-variant={variant}
     >
-      <Component
-        {...rest}
-        ref={ref}
-        id={id ?? groupLabelId}
-        role={role === 'menu' || role === 'listbox' ? 'presentation' : undefined}
-        className={cn('m-0 text-xs leading-[18px] font-semibold text-muted', className)}
-      >
-        {headingChildren}
-      </Component>
+      {secondaryText ? (
+        <div className="primer:min-w-0 primer:flex-1">
+          {heading}
+          <div className="primer:wrap-break-word primer:text-xs primer:leading-4 primer:font-normal">
+            {secondaryText}
+          </div>
+        </div>
+      ) : (
+        heading
+      )}
       {trailingAction}
     </div>
   )
@@ -915,11 +1624,12 @@ const GroupHeadingTrailingAction = React.forwardRef<HTMLElement, ActionListGroup
 
 /** Full-width rule between list items or groups, shared with menu separators. */
 export const actionListDividerClassName =
-  'mt-[7px] mb-2 block h-px list-none border-0 bg-[var(--borderColor-muted)] p-0 first:hidden'
+  'primer:mt-[7px] primer:mb-2 primer:block primer:h-px primer:list-none primer:border-0 primer:bg-[var(--borderColor-muted)] primer:p-0 primer:first:hidden'
 
 const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'li'>>(
   function ActionListDivider(props, ref) {
-    const {role} = React.useContext(ListContext)
+    const {listboxComposition, role} = React.useContext(ListContext)
+    if (listboxComposition) throw new Error('Use ActionList.Listbox.Divider inside ActionList.Listbox.')
     // Only menus permit separator children; other list roles keep the rule decorative.
     const isSeparator = role === 'menu' || role === 'menubar'
     return (
@@ -935,11 +1645,31 @@ const Divider = React.forwardRef<HTMLLIElement, React.ComponentPropsWithoutRef<'
   },
 )
 
+const ListboxDivider = React.forwardRef<
+  HTMLDivElement,
+  Omit<React.ComponentPropsWithoutRef<'div'>, 'aria-hidden' | 'role'>
+>(function ActionListListboxDivider({className, ...props}, ref) {
+  const {listboxComposition} = React.useContext(ListContext)
+  if (!listboxComposition) {
+    throw new Error('ActionList.Listbox.Divider must be rendered within ActionList.Listbox.')
+  }
+  return (
+    <div
+      {...props}
+      ref={ref}
+      aria-hidden="true"
+      className={cn(actionListDividerClassName, className)}
+      data-component="ActionList.Listbox.Divider"
+      data-list-divider
+    />
+  )
+})
+
 const LeadingVisual = ({className, ...props}: React.ComponentPropsWithoutRef<'span'>) => (
   <span
     {...props}
     className={cn(
-      'flex min-h-5 min-w-max shrink-0 items-center leading-5',
+      'primer:flex primer:min-h-5 primer:min-w-max primer:shrink-0 primer:items-center primer:leading-5',
       actionItemPartClassName.leadingVisual,
       className,
     )}
@@ -950,7 +1680,7 @@ const TrailingVisual = ({className, ...props}: React.ComponentPropsWithoutRef<'s
   <span
     {...props}
     className={cn(
-      'ml-auto flex min-h-5 min-w-max shrink-0 items-center text-sm leading-5',
+      'primer:ml-auto primer:flex primer:min-h-5 primer:min-w-0 primer:max-w-full primer:items-center primer:text-sm primer:leading-5 primer:wrap-anywhere',
       actionItemPartClassName.trailingVisual,
       className,
     )}
@@ -967,10 +1697,10 @@ const Description = ({className, truncate, variant = 'inline', ...props}: Action
   <span
     {...props}
     className={cn(
-      'text-xs leading-4',
+      'primer:min-w-0 primer:max-w-full primer:text-xs primer:leading-4 primer:wrap-anywhere',
       actionItemPartClassName.description,
-      variant === 'block' && 'block w-full basis-full',
-      truncate && 'overflow-hidden text-ellipsis whitespace-nowrap',
+      variant === 'block' && 'primer:block primer:w-full primer:basis-full',
+      truncate && 'primer:overflow-hidden primer:text-ellipsis primer:whitespace-nowrap',
       className,
     )}
     data-component="ActionList.Description"
@@ -985,9 +1715,9 @@ export interface ActionListHeadingProps extends React.ComponentPropsWithoutRef<'
   visuallyHidden?: boolean
 }
 const headingSizeClassName = {
-  small: 'font-display text-title-small',
-  medium: 'font-display text-title-medium',
-  large: 'font-display text-title-large',
+  small: 'primer:font-display primer:text-title-small',
+  medium: 'primer:font-display primer:text-title-medium',
+  large: 'primer:font-display primer:text-title-large',
 } as const
 const Heading = ({
   as: Component = 'h2',
@@ -1002,10 +1732,10 @@ const Heading = ({
     <Component
       {...props}
       className={cn(
-        'm-0 mb-2 text-[length:var(--text-title-size-large)] font-semibold',
+        'primer:m-0 primer:mb-2 primer:text-[length:var(--text-title-size-large)] primer:font-semibold',
         size && headingSizeClassName[size],
-        variant === 'full' ? 'ms-2' : 'ms-4',
-        visuallyHidden && 'sr-only',
+        variant === 'full' ? 'primer:ms-2' : 'primer:ms-4',
+        visuallyHidden && 'primer:sr-only',
         className,
       )}
       data-component="ActionList.Heading"
@@ -1019,8 +1749,10 @@ const Heading = ({
 export const ActionList = Object.assign(Root, {
   Root,
   Item,
+  TreeItem,
   LinkItem,
   Group,
+  Listbox: Object.assign(ListboxRoot, {Group: ListboxGroup, Divider: ListboxDivider}),
   GroupHeading: Object.assign(GroupHeading, {TrailingAction: GroupHeadingTrailingAction}),
   Divider,
   LeadingVisual,

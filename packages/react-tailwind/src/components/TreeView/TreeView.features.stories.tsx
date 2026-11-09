@@ -102,6 +102,124 @@ const files = (
 
 export const Files: Story = {render: () => files}
 
+export const WithoutGuides: Story = {
+  render: () => (
+    <TreeView aria-label="Files" className="[--tree-indent-size:1.5rem]" showGuides={false} truncate={false}>
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="index">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            index.ts
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  ),
+}
+
+export const LabelClipping: Story = {
+  render: () => (
+    <div style={{width: 160}}>
+      <TreeView aria-label="Files">
+        <TreeView.Item id="file" aria-label="Very-long-file-name-with-changes.tsx, modified">
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          Very-long-file-name-with-changes.tsx
+          <TreeView.TrailingVisual>
+            <DiffModifiedIcon />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+      </TreeView>
+    </div>
+  ),
+}
+
+export const LinkedFiles: Story = {
+  render: () => (
+    <TreeView.LinkTree aria-label="Files">
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.LinkTree.SubTree>
+          <TreeView.Item as="a" href="#index-ts" id="src/index.ts" current aria-label="File index.ts, modified">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            index.ts
+            <TreeView.TrailingVisual label="modified">
+              <DiffModifiedIcon />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+          <TreeView.Item as="a" href="#button-ts" id="src/Button.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Button.tsx
+          </TreeView.Item>
+        </TreeView.LinkTree.SubTree>
+      </TreeView.Item>
+      <TreeView.Item as="a" href="#docs" id="docs" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        docs
+        <TreeView.LinkTree.SubTree>
+          <TreeView.Item as="a" href="#guide" id="docs/guide.md">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            guide.md
+          </TreeView.Item>
+        </TreeView.LinkTree.SubTree>
+      </TreeView.Item>
+    </TreeView.LinkTree>
+  ),
+}
+
+export const LinkTreeVisualParity: Story = {
+  render: () => (
+    <div className="flex gap-4">
+      <TreeView aria-label="Standard files" className="w-full">
+        <TreeView.Item id="standard-file">
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          index.ts
+        </TreeView.Item>
+        <TreeView.Item id="standard-current" current>
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          README.md
+        </TreeView.Item>
+      </TreeView>
+      <TreeView.LinkTree aria-label="Linked files" className="w-full">
+        <TreeView.Item as="a" href="#index" id="linked-file">
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          index.ts
+        </TreeView.Item>
+        <TreeView.Item as="a" current href="#readme" id="linked-current">
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          README.md
+        </TreeView.Item>
+      </TreeView.LinkTree>
+    </div>
+  ),
+}
+
 export const FilesChanged: Story = {
   render: () => (
     <nav aria-label="Files">

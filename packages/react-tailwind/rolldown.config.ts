@@ -28,6 +28,8 @@ const componentEntries = Object.fromEntries(
 
 const input = {
   index: 'src/index.ts',
+  'base/index': 'src/base/index.ts',
+  'behaviors/index': 'src/behaviors/index.ts',
   ...componentEntries,
 }
 

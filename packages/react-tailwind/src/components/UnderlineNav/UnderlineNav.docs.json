@@ -83,9 +83,13 @@
       "props": [
         {
           "name": "as",
-          "type": "React.ElementType",
+          "type": "As",
           "defaultValue": "'a'",
-          "description": "Element to render, such as a router link component. Native anchors default to `href=\"#\"`; custom components\nreceive no default `href`, so they can supply their own navigation target."
+          "description": "Element or component supplied by the wrapper."
+        },
+        {
+          "name": "className",
+          "type": "string"
         },
         {
           "name": "counter",
@@ -101,6 +105,10 @@
           "name": "onSelect",
           "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void)",
           "description": "Called when the item is activated, from the bar or from the \"More\" menu."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLElement>"
         }
       ],
       "passthrough": {

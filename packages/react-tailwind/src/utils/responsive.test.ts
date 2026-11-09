@@ -5,20 +5,28 @@ describe('responsiveClasses', () => {
   it('uses the provided default for omitted viewport values without inheriting neighboring ranges', () => {
     expect(
       responsiveClasses({regular: 'horizontal'}, {horizontal: 'flex-row', vertical: 'flex-col'}, 'vertical'),
-    ).toEqual(['flex-col', 'md:flex-row', '2xl:flex-col'])
+    ).toEqual(['primer:flex-col', 'primer:md:flex-row', 'primer:2xl:flex-col'])
   })
 
   it('supports boolean values and static classes', () => {
-    expect(responsiveClasses(false, {true: 'block', false: 'hidden'}, true)).toBe('hidden')
+    expect(responsiveClasses(false, {true: 'block', false: 'hidden'}, true)).toBe('primer:hidden')
   })
 
   it('uses fully static class maps for every responsive range', () => {
-    expect(responsiveUtilityClasses['p-6']).toEqual({narrow: 'p-6', regular: 'md:p-6', wide: '2xl:p-6'})
-    expect(responsiveUtilityClasses['mr-0']).toEqual({narrow: 'mr-0', regular: 'md:mr-0', wide: '2xl:mr-0'})
+    expect(responsiveUtilityClasses['p-6']).toEqual({
+      narrow: 'primer:p-6',
+      regular: 'primer:md:p-6',
+      wide: 'primer:2xl:p-6',
+    })
+    expect(responsiveUtilityClasses['mr-0']).toEqual({
+      narrow: 'primer:mr-0',
+      regular: 'primer:md:mr-0',
+      wide: 'primer:2xl:mr-0',
+    })
     expect(responsiveUtilityClasses['text-title-large']).toEqual({
-      narrow: 'text-title-large',
-      regular: 'md:text-title-large',
-      wide: '2xl:text-title-large',
+      narrow: 'primer:text-title-large',
+      regular: 'primer:md:text-title-large',
+      wide: 'primer:2xl:text-title-large',
     })
   })
 

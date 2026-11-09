@@ -112,6 +112,9 @@
       "id": "react-tailwind-data-datatable--playground"
     },
     {
+      "id": "react-tailwind-data-table-features--with-heading-levels"
+    },
+    {
       "id": "react-tailwind-data-table-features--with-groups"
     },
     {
@@ -119,6 +122,15 @@
     },
     {
       "id": "react-tailwind-data-table-features--with-row-selection"
+    },
+    {
+      "id": "react-tailwind-data-table-features--overflow-with-hidden-cell-label"
+    },
+    {
+      "id": "react-tailwind-data-table-features--overflow-with-multiple-switches"
+    },
+    {
+      "id": "react-tailwind-data-table-features--with-skeleton-columns"
     }
   ],
   "props": [
@@ -563,9 +575,9 @@
       "name": "Table.SelectionHeader",
       "props": [
         {
-          "name": "aria-description",
+          "name": "aria-describedby",
           "type": "string",
-          "description": "Accessible description for the selection checkbox, such as how many rows it selects."
+          "description": "IDs of elements that describe the selection checkbox."
         },
         {
           "name": "aria-label",
@@ -577,6 +589,11 @@
           "name": "checkboxRef",
           "type": "Ref<HTMLElement>",
           "description": "Ref to the selection checkbox, for returning focus to it."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Supplementary description for the selection checkbox, such as how many rows it selects."
         },
         {
           "name": "disabled",
@@ -637,9 +654,9 @@
         },
         {
           "name": "columns",
-          "type": "(TableColumnLayout & { header: React.ReactNode; })[]",
+          "type": "(Column<Data> | (TableColumnLayout & Pick<Column<Data>, \"align\"> & { header: (() => React.ReactNode) | React.ReactNode; }))[]",
           "required": true,
-          "description": "Column definitions the placeholder should mirror."
+          "description": "DataTable columns or header-only definitions whose headers, alignment, and layout the placeholder mirrors."
         },
         {
           "name": "gridTemplateColumns",
@@ -660,7 +677,14 @@
     },
     {
       "name": "Table.Subtitle",
-      "props": [],
+      "props": [
+        {
+          "name": "as",
+          "type": "TableTextElement",
+          "defaultValue": "'p'",
+          "description": "Native heading or paragraph element, chosen independently of the subtitle's visual style."
+        }
+      ],
       "passthrough": {
         "element": "p",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes"
@@ -668,7 +692,14 @@
     },
     {
       "name": "Table.Title",
-      "props": [],
+      "props": [
+        {
+          "name": "as",
+          "type": "TableTextElement",
+          "defaultValue": "'h2'",
+          "description": "Native heading or paragraph element, chosen independently of the title's visual style."
+        }
+      ],
       "passthrough": {
         "element": "h2",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"

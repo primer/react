@@ -3,4 +3,4 @@
  * Mirrors upstream's `@media (pointer: coarse)` pseudo-element touch target.
  */
 export const coarsePointerTouchTarget =
-  'pointer-coarse:before:absolute pointer-coarse:before:inset-x-0 pointer-coarse:before:top-1/2 pointer-coarse:before:min-h-11 pointer-coarse:before:-translate-y-1/2'
+  'primer:pointer-coarse:before:absolute primer:pointer-coarse:before:inset-x-0 primer:pointer-coarse:before:top-1/2 primer:pointer-coarse:before:min-h-11 primer:pointer-coarse:before:-translate-y-1/2'

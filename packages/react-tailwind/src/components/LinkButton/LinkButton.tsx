@@ -3,6 +3,7 @@
 import {useRender} from '@base-ui/react/use-render'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {mergeRenderDescription} from '../../internal/renderDescription'
 import type {ControlSize} from '../../utils/types'
 import {getButtonClassName} from '../Button/ButtonClassName'
 import type {ButtonVisual} from '../Button/ButtonVisual'
@@ -16,7 +17,10 @@ type LinkButtonState = {
 }
 
 export interface LinkButtonProps extends Omit<React.ComponentPropsWithoutRef<'a'>, 'children' | 'color' | 'onClick'> {
-  /** Whether the label sits centred or hugs the start edge when visuals are present. */
+  /**
+   * Whether the label sits centred or hugs the start edge when visuals are present.
+   * @default 'center'
+   */
   alignContent?: 'start' | 'center'
   /** Stretches the link to fill the width of its container. */
   block?: boolean
@@ -25,17 +29,28 @@ export interface LinkButtonProps extends Omit<React.ComponentPropsWithoutRef<'a'
   count?: number | string
   /** Overrides the marker used to identify this element in tests and styling. */
   'data-component'?: string
-  /** Prevents navigation and removes the link from the keyboard order. */
+  /**
+   * Removes the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available
+   * to browser actions such as opening the link from a context menu.
+   * @default false
+   */
   disabled?: boolean
   /** Marks the link temporarily unavailable while keeping it focusable. */
   inactive?: boolean
-  /** Lets a long label wrap onto more than one line instead of being clipped. */
+  /** Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`. */
   labelWrap?: boolean
   /** Icon shown before the label. */
   leadingVisual?: ButtonVisual
-  /** Replaces the leading visual with a spinner and suppresses navigation. */
+  /**
+   * Replaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available
+   * to browser actions such as opening the link from a context menu.
+   * @default false
+   */
   loading?: boolean
-  /** Text announced to assistive technology while the link is loading. */
+  /**
+   * Loading status text. Set to an empty string when an external announcer communicates loading.
+   * @default 'Loading'
+   */
   loadingAnnouncement?: string
   /** Called when the link is activated. */
   onClick?: React.MouseEventHandler<HTMLAnchorElement>
@@ -50,18 +65,27 @@ export interface LinkButtonProps extends Omit<React.ComponentPropsWithoutRef<'a'
   trailingAction?: ButtonVisual
   /** Icon shown after the label. */
   trailingVisual?: ButtonVisual
-  /** Visual weight of the link. Use `primary` for the main action and `danger` for a destructive one. */
+  /**
+   * Visual weight of the link. Use `primary` for the main action and `danger` for a destructive one.
+   * @default 'default'
+   */
   variant?: 'default' | 'primary' | 'danger' | 'invisible' | 'link'
 }
 
-export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(function LinkButton(
+interface LinkButtonBaseProps extends Omit<LinkButtonProps, 'data-component'> {
+  autoWrapInActions?: boolean
+  'data-component': string
+}
+
+export const LinkButtonBase = React.forwardRef<HTMLElement, LinkButtonBaseProps>(function LinkButtonBase(
   {
     alignContent = 'center',
+    autoWrapInActions = false,
     block,
     children,
     className,
     count,
-    'data-component': dataComponent = 'LinkButton',
+    'data-component': dataComponent,
     disabled = false,
     href,
     inactive,
@@ -80,11 +104,11 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
   },
   ref,
 ) {
-  const {ariaProps, labelId, loadingAnnouncementId} = useButtonLoading(loading, rest)
+  const {ariaProps, labelId, loadingAnnouncementId} = useButtonLoading(loading, loadingAnnouncement, rest)
 
   return useRender<LinkButtonState, HTMLElement>({
     defaultTagName: 'a',
-    render,
+    render: mergeRenderDescription(render, ariaProps['aria-describedby'], loadingAnnouncementId),
     ref,
     state: {disabled, loading},
     props: {
@@ -94,6 +118,7 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
       className: cn(
         buttonBaseClassName,
         getButtonClassName({
+          autoWrapInActions,
           block,
           children,
           className,
@@ -104,7 +129,7 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
           size,
           variant,
         }),
-        href === undefined && render === undefined && 'flex w-full',
+        href === undefined && render === undefined && 'primer:flex primer:w-full',
       ),
       'data-block': block || undefined,
       'data-component': dataComponent,
@@ -127,6 +152,7 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
       children: (
         <ButtonContent
           alignContent={alignContent}
+          autoWrapInActions={autoWrapInActions}
           count={count}
           labelId={labelId}
           labelWrap={labelWrap}
@@ -144,6 +170,13 @@ export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(functio
       ),
     },
   })
+})
+
+export const LinkButton = React.forwardRef<HTMLElement, LinkButtonProps>(function LinkButton(
+  {'data-component': dataComponent = 'LinkButton', ...props},
+  ref,
+) {
+  return <LinkButtonBase {...props} ref={ref} autoWrapInActions data-component={dataComponent} />
 })
 
 LinkButton.displayName = 'LinkButton'

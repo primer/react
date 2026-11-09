@@ -2,9 +2,14 @@ import {cva, type VariantProps} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
 
-const headingVariants = cva('m-0 font-display text-default', {
+const headingVariants = cva('primer:m-0 primer:font-display primer:text-default', {
   variants: {
-    size: {small: 'text-title-small', medium: 'text-title-medium', large: 'text-title-large', display: 'text-display'},
+    size: {
+      small: 'primer:text-title-small',
+      medium: 'primer:text-title-medium',
+      large: 'primer:text-title-large',
+      display: 'primer:text-display',
+    },
   },
   defaultVariants: {size: 'large'},
 })

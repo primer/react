@@ -12,13 +12,24 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./base": {
+      "types": "./dist/base/index.d.ts",
+      "default": "./dist/base/index.js"
+    },
+    "./behaviors": {
+      "types": "./dist/behaviors/index.d.ts",
+      "default": "./dist/behaviors/index.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css",
     "./tailwind.css": "./dist/tailwind.css",
     "./base.css": "./dist/base.css",
     "./components.css": "./dist/components.css",
     "./api-inventory.json": "./api-inventory.json",
+    "./api-inventory.schema.json": "./api-inventory.schema.json",
+    "./AGENTS.md": "./AGENTS.md",
     "./llms.txt": "./llms.txt",
+    "./llms/*.md": "./llms/*.md",
     "./*": {
       "types": "./dist/components/*/index.d.ts",
       "default": "./dist/components/*/index.js"
@@ -47,7 +58,7 @@
     "check:docs-json": "node ./script/check-docs-json.mjs",
     "check:exports": "node ./script/check-built-exports.mjs",
     "check:inventory": "node ./script/check-api-inventory.mjs",
-    "check:llms": "node ./script/generate-llms-txt.mjs --check",
+    "check:llms": "node --test ./script/component-guide.test.mjs ./script/generate-llms-txt.test.mjs && node ./script/generate-llms-txt.mjs --check",
     "check:packed-consumer": "npm run check:exports && node ./script/check-packed-consumer.mjs",
     "clean": "rimraf dist",
     "lint:client-boundaries": "node ./script/lint-client-boundaries.mjs",
@@ -57,7 +68,8 @@
     "lint:region-props": "node ./script/lint-region-props.mjs",
     "lint:tailwind": "node ./script/lint-tailwind-classes.mjs",
     "test": "vitest --run -c vitest.config.mts",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "type-check:fixtures": "tsc -p fixtures/tsconfig.source.json"
   },
   "repository": {
     "type": "git",

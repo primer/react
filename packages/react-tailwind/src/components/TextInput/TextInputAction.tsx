@@ -20,13 +20,13 @@ export const TextInputAction = React.forwardRef<HTMLElement, TextInputActionProp
   ref,
 ) {
   return (
-    <span className="mx-1 self-center leading-none" data-component="TextInput.Action">
+    <span className="primer:mx-1 primer:self-center primer:leading-none" data-component="TextInput.Action">
       <IconButton
         {...rest}
         ref={ref}
         aria-label={ariaLabel}
         className={cn(
-          'relative inline-grid size-[var(--text-input-action-size)] border border-transparent bg-transparent px-1 py-0.5 text-muted shadow-none hover:text-default focus:text-default [&_svg]:block',
+          'primer:relative primer:inline-grid primer:size-[var(--text-input-action-size)] primer:border-thin primer:border-transparent primer:bg-transparent primer:px-1 primer:py-0.5 primer:text-muted primer:shadow-none primer:hover:text-default primer:focus:text-default primer:[&_svg]:block',
           className,
         )}
         icon={icon}

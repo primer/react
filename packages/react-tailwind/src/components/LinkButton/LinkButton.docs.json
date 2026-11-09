@@ -94,7 +94,7 @@
       "name": "disabled",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Prevents navigation and removes the link from the keyboard order."
+      "description": "Removes the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
     },
     {
       "name": "inactive",
@@ -104,7 +104,7 @@
     {
       "name": "labelWrap",
       "type": "boolean",
-      "description": "Lets a long label wrap onto more than one line instead of being clipped."
+      "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
     },
     {
       "name": "leadingVisual",
@@ -115,13 +115,13 @@
       "name": "loading",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Replaces the leading visual with a spinner and suppresses navigation."
+      "description": "Replaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
     },
     {
       "name": "loadingAnnouncement",
       "type": "string",
       "defaultValue": "'Loading'",
-      "description": "Text announced to assistive technology while the link is loading."
+      "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
     },
     {
       "name": "onClick",

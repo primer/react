@@ -55,7 +55,7 @@ describe('Popover', () => {
     await user.click(screen.getByRole('button', {name: 'More'}))
     expect(ref.current).toBe(screen.getByTestId('content'))
     expect(ref.current).toHaveAttribute('data-component', 'Popover.Content')
-    expect(ref.current).toHaveClass('bg-[var(--overlay-bgColor)]')
+    expect(ref.current).toHaveClass('primer:bg-[var(--overlay-bgColor)]')
   })
 
   it('sizes content on the overlay token scale', () => {
@@ -65,7 +65,7 @@ describe('Popover', () => {
         <Popover.Content data-testid="content">Details</Popover.Content>
       </Popover>,
     )
-    expect(screen.getByTestId('content')).toHaveClass('w-[var(--overlay-width-small)]', 'h-fit')
+    expect(screen.getByTestId('content')).toHaveClass('primer:w-[var(--overlay-width-small)]', 'primer:h-fit')
 
     rerender(
       <Popover open>
@@ -76,8 +76,8 @@ describe('Popover', () => {
       </Popover>,
     )
     const content = screen.getByTestId('content')
-    expect(content).toHaveClass('w-full', 'h-[var(--overlay-height-medium)]')
-    expect(content).not.toHaveClass('w-[var(--overlay-width-large)]')
+    expect(content).toHaveClass('w-full', 'primer:h-[var(--overlay-height-medium)]')
+    expect(content).not.toHaveClass('primer:w-[var(--overlay-width-large)]')
   })
 
   it('positions against an anchor other than its trigger', async () => {
@@ -144,8 +144,8 @@ describe('Popover', () => {
 
     const arrow = screen.getByTestId('arrow')
     expect(arrow).toHaveClass(
-      '[--arrow-bg-color:var(--overlay-bgColor)]',
-      '[--arrow-border-color:var(--borderColor-default)]',
+      'primer:[--arrow-bg-color:var(--overlay-bgColor)]',
+      'primer:[--arrow-border-color:var(--borderColor-default)]',
       'open',
     )
     expect(arrow.querySelector('svg')).toHaveAttribute('aria-hidden', 'true')

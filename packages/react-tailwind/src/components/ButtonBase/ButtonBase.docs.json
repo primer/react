@@ -3,7 +3,7 @@
   "name": "ButtonBase",
   "status": "alpha",
   "importPath": "@primer/react-tailwind/ButtonBase",
-  "description": "`ButtonBase` is the unstyled button primitive behind `Button`, `IconButton`, and `LinkButton`. Reach for it only when building a new button-like control; prefer `Button` for ordinary actions.",
+  "description": "`ButtonBase` is the styled lower-level button primitive behind `Button`, `IconButton`, and `LinkButton`. Reach for it only when building a new button-like control that should retain Primer's base styling; prefer `Button` for ordinary actions.",
   "stories": [
     {
       "id": "react-tailwind-display-buttonbase-examples--submit-form"

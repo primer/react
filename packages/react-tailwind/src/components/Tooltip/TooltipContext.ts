@@ -1,5 +1,6 @@
 'use client'
 
+import type {Tooltip as BaseTooltip} from '@base-ui/react/tooltip'
 import React from 'react'
 
 export type TooltipType = 'description' | 'label'
@@ -10,8 +11,10 @@ export type TooltipDelay = 'short' | 'medium' | 'long'
 export const tooltipDelayMs: Record<TooltipDelay, number> = {short: 50, medium: 400, long: 1200}
 
 interface TooltipContextValue {
+  associationId: string
   delay?: TooltipDelay
   disabled?: boolean
+  handle?: BaseTooltip.Root.Props['handle']
   hints: string[]
   id: string
   type: TooltipType

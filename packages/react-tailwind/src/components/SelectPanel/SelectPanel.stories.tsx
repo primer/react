@@ -15,7 +15,7 @@ function ColorCircle({color}: {color: string}) {
   return (
     <span
       aria-hidden="true"
-      className="size-3 rounded-full border"
+      className="size-3 rounded-full border-thin"
       style={{backgroundColor: color, borderColor: color}}
     />
   )
@@ -69,7 +69,7 @@ export const Default: Story = {
           items={filteredItems}
           onFilterChange={setFilterValue}
           onOpenChange={setOpen}
-          onSelectedChange={next => setSelected(Array.isArray(next) ? next : next ? [next] : [])}
+          onSelectedChange={setSelected}
           open={open}
           placeholder="Select labels"
           selected={selected}
@@ -92,7 +92,7 @@ export const Playground: Story = {
         <FormControl.Label>Labels</FormControl.Label>
         <SelectPanel
           items={items}
-          onSelectedChange={next => setSelected(Array.isArray(next) ? next : next ? [next] : [])}
+          onSelectedChange={setSelected}
           selected={selected}
           selectionVariant="multiple"
           title="Labels"

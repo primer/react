@@ -45,6 +45,12 @@
       "id": "react-tailwind-display-progressbar-features--clamped-values"
     },
     {
+      "id": "react-tailwind-display-progressbar-features--custom-fill-with-empty-value"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--conditional-segments"
+    },
+    {
       "id": "react-tailwind-display-progressbar--default"
     },
     {
@@ -56,6 +62,11 @@
       "name": "animated",
       "type": "boolean",
       "description": "Animates the bar to suggest indeterminate progress."
+    },
+    {
+      "name": "fillColor",
+      "type": "BackgroundColor",
+      "description": "Custom fill color for the single segment, such as a CSS color or `var(--my-progress-color)`."
     },
     {
       "name": "inline",
@@ -83,6 +94,11 @@
         {
           "name": "animated",
           "type": "boolean | null"
+        },
+        {
+          "name": "fillColor",
+          "type": "BackgroundColor",
+          "description": "Custom fill color, such as a CSS color or `var(--my-progress-color)`. Overrides the variant color."
         },
         {
           "name": "progress",

@@ -15,6 +15,9 @@
       "id": "react-tailwind-components-tooltip-examples--dialog-trigger"
     },
     {
+      "id": "react-tailwind-components-tooltip-examples--hovered-file-in-dialog"
+    },
+    {
       "id": "react-tailwind-components-tooltip-examples--emoji-picker"
     },
     {
@@ -84,7 +87,7 @@
       "name": "type",
       "type": "TooltipType",
       "defaultValue": "'description'",
-      "description": "How the tooltip relates to its trigger. `description` adds the text to the trigger's accessible description\nthrough `aria-describedby`. `label` names the trigger through `aria-labelledby`, for triggers without visible\ntext such as icon-only buttons; an `aria-labelledby` passed to the trigger takes precedence, and a trigger that\nalready has an `aria-label` keeps it, so the tooltip stays visual."
+      "description": "How the tooltip relates to its trigger. `description` adds the text to the trigger's accessible description\nthrough `aria-describedby`. `label` names the trigger through `aria-labelledby`, for triggers without visible\ntext such as icon-only buttons; an `aria-labelledby` passed to the trigger takes precedence, and an `aria-label`\npassed to the trigger or its render element is preserved, so the tooltip stays visual."
     }
   ],
   "subcomponents": [
@@ -111,7 +114,7 @@
           "name": "type",
           "type": "TooltipType",
           "defaultValue": "'description'",
-          "description": "How the tooltip relates to its trigger. `description` adds the text to the trigger's accessible description\nthrough `aria-describedby`. `label` names the trigger through `aria-labelledby`, for triggers without visible\ntext such as icon-only buttons; an `aria-labelledby` passed to the trigger takes precedence, and a trigger that\nalready has an `aria-label` keeps it, so the tooltip stays visual."
+          "description": "How the tooltip relates to its trigger. `description` adds the text to the trigger's accessible description\nthrough `aria-describedby`. `label` names the trigger through `aria-labelledby`, for triggers without visible\ntext such as icon-only buttons; an `aria-labelledby` passed to the trigger takes precedence, and an `aria-label`\npassed to the trigger or its render element is preserved, so the tooltip stays visual."
         }
       ],
       "passthrough": {
@@ -147,9 +150,14 @@
           "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
         },
         {
+          "name": "container",
+          "type": "HTMLElement | RefObject<HTMLElement | ShadowRoot | null> | ShadowRoot | null",
+          "description": "Portal destination. Defaults to the nearest `Portal.Provider` container, then the shared portal root. Pass\n`null` to wait for a container; ignored when `portal` is false."
+        },
+        {
           "name": "keepMounted",
           "type": "boolean",
-          "description": "Keeps the popup in the DOM while closed so the trigger's `aria-labelledby` or `aria-describedby` always\nresolves. Defaults to `true` unless the tooltip is disabled."
+          "description": "Keeps the visual popup in the DOM while closed after it mounts. Defaults to `true` unless the tooltip is disabled.\nThe text target referenced by the trigger is rendered separately, including on the server."
         },
         {
           "name": "portal",

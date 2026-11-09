@@ -9,10 +9,10 @@ import {useFormControlForwardedProps, useFormControlValidationStatus} from '../F
 type ValidationStatus = 'error' | 'success'
 
 const selectWrapperClassName =
-  'relative inline-flex h-8 w-auto overflow-hidden align-middle rounded-md border border-[var(--control-borderColor-rest)] bg-default text-sm leading-5 text-default shadow-[var(--shadow-inset)] focus-within:border-accent-emphasis focus-within:outline-2 focus-within:outline-offset-[-1px] focus-within:outline-[var(--borderColor-accent-emphasis)] data-[block]:flex data-[block]:w-full data-[block]:self-stretch data-[disabled]:border-[var(--control-borderColor-disabled)] data-[disabled]:bg-[var(--control-bgColor-disabled)] data-[disabled]:text-disabled data-[disabled]:shadow-none data-[multiple]:h-auto data-[multiple]:min-h-8 data-[multiple]:overflow-visible data-[validation=error]:border-danger-emphasis data-[validation=error]:focus-within:border-[var(--control-borderColor-danger)] data-[validation=error]:focus-within:outline-[var(--control-borderColor-danger)] data-[validation=success]:border-[var(--bgColor-success-emphasis)] data-[size=small]:h-7 data-[size=large]:h-10 data-[size=small]:text-xs'
+  'primer:relative primer:inline-flex primer:h-8 primer:w-auto primer:overflow-hidden primer:align-middle primer:rounded-md primer:border-thin primer:border-[var(--control-borderColor-rest)] primer:bg-default primer:text-sm primer:leading-5 primer:text-default primer:shadow-[var(--shadow-inset)] primer:focus-within:border-accent-emphasis primer:focus-within:outline-2 primer:focus-within:outline-offset-[-1px] primer:focus-within:outline-[var(--borderColor-accent-emphasis)] primer:data-[block]:flex primer:data-[block]:w-full primer:data-[block]:self-stretch primer:data-[disabled]:border-[var(--control-borderColor-disabled)] primer:data-[disabled]:bg-[var(--control-bgColor-disabled)] primer:data-[disabled]:text-disabled primer:data-[disabled]:shadow-none primer:data-[multiple]:h-auto primer:data-[multiple]:min-h-8 primer:data-[multiple]:overflow-visible primer:data-[validation=error]:border-danger-emphasis primer:data-[validation=error]:focus-within:border-[var(--control-borderColor-danger)] primer:data-[validation=error]:focus-within:outline-[var(--control-borderColor-danger)] primer:data-[validation=success]:border-[var(--bgColor-success-emphasis)] primer:data-[size=small]:h-7 primer:data-[size=large]:h-10 primer:data-[size=small]:text-xs'
 
 const selectClassName =
-  'my-px ml-px w-full min-w-0 cursor-pointer appearance-none rounded-[inherit] border-0 bg-inherit px-3 [font-size:inherit] text-inherit outline-none not-last:mr-2 disabled:cursor-not-allowed disabled:bg-transparent'
+  'primer:my-px primer:ml-px primer:w-full primer:min-w-0 primer:cursor-pointer primer:appearance-none primer:rounded-[inherit] primer:border-0 primer:bg-inherit primer:px-3 primer:[font-size:inherit] primer:text-inherit primer:outline-none primer:not-last:mr-2 primer:disabled:cursor-not-allowed primer:disabled:bg-transparent'
 
 export interface SelectProps
   extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'className' | 'data-component' | 'size'> {
@@ -110,7 +110,7 @@ const SelectRoot = React.forwardRef<HTMLSelectElement, SelectProps>(function Sel
       {!multiple ? (
         <svg
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 right-1 size-4 -translate-y-1/2"
+          className="primer:pointer-events-none primer:absolute primer:top-1/2 primer:right-1 primer:size-4 primer:-translate-y-1/2"
           fill="currentColor"
           height="16"
           viewBox="0 0 16 16"

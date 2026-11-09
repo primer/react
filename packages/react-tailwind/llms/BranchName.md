@@ -4,6 +4,27 @@
 
 Import: `import {BranchName} from '@primer/react-tailwind/BranchName'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Usage
+
+```tsx
+import {BranchName} from '@primer/react-tailwind/BranchName'
+;<BranchName href="#branch">feature/docs</BranchName>
+```
+
+## Composition
+
+Use the default anchor for navigable branch names or choose `as` for non-link presentation.
+
+## Accessibility
+
+Use `href` only when the branch name navigates. Keep the visible name specific enough to identify the branch.
+
+## Data attributes
+
+The rendered element has `data-component="BranchName"`.
+
 Renders an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

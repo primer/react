@@ -42,7 +42,7 @@ describe('Textarea', () => {
 
     const textarea = screen.getByRole('textbox', {name: 'Notes'})
     expect(textarea).toHaveAttribute('data-auto-size', 'true')
-    expect(textarea).toHaveClass('[field-sizing:content]', 'w-full')
+    expect(textarea).toHaveClass('primer:[field-sizing:content]', 'primer:w-full')
     expect(textarea).toHaveAttribute('data-validation', 'success')
     expect(textarea).toHaveStyle({maxHeight: '202px', minHeight: '102px'})
   })

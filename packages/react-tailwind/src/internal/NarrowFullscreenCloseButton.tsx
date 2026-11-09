@@ -11,7 +11,10 @@ export const NarrowFullscreenCloseButton = React.forwardRef<HTMLElement, NarrowF
       <CloseIconButton
         {...rest}
         ref={ref}
-        className={cn('absolute top-2 right-2 z-default hidden max-md:inline-flex', className)}
+        className={cn(
+          'primer:absolute primer:top-2 primer:right-2 primer:z-default primer:hidden primer:max-md:inline-flex',
+          className,
+        )}
       />
     )
   },

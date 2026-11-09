@@ -24,6 +24,6 @@ describe('Avatar', () => {
     const avatar = getByRole('img', {name: 'Responsive Mona'})
 
     expect(avatar).toHaveAttribute('data-responsive', '')
-    expect(avatar).toHaveClass('inline-block', 'shadow-[0_0_0_1px_var(--avatar-borderColor)]')
+    expect(avatar).toHaveClass('primer:inline-block', 'primer:shadow-[0_0_0_1px_var(--avatar-borderColor)]')
   })
 })

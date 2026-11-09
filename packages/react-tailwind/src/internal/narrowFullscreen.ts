@@ -10,8 +10,8 @@ export function isNarrowFullscreen(variant: AnchoredOverlayVariant | undefined):
  * the anchored position inline.
  */
 export const narrowFullscreenPositionerClassName =
-  'max-md:!fixed max-md:!inset-0 max-md:!transform-none max-md:flex max-md:flex-col max-md:bg-[var(--overlay-bgColor)] max-md:pb-[env(safe-area-inset-bottom)]'
+  'primer:max-md:!fixed primer:max-md:!inset-0 primer:max-md:!transform-none primer:max-md:flex primer:max-md:flex-col primer:max-md:bg-[var(--overlay-bgColor)] primer:max-md:pb-[env(safe-area-inset-bottom)]'
 
 /** Lets the popup fill the fullscreen positioner on narrow screens. */
 export const narrowFullscreenPopupClassName =
-  'max-md:!h-auto max-md:!min-h-0 max-md:flex-1 max-md:!w-full max-md:!max-w-none max-md:!max-h-none max-md:!rounded-none max-md:shadow-none'
+  'primer:max-md:!h-auto primer:max-md:!min-h-0 primer:max-md:flex-1 primer:max-md:!w-full primer:max-md:!max-w-none primer:max-md:!max-h-none primer:max-md:!rounded-none primer:max-md:shadow-none'

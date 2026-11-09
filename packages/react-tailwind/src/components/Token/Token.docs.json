@@ -65,7 +65,7 @@
   "props": [
     {
       "name": "as",
-      "type": "\"a\" | \"button\" | \"span\"",
+      "type": "TokenElement",
       "defaultValue": "'span'",
       "description": "Element to render. Use `a` or `button` when the token is interactive."
     },
@@ -75,6 +75,34 @@
       "description": "Prevents interaction with the token and its remove button."
     },
     {
+      "name": "download",
+      "type": "undefined"
+    },
+    {
+      "name": "form",
+      "type": "undefined"
+    },
+    {
+      "name": "formAction",
+      "type": "undefined"
+    },
+    {
+      "name": "formEncType",
+      "type": "undefined"
+    },
+    {
+      "name": "formMethod",
+      "type": "undefined"
+    },
+    {
+      "name": "formNoValidate",
+      "type": "undefined"
+    },
+    {
+      "name": "formTarget",
+      "type": "undefined"
+    },
+    {
       "name": "hideRemoveButton",
       "type": "boolean",
       "defaultValue": "false",
@@ -82,8 +110,11 @@
     },
     {
       "name": "href",
-      "type": "string",
-      "description": "Makes the token a link to the given URL."
+      "type": "undefined"
+    },
+    {
+      "name": "hrefLang",
+      "type": "undefined"
     },
     {
       "name": "id",
@@ -101,15 +132,44 @@
       "description": "Icon shown before the token's text."
     },
     {
+      "name": "media",
+      "type": "undefined"
+    },
+    {
+      "name": "name",
+      "type": "undefined"
+    },
+    {
       "name": "onRemove",
       "type": "(() => void)",
       "description": "Shows a remove button and is called when it is activated."
     },
     {
+      "name": "ping",
+      "type": "undefined"
+    },
+    {
+      "name": "ref",
+      "type": "Ref<HTMLElement>",
+      "description": "Root ref, including the span shell used by visibly removable actions."
+    },
+    {
+      "name": "referrerPolicy",
+      "type": "undefined"
+    },
+    {
+      "name": "removeButtonLabel",
+      "type": "string",
+      "description": "Full accessible name for the separate remove button, including the visible text and item context."
+    },
+    {
       "name": "size",
       "type": "TokenSize",
-      "defaultValue": "'medium'",
       "description": "Height and text size of the token."
+    },
+    {
+      "name": "target",
+      "type": "undefined"
     },
     {
       "name": "text",
@@ -119,8 +179,11 @@
     },
     {
       "name": "type",
-      "type": "\"button\" | \"reset\" | \"submit\"",
-      "description": "Button behavior when `as=\"button\"`. Defaults to `button`."
+      "type": "undefined"
+    },
+    {
+      "name": "value",
+      "type": "undefined"
     }
   ],
   "subcomponents": [
@@ -129,7 +192,7 @@
       "props": [
         {
           "name": "as",
-          "type": "\"a\" | \"button\" | \"span\"",
+          "type": "TokenElement",
           "defaultValue": "'span'",
           "description": "Element to render. Use `a` or `button` when the token is interactive."
         },
@@ -139,10 +202,37 @@
           "description": "Prevents interaction with the token and its remove button."
         },
         {
+          "name": "download",
+          "type": "undefined"
+        },
+        {
           "name": "fillColor",
           "type": "string",
-          "defaultValue": "'#999999'",
           "description": "Custom hex colour for the token, matching the label it represents."
+        },
+        {
+          "name": "form",
+          "type": "undefined"
+        },
+        {
+          "name": "formAction",
+          "type": "undefined"
+        },
+        {
+          "name": "formEncType",
+          "type": "undefined"
+        },
+        {
+          "name": "formMethod",
+          "type": "undefined"
+        },
+        {
+          "name": "formNoValidate",
+          "type": "undefined"
+        },
+        {
+          "name": "formTarget",
+          "type": "undefined"
         },
         {
           "name": "hideRemoveButton",
@@ -152,8 +242,11 @@
         },
         {
           "name": "href",
-          "type": "string",
-          "description": "Makes the token a link to the given URL."
+          "type": "undefined"
+        },
+        {
+          "name": "hrefLang",
+          "type": "undefined"
         },
         {
           "name": "id",
@@ -166,14 +259,44 @@
           "description": "Marks the token as the current one in a list of tokens."
         },
         {
+          "name": "media",
+          "type": "undefined"
+        },
+        {
+          "name": "name",
+          "type": "undefined"
+        },
+        {
           "name": "onRemove",
           "type": "(() => void)",
           "description": "Shows a remove button and is called when it is activated."
         },
         {
+          "name": "ping",
+          "type": "undefined"
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLElement>",
+          "description": "Root ref, including the span shell used by visibly removable actions."
+        },
+        {
+          "name": "referrerPolicy",
+          "type": "undefined"
+        },
+        {
+          "name": "removeButtonLabel",
+          "type": "string",
+          "description": "Full accessible name for the separate remove button, including the visible text and item context."
+        },
+        {
           "name": "size",
           "type": "TokenSize",
           "description": "Height and text size of the token."
+        },
+        {
+          "name": "target",
+          "type": "undefined"
         },
         {
           "name": "text",
@@ -183,8 +306,11 @@
         },
         {
           "name": "type",
-          "type": "\"button\" | \"reset\" | \"submit\"",
-          "description": "Button behavior when `as=\"button\"`. Defaults to `button`."
+          "type": "undefined"
+        },
+        {
+          "name": "value",
+          "type": "undefined"
         }
       ],
       "passthrough": {
@@ -197,14 +323,42 @@
       "props": [
         {
           "name": "as",
-          "type": "\"a\" | \"button\" | \"span\"",
+          "type": "TokenElement",
           "defaultValue": "'span'",
-          "description": "Element to render. Use `a` or `button` when the token is interactive."
+          "description": "Element to render. Use `a` or `button` when the token is interactive.\nElement or component to render."
         },
         {
           "name": "disabled",
           "type": "boolean",
           "description": "Prevents interaction with the token and its remove button."
+        },
+        {
+          "name": "download",
+          "type": "undefined"
+        },
+        {
+          "name": "form",
+          "type": "undefined"
+        },
+        {
+          "name": "formAction",
+          "type": "undefined"
+        },
+        {
+          "name": "formEncType",
+          "type": "undefined"
+        },
+        {
+          "name": "formMethod",
+          "type": "undefined"
+        },
+        {
+          "name": "formNoValidate",
+          "type": "undefined"
+        },
+        {
+          "name": "formTarget",
+          "type": "undefined"
         },
         {
           "name": "hideRemoveButton",
@@ -214,8 +368,11 @@
         },
         {
           "name": "href",
-          "type": "string",
-          "description": "Makes the token a link to the given URL."
+          "type": "undefined"
+        },
+        {
+          "name": "hrefLang",
+          "type": "undefined"
         },
         {
           "name": "id",
@@ -228,15 +385,39 @@
           "description": "Marks the token as the current one in a list of tokens."
         },
         {
+          "name": "media",
+          "type": "undefined"
+        },
+        {
+          "name": "name",
+          "type": "undefined"
+        },
+        {
           "name": "onRemove",
           "type": "(() => void)",
           "description": "Shows a remove button and is called when it is activated."
+        },
+        {
+          "name": "ping",
+          "type": "undefined"
+        },
+        {
+          "name": "ref",
+          "type": "(Ref & CompatibleRootRef<ComponentRef<As>, Ref>)"
+        },
+        {
+          "name": "referrerPolicy",
+          "type": "undefined"
         },
         {
           "name": "size",
           "type": "TokenSize",
           "defaultValue": "'medium'",
           "description": "Height and text size of the token."
+        },
+        {
+          "name": "target",
+          "type": "undefined"
         },
         {
           "name": "text",
@@ -246,8 +427,11 @@
         },
         {
           "name": "type",
-          "type": "\"button\" | \"reset\" | \"submit\"",
-          "description": "Button behavior when `as=\"button\"`. Defaults to `button`."
+          "type": "undefined"
+        },
+        {
+          "name": "value",
+          "type": "undefined"
         }
       ],
       "passthrough": {

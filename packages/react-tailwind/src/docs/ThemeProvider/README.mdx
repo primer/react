@@ -27,6 +27,25 @@ import {BaseStyles, ThemeProvider} from '@primer/react-tailwind'
 
 Use `colorMode` with `dayScheme` and `nightScheme` to control a nested theme. `contextOnly` provides context without a wrapper.
 
+For the built-in high-contrast themes, use `dayScheme="light_high_contrast"` and `nightScheme="dark_high_contrast"`. Scheme names are passed through unchanged; custom names require corresponding theme CSS.
+
+## useTheme
+
+Import `useTheme` from `@primer/react-tailwind` and call it inside a ThemeProvider. `colorMode` retains the configured value, including `day`, `night`, and `auto`; `resolvedColorMode` always returns `light` or `dark`. Use the resolved field for mode-dependent content, including automatic system preferences.
+
+```tsx
+import {useTheme} from '@primer/react-tailwind'
+
+function ThemeImage({daySrc, nightSrc, alt}: {daySrc: string; nightSrc: string; alt: string}) {
+  const {resolvedColorMode} = useTheme()
+  return <img src={resolvedColorMode === 'dark' ? nightSrc : daySrc} alt={alt} />
+}
+```
+
+The packaged `llms/ThemeProvider.md` guide covers legacy comparisons, provider ownership, controlled setters, scheme names, and server snapshots. It is linked under Foundations in `llms.txt`.
+
 <Canvas of={Features.ContextOnly} />
+
+<Canvas of={Features.HighContrastSchemes} />
 
 <Canvas of={Examples.NestedScheme} />

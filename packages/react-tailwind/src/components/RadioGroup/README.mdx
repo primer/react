@@ -22,6 +22,19 @@ import * as Examples from './RadioGroup.examples.stories'
 ```tsx
 import {Radio} from '@primer/react-tailwind/Radio'
 import {RadioGroup} from '@primer/react-tailwind/RadioGroup'
+import {Radio} from '@primer/react-tailwind/Radio'
+import {FormControl} from '@primer/react-tailwind/FormControl'
+;<RadioGroup name="shipping" defaultValue="standard">
+  <RadioGroup.Label>Shipping method</RadioGroup.Label>
+  <FormControl layout="horizontal">
+    <Radio value="standard" />
+    <FormControl.Label>Standard</FormControl.Label>
+  </FormControl>
+  <FormControl layout="horizontal">
+    <Radio value="express" />
+    <FormControl.Label>Express</FormControl.Label>
+  </FormControl>
+</RadioGroup>
 ```
 
 Place `RadioGroup.Label`, `RadioGroup.Caption`, and `RadioGroup.Validation` directly inside the group, and compose `Radio` children in author order, each in a `FormControl` with its own label.

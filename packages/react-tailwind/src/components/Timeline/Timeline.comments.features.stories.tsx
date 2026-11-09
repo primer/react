@@ -55,7 +55,7 @@ function CommentCard({
           ) : null}
           <div
             className={cn(
-              'relative -ml-4 min-w-0 flex-auto rounded-md border border-default bg-default before:absolute before:top-3 before:-left-2 before:size-0 before:border-y-8 before:border-r-8 before:border-y-transparent before:border-r-default after:absolute after:top-[13px] after:-left-[7px] after:size-0 after:border-y-7 after:border-r-7 after:border-y-transparent after:border-r-muted',
+              'relative -ml-4 min-w-0 flex-auto rounded-md border-thin border-default bg-default before:absolute before:top-3 before:-left-2 before:size-0 before:border-y-8 before:border-r-8 before:border-y-transparent before:border-r-default after:absolute after:top-[13px] after:-left-[7px] after:size-0 after:border-y-7 after:border-r-7 after:border-y-transparent after:border-r-muted',
               inlineAvatar && !avatar && 'before:hidden after:hidden',
               isResponsive && '@max-[767px]:before:hidden @max-[767px]:after:hidden',
             )}
@@ -116,14 +116,14 @@ function CommentCard({
               <div className="flex gap-2 px-4 pb-4">
                 <ButtonBase
                   aria-label="👍 3 reactions"
-                  className="inline-flex h-6 items-center gap-1 rounded-full border border-default bg-muted px-2 text-xs text-muted hover:border-accent-muted hover:bg-accent-muted"
+                  className="inline-flex h-6 items-center gap-1 rounded-full border-thin border-default bg-muted px-2 text-xs text-muted hover:border-accent-muted hover:bg-accent-muted"
                 >
                   <span aria-hidden="true">👍</span>
                   <span className="font-semibold text-default">3</span>
                 </ButtonBase>
                 <ButtonBase
                   aria-label="🎉 1 reaction"
-                  className="inline-flex h-6 items-center gap-1 rounded-full border border-default bg-muted px-2 text-xs text-muted hover:border-accent-muted hover:bg-accent-muted"
+                  className="inline-flex h-6 items-center gap-1 rounded-full border-thin border-default bg-muted px-2 text-xs text-muted hover:border-accent-muted hover:bg-accent-muted"
                 >
                   <span aria-hidden="true">🎉</span>
                   <span className="font-semibold text-default">1</span>
@@ -184,7 +184,7 @@ export const CommentCards: Story = {
         </CommentCard>
         <CommentCard
           avatar={
-            <span className="flex size-10 items-center justify-center rounded-full border border-default bg-muted text-muted">
+            <span className="flex size-10 items-center justify-center rounded-full border-thin border-default bg-muted text-muted">
               <CopilotIcon aria-hidden="true" size={24} />
             </span>
           }
@@ -192,7 +192,7 @@ export const CommentCards: Story = {
           badgeLabel="AI"
           label="Copilot comment"
           inlineAvatar={
-            <span className="mr-1 inline-flex size-6 items-center justify-center rounded-full border border-default bg-muted align-middle text-muted">
+            <span className="mr-1 inline-flex size-6 items-center justify-center rounded-full border-thin border-default bg-muted align-middle text-muted">
               <CopilotIcon aria-hidden="true" size={16} />
             </span>
           }
@@ -209,7 +209,7 @@ export const CommentCards: Story = {
         </CommentCard>
         <CommentCard
           avatar={
-            <span className="flex size-10 items-center justify-center rounded-md border border-accent-emphasis bg-accent-emphasis text-on-emphasis">
+            <span className="flex size-10 items-center justify-center rounded-md border-thin border-accent-emphasis bg-accent-emphasis text-on-emphasis">
               <DependabotIcon aria-hidden="true" size={24} />
             </span>
           }
@@ -217,7 +217,7 @@ export const CommentCards: Story = {
           badgeLabel="bot"
           label="Dependabot comment"
           inlineAvatar={
-            <span className="mr-1 inline-flex size-6 items-center justify-center rounded-md border border-accent-emphasis bg-accent-emphasis align-middle text-on-emphasis">
+            <span className="mr-1 inline-flex size-6 items-center justify-center rounded-md border-thin border-accent-emphasis bg-accent-emphasis align-middle text-on-emphasis">
               <DependabotIcon aria-hidden="true" size={16} />
             </span>
           }

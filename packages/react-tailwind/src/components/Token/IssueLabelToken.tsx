@@ -1,17 +1,38 @@
 import {parseToHsla, parseToRgba} from 'color2k'
 import {cva} from 'class-variance-authority'
-import React from 'react'
+import type React from 'react'
 import {cn} from '../../internal/cn'
-import {TokenBase, TokenRemoveButton, type TokenBaseProps, TokenTextContainer} from './TokenBase'
+import {
+  splitTokenProps,
+  type BroadCompoundTokenProps,
+  type CompoundTokenProps,
+  type CompoundTokenRef,
+  type DefaultCompoundTokenProps,
+  type OptionalCompoundTokenProps,
+  type SpanTokenActionExclusions,
+  type TokenElement,
+} from '../../internal/token-props'
+import {TokenBaseInternal, TokenRemoveButton, type CompoundTokenOwnProps, TokenTextContainer} from './TokenBase'
 
-const issueLabelToken = cva('border border-solid', {
-  variants: {selected: {true: 'outline-2 outline-offset-2 outline-[var(--issue-label-selected-outline)]', false: ''}},
+const issueLabelToken = cva('primer:border-thin primer:border-solid', {
+  variants: {
+    selected: {
+      true: 'primer:outline-2 primer:outline-offset-2 primer:outline-[var(--issue-label-selected-outline)]',
+      false: '',
+    },
+  },
   defaultVariants: {selected: false},
 })
-export interface IssueLabelTokenProps extends TokenBaseProps {
+interface IssueLabelTokenOwnProps extends CompoundTokenOwnProps {
   /** Custom hex colour for the token, matching the label it represents. */
   fillColor?: string
 }
+export type IssueLabelTokenProps<
+  As extends TokenElement = never,
+  Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>,
+> = [As] extends [never]
+  ? DefaultCompoundTokenProps<IssueLabelTokenOwnProps>
+  : CompoundTokenProps<As, IssueLabelTokenOwnProps, Ref>
 
 function issueLabelColorProperties(color: string): React.CSSProperties {
   const [red, green, blue] = parseToRgba(color)
@@ -35,18 +56,50 @@ function issueLabelColorProperties(color: string): React.CSSProperties {
     '--issue-label-selected-outline': `rgb(${red} ${green} ${blue})`,
   } as React.CSSProperties
 }
-export const IssueLabelToken = React.forwardRef<HTMLElement, IssueLabelTokenProps>(function IssueLabelToken(
-  {children, className, fillColor = '#999999', hideRemoveButton, isSelected, onRemove, style, text, type, ...rest},
+export function IssueLabelToken<Ref extends CompoundTokenRef<'span'> = CompoundTokenRef<'span'>>(
+  props: CompoundTokenProps<'span', IssueLabelTokenOwnProps, Ref> & SpanTokenActionExclusions<IssueLabelTokenOwnProps>,
+): React.ReactElement
+export function IssueLabelToken<As extends TokenElement, Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>>(
+  props: OptionalCompoundTokenProps<As, IssueLabelTokenOwnProps, Ref>,
+): React.ReactElement
+export function IssueLabelToken<
+  As extends TokenElement = 'span',
+  Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>,
+>(props: CompoundTokenProps<As, IssueLabelTokenOwnProps, Ref> & {as: As}): React.ReactElement
+export function IssueLabelToken<
+  As extends TokenElement = 'span',
+  Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>,
+>(props: CompoundTokenProps<As, CompoundTokenOwnProps, Ref> & {as: As}): React.ReactElement
+export function IssueLabelToken<Inferred extends DefaultCompoundTokenProps<IssueLabelTokenOwnProps>>(
+  props: BroadCompoundTokenProps<IssueLabelTokenOwnProps, Inferred>,
+): React.ReactElement
+export function IssueLabelToken<
+  As extends TokenElement = 'span',
+  Ref extends CompoundTokenRef<As> = CompoundTokenRef<As>,
+>({
+  children,
+  className,
+  fillColor = '#999999',
+  hideRemoveButton,
+  isSelected,
+  onRemove,
+  removeButtonLabel,
+  style,
+  text,
+  type,
+  as,
   ref,
-) {
+  ...rest
+}: CompoundTokenProps<As, IssueLabelTokenOwnProps, Ref>) {
   const isParentInteractive =
-    rest.as === 'a' || rest.as === 'button' || Boolean(rest.onClick || rest.onFocus || rest.tabIndex !== undefined)
+    (as !== undefined && as !== 'span') || Boolean(rest.onClick || rest.onFocus || rest.tabIndex !== undefined)
   const hasMultipleActionTargets = isParentInteractive && Boolean(onRemove && !hideRemoveButton)
+  const {rootProps, actionProps} = splitTokenProps(rest, as, hasMultipleActionTargets)
 
   return (
-    <TokenBase
-      {...rest}
-      as={hasMultipleActionTargets ? 'span' : rest.as}
+    <TokenBaseInternal
+      {...rootProps}
+      as={hasMultipleActionTargets ? 'span' : as}
       ref={ref}
       className={cn(issueLabelToken({selected: isSelected}), className)}
       href={hasMultipleActionTargets ? undefined : rest.href}
@@ -60,7 +113,8 @@ export const IssueLabelToken = React.forwardRef<HTMLElement, IssueLabelTokenProp
       type={hasMultipleActionTargets ? undefined : type}
     >
       <TokenTextContainer
-        as={hasMultipleActionTargets ? rest.as : undefined}
+        {...actionProps}
+        as={hasMultipleActionTargets ? as : undefined}
         disabled={rest.disabled}
         href={hasMultipleActionTargets ? rest.href : undefined}
         onClick={hasMultipleActionTargets ? rest.onClick : undefined}
@@ -72,11 +126,12 @@ export const IssueLabelToken = React.forwardRef<HTMLElement, IssueLabelTokenProp
       {onRemove && !hideRemoveButton ? (
         <TokenRemoveButton
           isParentInteractive={hasMultipleActionTargets}
+          label={removeButtonLabel}
           onRemove={onRemove}
           size={rest.size}
           text={text}
         />
       ) : null}
-    </TokenBase>
+    </TokenBaseInternal>
   )
-})
+}

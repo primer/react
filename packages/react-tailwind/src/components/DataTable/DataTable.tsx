@@ -17,6 +17,7 @@ import {
 import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
 import {TableGroup} from './TableGroup'
 import {getGridTemplateColumns} from './layout'
+import {renderColumnHeader} from './column'
 import {
   isDataTableRowGroup,
   type DataTableData,
@@ -363,7 +364,7 @@ function DataTableInner<Data extends UniqueRow>(
   }
 
   const gridTemplateColumns = [rowSelection ? 'min-content' : '', getGridTemplateColumns(columns)].join(' ').trim()
-  const headerRowClassName = hasBulkActions ? '[grid-row:1] *:[grid-row:1]' : undefined
+  const headerRowClassName = hasBulkActions ? 'primer:[grid-row:1] primer:*:[grid-row:1]' : undefined
 
   const renderRow = ({row, id, index, selectable, selected}: RenderedRow<Data>) => {
     const rowHeaderIds = describesRows
@@ -422,7 +423,7 @@ function DataTableInner<Data extends UniqueRow>(
               checkboxRef={selectAllRef}
               selection={selection}
               disabled={selectableCount === 0}
-              aria-description={
+              description={
                 selectableCount > 0
                   ? `Select all ${selectableCount} ${selectableCount === 1 ? 'row' : 'rows'}`
                   : undefined
@@ -445,19 +446,19 @@ function DataTableInner<Data extends UniqueRow>(
                   aria-labelledby={labelId}
                   aria-sort={direction === 'ASC' ? 'ascending' : direction === 'DESC' ? 'descending' : undefined}
                 >
-                  <span className="min-h-[1lh]">
+                  <span className="primer:min-h-[1lh]">
                     {typeof column.header === 'string' ? (
                       <VisuallyHidden>{column.header}</VisuallyHidden>
                     ) : (
                       <span id={labelId} hidden>
-                        {column.header()}
+                        {renderColumnHeader(column.header)}
                       </span>
                     )}
                   </span>
                 </TableHeader>
               )
             }
-            const label = typeof column.header === 'function' ? column.header() : column.header
+            const label = renderColumnHeader(column.header)
             return column.sortBy && id ? (
               <TableSortHeader
                 key={key}
@@ -482,8 +483,8 @@ function DataTableInner<Data extends UniqueRow>(
               role="cell"
               className={
                 bulkActionsActive
-                  ? 'z-1 col-[2/-1] min-w-0 content-center rounded-tr-md border-y border-r border-default bg-muted py-0 pr-2 pl-3 group-data-[cell-padding=condensed]:pl-2 group-data-[cell-padding=spacious]:pl-4'
-                  : 'sr-only'
+                  ? 'primer:z-1 primer:col-[2/-1] primer:min-w-0 primer:content-center primer:rounded-tr-md primer:border-y primer:border-r primer:border-default primer:bg-muted primer:py-0 primer:pr-2 primer:pl-3 primer:group-data-[cell-padding=condensed]:pl-2 primer:group-data-[cell-padding=spacious]:pl-4'
+                  : 'primer:sr-only'
               }
             >
               <TableBulkActions {...bulkActionsProps} selectedCount={selectedCount} onFocusReturn={returnFocus}>

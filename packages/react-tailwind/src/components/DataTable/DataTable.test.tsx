@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {DataTable, type Column} from './DataTable'
-import {Table} from './index'
+import {Table, type TableSkeletonProps} from './index'
 
 type Row = {id: number; name: string; stars: number}
 const columns: Column<Row>[] = [
@@ -23,6 +23,80 @@ function mockOverflow() {
 }
 
 describe('DataTable and Table', () => {
+  it('passes DataTable columns directly to the skeleton and evaluates header callbacks without rendering cells', () => {
+    const header = vi.fn(() => <span>Stars</span>)
+    const renderCell = vi.fn((row: Row) => row.stars)
+    const sharedColumns: Column<Row>[] = [
+      {field: 'name', header: 'Name', align: 'start', width: 'growCollapse', minWidth: 120},
+      {id: 'stars', header, renderCell, align: 'end', width: 'auto', minWidth: 80, maxWidth: 120},
+    ]
+    const props: TableSkeletonProps<Row> = {columns: sharedColumns, rows: 3}
+    const {rerender} = render(<Table.Skeleton {...props} aria-label="Repositories" cellPadding="spacious" />)
+    const table = screen.getByRole('table', {name: 'Repositories'})
+    expect(table).not.toHaveAttribute('aria-busy')
+    expect(table.querySelector('[aria-busy]')).toBeNull()
+    expect(screen.queryAllByRole('img')).toHaveLength(0)
+    expect(screen.getAllByText('Loading')).toHaveLength(sharedColumns.length)
+    expect(table).toHaveAttribute('data-cell-padding', 'spacious')
+    expect(table.style.getPropertyValue('--grid-template-columns')).toBe('minmax(120px, 1fr) minmax(80px, 120px)')
+    expect(screen.getByRole('columnheader', {name: 'Name'})).toHaveAttribute('data-align', 'start')
+    expect(screen.getByRole('columnheader', {name: 'Stars'})).toHaveAttribute('data-align', 'end')
+    expect(header).toHaveBeenCalled()
+    expect(renderCell).not.toHaveBeenCalled()
+    const cells = screen.getAllByRole('cell')
+    expect(cells[0]).toHaveAttribute('data-align', 'start')
+    expect(cells[1]).toHaveAttribute('data-align', 'end')
+    for (const cell of cells) {
+      expect(cell).toHaveAccessibleName('Loading')
+      const placeholders = Array.from(cell.querySelectorAll<HTMLElement>('[data-component="SkeletonText"]'))
+      expect(placeholders).toHaveLength(3)
+      expect(placeholders[0].closest('[aria-hidden="true"]')).not.toBeNull()
+      expect(placeholders[0].style.maxWidth).toBe('85%')
+      expect(placeholders[1].style.maxWidth).toBe('67.5%')
+    }
+    expect(cells[1].querySelector('[data-component="SkeletonText"]')?.parentElement).toHaveClass('primer:justify-end')
+
+    rerender(<DataTable aria-label="Repositories" columns={sharedColumns} data={[{id: 1, name: 'Primer', stars: 7}]} />)
+    expect(screen.getByRole('columnheader', {name: 'Stars'})).toHaveAttribute('data-align', 'end')
+    expect(screen.getByRole('cell', {name: '7'})).toHaveAttribute('data-align', 'end')
+    expect(renderCell).toHaveBeenCalledWith({id: 1, name: 'Primer', stars: 7})
+  })
+
+  it('preserves node headers and accepts aligned header-only and full column literals', () => {
+    render(
+      <Table.Skeleton<Row>
+        aria-label="Repositories"
+        className="consumer-table"
+        columns={[
+          {header: <strong>Name</strong>, align: 'start', width: 200},
+          {header: () => 'Stars', align: 'end', width: '100px'},
+          {field: 'id', header: 'ID', align: 'end', width: 'auto', sortBy: true},
+        ]}
+      />,
+    )
+    const table = screen.getByRole('table', {name: 'Repositories'})
+    expect(table).toHaveClass('consumer-table')
+    expect(table.style.getPropertyValue('--grid-template-columns')).toBe('200px 100px auto')
+    expect(screen.getAllByRole('columnheader').map(header => header.textContent)).toEqual(['Name', 'Stars', 'ID'])
+    expect(screen.getAllByText('Loading')).toHaveLength(3)
+    expect(document.querySelectorAll('[data-component="SkeletonText"]')).toHaveLength(30)
+    expect(screen.queryByRole('img')).not.toBeInTheDocument()
+    expect(screen.queryByRole('button')).not.toBeInTheDocument()
+    expect(screen.getByRole('columnheader', {name: 'ID'})).not.toHaveAttribute('aria-sort')
+  })
+
+  it('keeps callback headers when no placeholder rows or columns are requested', () => {
+    const {rerender} = render(
+      <Table.Skeleton aria-label="Empty table" columns={[{header: () => <span>Name</span>}]} rows={0} />,
+    )
+    expect(screen.getByRole('columnheader', {name: 'Name'})).toBeInTheDocument()
+    expect(document.querySelector('[data-component="SkeletonText"]')).toBeNull()
+    expect(screen.getByRole('cell', {name: 'Loading'})).toBeInTheDocument()
+    rerender(<Table.Skeleton aria-label="Empty table" columns={[]} rows={0} />)
+    expect(screen.getByRole('table', {name: 'Empty table'})).not.toHaveAttribute('aria-busy')
+    expect(screen.queryByRole('columnheader')).not.toBeInTheDocument()
+  })
+
   it('renders native table semantics and toggles sortable headers', async () => {
     const user = userEvent.setup()
     render(
@@ -35,6 +109,7 @@ describe('DataTable and Table', () => {
       />,
     )
     expect(screen.getByRole('button', {name: 'Stars'})).toHaveAccessibleDescription('Sort ascending')
+    expect(screen.getByRole('button', {name: 'Stars'})).not.toHaveAttribute('aria-description')
     await user.click(screen.getByRole('button', {name: 'Stars'}))
     expect(screen.getByRole('columnheader', {name: /Stars/})).toHaveAttribute('aria-sort', 'ascending')
     expect(screen.getAllByRole('rowheader')[0]).toHaveTextContent('Zebra')
@@ -44,7 +119,7 @@ describe('DataTable and Table', () => {
     render(<DataTable ref={ref} aria-label="Repositories" cellPadding="spacious" columns={columns} data={[]} />)
     expect(ref.current).toHaveAttribute('aria-label', 'Repositories')
     expect(ref.current).toHaveAttribute('data-cell-padding', 'spacious')
-    expect(ref.current?.className).toContain('group')
+    expect(ref.current).toHaveClass('primer:group', 'primer:relative')
   })
   it('renders nested fields, column widths, and an initial sort direction', () => {
     render(
@@ -102,12 +177,12 @@ describe('DataTable and Table', () => {
 
   it('hides numbered pages on narrow viewports unless showPages is set', () => {
     const {rerender} = render(<Table.Pagination pageSize={10} totalCount={30} />)
-    expect(screen.getByRole('button', {name: 'Page 2'})).toHaveClass('hidden', 'md:inline-flex')
-    expect(screen.getByRole('button', {name: 'Previous page'})).toHaveClass('mr-0', 'md:mr-4')
+    expect(screen.getByRole('button', {name: 'Page 2'})).toHaveClass('primer:hidden', 'primer:md:inline-flex')
+    expect(screen.getByRole('button', {name: 'Previous page'})).toHaveClass('primer:mr-0', 'primer:md:mr-4')
 
     rerender(<Table.Pagination pageSize={10} showPages totalCount={30} />)
-    expect(screen.getByRole('button', {name: 'Page 2'})).not.toHaveClass('hidden')
-    expect(screen.getByRole('button', {name: 'Previous page'})).toHaveClass('mr-4')
+    expect(screen.getByRole('button', {name: 'Page 2'})).not.toHaveClass('primer:hidden')
+    expect(screen.getByRole('button', {name: 'Previous page'})).toHaveClass('primer:mr-4')
   })
 })
 

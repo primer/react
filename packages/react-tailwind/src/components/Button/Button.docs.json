@@ -177,7 +177,7 @@
     {
       "name": "labelWrap",
       "type": "boolean",
-      "description": "Lets a long label wrap onto more than one line instead of being clipped."
+      "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
     },
     {
       "name": "leadingVisual",
@@ -193,7 +193,7 @@
       "name": "loadingAnnouncement",
       "type": "string",
       "defaultValue": "'Loading'",
-      "description": "Text announced to assistive technology while the button is loading."
+      "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
     },
     {
       "name": "notificationIndicator",

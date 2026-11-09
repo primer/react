@@ -66,19 +66,58 @@
       "id": "react-tailwind-components-actionmenu-features--links-and-actions"
     },
     {
+      "id": "react-tailwind-components-actionmenu-features--tooltip-trigger"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--custom-triggers"
+    },
+    {
       "id": "react-tailwind-components-actionmenu-features--single-select"
     },
     {
       "id": "react-tailwind-components-actionmenu-features--multi-select"
     },
     {
+      "id": "react-tailwind-components-actionmenu-features--item-descriptions"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--router-link-composition"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--inactive-router-links"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--inside-anchor-placement"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--collision-boundary"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--nested-menu-in-dialog"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--nested-menu-in-dialog-portal"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--current-model-submenu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--fullscreen-current-model-submenu"
+    },
+    {
       "id": "react-tailwind-components-actionmenu-features--inactive-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--disabled-custom-render"
     },
     {
       "id": "react-tailwind-components-actionmenu-features--loading-items"
     },
     {
       "id": "react-tailwind-components-actionmenu-features--submenus"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--inline-submenu"
     },
     {
       "id": "react-tailwind-components-actionmenu-features--disabled-items"
@@ -146,7 +185,7 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "leadingVisual",
@@ -161,7 +200,7 @@
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading."
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "notificationIndicator",
@@ -177,7 +216,8 @@
         {
           "name": "trailingAction",
           "type": "ButtonVisual",
-          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+          "defaultValue": "TriangleDownIcon",
+          "description": "Trailing visual for the trigger; pass `null` to remove it."
         },
         {
           "name": "type",
@@ -217,6 +257,26 @@
           "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
         },
         {
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance",
+          "description": "How the menu avoids collisions on the side and alignment axes. Horizontal menus fall back to the perpendicular\naxis by default when neither horizontal side fits."
+        },
+        {
+          "name": "collisionBoundary",
+          "type": "Boundary",
+          "description": "Element or rectangle used to constrain the menu's position."
+        },
+        {
+          "name": "collisionPadding",
+          "type": "Padding",
+          "description": "Space to keep between the menu and its collision boundary."
+        },
+        {
+          "name": "container",
+          "type": "HTMLElement | RefObject<HTMLElement | ShadowRoot | null> | ShadowRoot | null",
+          "description": "Portal destination. Pass `null` to wait for a container; ignored when `portal` is false."
+        },
+        {
           "name": "height",
           "type": "OverlayHeight",
           "description": "Height of the surface."
@@ -241,6 +301,11 @@
           "name": "positionerClassName",
           "type": "string",
           "description": "Classes applied to the element that positions the content."
+        },
+        {
+          "name": "positionMethod",
+          "type": "\"absolute\" | \"fixed\"",
+          "description": "CSS positioning method for the positioner."
         },
         {
           "name": "preventFocusOnClose",
@@ -302,6 +367,26 @@
           "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
         },
         {
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance",
+          "description": "How the menu avoids collisions on the side and alignment axes. Horizontal menus fall back to the perpendicular\naxis by default when neither horizontal side fits."
+        },
+        {
+          "name": "collisionBoundary",
+          "type": "Boundary",
+          "description": "Element or rectangle used to constrain the menu's position."
+        },
+        {
+          "name": "collisionPadding",
+          "type": "Padding",
+          "description": "Space to keep between the menu and its collision boundary."
+        },
+        {
+          "name": "container",
+          "type": "HTMLElement | RefObject<HTMLElement | ShadowRoot | null> | ShadowRoot | null",
+          "description": "Portal destination. Pass `null` to wait for a container; ignored when `portal` is false."
+        },
+        {
           "name": "height",
           "type": "OverlayHeight",
           "description": "Height of the surface."
@@ -326,6 +411,11 @@
           "name": "positionerClassName",
           "type": "string",
           "description": "Classes applied to the element that positions the content."
+        },
+        {
+          "name": "positionMethod",
+          "type": "\"absolute\" | \"fixed\"",
+          "description": "CSS positioning method for the positioner."
         },
         {
           "name": "preventFocusOnClose",
@@ -501,7 +591,35 @@
     },
     {
       "name": "ActionMenu.SubmenuTrigger",
-      "props": [],
+      "props": [
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the item temporarily unavailable and explains why."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation."
+        },
+        {
+          "name": "loadingText",
+          "type": "string",
+          "description": "Text announced to assistive technology while the item is loading."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Shows the current-choice indicator without changing selection when the submenu opens. Does not set an ARIA checked state."
+        },
+        {
+          "name": "variant",
+          "type": "ActionMenuItemVariant",
+          "defaultValue": "'default'",
+          "description": "Use `danger` for a destructive action."
+        }
+      ],
       "passthrough": {
         "element": "Menu.SubmenuTrigger",
         "url": "https://base-ui.com/react/components/menu#submenutrigger"

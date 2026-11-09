@@ -2,24 +2,25 @@ import {AlertFillIcon, AlertIcon, CheckCircleFillIcon, CheckCircleIcon, InfoIcon
 import {cva} from 'class-variance-authority'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {renderIcon} from '../../internal/icon'
 
 export type InlineMessageVariant = 'critical' | 'success' | 'unavailable' | 'warning'
 const message = cva(
-  'grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2 text-[length:var(--inline-message-font-size)] leading-[var(--inline-message-line-height)]',
+  'primer:grid primer:grid-cols-[auto_minmax(0,1fr)] primer:items-start primer:gap-2 primer:text-[length:var(--inline-message-font-size)] primer:leading-[var(--inline-message-line-height)]',
   {
     variants: {
       size: {
         small:
-          '[--inline-message-font-size:var(--text-body-size-small)] [--inline-message-line-height:var(--text-body-lineHeight-small)]',
+          'primer:[--inline-message-font-size:var(--text-body-size-small)] primer:[--inline-message-line-height:var(--text-body-lineHeight-small)]',
         medium:
-          '[--inline-message-font-size:var(--text-body-size-medium)] [--inline-message-line-height:var(--text-body-lineHeight-medium)]',
+          'primer:[--inline-message-font-size:var(--text-body-size-medium)] primer:[--inline-message-line-height:var(--text-body-lineHeight-medium)]',
       },
       variant: {
-        critical: 'text-danger',
-        success: 'text-success',
-        unavailable: 'text-muted',
-        warning: 'text-attention',
-        undefined: 'text-default',
+        critical: 'primer:text-danger',
+        success: 'primer:text-success',
+        unavailable: 'primer:text-muted',
+        warning: 'primer:text-attention',
+        undefined: 'primer:text-default',
       },
     },
     defaultVariants: {size: 'medium'},
@@ -47,15 +48,14 @@ export const InlineMessage = React.forwardRef<HTMLDivElement, InlineMessageProps
   const visual =
     leadingVisual === undefined ? (
       <DefaultIcon
-        className="min-h-[calc(var(--inline-message-line-height)*var(--inline-message-font-size))]"
+        className="primer:min-h-[calc(var(--inline-message-line-height)*var(--inline-message-font-size))]"
         size={size === 'small' ? 12 : 16}
       />
-    ) : typeof leadingVisual === 'function' ? (
-      React.createElement(leadingVisual, {
-        className: 'min-h-[calc(var(--inline-message-line-height)*var(--inline-message-font-size))]',
-      })
     ) : (
-      leadingVisual
+      renderIcon(
+        leadingVisual,
+        'primer:min-h-[calc(var(--inline-message-line-height)*var(--inline-message-font-size))]',
+      )
     )
   return (
     <div

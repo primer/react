@@ -15,17 +15,17 @@ const TimelineRoot = React.forwardRef<HTMLOListElement, TimelineProps>(function 
       {...rest}
       ref={ref}
       className={cn(
-        '@container/timeline m-0 flex list-none flex-col p-0',
-        '[&[data-clip-sidebar=start]>li:first-child]:pt-0',
-        '[&[data-clip-sidebar=both]>li:first-child]:pt-0',
-        '[&[data-clip-sidebar=start]>li:first-child_[data-timeline-avatar]]:top-4',
-        '[&[data-clip-sidebar=both]>li:first-child_[data-timeline-avatar]]:top-4',
-        '[&[data-clip-sidebar=start]>li:first-child[data-condensed]::before]:top-3',
-        '[&[data-clip-sidebar=both]>li:first-child[data-condensed]::before]:top-3',
-        '[&[data-clip-sidebar=end]>li:last-child]:pb-0',
-        '[&[data-clip-sidebar=both]>li:last-child]:pb-0',
-        '[&[data-clip-sidebar=end]>li:last-child[data-condensed]::before]:h-3',
-        '[&[data-clip-sidebar=both]>li:last-child[data-condensed]::before]:h-3',
+        'primer:@container/timeline primer:m-0 primer:flex primer:list-none primer:flex-col primer:p-0',
+        'primer:[&[data-clip-sidebar=start]>li:first-child]:pt-0',
+        'primer:[&[data-clip-sidebar=both]>li:first-child]:pt-0',
+        'primer:[&[data-clip-sidebar=start]>li:first-child_[data-timeline-avatar]]:top-4',
+        'primer:[&[data-clip-sidebar=both]>li:first-child_[data-timeline-avatar]]:top-4',
+        'primer:[&[data-clip-sidebar=start]>li:first-child[data-condensed]::before]:top-3',
+        'primer:[&[data-clip-sidebar=both]>li:first-child[data-condensed]::before]:top-3',
+        'primer:[&[data-clip-sidebar=end]>li:last-child]:pb-0',
+        'primer:[&[data-clip-sidebar=both]>li:last-child]:pb-0',
+        'primer:[&[data-clip-sidebar=end]>li:last-child[data-condensed]::before]:h-3',
+        'primer:[&[data-clip-sidebar=both]>li:last-child[data-condensed]::before]:h-3',
         className,
       )}
       data-component="Timeline"
@@ -47,10 +47,10 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(function
       {...rest}
       ref={ref}
       className={cn(
-        'relative ml-4 flex py-4 before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:bg-[var(--borderColor-muted)]',
+        'primer:relative primer:ml-4 primer:flex primer:py-4 primer:before:absolute primer:before:inset-y-0 primer:before:left-0 primer:before:w-0.5 primer:before:bg-[var(--borderColor-muted)]',
         condensed &&
-          'pt-1 pb-0 last:pb-4 [&_[data-timeline-badge]]:my-2 [&_[data-timeline-badge]]:h-4 [&_[data-timeline-badge]]:border-0 [&_[data-timeline-badge]]:bg-default [&_[data-timeline-badge]]:text-muted [&_[data-timeline-avatar]]:top-5',
-        "@max-[479px]/timeline:grid @max-[479px]/timeline:grid-cols-[auto_minmax(0,1fr)] @max-[479px]/timeline:[grid-template-areas:'badge_body'_'._actions']",
+          'primer:pt-1 primer:pb-0 primer:last:pb-4 primer:[&_[data-timeline-badge]]:my-2 primer:[&_[data-timeline-badge]]:h-4 primer:[&_[data-timeline-badge]]:border-0 primer:[&_[data-timeline-badge]]:bg-default primer:[&_[data-timeline-badge]]:text-muted primer:[&_[data-timeline-avatar]]:top-5',
+        "primer:@max-[479px]/timeline:grid primer:@max-[479px]/timeline:grid-cols-[auto_minmax(0,1fr)] primer:@max-[479px]/timeline:[grid-template-areas:'badge_body'_'._actions']",
         className,
       )}
       data-condensed={condensed || undefined}
@@ -68,7 +68,7 @@ const TimelineAvatar = React.forwardRef<HTMLDivElement, TimelineAvatarProps>(fun
     <div
       {...rest}
       ref={ref}
-      className={cn('absolute -left-18 top-8 z-1 -translate-y-1/2', className)}
+      className={cn('primer:absolute primer:-left-18 primer:top-8 primer:z-1 primer:-translate-y-1/2', className)}
       data-component="Timeline.Avatar"
       data-timeline-avatar=""
     />
@@ -80,28 +80,31 @@ export interface TimelineBadgeProps extends React.ComponentPropsWithoutRef<'div'
   variant?: TimelineBadgeVariant
 }
 const badgeColors: Record<TimelineBadgeVariant, string> = {
-  accent: 'bg-accent-emphasis',
-  success: 'bg-success-emphasis',
-  attention: 'bg-attention-emphasis',
-  severe: 'bg-severe-emphasis',
-  danger: 'bg-danger-emphasis',
-  done: 'bg-done-emphasis',
-  open: 'bg-open-emphasis',
-  closed: 'bg-closed-emphasis',
-  sponsors: 'bg-sponsors-emphasis',
+  accent: 'primer:bg-accent-emphasis',
+  success: 'primer:bg-success-emphasis',
+  attention: 'primer:bg-attention-emphasis',
+  severe: 'primer:bg-severe-emphasis',
+  danger: 'primer:bg-danger-emphasis',
+  done: 'primer:bg-done-emphasis',
+  open: 'primer:bg-open-emphasis',
+  closed: 'primer:bg-closed-emphasis',
+  sponsors: 'primer:bg-sponsors-emphasis',
 }
 const TimelineBadge = React.forwardRef<HTMLDivElement, TimelineBadgeProps>(function TimelineBadge(
   {className, variant, ...rest},
   ref,
 ) {
   return (
-    <div className="relative z-1 @max-[479px]/timeline:[grid-area:badge]" data-component="Timeline.BadgeWrapper">
+    <div
+      className="primer:relative primer:z-1 primer:@max-[479px]/timeline:[grid-area:badge]"
+      data-component="Timeline.BadgeWrapper"
+    >
       <div
         {...rest}
         ref={ref}
         className={cn(
-          '-ml-[15px] mr-2 flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-[var(--bgColor-default)] bg-[var(--timelineBadge-bgColor)] text-muted',
-          variant && cn(badgeColors[variant], 'text-on-emphasis'),
+          'primer:-ml-[15px] primer:mr-2 primer:flex primer:size-8 primer:shrink-0 primer:items-center primer:justify-center primer:overflow-hidden primer:rounded-full primer:border-2 primer:border-[var(--bgColor-default)] primer:bg-[var(--timelineBadge-bgColor)] primer:text-muted',
+          variant && cn(badgeColors[variant], 'primer:text-on-emphasis'),
           className,
         )}
         data-component="Timeline.Badge"
@@ -122,7 +125,7 @@ const TimelineBody = React.forwardRef<HTMLDivElement, TimelineBodyProps>(functio
       {...rest}
       ref={ref}
       className={cn(
-        'mt-[5px] min-w-0 max-w-full flex-auto text-sm text-muted @max-[479px]/timeline:[grid-area:body]',
+        'primer:mt-[5px] primer:min-w-0 primer:max-w-full primer:flex-auto primer:text-sm primer:text-muted primer:@max-[479px]/timeline:[grid-area:body]',
         className,
       )}
       data-component="Timeline.Body"
@@ -141,7 +144,7 @@ const TimelineBreak = React.forwardRef<HTMLLIElement, TimelineBreakProps>(functi
       ref={ref}
       aria-hidden="true"
       className={cn(
-        'relative z-1 -mb-4 h-6 border-t-4 border-default bg-default [&:has(+_[data-condensed])]:-mb-3',
+        'primer:relative primer:z-1 primer:-mb-4 primer:h-6 primer:border-t-4 primer:border-default primer:bg-default primer:[&:has(+_[data-condensed])]:-mb-3',
         className,
       )}
       data-component="Timeline.Break"
@@ -159,7 +162,7 @@ const TimelineActions = React.forwardRef<HTMLDivElement, TimelineActionsProps>(f
       {...rest}
       ref={ref}
       className={cn(
-        'ml-auto flex min-h-8 shrink-0 items-center gap-2 self-start @max-[479px]/timeline:mt-2 @max-[479px]/timeline:ml-0 @max-[479px]/timeline:min-h-0 @max-[479px]/timeline:[grid-area:actions]',
+        'primer:ml-auto primer:flex primer:min-h-8 primer:shrink-0 primer:items-center primer:gap-2 primer:self-start primer:@max-[479px]/timeline:mt-2 primer:@max-[479px]/timeline:ml-0 primer:@max-[479px]/timeline:min-h-0 primer:@max-[479px]/timeline:[grid-area:actions]',
         className,
       )}
       data-component="Timeline.Actions"

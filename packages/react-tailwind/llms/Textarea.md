@@ -4,6 +4,31 @@
 
 Import: `import {Textarea} from '@primer/react-tailwind/Textarea'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## API notes
+
+`TextareaProps` extends native textarea attributes, including `value`, `defaultValue`, `onChange`, `name`, `required`, `rows`, `cols`, `resize`, and `disabled`.
+
+## Import
+
+```tsx
+import {Textarea} from '@primer/react-tailwind/Textarea'
+import {FormControl} from '@primer/react-tailwind/FormControl'
+;<FormControl>
+  <FormControl.Label>Description</FormControl.Label>
+  <Textarea name="description" rows={4} />
+</FormControl>
+```
+
+## Accessibility, forms, and validation
+
+Associate a visible `FormControl.Label` or use `aria-label`. Native `name`, `required`, and `disabled` behavior is retained. Pair invalid fields with `aria-invalid` and `FormControl.Validation`; captions come from `FormControl.Caption`.
+
+## Keyboard, events, and state
+
+The native control provides standard text-editing shortcuts and form events; use `onChange` for input updates. The root exposes `data-component="Textarea"` and accepts `className`; native `:disabled`, `:focus-visible`, and `aria-invalid` state styling is supported.
+
 Renders a [`<textarea>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

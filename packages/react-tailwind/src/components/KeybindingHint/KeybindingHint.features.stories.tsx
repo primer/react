@@ -51,11 +51,15 @@ export const Platforms: Story = {
     <table className="border-collapse">
       <thead>
         <tr>
-          <th scope="col" className="border border-default px-3 py-2 text-left font-semibold text-muted">
+          <th scope="col" className="border-thin border-default px-3 py-2 text-left font-semibold text-muted">
             Platform
           </th>
           {modifierKeys.map(key => (
-            <th scope="col" className="border border-default px-3 py-2 text-left font-semibold text-muted" key={key}>
+            <th
+              scope="col"
+              className="border-thin border-default px-3 py-2 text-left font-semibold text-muted"
+              key={key}
+            >
               {key}
             </th>
           ))}
@@ -64,11 +68,11 @@ export const Platforms: Story = {
       <tbody>
         {platforms.map(({platform, label}) => (
           <tr key={platform}>
-            <th scope="row" className="border border-default px-3 py-2 text-left font-semibold text-muted">
+            <th scope="row" className="border-thin border-default px-3 py-2 text-left font-semibold text-muted">
               {label}
             </th>
             {modifierKeys.map((modifier, index) => (
-              <td className="border border-default px-3 py-2 text-left" key={`${modifier}-${index}`}>
+              <td className="border-thin border-default px-3 py-2 text-left" key={`${modifier}-${index}`}>
                 <PlatformOverrideProvider value={platform}>
                   <KeybindingHint {...args} keys={`${modifier}+K`} format={format} />
                 </PlatformOverrideProvider>

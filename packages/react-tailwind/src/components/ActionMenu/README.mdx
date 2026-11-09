@@ -15,7 +15,11 @@ import * as Examples from './ActionMenu.examples.stories'
 
 <Controls of={Stories.Playground} />
 
-The root forwards Base UI Menu props, including controlled `open`/`onOpenChange` and `defaultOpen`. `Button` supports Button props; `Content` owns its portal and positioner, and takes placement, `anchor`, `portal`, overlay size, and fullscreen `variant` options; `Item` supports danger, selected, inactive, and loading states.
+The root forwards Base UI Menu props, including controlled `open`/`onOpenChange` and `defaultOpen`. `Button` supports Button props; `Content` owns its portal and positioner, and takes placement, collision, `anchor`, `container`, `portal`, overlay size, and fullscreen `variant` options; `Item` and `SubmenuTrigger` support danger, selected, inactive, and loading states.
+
+Anchored content fits within the available collision width, even when `width` or `maxWidth` specifies a larger size. Its usual minimum also shrinks when the boundary is narrower. With `width="auto"`, the menu sizes to its content within those constraints; inactive reasons occupy their own row and can wrap. A caller-supplied maximum smaller than that minimum does not override it: to apply such a cap, also set an appropriate minimum, for example `style={{maxWidth: 'calc(100vw - 32px)', minWidth: 0}}`. Caller-supplied sizing or positioner layout classes can override the default constraints, so verify that custom sizing does not clip menu items. The narrow fullscreen variant still fills the viewport.
+
+Opening moves focus into the menu. `Content finalFocus` and `preventFocusOnClose` control closing focus only; there is no public `initialFocusRef` or `preventFocusOnOpen` equivalent for retaining trigger focus on opening. The alignment notes describe this legacy migration gap and the distinction from a nonmodal popover.
 
 ## Import and composition
 
@@ -23,25 +27,221 @@ The root forwards Base UI Menu props, including controlled `open`/`onOpenChange`
 import {ActionMenu} from '@primer/react-tailwind/ActionMenu'
 ```
 
-Compose `Button` or `Trigger`, then `Content`/`Overlay`, with `Item`, `CheckboxItem`, `RadioGroup`, `RadioItem`, `Group`, `GroupLabel`, and `Divider` as needed. Items accept `LeadingVisual`, `TrailingVisual`, and inline or block `Description` parts that share the ActionList presentation layer. Nest `Submenu`, `SubmenuTrigger`, and another `Content` for Base UI-managed nested menus. Compose another branded trigger through Base UI's `render` prop and use `className` to supply its visual treatment. Set `id` on `Button` or `Trigger` rather than on the rendered element, because the trigger tracks its open state by its `id`.
+Compose `Button` or `Trigger`, then `Content`/`Overlay`, with `Item`, `CheckboxItem`, `RadioGroup`, `RadioItem`, `Group`, `GroupLabel`, and `Divider` as needed. Items accept `LeadingVisual`, `TrailingVisual`, and inline or block `Description` parts that share the ActionList presentation layer. Compose another branded trigger through Base UI's `render` prop and use `className` to supply its visual treatment. Set `id` on `Button` or `Trigger` rather than on the rendered element, because the trigger tracks its open state by its `id`.
+
+When an item opens a dialog, transfer focus ownership explicitly: set a handoff flag in the selection handler, pass it to `Content preventFocusOnClose`, and give `Dialog.Content finalFocus` the stable menu-trigger ref. Reset the flag when the dialog closes so ordinary menu actions keep their default restoration. If opening is deferred, set the flag before scheduling the opening rather than deriving it only from the dialog's open state. `onOpenChangeComplete` reports animation completion, not completion of queued focus restoration; a frame delay is not a focus-completion contract. The alignment notes include a complete composition.
+
+To add a tooltip to a menu trigger, compose both triggers onto the same button instead of rendering a tooltip wrapper inside the menu trigger:
+
+```tsx
+import {Button} from '@primer/react-tailwind/Button'
+import {Tooltip} from '@primer/react-tailwind/Tooltip'
+;<ActionMenu>
+  <Tooltip>
+    <Tooltip.Trigger render={<ActionMenu.Trigger render={<Button />}>Branches</ActionMenu.Trigger>} />
+    <Tooltip.Content>Switch branches</Tooltip.Content>
+  </Tooltip>
+  <ActionMenu.Content>
+    <ActionMenu.Item>main</ActionMenu.Item>
+  </ActionMenu.Content>
+</ActionMenu>
+```
+
+`Tooltip.Trigger render={<ActionMenu.Button>Branches</ActionMenu.Button>}` also works. A custom button must forward its ref, received event and ARIA props, and children to the same native button, so pointer and keyboard activation, positioning, and focus restoration work.
+
+<Canvas of={Features.TooltipTrigger} />
+
+For an icon-only trigger, compose `ActionMenu.Trigger` with `IconButton`. You can share the tooltip text with a separate label that remains available even if the tooltip is disabled or removed, then reference it on the outer trigger and typed icon button:
+
+```tsx
+import {GearIcon} from '@primer/octicons-react'
+import {ActionMenu, IconButton, Tooltip} from '@primer/react-tailwind'
+import {useId} from 'react'
+
+function RepositoryActions() {
+  const labelId = useId()
+  const label = 'Repository actions'
+  return (
+    <>
+      <span hidden id={labelId}>
+        {label}
+      </span>
+      <ActionMenu>
+        <Tooltip type="label">
+          <Tooltip.Trigger
+            aria-labelledby={labelId}
+            render={<ActionMenu.Trigger render={<IconButton aria-labelledby={labelId} icon={<GearIcon />} />} />}
+          />
+          <Tooltip.Content>{label}</Tooltip.Content>
+        </Tooltip>
+        <ActionMenu.Content aria-labelledby={labelId}>
+          <ActionMenu.Item>Copy</ActionMenu.Item>
+        </ActionMenu.Content>
+      </ActionMenu>
+    </>
+  )
+}
+```
+
+Pass the same reference to `ActionMenu.Content` so the menu is named too. Alternatively, reference the `id` of an enabled, mounted label tooltip on `Tooltip.Trigger`, `IconButton`, and `ActionMenu.Content`. The tooltip supplies its reference text in server-rendered HTML even though the visual popup is portaled. If its content is generated by a custom component or render callback, follow the [Tooltip guidance](../Tooltip/README.mdx#aria-references) to make the name available on the server. Both icon components and rendered elements are supported. `ActionMenu.Button` shows a chevron by default; pass `trailingAction={null}` to omit it, or pass a component or rendered element to replace it.
+
+<Canvas of={Features.CustomTriggers} />
+
+Use `Content showDividers` to draw dividers between items; use `Divider` for an explicit separator. The option applies to the whole menu content rather than an individual group.
+
+When an `ActionMenu.Item` uses `render` with a native button, set `nativeButton` so Base UI applies the correct button behavior. The rendered component must forward its ref and received props, including children and capture handlers, to the same button. It must also respect its disabled state; side effects in its own earlier capture handlers or discarded props cannot be prevented by the menu.
+
+When a custom render replaces an item's children, it must render and associate any inactive reason itself.
+
+For client-side navigation, render a ref-forwarding router link that produces an anchor:
+
+```tsx
+<ActionMenu.LinkItem render={<RouterLink to="/projects" />}>Projects</ActionMenu.LinkItem>
+```
+
+While `inactiveText` is present, `LinkItem` renders a non-navigable anchor without `href` and forwards its ref to that anchor. A custom `render` is not mounted until the item is available, so a ref attached to that custom element remains unset.
+
+`LinkItem` participates in menu keyboard navigation: both Enter and Space activate it. This differs from a standalone native link, where Space scrolls rather than navigating.
+
+<Canvas of={Features.RouterLinkComposition} />
+
+For nested menus, compose `SubmenuTrigger` and `Content` as siblings:
+
+```tsx
+<ActionMenu.Submenu>
+  <ActionMenu.SubmenuTrigger>Models</ActionMenu.SubmenuTrigger>
+  <ActionMenu.Content>
+    <ActionMenu.Item>Fast model</ActionMenu.Item>
+    <ActionMenu.Item>Detailed model</ActionMenu.Item>
+  </ActionMenu.Content>
+</ActionMenu.Submenu>
+```
+
+`SubmenuTrigger` associates its `Description` parts and `inactiveText` as accessible descriptions. It preserves explicit names and additional description references. Supplied trailing visuals appear alongside the submenu chevron. Inactive and loading triggers cannot open their submenu, including on hover. As with `Item`, a spinner replaces the leading visual, or the trailing visual when there is no leading visual. `loadingText` is included in an inferred accessible name, or associated as a description when an explicit name is supplied.
+
+`selected` draws the current-choice indicator without changing selection on submenu open. It is presentational and does not set a checked state. When a submenu trigger represents the controlled current model in a radio-style menu, pass `role="menuitemradio"` and `aria-checked={selected}` separately. Opening the submenu only opens it; update the model in the tier-selection callback, not in `onOpenChange`.
+
+<Canvas of={Features.CurrentModelSubmenu} />
+
+Do not nest `Content` in `SubmenuTrigger`: doing so interferes with keyboard navigation between submenu levels.
+
+When a custom submenu trigger is named with `aria-labelledby`, pass the same `aria-labelledby` to its `Content` as well. Base UI's default submenu name can otherwise use the trigger's visible or owned content rather than that referenced name.
+
+For a different popup name, pass `aria-label` to `Content`; it overrides the automatic trigger association. An explicit `aria-labelledby` still takes precedence when both are supplied. Without either explicit name, the popup retains Base UI's trigger-derived name.
 
 ## Controlled and uncontrolled
 
 Use `open`/`onOpenChange` when application state owns menu visibility, or `defaultOpen` for initial state.
 
+For an asynchronous nested picker, keep its opening item open with `closeOnClick={false}`. Once the picker completes, close a controlled menu by updating `open`, or pass an `actionsRef` to `ActionMenu` and call `actionsRef.current?.close()` on an uncontrolled menu. A controlled menu must still update its state in `onOpenChange`.
+
 <Canvas of={Examples.ControlledMenu} />
 <Canvas of={Examples.PreventFocusOnClose} />
 
+## Migrating selectable menus
+
+Replace a legacy `ActionList selectionVariant="single"` with `ActionMenu.RadioGroup` and `RadioItem`. Control the selected value on the group with `value` and `onValueChange`, or use `defaultValue` for an uncontrolled group. Each item reports `role="menuitemradio"` and `aria-checked`.
+
+Replace `selectionVariant="multiple"` with `ActionMenu.CheckboxItem` for each choice. Use `checked` and `onCheckedChange` for controlled state, or `defaultChecked` for uncontrolled state. Each item reports `role="menuitemcheckbox"` and `aria-checked`. Checkbox and radio items close the menu by default; set `closeOnClick={false}` when the menu should stay open.
+
+Legacy `ActionList.Group` can override the list's selection mode. Choose the appropriate parts for each migrated group: `RadioGroup`/`RadioItem` for single selection, `Group`/`CheckboxItem` for multiple selection, and `Item` for ordinary actions. Control separate radio groups with separate state for independent choices, or share state when the groups represent one choice. `ActionMenu.Item selected` only adds a visual checkmark; it does not expose a checked menu-item role.
+
+<Canvas of={Features.SingleSelect} />
+<Canvas of={Features.MultiSelect} />
+
+## Positioning and portals
+
+`Content` accepts `side`, `align`, `sideOffset`, and `alignOffset`; both offsets can be functions of the measured `anchor` and `positioner` dimensions. Use `collisionBoundary`, `collisionPadding`, and `collisionAvoidance` to control how Base UI keeps the positioner in view. `collisionBoundary={[]}` uses the viewport for collision calculations; it does not prevent an ancestor from physically clipping the menu. Use a `container` outside the clipping ancestor when necessary, and `positionMethod="fixed"` when fixed positioning is appropriate.
+
+For a horizontal `side`, the menu tries the requested side and its opposite before falling back to a perpendicular side if neither fits. Base UI prefers below the trigger before above it. Set `collisionAvoidance={{fallbackAxisSide: 'start'}}` to prefer above, or `fallbackAxisSide: 'none'` to disable the perpendicular fallback. A `collisionAvoidance` option that disables side flipping also disables this fallback. The default for vertical sides is unchanged.
+
+Base UI's logical `inline-start` and `inline-end` sides require its `DirectionProvider` to match the page's text direction; an HTML `dir` attribute alone does not set Base UI's direction context. Install a compatible `@base-ui/react` version directly in the application, ensure it resolves to the same instance used by `@primer/react-tailwind`, set `dir="rtl"` on the document's `<html>`, and provide matching context around the menu:
+
+```tsx
+import {DirectionProvider} from '@base-ui/react/direction-provider'
+import {ActionMenu} from '@primer/react-tailwind'
+;<DirectionProvider direction="rtl">
+  <ActionMenu>
+    <ActionMenu.Button>Options</ActionMenu.Button>
+    <ActionMenu.Content side="inline-start">
+      <ActionMenu.Item>Copy</ActionMenu.Item>
+    </ActionMenu.Content>
+  </ActionMenu>
+</DirectionProvider>
+```
+
+For an RTL subtree within an LTR document, ensure the menu's portal destination also inherits `dir="rtl"`, for example by setting `container` to a suitable element within that subtree.
+
+The default portal inherits its owning Primer Base UI portal when nested, or the nearest `BaseStyles` root otherwise. `container` accepts an element or ref; passing `container={null}` waits for a destination, whereas a ref whose `current` is null can fall back to Base UI's default portal. `portal={false}` renders in place and ignores `container`. An inline submenu stays inside the owning menu's positioner but outside its scrollable popup, so the parent popup itself does not clip the submenu.
+
+When a nonmodal parent uses a raw Base UI portal rather than a Primer portal, give the menu that parent portal element as its container. A separate destination can leave the trigger out of the tab order after the menu closes. Use the portal element, not its potentially clipping popup:
+
+```tsx
+import * as React from 'react'
+import {Popover as BasePopover} from '@base-ui/react/popover'
+import {ActionMenu, Button} from '@primer/react-tailwind'
+
+function PopoverWithMenu() {
+  const [portal, setPortal] = React.useState<HTMLDivElement | null>(null)
+  return (
+    <BasePopover.Root modal={false}>
+      <BasePopover.Trigger render={<Button>Open overlay</Button>} />
+      <BasePopover.Portal ref={setPortal}>
+        <BasePopover.Positioner>
+          <BasePopover.Popup aria-label="Overlay actions" role="dialog">
+            <ActionMenu>
+              <ActionMenu.Button>More actions</ActionMenu.Button>
+              <ActionMenu.Content container={portal}>
+                <ActionMenu.Item>Copy</ActionMenu.Item>
+              </ActionMenu.Content>
+            </ActionMenu>
+          </BasePopover.Popup>
+        </BasePopover.Positioner>
+      </BasePopover.Portal>
+    </BasePopover.Root>
+  )
+}
+```
+
+This composition does not by itself establish compatibility with an additional focus trap. A legacy trap may also need to be suspended synchronously when the menu begins opening, before focus moves into the menu, and resumed after it closes. If the trap tracks outside clicks, it may also need to treat child menu portals as inside boundaries so selecting an item does not discard the parent's return-focus target. Verify the trap's lifecycle and focus restoration in the host.
+
+For menus in a modal `Dialog`, prefer the default portal or an ancestor root that contains the dialog portal. A destination hidden or made inert by the dialog also hides the menu from assistive technology. DOM nesting alone does not provide the dialog's React context: a menu owned elsewhere may default to `document.body` rather than the dialog portal. In Chromium, a nonmodal menu rendered inside the dialog popup, including with `portal={false}`, can return focus to the dialog instead of its trigger after Escape, even with an explicit `finalFocus`. A container inside the popup can also cause the parent to take focus from a newly opened child dialog, even when the menu suppresses its own return focus. When appropriate, `disablePointerDismissal` on the parent avoids the tested races but also disables dismissal by clicking its backdrop. Check the actual host's portal ancestry, clipping, focus containment, Escape, return focus, and modal accessibility.
+
+<Canvas of={Features.InsideAnchorPlacement} />
+<Canvas of={Features.CollisionBoundary} />
+<Canvas of={Features.NestedMenuInDialog} />
+<Canvas of={Features.NestedMenuInDialogPortal} />
+
 ## Accessibility, disabled behavior, and keyboard
 
-Give a trigger clear visible text or an accessible name. Base UI owns menu roles, focus management, Arrow-key navigation, Enter/Space activation, and Escape close/return-focus behavior. Pass `preventFocusOnClose` to `Content` when an item moves focus elsewhere and focus should not return to the trigger. Disabled items cannot be activated; checkbox and radio items report their selection semantics.
+Give a trigger clear visible text or an accessible name. Base UI owns menu roles, focus management, Arrow-key navigation, Enter/Space activation, and Escape close/return-focus behavior. In fullscreen mode the visible close control precedes the menu content in keyboard order, matching its position at the top: keyboard opening and Home focus Close, and End focuses the last content item. At regular widths, the hidden close control is skipped. Tab and Shift+Tab dismiss the menu rather than cycling within it. Pass `preventFocusOnClose` to `Content` when an item moves focus elsewhere and focus should not return to the trigger. Disabled items cannot be activated; checkbox and radio items report their selection semantics.
+
+When open, Base UI normally adds `aria-controls` to the trigger. Applications whose accessibility policy prohibits that attribute can pass `aria-controls={undefined}` to `ActionMenu.Button` or `ActionMenu.Trigger`; apply the same override separately to each `SubmenuTrigger`. This removes the explicit trigger-to-popup ID relationship, not the popup's accessible name. In tested compositions, the top-level trigger still exposes its menu popup type and expanded state, and keyboard navigation and focus return continue to work. A custom `render` element can override the trigger's ARIA props again, so check the final rendered element and your source-level policy tooling. This is a policy-specific composition option, not a universal accessibility recommendation: verify it with the host's supported assistive technologies.
+
+Base UI 1.8 also omits a keyboard-opened submenu trigger's `aria-expanded` on Apple platforms as a VoiceOver-specific behavior; this happens with or without the `aria-controls` override. It detects the platform, not whether VoiceOver is active. The assistive-technology tradeoff requires separate review.
+
+In the current Base UI integration, Shift+Tab from an anchored menu returns to its trigger after an accepted close rather than moving directly to the preceding page control. A further Shift+Tab moves backward. This differs from legacy one-step traversal; a rejected or canceled close can leave the menu open while focus returns to its trigger. The synchronous trigger focus also occurs when `preventFocusOnClose` is set. The alignment notes describe the verified cases and remaining migration gap.
+
+`Item`, `LinkItem`, `CheckboxItem`, and `RadioItem` automatically expose their direct `Description` parts as accessible descriptions rather than including them in the item name. `Item` and `LinkItem` also expose `inactiveText` as a description. Descriptions can be grouped in fragments. An explicit `aria-label` or `aria-labelledby` supplies the name instead; include the visible primary label. Any IDs passed through `aria-describedby` are retained alongside the descriptions:
+
+```tsx
+<p id="admin-note">Requires administrator access</p>
+<ActionMenu.Item aria-label="Archive repository" aria-describedby="admin-note">
+  Archive
+  <ActionMenu.Description>Move this repository out of active lists</ActionMenu.Description>
+</ActionMenu.Item>
+```
+
+`Item` displays its inactive reason and also uses a string reason as a native `title` unless an explicit `title` is supplied. Inactive `LinkItem` follows the same behavior. Native titles are not reliably available to keyboard or touch users; the visible reason does not depend on the title.
+
+`SubmenuTrigger` also associates its direct `Description` parts and inactive reason as descriptions. When its name uses `aria-labelledby`, pass the same reference to the submenu `Content` as described above.
+
+<Canvas of={Features.ItemDescriptions} />
 
 ## Events and state attributes
 
 `onOpenChange` receives the next visibility value and Base UI details. Stable selectors include `ActionMenu.Trigger`, `.Button`, `.Content`, `.Positioner`, `.Item`, `.CheckboxItem`, `.RadioItem`, `.SubmenuTrigger`, `.Group`, `.GroupLabel`, and `.Divider`; item states include `data-highlighted`, `data-disabled`, `data-selected`, and danger `data-variant`.
 
-<Canvas of={Features.MultiSelect} />
-
 ## Alignment
 
-The [alignment notes](./ALIGNMENT.md) preserve Base UI menu groups, checkbox/radio items, disabled items, and keyboard navigation while intentionally not simulating legacy anchors, fullscreen variants, or non-public positioning APIs.
+The [alignment notes](./ALIGNMENT.md) describe selection, grouping, positioning, and other migration differences.

@@ -10,12 +10,12 @@ import {useFocusZone} from '../../internal/useFocusZone'
 // structurally rather than by `data-component` because trigger parts (for example `ActionMenu.Trigger`) replace the
 // rendered button's `data-component`.
 const groupVariants = cva(
-  'inline-flex isolate align-middle *:relative *:rounded-none *:hover:z-1 *:focus-visible:z-1 *:active:z-1',
+  'primer:inline-flex primer:isolate primer:align-middle primer:*:relative primer:*:rounded-none primer:*:hover:z-1 primer:*:focus-visible:z-1 primer:*:active:z-1',
   {
     variants: {
       orientation: {
-        horizontal: 'flex-row *:first:rounded-s-md *:last:rounded-e-md *:not-first:-ms-px',
-        vertical: 'flex-col *:first:rounded-t-md *:last:rounded-b-md *:not-first:-mt-px',
+        horizontal: 'primer:flex-row primer:*:first:rounded-s-md primer:*:last:rounded-e-md primer:*:not-first:-ms-px',
+        vertical: 'primer:flex-col primer:*:first:rounded-t-md primer:*:last:rounded-b-md primer:*:not-first:-mt-px',
       },
     },
     defaultVariants: {orientation: 'horizontal'},

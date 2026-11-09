@@ -9,7 +9,7 @@ import {type ButtonVisual, resolveButtonVisual} from './ButtonVisual'
 import {getNotificationIndicatorClassName} from './notificationIndicator'
 
 // Variants and states set --button-visual-fgColor on the button root, mirroring Primer's `.Visual` colors.
-const visualClassName = 'text-[var(--button-visual-fgColor,var(--fgColor-muted))]'
+const visualClassName = 'primer:text-[var(--button-visual-fgColor,var(--fgColor-muted))]'
 
 function renderVisual(
   visual: ButtonVisual,
@@ -19,12 +19,12 @@ function renderVisual(
   return (
     <span
       className={cn(
-        'flex pointer-events-none',
+        'primer:flex primer:pointer-events-none',
         notificationIndicator && getNotificationIndicatorClassName('leadingVisual'),
-        component === 'leadingVisual' && '[grid-area:leadingVisual]',
-        component === 'trailingVisual' && '[grid-area:trailingVisual]',
+        component === 'leadingVisual' && 'primer:[grid-area:leadingVisual]',
+        component === 'trailingVisual' && 'primer:[grid-area:trailingVisual]',
         visualClassName,
-        component === 'trailingAction' && '-mr-1',
+        component === 'trailingAction' && 'primer:-mr-1',
       )}
       data-component={component}
     >
@@ -35,6 +35,7 @@ function renderVisual(
 
 interface ButtonContentProps {
   alignContent?: 'start' | 'center'
+  autoWrapInActions?: boolean
   children?: React.ReactNode
   count?: number | string
   labelId: string
@@ -42,7 +43,7 @@ interface ButtonContentProps {
   leadingVisual?: ButtonVisual
   loading: boolean
   loadingAnnouncement: string
-  loadingAnnouncementId: string
+  loadingAnnouncementId?: string
   notificationIndicator?: boolean
   size?: ControlSize
   trailingAction?: ButtonVisual
@@ -52,6 +53,7 @@ interface ButtonContentProps {
 
 export function ButtonContent({
   alignContent = 'center',
+  autoWrapInActions = false,
   children,
   count,
   labelId,
@@ -70,24 +72,37 @@ export function ButtonContent({
     <>
       <span
         className={cn(
-          "relative grid flex-[1_0_auto] grid-cols-[min-content_minmax(0,auto)_min-content] [grid-template-areas:'leadingVisual_text_trailingVisual'] content-center items-center",
-          alignContent === 'center' ? 'justify-center' : 'justify-start',
-          size === 'small' ? '[&>*:not(:last-child)]:mr-1' : '[&>*:not(:last-child)]:mr-2',
+          "primer:relative primer:grid primer:flex-[1_0_auto] primer:grid-cols-[min-content_minmax(0,auto)_min-content] primer:[grid-template-areas:'leadingVisual_text_trailingVisual'] primer:content-center primer:items-center",
+          alignContent === 'center' ? 'primer:justify-center' : 'primer:justify-start',
+          size === 'small' ? 'primer:[&>*:not(:last-child)]:mr-1' : 'primer:[&>*:not(:last-child)]:mr-2',
           labelWrap && [
-            'flex-auto self-stretch',
+            'primer:flex-auto primer:self-stretch',
             size === 'small'
-              ? 'py-[calc(var(--control-small-paddingBlock)-2px)]'
+              ? 'primer:py-[calc(var(--control-small-paddingBlock)-2px)]'
               : size === 'large'
-                ? 'py-[calc(var(--control-large-paddingBlock)-2px)]'
-                : 'py-[calc(var(--control-medium-paddingBlock)-2px)]',
+                ? 'primer:py-[calc(var(--control-large-paddingBlock)-2px)]'
+                : 'primer:py-[calc(var(--control-medium-paddingBlock)-2px)]',
           ],
+          autoWrapInActions &&
+            labelWrap === undefined && [
+              'primer:flex-[var(--primer-action-flex,1_0_auto)] primer:[align-self:var(--primer-action-align,auto)]',
+              variant !== 'link' &&
+                (size === 'small'
+                  ? 'primer:py-[calc(var(--primer-action-wrap,0)*(var(--control-small-paddingBlock)-2px))]'
+                  : size === 'large'
+                    ? 'primer:py-[calc(var(--primer-action-wrap,0)*(var(--control-large-paddingBlock)-2px))]'
+                    : 'primer:py-[calc(var(--primer-action-wrap,0)*(var(--control-medium-paddingBlock)-2px))]'),
+            ],
         )}
         data-align={alignContent}
         data-component="buttonContent"
       >
         {loading && !leadingVisual && !trailingVisual && !trailingAction && count === undefined ? (
           <span
-            className={cn('pointer-events-none absolute left-1/2 flex -translate-x-1/2', visualClassName)}
+            className={cn(
+              'primer:pointer-events-none primer:[position:absolute] primer:left-1/2 primer:flex primer:-translate-x-1/2',
+              visualClassName,
+            )}
             data-component="leadingVisual"
           >
             <Spinner aria-hidden="true" size="small" srText={null} />
@@ -103,11 +118,22 @@ export function ButtonContent({
         {children ? (
           <span
             className={cn(
-              '[grid-area:text] whitespace-nowrap leading-[var(--text-body-lineHeight-medium)]',
-              size === 'small' && 'leading-[var(--text-body-lineHeight-small)]',
-              variant === 'link' && 'whitespace-normal [line-height:inherit]',
-              labelWrap && 'break-words whitespace-normal',
-              loading && !leadingVisual && !trailingVisual && !trailingAction && count === undefined && 'invisible',
+              'primer:[grid-area:text] primer:leading-[var(--text-body-lineHeight-medium)]',
+              autoWrapInActions && labelWrap === undefined && variant !== 'link'
+                ? 'primer:[white-space:var(--primer-action-white-space,nowrap)]'
+                : 'primer:whitespace-nowrap',
+              size === 'small' && 'primer:leading-[var(--text-body-lineHeight-small)]',
+              variant === 'link' && 'primer:whitespace-normal primer:[line-height:inherit]',
+              labelWrap && 'primer:break-words primer:whitespace-normal',
+              autoWrapInActions &&
+                labelWrap === undefined &&
+                'primer:[overflow-wrap:var(--primer-action-overflow-wrap,normal)]',
+              loading &&
+                !leadingVisual &&
+                !trailingVisual &&
+                !trailingAction &&
+                count === undefined &&
+                'primer:[visibility:hidden]',
             )}
             data-component="text"
             id={loading ? labelId : undefined}
@@ -141,7 +167,7 @@ export function ButtonContent({
             'trailingAction',
           )
         : null}
-      {loading ? (
+      {loadingAnnouncementId ? (
         <VisuallyHidden>
           <span id={loadingAnnouncementId} role="status">
             {loadingAnnouncement}

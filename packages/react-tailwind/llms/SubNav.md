@@ -4,6 +4,23 @@
 
 Import: `import {SubNav} from '@primer/react-tailwind/SubNav'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Import and usage
+
+```tsx
+import {SubNav} from '@primer/react-tailwind/SubNav'
+;<SubNav aria-label="Project sections">
+  <SubNav.Links>
+    <SubNav.Link href="#overview" selected>
+      Overview
+    </SubNav.Link>
+  </SubNav.Links>
+</SubNav>
+```
+
+Use exactly one selected link for the current section. The root is a navigation landmark, so provide an accessible name and give actions their own names.
+
 Renders a [`<nav>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

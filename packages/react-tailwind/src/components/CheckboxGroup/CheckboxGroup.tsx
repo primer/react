@@ -84,11 +84,11 @@ const Root = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(function Check
               aria-describedby={group.describedBy}
               disabled={fieldsetState.disabled}
               data-component="CheckboxGroup"
-              className={mergeClassName('m-0 grid min-w-0 gap-2', className)}
+              className={mergeClassName('primer:m-0 primer:grid primer:min-w-0 primer:gap-2', className)}
             >
               {children}
               {group.requiredId ? (
-                <span id={group.requiredId} className="sr-only">
+                <span id={group.requiredId} className="primer:sr-only">
                   Required
                 </span>
               ) : null}

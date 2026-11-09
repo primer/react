@@ -11,6 +11,7 @@ import {
   useRegisterOverflowItem,
 } from '../../internal/overflow'
 import {mergeRefs} from '../../internal/refs'
+import type {BroadAsProps, PolymorphicPropsWithDefaultRef} from '../../utils/types/component'
 import {
   UnderlineCounter,
   UnderlineItemContent,
@@ -42,12 +43,12 @@ type OverflowEntry = Omit<UnderlineNavItemProps, 'as' | 'className' | 'leadingVi
 const UnderlineNavRegistryContext = React.createContext<RegisterOverflowItem<OverflowEntry> | null>(null)
 
 const iconVisibilityClasses: Record<Exclude<HideIconsBreakpoint, null>, string> = {
-  xsmall: '@max-[320px]/underline-nav:hidden',
-  small: '@max-[544px]/underline-nav:hidden',
-  medium: '@max-[768px]/underline-nav:hidden',
-  large: '@max-[1012px]/underline-nav:hidden',
-  xlarge: '@max-[1280px]/underline-nav:hidden',
-  xxlarge: '@max-[1400px]/underline-nav:hidden',
+  xsmall: 'primer:@max-[320px]/underline-nav:hidden',
+  small: 'primer:@max-[544px]/underline-nav:hidden',
+  medium: 'primer:@max-[768px]/underline-nav:hidden',
+  large: 'primer:@max-[1012px]/underline-nav:hidden',
+  xlarge: 'primer:@max-[1280px]/underline-nav:hidden',
+  xxlarge: 'primer:@max-[1400px]/underline-nav:hidden',
 }
 
 function isCurrent(ariaCurrent: React.AriaAttributes['aria-current']) {
@@ -75,7 +76,7 @@ function renderOverflowItem([id, {entry}]: [string, OverflowItem<OverflowEntry>]
     <ActionMenu.Item
       key={id}
       data-current={isCurrent(ariaCurrent) || undefined}
-      className="relative data-[current]:font-semibold data-[current]:after:absolute data-[current]:after:inset-y-0.5 data-[current]:after:left-0 data-[current]:after:w-0.5 data-[current]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)] data-[current]:after:content-[''] forced-colors:data-[current]:after:bg-[LinkText]"
+      className="primer:relative primer:data-[current]:font-semibold primer:data-[current]:after:absolute primer:data-[current]:after:inset-y-0.5 primer:data-[current]:after:left-0 primer:data-[current]:after:w-0.5 primer:data-[current]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)] primer:data-[current]:after:content-[''] primer:forced-colors:data-[current]:after:bg-[LinkText]"
       render={<Component {...props} {...getHrefProps(Component, href)} aria-current={ariaCurrent} />}
       onClick={event => selectItem(event, onClick, onSelect)}
     >
@@ -129,7 +130,7 @@ const Root = React.forwardRef<HTMLElement, UnderlineNavProps>(function Underline
 
   return (
     <UnderlineNavContext.Provider value={{hideIconsBreakpoint, loadingCounters}}>
-      {ariaLabel ? <h2 className="sr-only">{`${ariaLabel} navigation`}</h2> : null}
+      {ariaLabel ? <h2 className="primer:sr-only">{`${ariaLabel} navigation`}</h2> : null}
       <Component
         {...props}
         ref={mergeRefs(ref, setNav)}
@@ -140,8 +141,8 @@ const Root = React.forwardRef<HTMLElement, UnderlineNavProps>(function Underline
         data-variant={variant}
         className={cn(
           underlineRootClassName,
-          'box-border max-h-12 overflow-hidden border-0 pb-0 [--underline-nav-more-display:none] data-[has-overflow]:[--underline-nav-more-display:flex]',
-          variant === 'inset' ? 'px-4' : '',
+          'primer:box-border primer:max-h-12 primer:overflow-hidden primer:border-0 primer:pb-0 primer:[--underline-nav-more-display:none] primer:data-[has-overflow]:[--underline-nav-more-display:flex]',
+          variant === 'inset' ? 'primer:px-4' : '',
           className,
         )}
       >
@@ -149,25 +150,31 @@ const Root = React.forwardRef<HTMLElement, UnderlineNavProps>(function Underline
         {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
         <ul
           role="list"
-          className={cn(underlineListClassName, 'min-w-0 grow flex-wrap overflow-hidden [contain:layout]')}
+          className={cn(
+            underlineListClassName,
+            'primer:min-w-0 primer:grow primer:flex-wrap primer:overflow-hidden primer:[contain:layout]',
+          )}
         >
           {/* An empty first item lets even the first real item wrap onto the clipped second line. */}
-          <li role="presentation" aria-hidden="true" className="-me-2 h-10" />
+          <li role="presentation" aria-hidden="true" className="primer:-me-2 primer:h-10" />
           <OverflowObserverProvider root={nav}>
             <UnderlineNavRegistryContext.Provider value={register}>{children}</UnderlineNavRegistryContext.Provider>
           </OverflowObserverProvider>
         </ul>
         <div
           data-component="UnderlineNav.MoreButtonContainer"
-          className="items-center [display:var(--underline-nav-more-display)]"
+          className="primer:items-center primer:[display:var(--underline-nav-more-display)]"
         >
-          <div aria-hidden="true" className="mx-1 inline-block h-6 w-0 border-l border-muted" />
+          <div
+            aria-hidden="true"
+            className="primer:mx-1 primer:inline-block primer:h-6 primer:w-0 primer:border-l primer:border-muted"
+          />
           <ActionMenu open={isMenuOpen} onOpenChange={open => setIsMenuOpen(open)}>
             <ActionMenu.Button
               variant="invisible"
               aria-label={isCurrentOverflowing ? 'More items, including current item' : undefined}
               data-current={isCurrentOverflowing || undefined}
-              className="relative m-0 font-normal data-[current]:font-semibold data-[current]:after:pointer-events-none data-[current]:after:absolute data-[current]:after:inset-x-0 data-[current]:after:bottom-0 data-[current]:after:-mb-[9px] data-[current]:after:h-0.5 data-[current]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)] data-[current]:after:content-[''] forced-colors:data-[current]:after:bg-[LinkText]"
+              className="primer:relative primer:m-0 primer:font-normal primer:data-[current]:font-semibold primer:data-[current]:after:pointer-events-none primer:data-[current]:after:absolute primer:data-[current]:after:inset-x-0 primer:data-[current]:after:bottom-0 primer:data-[current]:after:-mb-[9px] primer:data-[current]:after:h-0.5 primer:data-[current]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)] primer:data-[current]:after:content-[''] primer:forced-colors:data-[current]:after:bg-[LinkText]"
             >
               <span>
                 More<VisuallyHidden> items</VisuallyHidden>
@@ -183,8 +190,7 @@ const Root = React.forwardRef<HTMLElement, UnderlineNavProps>(function Underline
   )
 })
 
-export interface UnderlineNavItemProps
-  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'data-component' | 'onSelect'> {
+interface UnderlineNavItemOwnProps {
   /**
    * Element to render, such as a router link component. Native anchors default to `href="#"`; custom components
    * receive no default `href`, so they can supply their own navigation target.
@@ -197,7 +203,18 @@ export interface UnderlineNavItemProps
   /** Called when the item is activated, from the bar or from the "More" menu. */
   onSelect?: (event: React.MouseEvent<HTMLElement>) => void
 }
-const Item = React.forwardRef<HTMLElement, UnderlineNavItemProps>(function UnderlineNavItem(
+
+export type UnderlineNavItemProps<As extends React.ElementType = never> = PolymorphicPropsWithDefaultRef<
+  As,
+  UnderlineNavItemOwnProps,
+  'a',
+  HTMLElement
+>
+
+const ItemRoot = React.forwardRef<
+  HTMLElement,
+  UnderlineNavItemOwnProps & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'data-component' | 'onSelect'>
+>(function UnderlineNavItem(
   {
     as: Component = 'a',
     className,
@@ -239,7 +256,7 @@ const Item = React.forwardRef<HTMLElement, UnderlineNavItemProps>(function Under
       ref={setItem}
       aria-hidden={isOverflowing || undefined}
       data-component="UnderlineNav.Item"
-      className="flex flex-col items-center overflow-hidden"
+      className="primer:flex primer:flex-col primer:items-center primer:overflow-hidden"
     >
       <Component
         {...props}
@@ -265,6 +282,12 @@ const Item = React.forwardRef<HTMLElement, UnderlineNavItemProps>(function Under
   )
 })
 
-export const UnderlineNav = Object.assign(Root, {Item})
 Root.displayName = 'UnderlineNav'
-Item.displayName = 'UnderlineNav.Item'
+ItemRoot.displayName = 'UnderlineNav.Item'
+const Item = ItemRoot as {
+  <As extends React.ElementType>(props: UnderlineNavItemProps<As> & {as: As}): React.ReactElement | null
+  (props: UnderlineNavItemProps<'a'>): React.ReactElement | null
+  <As extends React.ElementType>(props: BroadAsProps<As, UnderlineNavItemProps>): React.ReactElement | null
+  displayName?: string
+}
+export const UnderlineNav = Object.assign(Root, {Item})

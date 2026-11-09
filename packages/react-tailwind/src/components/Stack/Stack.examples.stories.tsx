@@ -14,7 +14,7 @@ const SummaryRow = ({label, value}: {label: string; value: string}) => (
 
 export const SettingsSummary: Story = {
   render: () => (
-    <Stack gap="normal" padding="normal" className="max-w-md border border-default">
+    <Stack gap="normal" padding="normal" className="max-w-md border-thin border-default">
       <h2 className="m-0">Repository settings</h2>
       <SummaryRow label="Visibility" value="Private" />
       <SummaryRow label="Default branch" value="main" />

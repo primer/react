@@ -7,6 +7,7 @@ import {buttonVariants} from './styles'
 export type ButtonVariant = 'default' | 'primary' | 'danger' | 'invisible' | 'link'
 
 interface ButtonClassNameOptions {
+  autoWrapInActions?: boolean
   block?: boolean
   children?: React.ReactNode
   className?: string
@@ -19,6 +20,7 @@ interface ButtonClassNameOptions {
 }
 
 export function getButtonClassName({
+  autoWrapInActions = false,
   block,
   children,
   className,
@@ -34,46 +36,56 @@ export function getButtonClassName({
     count !== undefined &&
       leadingVisual &&
       !children &&
-      (size === 'small' ? 'px-1' : size === 'large' ? 'px-3' : 'px-2'),
+      (size === 'small' ? 'primer:px-1' : size === 'large' ? 'primer:px-3' : 'primer:px-2'),
     labelWrap && [
-      'h-auto min-w-fit whitespace-normal',
-      size === 'small' ? 'min-h-7' : size === 'large' ? 'min-h-10' : 'min-h-8',
+      'primer:h-auto primer:min-w-fit primer:whitespace-normal',
+      size === 'small' ? 'primer:min-h-7' : size === 'large' ? 'primer:min-h-10' : 'primer:min-h-8',
     ],
-    '[&:has([data-kbd-chord])]:pr-1.5',
-    size === 'large' && '[&:has([data-kbd-chord])]:pr-2',
-    '[&_[data-kbd-chord]]:transition-colors [&_[data-kbd-chord]]:duration-[80ms]',
+    autoWrapInActions &&
+      labelWrap === undefined &&
+      variant !== 'link' && [
+        'primer:min-w-[var(--primer-action-min-width,max-content)]',
+        size === 'small'
+          ? 'primer:h-[var(--primer-action-height,--spacing(7))] primer:min-h-[var(--primer-action-min-height-small,auto)]'
+          : size === 'large'
+            ? 'primer:h-[var(--primer-action-height,--spacing(10))] primer:min-h-[var(--primer-action-min-height-large,auto)]'
+            : 'primer:h-[var(--primer-action-height,--spacing(8))] primer:min-h-[var(--primer-action-min-height-medium,auto)]',
+      ],
+    'primer:[&:has([data-kbd-chord])]:pr-1.5',
+    size === 'large' && 'primer:[&:has([data-kbd-chord])]:pr-2',
+    'primer:[&_[data-kbd-chord]]:transition-colors primer:[&_[data-kbd-chord]]:duration-[80ms]',
     // Counters and keybinding hints follow the button's state from the root, like Primer's `.CounterLabel` and
     // `[data-kbd-chord]` rules. Disabled selectors outrank hover and pressed ones.
-    '[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-component=ButtonCounter]]:text-inherit',
+    'primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-component=ButtonCounter]]:text-inherit',
     variant === 'default' && [
-      '[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-default-bgColor-rest)]',
-      '[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-default-borderColor-rest)] [&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-default-bgColor-rest)] [&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-default-fgColor-rest)]',
-      '[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-default-borderColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-default-bgColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-default-fgColor-disabled)]',
+      'primer:[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-default-bgColor-rest)]',
+      'primer:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-default-borderColor-rest)] primer:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-default-bgColor-rest)] primer:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-default-fgColor-rest)]',
+      'primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-default-borderColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-default-bgColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-default-fgColor-disabled)]',
     ],
     variant === 'primary' && [
-      '[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-primary-bgColor-rest)] [&_[data-component=ButtonCounter]]:text-[var(--button-primary-fgColor-rest)]!',
-      '[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-primary-borderColor-rest)] [&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-primary-bgColor-rest)] [&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-primary-fgColor-rest)]',
-      '[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-primary-borderColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-primary-bgColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-primary-fgColor-disabled)]',
+      'primer:[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-primary-bgColor-rest)] primer:[&_[data-component=ButtonCounter]]:text-[var(--button-primary-fgColor-rest)]!',
+      'primer:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-primary-borderColor-rest)] primer:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-primary-bgColor-rest)] primer:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-primary-fgColor-rest)]',
+      'primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-primary-borderColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-primary-bgColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-primary-fgColor-disabled)]',
     ],
     variant === 'danger' && [
-      '[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-danger-bgColor-rest)] [&_[data-component=ButtonCounter]]:text-[var(--buttonCounter-danger-fgColor-rest)]',
-      '[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-danger-borderColor-rest)] [&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-danger-bgColor-rest)] [&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-danger-fgColor-rest)]',
+      'primer:[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-danger-bgColor-rest)] primer:[&_[data-component=ButtonCounter]]:text-[var(--buttonCounter-danger-fgColor-rest)]',
+      'primer:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-danger-borderColor-rest)] primer:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-danger-bgColor-rest)] primer:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-danger-fgColor-rest)]',
       !inactive &&
-        'hover:[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-danger-bgColor-hover)] hover:[&_[data-component=ButtonCounter]]:text-[var(--buttonCounter-danger-fgColor-hover)] active:[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-danger-bgColor-hover)] active:[&_[data-component=ButtonCounter]]:text-[var(--buttonCounter-danger-fgColor-hover)]',
+        'primer:hover:[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-danger-bgColor-hover)] primer:hover:[&_[data-component=ButtonCounter]]:text-[var(--buttonCounter-danger-fgColor-hover)] primer:active:[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-danger-bgColor-hover)] primer:active:[&_[data-component=ButtonCounter]]:text-[var(--buttonCounter-danger-fgColor-hover)]',
       !inactive &&
-        'hover:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-danger-borderColor-hover)] hover:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-danger-bgColor-hover)] hover:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-danger-fgColor-hover)] active:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-danger-borderColor-active)] active:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-danger-bgColor-active)] active:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-danger-fgColor-active)]',
-      '[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-danger-bgColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-component=ButtonCounter]]:text-[var(--buttonCounter-danger-fgColor-disabled)]',
-      '[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-danger-borderColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-danger-bgColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-danger-fgColor-disabled)]',
+        'primer:hover:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-danger-borderColor-hover)] primer:hover:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-danger-bgColor-hover)] primer:hover:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-danger-fgColor-hover)] primer:active:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-danger-borderColor-active)] primer:active:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-danger-bgColor-active)] primer:active:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-danger-fgColor-active)]',
+      'primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-danger-bgColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-component=ButtonCounter]]:text-[var(--buttonCounter-danger-fgColor-disabled)]',
+      'primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-danger-borderColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-danger-bgColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-danger-fgColor-disabled)]',
     ],
     variant === 'invisible' && [
-      '[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-invisible-bgColor-rest)]',
-      '[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-invisible-borderColor-rest)] [&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-invisible-bgColor-rest)] [&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-invisible-fgColor-rest)]',
+      'primer:[&_[data-component=ButtonCounter]]:bg-[var(--buttonCounter-invisible-bgColor-rest)]',
+      'primer:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-invisible-borderColor-rest)] primer:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-invisible-bgColor-rest)] primer:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-invisible-fgColor-rest)]',
       !inactive &&
-        'hover:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-invisible-bgColor-hover)] active:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-invisible-bgColor-active)]',
-      '[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-invisible-borderColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-invisible-bgColor-disabled)] [&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-invisible-fgColor-disabled)]',
+        'primer:hover:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-invisible-bgColor-hover)] primer:active:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-invisible-bgColor-active)]',
+      'primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-invisible-borderColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-invisible-bgColor-disabled)] primer:[&:is(:disabled,[aria-disabled=true]:not([data-loading=true]))_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-invisible-fgColor-disabled)]',
     ],
     inactive &&
-      '[&_[data-component=ButtonCounter]]:text-inherit! [&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-inactive-borderColor)] [&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-inactive-bgColor)] [&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-inactive-fgColor)]',
+      'primer:[&_[data-component=ButtonCounter]]:text-inherit! primer:[&_[data-kbd-chord]]:border-[var(--buttonKeybindingHint-inactive-borderColor)] primer:[&_[data-kbd-chord]]:bg-[var(--buttonKeybindingHint-inactive-bgColor)] primer:[&_[data-kbd-chord]]:text-[var(--buttonKeybindingHint-inactive-fgColor)]',
     className,
   )
 }

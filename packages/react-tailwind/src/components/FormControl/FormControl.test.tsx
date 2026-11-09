@@ -1,5 +1,6 @@
 import React from 'react'
-import {cleanup, render, screen, within} from '@testing-library/react'
+import {Field} from '@base-ui/react/field'
+import {cleanup, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {renderToString} from 'react-dom/server'
 import {afterEach, describe, expect, it, vi} from 'vitest'
@@ -15,6 +16,163 @@ import {FormControl, useFormControlForwardedProps} from './index'
 afterEach(cleanup)
 
 describe('FormControl', () => {
+  it.each([undefined, 'script'])(
+    'keeps a nonnative label connected without forwarding explicit or inferred htmlFor (%s)',
+    async htmlFor => {
+      const user = userEvent.setup()
+      const ref = React.createRef<HTMLSpanElement>()
+      render(
+        <>
+          <button type="button">Before</button>
+          <FormControl id="script">
+            <FormControl.Label id="script-label" ref={ref} render={<span />} nativeLabel={false} htmlFor={htmlFor}>
+              Script
+            </FormControl.Label>
+            <FormControl.Control aria-labelledby="script-label" />
+            <FormControl.Caption>Enter a script</FormControl.Caption>
+          </FormControl>
+          <button type="button">After</button>
+        </>,
+      )
+      const label = screen.getByText('Script')
+      const input = screen.getByRole('textbox', {name: 'Script'})
+      expect(label.tagName).toBe('SPAN')
+      expect(label).toBe(ref.current)
+      expect(label).toHaveAttribute('data-component', 'FormControl.Label')
+      expect(label).not.toHaveAttribute('for')
+      expect(input).toHaveAccessibleDescription('Enter a script')
+      await user.click(label)
+      expect(input).toHaveFocus()
+      screen.getByRole('button', {name: 'Before'}).focus()
+      await user.tab()
+      expect(input).toHaveFocus()
+      await user.tab()
+      expect(screen.getByRole('button', {name: 'After'})).toHaveFocus()
+    },
+  )
+
+  it('preserves manually authored external-control references with a nonnative label', () => {
+    render(
+      <FormControl id="script">
+        <FormControl.Label id="script-label" render={<span />} nativeLabel={false} htmlFor="script">
+          Script
+        </FormControl.Label>
+        <textarea id="script" aria-labelledby="script-label" aria-describedby="script-help" />
+        <FormControl.Caption id="script-help">Enter a script</FormControl.Caption>
+      </FormControl>,
+    )
+    expect(screen.getByText('Script')).not.toHaveAttribute('for')
+    expect(screen.getByRole('textbox', {name: 'Script'})).toHaveAccessibleDescription('Enter a script')
+  })
+
+  it('keeps htmlFor on native labels', () => {
+    render(
+      <FormControl id="script">
+        <FormControl.Label htmlFor="script">Script</FormControl.Label>
+        <textarea id="script" />
+      </FormControl>,
+    )
+    expect(screen.getByText('Script').tagName).toBe('LABEL')
+    expect(screen.getByText('Script')).toHaveAttribute('for', 'script')
+    expect(screen.getByRole('textbox', {name: 'Script'})).toBeVisible()
+  })
+
+  it('renders standalone error and success messages without a field and preserves their props and refs', () => {
+    const ref = React.createRef<HTMLDivElement>()
+    const message = (variant: 'error' | 'success') => (
+      <FormControl.Validation
+        ref={ref}
+        id="standalone-validation"
+        variant={variant}
+        className="consumer-validation"
+        style={{marginTop: 8}}
+        data-testid="validation"
+      >
+        Suggestion could not be applied.
+      </FormControl.Validation>
+    )
+    const {rerender} = render(message('error'))
+    const validation = screen.getByTestId('validation')
+    expect(ref.current).toBe(validation)
+    expect(validation).toHaveAttribute('id', 'standalone-validation')
+    expect(validation).toHaveClass('consumer-validation', 'primer:text-danger')
+    expect(validation).toHaveStyle({marginTop: '8px'})
+    expect(validation).toHaveAttribute('data-variant', 'error')
+    expect(validation).not.toHaveAttribute('role')
+    expect(validation).not.toHaveAttribute('aria-live')
+    expect(validation).toHaveTextContent('Suggestion could not be applied.')
+    expect(validation.querySelector('svg')?.closest('[aria-hidden]')).toHaveAttribute('aria-hidden', 'true')
+
+    rerender(message('success'))
+    expect(ref.current).toBe(validation)
+    expect(screen.getByRole('status')).toBe(validation)
+    expect(validation).toHaveClass('primer:text-success')
+    expect(validation).not.toHaveClass('primer:text-danger')
+    rerender(message('error'))
+    expect(ref.current).toBe(validation)
+    expect(validation).not.toHaveAttribute('role')
+  })
+
+  it('preserves explicit standalone announcements and does not create an orphan field id', () => {
+    render(
+      <FormControl.Validation variant="error" role="alert" aria-live="assertive">
+        Suggestion could not be applied.
+      </FormControl.Validation>,
+    )
+    const validation = screen.getByRole('alert')
+    expect(validation).toHaveAttribute('aria-live', 'assertive')
+    expect(validation).not.toHaveAttribute('id')
+  })
+
+  it('hydrates a standalone error associated with an external editor without changing its DOM', () => {
+    const example = (
+      <>
+        <label htmlFor="suggestion">Suggestion</label>
+        <textarea id="suggestion" aria-invalid="true" aria-describedby="suggestion-error" />
+        <FormControl.Validation id="suggestion-error" variant="error">
+          Suggestion could not be applied.
+        </FormControl.Validation>
+      </>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(example)
+    document.body.appendChild(container)
+    const validation = container.querySelector('#suggestion-error')
+    render(example, {container, hydrate: true})
+    expect(container.querySelector('#suggestion-error')).toBe(validation)
+    expect(screen.getByRole('textbox', {name: 'Suggestion'})).toHaveAccessibleDescription(
+      'Suggestion could not be applied.',
+    )
+  })
+
+  it('registers and removes nested errors with a raw Base UI field without replacing its control', async () => {
+    const user = userEvent.setup()
+    const example = (invalid: boolean) => (
+      <Field.Root invalid={invalid}>
+        <Field.Label>Repository</Field.Label>
+        <Field.Control defaultValue="primer/react" />
+        <Field.Description>Use an owner and repository.</Field.Description>
+        {invalid ? (
+          <FormControl.Validation id="raw-field-error" variant="error">
+            Enter a valid repository.
+          </FormControl.Validation>
+        ) : null}
+      </Field.Root>
+    )
+    const {rerender} = render(example(true))
+    const control = screen.getByRole('textbox', {name: 'Repository'})
+    await user.click(control)
+    expect(control).toHaveAttribute('aria-invalid', 'true')
+    expect(control).toHaveAccessibleDescription('Use an owner and repository. Enter a valid repository.')
+    rerender(example(false))
+    expect(screen.getByRole('textbox', {name: 'Repository'})).toBe(control)
+    expect(control).toHaveFocus()
+    expect(control).toHaveValue('primer/react')
+    expect(control).not.toHaveAttribute('aria-invalid')
+    expect(control).toHaveAccessibleDescription('Use an owner and repository.')
+    expect(control).not.toHaveAttribute('aria-describedby', expect.stringContaining('raw-field-error'))
+  })
+
   it('associates composable labels and native Field.Control while forwarding rest props and refs', async () => {
     const user = userEvent.setup()
     const ref = React.createRef<HTMLDivElement>()
@@ -618,6 +776,43 @@ describe('FormControl', () => {
     expect(screen.getByRole('status')).toHaveAttribute('data-variant', 'success')
   })
 
+  it('associates a separate validation message with an editor outside the field root', () => {
+    const ref = React.createRef<HTMLDivElement>()
+    render(
+      <>
+        <label htmlFor="description">Description</label>
+        <textarea id="description" aria-invalid="true" aria-describedby="description-help description-error" />
+        <p id="description-help">Describe the issue.</p>
+        <Field.Root>
+          <FormControl.Validation ref={ref} id="description-error" variant="error">
+            Enter a description.
+          </FormControl.Validation>
+        </Field.Root>
+      </>,
+    )
+
+    const editor = screen.getByRole('textbox', {name: 'Description'})
+    expect(editor).toHaveAttribute('aria-invalid', 'true')
+    expect(editor).toHaveAccessibleDescription('Describe the issue. Enter a description.')
+    expect(ref.current).toHaveAttribute('id', 'description-error')
+  })
+
+  it('registers an error with a Base UI field when composed directly', async () => {
+    render(
+      <Field.Root>
+        <Field.Label>Repository</Field.Label>
+        <Field.Control />
+        <FormControl.Validation id="repository-error" variant="error">
+          Enter a repository.
+        </FormControl.Validation>
+      </Field.Root>,
+    )
+
+    await waitFor(() =>
+      expect(screen.getByRole('textbox', {name: 'Repository'})).toHaveAccessibleDescription('Enter a repository.'),
+    )
+  })
+
   it('shows the validation variant on text controls unless they set their own status', () => {
     function CustomControl(props: React.ComponentPropsWithoutRef<'input'>) {
       return <input {...useFormControlForwardedProps(props)} />
@@ -724,7 +919,7 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    expect(screen.getByTestId('label')).toHaveClass('sr-only')
+    expect(screen.getByTestId('label')).toHaveClass('primer:sr-only')
     expect(screen.getByTestId('label')).not.toHaveAttribute('visuallyhidden')
   })
 
@@ -736,8 +931,8 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    expect(screen.getByTestId('horizontal-label')).toHaveClass('font-normal')
-    expect(screen.getByTestId('visual')).toHaveClass('text-[var(--control-fgColor-disabled)]')
+    expect(screen.getByTestId('horizontal-label')).toHaveClass('primer:font-normal')
+    expect(screen.getByTestId('visual')).toHaveClass('primer:text-[var(--control-fgColor-disabled)]')
     expect(screen.getByTestId('visual')).toHaveAttribute('data-control-disabled', 'true')
   })
 
@@ -749,7 +944,7 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    expect(screen.getByTestId('visual')).toHaveClass('text-default')
+    expect(screen.getByTestId('visual')).toHaveClass('primer:text-default')
   })
 
   it('sizes leading visual icons to 16px and grows them beside a caption', () => {
@@ -762,9 +957,13 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    expect(screen.getByTestId('visual')).toHaveClass('[&>*]:min-h-4', '[&>*]:min-w-4', '[&>*]:fill-current')
+    expect(screen.getByTestId('visual')).toHaveClass(
+      'primer:[&>*]:min-h-4',
+      'primer:[&>*]:min-w-4',
+      'primer:[&>*]:fill-current',
+    )
     expect(screen.getByTestId('visual').className).toContain(
-      "[[data-component='FormControl']:has([data-component='FormControl.Caption'])_&>*]:min-h-6",
+      "primer:[[data-component='FormControl']:has([data-component='FormControl.Caption'])_&>*]:min-h-6",
     )
   })
 
@@ -777,7 +976,7 @@ describe('FormControl', () => {
     )
     const root = container.querySelector('[data-component="FormControl"]')
 
-    expect(root).toHaveClass('[&>*:not(label)+*]:mt-1')
+    expect(root).toHaveClass('primer:[&>*:not(label)+*]:mt-1')
 
     rerender(
       <FormControl>
@@ -786,7 +985,7 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    expect(root).toHaveClass('[&>*+*]:mt-1')
+    expect(root).toHaveClass('primer:[&>*+*]:mt-1')
 
     rerender(
       <FormControl>
@@ -798,7 +997,7 @@ describe('FormControl', () => {
       </FormControl>,
     )
 
-    expect(root).toHaveClass('[&>*+*]:mt-1')
+    expect(root).toHaveClass('primer:[&>*+*]:mt-1')
   })
 
   it('renders only one input when layout is horizontal with a non-choice input', () => {
@@ -813,6 +1012,286 @@ describe('FormControl', () => {
     expect(screen.getByRole('textbox')).toHaveAccessibleName('Name')
   })
 
+  it('supports an explicit horizontal layout for a wrapped checkbox', async () => {
+    const user = userEvent.setup()
+    function WrappedCheckbox(props: React.ComponentProps<typeof Checkbox>) {
+      return <Checkbox {...props} />
+    }
+
+    render(
+      <FormControl id="notifications" layout="horizontal" data-testid="field">
+        <WrappedCheckbox />
+        <FormControl.Label>Notifications</FormControl.Label>
+        <FormControl.Caption>Receive repository updates.</FormControl.Caption>
+      </FormControl>,
+    )
+
+    const checkbox = screen.getByRole('checkbox', {name: 'Notifications'})
+    expect(screen.getByTestId('field')).toHaveAttribute('data-layout', 'horizontal')
+    expect(checkbox).toHaveAccessibleDescription('Receive repository updates.')
+    await user.click(screen.getByText('Notifications'))
+    expect(checkbox).toBeChecked()
+  })
+
+  it('supports an explicit horizontal layout for a wrapped package radio', async () => {
+    const user = userEvent.setup()
+    function WrappedRadio(props: React.ComponentProps<typeof Radio>) {
+      return <Radio {...props} />
+    }
+
+    render(
+      <RadioGroup name="notifications">
+        <RadioGroup.Label>Notification preference</RadioGroup.Label>
+        <FormControl id="notification-email" layout="horizontal" data-testid="field">
+          <WrappedRadio value="email" />
+          <FormControl.Label>Email</FormControl.Label>
+          <FormControl.Caption>Receive email updates.</FormControl.Caption>
+        </FormControl>
+      </RadioGroup>,
+    )
+
+    const radio = screen.getByRole('radio', {name: 'Email'})
+    expect(screen.getByTestId('field')).toHaveAttribute('data-layout', 'horizontal')
+    expect(radio).toHaveAccessibleDescription('Receive email updates.')
+    await user.click(screen.getByText('Email'))
+    expect(radio).toBeChecked()
+  })
+
+  it('names a wrapped package radio before and after hydration', async () => {
+    const user = userEvent.setup()
+    function WrappedRadio(props: React.ComponentProps<typeof Radio>) {
+      return <Radio {...props} />
+    }
+    const field = (
+      <RadioGroup name="notifications">
+        <RadioGroup.Label>Notification preference</RadioGroup.Label>
+        <FormControl id="notification-email" layout="horizontal">
+          <WrappedRadio value="email" />
+          <FormControl.Label>Email</FormControl.Label>
+          <FormControl.Caption>Receive email updates.</FormControl.Caption>
+        </FormControl>
+      </RadioGroup>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(field)
+    document.body.appendChild(container)
+
+    try {
+      const radio = within(container).getByRole('radio')
+      expect(radio).toHaveAccessibleName('Email')
+      expect(radio).toHaveAccessibleDescription('Receive email updates.')
+      render(field, {container, hydrate: true})
+      expect(radio).toHaveAccessibleName('Email')
+      expect(radio).toHaveAccessibleDescription('Receive email updates.')
+      await user.click(within(container).getByText('Email'))
+      expect(radio).toBeChecked()
+    } finally {
+      container.remove()
+    }
+  })
+
+  it('names wrapped package checkbox and switch controls before and after hydration', async () => {
+    const user = userEvent.setup()
+    function WrappedCheckbox(props: React.ComponentProps<typeof Checkbox>) {
+      return <Checkbox {...props} />
+    }
+    function WrappedSwitch(props: React.ComponentProps<typeof ToggleSwitch>) {
+      return <ToggleSwitch {...props} />
+    }
+    const field = (
+      <>
+        <FormControl id="notifications" layout="horizontal">
+          <WrappedCheckbox />
+          <FormControl.Label>Notifications</FormControl.Label>
+        </FormControl>
+        <FormControl id="enabled">
+          <WrappedSwitch />
+          <FormControl.Label>Enabled</FormControl.Label>
+        </FormControl>
+      </>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(field)
+    document.body.appendChild(container)
+
+    try {
+      const checkbox = within(container).getByRole('checkbox')
+      const toggle = within(container).getByRole('switch')
+      expect(checkbox).toHaveAccessibleName('Notifications')
+      expect(toggle).toHaveAccessibleName('Enabled')
+      render(field, {container, hydrate: true})
+      expect(checkbox).toHaveAccessibleName('Notifications')
+      expect(toggle).toHaveAccessibleName('Enabled')
+      await user.click(within(container).getByText('Notifications'))
+      await user.click(within(container).getByText('Enabled'))
+      expect(checkbox).toBeChecked()
+      expect(toggle).toBeChecked()
+    } finally {
+      container.remove()
+    }
+  })
+
+  it('preserves explicit names for wrapped package choice controls before and after hydration', () => {
+    function WrappedCheckbox(props: React.ComponentProps<typeof Checkbox>) {
+      return <Checkbox {...props} />
+    }
+    function WrappedRadio(props: React.ComponentProps<typeof Radio>) {
+      return <Radio {...props} />
+    }
+    function WrappedSwitch(props: React.ComponentProps<typeof ToggleSwitch>) {
+      return <ToggleSwitch {...props} />
+    }
+    const field = (
+      <>
+        <span id="checkbox-explicit-name">Notifications by email</span>
+        <span id="radio-explicit-name">Email notifications</span>
+        <span id="switch-explicit-name">Enabled for notifications</span>
+        <FormControl id="checkbox-field">
+          <FormControl.Label>Notifications</FormControl.Label>
+          <WrappedCheckbox aria-labelledby="checkbox-explicit-name" />
+        </FormControl>
+        <RadioGroup name="options">
+          <RadioGroup.Label>Options</RadioGroup.Label>
+          <FormControl id="radio-field">
+            <FormControl.Label>Email</FormControl.Label>
+            <WrappedRadio aria-labelledby="radio-explicit-name" value="email" />
+          </FormControl>
+        </RadioGroup>
+        <FormControl id="switch-field">
+          <FormControl.Label>Enabled</FormControl.Label>
+          <WrappedSwitch aria-labelledby="switch-explicit-name" />
+        </FormControl>
+      </>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(field)
+    document.body.appendChild(container)
+
+    try {
+      const assertNames = () => {
+        expect(within(container).getByRole('checkbox')).toHaveAccessibleName('Notifications by email')
+        expect(within(container).getByRole('radio')).toHaveAccessibleName('Email notifications')
+        expect(within(container).getByRole('switch')).toHaveAccessibleName('Enabled for notifications')
+      }
+      assertNames()
+      render(field, {container, hydrate: true})
+      assertNames()
+    } finally {
+      container.remove()
+    }
+  })
+
+  it('uses the visible field label consistently when a wrapped choice control also has aria-label', () => {
+    function WrappedSwitch(props: React.ComponentProps<typeof ToggleSwitch>) {
+      return <ToggleSwitch {...props} />
+    }
+    const field = (
+      <FormControl>
+        <FormControl.Label>Enabled</FormControl.Label>
+        <WrappedSwitch aria-label="Enabled for notifications" />
+      </FormControl>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(field)
+    document.body.appendChild(container)
+
+    try {
+      const toggle = within(container).getByRole('switch')
+      expect(toggle).toHaveAccessibleName('Enabled')
+      render(field, {container, hydrate: true})
+      expect(toggle).toHaveAccessibleName('Enabled')
+    } finally {
+      container.remove()
+    }
+  })
+
+  it('preserves aria-label when a wrapped choice control has no field label', () => {
+    function WrappedSwitch(props: React.ComponentProps<typeof ToggleSwitch>) {
+      return <ToggleSwitch {...props} />
+    }
+    const field = (
+      <FormControl>
+        <WrappedSwitch aria-label="Enabled for notifications" />
+      </FormControl>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(field)
+    document.body.appendChild(container)
+
+    try {
+      const toggle = within(container).getByRole('switch')
+      expect(toggle).toHaveAccessibleName('Enabled for notifications')
+      render(field, {container, hydrate: true})
+      expect(toggle).toHaveAccessibleName('Enabled for notifications')
+    } finally {
+      container.remove()
+    }
+  })
+
+  it('associates a native radio adapter before and after hydration', () => {
+    function NativeRadio(props: Omit<React.ComponentPropsWithoutRef<'input'>, 'type'>) {
+      return <input {...useFormControlForwardedProps(props)} type="radio" />
+    }
+    const field = (
+      <FormControl id="native-email" name="notifications" layout="horizontal" required>
+        <NativeRadio value="email" />
+        <FormControl.Label>Email</FormControl.Label>
+        <FormControl.Caption>Receive email updates.</FormControl.Caption>
+      </FormControl>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(field)
+    document.body.appendChild(container)
+
+    try {
+      const radio = within(container).getByRole('radio', {name: /Email/})
+      expect(container.querySelector('label')?.control).toBe(radio)
+      expect(radio).toHaveAttribute('id', 'native-email')
+      expect(radio).toHaveAttribute('name', 'notifications')
+      expect(radio).toBeRequired()
+      expect(radio).toHaveAccessibleDescription('Receive email updates.')
+      expect(radio).not.toHaveAttribute('labelId')
+      render(field, {container, hydrate: true})
+      expect(container.querySelector('label')?.control).toBe(radio)
+      expect(radio).toHaveAccessibleDescription('Receive email updates.')
+    } finally {
+      container.remove()
+    }
+  })
+
+  it('forwards field context to a native radio adapter', async () => {
+    const user = userEvent.setup()
+    function NativeRadio(props: Omit<React.ComponentPropsWithoutRef<'input'>, 'type'>) {
+      return <input {...useFormControlForwardedProps(props)} type="radio" />
+    }
+    const field = (disabled = false) => (
+      <form data-testid="form">
+        <FormControl id="notification-email" name="notifications" disabled={disabled} layout="horizontal" required>
+          <NativeRadio value="email" />
+          <FormControl.Label>Email</FormControl.Label>
+          <FormControl.Caption>Receive email updates.</FormControl.Caption>
+          <FormControl.Validation variant="error">Choose a notification preference.</FormControl.Validation>
+        </FormControl>
+      </form>
+    )
+    const {rerender} = render(field())
+
+    const radio = screen.getByRole('radio', {name: /Email/})
+    expect(radio).toHaveAttribute('id', 'notification-email')
+    expect(radio).toHaveAttribute('name', 'notifications')
+    expect(radio).toBeRequired()
+    expect(radio).toHaveAttribute('aria-invalid', 'true')
+    expect(radio).toHaveAccessibleDescription('Choose a notification preference. Receive email updates.')
+    expect(screen.getByText('Email').closest('label')?.control).toBe(radio)
+    await user.click(screen.getByText('Email'))
+    expect(radio).toBeChecked()
+    expect(new FormData(screen.getByTestId('form') as HTMLFormElement).get('notifications')).toBe('email')
+
+    rerender(field(true))
+    expect(radio).toBeDisabled()
+    expect(new FormData(screen.getByTestId('form') as HTMLFormElement).has('notifications')).toBe(false)
+  })
+
   it('lays out checkbox and radio children horizontally unless a layout is set', () => {
     const {rerender} = render(
       <FormControl data-testid="field">
@@ -822,7 +1301,7 @@ describe('FormControl', () => {
     )
 
     expect(screen.getByTestId('field')).toHaveAttribute('data-layout', 'horizontal')
-    expect(screen.getByTestId('label')).toHaveClass('font-normal')
+    expect(screen.getByTestId('label')).toHaveClass('primer:font-normal')
     expect(screen.getByRole('checkbox')).toHaveAccessibleName('Subscribe')
 
     rerender(

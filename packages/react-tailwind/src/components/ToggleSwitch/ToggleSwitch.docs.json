@@ -45,6 +45,9 @@
       "id": "react-tailwind-forms-toggleswitch-features--focus-visible"
     },
     {
+      "id": "react-tailwind-forms-toggleswitch-features--unavailable-controlled"
+    },
+    {
       "id": "react-tailwind-forms-toggleswitch--default"
     },
     {

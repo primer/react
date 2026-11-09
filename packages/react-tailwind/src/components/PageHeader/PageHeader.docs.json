@@ -111,14 +111,22 @@
       "props": [
         {
           "name": "as",
-          "type": "React.ElementType",
+          "type": "As",
           "defaultValue": "'a'",
-          "description": "Element to render."
+          "description": "Element or component supplied by the wrapper."
+        },
+        {
+          "name": "className",
+          "type": "string"
         },
         {
           "name": "hidden",
           "type": "ResponsiveValue<boolean>",
           "description": "Hides the parent link. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLElement>"
         }
       ],
       "passthrough": {

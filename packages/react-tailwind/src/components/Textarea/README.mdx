@@ -21,6 +21,11 @@ import * as Examples from './Textarea.examples.stories'
 
 ```tsx
 import {Textarea} from '@primer/react-tailwind/Textarea'
+import {FormControl} from '@primer/react-tailwind/FormControl'
+;<FormControl>
+  <FormControl.Label>Description</FormControl.Label>
+  <Textarea name="description" rows={4} />
+</FormControl>
 ```
 
 ## Controlled and uncontrolled

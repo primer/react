@@ -1,5 +1,27 @@
+/*
+ * Standalone entry for generating the package stylesheet with your own Tailwind CLI or bundler plugin.
+ * Compile it as its own stylesheet; do not import it into the stylesheet that generates your app's unprefixed
+ * utilities, because a Tailwind build has a single prefix. It only scans the package's own files.
+ */
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme) prefix(primer);
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
 @import './theme.css';
-@import '@primer/tailwind-config';
+/* Every `@primer/tailwind-config` module except `border`, which is referenced below. Keep in sync with its `index.css`. */
+@import '@primer/tailwind-config/color';
+@import '@primer/tailwind-config/size';
+@import '@primer/tailwind-config/radius';
+@import '@primer/tailwind-config/typography';
+@import '@primer/tailwind-config/shadow';
+@import '@primer/tailwind-config/easing';
+@import '@primer/tailwind-config/z-index';
 @import './components.css';
+
+/*
+ * `@primer/tailwind-config/border` hand-writes unprefixed `.outline-focus` rules. Referencing it keeps its border and
+ * outline theme keys for `primer:` utilities without emitting those rules.
+ */
+@reference '@primer/tailwind-config/border';
 
 @source './';

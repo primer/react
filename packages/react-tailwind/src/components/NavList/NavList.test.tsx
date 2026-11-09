@@ -1,14 +1,77 @@
 import {BookIcon} from '@primer/octicons-react'
-import {act, cleanup, render, screen, within} from '@testing-library/react'
+import {act, cleanup, fireEvent, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {afterEach, describe, expect, it} from 'vitest'
+import {hydrateRoot} from 'react-dom/client'
+import {renderToString} from 'react-dom/server'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 import {FeatureFlags} from '../FeatureFlags'
 import {NavList} from './NavList'
 
 afterEach(cleanup)
 
 describe('NavList', () => {
+  it.each([
+    {name: 'inactiveText', props: {inactiveText: 'Stack is full'}},
+    {name: 'boolean aria-disabled', props: {'aria-disabled': true}},
+    {name: 'string aria-disabled', props: {'aria-disabled': 'true'}},
+  ] as const)('suppresses activation for $name and restores it when available', async ({props}) => {
+    const user = userEvent.setup()
+    const onClick = vi.fn((event: React.MouseEvent<HTMLAnchorElement>) => event.preventDefault())
+    const onAuxClick = vi.fn((event: React.MouseEvent<HTMLAnchorElement>) => event.preventDefault())
+    const list = (inactive: boolean) => (
+      <NavList aria-label="Stacks">
+        <NavList.Item href="#stack" onAuxClick={onAuxClick} onClick={onClick} {...(inactive ? props : {})}>
+          Add to stack
+        </NavList.Item>
+      </NavList>
+    )
+    const {rerender} = render(list(true))
+    const link = screen.getByRole('link', {name: 'Add to stack'})
+    expect(link).toHaveAttribute('aria-disabled', 'true')
+
+    const click = new MouseEvent('click', {bubbles: true, cancelable: true, metaKey: true})
+    fireEvent(link, click)
+    expect(click.defaultPrevented).toBe(true)
+    const auxClick = new MouseEvent('auxclick', {bubbles: true, button: 1, cancelable: true})
+    fireEvent(link, auxClick)
+    expect(auxClick.defaultPrevented).toBe(true)
+    link.focus()
+    await user.keyboard('{Enter}')
+    expect(onClick).not.toHaveBeenCalled()
+    expect(onAuxClick).not.toHaveBeenCalled()
+
+    rerender(list(false))
+    const availableLink = screen.getByRole('link', {name: 'Add to stack'})
+    expect(availableLink).not.toHaveAttribute('aria-disabled')
+    fireEvent.click(availableLink)
+    fireEvent(availableLink, new MouseEvent('auxclick', {bubbles: true, button: 1, cancelable: true}))
+    expect(onClick).toHaveBeenCalledOnce()
+    expect(onAuxClick).toHaveBeenCalledOnce()
+  })
+
+  it('associates the unavailable reason without changing the link name or existing descriptions', () => {
+    render(
+      <>
+        <span id="stack-description">Add this pull request</span>
+        <NavList aria-label="Stacks">
+          <NavList.Item
+            aria-describedby="stack-description"
+            href="#stack"
+            inactiveText="Stack is full"
+            tooltipText="Stack settings"
+          >
+            Add to stack
+          </NavList.Item>
+        </NavList>
+      </>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Add to stack'})).toHaveAccessibleDescription(
+      'Add this pull request Stack is full Stack settings',
+    )
+  })
+
   it('groups direct items into lists without nesting explicit lists or groups in a list', () => {
     const {container} = render(
       <NavList aria-label="Repository">
@@ -25,6 +88,169 @@ describe('NavList', () => {
       expect(item.parentElement?.tagName).toBe('UL')
     }
     expect(container.querySelector('ul > section, ul > ul')).toBeNull()
+  })
+
+  it('keeps wrapped groups, dividers, and surrounding items in valid authored order', async () => {
+    const user = userEvent.setup()
+    const onAction = vi.fn()
+    const groupRef = React.createRef<HTMLElement>()
+    const headingRef = React.createRef<HTMLHeadingElement>()
+    const WrappedHeading = React.forwardRef<
+      HTMLHeadingElement,
+      React.ComponentPropsWithoutRef<typeof NavList.GroupHeading>
+    >(function WrappedHeading(props, ref) {
+      return <NavList.GroupHeading {...props} ref={ref} />
+    })
+    function WrappedGroup() {
+      return (
+        <>
+          <NavList.Divider />
+          <NavList.Group
+            ref={groupRef}
+            hideDivider
+            heading={
+              <WrappedHeading ref={headingRef} as="h2">
+                Settings
+                <NavList.GroupHeading.TrailingAction label="Manage settings" icon={BookIcon} onClick={onAction} />
+              </WrappedHeading>
+            }
+          >
+            <NavList.Item href="#general">General</NavList.Item>
+          </NavList.Group>
+        </>
+      )
+    }
+
+    const {container} = render(
+      <NavList aria-label="Repository">
+        <NavList.Item href="#overview">Overview</NavList.Item>
+        <WrappedGroup />
+        <NavList.Item href="#help">Help</NavList.Item>
+      </NavList>,
+    )
+
+    const nav = screen.getByRole('navigation', {name: 'Repository'})
+    const heading = screen.getByRole('heading', {name: 'Settings', level: 2})
+    const action = screen.getByRole('button', {name: 'Manage settings'})
+    const list = screen.getByRole('list', {name: 'Settings'})
+    expect(container.querySelector('ul > section, ul > ul, ul > h2, ul > h3')).toBeNull()
+    for (const item of container.querySelectorAll('li')) {
+      expect(item.parentElement?.tagName).toBe('UL')
+    }
+    expect(
+      within(nav)
+        .getAllByRole('link')
+        .map(link => link.textContent),
+    ).toEqual(['Overview', 'General', 'Help'])
+    expect(list).toHaveAttribute('aria-labelledby', heading.id)
+    expect(heading).not.toContainElement(action)
+    expect(groupRef.current).toHaveAttribute('data-component', 'NavList.Group')
+    expect(headingRef.current).toBe(heading)
+
+    await user.tab()
+    expect(screen.getByRole('link', {name: 'Overview'})).toHaveFocus()
+    await user.tab()
+    expect(action).toHaveFocus()
+    await user.keyboard('{Enter}')
+    expect(onAction).toHaveBeenCalledOnce()
+    await user.tab()
+    expect(screen.getByRole('link', {name: 'General'})).toHaveFocus()
+  })
+
+  it('keeps a divider between direct groups decorative and outside the accessible list order', () => {
+    const {container} = render(
+      <NavList aria-label="Repository">
+        <NavList.Group title="First">
+          <NavList.Item href="#first">First item</NavList.Item>
+        </NavList.Group>
+        <NavList.Divider data-testid="divider" />
+        <NavList.Group title="Second" hideDivider>
+          <NavList.Item href="#second">Second item</NavList.Item>
+        </NavList.Group>
+      </NavList>,
+    )
+
+    const dividerList = screen.getByTestId('divider').parentElement
+    expect(dividerList).toHaveAttribute('role', 'presentation')
+    expect(dividerList).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getAllByRole('list')).toHaveLength(2)
+    expect(container.querySelector('ul > section, ul > ul')).toBeNull()
+  })
+
+  it('accepts a wrapped collapsed group that renders a list item', () => {
+    function CollapsedGroup() {
+      return (
+        <>
+          <NavList.Divider />
+          <li>
+            <button type="button">Open settings</button>
+          </li>
+        </>
+      )
+    }
+
+    const {container} = render(
+      <NavList aria-label="Repository">
+        <NavList.Item href="#overview">Overview</NavList.Item>
+        <CollapsedGroup />
+        <NavList.Item href="#help">Help</NavList.Item>
+      </NavList>,
+    )
+
+    const list = screen.getByRole('list')
+    expect(Array.from(list.children).map(child => child.tagName)).toEqual(['LI', 'LI', 'LI', 'LI'])
+    expect(container.querySelector('ul > section, ul > ul, li > li')).toBeNull()
+    expect(screen.getByRole('button', {name: 'Open settings'})).toBeInTheDocument()
+  })
+
+  it('handles groups in a raw list and resets list context for a nested navigation', () => {
+    const {container} = render(
+      <NavList aria-label="Outer">
+        <ul>
+          <NavList.Group title="Projects">
+            <NavList.Item href="#overview">Overview</NavList.Item>
+          </NavList.Group>
+          <li>
+            <NavList aria-label="Inner">
+              <NavList.Group title="Settings">
+                <NavList.Item href="#general">General</NavList.Item>
+              </NavList.Group>
+            </NavList>
+          </li>
+        </ul>
+      </NavList>,
+    )
+
+    expect(
+      container.querySelector('ul > section, ul > ul, li > li, nav [data-component="NavList.Content"] > li'),
+    ).toBeNull()
+    expect(screen.getByRole('list', {name: 'Projects'})).toBeInTheDocument()
+    expect(screen.getByRole('list', {name: 'Settings'})).toBeInTheDocument()
+  })
+
+  it('defaults group heading levels relative to the navigation heading and permits an explicit level', () => {
+    const {rerender} = render(
+      <NavList>
+        <NavList.Heading as="h3">Repository</NavList.Heading>
+        <NavList.Group title="Settings">
+          <NavList.Item href="#general">General</NavList.Item>
+        </NavList.Group>
+        <NavList.Group>
+          <NavList.GroupHeading as="h2">Actions</NavList.GroupHeading>
+          <NavList.Item href="#issues">Issues</NavList.Item>
+        </NavList.Group>
+      </NavList>,
+    )
+    expect(screen.getByRole('heading', {name: 'Settings', level: 4})).toBeInTheDocument()
+    expect(screen.getByRole('heading', {name: 'Actions', level: 2})).toBeInTheDocument()
+
+    rerender(
+      <NavList>
+        <NavList.Heading as="h6">Repository</NavList.Heading>
+        <NavList.Group title="Settings" />
+      </NavList>,
+    )
+    expect(screen.getByRole('heading', {name: 'Settings', level: 6})).toBeInTheDocument()
   })
 
   it('preserves landmark, heading, list, and current-page semantics', () => {
@@ -54,10 +280,154 @@ describe('NavList', () => {
       </NavList>,
     )
 
-    const link = screen.getByRole('link', {name: 'Issues,Open issues'})
+    const link = screen.getByRole('link', {name: 'Issues'})
     const action = screen.getByRole('button', {name: 'Issue actions'})
     expect(link).toContainElement(screen.getByText('Open issues'))
+    expect(link).toHaveAccessibleDescription('Open issues')
     expect(link).not.toContainElement(action)
+  })
+
+  it('separates descriptions from the link name while preserving status, tooltip, and explicit references', () => {
+    render(
+      <>
+        <span id="external-note">Updated today</span>
+        <NavList aria-label="Repository">
+          <NavList.Item aria-describedby="external-note branch-details" href="#issues" tooltipText="View issue">
+            Improve navigation
+            <NavList.Description id="branch-details">#42 · feature/navigation</NavList.Description>
+            <NavList.Description hidden>Hidden detail</NavList.Description>
+            <NavList.TrailingVisual>Ready</NavList.TrailingVisual>
+          </NavList.Item>
+          <NavList.Item aria-label="Project settings" href="#settings">
+            Settings
+            <NavList.Description>Manage this project</NavList.Description>
+          </NavList.Item>
+        </NavList>
+      </>,
+    )
+
+    const issue = screen.getByRole('link', {name: 'Improve navigation Ready'})
+    expect(issue).toHaveAccessibleDescription('Updated today #42 · feature/navigation View issue')
+    expect(
+      issue
+        .getAttribute('aria-describedby')
+        ?.split(' ')
+        .filter(id => id === 'branch-details'),
+    ).toHaveLength(1)
+    expect(screen.getByRole('link', {name: 'Project settings'})).toHaveAccessibleDescription('Manage this project')
+  })
+
+  it('names items by label regardless of leading visual text or descriptions', () => {
+    render(
+      <>
+        <span id="deployment-status" className="sr-only">
+          Done
+        </span>
+        <NavList aria-label="Deployments">
+          <NavList.Item href="#natural">
+            <NavList.LeadingVisual>
+              <span className="sr-only">Done</span>
+            </NavList.LeadingVisual>
+            Natural name
+          </NavList.Item>
+          <NavList.Item href="#with-description">
+            <NavList.LeadingVisual>
+              <span className="sr-only">Done</span>
+            </NavList.LeadingVisual>
+            Named by label
+            <NavList.Description>Deployment details</NavList.Description>
+          </NavList.Item>
+          <NavList.Item href="#described" aria-describedby="deployment-status">
+            <NavList.LeadingVisual aria-hidden="true">Icon</NavList.LeadingVisual>
+            Described status
+          </NavList.Item>
+        </NavList>
+      </>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Natural name'})).not.toHaveAccessibleDescription()
+    expect(screen.getByRole('link', {name: 'Named by label'})).toHaveAccessibleDescription('Deployment details')
+    expect(screen.getByRole('link', {name: 'Described status'})).toHaveAccessibleDescription('Done')
+  })
+
+  it('associates wrapped descriptions without relying on prop forwarding', () => {
+    function WrappedDescription(_props: {id?: string}) {
+      return <NavList.Description>Repository details</NavList.Description>
+    }
+    render(
+      <NavList aria-label="Repository">
+        <NavList.Item
+          aria-describedby="repository-detail"
+          description={<WrappedDescription id="repository-detail" />}
+          href="#repository"
+        >
+          Repository
+        </NavList.Item>
+      </NavList>,
+    )
+    const link = screen.getByRole('link', {name: 'Repository'})
+    expect(link).toHaveAccessibleDescription('Repository details')
+    for (const id of link.getAttribute('aria-describedby')?.split(' ') ?? []) {
+      expect(document.getElementById(id)).not.toBeNull()
+    }
+  })
+
+  it('hydrates item description and tooltip references without changing the link or ref', async () => {
+    const ref = React.createRef<HTMLAnchorElement>()
+    const app = (
+      <NavList aria-label="Repository">
+        <NavList.Item href="#issues" ref={ref} tooltipText="View issue">
+          Improve navigation
+          <NavList.Description>#42 · feature/navigation</NavList.Description>
+          <NavList.TrailingVisual>Ready</NavList.TrailingVisual>
+        </NavList.Item>
+      </NavList>
+    )
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(app)
+    document.body.append(container)
+    const serverLink = container.querySelector('a')
+    const onRecoverableError = vi.fn()
+    let root: ReturnType<typeof hydrateRoot> | undefined
+    try {
+      await act(async () => {
+        root = hydrateRoot(container, app, {onRecoverableError})
+      })
+      const link = screen.getByRole('link', {name: 'Improve navigation Ready'})
+      expect(link).toBe(serverLink)
+      expect(ref.current).toBe(link)
+      expect(link).toHaveAccessibleDescription('#42 · feature/navigation View issue')
+      expect(onRecoverableError).not.toHaveBeenCalled()
+    } finally {
+      await act(async () => root?.unmount())
+      container.remove()
+    }
+  })
+
+  it('places a wrapped trailing action supplied through the item region outside the link', async () => {
+    const user = userEvent.setup()
+    const onAction = vi.fn()
+    function WrappedAction() {
+      return <NavList.TrailingAction label="Issue actions" onClick={onAction} />
+    }
+    render(
+      <NavList aria-label="Repository">
+        <NavList.Item href="#issues" trailingAction={<WrappedAction />}>
+          Issues
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const link = screen.getByRole('link', {name: 'Issues'})
+    const action = screen.getByRole('button', {name: 'Issue actions'})
+    expect(link.closest('li')).toContainElement(action)
+    expect(link).not.toContainElement(action)
+    await user.tab()
+    expect(link).toHaveFocus()
+    await user.tab()
+    expect(action).toHaveFocus()
+    await user.keyboard('{Enter}')
+    expect(onAction).toHaveBeenCalledOnce()
   })
 
   it('composes a disclosure trigger with a list panel', async () => {
@@ -107,7 +477,7 @@ describe('NavList', () => {
     await user.click(trigger)
     expect(trigger).toHaveAttribute('aria-expanded', 'false')
     expect(trigger).toHaveAttribute('data-active', 'true')
-    expect(trigger).toHaveClass('bg-[var(--control-transparent-bgColor-selected)]')
+    expect(trigger).toHaveClass('primer:bg-[var(--control-transparent-bgColor-selected)]')
   })
 
   it('leaves a controlled section closed when it contains the current item', () => {
@@ -234,9 +604,9 @@ describe('NavList', () => {
     )
 
     expect(screen.getByRole('link', {name: /Documentation/})).toHaveAttribute('data-has-description', 'true')
-    expect(screen.getByText('Documentation')).toHaveClass('font-semibold')
+    expect(screen.getByText('Documentation')).toHaveClass('primer:font-semibold')
     expect(screen.getByRole('link', {name: 'Issues'})).toHaveAttribute('data-has-description', 'false')
-    expect(screen.getByText('Issues')).not.toHaveClass('font-semibold')
+    expect(screen.getByText('Issues')).not.toHaveClass('primer:font-semibold')
   })
 
   it('renders a router link supplied with as and to', () => {
@@ -250,19 +620,175 @@ describe('NavList', () => {
       },
     )
     const ref = React.createRef<HTMLAnchorElement>()
-    render(
+    const onClick = vi.fn((event: React.MouseEvent<HTMLAnchorElement>) => event.preventDefault())
+    const nav = (inactive: boolean) => (
       <NavList aria-label="Main">
-        <NavList.Item as={RouterLink} to="/settings" ref={ref} aria-current="page">
+        <NavList.Item
+          as={RouterLink}
+          to="/settings"
+          ref={ref}
+          aria-current="page"
+          inactiveText={inactive ? 'Unavailable' : undefined}
+          onClick={onClick}
+        >
           Settings
         </NavList.Item>
-      </NavList>,
+      </NavList>
     )
+    const {rerender} = render(nav(false))
 
     const link = screen.getByRole('link', {name: 'Settings'})
     expect(link).toHaveAttribute('href', '/settings')
     expect(link).toHaveAttribute('data-router-link')
     expect(link).toHaveAttribute('aria-current', 'page')
     expect(ref.current).toBe(link)
+    fireEvent.click(link)
+    expect(onClick).toHaveBeenCalledOnce()
+
+    rerender(nav(true))
+    expect(ref.current).toBe(link)
+    expect(link).toHaveAccessibleDescription('Unavailable')
+    const inactiveClick = new MouseEvent('click', {bubbles: true, cancelable: true})
+    fireEvent(link, inactiveClick)
+    expect(inactiveClick.defaultPrevented).toBe(true)
+    expect(onClick).toHaveBeenCalledOnce()
+  })
+
+  it('forwards router-specific destinations, options, events, and refs', () => {
+    const RouterLink = React.forwardRef<
+      HTMLAnchorElement,
+      {to: {pathname: string}; replace: boolean} & Omit<React.ComponentPropsWithoutRef<'a'>, 'href'>
+    >(function RouterLink({children, to, replace, ...props}, ref) {
+      return (
+        <a {...props} ref={ref} href={to.pathname} data-replace={String(replace)}>
+          {children}
+        </a>
+      )
+    })
+    const ref = React.createRef<HTMLAnchorElement>()
+    const onClick = vi.fn((event: React.MouseEvent<HTMLAnchorElement>) => event.preventDefault())
+
+    render(
+      <NavList aria-label="Settings">
+        <NavList.Item
+          as={RouterLink}
+          to={{pathname: '/rules'}}
+          replace
+          ref={ref}
+          onClick={onClick}
+          aria-current="page"
+          description={<NavList.Description>Repository rules</NavList.Description>}
+        >
+          Rules
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const link = screen.getByRole('link', {name: 'Rules'})
+    expect(link).toHaveAttribute('href', '/rules')
+    expect(link).toHaveAttribute('data-replace', 'true')
+    expect(link).toHaveAttribute('aria-current', 'page')
+    expect(link).toHaveAccessibleDescription('Repository rules')
+    expect(ref.current).toBe(link)
+    fireEvent.click(link)
+    expect(onClick).toHaveBeenCalledOnce()
+  })
+
+  it('forwards button props, event targets, and refs without losing inactive behavior', async () => {
+    const user = userEvent.setup()
+    const ref = React.createRef<HTMLButtonElement>()
+    const onClick = vi.fn((event: React.MouseEvent<HTMLButtonElement>) => event.currentTarget.focus())
+    const item = (inactive: boolean) => (
+      <NavList aria-label="Settings">
+        <NavList.Item
+          as="button"
+          type="button"
+          ref={ref}
+          inactiveText={inactive ? 'Unavailable' : undefined}
+          onClick={onClick}
+        >
+          Preferences
+        </NavList.Item>
+      </NavList>
+    )
+    const {rerender} = render(item(false))
+
+    const button = screen.getByRole('button', {name: 'Preferences'})
+    expect(ref.current).toBe(button)
+    expect(button).toHaveAttribute('type', 'button')
+    expect(button).toHaveClass(
+      'primer:appearance-none',
+      'primer:border-0',
+      'primer:bg-transparent',
+      'primer:font-[family-name:inherit]',
+    )
+    expect(button).toHaveClass('primer:grid', 'primer:px-2', 'primer:py-1.5')
+    expect(button).not.toHaveClass('primer:p-0')
+    await user.click(button)
+    expect(onClick).toHaveBeenCalledOnce()
+    expect(button).toHaveFocus()
+
+    rerender(item(true))
+    expect(button).toHaveAttribute('aria-disabled', 'true')
+    expect(button).toHaveAccessibleDescription('Unavailable')
+    await user.click(button)
+    expect(onClick).toHaveBeenCalledOnce()
+  })
+
+  it('resets custom button roots and lets consumers override their styles', async () => {
+    const user = userEvent.setup()
+    const ref = React.createRef<HTMLButtonElement>()
+    const onClick = vi.fn()
+    const CustomButton = React.forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'>>(
+      function CustomButton(props, ref) {
+        return <button {...props} ref={ref} type="button" />
+      },
+    )
+    render(
+      <NavList aria-label="Settings">
+        <NavList.Item
+          as={CustomButton}
+          type="button"
+          className="border-2 bg-default font-mono"
+          aria-current="page"
+          onClick={onClick}
+          ref={ref}
+        >
+          Preferences
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const button = screen.getByRole('button', {name: 'Preferences'})
+    expect(ref.current).toBe(button)
+    expect(button).toHaveClass('primer:appearance-none', 'border-2', 'bg-default', 'font-mono', 'primer:font-semibold')
+    expect(button).not.toHaveClass('primer:border-0', 'primer:bg-transparent', 'primer:font-[family-name:inherit]')
+    await user.click(button)
+    expect(onClick).toHaveBeenCalledOnce()
+  })
+
+  it('preserves native button type and form submission behavior', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn((event: React.FormEvent<HTMLFormElement>) => event.preventDefault())
+    render(
+      <form onSubmit={onSubmit}>
+        <NavList aria-label="Form actions">
+          <NavList.Item as="button" type="button">
+            Action
+          </NavList.Item>
+          <NavList.Item as="button">Default submit</NavList.Item>
+          <NavList.Item as="button" type="submit">
+            Explicit submit
+          </NavList.Item>
+        </NavList>
+      </form>,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Action'}))
+    expect(onSubmit).not.toHaveBeenCalled()
+    await user.click(screen.getByRole('button', {name: 'Default submit'}))
+    await user.click(screen.getByRole('button', {name: 'Explicit submit'}))
+    expect(onSubmit).toHaveBeenCalledTimes(2)
   })
 
   it('describes an item with tooltip text while keeping the link and ref', async () => {
@@ -356,6 +882,33 @@ describe('NavList', () => {
     expect(screen.getByRole('link', {name: 'Item 3'})).toHaveFocus()
     expect(screen.getByRole('link', {name: 'Item 4'})).toBeInTheDocument()
     expect(screen.queryByRole('button', {name: 'Load more'})).not.toBeInTheDocument()
+  })
+
+  it('keeps router composition and focus when revealing a grouped item', async () => {
+    const user = userEvent.setup()
+    const RouterLink = React.forwardRef<HTMLAnchorElement, {to: string} & React.ComponentPropsWithoutRef<'a'>>(
+      function RouterLink({children, to, ...props}, ref) {
+        return (
+          <a {...props} href={to} ref={ref} data-router-link="">
+            {children}
+          </a>
+        )
+      },
+    )
+
+    render(
+      <NavList aria-label="Main">
+        <NavList.Group title="Group">
+          <NavList.GroupExpand items={[{as: RouterLink, to: '/settings', text: 'Settings'}]} />
+        </NavList.Group>
+      </NavList>,
+    )
+
+    await user.click(screen.getByRole('button', {name: 'Show more'}))
+    const link = screen.getByRole('link', {name: 'Settings'})
+    expect(link).toHaveAttribute('href', '/settings')
+    expect(link).toHaveAttribute('data-router-link')
+    expect(link).toHaveFocus()
   })
 
   it('renders revealed items with a custom renderer', async () => {

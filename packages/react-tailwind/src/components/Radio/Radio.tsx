@@ -5,7 +5,7 @@ import React from 'react'
 import {markFormControlInput} from '../../internal/formControlParts'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {radioClassName} from '../../internal/selectionVisuals'
-import {useFormControlForwardedProps} from '../FormControl/useFormControlForwardedProps'
+import {useFormControlChoiceForwardedProps} from '../FormControl/useFormControlForwardedProps'
 import {RadioGroupDisabledContext} from '../RadioGroup/RadioGroupDisabledContext'
 
 export interface RadioProps<Value = string>
@@ -15,7 +15,7 @@ export interface RadioProps<Value = string>
 
 /** A styled radio primitive for use inside RadioGroup. */
 export const Radio = React.forwardRef<HTMLElement, RadioProps>(function Radio({className, ...rest}, ref) {
-  const forwardedProps = useFormControlForwardedProps(rest)
+  const forwardedProps = useFormControlChoiceForwardedProps(rest)
   // Base UI keeps a roving tab stop on a fully disabled group; native disabled radios leave the tab order.
   const groupDisabled = React.useContext(RadioGroupDisabledContext)
 
@@ -27,7 +27,7 @@ export const Radio = React.forwardRef<HTMLElement, RadioProps>(function Radio({c
       data-component="Radio"
       className={mergeClassName(radioClassName, className)}
     >
-      <BaseRadio.Indicator className="hidden" />
+      <BaseRadio.Indicator className="primer:hidden" />
     </BaseRadio.Root>
   )
 })

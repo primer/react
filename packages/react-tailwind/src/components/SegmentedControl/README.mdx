@@ -22,6 +22,10 @@ import * as Responsive from './SegmentedControl.responsive.stories'
 
 ```tsx
 import {SegmentedControl} from '@primer/react-tailwind/SegmentedControl'
+;<SegmentedControl aria-label="File view" defaultValue={['preview']}>
+  <SegmentedControl.Button value="preview">Preview</SegmentedControl.Button>
+  <SegmentedControl.Button value="raw">Raw</SegmentedControl.Button>
+</SegmentedControl>
 ```
 
 Compose `Button`, `IconButton`, and `Divider` children in author order. The root owns single selection; use `value`/`onValueChange` for controlled state or `defaultValue` for initial state. Pass one `SegmentedControl.Action` child, or the `action` prop, for a trailing action.
@@ -66,7 +70,7 @@ Give the group an accessible name. Icon-only choices require their explicit `ari
 
 ## Keyboard, events, and state
 
-Arrow-key navigation follows Base UI ToggleGroup behavior; Space or Enter activates the focused choice. `onValueChange` receives the selected value and details. Stable selectors are `SegmentedControl`, `SegmentedControl.Button`, `SegmentedControl.IconButton`, `SegmentedControl.Divider`, `SegmentedControl.Action`, and `SegmentedControl.Dropdown`; buttons expose `data-pressed` and `data-disabled`.
+Every enabled segment is a Tab stop, and Space or Enter selects the focused segment. Arrow keys, Home, and End do not move focus or change selection, matching Primer React's keyboard contract. `onValueChange` receives the selected value and details. Stable selectors are `SegmentedControl`, `SegmentedControl.Button`, `SegmentedControl.IconButton`, `SegmentedControl.Divider`, `SegmentedControl.Action`, and `SegmentedControl.Dropdown`; buttons expose `data-pressed` and `data-disabled`.
 
 <Canvas of={Examples.WithDisabledButtons} />
 

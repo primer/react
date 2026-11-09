@@ -238,7 +238,9 @@ export const FilesPage: Story = {
           </Hidden>
         </PageHeader.Actions>
       </PageHeader>
-      <div className="m-4 border border-emphasis p-4">This is where the content of the file will be displayed.</div>
+      <div className="m-4 border-thin border-emphasis p-4">
+        This is where the content of the file will be displayed.
+      </div>
     </div>
   ),
 }
@@ -271,7 +273,7 @@ export const WithPageLayout: Story = {
         </PageHeader>
       </PageLayout.Header>
       <PageLayout.Content>
-        <div className="h-[200px] rounded-md border border-default" />
+        <div className="h-[200px] rounded-md border-thin border-default" />
       </PageLayout.Content>
       <PageLayout.Pane>
         <div className="flex flex-col gap-4">
@@ -332,7 +334,7 @@ export const IssuesPage: Story = {
         </PageHeader>
       </PageLayout.Header>
       <PageLayout.Content>
-        <div className="rounded-md border border-default p-4 pt-0">
+        <div className="rounded-md border-thin border-default p-4 pt-0">
           <h2>Context</h2>
           PageHeader will be responsible to determine the arrangement of the top-level headings, side actions, header
           metadata, parent links, and how all these elements adapt to different devices, pointer types, and smaller,

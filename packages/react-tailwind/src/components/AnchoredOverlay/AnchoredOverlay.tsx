@@ -17,10 +17,10 @@ import {
 } from '../../internal/narrowFullscreen'
 import {overlaySizeClassName} from '../../internal/overlaySize'
 import type {AnchoredOverlayVariant, FloatingContentProps, OverlaySizeProps} from '../../utils/types'
-import {usePortalContainer} from '../../internal/portalRoot'
+import {FloatingPortalParentContext, useFloatingPortalContainer} from '../../internal/portalRoot'
 
 const contentClassName =
-  'min-w-48 max-w-[calc(100vw-var(--base-size-32))] max-h-dvh overflow-auto rounded-lg bg-[var(--overlay-bgColor)] text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 motion-safe:transition motion-safe:duration-200 motion-reduce:transition-none'
+  'primer:min-w-48 primer:max-w-[calc(100vw-var(--base-size-32))] primer:max-h-dvh primer:overflow-auto primer:rounded-lg primer:bg-[var(--overlay-bgColor)] primer:text-default primer:shadow-floating-sm primer:outline-none primer:contrast-more:border-current primer:data-[closed]:hidden primer:data-[starting-style]:opacity-0 primer:data-[ending-style]:opacity-0 primer:motion-safe:transition primer:motion-safe:duration-200 primer:motion-reduce:transition-none'
 
 export type AnchoredOverlayRootProps<Payload = unknown> = BasePopover.Root.Props<Payload>
 
@@ -158,17 +158,17 @@ const Positioner = React.forwardRef<HTMLDivElement, AnchoredOverlayPositionerPro
     <BasePopover.Positioner
       {...rest}
       ref={ref}
-      className={mergeClassName('z-popover', className)}
+      className={mergeClassName('primer:z-popover', className)}
       data-component="AnchoredOverlay.Positioner"
     />
   )
 })
 
 function Portal({children, container, ...rest}: BasePopover.Portal.Props) {
-  const portalContainer = usePortalContainer(container)
+  const portalContainer = useFloatingPortalContainer(container)
   return (
     <BasePopover.Portal {...rest} container={portalContainer}>
-      {children}
+      <FloatingPortalParentContext.Provider value>{children}</FloatingPortalParentContext.Provider>
     </BasePopover.Portal>
   )
 }
@@ -182,7 +182,7 @@ const Arrow = React.forwardRef<HTMLDivElement, Omit<BasePopover.Arrow.Props, 'da
         className={mergeClassName(
           cn(
             floatingArrowClassName,
-            '[--arrow-bg-color:var(--overlay-bgColor)] [--arrow-border-color:var(--borderColor-default)]',
+            'primer:[--arrow-bg-color:var(--overlay-bgColor)] primer:[--arrow-border-color:var(--borderColor-default)]',
           ),
           className,
         )}
@@ -200,7 +200,7 @@ const Backdrop = React.forwardRef<HTMLDivElement, Omit<BasePopover.Backdrop.Prop
       <BasePopover.Backdrop
         {...rest}
         ref={ref}
-        className={mergeClassName('fixed inset-0 z-popover bg-transparent', className)}
+        className={mergeClassName('primer:fixed primer:inset-0 primer:z-popover primer:bg-transparent', className)}
         data-component="AnchoredOverlay.Backdrop"
       />
     )
@@ -226,7 +226,7 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<BasePopover.Title.Props,
       <BasePopover.Title
         {...rest}
         ref={ref}
-        className={mergeClassName('font-semibold text-default', className)}
+        className={mergeClassName('primer:font-semibold primer:text-default', className)}
         data-component="AnchoredOverlay.Title"
       />
     )
@@ -239,7 +239,7 @@ const Description = React.forwardRef<HTMLParagraphElement, Omit<BasePopover.Desc
       <BasePopover.Description
         {...rest}
         ref={ref}
-        className={mergeClassName('mt-1 text-sm text-muted', className)}
+        className={mergeClassName('primer:mt-1 primer:text-sm primer:text-muted', className)}
         data-component="AnchoredOverlay.Description"
       />
     )

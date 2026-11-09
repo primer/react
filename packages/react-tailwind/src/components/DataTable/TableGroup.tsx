@@ -9,7 +9,7 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import {TableRow} from './Table'
 import {TableGroupContext} from './TableGroupContext'
 
-const bodyClassName = 'grid grid-cols-subgrid [grid-column:-1/1]'
+const bodyClassName = 'primer:grid primer:grid-cols-subgrid primer:[grid-column:-1/1]'
 
 export interface TableGroupProps {
   /** Class name for the group header section. */
@@ -92,42 +92,49 @@ export function TableGroup({
             role="columnheader"
             scope="colgroup"
             className={cn(
-              'col-span-full flex items-center gap-x-6 border-x border-b border-default bg-muted px-4 py-2 text-start text-muted',
-              'group-data-[cell-padding=condensed]:gap-x-4 group-data-[cell-padding=condensed]:py-1 group-data-[cell-padding=spacious]:gap-x-8 group-data-[cell-padding=spacious]:py-3',
+              'primer:col-span-full primer:flex primer:items-center primer:gap-x-6 primer:border-x primer:border-b primer:border-default primer:bg-muted primer:px-4 primer:py-2 primer:text-start primer:text-muted',
+              'primer:group-data-[cell-padding=condensed]:gap-x-4 primer:group-data-[cell-padding=condensed]:py-1 primer:group-data-[cell-padding=spacious]:gap-x-8 primer:group-data-[cell-padding=spacious]:py-3',
               // Round the header when it closes the table because its members are hidden or absent.
-              "[[data-component='Table.OverflowWrapper']:last-child_tbody:has(+tbody:is([hidden],:empty):last-child)>tr>&]:rounded-b-md",
+              "primer:[[data-component='Table.OverflowWrapper']:last-child_tbody:has(+tbody:is([hidden],:empty):last-child)>tr>&]:rounded-b-md",
             )}
           >
             {selection !== undefined ? (
               <Checkbox
                 aria-label={`Select ${ariaLabel ?? label}`}
                 checked={selection === 'all'}
-                className="shrink-0"
+                className="primer:shrink-0"
                 disabled={selectionDisabled || !onToggleSelect}
                 indeterminate={selection === 'some'}
                 onCheckedChange={() => onToggleSelect?.()}
               />
             ) : null}
-            <span data-selection={selection} className="flex items-center gap-x-[inherit] data-[selection]:gap-x-2">
+            <span
+              data-selection={selection}
+              className="primer:flex primer:items-center primer:gap-x-[inherit] primer:data-[selection]:gap-x-2"
+            >
               {collapsible ? (
                 <UnstyledButton
-                  aria-controls={bodyId}
-                  aria-description={rowCountLabel}
+                  aria-describedby={`${headerId}-row-count`}
                   aria-expanded={isExpanded}
                   aria-label={ariaLabel ?? label}
                   data-component="Table.Group.Toggle"
                   onClick={toggleExpanded}
-                  className="-mx-1 -my-0.5 size-6 shrink-0 justify-center self-center rounded-sm text-default hover:bg-neutral-muted aria-expanded:[&>svg]:rotate-90"
+                  className="primer:-mx-1 primer:-my-0.5 primer:size-6 primer:shrink-0 primer:justify-center primer:self-center primer:rounded-sm primer:text-default primer:hover:bg-neutral-muted primer:aria-expanded:[&>svg]:rotate-90"
                 >
                   <ChevronRightIcon aria-hidden="true" />
                 </UnstyledButton>
               ) : null}
-              <span aria-hidden={collapsible || undefined} className="flex items-baseline gap-x-2">
-                <span className="font-semibold text-default">
+              {collapsible ? (
+                <span hidden id={`${headerId}-row-count`}>
+                  {rowCountLabel}
+                </span>
+              ) : null}
+              <span aria-hidden={collapsible || undefined} className="primer:flex primer:items-baseline primer:gap-x-2">
+                <span className="primer:font-semibold primer:text-default">
                   {label}
                   <VisuallyHidden>,</VisuallyHidden>
                 </span>
-                <span className="text-muted">
+                <span className="primer:text-muted">
                   {rowCount}
                   <VisuallyHidden>{rowCount === 1 ? ' row' : ' rows'}</VisuallyHidden>
                 </span>
@@ -145,9 +152,9 @@ export function TableGroup({
         data-selection={collapsible ? selection : undefined}
         className={cn(
           bodyClassName,
-          '[&[hidden]]:hidden',
+          'primer:[&[hidden]]:hidden',
           // Indent member rows under the group label, past the disclosure button.
-          "data-[selection]:[&>tr>:nth-child(2)]:before:flex-[0_0_--spacing(6)] data-[selection]:[&>tr>:nth-child(2)]:before:content-['']",
+          "primer:data-[selection]:[&>tr>:nth-child(2)]:before:flex-[0_0_--spacing(6)] primer:data-[selection]:[&>tr>:nth-child(2)]:before:content-['']",
         )}
       >
         <TableGroupContext.Provider value={{headerId}}>{children}</TableGroupContext.Provider>

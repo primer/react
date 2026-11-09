@@ -22,22 +22,22 @@ const SubNavRoot = React.forwardRef<HTMLElement, SubNavProps>(function SubNav(
       ref={ref}
       aria-label={ariaLabel ?? label}
       className={cn(
-        'flex items-start justify-between gap-2',
-        full && 'w-full',
-        align === 'right' && 'justify-end',
+        'primer:flex primer:items-start primer:justify-between primer:gap-2',
+        full && 'primer:w-full',
+        align === 'right' && 'primer:justify-end',
         className,
       )}
       data-component="SubNav"
     >
-      <div className="flex h-[33px] min-w-0 flex-wrap gap-2">{children}</div>
-      {actions ? <div className="shrink-0 self-center">{actions}</div> : null}
+      <div className="primer:flex primer:h-[33px] primer:min-w-0 primer:flex-wrap primer:gap-2">{children}</div>
+      {actions ? <div className="primer:shrink-0 primer:self-center">{actions}</div> : null}
     </nav>
   )
 })
 
 export type SubNavLinksProps = React.ComponentPropsWithoutRef<'div'>
 const SubNavLinks = React.forwardRef<HTMLDivElement, SubNavLinksProps>(function SubNavLinks({className, ...rest}, ref) {
-  return <div {...rest} ref={ref} className={cn('flex', className)} data-component="SubNav.Links" />
+  return <div {...rest} ref={ref} className={cn('primer:flex', className)} data-component="SubNav.Links" />
 })
 
 export interface SubNavLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -56,9 +56,9 @@ const SubNavLink = React.forwardRef<HTMLElement, SubNavLinkProps>(function SubNa
       ref={ref}
       aria-current={selected ? 'page' : undefined}
       className={cn(
-        'flex min-h-[34px] items-center border-y border-r border-default px-4 text-center text-sm leading-5 font-medium text-default no-underline first:rounded-l-md first:border-l last:rounded-r-md hover:bg-muted focus:bg-muted focus-visible:outline-2 focus-visible:outline-focus',
+        'primer:flex primer:min-h-[34px] primer:items-center primer:border-y primer:border-r primer:border-default primer:px-4 primer:text-center primer:text-sm primer:leading-5 primer:font-medium primer:text-default primer:no-underline primer:first:rounded-l-md primer:first:border-l primer:last:rounded-r-md primer:hover:bg-muted primer:focus:bg-muted primer:focus-visible:outline-2 primer:focus-visible:outline-focus',
         selected &&
-          'border-[var(--bgColor-accent-emphasis)] bg-accent-emphasis text-on-emphasis hover:bg-accent-emphasis focus:bg-accent-emphasis',
+          'primer:border-[var(--bgColor-accent-emphasis)] primer:bg-accent-emphasis primer:text-on-emphasis primer:hover:bg-accent-emphasis primer:focus:bg-accent-emphasis',
         className,
       )}
       data-component="SubNav.Link"

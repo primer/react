@@ -9,7 +9,7 @@ describe('SkeletonAvatar', () => {
     render(<SkeletonAvatar ref={ref} data-testid="avatar-skeleton" />)
     expect(screen.getByTestId('avatar-skeleton')).toHaveAttribute('data-component', 'SkeletonAvatar')
     expect(screen.getByTestId('avatar-skeleton')).toBe(ref.current)
-    expect(screen.getByTestId('avatar-skeleton')).toHaveClass('inline-block', 'leading-none')
+    expect(screen.getByTestId('avatar-skeleton')).toHaveClass('primer:inline-block', 'primer:leading-none')
   })
 
   it('exposes responsive and square states', () => {

@@ -24,6 +24,21 @@
       "id": "react-tailwind-content-relativetime-features--count-down-timer"
     },
     {
+      "id": "react-tailwind-content-relativetime-features--inherited-formatting"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--preferred-absolute-midnight"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--preferred-absolute-year"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--preferred-absolute-daylight-saving"
+    },
+    {
+      "id": "react-tailwind-content-relativetime-features--preferred-absolute-year-rollback"
+    },
+    {
       "id": "react-tailwind-content-relativetime--default"
     },
     {
@@ -62,6 +77,11 @@
       "description": "How the hour is rendered in an absolute date."
     },
     {
+      "name": "hourCycle",
+      "type": "\"h11\" | \"h12\" | \"h23\" | \"h24\"",
+      "description": "Hour cycle used for absolute times and titles. Overrides the nearest `hour-cycle` attribute."
+    },
+    {
       "name": "minute",
       "type": "NumericDatePart",
       "description": "How the minutes are rendered in an absolute date."
@@ -87,6 +107,11 @@
       "description": "Smallest unit the output distinguishes, which also sets how often it refreshes."
     },
     {
+      "name": "prefersAbsoluteTime",
+      "type": "boolean",
+      "description": "Shows the user's preferred absolute date and time instead of relative or micro output. Durations and elapsed timers\nare unaffected. Defaults to reading `data-prefers-absolute-time=\"true\"` on the document's `html` or `body` element,\nand follows live changes to that attribute."
+    },
+    {
       "name": "prefix",
       "type": "string",
       "description": "Text placed before an absolute date, such as `on`."
@@ -109,7 +134,7 @@
     {
       "name": "timeZone",
       "type": "string",
-      "description": "IANA time zone the date is presented in."
+      "description": "IANA time zone the date is presented in. Overrides the nearest `time-zone` attribute."
     },
     {
       "name": "timeZoneName",

@@ -93,7 +93,7 @@ describe('Select', () => {
 
     const select = screen.getByRole('listbox', {name: 'Choices'})
     expect(select.parentElement).toHaveAttribute('data-multiple')
-    expect(select.parentElement).toHaveClass('data-[multiple]:h-auto', 'data-[multiple]:overflow-visible')
+    expect(select.parentElement).toHaveClass('primer:data-[multiple]:h-auto', 'primer:data-[multiple]:overflow-visible')
     expect(select).toHaveValue(['one', 'three'])
     await user.selectOptions(select, 'two')
     expect(new FormData(select.closest('form')!).getAll('choices')).toEqual(['one', 'two', 'three'])

@@ -11,5 +11,9 @@ Tailwind `Overlay` is intentionally a reduced, presentational floating surface. 
 ## Migration notes
 
 - Do not treat Tailwind `Overlay` as a drop-in modal/menu controller.
-- Migrate behavioral usage to `Dialog` or `Popover`, as appropriate.
-- Remove legacy positioning/layering props, `sx`, and styled-system props.
+- Migrate behavioral usage to `Dialog`, or to `Popover`/`AnchoredOverlay` for an anchored surface. Their `Root` exposes controlled `open` and `onOpenChange(open, details)`; distinguish Escape and outside dismissal using `details.reason`. These callbacks and native events are not the legacy `onEscape` and `onClickOutside` contracts.
+- A `Popover.Popup` can render `Overlay` as its surface while the Popover owns dismissal. Nested portaled `ActionMenu`, `Popover`, and `Dialog` children remain within that owner for the documented interactions; a separate legacy document-level listener does not inherit that behavior.
+- `ignoreClickRefs` has no direct equivalent. A controlled owner can inspect close-request details before changing `open`, but must account for trigger presses, focus-out, portals, and nested overlays rather than assuming identical ignored-click behavior.
+- Use popup `initialFocus` and `finalFocus` rather than `initialFocusRef` and `returnFocusRef`; `false` opts out. A final-focus ref or callback targeting a non-tabbable container with tabbable descendants may focus a descendant instead, so verify any exact-container requirement.
+- For an explicit portal destination, compose `Portal container={...}` with `Positioner` and `Popup`; `Content` does not accept a named portal container. `Positioner` accepts an anchor, side, alignment, offsets, and collision props, but legacy `inside-*` placements do not map directly.
+- Remove legacy behavioral, positioning, animation, and layering props rather than spreading them onto the presentational div. Remove `sx` and styled-system props.

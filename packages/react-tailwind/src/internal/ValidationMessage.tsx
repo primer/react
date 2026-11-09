@@ -5,7 +5,11 @@ import {cn} from './cn'
 export type ValidationVariant = 'error' | 'success'
 
 function getClassName(variant: ValidationVariant, className?: string) {
-  return cn('flex text-xs font-semibold leading-4', variant === 'error' ? 'text-danger' : 'text-success', className)
+  return cn(
+    'primer:flex primer:text-xs primer:font-semibold primer:leading-4',
+    variant === 'error' ? 'primer:text-danger' : 'primer:text-success',
+    className,
+  )
 }
 
 function ValidationMessageContent({children, variant}: {children: React.ReactNode; variant: ValidationVariant}) {
@@ -13,7 +17,7 @@ function ValidationMessageContent({children, variant}: {children: React.ReactNod
 
   return (
     <>
-      <span aria-hidden="true" className="mr-1 mt-0.5 flex">
+      <span aria-hidden="true" className="primer:mr-1 primer:mt-0.5 primer:flex">
         <ValidationIcon size={12} fill="currentColor" />
       </span>
       <span>{children}</span>

@@ -19,6 +19,7 @@ import React, {useState} from 'react'
 import {expect, userEvent, within} from 'storybook/test'
 import {FeatureFlags} from '../FeatureFlags'
 import {PageLayout} from '../PageLayout'
+import {Popover} from '../Popover'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {NavList, type NavListGroupExpandItem} from './NavList'
 
@@ -47,6 +48,49 @@ const childItems = (
     <NavList.Item href="#sub-item-2">Sub item 2</NavList.Item>
   </NavList.SubNav.Panel>
 )
+
+function WrappedIssueDescription(_props: {id?: string}) {
+  return (
+    <NavList.Description>
+      #42 · feature/navigation<span aria-hidden="true">!</span>
+    </NavList.Description>
+  )
+}
+
+export const ItemDescriptions: Story = {
+  render: () => (
+    <NavList aria-label="Issues" style={{width: 320}}>
+      <NavList.Item data-testid="direct-description" href="#issue" tooltipText="View issue">
+        Improve navigation
+        <NavList.Description>
+          #42 · feature/navigation<span aria-hidden="true">!</span>
+        </NavList.Description>
+        <NavList.TrailingVisual>Ready</NavList.TrailingVisual>
+      </NavList.Item>
+      <NavList.Item
+        aria-describedby="wrapped-issue-detail"
+        data-testid="wrapped-description"
+        description={<WrappedIssueDescription id="wrapped-issue-detail" />}
+        href="#issue"
+        tooltipText="View issue"
+      >
+        Improve navigation
+        <NavList.TrailingVisual>Ready</NavList.TrailingVisual>
+      </NavList.Item>
+      <NavList.Item href="#settings">
+        Settings
+        <NavList.Description>Configure the repository</NavList.Description>
+        <NavList.TrailingVisual aria-hidden="true">Decorative</NavList.TrailingVisual>
+      </NavList.Item>
+      <NavList.Item href="#profile">
+        Profile
+        <NavList.Description>Update your profile</NavList.Description>
+        <NavList.TrailingVisual className="hidden">Hidden status</NavList.TrailingVisual>
+      </NavList.Item>
+    </NavList>
+  ),
+}
+
 export const WithSubItems: Story = {
   render: () => (
     <PageLayoutNav>
@@ -61,6 +105,113 @@ export const WithSubItems: Story = {
     </PageLayoutNav>
   ),
 }
+
+const WrappedGroupHeading = React.forwardRef<
+  HTMLHeadingElement,
+  React.ComponentPropsWithoutRef<typeof NavList.GroupHeading>
+>(function WrappedGroupHeading(props, ref) {
+  return <NavList.GroupHeading {...props} ref={ref} />
+})
+
+function SettingsGroup() {
+  return (
+    <NavList.Group
+      hideDivider
+      heading={
+        <WrappedGroupHeading as="h2">
+          Settings
+          <NavList.GroupHeading.TrailingAction label="Manage settings" icon={BookIcon} />
+        </WrappedGroupHeading>
+      }
+    >
+      <NavList.Item href="#general">General</NavList.Item>
+      <NavList.Item href="#security">Security</NavList.Item>
+    </NavList.Group>
+  )
+}
+
+function WrappedSettingsGroup() {
+  return (
+    <>
+      <NavList.Divider />
+      <SettingsGroup />
+    </>
+  )
+}
+
+function CollapsedSettingsGroup() {
+  return (
+    <>
+      <NavList.Divider />
+      <li>
+        <Popover>
+          <Popover.Button>Collapsed settings</Popover.Button>
+          <Popover.Content aria-label="Settings links">
+            <a href="#general">General</a>
+          </Popover.Content>
+        </Popover>
+      </li>
+    </>
+  )
+}
+
+function GroupCompositionPair({itemGap}: {itemGap: boolean}) {
+  const label = itemGap ? 'With item gap' : 'Without item gap'
+  return (
+    <FeatureFlags flags={{primer_react_action_list_item_gap: itemGap}}>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: 16}}>
+        {[false, true].map(wrapped => (
+          <NavList
+            key={String(wrapped)}
+            aria-label={`${label}, ${wrapped ? 'wrapped' : 'direct'}`}
+            style={{width: 256}}
+          >
+            <NavList.Group title="Projects">
+              <NavList.Item href="#overview">Overview</NavList.Item>
+            </NavList.Group>
+            {wrapped ? (
+              <WrappedSettingsGroup />
+            ) : (
+              <>
+                <NavList.Divider />
+                <NavList.Group
+                  hideDivider
+                  heading={
+                    <WrappedGroupHeading as="h2">
+                      Settings
+                      <NavList.GroupHeading.TrailingAction label="Manage settings" icon={BookIcon} />
+                    </WrappedGroupHeading>
+                  }
+                >
+                  <NavList.Item href="#general">General</NavList.Item>
+                  <NavList.Item href="#security">Security</NavList.Item>
+                </NavList.Group>
+              </>
+            )}
+            <NavList.Item href="#help">Help</NavList.Item>
+          </NavList>
+        ))}
+      </div>
+    </FeatureFlags>
+  )
+}
+
+export const WithWrappedGroups: Story = {
+  render: () => (
+    <>
+      <GroupCompositionPair itemGap={false} />
+      <GroupCompositionPair itemGap />
+      <NavList aria-label="Collapsed navigation" style={{width: 256}}>
+        <NavList.Group title="Projects">
+          <NavList.Item href="#overview">Overview</NavList.Item>
+        </NavList.Group>
+        <CollapsedSettingsGroup />
+        <NavList.Item href="#help">Help</NavList.Item>
+      </NavList>
+    </>
+  ),
+}
+
 export const WithNestedSubItems: Story = {
   render: () => (
     <PageLayoutNav>

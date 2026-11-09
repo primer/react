@@ -5,8 +5,8 @@ import React from 'react'
 import {cn} from '../../internal/cn'
 import {VisuallyHidden} from '../VisuallyHidden'
 
-const spinnerVariants = cva('inline-block animate-spin motion-reduce:animate-none', {
-  variants: {size: {small: 'size-4', medium: 'size-8', large: 'size-16'}},
+const spinnerVariants = cva('primer:inline-block primer:animate-spin primer:motion-reduce:animate-none', {
+  variants: {size: {small: 'primer:size-4', medium: 'primer:size-8', large: 'primer:size-16'}},
   defaultVariants: {size: 'medium'},
 })
 
@@ -56,7 +56,7 @@ export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(function Spin
       ref={ref}
       role={srText === null ? undefined : 'status'}
       data-component="Spinner"
-      className={cn('inline-flex leading-none', className)}
+      className={cn('primer:inline-flex primer:leading-none', className)}
     >
       <svg
         viewBox="0 0 16 16"

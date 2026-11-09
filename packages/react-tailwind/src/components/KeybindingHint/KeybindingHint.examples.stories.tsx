@@ -42,7 +42,7 @@ export const ButtonExample: Story = {
 
 export const ActionListExample: Story = {
   render: args => (
-    <ActionList className="max-w-[300px] rounded-md border border-default">
+    <ActionList className="max-w-[300px] rounded-md border-thin border-default">
       <ActionList.Item>Add comment</ActionList.Item>
       <ActionList.Item>
         Copy text

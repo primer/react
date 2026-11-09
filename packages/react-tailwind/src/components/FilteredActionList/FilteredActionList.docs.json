@@ -37,7 +37,7 @@
       "name": "emptyStateText",
       "type": "React.ReactNode",
       "defaultValue": "'No items found'",
-      "description": "Content shown when the filter matches no items."
+      "description": "Content shown when the filter matches no items. Pass `null` to suppress the built-in message."
     },
     {
       "name": "filterValue",

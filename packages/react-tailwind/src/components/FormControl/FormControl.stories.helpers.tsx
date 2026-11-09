@@ -34,7 +34,7 @@ export function TokenInputFixture({
   return (
     <div
       className={cn(
-        'flex w-full flex-wrap items-center gap-1 rounded-md border border-default bg-default py-1.5 pr-1.5 pl-3 shadow-[var(--shadow-inset)]',
+        'flex w-full flex-wrap items-center gap-1 rounded-md border-thin border-default bg-default py-1.5 pr-1.5 pl-3 shadow-[var(--shadow-inset)]',
         className,
       )}
     >

@@ -13,4 +13,6 @@ The stable compound API provides `Root`, `Input`, `Content`, and `Item`. Base UI
 - Move legacy token, dialog, and TextInput integrations to composition with their local components.
 - Use the documented value/default-value callback contract rather than legacy overlay state props.
 - Set `portal={false}` on `Content` to render the list in place rather than at the end of the document; it still composes its positioner.
+- Base UI's popup can hide sibling dialog controls from the accessibility tree while suggestions are open, even when `modal={false}` or `portal={false}`. A popup composition that retains their exposure and equivalent keyboard behavior remains unverified.
+- Base UI supplies the input's `aria-autocomplete`, `aria-controls`, and active-descendant relationships. An `Item` rendered as an anchor is still exposed as an option, not a link; native link gestures and the accessibility of input-owned link results are not guaranteed by this composition. Applications with stricter policies or link-result requirements need a separately reviewed interaction pattern.
 - `sx` and styled-system props are unsupported.

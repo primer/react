@@ -1,23 +1,146 @@
-import {cleanup, render, screen, waitFor, within} from '@testing-library/react'
+import {act, cleanup, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {clip, MockIntersectionObserver, stubIntersectionObserver} from '../../internal/intersectionObserver.test-utils'
-import {ActionBar} from './ActionBar'
+import {SelectPanel, type SelectPanelItem} from '../SelectPanel'
+import {ActionBar, type ActionBarIconButtonProps} from './ActionBar'
 
 const TestIcon = () => <svg aria-hidden="true" data-testid="icon" />
+
+// @ts-expect-error ActionBar needs an aria-label to name an action that moves to overflow.
+const unlabeledOverflowAction: ActionBarIconButtonProps = {icon: TestIcon, 'aria-labelledby': 'external-label'}
+void unlabeledOverflowAction
 
 beforeEach(() => {
   stubIntersectionObserver()
 })
 
-afterEach(() => {
-  cleanup()
+afterEach(async () => {
+  await act(async () => cleanup())
   vi.unstubAllGlobals()
 })
 
 describe('ActionBar', () => {
+  it('keeps mounted part refs attached when their presentation changes', () => {
+    const refs = Array.from({length: 5}, () => vi.fn<(element: HTMLElement | null) => void>())
+    const [buttonRef, iconRef, groupRef, dividerRef, menuRef] = refs
+    function Actions({label}: {label: string}) {
+      return (
+        <ActionBar aria-label="Actions">
+          <ActionBar.Button ref={buttonRef}>{label}</ActionBar.Button>
+          <ActionBar.IconButton ref={iconRef} aria-label={label} icon={TestIcon} />
+          <ActionBar.Group ref={groupRef}>
+            <ActionBar.Button>Grouped action</ActionBar.Button>
+          </ActionBar.Group>
+          <ActionBar.Divider ref={dividerRef} />
+          <ActionBar.Menu ref={menuRef} aria-label={label} icon={TestIcon} items={[]} />
+        </ActionBar>
+      )
+    }
+    const {rerender} = render(<Actions label="Copy" />)
+    for (const ref of refs) {
+      expect(ref).toHaveBeenLastCalledWith(expect.any(HTMLElement))
+      ref.mockClear()
+    }
+
+    rerender(<Actions label="Updated action" />)
+
+    for (const ref of refs) expect(ref).not.toHaveBeenCalled()
+  })
+
+  it('composes a configured SelectPanel trigger without remounting toolbar actions', async () => {
+    const user = userEvent.setup()
+    function Filters() {
+      const [selected, setSelected] = React.useState<SelectPanelItem[]>([])
+      return (
+        <React.StrictMode>
+          <ActionBar aria-label="Filters" style={{width: 30}}>
+            <SelectPanel
+              title="Filter by project"
+              items={[{text: 'bug'}]}
+              selected={selected}
+              onSelectedChange={setSelected}
+              renderAnchor={() => <ActionBar.Button>Projects</ActionBar.Button>}
+            />
+            <ActionBar.Button>Labels</ActionBar.Button>
+          </ActionBar>
+        </React.StrictMode>
+      )
+    }
+    render(<Filters />)
+    const projects = screen.getByRole('button', {name: 'Projects'})
+    const labels = screen.getByRole('button', {name: 'Labels'})
+    await user.click(projects)
+    expect(await screen.findByRole('combobox', {name: 'Filter items'})).toHaveFocus()
+    await user.click(await screen.findByRole('option', {name: 'bug'}))
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+    expect(projects).toHaveFocus()
+    expect(screen.getByRole('button', {name: 'Projects'})).toBe(projects)
+    expect(screen.getByRole('button', {name: 'Labels'})).toBe(labels)
+  })
+
+  it('cleans up replaced callback refs without replacing the action element', () => {
+    const firstCleanup = vi.fn()
+    const secondCleanup = vi.fn()
+    const firstRef = vi.fn(() => firstCleanup)
+    const secondRef = vi.fn(() => secondCleanup)
+    const action = (ref: React.Ref<HTMLButtonElement>) => (
+      <ActionBar aria-label="Actions">
+        <ActionBar.Button ref={ref}>Copy</ActionBar.Button>
+      </ActionBar>
+    )
+    const {rerender, unmount} = render(action(firstRef))
+    const copy = screen.getByRole('button', {name: 'Copy'})
+    firstCleanup.mockClear()
+
+    rerender(action(secondRef))
+
+    expect(firstCleanup).toHaveBeenCalledOnce()
+    expect(secondRef).toHaveBeenCalledExactlyOnceWith(copy)
+    expect(screen.getByRole('button', {name: 'Copy'})).toBe(copy)
+    unmount()
+    expect(secondCleanup).toHaveBeenCalledOnce()
+  })
+
+  it.each(['button', 'icon button'] as const)(
+    'uses the latest overflow %s handler and removes it when absent',
+    async kind => {
+      const user = userEvent.setup()
+      const firstClick = vi.fn()
+      const nextClick = vi.fn()
+      function Actions({onClick}: {onClick?: React.MouseEventHandler<HTMLButtonElement>}) {
+        return (
+          <ActionBar aria-label="Actions">
+            {kind === 'button' ? (
+              <ActionBar.Button onClick={onClick}>Copy</ActionBar.Button>
+            ) : (
+              <ActionBar.IconButton aria-label="Copy" icon={TestIcon} onClick={onClick} />
+            )}
+          </ActionBar>
+        )
+      }
+      const {rerender} = render(<Actions onClick={firstClick} />)
+      const copy = screen.getByRole('button', {name: 'Copy'})
+      clip(copy)
+      await user.click(screen.getByRole('button', {name: 'More items'}))
+
+      rerender(<Actions onClick={nextClick} />)
+      await user.click(screen.getByRole('menuitem', {name: 'Copy'}))
+      expect(nextClick).toHaveBeenCalledOnce()
+      expect(firstClick).not.toHaveBeenCalled()
+      await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())
+
+      rerender(<Actions />)
+      await user.click(screen.getByRole('button', {name: 'More items'}))
+      await user.click(await screen.findByRole('menuitem', {name: 'Copy'}))
+      expect(nextClick).toHaveBeenCalledOnce()
+      expect(firstClick).not.toHaveBeenCalled()
+    },
+  )
+
   it('composes ActionMenu while preserving toolbar focus and stable part identifiers', async () => {
     const user = userEvent.setup()
     const onClick = vi.fn()
@@ -303,6 +426,199 @@ describe('ActionBar', () => {
     await waitFor(() => expect(projects).toHaveFocus())
   })
 
+  it.each([
+    [false, false],
+    [false, true],
+    [true, false],
+    [true, true],
+  ])('restores a portaled submenu to its registered action (StrictMode: %s, deep: %s)', async (strict, deep) => {
+    const user = userEvent.setup()
+    const content = (
+      <ActionBar aria-label="Actions">
+        <ActionBar.Button>Labels</ActionBar.Button>
+        <ActionBar.Menu
+          aria-label="Projects"
+          icon={TestIcon}
+          items={[{label: 'bug'}, {label: 'More projects', items: [{label: 'feature'}]}]}
+        />
+      </ActionBar>
+    )
+    render(strict ? <React.StrictMode>{content}</React.StrictMode> : content)
+    const labels = screen.getByRole('button', {name: 'Labels'})
+    const projects = screen.getByRole('button', {name: 'Projects'})
+    clip(labels, projects)
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    const overflowProjects = await screen.findByRole('menuitem', {name: 'Projects'})
+    act(() => overflowProjects.focus())
+    await user.keyboard('{ArrowRight}')
+    await waitFor(() => expect(screen.getByRole('menuitem', {name: 'bug'})).toHaveFocus())
+    if (deep) {
+      await user.keyboard('{ArrowDown}')
+      await waitFor(() => expect(screen.getByRole('menuitem', {name: 'More projects'})).toHaveFocus())
+      await user.keyboard('{ArrowRight}')
+      await waitFor(() => expect(screen.getByRole('menuitem', {name: 'feature'})).toHaveFocus())
+      await user.keyboard('{Escape}')
+      await waitFor(() => expect(screen.getByRole('menuitem', {name: 'More projects'})).toHaveFocus())
+      await user.keyboard('{ArrowRight}')
+      await waitFor(() => expect(screen.getByRole('menuitem', {name: 'feature'})).toHaveFocus())
+    }
+    expect(screen.getByRole('menu', {name: 'More items'}).contains(document.activeElement)).toBe(false)
+
+    clip()
+
+    await waitFor(() => expect(projects).toHaveFocus())
+    expect(screen.queryByRole('button', {name: 'More items'})).not.toBeInTheDocument()
+    expect(screen.getByRole('button', {name: 'Projects'})).toBe(projects)
+  })
+
+  it.each([false, true])('preserves outside focus when overflow disappears (after resize: %s)', async afterResize => {
+    const user = userEvent.setup()
+    render(
+      <>
+        <input aria-label="Outside target" />
+        <ActionBar aria-label="Actions">
+          <ActionBar.Menu aria-label="Projects" icon={TestIcon} items={[{label: 'bug'}]} />
+        </ActionBar>
+      </>,
+    )
+    const projects = screen.getByRole('button', {name: 'Projects'})
+    const outside = screen.getByRole('textbox', {name: 'Outside target'})
+    clip(projects)
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    const overflowProjects = await screen.findByRole('menuitem', {name: 'Projects'})
+    act(() => overflowProjects.focus())
+    await user.keyboard('{ArrowRight}')
+    await waitFor(() => expect(screen.getByRole('menuitem', {name: 'bug'})).toHaveFocus())
+
+    if (afterResize) clip()
+    await act(async () => outside.focus())
+    if (!afterResize) clip()
+
+    await waitFor(() => expect(screen.queryByRole('button', {name: 'More items'})).not.toBeInTheDocument())
+    expect(outside).toHaveFocus()
+  })
+
+  it.each([
+    [false, false],
+    [false, true],
+    [true, false],
+    [true, true],
+  ])('respects the submenu return target (available: %s, deep: %s)', async (available, deep) => {
+    const user = userEvent.setup()
+    const returnFocusRef = React.createRef<HTMLButtonElement>()
+    const onInlineFocus = vi.fn()
+    render(
+      <>
+        {available ? (
+          <button ref={returnFocusRef} type="button">
+            Custom return target
+          </button>
+        ) : null}
+        <ActionBar aria-label="Actions">
+          <ActionBar.Menu
+            aria-label="Projects"
+            icon={TestIcon}
+            items={[{label: 'bug'}, {label: 'More projects', items: [{label: 'feature'}]}]}
+            returnFocusRef={returnFocusRef}
+            onFocus={onInlineFocus}
+          />
+        </ActionBar>
+      </>,
+    )
+    const projects = screen.getByRole('button', {name: 'Projects'})
+    clip(projects)
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    const overflowProjects = await screen.findByRole('menuitem', {name: 'Projects'})
+    act(() => overflowProjects.focus())
+    await user.keyboard('{ArrowRight}')
+    await waitFor(() => expect(screen.getByRole('menuitem', {name: 'bug'})).toHaveFocus())
+    if (deep) {
+      await user.keyboard('{ArrowDown}{ArrowRight}')
+      await waitFor(() => expect(screen.getByRole('menuitem', {name: 'feature'})).toHaveFocus())
+    }
+    onInlineFocus.mockClear()
+
+    clip()
+
+    await waitFor(() => expect(available ? returnFocusRef.current : projects).toHaveFocus())
+    if (available) expect(onInlineFocus).not.toHaveBeenCalled()
+
+    act(() => projects.focus())
+    await user.keyboard('{Enter}')
+    await waitFor(() => expect(screen.getByRole('menuitem', {name: 'bug'})).toHaveFocus())
+    await user.keyboard('{Enter}')
+    await waitFor(() => expect(available ? returnFocusRef.current : projects).toHaveFocus())
+
+    clip(projects)
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    const reopenedProjects = await screen.findByRole('menuitem', {name: 'Projects'})
+    act(() => reopenedProjects.focus())
+    await user.keyboard('{ArrowRight}')
+    await waitFor(() => expect(screen.getByRole('menuitem', {name: 'bug'})).toHaveFocus())
+    if (deep) {
+      await user.keyboard('{ArrowDown}{ArrowRight}')
+      await waitFor(() => expect(screen.getByRole('menuitem', {name: 'feature'})).toHaveFocus())
+    }
+    onInlineFocus.mockClear()
+
+    clip()
+
+    await waitFor(() => expect(available ? returnFocusRef.current : projects).toHaveFocus())
+    if (available) expect(onInlineFocus).not.toHaveBeenCalled()
+  })
+
+  it.each(['escape', 'selection', 'outside'])('preserves ordinary overflow dismissal (%s)', async dismissal => {
+    const user = userEvent.setup()
+    const onClick = vi.fn()
+    render(
+      <>
+        <input aria-label="Outside target" />
+        <ActionBar aria-label="Actions">
+          <ActionBar.Button onClick={onClick}>Labels</ActionBar.Button>
+        </ActionBar>
+      </>,
+    )
+    clip(screen.getByRole('button', {name: 'Labels'}))
+    const more = screen.getByRole('button', {name: 'More items'})
+    act(() => more.focus())
+    await user.keyboard('{ArrowDown}')
+    await waitFor(() => expect(screen.getByRole('menuitem', {name: 'Labels'})).toHaveFocus())
+    const outside = screen.getByRole('textbox', {name: 'Outside target'})
+
+    if (dismissal === 'outside') await user.click(outside)
+    else await user.keyboard(dismissal === 'escape' ? '{Escape}' : '{Enter}')
+
+    await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument())
+    await waitFor(() => expect(dismissal === 'outside' ? outside : more).toHaveFocus())
+    expect(onClick).toHaveBeenCalledTimes(dismissal === 'selection' ? 1 : 0)
+  })
+
+  it('does not restore intentionally blurred submenu focus', async () => {
+    const user = userEvent.setup()
+    render(
+      <ActionBar aria-label="Actions">
+        <ActionBar.Menu aria-label="Projects" icon={TestIcon} items={[{label: 'bug'}]} />
+      </ActionBar>,
+    )
+    clip(screen.getByRole('button', {name: 'Projects'}))
+    await user.click(screen.getByRole('button', {name: 'More items'}))
+    const overflowProjects = await screen.findByRole('menuitem', {name: 'Projects'})
+    act(() => overflowProjects.focus())
+    await user.keyboard('{ArrowRight}')
+    const bug = await screen.findByRole('menuitem', {name: 'bug'})
+    await waitFor(() => expect(bug).toHaveFocus())
+    act(() => {
+      // eslint-disable-next-line github/no-blur -- Simulate intentional focus loss; resize must not reclaim it.
+      bug.blur()
+    })
+    expect(document.activeElement).toBe(document.body)
+
+    clip()
+    await act(() => Promise.resolve())
+
+    expect(document.activeElement).toBe(document.body)
+  })
+
   it.each([false, true])(
     'restores focus when an open menu overflows (custom return focus: %s)',
     async hasCustomReturnFocus => {
@@ -326,7 +642,9 @@ describe('ActionBar', () => {
 
       const trigger = screen.getByRole('button', {name: 'Settings'})
       await user.click(trigger)
-      expect(await screen.findByRole('menuitem', {name: 'Configure'})).toBeVisible()
+      const configure = await screen.findByRole('menuitem', {name: 'Configure'})
+      expect(configure).toBeVisible()
+      act(() => configure.focus())
       clip(trigger)
       const more = screen.getByRole('button', {name: 'More items'})
       await user.keyboard('{Escape}')

@@ -9,6 +9,7 @@ export type {
   FloatingSide,
   FloatingVirtualAnchor,
 } from './positioning'
+export type {PortalContainer} from './portal'
 export type {RegionProps} from './regions'
 export type {ResponsiveValue, Viewport} from './responsive'
 export type {

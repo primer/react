@@ -24,10 +24,10 @@ describe('TextInput', () => {
 
   it('supports intrinsic and full-width layouts without forwarding block', () => {
     const {container, rerender} = render(<TextInput data-testid="block-input" />)
-    expect(container.firstElementChild).toHaveClass('inline-flex')
+    expect(container.firstElementChild).toHaveClass('primer:inline-flex')
 
     rerender(<TextInput block data-testid="block-input" />)
-    expect(container.firstElementChild).toHaveClass('w-full')
+    expect(container.firstElementChild).toHaveClass('primer:w-full')
     expect(screen.getByTestId('block-input')).not.toHaveAttribute('block')
   })
 
@@ -52,7 +52,7 @@ describe('TextInput', () => {
   it('exposes loading state and description', () => {
     const {container} = render(<TextInput loading loaderText="Loading repositories" />)
 
-    expect(container.firstElementChild).toHaveAttribute('aria-busy', 'true')
+    expect(container.querySelector('[aria-busy]')).toBeNull()
     expect(screen.getByRole('textbox')).toHaveAccessibleDescription('Loading repositories')
   })
 

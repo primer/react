@@ -20,7 +20,7 @@ const PortalFixture = ({children = 'Portaled content', id}: {children?: React.Re
 
   return (
     <>
-      <div id={id} ref={containerRef} className="min-h-8 border border-dashed border-default p-2">
+      <div id={id} ref={containerRef} className="min-h-8 border-thin border-dashed border-default p-2">
         <Portal container={containerRef}>{children}</Portal>
       </div>
     </>

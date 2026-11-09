@@ -4,6 +4,41 @@
 
 Import: `import {Truncate} from '@primer/react-tailwind/Truncate'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Import and usage
+
+```tsx
+import {Truncate} from '@primer/react-tailwind/Truncate'
+;<Truncate title="A long repository name">A long repository name</Truncate>
+```
+
+The `title` prop is required and is also the accessible/native tooltip value. The component's content is supplied through standard `children`.
+
+## API notes
+
+A numeric `maxWidth` is interpreted in pixels.
+
+## Composition
+
+Use `inline` when the truncated value is part of a sentence or compact row. Use `as` when the surrounding semantics require another element. The `expandable` flag is descriptive only; this component does not implement an expansion interaction.
+
+## Accessibility
+
+Keep the full value in `title`, even when children are visually truncated. Choose an appropriate `as` element and do not use a link or button element unless the corresponding interaction is provided by the consumer.
+
+## Animation and reduced motion
+
+`Truncate` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Use `className` to extend the generated `truncate` styles and layout. With Tailwind v4, include the package's compiled `dist` directory in `@source` and import Primer theme tokens. Do not combine compiled `styles.css` with generated package utilities.
+
+### Data attributes
+
+The root exposes `data-component="Truncate"` and `data-expandable` when `expandable` is true. The width is stored in the `--truncate-max-width` inline custom property.
+
 Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

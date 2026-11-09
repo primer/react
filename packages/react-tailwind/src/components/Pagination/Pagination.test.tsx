@@ -1,5 +1,6 @@
 import React from 'react'
-import {fireEvent, render, screen, within} from '@testing-library/react'
+import {act, fireEvent, render, screen, within} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import {type PageProps, Pagination} from './Pagination'
 import {buildPaginationModel} from './model'
@@ -29,7 +30,7 @@ describe('Pagination', () => {
     expect(pagination.getByRole('navigation', {name: 'Search results'})).toBeVisible()
     expect(pagination.queryByRole('link', {name: 'Page 1'})).not.toBeInTheDocument()
     const previousPage = pagination.getByLabelText('Previous page')
-    expect(previousPage).toHaveClass('mr-0')
+    expect(previousPage).toHaveClass('primer:mr-0')
     fireEvent.click(previousPage)
     expect(onPageChange).not.toHaveBeenCalled()
   })
@@ -37,8 +38,8 @@ describe('Pagination', () => {
   it('renders page links for responsive visibility values', () => {
     const {container} = render(<Pagination currentPage={2} pageCount={4} showPages={{narrow: false, regular: true}} />)
 
-    expect(within(container).getByRole('link', {name: 'Page 2'})).toHaveClass('hidden', 'md:inline-flex')
-    expect(within(container).getByRole('link', {name: 'Previous page'})).toHaveClass('mr-0', 'md:mr-1')
+    expect(within(container).getByRole('link', {name: 'Page 2'})).toHaveClass('primer:hidden', 'primer:md:inline-flex')
+    expect(within(container).getByRole('link', {name: 'Previous page'})).toHaveClass('primer:mr-0', 'primer:md:mr-1')
   })
 
   it('builds contiguous page windows with ellipses and supports zero margins', () => {
@@ -107,5 +108,101 @@ describe('Pagination', () => {
     expect(screen.getByText('Page range')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', {name: '2'}))
     expect(onPageChange).toHaveBeenCalledWith(expect.anything(), 2)
+  })
+
+  it('preserves directional controls and numbered-page identity across controlled page changes', () => {
+    const onPageChange = vi.fn()
+    const {rerender} = render(<Pagination currentPage={2} pageCount={6} onPageChange={onPageChange} />)
+    const previous = screen.getByRole('link', {name: 'Previous page'})
+    const next = screen.getByRole('link', {name: 'Next page'})
+    const pageThree = screen.getByRole('link', {name: 'Page 3'})
+    act(() => next.focus())
+
+    rerender(<Pagination currentPage={3} pageCount={6} onPageChange={onPageChange} />)
+
+    expect(screen.getByRole('link', {name: 'Previous page'})).toBe(previous)
+    expect(screen.getByRole('link', {name: 'Next page'})).toBe(next)
+    expect(screen.getByRole('link', {name: 'Page 3'})).toBe(pageThree)
+    expect(next).toHaveFocus()
+    expect(next).toHaveAttribute('href', '#4')
+    expect(pageThree).toHaveAttribute('aria-current', 'page')
+
+    rerender(<Pagination currentPage={6} pageCount={6} onPageChange={onPageChange} />)
+
+    expect(screen.getByLabelText('Next page')).toBe(next)
+    expect(next).toHaveAttribute('aria-disabled', 'true')
+    expect(next).not.toHaveAttribute('href')
+    fireEvent.click(next)
+    expect(onPageChange).not.toHaveBeenCalled()
+  })
+
+  it('retains a custom directional link while the consumer guards a pending request', async () => {
+    const user = userEvent.setup()
+    const onRequest = vi.fn()
+
+    function AsyncPagination() {
+      const [currentPage, setCurrentPage] = React.useState(2)
+      const [pending, setPending] = React.useState(false)
+      return (
+        <>
+          <Pagination
+            currentPage={currentPage}
+            pageCount={5}
+            onPageChange={(event, page) => {
+              event.preventDefault()
+              if (pending) return
+              onRequest(page)
+              setPending(true)
+              setCurrentPage(page)
+            }}
+            renderPage={({number: _number, pageType: _pageType, onPageSelect: _onPageSelect, ...props}) =>
+              props.href ? (
+                <a {...props} aria-disabled={pending || undefined}>
+                  {props.children}
+                </a>
+              ) : (
+                <span role="link" aria-label={props['aria-label']} aria-disabled="true">
+                  {props.children}
+                </span>
+              )
+            }
+          />
+          <button type="button" onClick={() => setPending(false)}>
+            Finish request
+          </button>
+        </>
+      )
+    }
+
+    render(<AsyncPagination />)
+    const previous = screen.getByRole('link', {name: 'Previous page'})
+    const next = screen.getByRole('link', {name: 'Next page'})
+    act(() => next.focus())
+    await user.keyboard('{Enter}')
+
+    expect(onRequest).toHaveBeenCalledExactlyOnceWith(3)
+    expect(screen.getByRole('link', {name: 'Next page'})).toBe(next)
+    expect(next).toHaveFocus()
+    expect(next).toHaveAttribute('href', '#4')
+    expect(next).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByRole('link', {name: 'Page 3'})).toHaveAttribute('aria-current', 'page')
+    await user.keyboard('{Enter}')
+    expect(onRequest).toHaveBeenCalledTimes(1)
+
+    fireEvent.click(screen.getByRole('button', {name: 'Finish request'}))
+    expect(next).toHaveFocus()
+    expect(next).not.toHaveAttribute('aria-disabled')
+    await user.keyboard('{Enter}')
+    expect(onRequest).toHaveBeenLastCalledWith(4)
+    fireEvent.click(screen.getByRole('button', {name: 'Finish request'}))
+    await user.keyboard('{Enter}')
+    expect(onRequest).toHaveBeenLastCalledWith(5)
+    expect(screen.getByRole('link', {name: 'Previous page'})).toBe(previous)
+    const disabledNext = screen.getByRole('link', {name: 'Next page'})
+    expect(disabledNext).not.toBe(next)
+    expect(disabledNext).toHaveAttribute('aria-disabled', 'true')
+    expect(disabledNext).not.toHaveAttribute('href')
+    fireEvent.click(disabledNext)
+    expect(onRequest).toHaveBeenCalledTimes(3)
   })
 })

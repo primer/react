@@ -87,7 +87,7 @@ const Root = React.forwardRef<HTMLDivElement, RadioGroupProps>(function RadioGro
               disabled={fieldsetState.disabled}
               required={required}
               data-component="RadioGroup"
-              className={mergeClassName('m-0 grid min-w-0 gap-2', className)}
+              className={mergeClassName('primer:m-0 primer:grid primer:min-w-0 primer:gap-2', className)}
               // Base UI resolves `disabled` from the group, an enclosing FormControl (Field), and Fieldset.
               render={(props, state) => (
                 <RadioGroupDisabledContext.Provider value={state.disabled}>

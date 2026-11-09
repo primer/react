@@ -25,11 +25,28 @@ Use `filterValue`/`onFilterChange` or `defaultFilterValue` for controlled and un
 
 `groupMetadata` adds ordered, labelled groups. `renderItem` precedence is item, group, then list. `renderGroup` wraps a Base UI group’s labelled content. `message` renders custom body content, while `messageText` announces it. `loadingType` accepts `input`, `body-spinner`, or `body-skeleton`; the default is `body-spinner`.
 
-`textInputProps`, `actionListProps`, root DOM props, `inputRef`, `scrollContainerRef`, `onInputRefChanged`, and `onListContainerRefChanged` preserve integration points. `focusOutBehavior`, `onActiveDescendantChanged`, `disableSelectOnHover`, `setInitialFocus`, `focusPrependedElements`, `scrollBehavior`, and `fullScreenOnNarrow` configure the underlying combobox behavior. Set `virtualized` for large, ungrouped lists with simple enabled, uniform text rows; grouped, custom, disabled, and variable-height rows deliberately fall back to regular rendering.
+`emptyStateText` replaces the default "No items found" message and accepts rich content. Pass `null` to suppress the built-in visible message when the surrounding interface provides its own empty state. The empty status remains mounted without padding, and the result-count live region remains controlled separately by `announcementsEnabled`. Provide any additional empty-state feedback the surrounding task needs.
+
+`textInputProps`, `actionListProps`, root DOM props, `inputRef`, `scrollContainerRef`, `onInputRefChanged`, and `onListContainerRefChanged` preserve integration points. `focusOutBehavior`, `onActiveDescendantChanged`, `disableSelectOnHover`, `setInitialFocus`, `focusPrependedElements`, `scrollBehavior`, and `fullScreenOnNarrow` configure the underlying combobox behavior. Set `virtualized` for large, ungrouped lists with simple enabled, uniform text rows. Grouped, custom, and disabled rows use regular rendering. If mounted content grows beyond a fixed row, including after a resize, the component switches to regular rendering and preserves the visible scroll anchor. It also uses regular rendering when `ResizeObserver` is unavailable. Custom fixed-size or non-wrapping visuals must still provide their own responsive layout.
 
 ## Accessibility and keyboard behavior
 
-The input is a combobox associated with a listbox and retains DOM focus while Base UI exposes the highlighted option through `aria-activedescendant`. Arrow keys move between enabled options and Enter invokes selection and `onAction`. Option names include the item label and trailing visual; item descriptions are exposed separately. Mark decorative visuals as hidden from assistive technology. Groups use labelled `group` semantics, and a polite result count is announced unless `announcementsEnabled` is false. Body loading and custom-message states do not leave the input pointing to an absent listbox; empty-state status is outside the listbox. Provide an `aria-label` that names the filter input.
+The input is a combobox associated with a listbox and retains DOM focus while Base UI exposes the highlighted option through `aria-activedescendant`. Arrow keys move between enabled options and Enter invokes selection and `onAction`. Option names include the item label and trailing visual; item descriptions are exposed separately. Mark decorative visuals as hidden from assistive technology. Groups use labelled `group` semantics, and a polite result count is announced unless `announcementsEnabled` is false. Body loading and custom-message states do not leave the input pointing to an absent listbox; empty-state status is outside the listbox.
+
+Provide a visible label and an `aria-label` that names the filter input. The top-level `aria-label` also names the listbox by default; set `actionListProps['aria-label']` to give the listbox a different name. `placeholderText` sets the placeholder, not the input's accessible name. If omitted, `aria-label` defaults to the English text "Filter items", so localize both names for the surrounding application:
+
+```tsx
+<label htmlFor="team-search">Search for teams</label>
+<FilteredActionList
+  aria-label="Search for teams"
+  placeholderText="Search for teams"
+  textInputProps={{id: 'team-search'}}
+  actionListProps={{'aria-label': 'Select teams'}}
+  items={[{id: 'primer', text: 'Primer team'}]}
+/>
+```
+
+**Known keyboard gap:** In automated WebKit, an option taller than the scrolling results area could not be fully reached with the tested keyboard navigation, including in a short dialog with no body padding. Provide enough height for option content where practical, or present long details outside the list, pending accessibility-specialist review. Neither removing dialog padding nor switching to narrow fullscreen guarantees enough space for every option. This has not been verified in native Safari or with a screen reader.
 
 <Canvas of={Features.MultiSelectWithSelectAll} />
 

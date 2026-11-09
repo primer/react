@@ -36,10 +36,16 @@
       "id": "react-tailwind-data-actionbar-examples--with-menus"
     },
     {
+      "id": "react-tailwind-data-actionbar-features--select-panel-composition"
+    },
+    {
       "id": "react-tailwind-data-actionbar-features--roving-focus"
     },
     {
       "id": "react-tailwind-data-actionbar-features--overflow-accessibility"
+    },
+    {
+      "id": "react-tailwind-data-actionbar-features--guarded-overflow-picker"
     },
     {
       "id": "react-tailwind-data-actionbar--default"
@@ -115,7 +121,7 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "leadingVisual",
@@ -130,7 +136,7 @@
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading."
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "notificationIndicator",
@@ -176,7 +182,11 @@
           "name": "aria-label",
           "type": "string",
           "required": true,
-          "description": "Accessible name for the button. Required, because the icon alone conveys nothing to assistive technology."
+          "description": "Accessible name, also used as the label when the action overflows."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string"
         },
         {
           "name": "block",
@@ -195,7 +205,7 @@
         {
           "name": "description",
           "type": "string",
-          "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the\ntooltip repeats `aria-label` visually."
+          "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, a\nsupplied `aria-label` is repeated visually as a tooltip."
         },
         {
           "name": "disabled",
@@ -222,7 +232,7 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "loading",
@@ -232,7 +242,7 @@
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading."
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "notificationIndicator",
@@ -304,6 +314,10 @@
           "description": "Accessible name for the menu trigger, also used as its label when the menu overflows."
         },
         {
+          "name": "aria-labelledby",
+          "type": "string"
+        },
+        {
           "name": "block",
           "type": "boolean",
           "description": "Stretches the button to fill the width of its container."
@@ -320,7 +334,7 @@
         {
           "name": "description",
           "type": "string",
-          "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, the\ntooltip repeats `aria-label` visually."
+          "description": "Supplementary text shown in the button's tooltip and exposed as its accessible description. Without it, a\nsupplied `aria-label` is repeated visually as a tooltip."
         },
         {
           "name": "disabled",
@@ -352,7 +366,7 @@
         {
           "name": "labelWrap",
           "type": "boolean",
-          "description": "Lets a long label wrap onto more than one line instead of being clipped."
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
         },
         {
           "name": "loading",
@@ -362,7 +376,7 @@
         {
           "name": "loadingAnnouncement",
           "type": "string",
-          "description": "Text announced to assistive technology while the button is loading."
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
         },
         {
           "name": "notificationIndicator",

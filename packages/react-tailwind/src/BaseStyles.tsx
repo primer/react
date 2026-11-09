@@ -20,7 +20,7 @@ export const BaseStyles = React.forwardRef<HTMLElement, BaseStylesProps>(
         ref={mergeRefs(ref, setPortalRoot)}
         data-component="BaseStyles"
         data-portal-root
-        className={cn('font-sans leading-normal text-default', className)}
+        className={cn('primer:font-sans primer:leading-normal primer:text-default', className)}
         style={{
           '--BaseStyles-fgColor': color,
           color: 'var(--BaseStyles-fgColor, var(--fgColor-default))',

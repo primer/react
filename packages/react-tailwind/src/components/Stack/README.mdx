@@ -23,6 +23,8 @@ import {Stack} from '@primer/react-tailwind/Stack'
 
 `Stack.Item` is also exported as `StackItem`.
 
+`as` selects the native or custom root and its props, events, and ref. For example, `as="form"` accepts form attributes and gives `onSubmit` and `onChange` an `HTMLFormElement` target, including `FormData(event.currentTarget)`. Use `StackProps<'form'>` or `StackItemProps<'form'>` for extracted form props. Custom components must forward the layout class name, DOM props, children, and ref; their required props and declared ref type are preserved.
+
 Use responsive values for `direction`, `gap`, and alignment without changing the DOM order. `Stack` adds no semantics; use appropriate landmarks, headings, and lists for its children.
 
 <Canvas of={Features.GapScale} />

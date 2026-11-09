@@ -2,6 +2,7 @@
 
 import type {Popover as BasePopover} from '@base-ui/react/popover'
 import React from 'react'
+import {createPortal} from 'react-dom'
 
 type PortalContainer = BasePopover.Portal.Props['container']
 
@@ -18,6 +19,8 @@ export interface FloatingPortalProps {
   container?: PortalContainer
   /** Keeps the portal mounted while closed. */
   keepMounted?: boolean
+  /** Element that owns the portal's focus guards and accessibility relationship; `null` waits for it. */
+  owner?: HTMLElement | null
   /** The component's Base UI `Portal` part. */
   part: React.ComponentType<PortalPartProps>
   /** Renders into the default portal root when true, and in place when false. */
@@ -30,20 +33,32 @@ export interface FloatingPortalProps {
  * state because Base UI resolves it in a layout effect, which runs before a parent's ref attaches when both mount
  * together (e.g. initially open); an explicit `null` container makes Base UI wait for it.
  */
-export function FloatingPortal({children, container, keepMounted, part: Portal, portal}: FloatingPortalProps) {
+export function FloatingPortal({children, container, keepMounted, owner, part: Portal, portal}: FloatingPortalProps) {
   const [inlineContainer, setInlineContainer] = React.useState<HTMLDivElement | null>(null)
+  const withOwner = (content: React.ReactNode) =>
+    owner === undefined ? content : owner === null ? null : createPortal(content, owner)
+
   if (portal)
-    return (
+    return withOwner(
       <Portal container={container} keepMounted={keepMounted}>
         {children}
-      </Portal>
+      </Portal>,
+    )
+
+  if (owner !== undefined)
+    return withOwner(
+      <Portal container={owner} className="primer:contents" keepMounted={keepMounted}>
+        {children}
+      </Portal>,
     )
 
   return (
-    <div ref={setInlineContainer} className="contents">
-      <Portal container={inlineContainer} className="contents" keepMounted={keepMounted}>
-        {children}
-      </Portal>
+    <div ref={setInlineContainer} className="primer:contents">
+      {withOwner(
+        <Portal container={inlineContainer} className="primer:contents" keepMounted={keepMounted}>
+          {children}
+        </Portal>,
+      )}
     </div>
   )
 }

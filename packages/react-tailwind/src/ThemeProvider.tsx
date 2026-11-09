@@ -128,7 +128,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
         data-color-mode={dataColorMode}
         data-light-theme={dayScheme}
         data-dark-theme={nightScheme}
-        className={cn('contents', className)}
+        className={cn('primer:contents', className)}
       >
         {children}
       </div>

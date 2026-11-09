@@ -4,6 +4,40 @@
 
 Import: `import {Card} from '@primer/react-tailwind/Card'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Import and usage
+
+```tsx
+import {Card} from '@primer/react-tailwind/Card'
+;<Card>
+  <Card.Heading>Repository</Card.Heading>
+  <Card.Description>A short summary.</Card.Description>
+</Card>
+```
+
+The compound API is exposed as properties on `Card`; the named part exports are also available.
+
+## Composition
+
+Use `Card.Heading`, `Card.Description`, `Card.Image`, `Card.Icon`, `Card.Metadata`, and `Card.Action` as needed. `Card.Action` is positioned in the top-right and should contain an appropriately labelled action control. `Card.Heading` supplies the generated section heading id when `as="section"` unless it already has an explicit id. Custom children mixed with compound parts are preserved in the content region.
+
+## Accessibility
+
+Use `as="section"` when the card is a named region and keep its heading meaningful. Supply useful `alt` text for informative images; decorative images can use an empty alt. `Card.Icon` is decorative unless given `aria-label`.
+
+## Animation and reduced motion
+
+`Card` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Cards use Primer border, background, shadow, radius, and text tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` on the root and compound parts for local extensions.
+
+### Data attributes
+
+The root exposes `data-component="Card"`, `data-layout`, `data-padding`, and `data-border-radius`. Compound parts expose `Card.Heading`, `Card.Description`, `Card.Image`, `Card.Icon`, `Card.Metadata`, and `Card.Action`.
+
 Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

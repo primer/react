@@ -14,7 +14,7 @@ afterEach(() => {
 const openTooltip = () => document.querySelector('[data-component="Tooltip.Content"][data-open]')
 
 describe('SegmentedControl', () => {
-  it('uses toggle group keyboard behavior and forwards props and refs', async () => {
+  it('selects on click and forwards props and refs', async () => {
     const user = userEvent.setup()
     const ref = React.createRef<HTMLDivElement>()
     const onValueChange = vi.fn()
@@ -28,6 +28,55 @@ describe('SegmentedControl', () => {
     expect(onValueChange).toHaveBeenLastCalledWith(['grid'], expect.anything())
     expect(ref.current).toBe(screen.getByTestId('control'))
     expect(screen.getByRole('button', {name: 'Grid'})).toHaveAttribute('data-pressed')
+  })
+
+  it('puts every enabled segment in the Tab order and ignores arrow keys, like Primer React', async () => {
+    const user = userEvent.setup()
+    const onKeyDown = vi.fn()
+    const onValueChange = vi.fn()
+    render(
+      <>
+        <button type="button">Before</button>
+        <SegmentedControl
+          aria-label="File view"
+          defaultValue={['preview']}
+          onKeyDown={onKeyDown}
+          onValueChange={onValueChange}
+        >
+          <SegmentedControl.Button value="preview">Preview</SegmentedControl.Button>
+          <SegmentedControl.Button value="raw" disabled>
+            Raw
+          </SegmentedControl.Button>
+          <SegmentedControl.IconButton value="blame" aria-label="Blame" icon={EyeIcon} />
+        </SegmentedControl>
+        <button type="button">After</button>
+      </>,
+    )
+    const preview = screen.getByRole('button', {name: 'Preview'})
+    const blame = screen.getByRole('button', {name: 'Blame'})
+
+    expect(preview).toHaveAttribute('tabindex', '0')
+    expect(blame).toHaveAttribute('tabindex', '0')
+
+    await user.click(screen.getByRole('button', {name: 'Before'}))
+    await user.tab()
+    expect(preview).toHaveFocus()
+    await user.tab()
+    expect(blame).toHaveFocus()
+    await user.tab()
+    expect(screen.getByRole('button', {name: 'After'})).toHaveFocus()
+    await user.tab({shift: true})
+    expect(blame).toHaveFocus()
+
+    for (const key of ['{ArrowLeft}', '{ArrowRight}', '{Home}', '{End}']) {
+      await user.keyboard(key)
+      expect(blame).toHaveFocus()
+    }
+    expect(onKeyDown).toHaveBeenCalled()
+    expect(onValueChange).not.toHaveBeenCalled()
+
+    await user.keyboard('{Enter}')
+    expect(onValueChange).toHaveBeenLastCalledWith(['blame'], expect.anything())
   })
 
   it('supports Primer sizing, responsive full width, and icon-only geometry', () => {
@@ -45,9 +94,14 @@ describe('SegmentedControl', () => {
 
     const canvas = within(container)
     expect(canvas.getByTestId('control')).toHaveAttribute('data-size', 'small')
-    expect(canvas.getByTestId('control')).toHaveClass('h-7', 'w-full', 'md:w-auto', '2xl:w-full')
+    expect(canvas.getByTestId('control')).toHaveClass(
+      'primer:h-7',
+      'primer:w-full',
+      'primer:md:w-auto',
+      'primer:2xl:w-full',
+    )
     expect(canvas.getByRole('button', {name: 'List'})).toHaveClass(
-      'w-[var(--segmented-control-icon-width,var(--control-medium-size))]',
+      'primer:w-[var(--segmented-control-icon-width,var(--control-medium-size))]',
     )
   })
 
@@ -63,9 +117,9 @@ describe('SegmentedControl', () => {
     )
 
     expect(screen.getByRole('group')).toHaveClass(
-      '[&_.segmentedControl-text]:hidden',
-      'md:[&_.segmentedControl-text]:block',
-      '2xl:[&_.segmentedControl-text]:hidden',
+      'primer:[&_.segmentedControl-text]:hidden',
+      'primer:md:[&_.segmentedControl-text]:block',
+      'primer:2xl:[&_.segmentedControl-text]:hidden',
     )
   })
 
@@ -131,10 +185,10 @@ describe('SegmentedControl', () => {
     )
 
     expect(screen.getByRole('group')).toHaveClass(
-      'border-0',
-      'bg-transparent',
-      '[--segmented-control-knob-display:none]',
-      '[--segmented-control-button-bgColor-hover:var(--button-invisible-bgColor-hover)]',
+      'primer:border-0',
+      'primer:bg-transparent',
+      'primer:[--segmented-control-knob-display:none]',
+      'primer:[--segmented-control-button-bgColor-hover:var(--button-invisible-bgColor-hover)]',
     )
   })
 
@@ -146,8 +200,13 @@ describe('SegmentedControl', () => {
     )
 
     const group = screen.getByRole('group')
-    expect(group).toHaveClass('border', 'md:border-0', 'md:bg-transparent', '2xl:border')
-    expect(group).not.toHaveClass('border-0')
+    expect(group).toHaveClass(
+      'primer:border-thin',
+      'primer:md:border-0',
+      'primer:md:bg-transparent',
+      'primer:2xl:border-thin',
+    )
+    expect(group).not.toHaveClass('primer:border-0')
   })
 
   it('renders dividers without including them in selection', async () => {
@@ -224,7 +283,7 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(screen.getByRole('button', {name: 'Preview'})).toHaveClass('is-pressed', 'grow')
+    expect(screen.getByRole('button', {name: 'Preview'})).toHaveClass('is-pressed', 'primer:grow')
     expect(screen.getByRole('button', {name: 'Raw'})).toHaveClass('is-idle')
   })
 
@@ -257,9 +316,20 @@ describe('SegmentedControl', () => {
     )
 
     const raw = screen.getByRole('button', {name: 'Raw'})
+    const preview = screen.getByRole('button', {name: 'Preview'})
     expect(raw).toHaveAttribute('data-component', 'SegmentedControl.IconButton')
     expect(raw).toHaveAccessibleDescription('Show the raw file')
-    await user.hover(screen.getByRole('button', {name: 'Preview'}))
+    for (const button of [preview, raw]) {
+      const owner = button.getAttribute('data-tooltip-trigger')
+      expect(owner).toBeTruthy()
+      expect(
+        Array.from(document.querySelectorAll('[data-tooltip-popup]')).map(popup =>
+          popup.getAttribute('data-tooltip-popup'),
+        ),
+      ).toContain(owner)
+    }
+    expect(preview.getAttribute('data-tooltip-trigger')).not.toBe(raw.getAttribute('data-tooltip-trigger'))
+    await user.hover(preview)
     await waitFor(() => expect(openTooltip()).toHaveTextContent('Preview'))
   })
 
@@ -285,7 +355,7 @@ describe('SegmentedControl', () => {
 
     const button = screen.getByRole('button', {name: 'Open'})
     expect(button).toHaveTextContent('3')
-    expect(button).toHaveClass('min-w-[var(--segmented-control-icon-width,var(--control-medium-size))]')
+    expect(button).toHaveClass('primer:min-w-[var(--segmented-control-icon-width,var(--control-medium-size))]')
   })
 
   it('shows the full label in a tooltip only when it is truncated', async () => {
@@ -309,6 +379,7 @@ describe('SegmentedControl', () => {
     )
 
     const button = screen.getByRole('button', {name: 'Preview changes before publishing'})
+    expect(button).not.toHaveAttribute('data-tooltip-trigger')
     await user.hover(button)
     await new Promise(resolve => setTimeout(resolve, 700))
     expect(openTooltip()).toBeNull()
@@ -320,6 +391,8 @@ describe('SegmentedControl', () => {
     act(() => notifyResize?.())
     await user.hover(button)
     await waitFor(() => expect(openTooltip()).toHaveTextContent('Preview changes before publishing'))
+    expect(button.getAttribute('data-tooltip-trigger')).toBeTruthy()
+    expect(openTooltip()?.getAttribute('data-tooltip-popup')).toBe(button.getAttribute('data-tooltip-trigger'))
   })
 
   it('renders the action as an invisible icon button beside the segments', async () => {
@@ -335,10 +408,10 @@ describe('SegmentedControl', () => {
 
     const action = screen.getByRole('button', {name: 'Add view'})
     expect(action.closest('[data-component="SegmentedControl.Action"]')).toBeInTheDocument()
-    expect(action).toHaveClass('size-7')
+    expect(action).toHaveClass('primer:size-[max(28px,calc(var(--base-size-4)*7))]')
     const wrapper = screen.getByRole('group').parentElement
-    expect(wrapper).toHaveClass('w-full')
-    expect(screen.getByRole('group')).toHaveClass('flex-auto', 'min-w-0')
+    expect(wrapper).toHaveClass('primer:w-full')
+    expect(screen.getByRole('group')).toHaveClass('primer:flex-auto', 'primer:min-w-0')
     await user.click(action)
     expect(onClick).toHaveBeenCalledExactlyOnceWith()
   })

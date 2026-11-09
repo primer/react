@@ -4,6 +4,32 @@
 
 Import: `import {Timeline} from '@primer/react-tailwind/Timeline'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Usage
+
+```tsx
+import {Timeline} from '@primer/react-tailwind'
+;<Timeline>
+  <Timeline.Item>
+    <Timeline.Badge variant="success">✓</Timeline.Badge>
+    <Timeline.Body>Deployment succeeded.</Timeline.Body>
+  </Timeline.Item>
+</Timeline>
+```
+
+Use `Timeline.Item` for each event and preserve reading order when adding actions. The root is an ordered list and each item is a list item; `Timeline.Break` is a presentational list item. `clipSidebar` trims the first and/or last event's rule. At container widths below 480px, actions wrap below the event body.
+
+Timeline does not prescribe event taxonomies. Compose package primitives such as `Avatar`, `Label`, `Link`, and `RelativeTime` inside its parts. The event stories demonstrate Issues, comments, Code Scanning, Dependabot, License Compliance, and Secret Scanning compositions without adding product-specific runtime APIs.
+
+## Playgrounds
+
+The Event Playground configures a single event from public parts: actor size and type, badge icon and variant, timestamp format, an optional app attribution, note, and actions. The Timeline Playground renders representative rows for one product surface and filters them by the categories and event types checked in the Controls panel.
+
+## Filtering
+
+Timeline does not filter events. Consumers own the predicate and render only the items that pass it. Optional `data-event-scope`, `data-event-type`, `data-event-category`, `data-event-visibility`, and `data-actor-type` attributes on `Timeline.Item` give filtering code a stable hook without changing the visual output. The example below toggles categories with a multi-select `ActionMenu` and pins the opening and closing rows so the timeline is never empty.
+
 Renders an [`<ol>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

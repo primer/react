@@ -147,6 +147,11 @@
       "description": "Maximum width of the centered content column."
     },
     {
+      "name": "contentRowClassName",
+      "type": "string",
+      "description": "Classes applied to the row containing the content and pane, not to `PageLayout.Content` itself."
+    },
+    {
       "name": "footer",
       "type": "React.ReactNode",
       "description": "Supplies the footer region. Takes precedence over a matching `PageLayout.Footer` child."
@@ -172,6 +177,11 @@
       "name": "sidebar",
       "type": "React.ReactNode",
       "description": "Supplies the sidebar region. Takes precedence over a matching `PageLayout.Sidebar` child."
+    },
+    {
+      "name": "wrapperClassName",
+      "type": "string",
+      "description": "Classes applied to the centered wrapper containing the header, content row, and footer."
     }
   ],
   "subcomponents": [
@@ -244,7 +254,6 @@
         {
           "name": "divider",
           "type": "ResponsiveValue<PaneDivider>",
-          "defaultValue": "'none'",
           "description": "Divider drawn between the pane and the content. Accepts a responsive object to vary it per viewport."
         },
         {
@@ -261,7 +270,6 @@
         {
           "name": "offsetHeader",
           "type": "string | number",
-          "defaultValue": "0",
           "description": "Distance a sticky pane is offset from the top, to clear a fixed header above it."
         },
         {
@@ -272,25 +280,21 @@
         {
           "name": "padding",
           "type": "Spacing",
-          "defaultValue": "'none'",
           "description": "Inner spacing of the pane."
         },
         {
           "name": "position",
           "type": "ResponsiveValue<PanePosition>",
-          "defaultValue": "'end'",
           "description": "Which side of the content the pane sits on. Accepts a responsive object to move it per viewport."
         },
         {
           "name": "resizable",
           "type": "boolean",
-          "defaultValue": "false",
           "description": "Lets the user drag the pane's edge to resize it."
         },
         {
           "name": "sticky",
           "type": "boolean",
-          "defaultValue": "false",
           "description": "Keeps the pane in view as the content scrolls."
         },
         {
@@ -302,7 +306,6 @@
         {
           "name": "widthStorageKey",
           "type": "string",
-          "defaultValue": "'paneWidth'",
           "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
         }
       ],
@@ -379,6 +382,12 @@
           "description": "Pane width, either a named size or a custom min/default/max triple."
         },
         {
+          "name": "widthMode",
+          "type": "\"default\" | \"fill\"",
+          "defaultValue": "'default'",
+          "description": "Fills the sidebar's CSS-sized outer rail instead of applying the pane's pixel width.\nFill mode is only supported for non-resizable sidebars."
+        },
+        {
           "name": "widthStorageKey",
           "type": "string",
           "description": "Key under which a resized width is persisted, so the pane reopens at the user's chosen size."
@@ -444,6 +453,16 @@
           "description": "Current width of the pane, announced by assistive technology."
         },
         {
+          "name": "contentWrapperRef",
+          "type": "RefObject<HTMLElement | null>",
+          "description": "Additional element marked with `data-dragging=\"true\"` while the handle is being used."
+        },
+        {
+          "name": "dragTargetRef",
+          "type": "RefObject<HTMLElement | null>",
+          "description": "Element marked with `data-dragging=\"true\"` while the handle is being used."
+        },
+        {
           "name": "formatValueText",
           "type": "((value: number) => string)",
           "defaultValue": "value => `Pane width ${value} pixels`",
@@ -464,7 +483,7 @@
           "name": "onDrag",
           "type": "(value: number, isKeyboard: boolean) => void",
           "required": true,
-          "description": "Called as the handle moves. A pointer drag passes the pointer's horizontal position, at most once per frame; an\narrow key passes a signed step in pixels and sets `isKeyboard`."
+          "description": "Called as the handle moves. Pointer positions are batched per frame, with a queued movement delivered on release;\nan arrow key passes a signed step in pixels and sets `isKeyboard`."
         },
         {
           "name": "onDragEnd",

@@ -12,8 +12,8 @@ import {FloatingPortal} from '../../internal/FloatingPortal'
 import {markFormControlInput} from '../../internal/formControlParts'
 import {joinIdRefs} from '../../internal/idRefs'
 import {OverflowAnchorContext} from '../../internal/overflow'
-import {overlayHeightClassNames, overlayMaxHeightClassNames, overlayWidthClassNames} from '../../internal/overlaySize'
-import {assignRef} from '../../internal/refs'
+import {overlayHeightClassNames, overlayWidthClassNames} from '../../internal/overlaySize'
+import {mergeRefs} from '../../internal/refs'
 import type {CSSPropertiesWithCustomProperties, OverlayHeight, OverlayMaxHeight, OverlayWidth} from '../../utils/types'
 import {ActionList, ActionItemContent, type ActionListItemProps} from '../ActionList/ActionList'
 import {
@@ -39,14 +39,21 @@ import {TextInput, type TextInputProps} from '../TextInput'
 
 const panelWidthClasses = {
   ...overlayWidthClassNames,
-  auto: 'min-w-64 w-auto',
+  auto: 'primer:min-w-[min(16rem,var(--available-width,100vw))] primer:w-auto',
 } as const satisfies Record<OverlayWidth, string>
 
 const panelHeightClasses = {
   ...overlayHeightClassNames,
-  auto: 'h-auto max-h-[min(37.5rem,var(--available-height))]',
-  initial: 'h-[var(--select-panel-initial-height)]',
+  initial: 'primer:h-[var(--select-panel-initial-height)]',
 } as const satisfies Record<OverlayHeight, string>
+
+const panelMaxHeightClasses = {
+  xsmall: 'primer:max-h-[min(12rem,var(--select-panel-available-height))]',
+  small: 'primer:max-h-[min(16rem,var(--select-panel-available-height))]',
+  medium: 'primer:max-h-[min(20rem,var(--select-panel-available-height))]',
+  large: 'primer:max-h-[min(27rem,var(--select-panel-available-height))]',
+  xlarge: 'primer:max-h-[min(37.5rem,var(--select-panel-available-height))]',
+} as const satisfies Record<Exclude<OverlayMaxHeight, 'fit-content'>, string>
 
 let selectPanelScrollLockCount = 0
 let selectPanelPreviousBodyOverflow: string | undefined
@@ -59,6 +66,16 @@ type SelectPanelValue = {
 }
 
 const SelectPanelActivationContext = React.createContext<React.RefObject<KeyboardEvent | null> | null>(null)
+
+interface SelectPanelNavigationContextValue {
+  highlightedIndex: number | null
+  onItemMount: (item: SelectPanelItem, node: HTMLElement) => void
+  registerScrollElement: (node: HTMLDivElement | null) => void
+  registerScrollToIndex: (scrollToIndex: ((index: number) => void) | null) => void
+  scrollActiveOption: (event: React.KeyboardEvent<HTMLInputElement>) => boolean
+}
+
+const SelectPanelNavigationContext = React.createContext<SelectPanelNavigationContextValue | null>(null)
 
 function handleSelectPanelInputKeyDown(
   event: React.KeyboardEvent<HTMLInputElement>,
@@ -93,7 +110,7 @@ export type SelectPanelOpenChangeGesture =
   | 'selection'
   | 'cancel'
 
-export type SelectPanelRenderItem = (item: SelectPanelItem) => React.ReactNode
+export type SelectPanelRenderItem<TItem extends SelectPanelItem = SelectPanelItem> = (item: TItem) => React.ReactNode
 
 export type SelectPanelRenderGroup = (group: SelectPanelGroupMetadata, children: React.ReactNode) => React.ReactNode
 
@@ -203,16 +220,9 @@ export interface SelectPanelActionListProps
   className?: string
 }
 
-interface SelectPanelBaseProps {
+interface SelectPanelBaseProps<TItem extends SelectPanelItem> {
   /** Options to choose from. */
-  items: readonly SelectPanelItem[]
-  /** Currently selected option or options. */
-  selected: SelectPanelItem | readonly SelectPanelItem[] | undefined
-  /** Called with the new selection whenever it changes. */
-  onSelectedChange: (
-    selected: SelectPanelItem | SelectPanelItem[] | undefined,
-    details?: Combobox.Root.ChangeEventDetails,
-  ) => void
+  items: readonly TItem[]
   /** Called when the panel opens or closes, with the gesture that caused it. */
   onOpenChange?: (open: boolean, gesture: SelectPanelOpenChangeGesture) => void
   /** Controls whether the panel is open. Supply it with `onOpenChange` to own the state. */
@@ -229,8 +239,6 @@ interface SelectPanelBaseProps {
   placeholderText?: string
   /** Accessible name for the filter input. */
   inputLabel?: string
-  /** Whether one option or several may be selected. */
-  selectionVariant?: 'single' | 'multiple'
   /** Controls the filter query. Supply it with `onFilterChange` to own the state. */
   filterValue?: string
   /** Initial filter query when the panel owns its own state. */
@@ -262,7 +270,7 @@ interface SelectPanelBaseProps {
   secondaryAction?: React.ReactElement
   /** Shows a control that selects or clears every option at once. */
   showSelectAll?: boolean
-  /** Moves selected options to the top of the list. */
+  /** Moves selected options to the top when the selected-option ordering feature flag is enabled. */
   showSelectedOptionsFirst?: boolean
   /** Draws a divider between options. */
   showItemDividers?: boolean
@@ -273,8 +281,8 @@ interface SelectPanelBaseProps {
   /** Height of the panel. */
   height?: OverlayHeight
   /** Renders each option yourself. */
-  renderItem?: SelectPanelRenderItem
-  /** Renders only the visible options, for a long uniform list. */
+  renderItem?: SelectPanelRenderItem<TItem>
+  /** Renders only visible options for supported text or noninteractive label content. */
   virtualized?: boolean
   /** Width of the panel. */
   width?: OverlayWidth
@@ -308,6 +316,41 @@ interface SelectPanelBaseProps {
   }
 }
 
+/**
+ * `TSelectedItem` lets `selected` hold options outside the current `items`, such as selections retained across async
+ * filtering. Change callbacks receive options from either list. Single selection also accepts `undefined` so an
+ * unselected panel reports the `items` type.
+ */
+export interface SelectPanelSingleSelectionProps<
+  TItem extends SelectPanelItem = SelectPanelItem,
+  TSelectedItem extends SelectPanelItem | undefined = TItem,
+> {
+  /** Selection mode. Defaults to `'multiple'` when `selected` is an array and `'single'` otherwise; when set, it must match the shape of `selected`. */
+  selectionVariant?: 'single'
+  /** Currently selected option or options: one option or `undefined` for single selection, or an array (`[]` when empty) for multiple selection. */
+  selected: TSelectedItem | undefined
+  /** Called with the new selection: one option or `undefined` for single selection, or an array for multiple selection. */
+  onSelectedChange: (selected: TItem | TSelectedItem | undefined, details?: Combobox.Root.ChangeEventDetails) => void
+}
+
+/** Multiple selection. See `SelectPanelSingleSelectionProps` for the type parameters. */
+export interface SelectPanelMultipleSelectionProps<
+  TItem extends SelectPanelItem = SelectPanelItem,
+  TSelectedItem extends SelectPanelItem = TItem,
+> {
+  /** Selection mode. Defaults to `'multiple'` when `selected` is an array and `'single'` otherwise; when set, it must match the shape of `selected`. */
+  selectionVariant?: 'multiple'
+  /** Currently selected option or options: one option or `undefined` for single selection, or an array (`[]` when empty) for multiple selection. */
+  selected: readonly TSelectedItem[]
+  /** Called with the new selection: one option or `undefined` for single selection, or an array for multiple selection. */
+  onSelectedChange: (selected: Array<TItem | TSelectedItem>, details?: Combobox.Root.ChangeEventDetails) => void
+}
+
+export type SelectPanelSelectionProps<
+  TItem extends SelectPanelItem = SelectPanelItem,
+  TSelectedItem extends SelectPanelItem = TItem,
+> = SelectPanelSingleSelectionProps<TItem, TSelectedItem> | SelectPanelMultipleSelectionProps<TItem, TSelectedItem>
+
 type SelectPanelExternalAnchorProps = {
   /** Ref to your own anchor element, when you render the anchor yourself. */
   anchorRef: React.RefObject<HTMLElement | null>
@@ -322,7 +365,7 @@ type SelectPanelInternalAnchorProps = {
   anchorRef?: React.RefObject<HTMLElement | null>
   /** Configure a custom anchor's element and, when needed, its role inside a composite widget. */
   anchorProps?: Pick<React.ComponentPropsWithoutRef<typeof Popover.Trigger>, 'nativeButton' | 'role'>
-  /** Renders the anchor yourself, receiving the props that make it control the panel. */
+  /** Returns one ref-capable trigger element; the panel attaches its trigger behavior to that element. */
   renderAnchor?: (props: SelectPanelAnchorProps) => React.ReactElement
 }
 
@@ -340,15 +383,61 @@ type SelectPanelVariantProps =
       onCancel: () => void
     }
 
-export type SelectPanelProps = SelectPanelBaseProps &
+type SelectPanelSharedProps<TItem extends SelectPanelItem> = SelectPanelBaseProps<TItem> &
   (SelectPanelExternalAnchorProps | SelectPanelInternalAnchorProps) &
   SelectPanelVariantProps
+
+export type SelectPanelSingleProps<
+  TItem extends SelectPanelItem = SelectPanelItem,
+  TSelectedItem extends SelectPanelItem | undefined = TItem,
+> = SelectPanelSharedProps<TItem> & SelectPanelSingleSelectionProps<TItem, TSelectedItem>
+
+export type SelectPanelMultipleProps<
+  TItem extends SelectPanelItem = SelectPanelItem,
+  TSelectedItem extends SelectPanelItem = TItem,
+> = SelectPanelSharedProps<TItem> & SelectPanelMultipleSelectionProps<TItem, TSelectedItem>
+
+export type SelectPanelProps<
+  TItem extends SelectPanelItem = SelectPanelItem,
+  TSelectedItem extends SelectPanelItem = TItem,
+> = SelectPanelSingleProps<TItem, TSelectedItem> | SelectPanelMultipleProps<TItem, TSelectedItem>
+
+/** The runtime accepts either selection shape and reports changes in the shape implied by the selection mode. */
+type SelectPanelImplementationProps = SelectPanelBaseProps<SelectPanelItem> & {
+  selectionVariant?: 'single' | 'multiple'
+  selected: SelectPanelItem | readonly SelectPanelItem[] | undefined
+  onSelectedChange: (
+    selected: SelectPanelItem | SelectPanelItem[] | undefined,
+    details?: Combobox.Root.ChangeEventDetails,
+  ) => void
+} & (SelectPanelExternalAnchorProps | SelectPanelInternalAnchorProps) &
+  SelectPanelVariantProps
+
+/**
+ * Separate signatures let an unannotated `onSelectedChange` infer its shape from `selected`. The final signature keeps
+ * `React.ComponentProps<typeof SelectPanel>` equal to `SelectPanelProps`. When `selected` is empty or `undefined`,
+ * `TSelectedItem` falls back to `never` so callbacks report the `items` type.
+ */
+export interface SelectPanelComponent {
+  <TItem extends SelectPanelItem = SelectPanelItem, TSelectedItem extends SelectPanelItem = never>(
+    props: SelectPanelMultipleProps<TItem, TSelectedItem> & React.RefAttributes<HTMLDivElement>,
+  ): React.ReactNode
+  <TItem extends SelectPanelItem = SelectPanelItem, TSelectedItem extends SelectPanelItem | undefined = never>(
+    props: SelectPanelSingleProps<TItem, TSelectedItem> & React.RefAttributes<HTMLDivElement>,
+  ): React.ReactNode
+  <TItem extends SelectPanelItem = SelectPanelItem, TSelectedItem extends SelectPanelItem = TItem>(
+    props: SelectPanelProps<TItem, TSelectedItem> & React.RefAttributes<HTMLDivElement>,
+  ): React.ReactNode
+  displayName?: string
+}
 
 export interface SelectPanelMessageProps extends SelectPanelMessage {
   className?: string
 }
 
-function isMultiSelection(selected: SelectPanelProps['selected']): selected is readonly SelectPanelItem[] {
+function isMultiSelection(
+  selected: SelectPanelImplementationProps['selected'],
+): selected is readonly SelectPanelItem[] {
   return Array.isArray(selected)
 }
 
@@ -361,12 +450,11 @@ function supportsBuiltInVirtualization(items: readonly SelectPanelItem[], itemRe
     itemRenderer === undefined &&
     items.every(
       item =>
-        typeof item.text === 'string' &&
-        item.children === undefined &&
+        ((typeof item.text === 'string' && item.children === undefined) ||
+          (item.text === undefined && item.children !== undefined && getItemText(item).length > 0)) &&
         item.className === undefined &&
         item.description === undefined &&
         item.inactiveText === undefined &&
-        item.leadingVisual === undefined &&
         item.renderItem === undefined &&
         item.style === undefined &&
         item.trailingVisual === undefined,
@@ -374,7 +462,7 @@ function supportsBuiltInVirtualization(items: readonly SelectPanelItem[], itemRe
   )
 }
 
-function isMessage(message: SelectPanelProps['message']): message is SelectPanelMessage {
+function isMessage(message: SelectPanelImplementationProps['message']): message is SelectPanelMessage {
   return Boolean(message && typeof message === 'object' && !React.isValidElement(message) && 'title' in message)
 }
 
@@ -393,7 +481,10 @@ function SelectPanelMessageComponent({
 
   return (
     <div
-      className={cn('flex flex-1 flex-col items-center justify-center gap-2 px-6 py-8 text-center text-sm', className)}
+      className={cn(
+        'primer:flex primer:flex-1 primer:flex-col primer:items-center primer:justify-center primer:gap-2 primer:px-6 primer:py-8 primer:text-center primer:text-sm',
+        className,
+      )}
       data-component="SelectPanel.Message"
       data-variant={variant}
       role={messageRole}
@@ -401,23 +492,23 @@ function SelectPanelMessageComponent({
       <MessageIcon
         aria-hidden="true"
         className={cn(
-          'size-6',
-          variant === 'empty' && 'text-muted',
-          variant === 'error' && 'text-danger',
-          variant === 'warning' && 'text-attention',
+          'primer:size-6',
+          variant === 'empty' && 'primer:text-muted',
+          variant === 'error' && 'primer:text-danger',
+          variant === 'warning' && 'primer:text-attention',
         )}
         data-component="SelectPanel.MessageIcon"
       />
-      <strong className="text-sm text-default" data-component="SelectPanel.MessageTitle">
+      <strong className="primer:text-sm primer:text-default" data-component="SelectPanel.MessageTitle">
         {title}
       </strong>
       {body ? (
-        <div className="text-sm text-muted" data-component="SelectPanel.MessageBody">
+        <div className="primer:text-sm primer:text-muted" data-component="SelectPanel.MessageBody">
           {body}
         </div>
       ) : null}
       {action ? (
-        <div className="mt-1" data-component="SelectPanel.MessageAction">
+        <div className="primer:mt-1" data-component="SelectPanel.MessageAction">
           {action}
         </div>
       ) : null}
@@ -490,20 +581,6 @@ interface SelectPanelOptionProps {
   virtualized?: boolean
 }
 
-function assignItemNode(
-  itemNodes: React.RefObject<Map<SelectPanelItem, HTMLElement>>,
-  item: SelectPanelItem,
-  ref: React.Ref<HTMLElement> | undefined,
-  node: HTMLElement | null,
-) {
-  if (node) {
-    itemNodes.current.set(item, node)
-  } else {
-    itemNodes.current.delete(item)
-  }
-  assignRef(ref ?? null, node)
-}
-
 function SelectPanelOption({
   itemNodes,
   itemRenderer,
@@ -517,6 +594,7 @@ function SelectPanelOption({
 }: SelectPanelOptionProps) {
   const accessibilityId = React.useId()
   const activationEventRef = React.useContext(SelectPanelActivationContext)
+  const virtualization = React.useContext(SelectPanelNavigationContext)
   const item = value.item
   const {
     children,
@@ -538,6 +616,21 @@ function SelectPanelOption({
     ...itemProps
   } = item
   const optionDisabled = Boolean(disabled || inactiveText)
+  const onItemMount = virtualization?.onItemMount
+  const itemRef = React.useMemo(
+    () =>
+      mergeRefs<HTMLDivElement>(
+        node => {
+          if (node) itemNodes.current.set(item, node)
+          else itemNodes.current.delete(item)
+        },
+        ref,
+        node => {
+          if (node) onItemMount?.(item, node)
+        },
+      ),
+    [item, itemNodes, onItemMount, ref],
+  )
   const renderer = renderItem ?? itemRenderer
   const renderedItem = renderer?.(item)
   const renderedActionListItem =
@@ -565,7 +658,7 @@ function SelectPanelOption({
   const ariaLabelledBy = itemProps['aria-labelledby'] ?? renderedActionListItem?.props['aria-labelledby']
   const inactiveDescriptionId = inactiveText ? `${accessibilityId}-inactive` : undefined
   const selection = inactiveText ? (
-    <AlertIcon aria-hidden="true" className="size-4 shrink-0 text-attention" />
+    <AlertIcon aria-hidden="true" className="primer:size-4 primer:shrink-0 primer:text-attention" />
   ) : (
     <ComboboxSelectionIndicator disabled={disabled} variant={multiple ? 'multiple' : radio ? 'radio' : 'single'} />
   )
@@ -581,23 +674,16 @@ function SelectPanelOption({
         inactiveDescriptionId,
       )}
       aria-label={ariaLabel}
-      aria-labelledby={
-        ariaLabelledBy ??
-        (ariaLabel === undefined && (resolvedContent?.descriptionIds.length || inactiveText)
-          ? joinIdRefs(resolvedContent?.labelId, resolvedContent?.trailingVisualId)
-          : undefined)
-      }
+      aria-labelledby={ariaLabelledBy ?? ActionItemContent.optionLabelledBy(resolvedContent, ariaLabel)}
       aria-posinset={optionIndex === undefined ? itemProps['aria-posinset'] : optionIndex + 1}
       aria-setsize={optionCount ?? itemProps['aria-setsize']}
       className={cn(
         // Selection shows only through the indicator, as it does in ActionList listboxes.
-        'group relative flex w-full cursor-default items-center rounded-md px-2 py-1.5 text-left text-sm outline-none',
+        'primer:group primer:relative primer:flex primer:w-full primer:cursor-default primer:items-center primer:rounded-md primer:px-2 primer:py-1.5 primer:text-left primer:text-sm primer:outline-none',
         actionItemPartClassName.content,
         getActionItemStateClassName({disabled, highlightable: true, inactive: Boolean(inactiveText)}),
-        // Rows clip only vertically, so the accent line beside a highlighted row stays visible.
-        virtualized && 'h-9 overflow-y-clip whitespace-nowrap',
         showItemDividers &&
-          'border-b border-default last:border-b-0 [&[data-highlighted]+[data-highlighted]]:border-transparent',
+          'primer:border-b primer:border-default primer:last:border-b-0 primer:[&[data-highlighted]+[data-highlighted]]:border-transparent',
         className,
       )}
       data-component="SelectPanel.Item"
@@ -611,7 +697,7 @@ function SelectPanelOption({
         onAction?.(item, event, {sourceEvent: activationEventRef?.current ?? event.nativeEvent})
         if (event.defaultPrevented) event.preventBaseUIHandler()
       }}
-      ref={node => assignItemNode(itemNodes, item, ref, node)}
+      ref={itemRef}
       value={value}
     >
       {resolvedContent ? (
@@ -625,7 +711,7 @@ function SelectPanelOption({
         renderedItem
       )}
       {inactiveText && !resolvedContent ? (
-        <span aria-hidden="true" className="sr-only" id={inactiveDescriptionId}>
+        <span aria-hidden="true" className="primer:sr-only" id={inactiveDescriptionId}>
           {inactiveText}
         </span>
       ) : null}
@@ -645,6 +731,17 @@ interface SelectPanelVirtualizedListProps {
   values: readonly SelectPanelValue[]
 }
 
+function findVirtualItemIndex(offsets: readonly number[], offset: number) {
+  let low = 0
+  let high = offsets.length - 1
+  while (low < high) {
+    const middle = Math.ceil((low + high) / 2)
+    if (offsets[middle] <= offset) low = middle
+    else high = middle - 1
+  }
+  return Math.min(low, Math.max(0, offsets.length - 2))
+}
+
 function SelectPanelVirtualizedList({
   actionListProps,
   itemNodes,
@@ -657,42 +754,164 @@ function SelectPanelVirtualizedList({
   values,
 }: SelectPanelVirtualizedListProps) {
   const scrollElementRef = React.useRef<HTMLDivElement | null>(null)
+  const observerRef = React.useRef<ResizeObserver | null>(null)
+  const previousLayoutRef = React.useRef<{
+    offsets: readonly number[]
+    values: readonly SelectPanelValue[]
+  } | null>(null)
+  const virtualization = React.useContext(SelectPanelNavigationContext)
+  const registerScrollToIndex = virtualization?.registerScrollToIndex
+  const registerScrollElement = virtualization?.registerScrollElement
   const reachedEndRef = React.useRef(false)
   const [scrollTop, setScrollTop] = React.useState(0)
   const [viewportHeight, setViewportHeight] = React.useState(288)
-  const rowHeight = 36
+  const [rowHeights, setRowHeights] = React.useState<ReadonlyMap<string, number>>(() => new Map())
+  const estimatedRowHeight = 36
   const overscan = 8
-  const firstIndex = Math.max(0, Math.floor(scrollTop / rowHeight) - overscan)
-  const lastIndex = Math.min(values.length, Math.ceil((scrollTop + viewportHeight) / rowHeight) + overscan)
-  const totalHeight = values.length * rowHeight
-  const visibleValues = values.slice(firstIndex, lastIndex)
-  const virtualStyle: CSSPropertiesWithCustomProperties = {'--select-panel-virtual-height': `${totalHeight}px`}
+  const offsets = React.useMemo(() => {
+    const result = [0]
+    for (const value of values) {
+      result.push(result[result.length - 1] + (rowHeights.get(value.renderKey) ?? estimatedRowHeight))
+    }
+    return result
+  }, [rowHeights, values])
+  const firstIndex = Math.max(0, findVirtualItemIndex(offsets, scrollTop) - overscan)
+  const lastIndex = Math.min(values.length, findVirtualItemIndex(offsets, scrollTop + viewportHeight) + overscan + 1)
+  const visibleIndices = Array.from({length: lastIndex - firstIndex}, (_, offset) => firstIndex + offset)
+  const highlightedIndex = virtualization?.highlightedIndex
+  // An active descendant must remain mounted even if the user scrolls away from it.
+  if (highlightedIndex !== null && highlightedIndex !== undefined && highlightedIndex >= 0) {
+    if (highlightedIndex < firstIndex) visibleIndices.unshift(highlightedIndex)
+    else if (highlightedIndex >= lastIndex && highlightedIndex < values.length) visibleIndices.push(highlightedIndex)
+  }
+  // clientHeight rounds fractional viewport sizes, so leave a pixel for the final row.
+  const virtualStyle: CSSPropertiesWithCustomProperties = {
+    '--select-panel-virtual-height': `${offsets[offsets.length - 1] + 1}px`,
+  }
 
-  const setScrollElement = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      scrollElementRef.current = node
-      assignRef(scrollContainerRef ?? null, node)
-      if (node) setViewportHeight(node.clientHeight)
-    },
-    [scrollContainerRef],
+  const setScrollElement = React.useMemo(
+    () =>
+      mergeRefs<HTMLDivElement>(scrollElementRef, registerScrollElement, scrollContainerRef, node => {
+        if (node) setViewportHeight(node.clientHeight)
+      }),
+    [registerScrollElement, scrollContainerRef],
   )
 
-  React.useEffect(() => {
-    const element = scrollElementRef.current
-    if (!element || typeof ResizeObserver === 'undefined') return
-
-    const observer = new ResizeObserver(entries => {
-      const entry = entries[0]
-      setViewportHeight(entry.contentRect.height)
+  const measureRows = React.useCallback((elements: readonly Element[]) => {
+    const measurements = elements.flatMap(element => {
+      const key = element.getAttribute('data-virtual-key')
+      const height = element.getBoundingClientRect().height
+      return key && height > 0 ? [{key, height}] : []
     })
-    observer.observe(element)
-    return () => observer.disconnect()
+    setRowHeights(previous => {
+      let next: Map<string, number> | undefined
+      for (const {key, height} of measurements) {
+        if (Math.abs(((next ?? previous).get(key) ?? estimatedRowHeight) - height) > 0.1) {
+          if (!next) next = new Map(previous)
+          next.set(key, height)
+        }
+      }
+      return next ?? previous
+    })
   }, [])
+
+  const observeRow = React.useCallback((node: HTMLDivElement | null) => {
+    if (!node) return
+    observerRef.current?.observe(node)
+    return () => observerRef.current?.unobserve(node)
+  }, [])
+
+  React.useLayoutEffect(() => {
+    const element = scrollElementRef.current
+    if (!element) return
+
+    const measureVisibleRows = () => {
+      setViewportHeight(element.clientHeight)
+      measureRows(Array.from(element.querySelectorAll('[data-virtual-key]')))
+    }
+    if (typeof ResizeObserver === 'undefined') {
+      measureVisibleRows()
+      // eslint-disable-next-line github/prefer-observers -- fallback for environments without ResizeObserver.
+      window.addEventListener('resize', measureVisibleRows)
+      return () => window.removeEventListener('resize', measureVisibleRows)
+    }
+    const observer = new ResizeObserver(entries => {
+      const rows: Element[] = []
+      for (const entry of entries) {
+        if (entry.target === element) setViewportHeight(entry.contentRect.height)
+        else rows.push(entry.target)
+      }
+      if (rows.length) measureRows(rows)
+    })
+    observerRef.current = observer
+    observer.observe(element)
+    for (const row of element.querySelectorAll('[data-virtual-key]')) observer.observe(row)
+    return () => {
+      observerRef.current = null
+      observer.disconnect()
+    }
+  }, [measureRows, setScrollElement])
+
+  React.useLayoutEffect(() => {
+    if (typeof ResizeObserver !== 'undefined') return
+    const element = scrollElementRef.current
+    if (element) measureRows(Array.from(element.querySelectorAll('[data-virtual-key]')))
+  }, [firstIndex, lastIndex, measureRows, values])
+
+  React.useLayoutEffect(() => {
+    const element = scrollElementRef.current
+    const previous = previousLayoutRef.current
+    if (element && previous?.values === values && previous.offsets !== offsets) {
+      const activeIndex = virtualization?.highlightedIndex
+      const activeWasVisible =
+        activeIndex !== null &&
+        activeIndex !== undefined &&
+        activeIndex >= 0 &&
+        activeIndex < values.length &&
+        previous.offsets[activeIndex] >= scrollTop - 1 &&
+        previous.offsets[activeIndex + 1] <= scrollTop + element.clientHeight + 1
+      if (activeWasVisible) {
+        const top = offsets[activeIndex]
+        const bottom = offsets[activeIndex + 1]
+        if (bottom - top > element.clientHeight) element.scrollTop = top
+        else if (top < scrollTop) element.scrollTop = top
+        else if (bottom > scrollTop + element.clientHeight - 1) {
+          element.scrollTop = bottom - element.clientHeight + 1
+        }
+      } else {
+        // Preserve the first visible row when measurements above it change.
+        const anchorIndex = findVirtualItemIndex(previous.offsets, scrollTop)
+        element.scrollTop = scrollTop + offsets[anchorIndex] - previous.offsets[anchorIndex]
+      }
+    }
+    previousLayoutRef.current = {offsets, values}
+  }, [offsets, scrollTop, values, virtualization?.highlightedIndex])
+
+  React.useLayoutEffect(() => {
+    if (!registerScrollToIndex) return
+    const scrollToIndex = (index: number) => {
+      const element = scrollElementRef.current
+      if (!element || index < 0 || index >= values.length) return
+      const top = offsets[index]
+      const bottom = offsets[index + 1]
+      if (bottom - top > element.clientHeight) element.scrollTop = top
+      else if (top < element.scrollTop) element.scrollTop = top
+      else if (bottom > element.scrollTop + element.clientHeight) {
+        element.scrollTop = bottom - element.clientHeight + 1
+      }
+      setScrollTop(element.scrollTop)
+    }
+    registerScrollToIndex(scrollToIndex)
+    return () => registerScrollToIndex(null)
+  }, [offsets, registerScrollToIndex, values.length])
 
   return (
     <div
       {...actionListProps}
-      className={cn('max-h-72 overflow-auto overscroll-contain', actionListProps?.className)}
+      className={cn(
+        'primer:min-h-0 primer:max-h-72 primer:flex-1 primer:overflow-auto primer:overscroll-contain',
+        actionListProps?.className,
+      )}
       data-component="SelectPanel.VirtualizedList"
       onScroll={event => {
         actionListProps?.onScroll?.(event)
@@ -709,16 +928,22 @@ function SelectPanelVirtualizedList({
       ref={setScrollElement}
       role="presentation"
     >
-      <div className="relative w-full h-[var(--select-panel-virtual-height)]" role="presentation" style={virtualStyle}>
-        {visibleValues.map((value, offset) => {
-          const index = firstIndex + offset
+      <div
+        className="primer:relative primer:w-full primer:h-[var(--select-panel-virtual-height)]"
+        role="presentation"
+        style={virtualStyle}
+      >
+        {visibleIndices.map(index => {
+          const value = values[index]
           const itemStyle: CSSPropertiesWithCustomProperties = {
-            '--select-panel-virtual-offset': `${index * rowHeight}px`,
+            '--select-panel-virtual-offset': `${offsets[index]}px`,
           }
           return (
             <div
-              className="absolute inset-x-0 top-0 translate-y-[var(--select-panel-virtual-offset)]"
+              className="primer:absolute primer:inset-x-0 primer:top-0 primer:translate-y-[var(--select-panel-virtual-offset)]"
+              data-virtual-key={value.renderKey}
               key={value.renderKey}
+              ref={observeRow}
               role="presentation"
               style={itemStyle}
             >
@@ -773,12 +998,11 @@ function SelectPanelList({
   virtualized,
 }: SelectPanelListProps) {
   const reachedEndRef = React.useRef(false)
+  const registerScrollElement = React.useContext(SelectPanelNavigationContext)?.registerScrollElement
 
-  const setListRef = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      assignRef(scrollContainerRef ?? null, node)
-    },
-    [scrollContainerRef],
+  const setListRef = React.useMemo(
+    () => mergeRefs(registerScrollElement, scrollContainerRef),
+    [registerScrollElement, scrollContainerRef],
   )
 
   const onScroll = React.useCallback(
@@ -801,7 +1025,10 @@ function SelectPanelList({
       <Combobox.List
         aria-label={ariaLabel}
         aria-multiselectable={multiple || undefined}
-        className="m-0 min-h-0 flex-1 list-none overflow-hidden p-1"
+        className={cn(
+          'primer:m-0 primer:flex primer:max-h-72 primer:flex-1 primer:list-none primer:flex-col primer:overflow-hidden primer:p-1',
+          values.length ? 'primer:min-h-16' : 'primer:min-h-0',
+        )}
         data-component="SelectPanel.List"
       >
         <SelectPanelVirtualizedList
@@ -824,7 +1051,11 @@ function SelectPanelList({
       {...actionListProps}
       aria-label={ariaLabel}
       aria-multiselectable={multiple || undefined}
-      className={cn('m-0 min-h-0 max-h-72 flex-1 list-none overflow-auto p-1', actionListProps?.className)}
+      className={cn(
+        'primer:m-0 primer:max-h-72 primer:flex-1 primer:list-none primer:overflow-auto primer:p-1',
+        values.length ? 'primer:min-h-16' : 'primer:min-h-0',
+        actionListProps?.className,
+      )}
       data-component="SelectPanel.List"
       onScroll={onScroll}
       ref={setListRef}
@@ -844,8 +1075,8 @@ function SelectPanelList({
               <>
                 <Combobox.GroupLabel
                   className={cn(
-                    'flex min-h-[30px] items-center px-3 py-1.5 text-xs leading-[18px] font-semibold text-muted',
-                    group.variant === 'filled' && 'mb-1 border-y border-muted bg-muted',
+                    'primer:flex primer:min-h-[30px] primer:items-center primer:px-3 primer:py-1.5 primer:text-xs primer:leading-[18px] primer:font-semibold primer:text-muted',
+                    group.variant === 'filled' && 'primer:mb-1 primer:border-y primer:border-muted primer:bg-muted',
                   )}
                   data-component="SelectPanel.GroupHeading"
                 >
@@ -870,7 +1101,11 @@ function SelectPanelList({
             )
 
             return (
-              <Combobox.Group className="block pb-2 last:pb-0" items={group.items} key={group.groupId}>
+              <Combobox.Group
+                className="primer:block primer:pb-2 primer:last:pb-0"
+                items={group.items}
+                key={group.groupId}
+              >
                 {(group.renderGroup ?? renderGroup)?.(groupMetadata, groupContent) ?? groupContent}
               </Combobox.Group>
             )
@@ -948,6 +1183,7 @@ function SelectPanelBody({
   onSelectAllChange,
 }: SelectPanelBodyProps) {
   const activationEventRef = React.useContext(SelectPanelActivationContext)
+  const navigation = React.useContext(SelectPanelNavigationContext)
   const selectableItems = visibleItems.filter(item => !item.disabled && !item.inactiveText)
   const allSelected =
     selectableItems.length > 0 &&
@@ -971,27 +1207,35 @@ function SelectPanelBody({
 
   return (
     <>
-      <div className="border-b border-default p-3" data-component="SelectPanel.FilterContainer">
+      <div className="primer:border-b primer:border-default primer:p-3" data-component="SelectPanel.FilterContainer">
         <Combobox.Input
           // The input tracks its own `id`, so it must not be overridden on the render element.
           id={inputId}
           aria-expanded={inputExpanded ?? (open && !loading && !hasMessage)}
           aria-label={inputProps['aria-label'] ?? inputLabel}
-          autoFocus
           data-component="SelectPanel.Filter"
           placeholder={placeholderText}
           ref={inputRef}
           render={baseProps => {
-            const mergedProps = mergeProps<'input'>(baseProps, inputProps, props => ({
-              ...props,
-              onKeyDown: event => handleSelectPanelInputKeyDown(event, props.onKeyDown, activationEventRef),
-            }))
+            const mergedProps = mergeProps<'input'>(
+              baseProps,
+              {
+                onKeyDown: event => {
+                  if (navigation?.scrollActiveOption(event)) event.preventBaseUIHandler()
+                },
+              },
+              inputProps,
+              props => ({
+                ...props,
+                onKeyDown: event => handleSelectPanelInputKeyDown(event, props.onKeyDown, activationEventRef),
+              }),
+            )
             return (
               <TextInput
                 {...inputProps}
                 {...mergedProps}
                 block
-                className={cn('w-full', inputClassName)}
+                className={cn('primer:w-full', inputClassName)}
                 size={inputSize}
               />
             )
@@ -999,7 +1243,7 @@ function SelectPanelBody({
         />
       </div>
       {multiple && showSelectAll ? (
-        <Field.Root className="contents">
+        <Field.Root className="primer:contents">
           <SelectAllRow
             checked={allSelected}
             indeterminate={someSelected}
@@ -1009,12 +1253,15 @@ function SelectPanelBody({
         </Field.Root>
       ) : null}
       {loading ? (
-        <div className="flex flex-1 items-center justify-center gap-2 p-6 text-sm text-muted" role="status">
+        <div
+          className="primer:flex primer:flex-1 primer:items-center primer:justify-center primer:gap-2 primer:p-6 primer:text-sm primer:text-muted"
+          role="status"
+        >
           {initialLoadingType === 'skeleton' ? (
-            <div aria-hidden="true" className="w-full space-y-2">
-              <div className="h-4 animate-pulse rounded bg-neutral-muted" />
-              <div className="h-4 w-4/5 animate-pulse rounded bg-neutral-muted" />
-              <div className="h-4 w-3/5 animate-pulse rounded bg-neutral-muted" />
+            <div aria-hidden="true" className="primer:w-full primer:space-y-2">
+              <div className="primer:h-4 primer:animate-pulse primer:rounded primer:bg-neutral-muted" />
+              <div className="primer:h-4 primer:w-4/5 primer:animate-pulse primer:rounded primer:bg-neutral-muted" />
+              <div className="primer:h-4 primer:w-3/5 primer:animate-pulse primer:rounded primer:bg-neutral-muted" />
             </div>
           ) : (
             <Spinner size="small" srText={null} />
@@ -1022,7 +1269,7 @@ function SelectPanelBody({
           Loading
         </div>
       ) : hasMessage ? (
-        <div className="flex flex-1" data-component="SelectPanel.MessageContainer">
+        <div className="primer:flex primer:flex-1" data-component="SelectPanel.MessageContainer">
           {messageContent}
         </div>
       ) : (
@@ -1042,7 +1289,10 @@ function SelectPanelBody({
             values={values}
             virtualized={virtualized && !groupedValues}
           />
-          <Combobox.Empty className="flex flex-1" data-component="SelectPanel.Empty">
+          <Combobox.Empty
+            className={values.length ? 'primer:flex-none' : 'primer:flex primer:flex-1'}
+            data-component="SelectPanel.Empty"
+          >
             <SelectPanelMessageComponent title="No items available" variant="empty" />
           </Combobox.Empty>
         </>
@@ -1054,8 +1304,8 @@ function SelectPanelBody({
 function SelectPanelFieldBoundary({children}: {children: React.ReactNode}) {
   // Base UI fields inherit their parent's description IDs; the extra boundary keeps popup controls independent.
   return (
-    <Field.Root className="contents">
-      <Field.Root className="contents">{children}</Field.Root>
+    <Field.Root className="primer:contents">
+      <Field.Root className="primer:contents">{children}</Field.Root>
     </Field.Root>
   )
 }
@@ -1084,6 +1334,7 @@ interface SelectPanelContentProps {
   secondaryAction?: React.ReactElement
   selectedItems: readonly SelectPanelItem[]
   showCancel: boolean
+  showCloseButton: boolean
   showItemDividers: boolean
   showSave: boolean
   showSaveAndClose: boolean
@@ -1126,6 +1377,7 @@ function SelectPanelContent({
   secondaryAction,
   selectedItems,
   showCancel,
+  showCloseButton,
   showItemDividers,
   showSave,
   showSaveAndClose,
@@ -1146,28 +1398,39 @@ function SelectPanelContent({
     <SelectPanelActivationContext.Provider value={activationEventRef}>
       <div
         className={cn(
-          'flex min-h-0 flex-1 flex-col overflow-hidden bg-default text-default',
-          !isDialog && 'rounded-md border border-default shadow-floating-lg',
+          'primer:flex primer:min-h-0 primer:flex-1 primer:flex-col primer:overflow-x-hidden primer:overflow-y-auto primer:overscroll-contain primer:bg-default primer:text-default',
+          !isDialog && 'primer:rounded-md primer:border-thin primer:border-default primer:shadow-floating-lg',
         )}
         data-component="SelectPanel"
         data-variant={variant}
       >
-        <div className="contents" data-component="SelectPanel.Content">
-          <header className="flex items-start justify-between gap-4 px-4 pt-4" data-component="SelectPanel.Header">
-            <div className="min-w-0">
-              <h2 className="m-0 font-semibold text-default" data-component="SelectPanel.Title" id={titleId}>
+        <div className="primer:contents" data-component="SelectPanel.Content">
+          <header
+            className="primer:flex primer:items-start primer:justify-between primer:gap-4 primer:px-2 primer:pt-2"
+            data-component="SelectPanel.Header"
+          >
+            <div className="primer:min-w-0">
+              <h2
+                className="primer:m-0 primer:ml-2 primer:text-sm primer:leading-normal primer:font-semibold primer:text-default"
+                data-component="SelectPanel.Title"
+                id={titleId}
+              >
                 {title}
               </h2>
               {subtitle ? (
-                <p className="mt-1 text-sm text-muted" data-component="SelectPanel.Subtitle" id={subtitleId}>
+                <p
+                  className="primer:m-0 primer:mt-1 primer:ml-2 primer:text-xs primer:leading-normal primer:text-muted"
+                  data-component="SelectPanel.Subtitle"
+                  id={subtitleId}
+                >
                   {subtitle}
                 </p>
               ) : null}
             </div>
-            {isDialog ? (
+            {showCloseButton ? (
               <CloseIconButton
                 aria-label="Cancel and close"
-                className="-mr-2 -mt-2"
+                className="primer:-mr-2 primer:-mt-2"
                 data-component="SelectPanel.CloseButton"
                 onClick={onCancelRequest}
               />
@@ -1175,7 +1438,7 @@ function SelectPanelContent({
           </header>
           {notice ? (
             <Announce
-              className="mx-4 mt-3"
+              className="primer:mx-4 primer:mt-3"
               data-component="SelectPanel.Notice"
               politeness={notice.variant === 'error' ? 'assertive' : 'polite'}
             >
@@ -1188,7 +1451,7 @@ function SelectPanelContent({
               />
             </Announce>
           ) : null}
-          <div className="flex min-h-0 flex-1 flex-col">
+          <div className="primer:contents">
             <SelectPanelBody
               actionListProps={actionListProps}
               ariaLabel={ariaLabel}
@@ -1219,16 +1482,21 @@ function SelectPanelContent({
           </div>
           {secondaryAction || showCancel || showSave || showSaveAndClose ? (
             <footer
-              className="flex flex-wrap items-center gap-2 border-t border-default p-3"
+              className="primer:flex primer:flex-wrap primer:items-center primer:gap-2 primer:border-t primer:border-default primer:p-3"
               data-component="SelectPanel.Footer"
             >
               {secondaryAction ? (
-                <div className="min-w-0 flex-1" data-component="SelectPanel.SecondaryAction">
+                <div className="primer:min-w-0 primer:flex-1" data-component="SelectPanel.SecondaryAction">
                   {secondaryAction}
                 </div>
               ) : null}
               {showCancel || showSave || showSaveAndClose ? (
-                <div className="ml-auto flex gap-2">
+                <div
+                  className={cn(
+                    'primer:ml-auto primer:flex primer:gap-2',
+                    showSaveAndClose && !secondaryAction && 'primer:w-full',
+                  )}
+                >
                   {showCancel ? (
                     <Button data-component="SelectPanel.CancelButton" onClick={onCancelRequest}>
                       Cancel
@@ -1240,7 +1508,7 @@ function SelectPanelContent({
                     </Button>
                   ) : null}
                   {showSaveAndClose ? (
-                    <Button data-component="SelectPanel.SaveAndCloseButton" onClick={onSave} variant="primary">
+                    <Button block data-component="SelectPanel.SaveAndCloseButton" onClick={onSave} variant="primary">
                       Save and close
                     </Button>
                   ) : null}
@@ -1254,7 +1522,7 @@ function SelectPanelContent({
   )
 }
 
-const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(function SelectPanel(
+const SelectPanelImplementation = React.forwardRef<HTMLDivElement, SelectPanelImplementationProps>(function SelectPanel(
   {
     'aria-label': ariaLabel,
     actionListProps,
@@ -1313,14 +1581,32 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
 ) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen)
   const [uncontrolledFilterValue, setUncontrolledFilterValue] = React.useState(defaultFilterValue)
+  const open = controlledOpen ?? uncontrolledOpen
+  const multiple = selectionVariant === 'multiple' || isMultiSelection(selected)
+  const isSingleSelectModal = variant === 'modal' && !multiple
+  const initialDraftSelection = () => ({
+    active: open && isSingleSelectModal,
+    value: open && isSingleSelectModal && !isMultiSelection(selected) ? selected : undefined,
+  })
   const [draftSelection, setDraftSelection] = React.useState<{
     active: boolean
     value: SelectPanelItem | undefined
-  }>({active: false, value: undefined})
+  }>(initialDraftSelection)
+  const [draftScope, setDraftScope] = React.useState({open, isSingleSelectModal})
+  if (draftScope.open !== open || draftScope.isSingleSelectModal !== isSingleSelectModal) {
+    setDraftScope({open, isSingleSelectModal})
+    setDraftSelection(initialDraftSelection())
+  }
   const itemNodes = React.useRef(new Map<SelectPanelItem, HTMLElement>())
   const inputRef = React.useRef<HTMLInputElement | null>(null)
+  const focusFilter = React.useCallback(() => {
+    if (!inputRef.current) return true
+    inputRef.current.focus({preventScroll: true})
+    return false
+  }, [])
   const internalAnchorRef = React.useRef<HTMLElement | null>(null)
   const lastAnchorRef = React.useRef<HTMLElement | null>(null)
+  const contentElementRef = React.useRef<HTMLDivElement | null>(null)
   const lastCloseGestureRef = React.useRef<SelectPanelOpenChangeGesture | null>(null)
   const overflowAnchor = React.useContext(OverflowAnchorContext)
   const setAnchorRef = React.useCallback(
@@ -1336,17 +1622,27 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     return anchor && overflowAnchor?.items.includes(anchor) ? (overflowAnchor.triggerRef.current ?? anchor) : anchor
   }, [anchorRef, overflowAnchor])
   const getFinalFocus = React.useCallback(() => {
-    if (lastCloseGestureRef.current === 'click-outside') return false
+    const content = contentElementRef.current
+    if (lastCloseGestureRef.current === 'click-outside' && !content?.contains(content.ownerDocument.activeElement)) {
+      return false
+    }
     const anchor = anchorRef?.current ?? internalAnchorRef.current ?? lastAnchorRef.current
     if (anchor && overflowAnchor?.items.includes(anchor)) return overflowAnchor.triggerRef.current ?? true
     return anchor?.isConnected ? anchor : true
   }, [anchorRef, overflowAnchor])
   const previousActiveItem = React.useRef<HTMLElement | undefined>(undefined)
+  const scrollableElementRef = React.useRef<HTMLDivElement | null>(null)
+  const scrollToVirtualIndex = React.useRef<((index: number) => void) | null>(null)
+  const [virtualHighlightedIndex, setVirtualHighlightedIndex] = React.useState<number | null>(null)
+  const pendingVirtualHighlight = React.useRef<{
+    directlyActivated: boolean
+    item: SelectPanelItem
+    previous: HTMLElement | undefined
+  } | null>(null)
   const titleId = React.useId()
   const subtitleId = React.useId()
   const requiredId = React.useId()
   const formControlContext = useFormControlContext()
-  const open = controlledOpen ?? uncontrolledOpen
   const [keepPortalMounted, setKeepPortalMounted] = React.useState(open)
   const releasePortalFrame = React.useRef<number | null>(null)
   if (open && !keepPortalMounted) setKeepPortalMounted(true)
@@ -1367,12 +1663,34 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     }
   }
   const filterValue = controlledFilterValue ?? uncontrolledFilterValue
-  const multiple = selectionVariant === 'multiple' || isMultiSelection(selected)
   const selectedItems = React.useMemo(
     () => (isMultiSelection(selected) ? [...selected] : selected ? [selected] : []),
     [selected],
   )
-  const isSingleSelectModal = variant === 'modal' && !multiple
+  const itemsAreEmpty = items.length === 0
+  const filterIsEmpty = filterValue.length === 0
+  const [sortState, setSortState] = React.useState(() => ({
+    filterIsEmpty,
+    itemsAreEmpty,
+    open,
+    selected: selectedItems,
+  }))
+  if (
+    sortState.open !== open ||
+    sortState.itemsAreEmpty !== itemsAreEmpty ||
+    sortState.filterIsEmpty !== filterIsEmpty
+  ) {
+    const shouldResetSelection =
+      sortState.open !== open ||
+      (sortState.itemsAreEmpty && !itemsAreEmpty) ||
+      (!sortState.filterIsEmpty && filterIsEmpty)
+    setSortState({
+      filterIsEmpty,
+      itemsAreEmpty,
+      open,
+      selected: shouldResetSelection ? selectedItems : sortState.selected,
+    })
+  }
   const effectiveSelectedItems = React.useMemo(() => {
     if (!isSingleSelectModal) return selectedItems
     const selectedItem = draftSelection.active
@@ -1386,8 +1704,10 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
   const panelAnchorId = anchorId ?? id ?? formControlContext?.id
   const isNarrowViewport = useNarrowViewport()
   const fullscreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const orderSelectedAtTop = useFeatureFlag('primer_react_select_panel_order_selected_at_top')
   const useMobileDialog = variant === 'anchored' && fullscreenOnNarrow && !disableFullscreenOnNarrow && isNarrowViewport
   const isDialog = variant === 'modal' || useMobileDialog
+  const showFullscreenCancelSave = useMobileDialog && multiple && Boolean(onCancel)
   const isRadio = isSingleSelectModal
   useDocumentScrollLock(isDialog && open)
   const usesExternalFiltering = controlledFilterValue !== undefined || onFilterChange !== undefined
@@ -1398,15 +1718,15 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
         ? items.filter(item => getItemLabel(item).toLocaleLowerCase().includes(normalizedFilter))
         : [...items]
 
-    if (!showSelectedOptionsFirst) return filtered
+    if (!orderSelectedAtTop || !showSelectedOptionsFirst) return filtered
 
     return filtered.toSorted((first, second) => {
-      const firstSelected = effectiveSelectedItems.some(selectedItem => areItemsEqual(selectedItem, first))
-      const secondSelected = effectiveSelectedItems.some(selectedItem => areItemsEqual(selectedItem, second))
+      const firstSelected = sortState.selected.some(selectedItem => areItemsEqual(selectedItem, first))
+      const secondSelected = sortState.selected.some(selectedItem => areItemsEqual(selectedItem, second))
       if (firstSelected === secondSelected) return 0
       return firstSelected ? -1 : 1
     })
-  }, [effectiveSelectedItems, filterValue, items, showSelectedOptionsFirst, usesExternalFiltering])
+  }, [filterValue, items, orderSelectedAtTop, showSelectedOptionsFirst, sortState.selected, usesExternalFiltering])
   const values = React.useMemo(
     () =>
       visibleItems.map((item, index) => ({
@@ -1472,16 +1792,10 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
   const setPanelOpen = React.useCallback(
     (nextOpen: boolean, gesture: SelectPanelOpenChangeGesture) => {
       lastCloseGestureRef.current = nextOpen ? null : gesture
-      if (isSingleSelectModal) {
-        setDraftSelection({
-          active: nextOpen,
-          value: nextOpen && !isMultiSelection(selected) ? selected : undefined,
-        })
-      }
       if (!isControlled) setUncontrolledOpen(nextOpen)
       onOpenChange?.(nextOpen, gesture)
     },
-    [isControlled, isSingleSelectModal, onOpenChange, selected],
+    [isControlled, onOpenChange],
   )
 
   const onFilterValueChange = React.useCallback(
@@ -1541,13 +1855,77 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     [draftSelection, isSingleSelectModal, multiple, onSelectedChange, selected, selectedItems],
   )
 
+  const onVirtualItemMount = React.useCallback(
+    (item: SelectPanelItem, node: HTMLElement) => {
+      const pending = pendingVirtualHighlight.current
+      if (!pending || !areItemsEqual(pending.item, item)) return
+      pendingVirtualHighlight.current = null
+      onActiveDescendantChanged?.(node, pending.previous, pending.directlyActivated)
+      previousActiveItem.current = node
+    },
+    [onActiveDescendantChanged],
+  )
+  const registerVirtualScroll = React.useCallback((scrollToIndex: ((index: number) => void) | null) => {
+    scrollToVirtualIndex.current = scrollToIndex
+  }, [])
+  const registerScrollElement = React.useCallback((node: HTMLDivElement | null) => {
+    scrollableElementRef.current = node
+  }, [])
+  const scrollActiveOption = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      event.defaultPrevented ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.nativeEvent.isComposing ||
+      (event.key !== 'PageDown' && event.key !== 'PageUp')
+    ) {
+      return false
+    }
+
+    const active = previousActiveItem.current
+    const scrollElement = scrollableElementRef.current
+    if (!active || !scrollElement || !scrollElement.contains(active)) return false
+    const optionBounds = active.getBoundingClientRect()
+    const scrollBounds = scrollElement.getBoundingClientRect()
+    const viewportTop = scrollBounds.top + scrollElement.clientTop
+    const viewportBottom = viewportTop + scrollElement.clientHeight
+    if (
+      optionBounds.height <= scrollElement.clientHeight ||
+      optionBounds.bottom <= viewportTop ||
+      optionBounds.top >= viewportBottom
+    ) {
+      return false
+    }
+
+    const remaining = event.key === 'PageDown' ? optionBounds.bottom - viewportBottom : optionBounds.top - viewportTop
+    if ((event.key === 'PageDown' && remaining <= 1) || (event.key === 'PageUp' && remaining >= -1)) return false
+    const step = Math.max(1, scrollElement.clientHeight / 2)
+    const previousScrollTop = scrollElement.scrollTop
+    scrollElement.scrollTop += Math.sign(remaining) * Math.min(step, Math.abs(remaining))
+    if (scrollElement.scrollTop === previousScrollTop) return false
+    event.preventDefault()
+    return true
+  }, [])
+
   const onHighlighted = React.useCallback(
     (value: SelectPanelValue | undefined, details: Combobox.Root.HighlightEventDetails) => {
       const current = value ? itemNodes.current.get(value.item) : undefined
+      if (usesBuiltInVirtualization) setVirtualHighlightedIndex(value && details.index >= 0 ? details.index : null)
+      if (value && usesBuiltInVirtualization && details.index >= 0) {
+        pendingVirtualHighlight.current = current
+          ? null
+          : {directlyActivated: details.reason === 'keyboard', item: value.item, previous: previousActiveItem.current}
+        if (!current || details.reason === 'keyboard') scrollToVirtualIndex.current?.(details.index)
+        if (!current) return
+      } else {
+        pendingVirtualHighlight.current = null
+      }
       onActiveDescendantChanged?.(current, previousActiveItem.current, details.reason === 'keyboard')
       previousActiveItem.current = current
     },
-    [onActiveDescendantChanged],
+    [onActiveDescendantChanged, usesBuiltInVirtualization],
   )
 
   const requestCancel = React.useCallback(() => {
@@ -1559,8 +1937,8 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     if (isSingleSelectModal) {
       onSelectedChange(draftSelection.value)
     }
-    setPanelOpen(false, 'selection')
-  }, [draftSelection.value, isSingleSelectModal, onSelectedChange, setPanelOpen])
+    setPanelOpen(false, useMobileDialog ? 'click-outside' : 'selection')
+  }, [draftSelection.value, isSingleSelectModal, onSelectedChange, setPanelOpen, useMobileDialog])
 
   const onComboboxOpenChange = React.useCallback(
     (nextOpen: boolean, details: Combobox.Root.ChangeEventDetails) => {
@@ -1571,25 +1949,33 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     [isSingleSelectModal, setPanelOpen],
   )
 
-  const contentRef = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      assignRef(forwardedRef, node)
-      if (node && panelHeight === 'initial') {
-        node.style.setProperty('--select-panel-initial-height', `${node.getBoundingClientRect().height}px`)
-      }
-    },
+  const contentRef = React.useMemo(
+    () =>
+      mergeRefs<HTMLDivElement>(contentElementRef, forwardedRef, node => {
+        if (node && panelHeight === 'initial') {
+          node.style.setProperty('--select-panel-initial-height', `${node.getBoundingClientRect().height}px`)
+        }
+      }),
     [forwardedRef, panelHeight],
   )
 
   const panelClasses = cn(
-    'flex min-h-0 flex-col',
+    'primer:flex primer:min-h-0 primer:flex-col',
+    isDialog
+      ? 'primer:[--select-panel-available-height:calc(100dvh-4rem)]'
+      : 'primer:[--select-panel-available-height:var(--available-height)]',
     panelWidthClasses[panelWidth],
     panelHeightClasses[panelHeight],
-    maxHeight && panelHeight !== 'initial' && overlayMaxHeightClassNames[maxHeight],
+    panelHeight === 'auto'
+      ? 'primer:max-h-[min(37.5rem,var(--select-panel-available-height))]'
+      : 'primer:max-h-[var(--select-panel-available-height)]',
+    maxHeight && panelMaxHeightClasses[maxHeight],
+    !isDialog && 'primer:max-w-[var(--available-width)] primer:p-0 primer:shadow-none',
     className,
     overlayClassName,
-    isDialog && 'max-w-[calc(100vw-var(--base-size-32))]',
-    useMobileDialog && 'h-[100dvh] w-screen max-w-none rounded-none',
+    isDialog && 'primer:max-w-[calc(100vw-var(--base-size-32))]',
+    useMobileDialog &&
+      'primer:[--select-panel-available-height:100dvh] primer:h-[100dvh] primer:max-h-[100dvh] primer:w-screen primer:max-w-none primer:rounded-none',
   )
   const contentStyle = overlayStyle
   const selectedLabels = selectedItems.map(item => item.text ?? item.children ?? getItemLabel(item))
@@ -1641,67 +2027,78 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     <FormControlContextProvider value={null}>
       <FormControlValidationStatusProvider value={undefined}>
         <SelectPanelFieldBoundary>
-          <Combobox.Root<SelectPanelValue, boolean>
-            autoHighlight={focusPrependedElements || !setInitialFocus}
-            defaultInputValue={defaultFilterValue}
-            filteredItems={groupedValues ?? values}
-            highlightItemOnHover={!disableSelectOnHover}
-            inputValue={filterValue}
-            inline
-            isItemEqualToValue={(itemValue, selectedValue) => areItemsEqual(itemValue.item, selectedValue.item)}
-            itemToStringLabel={value => value.label}
-            items={groupedValues ?? values}
-            loopFocus={focusOutBehavior !== 'stop'}
-            multiple={multiple}
-            onInputValueChange={onFilterValueChange}
-            onItemHighlighted={onHighlighted}
-            onOpenChange={onComboboxOpenChange}
-            onValueChange={onValueChange}
-            open={open}
-            value={multiple ? selectedValues : (selectedValues[0] ?? null)}
-            virtualized={usesBuiltInVirtualization}
+          <SelectPanelNavigationContext.Provider
+            value={{
+              highlightedIndex: virtualHighlightedIndex,
+              onItemMount: onVirtualItemMount,
+              registerScrollElement,
+              registerScrollToIndex: registerVirtualScroll,
+              scrollActiveOption,
+            }}
           >
-            <SelectPanelContent
-              actionListProps={actionListProps}
-              ariaLabel={listAriaLabel}
-              groupedValues={groupedValues}
-              initialLoadingType={initialLoadingType}
-              inputLabel={inputLabel ?? placeholderText}
-              inputRef={inputRef}
-              isDialog={isDialog}
-              itemNodes={itemNodes}
-              loading={loading}
-              message={message}
+            <Combobox.Root<SelectPanelValue, boolean>
+              autoHighlight={focusPrependedElements || !setInitialFocus}
+              defaultInputValue={defaultFilterValue}
+              filteredItems={groupedValues ?? values}
+              highlightItemOnHover={!disableSelectOnHover}
+              inputValue={filterValue}
+              inline
+              isItemEqualToValue={(itemValue, selectedValue) => areItemsEqual(itemValue.item, selectedValue.item)}
+              itemToStringLabel={value => value.label}
+              items={groupedValues ?? values}
+              loopFocus={focusOutBehavior !== 'stop'}
               multiple={multiple}
-              notice={notice}
+              onInputValueChange={onFilterValueChange}
+              onItemHighlighted={onHighlighted}
+              onOpenChange={onComboboxOpenChange}
+              onValueChange={onValueChange}
               open={open}
-              onCancelRequest={requestCancel}
-              onSave={saveSelection}
-              onScrollEnd={onScrollEnd}
-              placeholderText={placeholderText}
-              radio={isRadio}
-              renderGroup={renderGroup}
-              renderItem={renderItem}
-              scrollContainerRef={scrollContainerRef}
-              secondaryAction={secondaryAction}
-              selectedItems={effectiveSelectedItems}
-              showCancel={variant === 'modal' || (useMobileDialog && Boolean(onCancel))}
-              showItemDividers={showItemDividers}
-              showSave={variant === 'modal'}
-              showSaveAndClose={useMobileDialog && multiple && !onCancel}
-              showSelectAll={showSelectAll}
-              subtitle={subtitle}
-              subtitleId={subtitleId}
-              textInputProps={textInputProps}
-              title={panelTitle}
-              titleId={titleId}
-              values={values}
-              variant={variant}
+              value={multiple ? selectedValues : (selectedValues[0] ?? null)}
               virtualized={usesBuiltInVirtualization}
-              visibleItems={visibleItems}
-              onSelectAllChange={onSelectAllChange}
-            />
-          </Combobox.Root>
+            >
+              <SelectPanelContent
+                actionListProps={actionListProps}
+                ariaLabel={listAriaLabel}
+                groupedValues={groupedValues}
+                initialLoadingType={initialLoadingType}
+                inputLabel={inputLabel ?? placeholderText}
+                inputRef={inputRef}
+                isDialog={isDialog}
+                itemNodes={itemNodes}
+                loading={loading}
+                message={message}
+                multiple={multiple}
+                notice={notice}
+                open={open}
+                onCancelRequest={requestCancel}
+                onSave={saveSelection}
+                onScrollEnd={onScrollEnd}
+                placeholderText={placeholderText}
+                radio={isRadio}
+                renderGroup={renderGroup}
+                renderItem={renderItem}
+                scrollContainerRef={scrollContainerRef}
+                secondaryAction={secondaryAction}
+                selectedItems={effectiveSelectedItems}
+                showCancel={variant === 'modal' || showFullscreenCancelSave}
+                showCloseButton={variant === 'modal' || (useMobileDialog && (!multiple || Boolean(onCancel)))}
+                showItemDividers={showItemDividers}
+                showSave={variant === 'modal' || showFullscreenCancelSave}
+                showSaveAndClose={useMobileDialog && multiple && !onCancel}
+                showSelectAll={showSelectAll}
+                subtitle={subtitle}
+                subtitleId={subtitleId}
+                textInputProps={textInputProps}
+                title={panelTitle}
+                titleId={titleId}
+                values={values}
+                variant={variant}
+                virtualized={usesBuiltInVirtualization}
+                visibleItems={visibleItems}
+                onSelectAllChange={onSelectAllChange}
+              />
+            </Combobox.Root>
+          </SelectPanelNavigationContext.Provider>
         </SelectPanelFieldBoundary>
       </FormControlValidationStatusProvider>
     </FormControlContextProvider>
@@ -1711,7 +2108,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
       align={align}
       alignOffset={alignOffset}
       anchor={overflowAnchor ? getPositionAnchor : renderAnchor === null ? anchorRef : undefined}
-      className={cn('z-popover', positionerClassName)}
+      className={cn('primer:z-popover', positionerClassName)}
       collisionAvoidance={positionerCollisionAvoidance}
       collisionBoundary={collisionBoundary}
       collisionPadding={collisionPadding ?? (displayInViewport ? 8 : undefined)}
@@ -1725,7 +2122,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
         aria-labelledby={titleId}
         className={panelClasses}
         finalFocus={overflowAnchor ? getFinalFocus : (anchorRef ?? true)}
-        initialFocus={inputRef}
+        initialFocus={focusFilter}
         ref={contentRef}
         role="dialog"
         style={contentStyle}
@@ -1761,7 +2158,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
               render={fieldAnchor}
             />
             {formControlContext?.required ? (
-              <span className="sr-only" id={requiredId}>
+              <span className="primer:sr-only" id={requiredId}>
                 Required
               </span>
             ) : null}
@@ -1774,14 +2171,14 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
           portal={portal}
         >
           <Dialog.Backdrop />
-          <Dialog.Viewport className={cn(useMobileDialog && 'p-0', positionerClassName)}>
+          <Dialog.Viewport className={cn(useMobileDialog && 'primer:p-0', positionerClassName)}>
             <Dialog.Popup
               {...overlayDomProps}
               aria-describedby={subtitle ? subtitleId : undefined}
               aria-labelledby={titleId}
               className={panelClasses}
               finalFocus={overflowAnchor ? getFinalFocus : (anchorRef ?? true)}
-              initialFocus={inputRef}
+              initialFocus={focusFilter}
               ref={contentRef}
               style={contentStyle}
             >
@@ -1820,7 +2217,7 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
             render={fieldAnchor}
           />
           {formControlContext?.required ? (
-            <span className="sr-only" id={requiredId}>
+            <span className="primer:sr-only" id={requiredId}>
               Required
             </span>
           ) : null}
@@ -1832,6 +2229,10 @@ const SelectPanelConfig = React.forwardRef<HTMLDivElement, SelectPanelProps>(fun
     </Popover.Root>
   )
 })
+
+// forwardRef cannot preserve the item generic. The implementation only returns caller-provided items, in the shape
+// selected by `selectionVariant` or an array `selected` value.
+const SelectPanelConfig = SelectPanelImplementation as SelectPanelComponent
 
 export const SelectPanel = Object.assign(SelectPanelConfig, {
   Message: SelectPanelMessageComponent,

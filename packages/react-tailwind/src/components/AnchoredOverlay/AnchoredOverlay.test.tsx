@@ -40,7 +40,7 @@ describe('AnchoredOverlay', () => {
     await user.click(trigger)
     expect(ref.current).toBe(screen.getByTestId('content'))
     expect(ref.current).toHaveAttribute('data-component', 'AnchoredOverlay.Content')
-    expect(ref.current).toHaveClass('bg-[var(--overlay-bgColor)]')
+    expect(ref.current).toHaveClass('primer:bg-[var(--overlay-bgColor)]')
     expect(trigger).toHaveClass('open')
   })
 
@@ -102,8 +102,13 @@ describe('AnchoredOverlay', () => {
     )
 
     const content = screen.getByTestId('content')
-    expect(content).toHaveClass('w-[30rem]', 'h-64', 'max-h-[min(12rem,100dvh)]', 'max-w-80')
-    expect(content).not.toHaveClass('max-h-dvh')
+    expect(content).toHaveClass(
+      'primer:w-[30rem]',
+      'primer:h-64',
+      'primer:max-h-[min(12rem,100dvh)]',
+      'primer:max-w-80',
+    )
+    expect(content).not.toHaveClass('primer:max-h-dvh')
   })
 
   it('opens against an external anchor without a trigger', async () => {
@@ -162,8 +167,8 @@ describe('AnchoredOverlay', () => {
     expect(screen.getByRole('button', {name: 'Options'})).toHaveAttribute('data-component', 'AnchoredOverlay.Trigger')
     const arrow = screen.getByTestId('arrow')
     expect(arrow).toHaveClass(
-      '[--arrow-bg-color:var(--overlay-bgColor)]',
-      '[--arrow-border-color:var(--borderColor-default)]',
+      'primer:[--arrow-bg-color:var(--overlay-bgColor)]',
+      'primer:[--arrow-border-color:var(--borderColor-default)]',
       'open',
     )
     expect(arrow.querySelector('svg')).toHaveAttribute('aria-hidden', 'true')

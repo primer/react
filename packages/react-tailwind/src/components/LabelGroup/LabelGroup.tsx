@@ -5,6 +5,8 @@ import {flushSync} from 'react-dom'
 import {flattenChildren} from '../../internal/children'
 import {CloseIconButton} from '../../internal/CloseIconButton'
 import {cn} from '../../internal/cn'
+import {getFocusableChild} from '../../internal/getFocusableChild'
+import {mergeRefs} from '../../internal/refs'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 
@@ -18,21 +20,7 @@ export interface LabelGroupProps extends Omit<React.HTMLAttributes<HTMLElement>,
 }
 
 const itemClassName =
-  'flex shrink-0 items-center data-[hidden]:order-last data-[hidden]:pointer-events-none data-[hidden]:invisible'
-const focusableSelector =
-  'a[href], area[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, audio[controls], video[controls], [contenteditable]:not([contenteditable="false"]), [tabindex]:not([tabindex="-1"])'
-
-function getFocusableChild(element: HTMLElement | null) {
-  return (
-    [...(element?.querySelectorAll<HTMLElement>(focusableSelector) ?? [])].find(
-      candidate =>
-        !candidate.matches(':disabled') &&
-        !candidate.hasAttribute('hidden') &&
-        !candidate.closest('[inert], [aria-hidden="true"]'),
-    ) ?? null
-  )
-}
-
+  'primer:flex primer:shrink-0 primer:items-center primer:data-[hidden]:order-last primer:data-[hidden]:pointer-events-none primer:data-[hidden]:invisible'
 /**
  * A config component for the established compact-label overflow pattern. It keeps
  * consumer-authored children in order while providing the measurement and
@@ -43,6 +31,7 @@ export const LabelGroup = React.forwardRef<HTMLElement, LabelGroupProps>(functio
   ref,
 ) {
   const containerRef = React.useRef<HTMLElement>(null)
+  const rootRef = React.useMemo(() => mergeRefs(containerRef, ref), [ref])
   const itemRefs = React.useRef<Array<HTMLElement | null>>([])
   const toggleRef = React.useRef<HTMLElement>(null)
   const expandButtonRef = React.useRef<HTMLElement>(null)
@@ -148,14 +137,10 @@ export const LabelGroup = React.forwardRef<HTMLElement, LabelGroupProps>(functio
   return (
     <Component
       {...rest}
-      ref={(node: HTMLElement | null) => {
-        containerRef.current = node
-        if (typeof ref === 'function') ref(node)
-        else if (ref) ref.current = node
-      }}
+      ref={rootRef}
       className={cn(
-        'flex max-w-full flex-nowrap gap-1 overflow-hidden leading-none [contain:layout] data-[overflow=inline]:flex-wrap',
-        isList && 'm-0 list-none ps-0',
+        'primer:flex primer:max-w-full primer:flex-nowrap primer:gap-1 primer:overflow-hidden primer:leading-none primer:[contain:layout] primer:data-[overflow=inline]:flex-wrap',
+        isList && 'primer:m-0 primer:list-none primer:ps-0',
         className,
       )}
       data-component="LabelGroup"
@@ -183,7 +168,7 @@ export const LabelGroup = React.forwardRef<HTMLElement, LabelGroupProps>(functio
             toggleRef.current = node
           }}
           data-component="LabelGroup.Toggle"
-          className="flex shrink-0 items-center"
+          className="primer:flex primer:shrink-0 primer:items-center"
         >
           {overflowStyle === 'inline' ? (
             isInlineExpanded ? (
@@ -217,13 +202,13 @@ export const LabelGroup = React.forwardRef<HTMLElement, LabelGroupProps>(functio
               </AnchoredOverlay.Trigger>
               <AnchoredOverlay.Content
                 aria-label={`All ${childCount} labels`}
-                className="min-w-0 p-2"
+                className="primer:min-w-0 primer:p-2"
                 role="dialog"
                 side="bottom"
                 sideOffset={0}
               >
-                <div className="flex items-start gap-2">
-                  <div className="flex flex-wrap gap-1">{children}</div>
+                <div className="primer:flex primer:items-start primer:gap-2">
+                  <div className="primer:flex primer:flex-wrap primer:gap-1">{children}</div>
                   <AnchoredOverlay.Close render={<CloseIconButton size="small" />} />
                 </div>
               </AnchoredOverlay.Content>

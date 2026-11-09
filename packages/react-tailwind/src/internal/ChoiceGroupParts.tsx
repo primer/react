@@ -29,12 +29,15 @@ export const ChoiceGroupLabel = React.forwardRef<HTMLDivElement, ChoiceGroupLabe
         id={id ?? context?.labelId}
         data-component={`${component}.Label`}
         className={mergeClassName(
-          cn('block text-sm font-semibold text-default data-[disabled]:text-muted', visuallyHidden && 'sr-only'),
+          cn(
+            'primer:block primer:text-sm primer:font-semibold primer:text-default primer:data-[disabled]:text-muted',
+            visuallyHidden && 'primer:sr-only',
+          ),
           className,
         )}
       >
         {context?.required ? (
-          <span className="flex gap-2">
+          <span className="primer:flex primer:gap-2">
             <span>{children}</span>
             {/* The group announces `required` itself, so the marker is visual only. */}
             <span aria-hidden="true">*</span>
@@ -62,10 +65,10 @@ export const ChoiceGroupCaption = React.forwardRef<HTMLDivElement, ChoiceGroupCa
         id={captionId}
         data-component={`${component}.Caption`}
         // Upstream renders the caption inside the legend, directly under a visible label.
-        className={cn('text-muted [[data-component$=Label]:not(.sr-only)+&]:-mt-2', className)}
+        className={cn('primer:text-muted primer:[[data-component$=Label]:not(.sr-only)+&]:-mt-2', className)}
       >
         {/* An inline run sits in the surrounding font's line box, which places the text like upstream's caption. */}
-        <span className="text-sm">{children}</span>
+        <span className="primer:text-sm">{children}</span>
       </div>
     )
   },

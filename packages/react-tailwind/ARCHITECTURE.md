@@ -27,6 +27,12 @@ Interactive components compose `@base-ui/react` primitives for keyboard navigati
 
 Compound components follow familiar namespaces while using Base UI-oriented parts such as `Root`, `Trigger`, `Portal`, `Positioner`, `Popup` or `Content`, `Title`, `Description`, and `Close`. The `render` prop composes behavior onto an existing element without nesting interactive controls.
 
+### Foundation subpaths
+
+`@primer/react-tailwind/base` and `@primer/react-tailwind/behaviors` expose Primer-owned foundation APIs as flat named exports, never `Object.assign` namespaces, so React Server Components can reference them. They are explicit `package.json` exports and Rolldown entries in `src/base/index.ts` and `src/behaviors/index.ts`, and share module instances and context with the root and component entries.
+
+An export belongs here only when Base UI cannot satisfy the contract directly and Primer would otherwise duplicate the integration. The first layer is limited to portal routing: Base UI 1.6 publishes pattern `Portal` parts but no app-level default container, and host evidence requires routing every Primer floating part, including internally generated tooltips, into a host-owned container. `BasePortalProvider` (also `Portal.Provider`) supplies that container; `usePortalContainer` adapts it to a Base UI `Portal` part's `container` prop, including Primer's nested-layer inheritance; `usePortalRoot` exposes the automatic default root when a nested provider needs to replace an inherited container without choosing another explicit target. Mounting, lifecycle, focus, dismissal, and layering remain with Base UI and the styled `Portal`. Internal contexts, nested-layer flags, and modal helpers are not exported.
+
 Presentational components remain normal React components. Package-private composition helpers live in `src/internal`, while deliberately public shared types live in `src/utils/types`.
 
 ### Shared composition
@@ -57,11 +63,11 @@ The package supports two mutually exclusive modes:
 
 Applications import `@primer/react-tailwind/styles.css`. This contains the component utilities, Primer theme configuration, and package base rules, and requires no Tailwind tooling in the consumer.
 
-### Host-generated Tailwind
+### Standalone Tailwind entry
 
-Tailwind v4 applications import the package theme/config entry and add an explicit `@source` for the distributed modules. The host compiler then generates the utilities used by the package. Applications must not also import `styles.css`, which would duplicate component rules.
+Package-owned utilities carry the `primer:` prefix, placed first before variants. The `cn` helper merges prefixed and unprefixed utility groups so caller `className` (unprefixed) can override either. `tailwind.css` is an optional standalone entry that generates the package's prefixed styles as a separate stylesheet. It must not be imported into the same Tailwind stylesheet as an app's unprefixed utilities (one prefix per build), and applications must not also import `styles.css`, which would duplicate component rules. The prefix is a migration candidate not yet validated in built CSS; shared `--tw-*` properties may still interact with legacy CSS.
 
-`theme.css` contains the Primer primitive token imports and color-scheme selection. `tailwind.css` is the convenience host-generation entry and includes a source directive for the distributed modules. The production package check validates that all CSS subpaths resolve and that clean Tailwind consumers discover classes through both explicit and convenience configuration.
+`theme.css` contains the Primer primitive token imports and color-scheme selection. `tailwind.css` is the standalone generation entry and includes a source directive for the distributed modules.
 
 ## Themes
 
@@ -79,7 +85,7 @@ The package:
 - does not export experimental, V2, deprecated, or legacy aliases;
 - omits `sx` and styled-system props in favor of `className`, semantic CSS variables, variants, state attributes, and `render`;
 - uses consistent controlled and uncontrolled state conventions;
-- forwards public root refs and valid DOM props to the same element; and
+- forwards public root refs and valid DOM props to the same element, except where a component's `ALIGNMENT.md` documents otherwise (`TextInput` styles its wrapper with `className` and applies ref, native props, and `style` to the input); and
 - shares size, positioning, responsive, and component types where they represent a package-wide contract.
 
 Primer viewport ranges map to Tailwind statically: narrow uses unprefixed base utilities below `md`, regular uses `md:`, and wide uses `2xl:`. Primer React's compiled custom media and `@primer/tailwind-config` both place that wide range at 87.5rem / 1400px; the unrelated `lg` breakpoint at 63.25rem is not the Primer wide viewport range.
@@ -112,6 +118,10 @@ Every component's `ALIGNMENT.md` explains the legacy source and the modern repla
 
 ## Agent-facing documentation
 
+The package-level `AGENTS.md` is shared by every component. Component guides in `llms/` are generated from authored README usage and contract sections, type-derived API metadata, and alignment notes; Storybook-only blocks are removed without executing MDX. Every public component entry point must have those source documents and an inline usage example. Discovering entry points rather than README files prevents missing documentation from disappearing from the index.
+
+`AGENTS.md`, `llms.txt`, `llms/*.md`, and the API inventory and its schema have explicit file exports. Consumers resolve and read these as text using their installed package version, not a JavaScript import or repository-only path. The existing `check:llms` command checks coverage, generation freshness, and the documentation export mappings.
+
 `AGENTS.md` is the authored guidance for coding agents and LLMs that generate code against this package. It exists because guidance written for `@primer/react` is frequently wrong here, most often by reaching for `sx`, `Box`, or a deprecated name.
 
 `llms.txt` is generated from `AGENTS.md`, each component's `README.mdx` intent paragraph, each `ALIGNMENT.md` migration notes, and the API inventory's exclusions. Nothing in it is authored twice, so it cannot drift from the documentation it summarizes. The generator fails when a component has no intent paragraph, which keeps new components from shipping without one, and a check task fails when the committed file is stale.
@@ -126,7 +136,7 @@ Server-safe and presentational modules remain usable during SSR. Interactive mod
 
 Rolldown emits ESM and declarations with the source module structure preserved. All dependencies and peer dependencies remain external, keeping application React ownership and package tree shaking intact. The public package includes:
 
-- the root module and component subpath modules;
+- the root module, component subpath modules, and the `base` and `behaviors` foundation modules;
 - TypeScript declarations;
 - compiled, component, theme, Tailwind, and optional base CSS entries;
 - the API inventory; and
@@ -149,7 +159,7 @@ Changes are not complete when source code compiles. The package gates cover:
 - TypeScript and React Compiler checks;
 - ESM, declarations, directives, and circular dependencies;
 - static Tailwind class discovery and generated CSS;
-- root and component subpath imports from a packed React 19 consumer;
+- root, component, `base`, and `behaviors` subpath imports and shared identity from a packed React 19 consumer;
 - SSR without browser globals in production and development modes;
 - Storybook docs, controls, interaction tests, and runtime errors; and
 - visual and computed-style parity in supported schemes and viewports.

@@ -42,6 +42,15 @@
       "id": "react-tailwind-components-anchoredoverlay-features--focus-zone-overrides"
     },
     {
+      "id": "react-tailwind-components-anchoredoverlay-features--nested-menu-focus"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--separate-portal-focus-reproduction"
+    },
+    {
+      "id": "react-tailwind-components-anchoredoverlay-features--menu-inside-base-ui-portal"
+    },
+    {
       "id": "react-tailwind-components-anchoredoverlay-features--overlay-props-overrides"
     },
     {

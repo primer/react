@@ -53,7 +53,7 @@ function FormattingBar({size, gap = 'condensed'}: Pick<ComponentProps<typeof Act
 function CommentBoxContent() {
   const [value, setValue] = useState('')
   return (
-    <div className="flex w-full max-w-[800px] flex-col rounded-md border border-default bg-default text-default">
+    <div className="flex w-full max-w-[800px] flex-col rounded-md border-thin border-default bg-default text-default">
       <header className="flex gap-4 rounded-t-md bg-muted">
         <div className="flex h-[37px] basis-0">
           <Button variant="invisible">Write</Button>
@@ -190,8 +190,8 @@ export const ActionbarToggle: Story = {
   render: function ActionbarToggleStory() {
     const [editing, setEditing] = useState(false)
     return (
-      <div className="border border-default p-4">
-        <div className="flex flex-row justify-between border border-default bg-muted p-4">
+      <div className="border-thin border-default p-4">
+        <div className="flex flex-row justify-between border-thin border-default bg-muted p-4">
           <div>
             <Avatar src="https://github.com/broccolinisoup.png" size={30} />
             <Text as="strong" className="mx-2">

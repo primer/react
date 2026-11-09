@@ -9,7 +9,7 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(function Details
       {...rest}
       ref={ref}
       data-component="Details"
-      className={cn('[&>summary]:list-none [&>summary::-webkit-details-marker]:hidden', className)}
+      className={cn('primer:[&>summary]:list-none primer:[&>summary::-webkit-details-marker]:hidden', className)}
     />
   )
 })
@@ -22,7 +22,7 @@ const Summary = React.forwardRef<HTMLElement, DetailsSummaryProps>(function Summ
       {...rest}
       ref={ref}
       data-component="Details.Summary"
-      className={cn('list-none [&::-webkit-details-marker]:hidden', className)}
+      className={cn('primer:list-none primer:[&::-webkit-details-marker]:hidden', className)}
     />
   )
 })

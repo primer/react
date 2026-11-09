@@ -430,9 +430,7 @@ export const WithLoading: Story = {
       <Table.Skeleton
         aria-describedby="repositories-subtitle"
         aria-labelledby="repositories"
-        columns={createColumns().map(column => ({
-          header: typeof column.header === 'function' ? column.header() : column.header,
-        }))}
+        columns={createColumns()}
       />
     </Table.Container>
   ),
@@ -517,9 +515,7 @@ export const WithNetworkError: Story = {
       <Table.Skeleton
         aria-describedby="repositories-subtitle"
         aria-labelledby="repositories"
-        columns={createColumns().map(column => ({
-          header: typeof column.header === 'function' ? column.header() : column.header,
-        }))}
+        columns={createColumns()}
       />
       <Table.Pagination pageSize={10} totalCount={paginationData.length} />
     </Table.Container>

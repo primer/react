@@ -23,7 +23,7 @@ import {ScrollableRegion} from '@primer/react-tailwind/ScrollableRegion'
 </ScrollableRegion>
 ```
 
-Always provide exactly one of `aria-label` or `aria-labelledby`. When overflow is present, the root has `role="region"` and `tabIndex={0}`, so keyboard users can focus it and use the browser's native scrolling keys. The label and region semantics are omitted when there is no overflow.
+Always provide exactly one of `aria-label` or `aria-labelledby`. When overflow is present, the root has `role="region"` and `tabIndex={0}`, so keyboard users can focus it and use the browser's native scrolling keys. The label and region semantics are omitted when there is no overflow, unless the region is focused; in that case they remain until focus leaves.
 
 ## Props
 

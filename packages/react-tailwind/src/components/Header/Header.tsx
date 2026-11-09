@@ -15,7 +15,7 @@ const HeaderRoot = React.forwardRef<HTMLElement, HeaderProps>(function Header(
       {...rest}
       ref={ref}
       className={cn(
-        'z-sticky flex flex-nowrap items-center overflow-auto bg-[var(--header-bgColor)] p-4 text-sm leading-[var(--text-title-lineHeight-large)] text-[color:var(--header-fgColor-default)]',
+        'primer:z-sticky primer:flex primer:flex-nowrap primer:items-center primer:overflow-auto primer:bg-[var(--header-bgColor)] primer:p-4 primer:text-sm primer:leading-[var(--text-title-lineHeight-large)] primer:text-[color:var(--header-fgColor-default)]',
         className,
       )}
       data-component="Header"
@@ -36,7 +36,11 @@ const HeaderItem = React.forwardRef<HTMLDivElement, HeaderItemProps>(function He
     <div
       {...rest}
       ref={ref}
-      className={cn('mr-4 flex flex-nowrap items-center self-stretch', full && 'flex-auto', className)}
+      className={cn(
+        'primer:mr-4 primer:flex primer:flex-nowrap primer:items-center primer:self-stretch',
+        full && 'primer:flex-auto',
+        className,
+      )}
       data-component="Header.Item"
       data-full={full || undefined}
     />
@@ -57,7 +61,7 @@ const HeaderLink = React.forwardRef<HTMLElement, HeaderLinkProps>(function Heade
       {...rest}
       ref={ref}
       className={cn(
-        'flex cursor-pointer items-center whitespace-nowrap font-semibold text-[color:var(--header-fgColor-logo)] no-underline hover:text-[color:var(--header-fgColor-default)] focus:text-[color:var(--header-fgColor-default)]',
+        'primer:flex primer:cursor-pointer primer:items-center primer:whitespace-nowrap primer:font-semibold primer:text-[color:var(--header-fgColor-logo)] primer:no-underline primer:hover:text-[color:var(--header-fgColor-default)] primer:focus:text-[color:var(--header-fgColor-default)]',
         className,
       )}
       data-component="Header.Link"

@@ -8,17 +8,17 @@ import {cn} from '../../internal/cn'
  */
 export const actionItemPartClassName = {
   /** Text that is not part of a region, such as custom content. */
-  content: 'text-[var(--action-list-item-fgColor,var(--control-fgColor-rest))]',
-  label: 'text-[var(--action-list-item-label-fgColor,var(--fgColor-default))]',
+  content: 'primer:text-[var(--action-list-item-fgColor,var(--control-fgColor-rest))]',
+  label: 'primer:text-[var(--action-list-item-label-fgColor,var(--fgColor-default))]',
   /** Leading visuals and selection indicators. */
-  leadingVisual: 'fill-current text-[var(--action-list-item-visual-fgColor,var(--fgColor-muted))]',
-  description: 'text-[var(--action-list-item-description-fgColor,var(--fgColor-muted))]',
-  trailingVisual: 'fill-current text-[var(--action-list-item-trailing-fgColor,var(--fgColor-muted))]',
+  leadingVisual: 'primer:fill-current primer:text-[var(--action-list-item-visual-fgColor,var(--fgColor-muted))]',
+  description: 'primer:text-[var(--action-list-item-description-fgColor,var(--fgColor-muted))]',
+  trailingVisual: 'primer:fill-current primer:text-[var(--action-list-item-trailing-fgColor,var(--fgColor-muted))]',
 } as const
 
 // State colors and backgrounds come from `getActionItemStateClassName` on the element that owns the item's state.
 export const actionItemClassName = cn(
-  'flex !min-w-0 w-full !justify-start gap-2 appearance-none rounded-md !border-0 bg-transparent px-2 py-1.5 text-left text-sm font-normal ![line-height:20px] whitespace-normal no-underline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus data-[disabled]:cursor-not-allowed items-start',
+  'primer:box-border primer:flex primer:!min-w-0 primer:w-full primer:!justify-start primer:gap-2 primer:appearance-none primer:rounded-md primer:!border-0 primer:bg-transparent primer:px-2 primer:py-1.5 primer:text-left primer:text-sm primer:font-normal primer:![line-height:20px] primer:whitespace-normal primer:no-underline primer:focus-visible:outline-2 primer:focus-visible:outline-offset-0 primer:focus-visible:outline-focus primer:data-[disabled]:cursor-not-allowed primer:items-start',
   actionItemPartClassName.content,
 )
 
@@ -45,25 +45,28 @@ export function getActionItemTone({disabled, inactive, loading, variant}: Action
   return variant === 'danger' ? 'danger' : 'default'
 }
 
-const defaultColorsClassName =
-  '[--action-list-item-fgColor:var(--control-fgColor-rest)] [--action-list-item-label-fgColor:var(--fgColor-default)] [--action-list-item-visual-fgColor:var(--fgColor-muted)] [--action-list-item-description-fgColor:var(--fgColor-muted)] [--action-list-item-trailing-fgColor:var(--fgColor-muted)]'
+/** Colors for a static, non-interactive item, which has no hover, pressed, or focus treatment. */
+export const staticActionItemClassName =
+  'primer:[--action-list-item-fgColor:var(--control-fgColor-rest)] primer:[--action-list-item-label-fgColor:var(--fgColor-default)] primer:[--action-list-item-visual-fgColor:var(--fgColor-muted)] primer:[--action-list-item-description-fgColor:var(--fgColor-muted)] primer:[--action-list-item-trailing-fgColor:var(--fgColor-muted)]'
+
+const defaultColorsClassName = staticActionItemClassName
 
 // The thin inset border is transparent except in high contrast themes. The transparent outline marks the state in
 // forced colors, where box shadows are not drawn.
 const hoverBorderClassName =
-  'hover:not-data-active:not-focus-visible:shadow-[inset_0_0_0_var(--borderWidth-thin)_var(--control-transparent-borderColor-active)] hover:not-data-active:not-focus-visible:[outline:var(--borderWidth-thin)_solid_transparent] hover:not-data-active:not-focus-visible:-outline-offset-1 active:not-data-active:shadow-[inset_0_0_0_var(--borderWidth-thin)_var(--control-transparent-borderColor-active)] active:not-data-active:[outline:var(--borderWidth-thin)_solid_transparent] active:not-data-active:-outline-offset-1'
+  'primer:hover:not-data-active:not-focus-visible:shadow-[inset_0_0_0_var(--borderWidth-thin)_var(--control-transparent-borderColor-active)] primer:hover:not-data-active:not-focus-visible:[outline:var(--borderWidth-thin)_solid_transparent] primer:hover:not-data-active:not-focus-visible:-outline-offset-1 primer:active:not-data-active:shadow-[inset_0_0_0_var(--borderWidth-thin)_var(--control-transparent-borderColor-active)] primer:active:not-data-active:[outline:var(--borderWidth-thin)_solid_transparent] primer:active:not-data-active:-outline-offset-1'
 
 const interactiveClassName = cn(
-  'hover:bg-[var(--control-transparent-bgColor-hover)] active:bg-[var(--control-transparent-bgColor-active)]',
+  'primer:hover:bg-[var(--control-transparent-bgColor-hover)] primer:active:bg-[var(--control-transparent-bgColor-active)]',
   hoverBorderClassName,
 )
 
 const activeIndicatorClassName =
-  "after:pointer-events-none after:absolute after:top-1 after:-left-2 after:h-[calc(100%-8px)] after:w-1 after:rounded-md after:bg-[var(--borderColor-accent-emphasis)] after:content-['']"
+  "primer:after:pointer-events-none primer:after:absolute primer:after:top-1 primer:after:-left-2 primer:after:h-[calc(100%-8px)] primer:after:w-1 primer:after:rounded-md primer:after:bg-[var(--borderColor-accent-emphasis)] primer:after:content-['']"
 
 // A loading trailing action keeps the label and description at full contrast, over any other state.
 const trailingActionLoadingClassName =
-  '[--action-list-item-label-fgColor:var(--fgColor-default)] [--action-list-item-description-fgColor:var(--fgColor-default)]'
+  'primer:[--action-list-item-label-fgColor:var(--fgColor-default)] primer:[--action-list-item-description-fgColor:var(--fgColor-default)]'
 
 const actionItemState = cva('', {
   variants: {
@@ -72,32 +75,32 @@ const actionItemState = cva('', {
       danger: cn(
         defaultColorsClassName,
         interactiveClassName,
-        '[--action-list-item-label-fgColor:var(--control-danger-fgColor-rest)] [--action-list-item-visual-fgColor:var(--control-danger-fgColor-rest)]',
-        'hover:bg-[var(--control-danger-bgColor-hover)] hover:[--action-list-item-label-fgColor:var(--control-danger-fgColor-hover)] hover:[--action-list-item-visual-fgColor:var(--control-danger-fgColor-hover)]',
-        'active:bg-[var(--control-danger-bgColor-active)] active:[--action-list-item-label-fgColor:var(--control-danger-fgColor-hover)] active:[--action-list-item-visual-fgColor:var(--control-danger-fgColor-hover)]',
+        'primer:[--action-list-item-label-fgColor:var(--control-danger-fgColor-rest)] primer:[--action-list-item-visual-fgColor:var(--control-danger-fgColor-rest)]',
+        'primer:hover:bg-[var(--control-danger-bgColor-hover)] primer:hover:[--action-list-item-label-fgColor:var(--control-danger-fgColor-hover)] primer:hover:[--action-list-item-visual-fgColor:var(--control-danger-fgColor-hover)]',
+        'primer:active:bg-[var(--control-danger-bgColor-active)] primer:active:[--action-list-item-label-fgColor:var(--control-danger-fgColor-hover)] primer:active:[--action-list-item-visual-fgColor:var(--control-danger-fgColor-hover)]',
       ),
       loading: cn(
         defaultColorsClassName,
         interactiveClassName,
-        '[--action-list-item-label-fgColor:var(--fgColor-muted)]',
+        'primer:[--action-list-item-label-fgColor:var(--fgColor-muted)]',
       ),
       inactive: cn(
         defaultColorsClassName,
         hoverBorderClassName,
-        'cursor-not-allowed hover:bg-transparent active:bg-transparent [--action-list-item-fgColor:var(--fgColor-muted)] [--action-list-item-label-fgColor:var(--fgColor-muted)]',
+        'primer:cursor-not-allowed primer:hover:bg-transparent primer:active:bg-transparent primer:[--action-list-item-fgColor:var(--fgColor-muted)] primer:[--action-list-item-label-fgColor:var(--fgColor-muted)]',
       ),
       disabled:
-        'cursor-not-allowed [--action-list-item-fgColor:var(--control-fgColor-disabled)] [--action-list-item-label-fgColor:var(--control-fgColor-disabled)] [--action-list-item-visual-fgColor:var(--control-fgColor-disabled)] [--action-list-item-description-fgColor:var(--control-fgColor-disabled)] [--action-list-item-trailing-fgColor:var(--control-fgColor-disabled)]',
+        'primer:cursor-not-allowed primer:[--action-list-item-fgColor:var(--control-fgColor-disabled)] primer:[--action-list-item-label-fgColor:var(--control-fgColor-disabled)] primer:[--action-list-item-visual-fgColor:var(--control-fgColor-disabled)] primer:[--action-list-item-description-fgColor:var(--control-fgColor-disabled)] primer:[--action-list-item-trailing-fgColor:var(--control-fgColor-disabled)]',
     },
     active: {
       true: cn(
-        'bg-[var(--control-transparent-bgColor-selected)] not-focus-visible:[outline:2px_solid_transparent] [&_[data-item-label]]:font-semibold',
+        'primer:bg-[var(--control-transparent-bgColor-selected)] primer:not-focus-visible:[outline:2px_solid_transparent] primer:[&_[data-item-label]]:font-semibold',
         activeIndicatorClassName,
       ),
       false: '',
     },
     highlightable: {
-      true: "[&:where([data-highlighted])]:bg-[var(--control-transparent-bgColor-selected)] [&:where([data-highlighted])]:[outline:2px_solid_transparent] [&:where([data-highlighted])]:after:pointer-events-none [&:where([data-highlighted])]:after:absolute [&:where([data-highlighted])]:after:top-1 [&:where([data-highlighted])]:after:-left-2 [&:where([data-highlighted])]:after:h-[calc(100%-8px)] [&:where([data-highlighted])]:after:w-1 [&:where([data-highlighted])]:after:rounded-md [&:where([data-highlighted])]:after:bg-[var(--borderColor-accent-emphasis)] [&:where([data-highlighted])]:after:content-['']",
+      true: "primer:[&:where([data-highlighted])]:bg-[var(--control-transparent-bgColor-selected)] primer:[&:where([data-highlighted])]:[outline:2px_solid_transparent] primer:[&:where([data-highlighted])]:after:pointer-events-none primer:[&:where([data-highlighted])]:after:absolute primer:[&:where([data-highlighted])]:after:top-1 primer:[&:where([data-highlighted])]:after:-left-2 primer:[&:where([data-highlighted])]:after:h-[calc(100%-8px)] primer:[&:where([data-highlighted])]:after:w-1 primer:[&:where([data-highlighted])]:after:rounded-md primer:[&:where([data-highlighted])]:after:bg-[var(--borderColor-accent-emphasis)] primer:[&:where([data-highlighted])]:after:content-['']",
       false: '',
     },
   },
@@ -106,10 +109,10 @@ const actionItemState = cva('', {
     {
       active: true,
       tone: ['default', 'danger'],
-      className: '[--action-list-item-label-fgColor:var(--control-fgColor-rest)]',
+      className: 'primer:[--action-list-item-label-fgColor:var(--control-fgColor-rest)]',
     },
     // The current item keeps the neutral hover fill, even when it is destructive.
-    {active: true, tone: 'danger', className: 'hover:bg-[var(--control-transparent-bgColor-hover)]'},
+    {active: true, tone: 'danger', className: 'primer:hover:bg-[var(--control-transparent-bgColor-hover)]'},
   ],
 })
 

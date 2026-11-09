@@ -33,7 +33,7 @@ function CommentCard({children, ...rest}: React.HTMLAttributes<HTMLDivElement>) 
   return (
     <div
       {...rest}
-      className="rounded-md border border-default p-4 leading-[var(--text-body-lineHeight-large)] [font-size:var(--text-body-size-medium)]"
+      className="rounded-md border-thin border-default p-4 leading-[var(--text-body-lineHeight-large)] [font-size:var(--text-body-size-medium)]"
     >
       {children}
     </div>
@@ -92,8 +92,7 @@ export const CommentsLoading: Story = {
         <div className="space-y-4">
           <Button onClick={toggleLoadingState}>{loading ? 'Stop loading' : 'Start loading'}</Button>
           {Array.from({length: COMMENT_LIST_LENGTH}, (_, index) => (
-            // aria-busy keeps screen readers from announcing the skeleton state.
-            <CommentCard key={index} aria-busy={loading}>
+            <CommentCard key={index}>
               {loading ? <SkeletonCommentCardContent /> : <CommentCardContent data={mockData} />}
             </CommentCard>
           ))}
@@ -161,7 +160,7 @@ export const CommentsLoadingWithSuspense: Story = {
         <VisuallyHidden>
           <AriaStatus>{loadingStatus === 'fulfilled' ? 'Comments are loaded' : null}</AriaStatus>
         </VisuallyHidden>
-        <div className="space-y-4" aria-busy={loadingStatus === 'pending'}>
+        <div className="space-y-4">
           {Array.from({length: COMMENT_LIST_LENGTH}, (_, index) => (
             <CommentCard key={index}>
               <Suspense fallback={<SkeletonCommentCardContent />}>

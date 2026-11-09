@@ -10,7 +10,7 @@ export function StoryNotice({className, ...rest}: React.ComponentPropsWithoutRef
     <div
       {...rest}
       className={cn(
-        'relative rounded-md border border-accent-muted bg-accent-muted p-4 text-default [&_p:last-child]:mb-0',
+        'relative rounded-md border-thin border-accent-muted bg-accent-muted p-4 text-default [&_p:last-child]:mb-0',
         className,
       )}
     />

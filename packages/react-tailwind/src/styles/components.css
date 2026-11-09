@@ -94,6 +94,12 @@
 }
 
 @layer base {
+  /* Match NavList links in hosts with and without a box-sizing reset. */
+  /* stylelint-disable-next-line selector-no-qualifying-type -- only native buttons need the UA box-sizing reset */
+  :where(button[data-component='NavList.Item']) {
+    box-sizing: inherit;
+  }
+
   [data-component='BaseStyles'],
   [data-component='BaseStyles'] *,
   [data-component='BaseStyles'] *::before,

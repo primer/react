@@ -377,19 +377,25 @@ function createDefaultsReader(program) {
     return own
   }
 
-  return function readDefaults(indexPath, exportName, partName) {
+  return function readDefaults(indexPath, exportName, ...partNames) {
     const source = program.getSourceFile(indexPath)
     const moduleSymbol = source && checker.getSymbolAtLocation(source)
     if (!moduleSymbol) return undefined
 
     const exported = checker.getExportsOfModule(moduleSymbol).find(symbol => symbol.name === exportName)
     if (!exported) return undefined
-    if (!partName) return defaultsOf(implementationOfSymbol(exported))
+    if (partNames.length === 0) return defaultsOf(implementationOfSymbol(exported))
 
     const component = exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported
     const declaration = component.valueDeclaration ?? component.declarations?.[0]
     if (!declaration) return undefined
-    const part = checker.getTypeOfSymbolAtLocation(component, declaration).getProperty(partName)
+    let type = checker.getTypeOfSymbolAtLocation(component, declaration)
+    let part
+    for (const name of partNames) {
+      part = type.getProperty(name)
+      if (!part) return undefined
+      type = checker.getTypeOfSymbol(part)
+    }
     return defaultsOf(implementationOfSymbol(part))
   }
 }
@@ -494,6 +500,41 @@ function readParts(checker, type) {
     const partType = checker.getTypeOfSymbol(property)
     return isComponentType(partType) ? [{name: property.name, symbol: property, type: partType}] : []
   })
+}
+
+/** Reads the props of nested parts, which parseTypeInfo currently exposes only one level deep. */
+function readPartProps(checker, part) {
+  const node = part.symbol.valueDeclaration ?? part.symbol.declarations?.[0]
+  if (!node) return {}
+
+  const props = {}
+  for (const signature of part.type.getCallSignatures()) {
+    const parameter = signature.getParameters()[0]
+    if (!parameter?.valueDeclaration) continue
+    const propsType = checker.getTypeOfSymbolAtLocation(parameter, node)
+    for (const prop of checker.getApparentType(propsType).getApparentProperties()) {
+      const source = prop.getDeclarations()?.[0]?.getSourceFile()
+      if (source && /node_modules/.test(source.fileName)) continue
+      const required = !(prop.getFlags() & ts.SymbolFlags.Optional)
+      let type = checker.typeToString(
+        checker.getTypeOfSymbolAtLocation(prop, node),
+        undefined,
+        ts.TypeFormatFlags.NoTruncation,
+      )
+      if (!required && type.endsWith('| undefined')) type = type.slice(0, -'| undefined'.length).trim()
+      props[prop.name] = {
+        type,
+        required,
+        description: ts.displayPartsToString(prop.getDocumentationComment(checker)),
+        defaultValue: prop
+          .getJsDocTags()
+          .find(tag => tag.name === 'default')
+          ?.text?.map(text => text.text)
+          .join(' '),
+      }
+    }
+  }
+  return props
 }
 
 /** Follows a path of parts, such as `['GroupHeading', 'TrailingAction']`, and reports whether every step exists. */
@@ -623,15 +664,32 @@ export function buildDocs(componentName) {
     const {symbol, type} = exported.get(root)
     entries.push({name: root, root, segments: [], symbol, props: info.props, defaults: readDefaults(indexPath, root)})
     const parts = readParts(checker, type)
+    const addNestedParts = (parent, segments, ancestors) => {
+      for (const part of readParts(checker, parent.type)) {
+        if (ancestors.has(part.type)) continue
+        const path = [...segments, part.name]
+        entries.push({
+          name: [root, ...path].join('.'),
+          root,
+          segments: path,
+          symbol: part.symbol,
+          props: readPartProps(checker, part),
+          defaults: readDefaults(indexPath, root, ...path),
+        })
+        addNestedParts(part, path, new Set([...ancestors, part.type]))
+      }
+    }
     for (const [part, partInfo] of Object.entries(info.subComponents ?? {})) {
+      const candidate = parts.find(candidate => candidate.name === part)
       entries.push({
         name: `${root}.${part}`,
         root,
         segments: [part],
-        symbol: parts.find(candidate => candidate.name === part)?.symbol,
+        symbol: candidate?.symbol,
         props: partInfo.props,
         defaults: readDefaults(indexPath, root, part),
       })
+      if (candidate) addNestedParts(candidate, [part], new Set([type, candidate.type]))
     }
   }
 

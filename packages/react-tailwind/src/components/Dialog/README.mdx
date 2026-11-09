@@ -51,6 +51,58 @@ Compose `Header`, `Body`, and `Footer` for the full upstream layout. `Subtitle` 
 
 Provide a title or accessible label, retain the keyboard close path, and return focus to the element that opened the dialog.
 
+`Dialog.Title` renders an `h2` by default. When an `h1` is appropriate for the dialog, use `<Dialog.Title render={<h1 />}>`; the title remains associated with the dialog.
+
+When open, Base UI normally connects `Dialog.Trigger` to the dialog with `aria-controls`. Applications whose accessibility policy prohibits that attribute can pass `aria-controls={undefined}` to `Dialog.Trigger`. This removes the explicit trigger-to-dialog ID relationship. In tested modal compositions, the trigger retains its popup type and expanded state, and initial focus, Tab containment, Escape, and focus return continue to work. A custom `render` element can override the trigger's ARIA props again, so check the final rendered element and your source-level policy tooling. This is a policy-specific composition option, not a universal accessibility recommendation; verify it with the host's supported assistive technologies.
+
+`finalFocus` accepts a ref or callback for the return target. Base UI focuses that element when it is tabbable; for a non-tabbable container with tabbable descendants, it focuses the first tabbable descendant instead. A descendant with `aria-disabled="true"` can still be tabbable. This differs from legacy `returnFocusRef`, which could restore focus to the exact `tabIndex={-1}` container. There is no public `finalFocus` option that forces that exact target while it contains tabbable descendants.
+
+Modal dialogs expose `aria-modal="true"`. When `modal={false}` or `modal="trap-focus"`, outside pointer interactions remain available and the dialog is not exposed as modal.
+
+`Dialog.Content` renders a backdrop by default. With `modal="trap-focus"`, Base UI can leave the dialog open after an outside press even when the press reaches an outside control; a drag released elsewhere outside can still dismiss it. When the backdrop is omitted, Base UI 1.6 and 1.8 can instead dismiss on mouse-down or touch movement before the gesture is canceled, potentially losing an unsaved draft. `disablePointerDismissal` keeps the tested dialogs open during these outside interactions, but also disables focus-out dismissal and changes the expected interaction. Provide an explicit close action, and review the composition and pointer cancellation behavior with an accessibility specialist.
+
+Centered dialogs shrink to fit narrow viewports while retaining their preferred width when space allows. Titles wrap long words, and `Dialog.Body` reserves space for reading. An overflowing header or body becomes keyboard-focusable so its content can be scrolled; pass `tabIndex` to override. The header enters the tab order after focus moves into the dialog, preserving the default initial focus. If a focused header or body stops overflowing, it remains focusable until focus moves away. When the header, body, and footer do not fit together, scroll the dialog to reach its actions. `Button` and `LinkButton` labels wrap by default inside `Dialog.Footer`, including through ordinary wrappers. For non-link variants, pass `labelWrap={false}` to retain a single-line label; the link variant keeps its normal wrapping behavior. Separately portaled controls and custom footer content do not receive this treatment. Verify them at the host's supported viewport sizes and text settings.
+
+For a custom scrollable header or body, provide a meaningful name when adding region semantics, and verify focus order and announcements with assistive technology.
+
+<Canvas of={Features.ScrollableHeaderWithoutClose} />
+
+### Short viewports and embedded scrolling
+
+The header, footer, and body padding can leave little or no room for an embedded scrolling list in a short centered dialog. In hosts that load legacy `@primer/css`, its unlayered `!important` `.p-4` can also override the body padding and a normal CSS-module override. If the body is intended to have no padding, use `className="p-0"` on `Dialog.Body`; class merging removes the default `p-4` rather than competing with it. See the [package CSS guidance](../../../README.md#hosts-that-still-load-legacy-primer-css) for the broader utility collision.
+
+`position={{narrow: 'fullscreen', regular: 'center'}}` can give the list more room, but it changes the layout at all narrow widths and does not guarantee that long or zoomed content fits. Verify that every result is visible or can be scrolled into view by keyboard and pointer in the actual host, including with larger text and translated content. Automated WebKit currently cannot keyboard-scroll some oversized `FilteredActionList` results; this remains an accessibility-specialist review issue, not a generally resolved composition.
+
+Pass an element or ref to `Dialog.Content container={...}` to place the dialog in a specific portal root, or `null` to wait for the root. `portal={false}` renders it in place and ignores `container`. For custom positioning, compose `Dialog.Portal container={...}`, `Dialog.Backdrop`, `Dialog.Viewport`, and `Dialog.Popup` instead.
+
+### Keyboard command scopes
+
+By default, `Dialog.Content` and `Dialog.Popup` stop Arrow, Home, and End keydown events from bubbling past the dialog popup. This also applies with `portal={false}` and to non-modal and focus-trapping dialogs. The popup does not prevent the keys' default behavior merely by stopping propagation.
+
+Place a dialog-specific command scope inside the popup around its controls, or pass its keyboard handler directly to the popup:
+
+```tsx
+<Dialog.Content onKeyDown={handleSearchKeyDown}>
+  <Dialog.Title>Search</Dialog.Title>
+  <label>
+    Search terms
+    <input />
+  </label>
+</Dialog.Content>
+```
+
+`handleSearchKeyDown` is supplied by the consumer. Handle only the intended controls and keys, and preserve native text editing and nested widgets' keyboard behavior. A child widget may stop an event before it reaches the scope; separately portaled or independently rooted content may also require its own scope. Verify the composition in the host.
+
+Nested Primer floating surfaces inherit their owning Base UI portal by default. Keep a modal dialog and its nested menus, popovers, and dialogs in that portal rather than explicitly sending a child to an outside root, where the modal can hide it from assistive technology. DOM nesting alone does not provide React context: a child owned elsewhere in the React tree may instead default to the document portal root, even if its parent is physically inside the dialog.
+
+In Chromium, a nonmodal menu rendered inside the parent popup, including with `ActionMenu.Content portal={false}`, can move focus to the dialog instead of returning it to the menu trigger after Escape. A menu targeting a container inside the popup can also move focus from a newly opened child dialog back to the parent even if the menu suppresses its own return focus. Prefer the inherited portal when possible, and verify focus containment, Escape, return focus, clipping, and modal accessibility in the actual host. The ActionMenu alignment notes describe the tested cases and the backdrop-dismissal tradeoff of `disablePointerDismissal`.
+
+When a dialog is opened from another Primer floating surface, its backdrop and viewport use the popover layer; a top-level dialog uses the modal layer. This relies on the host's stacking tokens and nested portal order, and does not guarantee ordering across custom containers or stacking contexts. Raising only `viewportClassName` can leave the backdrop or a nested popover behind. Verify pointer hit testing, focus containment, Escape, and return focus in the actual host.
+
 <Canvas of={Features.WithDirectSubcomponents} />
 
+<Canvas of={Features.CenteredLongContent} />
+
 <Canvas of={Examples.ControlledDialog} />
+
+<Canvas of={Examples.NamedPortalWithNestedMenu} />

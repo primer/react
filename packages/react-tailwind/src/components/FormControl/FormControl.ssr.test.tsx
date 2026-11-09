@@ -1,4 +1,5 @@
 // @vitest-environment node
+import type React from 'react'
 import {renderToString} from 'react-dom/server'
 import {describe, expect, it} from 'vitest'
 import {Checkbox} from '../Checkbox'
@@ -8,6 +9,22 @@ import {ToggleSwitch} from '../ToggleSwitch'
 import {FormControl} from './FormControl'
 
 describe('FormControl on the server', () => {
+  it('renders an independently associated error before hydration', () => {
+    const html = renderToString(
+      <>
+        <label htmlFor="description">Description</label>
+        <textarea id="description" aria-invalid="true" aria-describedby="description-error" />
+        <FormControl.Validation id="description-error" variant="error">
+          Enter a description.
+        </FormControl.Validation>
+      </>,
+    )
+
+    expect(html).toContain('aria-invalid="true"')
+    expect(html).toContain('aria-describedby="description-error"')
+    expect(html).toContain('id="description-error"')
+  })
+
   it('associates a native label with its control before hydration', () => {
     const html = renderToString(
       <FormControl id="server-field" required>
@@ -182,5 +199,43 @@ describe('FormControl on the server', () => {
       expect(labelId).toBeDefined()
       expect(inputId).toBe(labelId)
     }
+  })
+
+  it('names wrapped package choice controls on the server', () => {
+    function WrappedCheckbox(props: React.ComponentProps<typeof Checkbox>) {
+      return <Checkbox {...props} />
+    }
+    function WrappedRadio(props: React.ComponentProps<typeof Radio>) {
+      return <Radio {...props} />
+    }
+    function WrappedSwitch(props: React.ComponentProps<typeof ToggleSwitch>) {
+      return <ToggleSwitch {...props} />
+    }
+    const html = renderToString(
+      <>
+        <FormControl id="checkbox-field">
+          <FormControl.Label>Notifications</FormControl.Label>
+          <WrappedCheckbox />
+        </FormControl>
+        <RadioGroup name="options">
+          <RadioGroup.Label>Options</RadioGroup.Label>
+          <FormControl id="radio-field">
+            <FormControl.Label>Email</FormControl.Label>
+            <WrappedRadio value="email" />
+          </FormControl>
+        </RadioGroup>
+        <FormControl id="switch-field">
+          <FormControl.Label>Enabled</FormControl.Label>
+          <WrappedSwitch aria-label="Enabled for notifications" />
+        </FormControl>
+      </>,
+    )
+
+    expect(html).toMatch(/<label[^>]*\sid="checkbox-field-label"/)
+    expect(html).toMatch(/role="checkbox"[^>]*aria-labelledby="checkbox-field-label"/)
+    expect(html).toMatch(/<label[^>]*\sid="radio-field-label"/)
+    expect(html).toMatch(/role="radio"[^>]*aria-labelledby="radio-field-label"/)
+    expect(html).toMatch(/<label[^>]*\sid="switch-field-label"/)
+    expect(html).toMatch(/role="switch"[^>]*aria-labelledby="switch-field-label"/)
   })
 })

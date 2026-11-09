@@ -20,13 +20,19 @@ import {RelativeTime} from '@primer/react-tailwind/RelativeTime'
 ;<RelativeTime datetime="2024-01-02T00:00:00.000Z" />
 ```
 
-Use `date` when a `Date` object is already available, or `datetime` for an ISO date string. `children` can replace the visible relative text while retaining the semantic `time` element.
+Use `date` when a `Date` object is already available, or `datetime` for an ISO date string. Omit `children` to display the formatter's output, including `format="micro"`.
+
+`children` is a persistent display override, not a loading or hydration fallback: rendering uses `children ?? text`. Any non-nullish child, including an empty string or `false`, suppresses formatted text. `null` and `undefined` use the formatter. Custom children do not stop the timer, title calculation, or update callback; callback text describes the formatter's output, not necessarily the visible children.
+
+`format="duration"` and `format="elapsed"` default to second precision and update at the next represented unit boundary. Duration formatting groups 30 days into a month and 12 months into a year; `precision="week"` counts whole seven-day weeks within each 30-day month. Browsers may delay timers, particularly in background tabs; the display catches up when the timer runs.
+
+Relative and micro formats schedule updates at represented minute and hour rounding boundaries for past and future dates. Text uses the most recent update's time, so unrelated React rerenders do not independently change it. With automatic tense, `auto` and `relative` formats also refresh at the represented precision boundary when a fixed threshold is reached before 30 days. Relative and micro output also refreshes at elapsed-day boundaries, precision-adjusted offsets in explicit thresholds, represented 30-day month rollovers, and UTC reference-day changes, including shifted boundaries for negative calendar thresholds. Micro threshold comparisons use whole seconds. Calendar-based comparisons can change at other times between updates, so remaining threshold transitions are best-effort.
 
 ## Props
 
 <ApiReference {...api} />
 
-When both `date` and `datetime` are provided, `datetime` takes precedence. A supplied `title` overrides the computed absolute-date tooltip; `noTitle` suppresses that fallback.
+When both `date` and `datetime` are provided, `datetime` takes precedence. A supplied `title` overrides the computed absolute-date tooltip, even with `noTitle`. `noTitle` suppresses only the generated title: omit `title` as well when the host prohibits the attribute.
 
 <Controls of={Stories.Playground} />
 
@@ -34,15 +40,50 @@ Other standard `time` attributes, including `className`, are forwarded.
 
 ## Composition
 
-Use `RelativeTime` in activity metadata, event lists, and prose where a machine-readable timestamp should remain available. Use custom children for short labels or links; use `title` or the default title for the precise date.
+Use `RelativeTime` in activity metadata, event lists, and prose where a machine-readable timestamp should remain available. A user's absolute-time setting is honored automatically through `data-prefers-absolute-time="true"` on `html` or `body`, including live changes; pass `prefersAbsoluteTime` when the host owns that setting in React state instead. Durations and elapsed timers are unaffected. Custom children must describe the time meaningfully. Provide a precise date in visible text or a separately accessible disclosure rather than relying on a browser title tooltip.
+
+When the absolute-time preference is active, "Today" and current-year labels refresh at civil-day changes in the displayed time zone, including offset transitions. Future timestamps also update when they enter the current calendar year. Older timestamps keep a daily check because a time-zone rollback can return to their calendar year; unchanged text does not trigger an update callback. Browsers may delay these timers, particularly in background tabs.
+
+After hydration, formatting follows the nearest `lang`, `time-zone`, and `hour-cycle` attributes, including changes to those attributes. Pass the native `lang` prop, `timeZone`, or `hourCycle` to override the corresponding inherited setting. Without an hour-cycle setting, the browser's 12- or 24-hour preference is used. Until hydration, the visible fallback is an ISO 8601 UTC timestamp, independent of formatting props and document context. This avoids mismatches between different server and browser Intl implementations, but is not localized if JavaScript does not run. Custom children remain a persistent display override.
 
 ## Accessibility
 
-The semantic `time` element preserves the date relationship for assistive technology and other consumers. Custom children should still describe the time meaningfully. Invalid dates render empty visible content and omit `dateTime`.
+The native `time` element carries a machine-readable `datetime`, but that attribute does not guarantee that assistive technology announces the full date, time, or time zone. It is not an interactive control and does not become a Tab stop merely because it has `datetime` or `title`. The component adds no live region or automatic announcement contract. Native element semantics are not evidence of equivalent announcements to the legacy custom element.
+
+`format="elapsed"` defaults to narrow units such as `1m`, which can be ambiguous. Where space permits, `formatStyle="long"` renders expanded units such as `1 minute`. Verify the resulting wording with the host's supported screen readers; an accessible name on a surrounding timer does not by itself establish how its changing value is announced.
+
+`format="micro"` also supports expanded units with `formatStyle="long"` when tense is automatic. When a past or future tense is explicitly forced, micro phrasing remains narrow even with `formatStyle="long"`, matching the legacy formatter. Use `format="relative"` with `formatStyle="long"` or a precise date when expanded wording is needed in that case.
+
+For static precise output, use `format="datetime"`, `noTitle`, and explicit date parts and time zone:
+
+```tsx
+<RelativeTime
+  datetime="2024-01-02T12:00:00.000Z"
+  format="datetime"
+  year="numeric"
+  month="long"
+  day="numeric"
+  hour="numeric"
+  minute="2-digit"
+  second="2-digit"
+  timeZone="UTC"
+  timeZoneName="short"
+  prefix=""
+  noTitle
+/>
+```
+
+This keeps precision in the readable text instead of only in an attribute. Confirm the rendered locale-specific date and zone. If compact relative output must remain, show the precise timestamp alongside it or expose it through a keyboard-operable, descriptively named disclosure. A custom tooltip must also work on focus, preserve access to the information, and satisfy dismissal, hover, and persistence requirements; wrapping an unfocusable `time` in a hover-only tooltip is insufficient. `noTitle` neither creates a tooltip nor exposes additional precision.
+
+Invalid dates omit `datetime` and formatter text; supplied children still render. Verify keyboard access to any precision disclosure and screen-reader reading of both compact and precise values in the host's supported browser/AT combinations. Canary AT announcement parity and a11ysupport.io support data remain unverified.
 
 ## Animation and reduced motion
 
-`RelativeTime` has no animation and does not need reduced-motion handling.
+`RelativeTime` has no visual animation, but its relative text updates automatically. The component does not read `prefers-reduced-motion` and has no pause, stop, hide, or update-disable prop. `precision` is not a pause control, and custom children do not cancel updates.
+
+For auto-updating information presented alongside other content, evaluate WCAG 2.2.2's auto-update requirement: provide a user mechanism to pause, stop, hide, or control update frequency unless updating is essential to the activity. The five-second condition for moving content does not apply to this separate auto-update requirement. A historical audit closure does not grant a blanket exception for timestamps. Reduced-motion preferences can inform a host's static-display choice, but the absence of animation alone does not resolve auto-update requirements.
+
+A supported host path is a user-controlled switch to `format="datetime"` with `prefersAbsoluteTime={false}`. This formats once per relevant prop or context change without scheduling recurring updates; the explicit preference override is needed because preferred absolute text can itself change over time. If preserving a frozen relative phrase is required, replace/unmount this component with an app-owned native `time` containing the frozen text and a valid `datetime`; resume by rendering `RelativeTime` again. Merely supplying fixed children, applying CSS to hide the component, or changing precision does not disable its timer. A package-level pause API remains a gap.
 
 ## Theming and Tailwind
 

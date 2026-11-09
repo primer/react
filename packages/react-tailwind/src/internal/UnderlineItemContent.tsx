@@ -4,17 +4,18 @@ import {SkeletonBox} from '../components/SkeletonBox'
 import {cn} from './cn'
 
 export const underlineRootClassName =
-  '@container/underline-nav flex min-h-12 items-start justify-start overflow-x-auto overflow-y-hidden pt-2 shadow-[inset_0_-1px_var(--borderColor-muted)]'
+  'primer:@container/underline-nav primer:flex primer:min-h-12 primer:items-start primer:justify-start primer:overflow-x-auto primer:overflow-y-hidden primer:pt-2 primer:shadow-[inset_0_-1px_var(--borderColor-muted)]'
 
-export const underlineListClassName = 'relative m-0 flex min-w-max list-none items-center gap-2 p-0 whitespace-nowrap'
+export const underlineListClassName =
+  'primer:relative primer:m-0 primer:flex primer:min-w-max primer:list-none primer:items-center primer:gap-2 primer:p-0 primer:whitespace-nowrap'
 
 export const underlineItemClassName =
-  "group/underline-item relative mb-2 inline-flex h-8 max-w-full shrink-0 items-center rounded-md border-0 bg-transparent px-2 py-1.5 text-center text-sm leading-[1.5] text-default no-underline after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:-mb-2 after:h-0.5 after:bg-transparent after:content-[''] hover:bg-neutral-muted hover:no-underline focus-visible:outline-2 focus-visible:outline-transparent focus-visible:shadow-[inset_0_0_0_2px_var(--fgColor-accent)] data-[active]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)] data-[current]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)]"
+  "primer:group/underline-item primer:relative primer:mb-2 primer:inline-flex primer:h-8 primer:max-w-full primer:shrink-0 primer:items-center primer:rounded-md primer:border-0 primer:bg-transparent primer:px-2 primer:py-1.5 primer:text-center primer:text-sm primer:leading-[1.5] primer:text-default primer:no-underline primer:after:pointer-events-none primer:after:absolute primer:after:inset-x-0 primer:after:bottom-0 primer:after:-mb-2 primer:after:h-0.5 primer:after:bg-transparent primer:after:content-[''] primer:hover:bg-neutral-muted primer:hover:no-underline primer:focus-visible:outline-2 primer:focus-visible:outline-transparent primer:focus-visible:shadow-[inset_0_0_0_2px_var(--fgColor-accent)] primer:data-[active]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)] primer:data-[current]:after:bg-[var(--underlineNav-borderColor-active,#fd8c73)]"
 
 /** An item's counter, or a placeholder while counters load. */
 export function UnderlineCounter({counter, loading}: {counter: React.ReactNode; loading: boolean}) {
   return loading ? (
-    <SkeletonBox as="span" aria-hidden="true" className="h-4 w-6 rounded-full" />
+    <SkeletonBox as="span" aria-hidden="true" className="primer:h-4 primer:w-6 primer:rounded-full" />
   ) : (
     <CounterLabel>{counter}</CounterLabel>
   )
@@ -48,7 +49,10 @@ export function UnderlineItemContent({
         <span
           aria-hidden="true"
           data-component={`${marker}.LeadingVisual`}
-          className={cn('mr-2 inline-flex shrink-0 items-center text-muted', leadingVisualClassName)}
+          className={cn(
+            'primer:mr-2 primer:inline-flex primer:shrink-0 primer:items-center primer:text-muted',
+            leadingVisualClassName,
+          )}
         >
           {leadingVisual}
         </span>
@@ -56,12 +60,15 @@ export function UnderlineItemContent({
       <span
         data-component={`${marker}.Text`}
         data-content={textContent || undefined}
-        className="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap before:block before:h-0 before:whitespace-nowrap before:font-semibold before:invisible before:content-[attr(data-content)] group-aria-[selected=true]/underline-item:font-semibold group-data-[active]/underline-item:font-semibold group-data-[current]/underline-item:font-semibold"
+        className="primer:min-w-0 primer:overflow-hidden primer:text-ellipsis primer:whitespace-nowrap primer:before:block primer:before:h-0 primer:before:whitespace-nowrap primer:before:font-semibold primer:before:invisible primer:before:content-[attr(data-content)] primer:group-aria-[selected=true]/underline-item:font-semibold primer:group-data-[active]/underline-item:font-semibold primer:group-data-[current]/underline-item:font-semibold"
       >
         {children}
       </span>
       {counter === undefined ? null : (
-        <span data-component={`${marker}.Counter`} className="ml-2 flex shrink-0 items-center">
+        <span
+          data-component={`${marker}.Counter`}
+          className="primer:ml-2 primer:flex primer:shrink-0 primer:items-center"
+        >
           <UnderlineCounter counter={counter} loading={loadingCounters} />
         </span>
       )}

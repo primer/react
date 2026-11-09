@@ -23,8 +23,8 @@ const SKIPPED_TESTS = [
   'components-filteredactionlist-features--with-no-results-message',
   'components-pagelayout-performance-tests--medium-content',
   'components-pagelayout-performance-tests--heavy-content',
-  // React Tailwind equivalents of the stress and FilteredActionList stories skipped above. The FilteredActionList lists
-  // are navigated with aria-activedescendant from the input, so `scrollable-region-focusable` is a false positive.
+  // React Tailwind equivalents of the stress and FilteredActionList stories skipped above. The FilteredActionList
+  // scrolling interaction needs accessibility review, including for options taller than the viewport in WebKit.
   'react-tailwind-navigation-treeview-features--stress-test',
   'react-tailwind-navigation-treeview-features--contain-intrinsic-size',
   'react-tailwind-components-filteredactionlist-features--custom-item-rendering',

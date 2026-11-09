@@ -24,7 +24,41 @@ import {PageLayout} from '@primer/react-tailwind/PageLayout'
 </PageLayout>
 ```
 
-Use direct compound children and keep navigation before content in the DOM. Give independently scrollable panes an accessible name, and use the public slot props for responsive visibility, dividers, padding, and sticky behavior.
+Use direct compound children and keep navigation before content in the DOM. Give independently scrollable panes an accessible name, and use the public slot props for responsive visibility, dividers, padding, and sticky behavior. If a focused scrollable pane stops overflowing, it keeps its region semantics until focus leaves.
+
+Use `wrapperClassName` to style the centered wrapper around the header, content row, and footer. Use `contentRowClassName` to style the row containing `Content` and `Pane`; `PageLayout.Content`'s own `className` applies to its content element instead. `SplitPageLayout` accepts the same props.
+
+## Parent-sized sidebars
+
+For a non-resizable `PageLayout.Sidebar` or `SplitPageLayout.Sidebar`, use `widthMode="fill"` when the outer sidebar rail is sized by CSS. The inner pane and its divider share that available width rather than applying the pane's pixel width.
+
+```tsx
+<PageLayout.Sidebar widthMode="fill" aria-label="Document viewer" style={{width: 'min(1280px, calc(100vw - 48px))'}}>
+  Viewer
+</PageLayout.Sidebar>
+```
+
+The sidebar's `className`, `style`, and ref apply to the outer rail. Size that rail for the surrounding layout; without another width it fills the available parent width. In fill mode, `width`, `minWidth`, and `currentWidth` do not control the visible pane width. Existing values take effect again if the mode changes back to `default`. Fill mode cannot be combined with `resizable`; use the pixel-based width API for a resizable sidebar.
+
+When combining fill mode with `responsiveVariant="fullscreen"`, prefer responsive CSS or `className` for viewport-dependent widths: an inline `style.width` takes precedence over the fullscreen width class.
+
+Resizable sidebars cap custom maximum widths to the available viewport while preserving their minimum width. A controlled width is restored when the viewport allows it again, without calling `onResizeEnd` for viewport changes. Standalone `usePaneWidth` consumers can opt into the same cap with `constrainToViewport`. Named pane widths and resizing limits follow the pane's owning viewport, including in same-origin iframes.
+
+For a controlled pane, resizing previews the new width and calls `onResizeEnd` with that value. When the interaction ends, the pane returns to the supplied `currentWidth` unless the consumer updates it; viewport and minimum constraints still apply. Later updates to `currentWidth` are reflected when they are provided.
+
+When using `usePaneWidth` directly, rerender the component calling the hook if its pane or handle ref changes without rendering that component, including when a pane moves to another document. Changing a ref alone does not notify React.
+
+For a controlled width, `usePaneWidth` recognizes `DragHandle`'s `data-dragging` state to retain the in-progress value during a viewport change. A custom handle can expose the same state or update the controlled value during resizing.
+
+During pointer or keyboard resizing, resizable panes and sidebars mark the resized element and its associated content with `data-dragging="true"`. A standalone `DragHandle` can mark up to two elements by receiving their refs through `dragTargetRef` and `contentWrapperRef`. A keyboard resize ends when the key is released or focus leaves the handle; a pointer resize applies any queued movement on release and ends when its pointer loses capture. The previous attribute values are restored when resizing ends or the handle unmounts. These attributes are styling hooks; they do not add containment styles.
+
+Pointer movement and the left and right arrow keys move the divider in the same physical direction in both left-to-right and right-to-left layouts. The up and down arrow keys retain their existing position-based resize behavior.
+
+The pane's `aria-label` or `aria-labelledby` also names its resize handle, even when the pane does not overflow. Give each resizable pane a distinct label. Without one, the handle uses the default name `Draggable pane splitter`.
+
+Provide a single-pointer alternative that does not require dragging, such as buttons that update a controlled `currentWidth` alongside `onResizeEnd`. Keyboard access alone is not a non-dragging pointer alternative. Verify the handle and nearby controls have sufficient target size or spacing in the composed layout.
+
+Pointer cancellation currently ends the resize and can call `onResizeEnd` with the last previewed width; it does not restore the width from before the gesture.
 
 <Canvas of={Features.StickyPane} />
 <Canvas of={Examples.ParentDetail} />

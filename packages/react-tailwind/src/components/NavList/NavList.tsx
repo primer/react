@@ -6,11 +6,19 @@ import React from 'react'
 import {flushSync} from 'react-dom'
 import {cn} from '../../internal/cn'
 import {flattenChildren} from '../../internal/children'
+import {joinIdRefs} from '../../internal/idRefs'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {itemGapFeatureFlag, ListContainerContext} from '../../internal/listContainer'
 import {isPartOf, regionElements, resolveRegions} from '../../internal/regions'
+import {unstyledButtonResetClassName} from '../../internal/UnstyledButton'
 import type {RegionProps} from '../../utils/types'
-import {ActionList, type ActionListDescriptionProps, type ActionListTrailingActionProps} from '../ActionList/ActionList'
+import type {BroadAsProps, PolymorphicPropsWithDefaultRef} from '../../utils/types/component'
+import {
+  ActionItemContent,
+  ActionList,
+  type ActionListDescriptionProps,
+  type ActionListTrailingActionProps,
+} from '../ActionList/ActionList'
 import {
   actionItemPartClassName,
   getActionItemStateAttributes,
@@ -21,8 +29,18 @@ import {Heading} from '../Heading'
 import {Tooltip} from '../Tooltip'
 
 const NavListDepthContext = React.createContext(0)
+type HeadingLevel = NonNullable<React.ComponentPropsWithoutRef<typeof Heading>['as']>
+const headingLevels: readonly HeadingLevel[] = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+const NavListGroupHeadingLevelContext = React.createContext<HeadingLevel>('h3')
+const NavListListContext = React.createContext(false)
 const tooltipDelay = 400
-const itemPadding = ['px-2', 'pr-2 pl-4', 'pr-2 pl-6', 'pr-2 pl-8', 'pr-2 pl-10'] as const
+const itemPadding = [
+  'primer:px-2',
+  'primer:pr-2 primer:pl-4',
+  'primer:pr-2 primer:pl-6',
+  'primer:pr-2 primer:pl-8',
+  'primer:pr-2 primer:pl-10',
+] as const
 
 function getItemPadding(depth: number) {
   return itemPadding[Math.min(depth, itemPadding.length - 1)]
@@ -30,9 +48,10 @@ function getItemPadding(depth: number) {
 
 // Mirrors ActionList: when only some items have descriptions, every label returns to normal weight.
 const mixedDescriptionsClassName =
-  'has-[[data-has-description=true]]:has-[[data-has-description=false]]:[&_[data-item-label]]:font-normal'
+  'primer:has-[[data-has-description=true]]:has-[[data-has-description=false]]:[&_[data-item-label]]:font-normal'
 
-const itemGapClassName = "[&_li+li]:mt-0.5 [&_[data-component='NavList.SubNav.Panel']]:mt-0.5"
+const itemGapClassName =
+  "primer:[&_li+li]:mt-0.5 primer:[&_li:has(>[data-component='NavList.Group'])+li]:mt-0 primer:[&_[data-component='NavList.SubNav.Panel']]:mt-0.5"
 
 export interface NavListProps extends React.ComponentPropsWithoutRef<'nav'>, RegionProps<'heading'> {
   /** Disable the gap between items when the item gap feature is enabled. */
@@ -58,11 +77,24 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
   } = resolveRegions(children, {heading: {match: isPartOf(NavListHeading)}}, {heading: headingProp})
   const heading = React.isValidElement<NavListHeadingProps>(headingNode) ? headingNode : undefined
   const headingId = heading?.props.id ?? fallbackHeadingId
+  const headingLevel = heading?.props.as ?? 'h2'
+  const groupHeadingLevel = heading
+    ? headingLevels[Math.min(headingLevels.indexOf(headingLevel) + 1, headingLevels.length - 1)]
+    : 'h3'
   const sections: React.ReactNode[] = []
   let items: React.ReactNode[] = []
   function flushItems() {
     if (items.length === 0) return
-    sections.push(<List key={`items-${sections.length}`}>{items}</List>)
+    const decorative = items.every(child => React.isValidElement(child) && isPartOf(Divider)(child))
+    sections.push(
+      <List
+        key={`items-${sections.length}`}
+        role={decorative ? 'presentation' : undefined}
+        aria-hidden={decorative || undefined}
+      >
+        {items}
+      </List>,
+    )
     items = []
   }
   for (const child of flattenChildren(content)) {
@@ -71,7 +103,15 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
       (isPartOf(Group)(child) || isPartOf(List)(child) || child.type === 'ul' || child.type === 'ol')
     ) {
       flushItems()
-      sections.push(child)
+      sections.push(
+        child.type === 'ul' || child.type === 'ol' ? (
+          <NavListListContext.Provider key={child.key ?? `list-${sections.length}`} value>
+            {child}
+          </NavListListContext.Provider>
+        ) : (
+          child
+        ),
+      )
     } else {
       items.push(child)
     }
@@ -87,14 +127,23 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(function NavList(
       data-component="NavList"
       className={cn(className)}
     >
-      {heading ? React.cloneElement(heading, {id: headingId}) : null}
-      <div
-        className={cn('p-2', mixedDescriptionsClassName, itemGap && itemGapClassName)}
-        data-component="NavList.Content"
-        data-item-gap={itemGap || undefined}
-      >
-        <ListContainerContext.Provider value="NavList">{sections}</ListContainerContext.Provider>
-      </div>
+      <NavListListContext.Provider value={false}>
+        <NavListGroupHeadingLevelContext.Provider value={groupHeadingLevel}>
+          {heading ? React.cloneElement(heading, {id: headingId}) : null}
+          <div
+            className={cn(
+              'primer:p-2',
+              "primer:[&>ul:not(:first-child)>[data-component='ActionList.Divider']:first-child]:block",
+              mixedDescriptionsClassName,
+              itemGap && itemGapClassName,
+            )}
+            data-component="NavList.Content"
+            data-item-gap={itemGap || undefined}
+          >
+            <ListContainerContext.Provider value="NavList">{sections}</ListContainerContext.Provider>
+          </div>
+        </NavListGroupHeadingLevelContext.Provider>
+      </NavListListContext.Provider>
     </nav>
   )
 })
@@ -113,7 +162,11 @@ const NavListHeading = React.forwardRef<HTMLHeadingElement, NavListHeadingProps>
       ref={ref}
       size={size}
       data-component="NavList.Heading"
-      className={cn('m-0 mb-2 ml-4 font-semibold leading-6', visuallyHidden && 'sr-only', className)}
+      className={cn(
+        'primer:m-0 primer:mb-2 primer:ml-4 primer:font-semibold primer:leading-6',
+        visuallyHidden && 'primer:sr-only',
+        className,
+      )}
     />
   )
 })
@@ -131,6 +184,7 @@ const Group = React.forwardRef<HTMLElement, NavListGroupProps>(function NavListG
   ref,
 ) {
   const generatedHeadingId = React.useId()
+  const insideList = React.useContext(NavListListContext)
   const {
     regions: {heading: headingNode},
     rest: items,
@@ -143,54 +197,104 @@ const Group = React.forwardRef<HTMLElement, NavListGroupProps>(function NavListG
     <GroupHeading id={headingId}>{title}</GroupHeading>
   ) : null
 
-  return (
+  const group = (
     <section
       {...props}
       ref={ref}
       data-component="NavList.Group"
       className={cn(
         hideDivider
-          ? cn('mt-2 first:mt-0', heading && 'pt-1.5')
+          ? cn(
+              'primer:mt-2',
+              insideList ? 'primer:[ul:first-child>li:first-child>&]:mt-0' : 'primer:first:mt-0',
+              heading && 'primer:pt-1.5',
+            )
           : cn(
-              '-mx-2 mt-[7px] border-t border-default px-2 first:mt-2 first:border-t-0',
-              heading ? 'pt-3.5 first:pt-1.5' : 'pt-2 first:pt-0',
+              'primer:-mx-2 primer:mt-[7px] primer:border-t primer:border-default primer:px-2',
+              insideList
+                ? 'primer:[ul:first-child>li:first-child>&]:mt-2 primer:[ul:first-child>li:first-child>&]:border-t-0'
+                : 'primer:first:mt-2 primer:first:border-t-0',
+              heading
+                ? cn(
+                    'primer:pt-3.5',
+                    insideList ? 'primer:[ul:first-child>li:first-child>&]:pt-1.5' : 'primer:first:pt-1.5',
+                  )
+                : cn('primer:pt-2', insideList ? 'primer:[ul:first-child>li:first-child>&]:pt-0' : 'primer:first:pt-0'),
             ),
         className,
       )}
     >
       {heading}
-      <ul className="m-0 list-none p-0" aria-labelledby={heading ? headingId : undefined}>
-        {items}
-      </ul>
+      <NavListListContext.Provider value>
+        <ul className="primer:m-0 primer:list-none primer:p-0" aria-labelledby={heading ? headingId : undefined}>
+          {items}
+        </ul>
+      </NavListListContext.Provider>
     </section>
   )
+
+  return insideList ? <li className="primer:list-none">{group}</li> : group
 })
 
-export type NavListGroupHeadingProps = React.ComponentPropsWithoutRef<'h3'>
+export interface NavListGroupHeadingProps extends React.ComponentPropsWithoutRef<'h3'>, RegionProps<'trailingAction'> {
+  /** Heading element to render, so the level fits the surrounding document outline. */
+  as?: HeadingLevel
+}
 const GroupHeading = React.forwardRef<HTMLHeadingElement, NavListGroupHeadingProps>(function NavListGroupHeading(
-  {children, className, ...props},
+  {as, children, className, trailingAction: trailingActionProp, ...props},
   ref,
 ) {
-  return (
-    <h3
+  const defaultHeadingLevel = React.useContext(NavListGroupHeadingLevelContext)
+  const Component = as ?? defaultHeadingLevel
+  const {
+    regions: {trailingAction},
+    rest: headingChildren,
+  } = resolveRegions(
+    children,
+    {trailingAction: {match: isPartOf(ActionList.GroupHeading.TrailingAction)}},
+    {trailingAction: trailingActionProp},
+  )
+  const heading = (
+    <Component
       {...props}
       ref={ref}
       data-component="NavList.GroupHeading"
       className={cn(
-        'm-0 mb-1.5 px-2 text-xs font-semibold leading-[18px] text-muted [&>a]:text-default [&>a]:no-underline hover:[&>a]:underline',
+        'primer:m-0 primer:px-2 primer:text-xs primer:font-semibold primer:leading-[18px] primer:text-muted primer:[&>a]:text-default primer:[&>a]:no-underline primer:hover:[&>a]:underline',
+        !trailingAction && 'primer:mb-1.5',
         className,
       )}
     >
-      {children}
-    </h3>
+      {headingChildren}
+    </Component>
+  )
+
+  return trailingAction ? (
+    <div className="primer:mb-1.5 primer:flex primer:items-center primer:justify-between">
+      {heading}
+      {trailingAction}
+    </div>
+  ) : (
+    heading
   )
 })
 
 export type NavListListProps = React.ComponentPropsWithoutRef<'ul'>
 const List = React.forwardRef<HTMLUListElement, NavListListProps>(function NavListList({className, ...props}, ref) {
-  return <ul {...props} ref={ref} data-component="NavList.List" className={cn('m-0 list-none p-0', className)} />
+  return (
+    <NavListListContext.Provider value>
+      <ul
+        {...props}
+        ref={ref}
+        data-component="NavList.List"
+        className={cn('primer:m-0 primer:list-none primer:p-0', className)}
+      />
+    </NavListListContext.Provider>
+  )
 })
 
+export type NavListDividerProps = React.ComponentPropsWithoutRef<typeof ActionList.Divider>
+const Divider = ActionList.Divider
 const LeadingVisual = ActionList.LeadingVisual
 const TrailingVisual = ActionList.TrailingVisual
 const TrailingAction = ActionList.TrailingAction
@@ -201,19 +305,30 @@ export type NavListTrailingActionProps = ActionListTrailingActionProps
 export type NavListDescriptionProps = ActionListDescriptionProps
 const Description = ActionList.Description
 
-export interface NavListItemProps
-  extends React.ComponentPropsWithoutRef<'a'>,
-    RegionProps<'leadingVisual' | 'trailingVisual' | 'trailingAction' | 'description'> {
+interface NavListItemOwnProps
+  extends RegionProps<'leadingVisual' | 'trailingVisual' | 'trailingAction' | 'description'> {
   /** Element to render in place of the anchor, such as a router's link component. */
   as?: React.ElementType
   /** Marks the item temporarily unavailable and explains why. The item stays reachable. */
   inactiveText?: React.ReactNode
-  /** Route the item links to, forwarded to the element supplied with `as` for router integration. */
-  to?: string
   /** Supplementary text shown in a tooltip when the item is hovered or focused. */
   tooltipText?: string
 }
-const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavListItem(
+
+type NavListItemInternalProps = NavListItemOwnProps &
+  React.ComponentPropsWithoutRef<'a'> & {
+    /** Route the item links to, forwarded to the element supplied with `as` for router integration. */
+    to?: string
+  }
+
+export type NavListItemProps<As extends React.ElementType = never> = PolymorphicPropsWithDefaultRef<
+  As,
+  NavListItemOwnProps & ([As] extends [never] ? {to?: string} : As extends 'a' ? {to?: string} : object),
+  'a',
+  HTMLAnchorElement
+>
+
+const ItemRoot = React.forwardRef<HTMLAnchorElement, NavListItemInternalProps>(function NavListItem(
   {
     as: Component = 'a',
     className,
@@ -222,6 +337,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
     href,
     inactiveText,
     leadingVisual,
+    onAuxClick,
     onClick,
     to,
     tooltipText,
@@ -234,6 +350,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
   ref,
 ) {
   const depth = React.useContext(NavListDepthContext)
+  const inactiveReasonId = React.useId()
   const {
     regions: {leadingVisual: leadingVisualNode, trailingVisual: trailingVisualNode, trailingAction: trailingActionNode},
     matched: {description: matchedDescriptions},
@@ -261,10 +378,38 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
     ? trailingVisualNode
     : null
   const trailingActionChild = trailingActionNode
+  const accessibility = ActionItemContent.useAccessibility({
+    describedBy,
+    label: props['aria-label'],
+    labelledBy: props['aria-labelledby'],
+    render: undefined,
+    resolveContent: id =>
+      ActionItemContent.resolveParts(
+        {descriptions, label, leadingVisual: resolvedLeadingVisual, trailingVisual: resolvedTrailingVisual},
+        id,
+      ),
+  })
+  const resolvedDescriptions = accessibility.resolvedContent.descriptions
   const hasLeadingVisual = Boolean(resolvedLeadingVisual)
   const hasBlockDescription = descriptions.some(description => description.props.variant === 'block')
+  const {hasWrappingInlineDescription} = accessibility.resolvedContent
   const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
   const isInactive = inactiveText !== undefined || props['aria-disabled'] === true || props['aria-disabled'] === 'true'
+  const hasInactiveReason =
+    inactiveText !== undefined && inactiveText !== null && inactiveText !== false && inactiveText !== true
+  const itemDescribedBy = joinIdRefs(accessibility.describedBy, hasInactiveReason && inactiveReasonId)
+  const trailingVisualId = accessibility.resolvedContent.trailingVisualId
+  const visual = resolvedTrailingVisual
+    ? React.cloneElement(resolvedTrailingVisual, {
+        className: cn(
+          !trailingVisualId && 'primer:row-start-1',
+          'primer:flex primer:min-h-5 primer:items-center primer:font-normal',
+          actionItemPartClassName.trailingVisual,
+          !trailingVisualId && (hasLeadingVisual ? 'primer:col-start-3' : 'primer:col-start-2'),
+          resolvedTrailingVisual.props.className,
+        ),
+      })
+    : null
 
   const link = (
     <Component
@@ -273,27 +418,39 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
       href={href}
       to={to}
       aria-current={ariaCurrent}
+      aria-labelledby={accessibility.labelledBy}
       // With a tooltip, the trigger merges this with the tooltip description. Any key on the link, even `undefined`,
       // would replace that merged value.
-      {...(tooltipText ? {} : {'aria-describedby': describedBy})}
+      {...(tooltipText ? {} : {'aria-describedby': itemDescribedBy})}
       aria-disabled={isInactive || undefined}
+      onAuxClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
+        if (isInactive) {
+          event.preventDefault()
+          return
+        }
+        onAuxClick?.(event)
+      }}
       onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
+        if (isInactive) {
+          event.preventDefault()
+          return
+        }
         onClick?.(event)
-        if (isInactive && !event.defaultPrevented) event.preventDefault()
       }}
       data-component="NavList.Item"
       data-current={isCurrent || undefined}
       data-has-description={descriptions.length > 0}
       data-inactive={isInactive || undefined}
       className={cn(
-        'relative grid min-h-8 w-full min-w-0 flex-1 items-start gap-x-2 rounded-md py-1.5 text-left leading-6 no-underline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+        unstyledButtonResetClassName,
+        'primer:relative primer:box-border primer:grid primer:min-h-8 primer:w-full primer:min-w-0 primer:flex-1 primer:cursor-pointer primer:items-start primer:gap-x-2 primer:rounded-md primer:py-1.5 primer:text-left primer:leading-6 primer:no-underline primer:focus-visible:outline-2 primer:focus-visible:outline-offset-0 primer:focus-visible:outline-focus',
         actionItemPartClassName.content,
         hasLeadingVisual
-          ? 'grid-cols-[min-content_minmax(0,1fr)_min-content]'
-          : 'grid-cols-[minmax(0,1fr)_min-content]',
-        isCurrent && 'font-semibold',
-        isInactive && 'cursor-not-allowed',
-        trailingActionChild && 'min-w-0',
+          ? 'primer:grid-cols-[min-content_minmax(0,1fr)_fit-content(50%)]'
+          : 'primer:grid-cols-[minmax(0,1fr)_fit-content(50%)]',
+        isCurrent && 'primer:font-semibold',
+        isInactive && 'primer:cursor-not-allowed',
+        trailingActionChild && 'primer:min-w-0',
         getItemPadding(depth),
         className,
       )}
@@ -301,7 +458,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
       {resolvedLeadingVisual
         ? React.cloneElement(resolvedLeadingVisual, {
             className: cn(
-              'row-start-1 flex min-h-5 items-center font-normal [&>svg]:size-4',
+              'primer:row-start-1 primer:flex primer:min-h-5 primer:items-center primer:font-normal primer:[&>svg]:size-4',
               actionItemPartClassName.leadingVisual,
               resolvedLeadingVisual.props.className,
             ),
@@ -309,41 +466,45 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
         : null}
       <span
         className={cn(
-          'row-start-1 flex min-w-0',
-          hasBlockDescription ? 'flex-col gap-1' : 'items-baseline gap-2',
-          hasLeadingVisual ? 'col-start-2' : 'col-start-1',
+          'primer:row-start-1 primer:flex primer:min-w-0',
+          hasBlockDescription ? 'primer:flex-col primer:gap-1' : 'primer:items-baseline primer:gap-2',
+          !hasBlockDescription && hasWrappingInlineDescription && 'primer:flex-wrap',
+          hasLeadingVisual ? 'primer:col-start-2' : 'primer:col-start-1',
         )}
       >
         <span
           className={cn(
-            'min-w-0',
-            depth > 0 ? 'text-xs' : 'text-sm',
-            'leading-5',
+            'primer:min-w-0 primer:wrap-anywhere',
+            depth > 0 ? 'primer:text-xs' : 'primer:text-sm',
+            'primer:leading-5',
             actionItemPartClassName.label,
-            descriptions.length > 0 && 'font-semibold',
+            descriptions.length > 0 && 'primer:font-semibold',
           )}
           data-item-label=""
+          id={accessibility.resolvedContent.labelId}
         >
           {label}
         </span>
-        {descriptions.length > 0 ? <span className="sr-only">{',\u00a0'}</span> : null}
-        {descriptions.map((description, index) =>
+        {resolvedDescriptions.map((description, index) =>
           React.cloneElement(description, {
             key: description.key ?? index,
-            className: cn('font-normal leading-4', description.props.className),
+            className: cn('primer:font-normal primer:leading-4', description.props.className),
           }),
         )}
       </span>
-      {resolvedTrailingVisual
-        ? React.cloneElement(resolvedTrailingVisual, {
-            className: cn(
-              'row-start-1 flex min-h-5 items-center font-normal',
-              actionItemPartClassName.trailingVisual,
-              hasLeadingVisual ? 'col-start-3' : 'col-start-2',
-              resolvedTrailingVisual.props.className,
-            ),
-          })
-        : null}
+      {trailingVisualId ? (
+        <span
+          className={cn(
+            'primer:row-start-1 primer:flex primer:min-h-5 primer:items-center',
+            hasLeadingVisual ? 'primer:col-start-3' : 'primer:col-start-2',
+          )}
+          id={trailingVisualId}
+        >
+          {visual}
+        </span>
+      ) : (
+        visual
+      )}
     </Component>
   )
 
@@ -351,27 +512,39 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(function NavL
     <li
       {...getActionItemStateAttributes({active: isCurrent, inactive: isInactive})}
       className={cn(
-        'relative list-none rounded-md',
+        'primer:relative primer:list-none primer:rounded-md',
         // The row owns the state, so hovering the current item replaces its fill rather than layering over it.
         getActionItemStateClassName({active: isCurrent, inactive: isInactive}),
-        trailingActionChild && 'flex items-center gap-1',
+        trailingActionChild && 'primer:flex primer:items-center primer:gap-1',
       )}
     >
       {tooltipText ? (
         <Tooltip.Root>
-          <Tooltip.Trigger aria-describedby={describedBy} render={link} delay={tooltipDelay} />
+          <Tooltip.Trigger aria-describedby={itemDescribedBy} render={link} delay={tooltipDelay} />
           <Tooltip.Content side="right">{tooltipText}</Tooltip.Content>
         </Tooltip.Root>
       ) : (
         link
       )}
+      {hasInactiveReason ? (
+        <span className="primer:sr-only" id={inactiveReasonId}>
+          {inactiveText}
+        </span>
+      ) : null}
       {trailingActionChild}
     </li>
   )
 })
 
+const Item = ItemRoot as {
+  <As extends React.ElementType>(props: NavListItemProps<As> & {as: As}): React.ReactElement | null
+  (props: NavListItemProps<'a'>): React.ReactElement | null
+  <As extends React.ElementType>(props: BroadAsProps<As, NavListItemProps>): React.ReactElement | null
+  displayName?: string
+}
+
 export interface NavListGroupExpandItem
-  extends Omit<NavListItemProps, 'children' | 'leadingVisual' | 'trailingAction' | 'trailingVisual'> {
+  extends Omit<NavListItemInternalProps, 'children' | 'leadingVisual' | 'trailingAction' | 'trailingVisual'> {
   /** Label of the item. */
   text: string
   /** Icon shown before the label. */
@@ -406,7 +579,7 @@ function renderGroupExpandItem({
   ...itemProps
 }: NavListGroupExpandItem) {
   return (
-    <Item {...itemProps}>
+    <ItemRoot {...itemProps}>
       {LeadingVisualIcon ? (
         <LeadingVisual>
           <LeadingVisualIcon />
@@ -419,7 +592,7 @@ function renderGroupExpandItem({
         </TrailingVisual>
       ) : null}
       {trailingAction ? <TrailingAction {...trailingAction} /> : null}
-    </Item>
+    </ItemRoot>
   )
 }
 
@@ -449,7 +622,7 @@ const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpandProps>
       {currentPage < pages || currentPage === 0 ? (
         <li
           {...getActionItemStateAttributes({})}
-          className={cn('relative list-none rounded-md', getActionItemStateClassName({}))}
+          className={cn('primer:relative primer:list-none primer:rounded-md', getActionItemStateClassName({}))}
         >
           <button
             ref={ref}
@@ -457,7 +630,7 @@ const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpandProps>
             aria-expanded="false"
             data-component="NavList.GroupExpand"
             className={cn(
-              'grid min-h-8 w-full cursor-pointer appearance-none grid-cols-[minmax(0,1fr)_min-content] items-start gap-x-2 rounded-md border-0 bg-transparent py-1.5 text-left font-normal focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+              'primer:grid primer:min-h-8 primer:w-full primer:cursor-pointer primer:appearance-none primer:grid-cols-[minmax(0,1fr)_min-content] primer:items-start primer:gap-x-2 primer:rounded-md primer:border-0 primer:bg-transparent primer:py-1.5 primer:text-left primer:font-normal primer:focus-visible:outline-2 primer:focus-visible:outline-offset-0 primer:focus-visible:outline-focus',
               actionItemPartClassName.content,
               getItemPadding(depth),
             )}
@@ -471,12 +644,19 @@ const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpandProps>
             }}
           >
             <span
-              className={cn('min-w-0', depth > 0 ? 'text-xs' : 'text-sm', 'leading-5', actionItemPartClassName.label)}
+              className={cn(
+                'primer:min-w-0',
+                depth > 0 ? 'primer:text-xs' : 'primer:text-sm',
+                'primer:leading-5',
+                actionItemPartClassName.label,
+              )}
               data-item-label=""
             >
               {label}
             </span>
-            <span className={cn('flex min-h-5 items-center', actionItemPartClassName.trailingVisual)}>
+            <span
+              className={cn('primer:flex primer:min-h-5 primer:items-center', actionItemPartClassName.trailingVisual)}
+            >
               <PlusIcon aria-hidden="true" />
             </span>
           </button>
@@ -536,7 +716,7 @@ const SubNav = React.forwardRef<HTMLElement, NavListSubNavProps>(function NavLis
           if (!eventDetails.isCanceled && openProp === undefined) setUncontrolledOpen(nextOpen)
         }}
         data-component="NavList.SubNav"
-        className={mergeClassName('list-none', className)}
+        className={mergeClassName('primer:list-none', className)}
       >
         {children}
       </Collapsible.Root>
@@ -559,22 +739,25 @@ const SubNavTrigger = React.forwardRef<HTMLButtonElement, NavListSubNavTriggerPr
       id={id ?? triggerId}
       data-component="NavList.SubNav.Trigger"
       className={cn(
-        'group relative flex h-8 w-full cursor-pointer appearance-none items-center gap-2 rounded-md border-0 bg-transparent py-1 text-left font-normal focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-focus',
+        'primer:group primer:relative primer:flex primer:h-8 primer:w-full primer:cursor-pointer primer:appearance-none primer:items-center primer:gap-2 primer:rounded-md primer:border-0 primer:bg-transparent primer:py-1 primer:text-left primer:font-normal primer:focus-visible:outline-2 primer:focus-visible:outline-offset-0 primer:focus-visible:outline-focus',
         actionItemPartClassName.content,
         // A section holds its own state, so a collapsed section that contains the current item is marked as current.
         getActionItemStateClassName({active}),
-        depth > 0 ? 'text-xs' : 'text-sm',
-        'leading-5',
+        depth > 0 ? 'primer:text-xs' : 'primer:text-sm',
+        'primer:leading-5',
         getItemPadding(depth),
         className,
       )}
     >
-      <span className={cn('min-w-0 flex-1', actionItemPartClassName.label)} data-item-label="">
+      <span className={cn('primer:min-w-0 primer:flex-1', actionItemPartClassName.label)} data-item-label="">
         {children}
       </span>
       <ChevronDownIcon
         aria-hidden="true"
-        className={cn('shrink-0 group-data-[panel-open]:-scale-y-100', actionItemPartClassName.trailingVisual)}
+        className={cn(
+          'primer:shrink-0 primer:group-data-[panel-open]:-scale-y-100',
+          actionItemPartClassName.trailingVisual,
+        )}
         size={16}
       />
     </Collapsible.Trigger>
@@ -599,7 +782,7 @@ const SubNavPanel = React.forwardRef<HTMLUListElement, NavListSubNavPanelProps>(
       ref={ref as React.Ref<HTMLDivElement>}
       render={<ul />}
       data-component="NavList.SubNav.Panel"
-      className={cn('m-0 list-none p-0', className)}
+      className={cn('primer:m-0 primer:list-none primer:p-0', className)}
     >
       <NavListDepthContext.Provider value={depth + 1}>{children}</NavListDepthContext.Provider>
     </Collapsible.Panel>
@@ -610,8 +793,9 @@ export const NavList = Object.assign(Root, {
   Heading: NavListHeading,
   Group,
   GroupExpand,
-  GroupHeading,
+  GroupHeading: Object.assign(GroupHeading, {TrailingAction: ActionList.GroupHeading.TrailingAction}),
   List,
+  Divider,
   Item,
   LeadingVisual,
   TrailingVisual,

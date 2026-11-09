@@ -32,8 +32,8 @@ describe('Details', () => {
     )
 
     expect(container.querySelector('details')).toHaveClass(
-      '[&>summary]:list-none',
-      '[&>summary::-webkit-details-marker]:hidden',
+      'primer:[&>summary]:list-none',
+      'primer:[&>summary::-webkit-details-marker]:hidden',
     )
   })
 })

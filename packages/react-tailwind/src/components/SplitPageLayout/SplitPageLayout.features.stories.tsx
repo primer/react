@@ -34,7 +34,7 @@ function DangerZone() {
       <Heading as="h2" className={sectionHeadingClassName}>
         Danger zone
       </Heading>
-      <div className="flex items-center justify-between gap-4 rounded-md border border-danger-emphasis p-4">
+      <div className="flex items-center justify-between gap-4 rounded-md border-thin border-danger-emphasis p-4">
         <div className="grid gap-1">
           <p className="text-body-medium font-semibold text-danger">Delete account</p>
           <p className="text-body-medium text-muted">
@@ -114,6 +114,99 @@ export const WithSidebarEnd: Story = {
       <SplitPageLayout.Footer>
         <p>Footer content</p>
       </SplitPageLayout.Footer>
+    </SplitPageLayout>
+  ),
+}
+
+export const SidebarFillRail: Story = {
+  parameters: {layout: 'fullscreen'},
+  render: () => (
+    <SplitPageLayout data-testid="viewer-layout">
+      <SplitPageLayout.Sidebar
+        aria-label="Document viewer"
+        className="viewer-rail"
+        width={{min: '1304px', default: '1304px', max: '1304px'}}
+        widthMode="fill"
+        style={{width: 'min(1280px, calc(100vw - 48px))', height: 'auto'}}
+      >
+        <div className={sidebarContentClassName}>
+          <p className={sidebarHeadingClassName}>Document viewer</p>
+          <input aria-label="Search document" className="box-border" style={{width: '100%', minWidth: 0}} />
+        </div>
+      </SplitPageLayout.Sidebar>
+      <SplitPageLayout.Content padding="none">Page</SplitPageLayout.Content>
+    </SplitPageLayout>
+  ),
+}
+
+export const SidebarFillRailVariants: Story = {
+  parameters: {layout: 'fullscreen'},
+  render: () => (
+    <div className="space-y-4">
+      {(['ltr', 'rtl'] as const).flatMap(direction =>
+        (['start', 'end'] as const).flatMap(position =>
+          (['none', 'line', 'filled'] as const).map(divider => (
+            <SplitPageLayout
+              key={`${direction}-${position}-${divider}`}
+              data-testid={`${direction}-${position}-${divider}`}
+              dir={direction}
+              style={{width: 'min(100%, 600px)'}}
+            >
+              <SplitPageLayout.Sidebar
+                aria-label="Document viewer"
+                className="sidebar-rail"
+                divider={divider}
+                position={position}
+                width={{min: '1304px', default: '1304px', max: '1304px'}}
+                widthMode="fill"
+                style={{width: '60%', height: 'auto'}}
+              >
+                <input aria-label="Search document" className="box-border" style={{width: '100%', minWidth: 0}} />
+              </SplitPageLayout.Sidebar>
+              <SplitPageLayout.Content padding="none">Page</SplitPageLayout.Content>
+            </SplitPageLayout>
+          )),
+        ),
+      )}
+    </div>
+  ),
+}
+
+export const SidebarFillFullscreen: Story = {
+  parameters: {layout: 'fullscreen'},
+  render: () => (
+    <SplitPageLayout>
+      <SplitPageLayout.Sidebar
+        aria-label="Fullscreen sidebar"
+        className="fullscreen-rail"
+        responsiveVariant="fullscreen"
+        widthMode="fill"
+      >
+        <input aria-label="Search document" className="box-border" style={{width: '100%', minWidth: 0}} />
+      </SplitPageLayout.Sidebar>
+      <SplitPageLayout.Content>Page</SplitPageLayout.Content>
+    </SplitPageLayout>
+  ),
+}
+
+export const SidebarFillScrollable: Story = {
+  parameters: {layout: 'fullscreen'},
+  render: () => (
+    <SplitPageLayout style={{height: 160}}>
+      <SplitPageLayout.Sidebar aria-label="Scrollable document" widthMode="fill" style={{width: '60%', height: '100%'}}>
+        <p>Read the document, then continue to the next section.</p>
+        <p>This content wraps and scrolls inside the sidebar when space is limited.</p>
+        <label className="block">
+          Add note
+          <input className="w-full min-w-0" type="text" />
+        </label>
+      </SplitPageLayout.Sidebar>
+      <SplitPageLayout.Content padding="none">
+        <label className="block">
+          After sidebar
+          <input className="w-full min-w-0" type="text" />
+        </label>
+      </SplitPageLayout.Content>
     </SplitPageLayout>
   ),
 }

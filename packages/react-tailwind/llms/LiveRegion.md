@@ -4,6 +4,20 @@
 
 Import: `import {Announce, AriaAlert, AriaStatus} from '@primer/react-tailwind/LiveRegion'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Usage
+
+```tsx
+import {Announce, AriaAlert, AriaStatus} from '@primer/react-tailwind'
+
+<AriaStatus>3 results loaded</AriaStatus>
+<AriaAlert>Could not save changes</AriaAlert>
+<Announce>Upload complete</Announce>
+```
+
+`AriaStatus` is polite and `AriaAlert` is assertive. Keep messages concise and do not combine a live-region announcement with unexpected focus movement.
+
 ## Announce
 
 Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.

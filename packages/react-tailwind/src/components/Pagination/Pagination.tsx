@@ -41,7 +41,7 @@ export interface PaginationProps extends React.ComponentPropsWithoutRef<'nav'> {
 }
 
 const pageClasses =
-  'mr-1 inline-flex h-8 min-w-[var(--control-medium-size)] cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-md px-[6px] py-2 align-middle text-center leading-none text-default no-underline transition-colors duration-200 last:mr-0 hover:bg-[var(--control-transparent-bgColor-hover)] hover:duration-100 focus:bg-[var(--control-transparent-bgColor-hover)] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--bgColor-accent-emphasis)] active:border-[var(--borderColor-muted)] aria-[current=page]:border-transparent aria-[current=page]:bg-accent-emphasis aria-[current=page]:text-on-emphasis aria-[current=page]:focus-visible:shadow-[inset_0_0_0_3px_var(--fgColor-onEmphasis)] aria-disabled:pointer-events-none aria-disabled:cursor-default aria-disabled:bg-transparent aria-disabled:text-disabled'
+  'primer:mr-1 primer:inline-flex primer:h-8 primer:min-w-[var(--control-medium-size)] primer:cursor-pointer primer:select-none primer:items-center primer:justify-center primer:whitespace-nowrap primer:rounded-md primer:px-[6px] primer:py-2 primer:align-middle primer:text-center primer:leading-none primer:text-default primer:no-underline primer:transition-colors primer:duration-200 primer:last:mr-0 primer:hover:bg-[var(--control-transparent-bgColor-hover)] primer:hover:duration-100 primer:focus:bg-[var(--control-transparent-bgColor-hover)] primer:focus-visible:outline-2 primer:focus-visible:outline-offset-[-2px] primer:focus-visible:outline-[var(--bgColor-accent-emphasis)] primer:active:border-[var(--borderColor-muted)] primer:aria-[current=page]:border-transparent primer:aria-[current=page]:bg-accent-emphasis primer:aria-[current=page]:text-on-emphasis primer:aria-[current=page]:focus-visible:shadow-[inset_0_0_0_3px_var(--fgColor-onEmphasis)] primer:aria-disabled:pointer-events-none primer:aria-disabled:cursor-default primer:aria-disabled:bg-transparent primer:aria-disabled:text-disabled'
 
 export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(function Pagination(
   {
@@ -68,13 +68,14 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
       {...rest}
       ref={ref}
       aria-label={ariaLabel ?? 'Pagination'}
-      className={cn('mb-[15px] mt-5 text-center', className)}
+      className={cn('primer:mb-[15px] primer:mt-5 primer:text-center', className)}
       data-component={dataComponent}
     >
       {children}
-      <div className="inline-block">
+      <div className="primer:inline-block">
         {pages.map(page => {
           const isEdge = page.type === 'previous' || page.type === 'next'
+          const key = isEdge ? page.type : `${page.type}-${page.number}`
           const responsiveVisibility = isEdge
             ? ''
             : responsiveClasses(showPages, {true: 'inline-flex', false: 'hidden'}, true)
@@ -105,7 +106,7 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
                 {page.type === 'previous' ? (
                   <ChevronLeftIcon
                     aria-hidden="true"
-                    className="mr-1 size-[1em]"
+                    className="primer:mr-1 primer:size-[1em]"
                     data-component="Pagination.PreviousPageIcon"
                   />
                 ) : null}
@@ -113,7 +114,7 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
                 {page.type === 'next' ? (
                   <ChevronRightIcon
                     aria-hidden="true"
-                    className="ml-1 size-[1em]"
+                    className="primer:ml-1 primer:size-[1em]"
                     data-component="Pagination.NextPageIcon"
                   />
                 ) : null}
@@ -129,17 +130,17 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
               page.type === 'page' ? `Page ${page.number}${page.precedesBreak ? '...' : ''}` : `${pageLabel} page`,
             onClick: page.disabled ? undefined : event => onPageChange?.(event, page.number),
             onPageSelect: page.disabled ? undefined : event => onPageChange?.(event, page.number),
-            className: cn(pageClasses, isEdge && 'text-accent', responsiveVisibility, previousPageSpacing),
+            className: cn(pageClasses, isEdge && 'primer:text-accent', responsiveVisibility, previousPageSpacing),
           }
           if (renderPage) {
-            return <React.Fragment key={`${page.type}-${page.number}`}>{renderPage(props)}</React.Fragment>
+            return <React.Fragment key={key}>{renderPage(props)}</React.Fragment>
           }
           const {number, onPageSelect: _onPageSelect, pageType, ...anchorProps} = props
           void _onPageSelect
           return (
             <a
               {...anchorProps}
-              key={`${page.type}-${page.number}`}
+              key={key}
               data-component={
                 isEdge ? `Pagination.${page.type === 'previous' ? 'PreviousPage' : 'NextPage'}` : 'Pagination.Page'
               }
@@ -149,7 +150,7 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
               {page.type === 'previous' ? (
                 <ChevronLeftIcon
                   aria-hidden="true"
-                  className="mr-1 size-[1em]"
+                  className="primer:mr-1 primer:size-[1em]"
                   data-component="Pagination.PreviousPageIcon"
                 />
               ) : null}
@@ -157,7 +158,7 @@ export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(functio
               {page.type === 'next' ? (
                 <ChevronRightIcon
                   aria-hidden="true"
-                  className="ml-1 size-[1em]"
+                  className="primer:ml-1 primer:size-[1em]"
                   data-component="Pagination.NextPageIcon"
                 />
               ) : null}

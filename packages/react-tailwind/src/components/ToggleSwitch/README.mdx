@@ -21,6 +21,7 @@ import * as Examples from './ToggleSwitch.examples.stories'
 
 ```tsx
 import {ToggleSwitch} from '@primer/react-tailwind/ToggleSwitch'
+;<ToggleSwitch aria-label="Enable notifications" defaultChecked />
 ```
 
 ## Controlled and uncontrolled
@@ -31,11 +32,23 @@ import {ToggleSwitch} from '@primer/react-tailwind/ToggleSwitch'
 
 ## Accessibility, forms, and validation
 
-Provide an accessible name with a visible label, `aria-label`, or `aria-labelledby`. Checked switches participate in form submission through `name` and `value`. Compose captions and feedback with `FormControl`; disabled switches cannot be toggled.
+Provide a visible, descriptive label for the setting and associate it with the switch. Use `FormControl.Label`, or reference visible text with `aria-labelledby`. The control exposes `role="switch"` and its on/off state through `aria-checked`; its accessible name should describe the setting rather than the current state.
+
+The adjacent on/off status text is visual only and hidden from assistive technology; it does not name the switch. `buttonLabelOn` and `buttonLabelOff` customize that text, which defaults to "On" and "Off". Include any essential context in the associated label. Clicking the status text toggles an available, writable switch.
+
+Disabled and loading switches remain keyboard-focusable and expose `aria-disabled="true"`, so their labels and explanations remain discoverable. Use `aria-describedby` for an unavailable reason. Both states suppress user activation but allow externally controlled `checked` updates; an explicit `tabIndex` overrides the default tab order. Disabled hidden inputs do not submit values, while loading is read-only and retains the existing checked form value.
+
+If loading continues for `loadingLabelDelay` milliseconds (2,000 by default), `loadingLabel` ("Loading" by default) is placed in a visually hidden polite live region and added to the switch's description alongside any existing `aria-describedby`. Choose a concise, contextual label such as "Saving notification settings". If loading finishes before the delay, no loading message is added. Actual announcements depend on the assistive technology.
+
+At a 16px root font size, the visible track is 48 by 24 CSS pixels for `small` and 64 by 32 for `medium`; the expanded target is 44px high on a coarse pointer. The target follows Primer's pointer-size token with a 24px minimum height, so at a 12px root font it is 33px high and the small track is 36 by 18px. The track has a 24px minimum width, but the target is not guaranteed to be 44px wide. It can make compact rows taller, and ancestor clipping, scrollbars, browser touch retargeting, or host styling can affect the final target, so verify it in the layout where the switch is used.
+
+<Canvas of={Features.UnavailableControlled} />
 
 ## Keyboard, events, and state
 
-Space toggles a focused switch. `onCheckedChange` receives the next value and Base UI details. The root exposes `data-component="ToggleSwitch"`, `data-size`, `data-checked`, and `data-disabled`; its thumb mirrors checked and disabled state.
+Tab moves focus to the switch; Space or Enter toggles it when it is available and writable. `onCheckedChange` receives the next value and Base UI details. Its hidden checkbox participates in form submission through `name` and `value` and can send a change event to an enclosing form. The root exposes `data-component="ToggleSwitch"`, `data-size`, `data-checked`, and `data-disabled`; its thumb mirrors checked and disabled state.
+
+The on/off status labels share space so switching states does not shift adjacent content. If custom labels wrap, both states reserve the taller label's height.
 
 <Canvas of={Features.Controlled} />
 

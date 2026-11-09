@@ -26,7 +26,7 @@ describe('UnderlineNav', () => {
     const canvas = within(container)
     expect(canvas.getByRole('navigation', {name: 'Repository'})).toBeInTheDocument()
     expect(canvas.getByRole('link', {name: /Code/})).toHaveAttribute('aria-current', 'page')
-    expect(canvas.getByRole('list')).toHaveClass('flex')
+    expect(canvas.getByRole('list')).toHaveClass('primer:flex')
     expect(canvas.getByTestId('navigation')).toHaveAttribute('data-component', 'UnderlineNav')
     expect(canvas.getByRole('link', {name: /Issues/})).toHaveAccessibleName('Issues(3)')
     expect(ref.current).toBe(canvas.getByRole('navigation'))
@@ -89,7 +89,7 @@ describe('UnderlineNav', () => {
       </UnderlineNav>,
     )
     expect(within(container).getByRole('navigation')).toHaveAttribute('data-hide-icons-breakpoint', 'medium')
-    expect(within(container).getByTestId('icon').parentElement).toHaveClass('@max-[768px]/underline-nav:hidden')
+    expect(within(container).getByTestId('icon').parentElement).toHaveClass('primer:@max-[768px]/underline-nav:hidden')
   })
 
   it('supports always showing icons', () => {
@@ -134,6 +134,52 @@ describe('UnderlineNav', () => {
 })
 
 describe('UnderlineNav overflow', () => {
+  it('preserves custom router props and callbacks in the More menu', async () => {
+    stubIntersectionObserver()
+    const user = userEvent.setup()
+    const onClick = vi.fn()
+    const onSelect = vi.fn((event: React.MouseEvent<HTMLElement>) => event.preventDefault())
+    const ref = React.createRef<HTMLAnchorElement>()
+    const RouterLink = React.forwardRef<
+      HTMLAnchorElement,
+      {to: string; preload: 'intent' | 'none'} & Omit<React.ComponentPropsWithoutRef<'a'>, 'href'>
+    >(function RouterLink({children, to, preload, ...props}, forwardedRef) {
+      return (
+        <a {...props} ref={forwardedRef} href={to} data-preload={preload}>
+          {children}
+        </a>
+      )
+    })
+
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item href="/code">Code</UnderlineNav.Item>
+        <UnderlineNav.Item
+          as={RouterLink}
+          to="/issues"
+          preload="intent"
+          ref={ref}
+          onClick={onClick}
+          onSelect={onSelect}
+        >
+          Issues
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    const link = screen.getByRole('link', {name: 'Issues'})
+    expect(ref.current).toBe(link)
+    expect(link).toHaveAttribute('href', '/issues')
+    clip(link.closest('li')!)
+    await user.click(screen.getByRole('button', {name: /^More\s?items$/}))
+    const item = await screen.findByRole('menuitem', {name: 'Issues'})
+    expect(item).toHaveAttribute('href', '/issues')
+    expect(item).toHaveAttribute('data-preload', 'intent')
+    await user.click(item)
+    expect(onClick).toHaveBeenCalledOnce()
+    expect(onSelect).toHaveBeenCalledOnce()
+  })
+
   function renderOverflowNav(onSelect = vi.fn()) {
     stubIntersectionObserver()
     render(

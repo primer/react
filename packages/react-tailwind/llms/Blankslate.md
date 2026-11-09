@@ -4,6 +4,48 @@
 
 Import: `import {Blankslate} from '@primer/react-tailwind/Blankslate'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Import and usage
+
+```tsx
+import {
+  Blankslate,
+  BlankslateDescription,
+  BlankslateHeading,
+  BlankslatePrimaryAction,
+  BlankslateSecondaryAction,
+  BlankslateVisual,
+} from '@primer/react-tailwind/Blankslate'
+;<Blankslate border>
+  <BlankslateVisual aria-hidden="true">…</BlankslateVisual>
+  <BlankslateHeading>No results</BlankslateHeading>
+  <BlankslateDescription>Try a different search.</BlankslateDescription>
+  <BlankslatePrimaryAction href="/search">Search again</BlankslatePrimaryAction>
+  <BlankslateSecondaryAction href="/help">Learn more</BlankslateSecondaryAction>
+</Blankslate>
+```
+
+## Composition
+
+Use the compound children in reading order: visual, heading, description, primary action, then secondary action. Primary actions accept either `href` or button props; secondary actions require an `href`.
+
+## Accessibility
+
+Use a heading that describes the empty state and actionable, meaningful labels. `BlankslateVisual` is decorative and is marked `aria-hidden`; do not put essential meaning only in the visual.
+
+## Animation and reduced motion
+
+`Blankslate` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+The component uses Primer spacing, border, and text tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` on each compound child for local extensions.
+
+### Data attributes
+
+The wrapper exposes `data-component="Blankslate.Container"`. The root exposes `data-component="Blankslate"` and `data-size`, plus `data-border`, `data-narrow`, and `data-spacious` when enabled. Compound parts expose their `Blankslate.*` component identifiers.
+
 Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

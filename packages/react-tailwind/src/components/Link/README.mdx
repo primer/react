@@ -30,7 +30,9 @@ import {Link} from '@primer/react-tailwind/Link'
 
 ## Composition
 
-Use the default anchor for navigation, or `as` when composing with an element that owns navigation.
+Use the default anchor for navigation, or `as` when composing with an element that owns navigation. The selected component's props and ref are inferred, so a router component can receive its required destination directly, for example `<Link as={RouterLink} to="/issues">Issues</Link>`. The router component must forward the supplied props and ref to its interactive element.
+
+For a typed wrapper, use `LinkProps<typeof RouterLink>` to include that router's props. Unparameterized `LinkProps` and `React.ComponentProps<typeof Link>` retain the legacy anchor-shaped props and broadly typed `as`.
 
 ## Accessibility
 

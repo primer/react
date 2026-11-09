@@ -1,6 +1,7 @@
 import {act, cleanup, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
+import {renderToStaticMarkup} from 'react-dom/server'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {Button} from '../Button'
 import {
@@ -50,6 +51,138 @@ function renderActions({selectedCount, clearSelection}: DataTableBulkActionsCont
 }
 
 afterEach(cleanup)
+
+describe('Table titles and subtitles', () => {
+  it('preserves the default elements and forwards their refs', () => {
+    const titleRef = React.createRef<HTMLHeadingElement>()
+    const subtitleRef = React.createRef<HTMLParagraphElement>()
+    render(
+      <Table.Container>
+        <Table.Title ref={titleRef}>Repositories</Table.Title>
+        <Table.Subtitle ref={subtitleRef}>Repository activity</Table.Subtitle>
+      </Table.Container>,
+    )
+    expect(screen.getByRole('heading', {name: 'Repositories', level: 2})).toBe(titleRef.current)
+    expect(subtitleRef.current?.tagName).toBe('P')
+    expect(titleRef.current).toHaveAttribute('data-component', 'Table.Title')
+    expect(subtitleRef.current).toHaveAttribute('data-component', 'Table.Subtitle')
+  })
+
+  it.each(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'] as const)(
+    'renders native %s titles and subtitles without leaking as',
+    as => {
+      render(
+        <Table.Container>
+          <Table.Title as={as}>Repositories</Table.Title>
+          <Table.Subtitle as={as}>Repository activity</Table.Subtitle>
+        </Table.Container>,
+      )
+      for (const text of ['Repositories', 'Repository activity']) {
+        const element = screen.getByText(text)
+        expect(element.tagName).toBe(as.toUpperCase())
+        expect(element).not.toHaveAttribute('as')
+        if (as !== 'p') expect(element).toHaveRole('heading')
+      }
+    },
+  )
+
+  it('retains layout classes, DOM props, handlers, and table relationships on selected headings', async () => {
+    const user = userEvent.setup()
+    const titleRef = React.createRef<HTMLHeadingElement>()
+    const subtitleRef = React.createRef<HTMLHeadingElement>()
+    const onClick = vi.fn()
+    render(
+      <Table.Container>
+        <Table.Title
+          as="h3"
+          id="repositories"
+          ref={titleRef}
+          className="text-muted"
+          style={{color: 'blue'}}
+          data-testid="title"
+          onClick={event => onClick(event.currentTarget)}
+        >
+          Repositories
+        </Table.Title>
+        <Table.Subtitle as="h4" id="activity" ref={subtitleRef} className="text-muted">
+          Repository activity
+        </Table.Subtitle>
+        <DataTable aria-labelledby="repositories" aria-describedby="activity" data={rows} columns={columns} />
+      </Table.Container>,
+    )
+    const title = screen.getByRole('heading', {name: 'Repositories', level: 3})
+    const subtitle = screen.getByRole('heading', {name: 'Repository activity', level: 4})
+    expect(title).toBe(titleRef.current)
+    expect(subtitle).toBe(subtitleRef.current)
+    expect(title).toHaveAttribute('data-testid', 'title')
+    expect(title).toHaveClass(
+      'primer:m-0',
+      'primer:self-center',
+      'primer:text-sm',
+      'primer:font-semibold',
+      'primer:leading-5',
+      'text-muted',
+    )
+    expect(title.style.color).toBe('blue')
+    expect(subtitle).toHaveClass(
+      'primer:col-span-2',
+      'primer:m-0',
+      'primer:text-xs',
+      'primer:leading-[1.5]',
+      'text-muted',
+    )
+    expect(screen.getByRole('table', {name: 'Repositories'})).toHaveAccessibleDescription('Repository activity')
+    await user.click(title)
+    expect(onClick).toHaveBeenCalledExactlyOnceWith(title)
+  })
+
+  it('updates refs and the table name when the heading element changes', () => {
+    const ref = React.createRef<HTMLHeadingElement>()
+    function Example({level}: {level: 'h3' | 'h4'}) {
+      return (
+        <Table.Container>
+          <Table.Title as={level} id="repositories" ref={ref}>
+            Repositories
+          </Table.Title>
+          <DataTable aria-labelledby="repositories" data={rows} columns={columns} />
+        </Table.Container>
+      )
+    }
+    const {rerender} = render(<Example level="h3" />)
+    const original = ref.current
+    rerender(<Example level="h4" />)
+    expect(original).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', {level: 4})).toBe(ref.current)
+    expect(screen.getByRole('table', {name: 'Repositories'})).toHaveAttribute('aria-labelledby', 'repositories')
+  })
+
+  it('allows consumer font utilities to override the subtitle reset', () => {
+    render(
+      <Table.Subtitle as="h4" className="font-semibold">
+        Repository activity
+      </Table.Subtitle>,
+    )
+    const subtitle = screen.getByRole('heading', {level: 4})
+    expect(subtitle).toHaveClass('font-semibold')
+    expect(subtitle).not.toHaveClass('primer:font-[number:inherit]')
+  })
+
+  it('renders selected elements on the server', () => {
+    const html = renderToStaticMarkup(
+      <Table.Container>
+        <Table.Title as="h3" id="repositories">
+          Repositories
+        </Table.Title>
+        <Table.Subtitle as="h4" id="activity">
+          Repository activity
+        </Table.Subtitle>
+      </Table.Container>,
+    )
+    expect(html).toMatch(/<h3 id="repositories"/)
+    expect(html).toMatch(/<h4 id="activity"/)
+    expect(html).not.toContain(' as=')
+  })
+})
 
 describe('DataTable sortable headers', () => {
   it('names the sort button by its column and describes the action', async () => {
@@ -299,9 +432,10 @@ describe('DataTable group expansion', () => {
     const internal = screen.getByRole('button', {name: 'Internal'})
     expect(internal).toHaveAttribute('aria-expanded', 'true')
     expect(internal).toHaveAccessibleDescription('2 rows')
+    expect(document.querySelector('[aria-description], [aria-controls]')).toBeNull()
     await user.click(internal)
     expect(internal).toHaveAttribute('aria-expanded', 'false')
-    expect(document.getElementById(internal.getAttribute('aria-controls')!)).toHaveAttribute('hidden')
+    expect(screen.getByText('Bravo').closest('tbody')).toHaveAttribute('hidden')
     expect(onExpandedGroupsChange).toHaveBeenLastCalledWith({expandedGroups: new Set([2])})
     await user.click(screen.getByRole('button', {name: 'Public'}))
     expect(onExpandedGroupsChange).toHaveBeenLastCalledWith({expandedGroups: new Set()})

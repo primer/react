@@ -30,6 +30,20 @@ import {ConfirmationDialog} from '@primer/react-tailwind'
 
 Use a concise title that describes the consequence. The confirm action should be specific and visibly distinct from cancel.
 
+The default confirmation is modal and exposes `role="alertdialog"` and `aria-modal="true"`. With `modal={false}` or `modal="trap-focus"`, outside pointer interactions remain available and the dialog is not exposed as modal. The latter still traps focus. Review the intended pattern and its assistive-technology behavior before using a non-modal confirmation.
+
+The configuration renders a backdrop by default. With `modal="trap-focus"`, Base UI can leave the dialog open after an outside press even when the press reaches an outside control; a drag released elsewhere outside can still dismiss it. In a tested non-modal composition, moving focus to an outside button closed the dialog on mouse-down in Chromium. When compound parts omit the backdrop, Base UI 1.6 and 1.8 can also dismiss on mouse-down or touch movement before cancellation, potentially losing an unsaved draft. `disablePointerDismissal` keeps the tested dialogs open during outside interactions, but also disables focus-out dismissal and changes the expected interaction. Provide explicit cancel and confirm actions, and review outside dismissal and pointer cancellation with an accessibility specialist.
+
+Use `ConfirmationDialog.Root` or `Dialog.Root` with the compound parts so they can reflect the root's modality. A raw Base UI root does not supply or reset that context: parts beneath it cannot infer its modality and may inherit an outer Primer root's mode. Configure their semantics and pointer hit testing explicitly in that composition.
+
+Base UI normally connects an open confirmation trigger to the dialog with `aria-controls`. If a host policy requires omitting it, pass `aria-controls={undefined}` to `ConfirmationDialog.Trigger`, or to the config component's rendered trigger. This removes the explicit ID relationship; a custom renderer may override the prop. Verify the resulting behavior with the host's assistive technologies.
+
+Long titles and action labels wrap, and the dialog can scroll when its content exceeds the available height. Verify custom content at the host's supported viewport sizes and text settings.
+
+A confirmation opened inside another Primer floating surface uses the popover layer for both its backdrop and viewport. This relies on host stacking tokens and the nested portal order; check custom portal roots, clipping, focus, and dismissal in the host.
+
 <Canvas of={Features.ShorthandHook} />
+
+<Canvas of={Features.LongTitleAndActions} />
 
 <Canvas of={Examples.DestructiveConfirmation} />

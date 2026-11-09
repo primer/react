@@ -30,13 +30,29 @@
   "props": [
     {
       "name": "container",
-      "type": "PortalContainerRef | PortalContainer | null",
+      "type": "PortalContainer",
       "description": "Where the children are rendered. Defaults to the shared portal root."
     },
     {
       "name": "onMount",
       "type": "(() => void)",
       "description": "Called once the children have been rendered into the container."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Portal.Provider",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "container",
+          "type": "PortalContainer",
+          "description": "Default destination for `Portal` and every Primer floating part beneath it, including tooltips that controls\nsuch as `IconButton` render internally. `undefined` inherits the outer default; `null` makes portals wait for a\ncontainer instead of falling back to the document. Explicit `container` props and `portal={false}` still win."
+        }
+      ]
     }
   ],
   "passthrough": {

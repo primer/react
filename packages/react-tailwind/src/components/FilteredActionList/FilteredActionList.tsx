@@ -134,7 +134,7 @@ export interface FilteredActionListProps
   message?: React.ReactNode
   /** Title and description for the built-in message, as an alternative to supplying `message`. */
   messageText?: {title: string; description: string}
-  /** Content shown when the filter matches no items. */
+  /** Content shown when the filter matches no items. Pass `null` to suppress the built-in message. */
   emptyStateText?: React.ReactNode
   /** Extra props forwarded to the underlying list. */
   actionListProps?: Omit<Partial<ActionListRootProps>, 'children' | 'data-component'>
@@ -191,6 +191,7 @@ function getVirtualRowHeight(
     itemRenderer !== undefined ||
     !items.every(
       item =>
+        !item.disabled &&
         !item.renderItem &&
         item.children === undefined &&
         item.className === undefined &&
@@ -323,9 +324,7 @@ function FilteredActionListOption({
       aria-label={ariaLabel}
       aria-labelledby={
         renderedActionListItem?.props['aria-labelledby'] ??
-        (ariaLabel === undefined && resolvedContent?.descriptionIds.length
-          ? joinIdRefs(resolvedContent.labelId, resolvedContent.trailingVisualId)
-          : undefined)
+        ActionItemContent.optionLabelledBy(resolvedContent, ariaLabel)
       }
       aria-posinset={optionIndex + 1}
       aria-setsize={optionCount}
@@ -446,9 +445,7 @@ function FilteredActionListDisabledOption({
       aria-label={ariaLabel}
       aria-labelledby={
         renderedActionListItem?.props['aria-labelledby'] ??
-        (ariaLabel === undefined && resolvedContent?.descriptionIds.length
-          ? joinIdRefs(resolvedContent.labelId, resolvedContent.trailingVisualId)
-          : undefined)
+        ActionItemContent.optionLabelledBy(resolvedContent, ariaLabel)
       }
       aria-posinset={optionIndex + 1}
       aria-selected="false"
@@ -484,6 +481,8 @@ interface FilteredActionListVirtualizedOptionsProps {
   itemNodes: React.RefObject<Map<FilteredActionListItem, HTMLElement>>
   itemRenderer?: FilteredActionListRenderItem
   multiple: boolean
+  onRowOverflow: (anchor: VirtualFallbackAnchor | null) => void
+  onScrollPositionChange: (scrollTop: number) => void
   radio: boolean
   rowHeight: number
   selectable: boolean
@@ -495,10 +494,17 @@ interface FilteredActionListVirtualizedOptionsProps {
   variant: NonNullable<FilteredActionListProps['variant']>
 }
 
+interface VirtualFallbackAnchor {
+  index: number
+  offset: number
+}
+
 function FilteredActionListVirtualizedOptions({
   itemNodes,
   itemRenderer,
   multiple,
+  onRowOverflow,
+  onScrollPositionChange,
   radio,
   rowHeight,
   selectable,
@@ -510,6 +516,7 @@ function FilteredActionListVirtualizedOptions({
   variant,
 }: FilteredActionListVirtualizedOptionsProps) {
   const [viewportHeight, setViewportHeight] = React.useState(320)
+  const virtualContentRef = React.useRef<HTMLDivElement>(null)
   const firstIndex = Math.max(0, Math.floor(scrollTop / rowHeight) - virtualOverscan)
   const lastIndex = Math.min(values.length, Math.ceil((scrollTop + viewportHeight) / rowHeight) + virtualOverscan)
   const visibleValues = values.slice(firstIndex, lastIndex)
@@ -517,6 +524,62 @@ function FilteredActionListVirtualizedOptions({
     '--filtered-action-list-virtual-height': `${values.length * rowHeight}px`,
     '--filtered-action-list-virtual-row-height': `${rowHeight}px`,
   }
+
+  React.useLayoutEffect(() => {
+    const scrollElement =
+      scrollContainerRef.current ??
+      virtualContentRef.current?.closest<HTMLDivElement>('[data-component="FilteredActionList.Container"]')
+    if (!scrollElement) return
+
+    onScrollPositionChange(scrollElement.scrollTop)
+    let active = true
+    const rows = Array.from(scrollElement.querySelectorAll<HTMLElement>('[data-component="FilteredActionList.Item"]'))
+    const fallBack = () => {
+      active = false
+      const viewport = scrollElement.getBoundingClientRect()
+      const firstVisible = rows.find(row => {
+        const bounds = row.getBoundingClientRect()
+        return bounds.bottom > viewport.top && bounds.top < viewport.bottom
+      })
+      const index = firstVisible?.getAttribute('data-index')
+      onRowOverflow(
+        firstVisible && index !== null && index !== undefined
+          ? {index: Number(index), offset: firstVisible.getBoundingClientRect().top - viewport.top}
+          : null,
+      )
+    }
+    const inspectRows = () => {
+      if (!active) return true
+      const overflowing = rows.some(row => {
+        const bounds = row.getBoundingClientRect()
+        if (!bounds.width || !bounds.height) return false
+        return Array.from(row.children).some(child => {
+          const childBounds = child.getBoundingClientRect()
+          return childBounds.top < bounds.top - 1 || childBounds.bottom > bounds.bottom + 1
+        })
+      })
+      if (!overflowing) return false
+
+      fallBack()
+      return true
+    }
+
+    if (inspectRows()) return
+    if (typeof ResizeObserver === 'undefined') {
+      fallBack()
+      return
+    }
+    const observer = new ResizeObserver(inspectRows)
+    observer.observe(scrollElement)
+    for (const row of rows) {
+      observer.observe(row)
+      for (const child of row.children) observer.observe(child)
+    }
+    return () => {
+      active = false
+      observer.disconnect()
+    }
+  }, [firstIndex, lastIndex, onRowOverflow, onScrollPositionChange, scrollContainerRef, values])
 
   React.useEffect(() => {
     const element = scrollContainerRef.current
@@ -534,7 +597,8 @@ function FilteredActionListVirtualizedOptions({
 
   return (
     <div
-      className="relative w-full h-[var(--filtered-action-list-virtual-height)]"
+      className="primer:relative primer:w-full primer:h-[var(--filtered-action-list-virtual-height)]"
+      ref={virtualContentRef}
       role="presentation"
       style={virtualStyle}
     >
@@ -546,7 +610,7 @@ function FilteredActionListVirtualizedOptions({
 
         return (
           <div
-            className="absolute inset-x-0 top-0 translate-y-[var(--filtered-action-list-virtual-offset)]"
+            className="primer:absolute primer:inset-x-0 primer:top-0 primer:translate-y-[var(--filtered-action-list-virtual-offset)]"
             key={value.renderKey}
             role="presentation"
             style={itemStyle}
@@ -644,6 +708,13 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
     },
   )
   const [virtualScrollTop, setVirtualScrollTop] = React.useState(0)
+  const [virtualFallbackItems, setVirtualFallbackItems] = React.useState<readonly FilteredActionListItem[] | null>(null)
+  const [previousVirtualized, setPreviousVirtualized] = React.useState(virtualized)
+  if (previousVirtualized !== virtualized) {
+    setPreviousVirtualized(virtualized)
+    if (!virtualized) setVirtualFallbackItems(null)
+  }
+  const virtualFallbackAnchor = React.useRef<VirtualFallbackAnchor | null>(null)
   const inputElementRef = React.useRef<HTMLInputElement | null>(null)
   const itemNodes = React.useRef(new Map<FilteredActionListItem, HTMLElement>())
   const previousActiveItem = React.useRef<HTMLElement | undefined>(undefined)
@@ -656,7 +727,24 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
   const radio = selectionVariant === 'radio'
   const selectable = selectionVariant !== undefined
   const virtualRowHeight = getVirtualRowHeight(items, grouped, renderItem)
-  const useVirtualization = virtualized && virtualRowHeight !== undefined
+  const useVirtualization = virtualized && virtualRowHeight !== undefined && virtualFallbackItems !== items
+  const onVirtualRowOverflow = React.useCallback(
+    (anchor: VirtualFallbackAnchor | null) => {
+      virtualFallbackAnchor.current = anchor
+      setVirtualFallbackItems(items)
+    },
+    [items],
+  )
+  React.useLayoutEffect(() => {
+    const anchor = virtualFallbackAnchor.current
+    const element = scrollElementRef.current
+    if (useVirtualization || !anchor || !element) return
+    const row = element.querySelector<HTMLElement>(
+      `[data-component="FilteredActionList.Item"][data-index="${anchor.index}"]`,
+    )
+    if (row) element.scrollTop += row.getBoundingClientRect().top - element.getBoundingClientRect().top - anchor.offset
+    virtualFallbackAnchor.current = null
+  }, [items, useVirtualization])
   const hasLegacySelectedItems = selectedItemIds === undefined && items.some(item => item.selected !== undefined)
   const selectedIds =
     selectedItemIds ??
@@ -708,6 +796,8 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
   )
   const bodyLoading = loading && loadingType !== FilteredActionListLoadingTypes.input
   const hasMessage = message !== null && message !== undefined
+  const hasEmptyStateContent = emptyStateText !== null && typeof emptyStateText !== 'boolean' && emptyStateText !== ''
+  const showEmptyState = !bodyLoading && !hasMessage && visibleItems.length === 0 && hasEmptyStateContent
   const {
     className: actionListClassName,
     id: actionListId,
@@ -734,13 +824,8 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
     [onListContainerRefChanged],
   )
 
-  const setScrollElement = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      scrollElementRef.current = node
-      mergeRefs(scrollContainerRef)(node)
-    },
-    [scrollContainerRef],
-  )
+  const setScrollElement = React.useMemo(() => mergeRefs(scrollElementRef, scrollContainerRef), [scrollContainerRef])
+  const setInputElement = React.useMemo(() => mergeRefs(inputElementRef, inputRef), [inputRef])
 
   const onFilterValueChange = React.useCallback(
     (nextFilterValue: string, details: Combobox.Root.ChangeEventDetails) => {
@@ -824,7 +909,10 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
       <div
         {...rootProps}
         ref={forwardedRef as React.Ref<HTMLDivElement>}
-        className={cn('flex h-full min-h-0 w-full flex-col overflow-hidden', className)}
+        className={cn(
+          'primer:flex primer:h-full primer:min-h-0 primer:w-full primer:flex-col primer:overflow-hidden',
+          className,
+        )}
         data-component="FilteredActionList"
       >
         <div className={filteredActionListHeaderClassName} data-component="FilteredActionList.Header">
@@ -835,7 +923,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
             aria-describedby={filterDescriptionId}
             aria-label={ariaLabel}
             placeholder={placeholderText}
-            ref={mergeRefs(inputElementRef, inputRef)}
+            ref={setInputElement}
             render={
               <TextInput
                 loaderPosition="leading"
@@ -844,21 +932,21 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
                 leadingVisual={LeadingVisual ? renderItemVisual(LeadingVisual) : undefined}
                 loading={loading && loadingType === FilteredActionListLoadingTypes.input}
                 className={cn(
-                  'min-w-0',
+                  'primer:min-w-0',
                   // Match upstream: keep iOS from zooming the viewport when focusing a narrow input.
                   fullScreenOnNarrow &&
-                    'max-md:supports-[-webkit-touch-callout:none]:text-[var(--text-title-size-small)]',
+                    'primer:max-md:supports-[-webkit-touch-callout:none]:text-[var(--text-title-size-small)]',
                   inputClassName,
                 )}
               />
             }
           />
         </div>
-        <span id={filterDescriptionId} className="sr-only">
+        <span id={filterDescriptionId} className="primer:sr-only">
           Items will be filtered as you type
         </span>
         {announcementsEnabled ? (
-          <span aria-live="polite" className="sr-only">
+          <span aria-live="polite" className="primer:sr-only">
             {loading
               ? 'Loading items'
               : `${visibleItems.length} ${visibleItems.length === 1 ? 'item' : 'items'} available`}
@@ -896,7 +984,7 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
           {bodyLoading ? (
             <BodyLoader announce={!announcementsEnabled} loadingType={loadingType} />
           ) : hasMessage ? (
-            <div className="flex flex-1" data-component="FilteredActionList.MessageContainer">
+            <div className="primer:flex primer:flex-1" data-component="FilteredActionList.MessageContainer">
               {message}
             </div>
           ) : (
@@ -917,6 +1005,8 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
                   itemNodes={itemNodes}
                   itemRenderer={renderItem}
                   multiple={multiple}
+                  onRowOverflow={onVirtualRowOverflow}
+                  onScrollPositionChange={setVirtualScrollTop}
                   radio={radio}
                   rowHeight={virtualRowHeight}
                   selectable={selectable}
@@ -1061,13 +1151,18 @@ export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionLi
             </Combobox.List>
           )}
         </div>
-        {!bodyLoading && !hasMessage && visibleItems.length === 0 ? (
-          <Combobox.Empty className="flex flex-1" data-component="FilteredActionList.Empty">
-            <div className="p-3 text-sm text-muted">{emptyStateText}</div>
-          </Combobox.Empty>
-        ) : null}
+        <Combobox.Empty
+          className={showEmptyState ? 'primer:flex primer:flex-1' : undefined}
+          data-component="FilteredActionList.Empty"
+        >
+          {showEmptyState ? (
+            <div className="primer:box-border primer:min-w-0 primer:w-full primer:p-3 primer:text-sm primer:text-muted">
+              {emptyStateText}
+            </div>
+          ) : null}
+        </Combobox.Empty>
         {messageText ? (
-          <span className="sr-only" role="status">
+          <span className="primer:sr-only" role="status">
             {messageText.title}. {messageText.description}
           </span>
         ) : null}

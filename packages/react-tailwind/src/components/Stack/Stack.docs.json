@@ -45,9 +45,13 @@
     },
     {
       "name": "as",
-      "type": "React.ElementType",
+      "type": "As",
       "defaultValue": "'div'",
-      "description": "Element to render."
+      "description": "Element to render. Its props, events, and ref follow the selected element.\nElement or component to render."
+    },
+    {
+      "name": "className",
+      "type": "string"
     },
     {
       "name": "direction",
@@ -96,20 +100,22 @@
       "props": [
         {
           "name": "as",
-          "type": "React.ElementType",
+          "type": "As",
           "defaultValue": "'div'",
-          "description": "Element to render."
+          "description": "Element to render. Its props, events, and ref follow the selected element.\nElement or component to render."
+        },
+        {
+          "name": "className",
+          "type": "string"
         },
         {
           "name": "grow",
           "type": "ResponsiveValue<boolean>",
-          "defaultValue": "false",
           "description": "Lets the item take up any remaining space."
         },
         {
           "name": "shrink",
           "type": "ResponsiveValue<boolean>",
-          "defaultValue": "true",
           "description": "Lets the item shrink below its content size when space is tight."
         }
       ],

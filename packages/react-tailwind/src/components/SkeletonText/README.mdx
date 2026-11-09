@@ -34,7 +34,7 @@ Use one line for a single text placeholder and multiple lines for paragraphs. Th
 
 ## Accessibility
 
-The group and its single-line form expose `aria-busy="true"`. Treat skeletons as status-free layout placeholders and provide surrounding loading context; they should not replace a heading or label needed to understand the page.
+Neither form sets a role or `aria-busy` unless labelled (an `aria-label` or `aria-labelledby` opts into `role="img"`). Treat skeletons as status-free layout placeholders and provide surrounding loading context; they should not replace a heading or label needed to understand the page.
 
 ## Animation and reduced motion
 
@@ -46,7 +46,7 @@ Skeleton text uses the Primer `neutral-muted` and typography-height utilities. I
 
 ### Data attributes
 
-The root exposes `data-component="SkeletonText"` and `aria-busy="true"`. Individual multi-line boxes are `SkeletonBox` children with `aria-hidden="true"`.
+The root exposes `data-component="SkeletonText"`. Individual multi-line boxes are `SkeletonBox` children with `aria-hidden="true"`.
 
 ## Features and examples
 

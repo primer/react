@@ -7,12 +7,12 @@ import {cn} from '../../internal/cn'
 
 const avatarSizes = {small: 20, medium: 32, large: 40, xlarge: 48} as const
 const viewports = ['narrow', 'regular', 'wide'] as const
-const squareZIndices = ['z-[5]', 'z-[4]', 'z-[3]', 'z-[2]', 'z-[1]'] as const
-const expandedItemClassName = 'group-hover:opacity-100 group-focus-within:opacity-100'
+const squareZIndices = ['primer:z-[5]', 'primer:z-[4]', 'primer:z-[3]', 'primer:z-[2]', 'primer:z-[1]'] as const
+const expandedItemClassName = 'primer:group-hover:opacity-100 primer:group-focus-within:opacity-100'
 const expandedOverlapClassName =
-  'group-hover:[--mask-size:100%] group-hover:[mask-position:calc(var(--avatar-stack-size)*var(--mask-start))_center,0_0] group-hover:[margin-inline-start:var(--base-size-4)] group-focus-within:[--mask-size:100%] group-focus-within:[mask-position:calc(var(--avatar-stack-size)*var(--mask-start))_center,0_0] group-focus-within:[margin-inline-start:var(--base-size-4)]'
+  'primer:group-hover:[--mask-size:100%] primer:group-hover:[mask-position:calc(var(--avatar-stack-size)*var(--mask-start))_center,0_0] primer:group-hover:[margin-inline-start:var(--base-size-4)] primer:group-focus-within:[--mask-size:100%] primer:group-focus-within:[mask-position:calc(var(--avatar-stack-size)*var(--mask-start))_center,0_0] primer:group-focus-within:[margin-inline-start:var(--base-size-4)]'
 const expandedHiddenItemClassName =
-  'group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100'
+  'primer:group-hover:visible primer:group-hover:opacity-100 primer:group-focus-within:visible primer:group-focus-within:opacity-100'
 
 type StackStyle = React.CSSProperties & Record<`--${string}`, string | number>
 type ResponsiveAvatarSize = Partial<Record<(typeof viewports)[number], number>>
@@ -149,9 +149,9 @@ export const AvatarStack = React.forwardRef<HTMLElement, AvatarStackProps>(funct
       data-align-right={alignRight ? '' : undefined}
       data-responsive={size === undefined || responsiveSize ? '' : undefined}
       className={cn(
-        'relative flex h-[var(--avatar-stack-size)] isolate',
+        'primer:relative primer:flex primer:h-[var(--avatar-stack-size)] primer:isolate',
         responsiveSize || !size
-          ? '[--avatar-stack-size:var(--stack-size-narrow)] md:[--avatar-stack-size:var(--stack-size-regular)] 2xl:[--avatar-stack-size:var(--stack-size-wide)]'
+          ? 'primer:[--avatar-stack-size:var(--stack-size-narrow)] primer:md:[--avatar-stack-size:var(--stack-size-regular)] primer:2xl:[--avatar-stack-size:var(--stack-size-wide)]'
           : undefined,
         className,
       )}
@@ -162,7 +162,7 @@ export const AvatarStack = React.forwardRef<HTMLElement, AvatarStackProps>(funct
         data-component="AvatarStack.Body"
         data-disable-expand={disableExpand ? '' : undefined}
         tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
-        className={cn('group absolute flex', disableExpand && 'relative')}
+        className={cn('primer:group primer:absolute primer:flex', disableExpand && 'primer:relative')}
       >
         {React.Children.map(children, (child, index) => {
           if (!React.isValidElement<AvatarChildProps>(child)) return child
@@ -184,29 +184,33 @@ export const AvatarStack = React.forwardRef<HTMLElement, AvatarStackProps>(funct
           return React.cloneElement(child, {
             square: shape === 'square' || child.props.square,
             className: cn(
-              'relative flex size-[var(--avatar-stack-size)] shrink-0 overflow-hidden [margin-inline-start:var(--avatar-stack-margin)] [opacity:var(--avatar-stack-opacity)] transition-[margin,opacity,mask-position,mask-size] duration-200 ease-in-out',
+              'primer:relative primer:flex primer:size-[var(--avatar-stack-size)] primer:shrink-0 primer:overflow-hidden primer:[margin-inline-start:var(--avatar-stack-margin)] primer:[opacity:var(--avatar-stack-opacity)] primer:transition-[margin,opacity,mask-position,mask-size] primer:duration-200 primer:ease-in-out',
               !disableExpand && expandedItemClassName,
               index >= 1 &&
                 cn(
-                  '[mask-repeat:no-repeat,no-repeat] [mask-size:var(--mask-size)_var(--mask-size),auto] [mask-composite:exclude] [mask-position:calc((var(--avatar-stack-size)-var(--avatar-stack-item-overlap))*var(--mask-start)-var(--avatar-border-width))_center,0_0] [padding:0.1px]',
+                  'primer:[mask-repeat:no-repeat,no-repeat] primer:[mask-size:var(--mask-size)_var(--mask-size),auto] primer:[mask-composite:exclude] primer:[mask-position:calc((var(--avatar-stack-size)-var(--avatar-stack-item-overlap))*var(--mask-start)-var(--avatar-border-width))_center,0_0] primer:[padding:0.1px]',
                   !disableExpand && expandedOverlapClassName,
                 ),
-              shape === 'circle' && 'rounded-[50%]',
+              shape === 'circle' &&
+                'primer:[:where(&:not([data-component=Avatar]):not(:has([data-square])):not(:has([data-component=Avatar][data-shape=square])))]:rounded-[50%]',
               index >= 1 &&
                 shape === 'circle' &&
-                '[mask-image:radial-gradient(at_50%_50%,rgb(0_0_0)_70%,rgb(0_0_0/0)_71%),linear-gradient(rgb(0_0_0)_0_0)]',
+                'primer:[mask-image:radial-gradient(at_50%_50%,rgb(0_0_0)_70%,rgb(0_0_0/0)_71%),linear-gradient(rgb(0_0_0)_0_0)]',
               index >= 1 &&
                 shape === 'square' &&
-                '[mask-image:linear-gradient(at_50%_50%,rgb(0_0_0)_70%,rgb(0_0_0/0)_71%),linear-gradient(rgb(0_0_0)_0_0)]',
+                'primer:[mask-image:linear-gradient(at_50%_50%,rgb(0_0_0)_70%,rgb(0_0_0/0)_71%),linear-gradient(rgb(0_0_0)_0_0)]',
               isDirectImage &&
                 (shape === 'circle'
-                  ? '[box-shadow:0_0_0_var(--avatar-border-width)_transparent]'
+                  ? 'primer:[box-shadow:0_0_0_var(--avatar-border-width)_transparent]'
                   : cn(
-                      alignRight ? '[box-shadow:-1px_0_rgb(255_255_255)]' : '[box-shadow:1px_0_rgb(255_255_255)]',
-                      count === 1 && (alignRight ? '[box-shadow:-1px_0_rgb(0_0_0)]' : '[box-shadow:1px_0_rgb(0_0_0)]'),
+                      alignRight
+                        ? 'primer:[box-shadow:-1px_0_rgb(255_255_255)]'
+                        : 'primer:[box-shadow:1px_0_rgb(255_255_255)]',
+                      count === 1 &&
+                        (alignRight ? 'primer:[box-shadow:-1px_0_rgb(0_0_0)]' : 'primer:[box-shadow:1px_0_rgb(0_0_0)]'),
                     )),
               shape === 'square' && squareZIndices[index],
-              index >= 5 && cn('invisible opacity-0', !disableExpand && expandedHiddenItemClassName),
+              index >= 5 && cn('primer:invisible primer:opacity-0', !disableExpand && expandedHiddenItemClassName),
               child.props.className,
             ),
             style: itemStyle,

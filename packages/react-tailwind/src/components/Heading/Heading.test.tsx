@@ -12,6 +12,6 @@ describe('Heading', () => {
       </Heading>,
     )
     expect(screen.getByRole('heading', {level: 1})).toBe(ref.current)
-    expect(screen.getByRole('heading', {level: 1})).toHaveClass('m-0')
+    expect(screen.getByRole('heading', {level: 1})).toHaveClass('primer:m-0')
   })
 })

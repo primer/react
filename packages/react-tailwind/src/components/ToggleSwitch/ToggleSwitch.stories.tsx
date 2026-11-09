@@ -29,11 +29,12 @@ export const Default: Story = {
   render: () => <ToggleSwitchStory />,
 }
 export const Playground: Story = {
-  args: {disabled: false, loading: false, size: 'medium', statusLabelPosition: 'start'},
+  args: {disabled: false, loading: false, readOnly: false, size: 'medium', statusLabelPosition: 'start'},
   argTypes: {
     buttonLabelOff: {control: {type: 'text'}},
     buttonLabelOn: {control: {type: 'text'}},
     checked: {control: {type: 'boolean'}},
+    readOnly: {control: {type: 'boolean'}},
     size: {control: {type: 'radio'}, options: ['small', 'medium']},
     statusLabelPosition: {control: {type: 'radio'}, options: ['start', 'end']},
   },

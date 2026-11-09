@@ -2,6 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {useEffect, useId, useRef, useState} from 'react'
 import {expect, userEvent, within} from 'storybook/test'
 import {cn} from '../../internal/cn'
+import {Button} from '../Button'
 import {ToggleSwitch} from './ToggleSwitch'
 
 const meta = {title: 'React Tailwind/Forms/ToggleSwitch/Features', component: ToggleSwitch} satisfies Meta<
@@ -120,5 +121,40 @@ export const FocusVisible: Story = {
     const control = within(canvasElement).getByRole('switch')
     await userEvent.tab()
     await expect(control).toHaveFocus()
+  },
+}
+
+export const UnavailableControlled: Story = {
+  render: function UnavailableControlledExample() {
+    const [checked, setChecked] = useState(false)
+    const [mode, setMode] = useState<'available' | 'disabled' | 'loading' | 'both'>('disabled')
+    const [requests, setRequests] = useState(0)
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-wrap gap-2">
+          <Button onClick={() => setMode('disabled')}>Make disabled</Button>
+          <Button onClick={() => setMode('loading')}>Make loading</Button>
+          <Button onClick={() => setMode('both')}>Make disabled and loading</Button>
+          <Button onClick={() => setMode('available')}>Make available</Button>
+          <Button onClick={() => setChecked(!checked)}>Update value externally</Button>
+        </div>
+        <Button>Before switch</Button>
+        <Switch
+          checked={checked}
+          disabled={mode === 'disabled' || mode === 'both'}
+          loading={mode === 'loading' || mode === 'both'}
+          loadingLabel="Saving firewall"
+          loadingLabelDelay={0}
+          label="Firewall"
+          caption="Managed by your organization"
+          onCheckedChange={nextChecked => {
+            setRequests(requests + 1)
+            setChecked(nextChecked)
+          }}
+        />
+        <Button>After switch</Button>
+        <p role="status">Changes requested: {requests}</p>
+      </div>
+    )
   },
 }

@@ -51,7 +51,7 @@ const layout = (props: React.ComponentProps<typeof PageLayout.Pane>) => (
 const TabLink = ({children, ...props}: React.ComponentPropsWithoutRef<'a'>) => (
   <a
     {...props}
-    className="border border-b-0 border-transparent px-3 py-2 leading-5 text-default no-underline [font-size:var(--text-body-size-medium)] hover:text-default hover:no-underline aria-[current=page]:rounded-t-md aria-[current=page]:border-default aria-[current=page]:bg-default"
+    className="border-thin border-b-0 border-transparent px-3 py-2 leading-5 text-default no-underline [font-size:var(--text-body-size-medium)] hover:text-default hover:no-underline aria-[current=page]:rounded-t-md aria-[current=page]:border-default aria-[current=page]:bg-default"
   >
     {children}
   </a>
@@ -90,10 +90,10 @@ export const PullRequestPage: Story = {
         </div>
       </PageLayout.Header>
       <PageLayout.Content className="flex flex-col">
-        <div className="h-[200px] rounded-md border border-default" />
+        <div className="h-[200px] rounded-md border-thin border-default" />
         <div
           aria-label="Long content"
-          className="mt-4 overflow-x-auto whitespace-nowrap rounded-md border border-default p-4"
+          className="mt-4 overflow-x-auto whitespace-nowrap rounded-md border-thin border-default p-4"
           role="region"
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
           tabIndex={0}

@@ -140,11 +140,42 @@ One focus treatment applies across the package, so keyboard users see the same a
 
 Primer's ranges map onto Tailwind breakpoints. Narrow is the unprefixed base, so design narrow-first and layer wider ranges on top.
 
-| Primer range | Tailwind prefix | Applies from  |
-| ------------ | --------------- | ------------- |
-| Narrow       | none            | below `48rem` |
-| Regular      | `md:`           | `48rem`       |
-| Wide         | `2xl:`          | `87.5rem`     |
+<table style={{width: '100%', tableLayout: 'fixed', overflowWrap: 'anywhere'}}>
+  <thead>
+    <tr>
+      <th scope="col">Primer range</th>
+      <th scope="col">Tailwind prefix</th>
+      <th scope="col">Applies from</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Narrow</td>
+      <td>none</td>
+      <td>
+        below <code>48rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Regular</td>
+      <td>
+        <code>md:</code>
+      </td>
+      <td>
+        <code>48rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Wide</td>
+      <td>
+        <code>2xl:</code>
+      </td>
+      <td>
+        <code>87.5rem</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 `lg:` is `63.25rem` and is **not** the Primer wide range. Components that accept responsive values, such as `PageLayout` and `Stack`, take `{narrow, regular, wide}` objects instead of raw prefixes.
 

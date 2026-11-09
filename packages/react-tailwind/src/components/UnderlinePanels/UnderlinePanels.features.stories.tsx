@@ -24,6 +24,31 @@ const meta = {title: 'React Tailwind/Navigation/UnderlinePanels/Features', compo
 export default meta
 type Story = StoryObj<typeof meta>
 
+export const CustomListWrapper: StoryObj<{wrapperInset: 'none' | 'primer' | 'legacy'}> = {
+  args: {wrapperInset: 'none'},
+  argTypes: {wrapperInset: {control: 'select', options: ['none', 'primer', 'legacy']}},
+  render: ({wrapperInset}) => (
+    <UnderlinePanels defaultValue="overview">
+      <UnderlinePanels.List
+        aria-label="Alert details"
+        className="gap-4"
+        wrapperClassName={
+          {
+            none: 'px-0 pt-0 shadow-none',
+            primer: 'px-[16px] pt-0 shadow-none',
+            legacy: 'px-[24px] pt-0 shadow-none',
+          }[wrapperInset]
+        }
+      >
+        <UnderlinePanels.Tab value="overview">Overview</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab value="activity">Activity</UnderlinePanels.Tab>
+      </UnderlinePanels.List>
+      <UnderlinePanels.Panel value="overview">Alert overview</UnderlinePanels.Panel>
+      <UnderlinePanels.Panel value="activity">Alert activity</UnderlinePanels.Panel>
+    </UnderlinePanels>
+  ),
+}
+
 export const SelectedTab: Story = {
   render: () => (
     <UnderlinePanels defaultValue="two">
@@ -216,14 +241,20 @@ export const ManualActivation: Story = {
   },
 }
 
-export const InOverlay: Story = {
-  render: function InOverlay() {
+export const InOverlay: StoryObj<{activationMode: 'automatic' | 'manual'; strictMode: boolean}> = {
+  args: {activationMode: 'automatic', strictMode: false},
+  argTypes: {
+    activationMode: {control: 'select', options: ['automatic', 'manual']},
+    strictMode: {control: 'boolean'},
+  },
+  render: function InOverlay({activationMode, strictMode}) {
     const [refType, setRefType] = React.useState('branch')
-    return (
+    const overlay = (
       <AnchoredOverlay>
         <AnchoredOverlay.Trigger render={<Button>Select ref type</Button>} />
         <AnchoredOverlay.Content role="dialog" aria-label="Select a ref type" className="w-80">
           <UnderlinePanels
+            activationMode={activationMode}
             value={refType}
             onChange={({value}) => {
               action('onChange')({value})
@@ -239,5 +270,6 @@ export const InOverlay: Story = {
         </AnchoredOverlay.Content>
       </AnchoredOverlay>
     )
+    return strictMode ? <React.StrictMode>{overlay}</React.StrictMode> : overlay
   },
 }

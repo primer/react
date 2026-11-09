@@ -34,7 +34,7 @@ describe('getActionItemStateClassName', () => {
     options => {
       const className = getActionItemStateClassName(options)
       for (const property of itemColorProperties) {
-        expect(className).toMatch(new RegExp(`(^| )\\[${property}:`))
+        expect(className).toMatch(new RegExp(`(^| )primer:\\[${property}:`))
       }
     },
   )
@@ -42,8 +42,8 @@ describe('getActionItemStateClassName', () => {
   it('fills the hovered and pressed item with the transparent control tokens', () => {
     expect(classes({})).toEqual(
       expect.arrayContaining([
-        'hover:bg-[var(--control-transparent-bgColor-hover)]',
-        'active:bg-[var(--control-transparent-bgColor-active)]',
+        'primer:hover:bg-[var(--control-transparent-bgColor-hover)]',
+        'primer:active:bg-[var(--control-transparent-bgColor-active)]',
       ]),
     )
   })
@@ -52,55 +52,59 @@ describe('getActionItemStateClassName', () => {
     const className = classes({variant: 'danger'})
     expect(className).toEqual(
       expect.arrayContaining([
-        '[--action-list-item-label-fgColor:var(--control-danger-fgColor-rest)]',
-        'hover:bg-[var(--control-danger-bgColor-hover)]',
-        'hover:[--action-list-item-label-fgColor:var(--control-danger-fgColor-hover)]',
-        'active:bg-[var(--control-danger-bgColor-active)]',
+        'primer:[--action-list-item-label-fgColor:var(--control-danger-fgColor-rest)]',
+        'primer:hover:bg-[var(--control-danger-bgColor-hover)]',
+        'primer:hover:[--action-list-item-label-fgColor:var(--control-danger-fgColor-hover)]',
+        'primer:active:bg-[var(--control-danger-bgColor-active)]',
       ]),
     )
-    expect(className).not.toContain('hover:bg-[var(--control-transparent-bgColor-hover)]')
+    expect(className).not.toContain('primer:hover:bg-[var(--control-transparent-bgColor-hover)]')
   })
 
   it('marks the current item with the selected fill and the accent line', () => {
     const className = classes({active: true})
     expect(className).toEqual(
       expect.arrayContaining([
-        'bg-[var(--control-transparent-bgColor-selected)]',
-        'after:bg-[var(--borderColor-accent-emphasis)]',
-        '[&_[data-item-label]]:font-semibold',
-        '[--action-list-item-label-fgColor:var(--control-fgColor-rest)]',
+        'primer:bg-[var(--control-transparent-bgColor-selected)]',
+        'primer:after:bg-[var(--borderColor-accent-emphasis)]',
+        'primer:[&_[data-item-label]]:font-semibold',
+        'primer:[--action-list-item-label-fgColor:var(--control-fgColor-rest)]',
       ]),
     )
-    expect(className).not.toContain('[--action-list-item-label-fgColor:var(--fgColor-default)]')
+    expect(className).not.toContain('primer:[--action-list-item-label-fgColor:var(--fgColor-default)]')
   })
 
   it('keeps the neutral hover fill and a neutral resting label for a current destructive item', () => {
     const className = classes({active: true, variant: 'danger'})
-    expect(className).toContain('hover:bg-[var(--control-transparent-bgColor-hover)]')
-    expect(className).not.toContain('hover:bg-[var(--control-danger-bgColor-hover)]')
-    expect(className).toContain('[--action-list-item-label-fgColor:var(--control-fgColor-rest)]')
-    expect(className).toContain('hover:[--action-list-item-label-fgColor:var(--control-danger-fgColor-hover)]')
-    expect(className).toContain('active:bg-[var(--control-danger-bgColor-active)]')
+    expect(className).toContain('primer:hover:bg-[var(--control-transparent-bgColor-hover)]')
+    expect(className).not.toContain('primer:hover:bg-[var(--control-danger-bgColor-hover)]')
+    expect(className).toContain('primer:[--action-list-item-label-fgColor:var(--control-fgColor-rest)]')
+    expect(className).toContain('primer:hover:[--action-list-item-label-fgColor:var(--control-danger-fgColor-hover)]')
+    expect(className).toContain('primer:active:bg-[var(--control-danger-bgColor-active)]')
   })
 
   it('mutes a loading item, even when it is current', () => {
     const className = classes({active: true, loading: true})
-    expect(className).toContain('[--action-list-item-label-fgColor:var(--fgColor-muted)]')
-    expect(className).not.toContain('[--action-list-item-label-fgColor:var(--control-fgColor-rest)]')
+    expect(className).toContain('primer:[--action-list-item-label-fgColor:var(--fgColor-muted)]')
+    expect(className).not.toContain('primer:[--action-list-item-label-fgColor:var(--control-fgColor-rest)]')
   })
 
   it('keeps an inactive item unfilled on hover and press', () => {
     const className = classes({active: true, inactive: true})
     expect(className).toEqual(
-      expect.arrayContaining(['cursor-not-allowed', 'hover:bg-transparent', 'active:bg-transparent']),
+      expect.arrayContaining([
+        'primer:cursor-not-allowed',
+        'primer:hover:bg-transparent',
+        'primer:active:bg-transparent',
+      ]),
     )
-    expect(className).not.toContain('hover:bg-[var(--control-transparent-bgColor-hover)]')
+    expect(className).not.toContain('primer:hover:bg-[var(--control-transparent-bgColor-hover)]')
   })
 
   it('drops the current, hover, and highlight treatments of a disabled item', () => {
     const className = getActionItemStateClassName({active: true, disabled: true, highlightable: true})
-    expect(className).toContain('cursor-not-allowed')
-    expect(className).toContain('[--action-list-item-label-fgColor:var(--control-fgColor-disabled)]')
+    expect(className).toContain('primer:cursor-not-allowed')
+    expect(className).toContain('primer:[--action-list-item-label-fgColor:var(--control-fgColor-disabled)]')
     expect(className).not.toMatch(/bgColor-selected|bgColor-hover|accent-emphasis|data-highlighted/)
   })
 
@@ -108,24 +112,24 @@ describe('getActionItemStateClassName', () => {
     const className = classes({highlightable: true})
     expect(className).toEqual(
       expect.arrayContaining([
-        '[&:where([data-highlighted])]:bg-[var(--control-transparent-bgColor-selected)]',
-        '[&:where([data-highlighted])]:after:bg-[var(--borderColor-accent-emphasis)]',
+        'primer:[&:where([data-highlighted])]:bg-[var(--control-transparent-bgColor-selected)]',
+        'primer:[&:where([data-highlighted])]:after:bg-[var(--borderColor-accent-emphasis)]',
       ]),
     )
-    expect(className).not.toContain('[&_[data-item-label]]:font-semibold')
+    expect(className).not.toContain('primer:[&_[data-item-label]]:font-semibold')
   })
 
   it('keeps the label and description at full contrast while a trailing action loads', () => {
     const className = classes({active: true, trailingActionLoading: true})
     expect(className).toEqual(
       expect.arrayContaining([
-        '[--action-list-item-label-fgColor:var(--fgColor-default)]',
-        '[--action-list-item-description-fgColor:var(--fgColor-default)]',
+        'primer:[--action-list-item-label-fgColor:var(--fgColor-default)]',
+        'primer:[--action-list-item-description-fgColor:var(--fgColor-default)]',
       ]),
     )
-    expect(className).not.toContain('[--action-list-item-label-fgColor:var(--control-fgColor-rest)]')
+    expect(className).not.toContain('primer:[--action-list-item-label-fgColor:var(--control-fgColor-rest)]')
     expect(getActionItemStateClassName({disabled: true, trailingActionLoading: true})).not.toContain(
-      '[--action-list-item-label-fgColor:var(--fgColor-default)]',
+      'primer:[--action-list-item-label-fgColor:var(--fgColor-default)]',
     )
   })
 })

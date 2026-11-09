@@ -36,7 +36,7 @@ Compose `SkeletonBox` directly for media and custom shapes, or use `SkeletonText
 
 ## Accessibility
 
-The placeholder exposes `aria-busy="true"`. Keep it adjacent to a meaningful loading context and replace or remove it when content is ready. Do not use placeholder geometry as the only label for a control.
+The placeholder is decorative: it renders no role and no `aria-busy` (GitHub accessibility policy prohibits `aria-busy`, and legacy Primer never set it). Provide loading context separately, for example visually hidden “Loading” text, and announce completion through a persistent live region such as `AriaStatus` when the update matters. Passing `aria-label` or `aria-labelledby` opts into `role="img"`; use that only for a single placeholder, never once per repeated line. Do not use placeholder geometry as the only label for a control.
 
 ## Animation and reduced motion
 
@@ -48,7 +48,7 @@ The default background uses the `--skeletonLoader-bgColor` Primer token. Import 
 
 ### Data attributes
 
-The root exposes `data-component="SkeletonBox"` and `aria-busy="true"`. Dimensions and delay are represented by inline styles and mounting state.
+The root exposes `data-component="SkeletonBox"`. Dimensions and delay are represented by inline styles and mounting state.
 
 ## Alignment
 

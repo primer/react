@@ -25,6 +25,64 @@ type SingleInputStory = StoryObj<{
   required: boolean
 }>
 
+export const WithNonnativeLabel: Story = {
+  render: function NonnativeLabelStory() {
+    const id = React.useId()
+    const labelId = `${id}-label`
+    return (
+      <div className="grid gap-3">
+        <Button>Before</Button>
+        <FormControl id={id}>
+          <FormControl.Label id={labelId} htmlFor={id} render={<span />} nativeLabel={false}>
+            Script
+          </FormControl.Label>
+          <FormControl.Control aria-labelledby={labelId} />
+          <FormControl.Caption>Enter a script</FormControl.Caption>
+        </FormControl>
+        <Button>After</Button>
+      </div>
+    )
+  },
+}
+
+export const StandaloneValidation: Story = {
+  render: function StandaloneValidationStory() {
+    const [invalid, setInvalid] = React.useState(true)
+    return (
+      <div className="grid gap-4">
+        <div className="grid gap-1">
+          <label htmlFor="suggestion-editor" className="text-sm font-semibold">
+            Suggestion
+          </label>
+          <Textarea
+            id="suggestion-editor"
+            defaultValue="Proposed change"
+            aria-invalid={invalid || undefined}
+            aria-describedby={invalid ? 'suggestion-error' : undefined}
+          />
+        </div>
+        <div className="flex items-center gap-4">
+          <FormControl.Validation
+            id="suggestion-error"
+            variant={invalid ? 'error' : 'success'}
+            role={invalid ? 'alert' : undefined}
+          >
+            {invalid ? 'Suggestion could not be applied.' : 'Suggestion applied.'}
+          </FormControl.Validation>
+          <Button onClick={() => setInvalid(value => !value)}>Toggle validation</Button>
+        </div>
+        <FormControl id="nested-repository">
+          <FormControl.Label>Repository</FormControl.Label>
+          <TextInput defaultValue="primer/react" />
+          <FormControl.Validation variant={invalid ? 'error' : 'success'}>
+            {invalid ? 'Enter a valid repository.' : 'Repository is valid.'}
+          </FormControl.Validation>
+        </FormControl>
+      </div>
+    )
+  },
+}
+
 export const WithComplexInputs: Story = {
   render: () => (
     <Stack gap="none">
@@ -166,7 +224,7 @@ export const ValidationExample: Story = {
 function ColorCircle({color}: {color: string}) {
   return (
     <span
-      className="m-auto box-border block size-3.5 rounded-lg border border-solid"
+      className="m-auto box-border block size-3.5 rounded-lg border-thin border-solid"
       style={{backgroundColor: color, borderColor: color}}
     />
   )
@@ -215,7 +273,7 @@ export const WithSelectPanel: Story = {
           items={filteredItems}
           selected={selected}
           selectionVariant="multiple"
-          onSelectedChange={next => setSelected(Array.isArray(next) ? next : next ? [next] : [])}
+          onSelectedChange={setSelected}
           filterValue={filter}
           onFilterChange={setFilter}
         />

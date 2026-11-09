@@ -44,72 +44,74 @@ export interface SegmentedControlProps<Value extends string = string>
 const variantClasses: Record<ViewportRange, Record<'default' | 'subtle', string>> = {
   narrow: {
     default:
-      'border bg-[var(--controlTrack-bgColor-rest)] [--segmented-control-outer-radius:var(--borderRadius-medium)] [--segmented-control-button-bg-inset:var(--base-size-4)] [--segmented-control-button-bgColor-hover:var(--controlTrack-bgColor-hover)] [--segmented-control-knob-display:block] [--segmented-control-separator-color:var(--borderColor-default)] [--segmented-control-divider-display:none] [--segmented-control-button-fgColor:currentColor] [--segmented-control-button-pressed-fgColor:currentColor] [--segmented-control-content-padding:var(--base-size-8)] [--segmented-control-content-border-width:var(--borderWidth-thin)] [--segmented-control-pressed-content-bg:initial]',
+      'primer:border-thin primer:bg-[var(--controlTrack-bgColor-rest)] primer:[--segmented-control-outer-radius:var(--borderRadius-medium)] primer:[--segmented-control-button-bg-inset:var(--base-size-4)] primer:[--segmented-control-button-bgColor-hover:var(--controlTrack-bgColor-hover)] primer:[--segmented-control-knob-display:block] primer:[--segmented-control-separator-color:var(--borderColor-default)] primer:[--segmented-control-divider-display:none] primer:[--segmented-control-button-fgColor:currentColor] primer:[--segmented-control-button-pressed-fgColor:currentColor] primer:[--segmented-control-content-padding:var(--base-size-8)] primer:[--segmented-control-content-border-width:var(--borderWidth-thin)] primer:[--segmented-control-pressed-content-bg:initial]',
     subtle:
-      'border-0 bg-transparent [--segmented-control-outer-radius:var(--borderRadius-large)] [--segmented-control-button-bg-inset:0px] [--segmented-control-button-bgColor-hover:var(--button-invisible-bgColor-hover)] [--segmented-control-knob-display:none] [--segmented-control-separator-color:transparent] [--segmented-control-divider-display:block] [--segmented-control-button-fgColor:var(--fgColor-muted)] [--segmented-control-button-pressed-fgColor:var(--fgColor-default)] [--segmented-control-content-padding:var(--base-size-12)] [--segmented-control-content-border-width:0px] [--segmented-control-pressed-content-bg:var(--bgColor-muted)]',
+      'primer:border-0 primer:bg-transparent primer:[--segmented-control-outer-radius:var(--borderRadius-large)] primer:[--segmented-control-button-bg-inset:0px] primer:[--segmented-control-button-bgColor-hover:var(--button-invisible-bgColor-hover)] primer:[--segmented-control-knob-display:none] primer:[--segmented-control-separator-color:transparent] primer:[--segmented-control-divider-display:block] primer:[--segmented-control-button-fgColor:var(--fgColor-muted)] primer:[--segmented-control-button-pressed-fgColor:var(--fgColor-default)] primer:[--segmented-control-content-padding:var(--base-size-12)] primer:[--segmented-control-content-border-width:0px] primer:[--segmented-control-pressed-content-bg:var(--bgColor-muted)]',
   },
   regular: {
     default:
-      'md:border md:bg-[var(--controlTrack-bgColor-rest)] md:[--segmented-control-outer-radius:var(--borderRadius-medium)] md:[--segmented-control-button-bg-inset:var(--base-size-4)] md:[--segmented-control-button-bgColor-hover:var(--controlTrack-bgColor-hover)] md:[--segmented-control-knob-display:block] md:[--segmented-control-separator-color:var(--borderColor-default)] md:[--segmented-control-divider-display:none] md:[--segmented-control-button-fgColor:currentColor] md:[--segmented-control-button-pressed-fgColor:currentColor] md:[--segmented-control-content-padding:var(--base-size-8)] md:[--segmented-control-content-border-width:var(--borderWidth-thin)] md:[--segmented-control-pressed-content-bg:initial]',
+      'primer:md:border-thin primer:md:bg-[var(--controlTrack-bgColor-rest)] primer:md:[--segmented-control-outer-radius:var(--borderRadius-medium)] primer:md:[--segmented-control-button-bg-inset:var(--base-size-4)] primer:md:[--segmented-control-button-bgColor-hover:var(--controlTrack-bgColor-hover)] primer:md:[--segmented-control-knob-display:block] primer:md:[--segmented-control-separator-color:var(--borderColor-default)] primer:md:[--segmented-control-divider-display:none] primer:md:[--segmented-control-button-fgColor:currentColor] primer:md:[--segmented-control-button-pressed-fgColor:currentColor] primer:md:[--segmented-control-content-padding:var(--base-size-8)] primer:md:[--segmented-control-content-border-width:var(--borderWidth-thin)] primer:md:[--segmented-control-pressed-content-bg:initial]',
     subtle:
-      'md:border-0 md:bg-transparent md:[--segmented-control-outer-radius:var(--borderRadius-large)] md:[--segmented-control-button-bg-inset:0px] md:[--segmented-control-button-bgColor-hover:var(--button-invisible-bgColor-hover)] md:[--segmented-control-knob-display:none] md:[--segmented-control-separator-color:transparent] md:[--segmented-control-divider-display:block] md:[--segmented-control-button-fgColor:var(--fgColor-muted)] md:[--segmented-control-button-pressed-fgColor:var(--fgColor-default)] md:[--segmented-control-content-padding:var(--base-size-12)] md:[--segmented-control-content-border-width:0px] md:[--segmented-control-pressed-content-bg:var(--bgColor-muted)]',
+      'primer:md:border-0 primer:md:bg-transparent primer:md:[--segmented-control-outer-radius:var(--borderRadius-large)] primer:md:[--segmented-control-button-bg-inset:0px] primer:md:[--segmented-control-button-bgColor-hover:var(--button-invisible-bgColor-hover)] primer:md:[--segmented-control-knob-display:none] primer:md:[--segmented-control-separator-color:transparent] primer:md:[--segmented-control-divider-display:block] primer:md:[--segmented-control-button-fgColor:var(--fgColor-muted)] primer:md:[--segmented-control-button-pressed-fgColor:var(--fgColor-default)] primer:md:[--segmented-control-content-padding:var(--base-size-12)] primer:md:[--segmented-control-content-border-width:0px] primer:md:[--segmented-control-pressed-content-bg:var(--bgColor-muted)]',
   },
   wide: {
     default:
-      '2xl:border 2xl:bg-[var(--controlTrack-bgColor-rest)] 2xl:[--segmented-control-outer-radius:var(--borderRadius-medium)] 2xl:[--segmented-control-button-bg-inset:var(--base-size-4)] 2xl:[--segmented-control-button-bgColor-hover:var(--controlTrack-bgColor-hover)] 2xl:[--segmented-control-knob-display:block] 2xl:[--segmented-control-separator-color:var(--borderColor-default)] 2xl:[--segmented-control-divider-display:none] 2xl:[--segmented-control-button-fgColor:currentColor] 2xl:[--segmented-control-button-pressed-fgColor:currentColor] 2xl:[--segmented-control-content-padding:var(--base-size-8)] 2xl:[--segmented-control-content-border-width:var(--borderWidth-thin)] 2xl:[--segmented-control-pressed-content-bg:initial]',
+      'primer:2xl:border-thin primer:2xl:bg-[var(--controlTrack-bgColor-rest)] primer:2xl:[--segmented-control-outer-radius:var(--borderRadius-medium)] primer:2xl:[--segmented-control-button-bg-inset:var(--base-size-4)] primer:2xl:[--segmented-control-button-bgColor-hover:var(--controlTrack-bgColor-hover)] primer:2xl:[--segmented-control-knob-display:block] primer:2xl:[--segmented-control-separator-color:var(--borderColor-default)] primer:2xl:[--segmented-control-divider-display:none] primer:2xl:[--segmented-control-button-fgColor:currentColor] primer:2xl:[--segmented-control-button-pressed-fgColor:currentColor] primer:2xl:[--segmented-control-content-padding:var(--base-size-8)] primer:2xl:[--segmented-control-content-border-width:var(--borderWidth-thin)] primer:2xl:[--segmented-control-pressed-content-bg:initial]',
     subtle:
-      '2xl:border-0 2xl:bg-transparent 2xl:[--segmented-control-outer-radius:var(--borderRadius-large)] 2xl:[--segmented-control-button-bg-inset:0px] 2xl:[--segmented-control-button-bgColor-hover:var(--button-invisible-bgColor-hover)] 2xl:[--segmented-control-knob-display:none] 2xl:[--segmented-control-separator-color:transparent] 2xl:[--segmented-control-divider-display:block] 2xl:[--segmented-control-button-fgColor:var(--fgColor-muted)] 2xl:[--segmented-control-button-pressed-fgColor:var(--fgColor-default)] 2xl:[--segmented-control-content-padding:var(--base-size-12)] 2xl:[--segmented-control-content-border-width:0px] 2xl:[--segmented-control-pressed-content-bg:var(--bgColor-muted)]',
+      'primer:2xl:border-0 primer:2xl:bg-transparent primer:2xl:[--segmented-control-outer-radius:var(--borderRadius-large)] primer:2xl:[--segmented-control-button-bg-inset:0px] primer:2xl:[--segmented-control-button-bgColor-hover:var(--button-invisible-bgColor-hover)] primer:2xl:[--segmented-control-knob-display:none] primer:2xl:[--segmented-control-separator-color:transparent] primer:2xl:[--segmented-control-divider-display:block] primer:2xl:[--segmented-control-button-fgColor:var(--fgColor-muted)] primer:2xl:[--segmented-control-button-pressed-fgColor:var(--fgColor-default)] primer:2xl:[--segmented-control-content-padding:var(--base-size-12)] primer:2xl:[--segmented-control-content-border-width:0px] primer:2xl:[--segmented-control-pressed-content-bg:var(--bgColor-muted)]',
   },
 }
 
 const layoutClasses = {
   narrow: {
-    hidden: 'hidden',
-    fullWidth: 'flex w-full [--segmented-control-icon-width:auto]',
-    inline: 'inline-flex',
-    inlineAuto: 'inline-flex w-auto [--segmented-control-icon-width:var(--control-medium-size)]',
-    hideLabels: '[&_.segmentedControl-text]:hidden',
+    hidden: 'primer:hidden',
+    fullWidth: 'primer:flex primer:w-full primer:[--segmented-control-icon-width:auto]',
+    inline: 'primer:inline-flex',
+    inlineAuto: 'primer:inline-flex primer:w-auto primer:[--segmented-control-icon-width:var(--control-medium-size)]',
+    hideLabels: 'primer:[&_.segmentedControl-text]:hidden',
     showLabels: '',
-    groupedFullWidth: 'flex-auto',
-    groupedInline: 'flex-initial',
-    groupFullWidth: 'w-full',
-    groupInline: 'w-auto',
-    dropdownShown: 'flex',
-    dropdownHidden: 'hidden',
-    actionShown: 'flex',
-    actionHidden: 'hidden',
+    groupedFullWidth: 'primer:flex-auto',
+    groupedInline: 'primer:flex-initial',
+    groupFullWidth: 'primer:w-full',
+    groupInline: 'primer:w-auto',
+    dropdownShown: 'primer:flex',
+    dropdownHidden: 'primer:hidden',
+    actionShown: 'primer:flex',
+    actionHidden: 'primer:hidden',
   },
   regular: {
-    hidden: 'md:hidden',
-    fullWidth: 'md:flex md:w-full md:[--segmented-control-icon-width:auto]',
-    inline: 'md:inline-flex',
-    inlineAuto: 'md:inline-flex md:w-auto md:[--segmented-control-icon-width:var(--control-medium-size)]',
-    hideLabels: 'md:[&_.segmentedControl-text]:hidden',
-    showLabels: 'md:[&_.segmentedControl-text]:block',
-    groupedFullWidth: 'md:flex-auto',
-    groupedInline: 'md:flex-initial',
-    groupFullWidth: 'md:w-full',
-    groupInline: 'md:w-auto',
-    dropdownShown: 'md:flex',
-    dropdownHidden: 'md:hidden',
-    actionShown: 'md:flex',
-    actionHidden: 'md:hidden',
+    hidden: 'primer:md:hidden',
+    fullWidth: 'primer:md:flex primer:md:w-full primer:md:[--segmented-control-icon-width:auto]',
+    inline: 'primer:md:inline-flex',
+    inlineAuto:
+      'primer:md:inline-flex primer:md:w-auto primer:md:[--segmented-control-icon-width:var(--control-medium-size)]',
+    hideLabels: 'primer:md:[&_.segmentedControl-text]:hidden',
+    showLabels: 'primer:md:[&_.segmentedControl-text]:block',
+    groupedFullWidth: 'primer:md:flex-auto',
+    groupedInline: 'primer:md:flex-initial',
+    groupFullWidth: 'primer:md:w-full',
+    groupInline: 'primer:md:w-auto',
+    dropdownShown: 'primer:md:flex',
+    dropdownHidden: 'primer:md:hidden',
+    actionShown: 'primer:md:flex',
+    actionHidden: 'primer:md:hidden',
   },
   wide: {
-    hidden: '2xl:hidden',
-    fullWidth: '2xl:flex 2xl:w-full 2xl:[--segmented-control-icon-width:auto]',
-    inline: '2xl:inline-flex',
-    inlineAuto: '2xl:inline-flex 2xl:w-auto 2xl:[--segmented-control-icon-width:var(--control-medium-size)]',
-    hideLabels: '2xl:[&_.segmentedControl-text]:hidden',
-    showLabels: '2xl:[&_.segmentedControl-text]:block',
-    groupedFullWidth: '2xl:flex-auto',
-    groupedInline: '2xl:flex-initial',
-    groupFullWidth: '2xl:w-full',
-    groupInline: '2xl:w-auto',
-    dropdownShown: '2xl:flex',
-    dropdownHidden: '2xl:hidden',
-    actionShown: '2xl:flex',
-    actionHidden: '2xl:hidden',
+    hidden: 'primer:2xl:hidden',
+    fullWidth: 'primer:2xl:flex primer:2xl:w-full primer:2xl:[--segmented-control-icon-width:auto]',
+    inline: 'primer:2xl:inline-flex',
+    inlineAuto:
+      'primer:2xl:inline-flex primer:2xl:w-auto primer:2xl:[--segmented-control-icon-width:var(--control-medium-size)]',
+    hideLabels: 'primer:2xl:[&_.segmentedControl-text]:hidden',
+    showLabels: 'primer:2xl:[&_.segmentedControl-text]:block',
+    groupedFullWidth: 'primer:2xl:flex-auto',
+    groupedInline: 'primer:2xl:flex-initial',
+    groupFullWidth: 'primer:2xl:w-full',
+    groupInline: 'primer:2xl:w-auto',
+    dropdownShown: 'primer:2xl:flex',
+    dropdownHidden: 'primer:2xl:hidden',
+    actionShown: 'primer:2xl:flex',
+    actionHidden: 'primer:2xl:hidden',
   },
 } satisfies Record<ViewportRange, Record<string, string>>
 
@@ -133,8 +135,8 @@ function resolveRanges(
 }
 
 const knobClassName = cn(
-  'supports-[anchor-name:--value]:before:absolute supports-[anchor-name:--value]:before:[position-anchor:--segmented-control-current-item] supports-[anchor-name:--value]:before:[inset:anchor(top)_anchor(right)_anchor(bottom)_anchor(left)] supports-[anchor-name:--value]:before:[display:var(--segmented-control-knob-display,block)] supports-[anchor-name:--value]:before:rounded-[var(--segmented-control-outer-radius)] supports-[anchor-name:--value]:before:border supports-[anchor-name:--value]:before:border-[color:var(--controlKnob-borderColor-rest)] supports-[anchor-name:--value]:before:bg-[var(--controlKnob-bgColor-rest)]',
-  'supports-[anchor-name:--value]:motion-safe:before:[transition:inset_var(--base-duration-200)_var(--base-easing-easeInOut)] supports-[anchor-name:--value]:data-[disable-knob-transition]:before:[transition:none]',
+  'primer:supports-[anchor-name:--value]:before:absolute primer:supports-[anchor-name:--value]:before:[position-anchor:--segmented-control-current-item] primer:supports-[anchor-name:--value]:before:[inset:anchor(top)_anchor(right)_anchor(bottom)_anchor(left)] primer:supports-[anchor-name:--value]:before:[display:var(--segmented-control-knob-display,block)] primer:supports-[anchor-name:--value]:before:rounded-[var(--segmented-control-outer-radius)] primer:supports-[anchor-name:--value]:before:border-thin primer:supports-[anchor-name:--value]:before:border-[color:var(--controlKnob-borderColor-rest)] primer:supports-[anchor-name:--value]:before:bg-[var(--controlKnob-bgColor-rest)]',
+  'primer:supports-[anchor-name:--value]:motion-safe:before:[transition:inset_var(--base-duration-200)_var(--base-easing-easeInOut)] primer:supports-[anchor-name:--value]:data-[disable-knob-transition]:before:[transition:none]',
 )
 
 interface SegmentedControlContextValue {
@@ -176,6 +178,7 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
     className,
     defaultValue = emptyValues,
     fullWidth,
+    onKeyDown,
     onValueChange,
     size = 'medium',
     value,
@@ -226,12 +229,12 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
   const hasDropdown = ranges.some(({variant: rangeVariant}) => rangeVariant === 'dropdown')
   const grouped = hasDropdown || Boolean(action)
   const classes = cn(
-    'relative m-0 max-w-full rounded-md border-[color:var(--controlTrack-borderColor-rest,transparent)] p-0',
+    'primer:relative primer:m-0 primer:max-w-full primer:rounded-md primer:border-[color:var(--controlTrack-borderColor-rest,transparent)] primer:p-0',
     size === 'small'
-      ? 'h-7 text-[length:var(--text-body-size-small)]'
-      : 'h-8 text-[length:var(--text-body-size-medium)]',
+      ? 'primer:h-7 primer:text-[length:var(--text-body-size-small)]'
+      : 'primer:h-8 primer:text-[length:var(--text-body-size-medium)]',
     knobClassName,
-    grouped && 'min-w-0',
+    grouped && 'primer:min-w-0',
     ranges.map(({range, variant: rangeVariant, fullWidth: rangeFullWidth}) => {
       const layout = layoutClasses[range]
       return [
@@ -259,6 +262,10 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
       className={mergeClassName(classes, className)}
       data-component="SegmentedControl"
       data-size={size}
+      onKeyDown={event => {
+        onKeyDown?.(event)
+        if (rovingKeys.has(event.key)) event.preventBaseUIHandler()
+      }}
       onValueChange={handleValueChange}
       value={selectedValues}
     >
@@ -276,7 +283,7 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
     <SegmentedControlContext.Provider value={{registerButton, size}}>
       <div
         className={cn(
-          'inline-flex items-center gap-1',
+          'primer:inline-flex primer:items-center primer:gap-1',
           ranges.map(({range, fullWidth: rangeFullWidth}) =>
             rangeFullWidth
               ? layoutClasses[range].groupFullWidth
@@ -301,8 +308,10 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
                 aria-describedby={ariaDescribedBy}
                 aria-label={ariaLabel && `${selectedLabel}, ${ariaLabel}`}
                 aria-labelledby={ariaLabelledBy}
-                className="[&>svg:last-child]:-mr-1"
-                leadingVisual={selectedVisual ? <span className="flex text-muted">{selectedVisual}</span> : undefined}
+                className="primer:[&>svg:last-child]:-mr-1"
+                leadingVisual={
+                  selectedVisual ? <span className="primer:flex primer:text-muted">{selectedVisual}</span> : undefined
+                }
               >
                 {selectedLabel}
               </ActionMenu.Button>
@@ -356,20 +365,20 @@ const Root = React.forwardRef<HTMLDivElement, SegmentedControlProps>(function Ro
 })
 
 const buttonClassName = cn(
-  'relative -my-px block h-[calc(100%+2px)] grow cursor-pointer appearance-none rounded-[var(--segmented-control-outer-radius)] border-0 bg-transparent p-0 [font-family:inherit] text-[length:inherit] font-normal text-[color:var(--segmented-control-button-fgColor,currentColor)] first:-ml-px last:-mr-px [&:not(:last-child)]:mr-px',
-  'data-[pressed]:font-semibold data-[pressed]:text-[color:var(--segmented-control-button-pressed-fgColor,currentColor)]',
-  "after:absolute after:top-2 after:-right-0.5 after:bottom-2 after:w-px after:bg-[var(--segmented-control-separator-color,var(--borderColor-default))] last:after:hidden data-[pressed]:after:bg-transparent [&:has(+[data-pressed])]:after:bg-transparent [&:has(+[data-component='SegmentedControl.Divider']+[data-pressed])]:after:bg-transparent",
-  'hover:[&:not([data-pressed]):not([data-disabled])>.segmentedControl-content]:bg-[var(--segmented-control-button-bgColor-hover,var(--controlTrack-bgColor-hover))] active:[&:not([data-pressed]):not([data-disabled])>.segmentedControl-content]:bg-[var(--controlTrack-bgColor-active)]',
-  '[&_svg]:text-muted [&[data-disabled]:not([data-pressed])]:cursor-not-allowed [&[data-disabled]:not([data-pressed])]:text-disabled [&[data-disabled]:not([data-pressed])_svg]:text-disabled',
-  'focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-offset-[-1px] focus-visible:outline-[var(--fgColor-accent)] focus-visible:shadow-none focus-visible:not-last:after:w-0',
+  'primer:relative primer:-my-px primer:block primer:h-[calc(100%+2px)] primer:grow primer:cursor-pointer primer:appearance-none primer:rounded-[var(--segmented-control-outer-radius)] primer:border-0 primer:bg-transparent primer:p-0 primer:[font-family:inherit] primer:text-[length:inherit] primer:font-normal primer:text-[color:var(--segmented-control-button-fgColor,currentColor)] primer:first:-ml-px primer:last:-mr-px primer:[&:not(:last-child)]:mr-px',
+  'primer:data-[pressed]:font-semibold primer:data-[pressed]:text-[color:var(--segmented-control-button-pressed-fgColor,currentColor)]',
+  "primer:after:absolute primer:after:top-2 primer:after:-right-0.5 primer:after:bottom-2 primer:after:w-px primer:after:bg-[var(--segmented-control-separator-color,var(--borderColor-default))] primer:last:after:hidden primer:data-[pressed]:after:bg-transparent primer:[&:has(+[data-pressed])]:after:bg-transparent primer:[&:has(+[data-component='SegmentedControl.Divider']+[data-pressed])]:after:bg-transparent",
+  'primer:hover:[&:not([data-pressed]):not([data-disabled])>.segmentedControl-content]:bg-[var(--segmented-control-button-bgColor-hover,var(--controlTrack-bgColor-hover))] primer:active:[&:not([data-pressed]):not([data-disabled])>.segmentedControl-content]:bg-[var(--controlTrack-bgColor-active)]',
+  'primer:[&_svg]:text-muted primer:[&[data-disabled]:not([data-pressed])]:cursor-not-allowed primer:[&[data-disabled]:not([data-pressed])]:text-disabled primer:[&[data-disabled]:not([data-pressed])_svg]:text-disabled',
+  'primer:focus-visible:z-1 primer:focus-visible:outline-2 primer:focus-visible:outline-offset-[-1px] primer:focus-visible:outline-[var(--fgColor-accent)] primer:focus-visible:shadow-none primer:focus-visible:not-last:after:w-0',
   coarsePointerTouchTarget,
 )
 
 // Upstream derives the inner radius from a fixed 4px inset, so subtle segments get a 10px radius.
 const contentClassName = cn(
-  'segmentedControl-content m-[var(--segmented-control-button-bg-inset)] grid h-[calc(100%_-_2*var(--segmented-control-button-bg-inset))] grid-cols-[auto_minmax(0,max-content)_auto] items-center justify-center rounded-[calc(var(--segmented-control-outer-radius)_-_var(--base-size-4)_/_2)] border-[length:var(--segmented-control-content-border-width,var(--borderWidth-thin))] border-solid border-transparent px-[var(--segmented-control-content-padding,var(--base-size-8))] motion-safe:[transition:background-color_var(--base-duration-200)_var(--base-easing-easeInOut)]',
-  '[[data-pressed]>&]:m-0 [[data-pressed]>&]:h-full [[data-pressed]>&]:bg-[var(--segmented-control-pressed-content-bg,transparent)] [[data-pressed]>&]:px-3 [[data-pressed]>&]:[anchor-name:--segmented-control-current-item]',
-  'not-supports-[anchor-name:--value]:[[data-pressed]>&]:rounded-[var(--segmented-control-outer-radius)] not-supports-[anchor-name:--value]:[[data-pressed]>&]:border-[color:var(--controlKnob-borderColor-rest)] not-supports-[anchor-name:--value]:[[data-pressed]>&]:bg-[var(--segmented-control-pressed-content-bg,var(--controlKnob-bgColor-rest))]',
+  'segmentedControl-content primer:m-[var(--segmented-control-button-bg-inset)] primer:grid primer:h-[calc(100%_-_2*var(--segmented-control-button-bg-inset))] primer:grid-cols-[auto_minmax(0,max-content)_auto] primer:items-center primer:justify-center primer:rounded-[calc(var(--segmented-control-outer-radius)_-_var(--base-size-4)_/_2)] primer:border-[length:var(--segmented-control-content-border-width,var(--borderWidth-thin))] primer:border-solid primer:border-transparent primer:px-[var(--segmented-control-content-padding,var(--base-size-8))] primer:motion-safe:[transition:background-color_var(--base-duration-200)_var(--base-easing-easeInOut)]',
+  'primer:[[data-pressed]>&]:m-0 primer:[[data-pressed]>&]:h-full primer:[[data-pressed]>&]:bg-[var(--segmented-control-pressed-content-bg,transparent)] primer:[[data-pressed]>&]:px-3 primer:[[data-pressed]>&]:[anchor-name:--segmented-control-current-item]',
+  'primer:not-supports-[anchor-name:--value]:[[data-pressed]>&]:rounded-[var(--segmented-control-outer-radius)] primer:not-supports-[anchor-name:--value]:[[data-pressed]>&]:border-[color:var(--controlKnob-borderColor-rest)] primer:not-supports-[anchor-name:--value]:[[data-pressed]>&]:bg-[var(--segmented-control-pressed-content-bg,var(--controlKnob-bgColor-rest))]',
 )
 
 function subscribeToResize(element: Element | null, onChange: () => void) {
@@ -392,9 +401,21 @@ export interface SegmentedControlButtonProps<Value extends string = string>
   value: Value
 }
 
+// Primer's segmented control is a list of buttons, not a toolbar: every segment is a Tab stop and the arrow keys
+// neither move focus nor change selection, so the toggle group's roving focus is turned off.
+const rovingKeys = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'])
+
 // Base UI's grouped Toggle sets both `disabled` and `aria-disabled`; the native attribute already conveys the state.
+// Its roving `tabIndex` is replaced so every segment stays in the Tab order; disabled buttons are skipped natively.
 function renderToggleButton({'aria-disabled': ariaDisabled, ...props}: React.ComponentPropsWithRef<'button'>) {
-  return <button type="button" {...props} aria-disabled={props.disabled ? undefined : ariaDisabled} />
+  return (
+    <button
+      type="button"
+      {...props}
+      aria-disabled={props.disabled ? undefined : ariaDisabled}
+      tabIndex={props.disabled ? -1 : 0}
+    />
+  )
 }
 
 const Button = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(function Button(
@@ -436,16 +457,18 @@ const Button = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(
             value={value}
           >
             <span className={contentClassName}>
-              {leadingVisual ? <span className="col-start-1 mr-1">{renderIcon(leadingVisual)}</span> : null}
+              {leadingVisual ? (
+                <span className="primer:col-start-1 primer:mr-1">{renderIcon(leadingVisual)}</span>
+              ) : null}
               <span
                 ref={setLabel}
-                className="segmentedControl-text col-start-2 min-w-0 truncate after:pointer-events-none after:invisible after:block after:h-0 after:overflow-hidden after:font-semibold after:select-none after:content-[attr(data-text)]"
+                className="segmentedControl-text primer:col-start-2 primer:min-w-0 primer:truncate primer:after:pointer-events-none primer:after:invisible primer:after:block primer:after:h-0 primer:after:overflow-hidden primer:after:font-semibold primer:after:select-none primer:after:content-[attr(data-text)]"
                 data-text={typeof children === 'string' ? children : undefined}
               >
                 {children}
               </span>
               {count !== undefined && (
-                <span className="col-start-3 ms-2 flex items-center">
+                <span className="primer:col-start-3 primer:ms-2 primer:flex primer:items-center">
                   <CounterLabel>{count}</CounterLabel>
                 </span>
               )}
@@ -507,8 +530,8 @@ const IconButton = React.forwardRef<HTMLButtonElement, SegmentedControlIconButto
               cn(
                 buttonClassName,
                 count === undefined
-                  ? 'w-[var(--segmented-control-icon-width,var(--control-medium-size))]'
-                  : 'min-w-[var(--segmented-control-icon-width,var(--control-medium-size))]',
+                  ? 'primer:w-[var(--segmented-control-icon-width,var(--control-medium-size))]'
+                  : 'primer:min-w-[var(--segmented-control-icon-width,var(--control-medium-size))]',
               ),
               className,
             )}
@@ -519,7 +542,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, SegmentedControlIconButto
             <span className={contentClassName}>
               {renderIcon(icon)}
               {count !== undefined && (
-                <span className="col-start-3 ms-2 flex items-center">
+                <span className="primer:col-start-3 primer:ms-2 primer:flex primer:items-center">
                   <CounterLabel>{count}</CounterLabel>
                 </span>
               )}
@@ -551,7 +574,7 @@ const Divider = React.forwardRef<HTMLDivElement, SegmentedControlDividerProps>(f
       ref={ref}
       aria-hidden="true"
       className={cn(
-        'my-2 ms-2 me-[calc(var(--base-size-8)-1px)] w-px self-stretch bg-[var(--borderColor-default)] [display:var(--segmented-control-divider-display,none)]',
+        'primer:my-2 primer:ms-2 primer:me-[calc(var(--base-size-8)-1px)] primer:w-px primer:self-stretch primer:bg-[var(--borderColor-default)] primer:[display:var(--segmented-control-divider-display,none)]',
         className,
       )}
       data-component="SegmentedControl.Divider"
@@ -603,7 +626,7 @@ function Action({disabled, icon: Icon, label, loading, onClick}: SegmentedContro
   }
 
   return (
-    <div className="flex items-center" data-component="SegmentedControl.Action">
+    <div className="primer:flex primer:items-center" data-component="SegmentedControl.Action">
       <PrimerIconButton
         aria-label={label}
         disabled={disabled}

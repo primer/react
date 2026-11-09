@@ -15,6 +15,18 @@
       "id": "react-tailwind-navigation-treeview-features--files"
     },
     {
+      "id": "react-tailwind-navigation-treeview-features--without-guides"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--label-clipping"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--linked-files"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--link-tree-visual-parity"
+    },
+    {
       "id": "react-tailwind-navigation-treeview-features--files-changed"
     },
     {
@@ -73,13 +85,16 @@
     {
       "name": "flat",
       "type": "boolean",
-      "defaultValue": "false",
-      "description": "Removes the indentation guides, for a tree that is only one level deep."
+      "description": "Removes indentation and expansion toggles, for a tree that is only one level deep."
+    },
+    {
+      "name": "showGuides",
+      "type": "boolean",
+      "description": "Shows indentation guides without changing the nesting or expansion controls."
     },
     {
       "name": "truncate",
       "type": "boolean",
-      "defaultValue": "true",
       "description": "Clips long item labels to one line instead of wrapping them."
     }
   ],
@@ -125,8 +140,7 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "'li'",
-          "description": "Element to render. Anything other than `li` is wrapped in a presentational list item."
+          "description": "Element to render. Use `as=\"a\"` with `href` for a native link."
         },
         {
           "name": "containIntrinsicSize",
@@ -200,11 +214,7 @@
           "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
           "description": "Visual shown after the label. Accepts a callback to vary it with the item's expanded state."
         }
-      ],
-      "passthrough": {
-        "element": "li",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
-      }
+      ]
     },
     {
       "name": "TreeView.LeadingAction",
@@ -243,6 +253,49 @@
       "passthrough": {
         "element": "span",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "TreeView.LinkTree",
+      "props": [
+        {
+          "name": "flat",
+          "type": "boolean",
+          "description": "Removes indentation and expansion toggles, for a tree that is only one level deep."
+        },
+        {
+          "name": "showGuides",
+          "type": "boolean",
+          "description": "Shows indentation guides without changing the nesting or expansion controls."
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "description": "Clips long item labels to one line instead of wrapping them."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "TreeView.LinkTree.SubTree",
+      "props": [
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number of placeholder rows to show while the subtree loads. Without it, a spinner row is shown."
+        },
+        {
+          "name": "state",
+          "type": "SubTreeState",
+          "description": "Loading state of the subtree. `loading` shows placeholders and announces the load; moving from `loading` to\n`done` announces the result and moves focus from a focused placeholder to the first loaded item."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
       }
     },
     {

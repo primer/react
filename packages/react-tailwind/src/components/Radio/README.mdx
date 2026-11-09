@@ -21,6 +21,11 @@ import * as Examples from './Radio.examples.stories'
 
 ```tsx
 import {Radio} from '@primer/react-tailwind/Radio'
+import {FormControl} from '@primer/react-tailwind/FormControl'
+;<FormControl layout="horizontal">
+  <Radio name="shipping" value="standard" />
+  <FormControl.Label>Standard shipping</FormControl.Label>
+</FormControl>
 import {RadioGroup} from '@primer/react-tailwind/RadioGroup'
 ```
 

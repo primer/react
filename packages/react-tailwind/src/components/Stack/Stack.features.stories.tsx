@@ -7,7 +7,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const Placeholder = ({label}: {label: string}) => (
-  <div className="rounded-md border border-accent-muted bg-accent-muted px-4 py-2 text-xs leading-[18px]">{label}</div>
+  <div className="rounded-md border-thin border-accent-muted bg-accent-muted px-4 py-2 text-xs leading-[18px]">
+    {label}
+  </div>
 )
 
 function Items() {

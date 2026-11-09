@@ -4,12 +4,13 @@ import {TreeView} from './TreeView'
 const meta = {
   title: 'React Tailwind/Navigation/TreeView',
   component: TreeView,
-  args: {flat: false, truncate: true},
+  args: {flat: false, showGuides: true, truncate: true},
   argTypes: {
     flat: {control: 'boolean'},
+    showGuides: {control: 'boolean'},
     truncate: {control: 'boolean'},
   },
-  parameters: {controls: {include: ['flat', 'truncate']}},
+  parameters: {controls: {include: ['flat', 'showGuides', 'truncate']}},
   decorators: [
     Story => (
       <div className="max-w-[400px]">

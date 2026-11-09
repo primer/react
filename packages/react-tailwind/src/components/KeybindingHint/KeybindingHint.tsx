@@ -28,7 +28,7 @@ export const KeybindingHint = React.memo(function KeybindingHint({
   return (
     <kbd
       className={cn(
-        'relative overflow-visible whitespace-nowrap border-0 bg-transparent p-0 [font-family:inherit] [font-size:inherit] [line-height:inherit] align-baseline text-inherit shadow-none',
+        'primer:relative primer:overflow-visible primer:whitespace-nowrap primer:border-0 primer:bg-transparent primer:p-0 primer:[font-family:inherit] primer:[font-size:inherit] primer:[line-height:inherit] primer:align-baseline primer:text-inherit primer:shadow-none',
         className,
       )}
       data-component="KeybindingHint"
@@ -38,27 +38,28 @@ export const KeybindingHint = React.memo(function KeybindingHint({
         <React.Fragment key={`${chord}-${index}`}>
           {index > 0 && (
             <>
-              <span className="sr-only">then</span>{' '}
+              <span className="primer:sr-only">then</span>{' '}
             </>
           )}
           <span
             data-kbd-chord
             className={cn(
-              'inline-flex justify-center gap-[0.5ch] overflow-hidden border font-normal align-baseline',
+              'primer:inline-flex primer:justify-center primer:gap-[0.5ch] primer:overflow-hidden primer:border-thin primer:font-normal primer:align-baseline',
               size === 'small'
-                ? 'min-w-4 rounded-sm p-0.5 text-[11px] leading-2'
-                : 'rounded-md p-1 text-xs leading-[10px]',
-              size !== 'small' && variant === 'default' && 'min-w-5',
-              variant === 'default' && 'border-default bg-transparent text-muted',
-              variant === 'onEmphasis' && 'border-transparent bg-[var(--counter-bgColor-emphasis)] text-on-emphasis',
+                ? 'primer:min-w-4 primer:rounded-sm primer:p-0.5 primer:text-[11px] primer:leading-2'
+                : 'primer:rounded-md primer:p-1 primer:text-xs primer:leading-[10px]',
+              size !== 'small' && variant === 'default' && 'primer:min-w-5',
+              variant === 'default' && 'primer:border-default primer:bg-transparent primer:text-muted',
+              variant === 'onEmphasis' &&
+                'primer:border-transparent primer:bg-[var(--counter-bgColor-emphasis)] primer:text-on-emphasis',
               variant === 'onPrimary' &&
-                'border-transparent bg-[var(--button-primary-bgColor-active)] text-on-emphasis',
+                'primer:border-transparent primer:bg-[var(--button-primary-bgColor-active)] primer:text-on-emphasis',
             )}
           >
             {splitChord(chord).map((key, keyIndex) => (
               <React.Fragment key={`${key}-${keyIndex}`}>
                 {keyIndex > 0 && format === 'full' ? <span aria-hidden="true"> + </span> : ' '}
-                <span className="sr-only">{accessibleKeyName(key, currentPlatform)}</span>
+                <span className="primer:sr-only">{accessibleKeyName(key, currentPlatform)}</span>
                 <span aria-hidden="true">
                   {format === 'full' ? fullKeyName(key, currentPlatform) : condensedKeyName(key, currentPlatform)}
                 </span>

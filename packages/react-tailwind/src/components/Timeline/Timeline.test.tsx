@@ -26,8 +26,8 @@ describe('Timeline', () => {
       </Timeline>,
     )
     expect(screen.getByTestId('timeline')).toHaveClass(
-      '[&[data-clip-sidebar=both]>li:first-child]:pt-0',
-      '[&[data-clip-sidebar=both]>li:last-child]:pb-0',
+      'primer:[&[data-clip-sidebar=both]>li:first-child]:pt-0',
+      'primer:[&[data-clip-sidebar=both]>li:last-child]:pb-0',
     )
   })
 
@@ -79,7 +79,11 @@ describe('Timeline', () => {
       </Timeline>,
     )
 
-    expect(screen.getAllByRole('listitem').at(-1)).toHaveClass('pt-1', 'pb-0', '[&_[data-timeline-badge]]:h-4')
+    expect(screen.getAllByRole('listitem').at(-1)).toHaveClass(
+      'primer:pt-1',
+      'primer:pb-0',
+      'primer:[&_[data-timeline-badge]]:h-4',
+    )
     expect(screen.getAllByTestId('break').at(-1)).toHaveAttribute('aria-hidden', 'true')
   })
 })

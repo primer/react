@@ -27,6 +27,27 @@ import {Overlay} from '@primer/react-tailwind'
 
 Select an appropriate role, give dialogs an accessible name, and provide focus management and dismissal when the surface is interactive.
 
+`Overlay` does not open a portal, position itself relative to an anchor, dismiss on Escape or outside interaction, or move focus. Do not pass the legacy behavioral props to it, including through a prop spread. Use `Popover` or `AnchoredOverlay` for an anchored interactive surface, or `Dialog` for a modal dialog; their roots own open state and their popup parts own initial and final focus.
+
+For an anchored surface that needs the `Overlay` appearance, let `Popover` own its behavior and render `Overlay` as its popup:
+
+```tsx
+import {Button, Overlay, Popover} from '@primer/react-tailwind'
+;<Popover>
+  <Popover.Trigger render={<Button>Open settings</Button>} />
+  <Popover.Portal>
+    <Popover.Positioner>
+      <Popover.Popup aria-label="Settings" render={<Overlay className="relative" />}>
+        {/* Settings and nested popups */}
+      </Popover.Popup>
+    </Popover.Positioner>
+  </Popover.Portal>
+</Popover>
+```
+
+In this composition, nested `ActionMenu`, `Popover`, and `Dialog` children can use their normal portals without a separate document-level outside-click listener. Their owner remains open while a child is activated or dismissed. This does not make an arbitrary legacy outside-click listener portal-aware; migrate the owner and verify any custom portal or dismissal behavior separately.
+
 <Canvas of={Features.DropdownOverlay} />
 
 <Canvas of={Examples.ControlledDialog} />
+<Canvas of={Examples.PortaledChildren} />

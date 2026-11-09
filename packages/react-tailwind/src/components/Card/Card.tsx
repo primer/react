@@ -7,15 +7,15 @@ import {isPartOf, resolveRegions} from '../../internal/regions'
 import type {RegionProps} from '../../utils/types'
 
 const card = cva(
-  'relative overflow-hidden border border-default bg-default shadow-[var(--shadow-resting-small)] auto-rows-[max-content_auto]',
+  'primer:relative primer:overflow-hidden primer:border-thin primer:border-default primer:bg-default primer:shadow-[var(--shadow-resting-small)] primer:auto-rows-[max-content_auto]',
   {
     variants: {
-      padding: {none: 'p-0', condensed: 'p-4', normal: 'p-6'},
-      borderRadius: {medium: 'rounded-md', large: 'rounded-lg'},
-      layout: {default: 'grid gap-4', compact: 'flex items-start gap-2'},
+      padding: {none: 'primer:p-0', condensed: 'primer:p-4', normal: 'primer:p-6'},
+      borderRadius: {medium: 'primer:rounded-md', large: 'primer:rounded-lg'},
+      layout: {default: 'primer:grid primer:gap-4', compact: 'primer:flex primer:items-start primer:gap-2'},
     },
     defaultVariants: {padding: 'normal', borderRadius: 'large', layout: 'default'},
-    compoundVariants: [{layout: 'compact', padding: 'normal', class: 'p-4'}],
+    compoundVariants: [{layout: 'compact', padding: 'normal', class: 'primer:p-4'}],
   },
 )
 const CardContext = React.createContext<{
@@ -94,24 +94,28 @@ function CardComponent(
       {header ? (
         <div
           className={cn(
-            'block h-auto w-full',
-            layout === 'compact' && 'w-auto shrink-0',
-            image && padding === 'normal' && '-mx-6 -mt-6 w-[calc(100%+3rem)]',
-            image && padding === 'condensed' && '-mx-4 -mt-4 w-[calc(100%+2rem)]',
+            'primer:block primer:h-auto primer:w-full',
+            layout === 'compact' && 'primer:w-auto primer:shrink-0',
+            image && padding === 'normal' && 'primer:-mx-6 primer:-mt-6 primer:w-[calc(100%+3rem)]',
+            image && padding === 'condensed' && 'primer:-mx-4 primer:-mt-4 primer:w-[calc(100%+2rem)]',
           )}
         >
           {header}
         </div>
       ) : null}
-      <div className={cn('grid gap-4', layout === 'compact' && 'flex-1')}>
-        <div className="grid gap-2">
+      <div className={cn('primer:grid primer:gap-4', layout === 'compact' && 'primer:flex-1')}>
+        <div className="primer:grid primer:gap-2">
           {labelledHeading}
           {description}
           {customChildren}
         </div>
-        {metadata ? <div className="flex items-center gap-4 text-sm leading-[21px] text-muted">{metadata}</div> : null}
+        {metadata ? (
+          <div className="primer:flex primer:items-center primer:gap-4 primer:text-sm primer:leading-[21px] primer:text-muted">
+            {metadata}
+          </div>
+        ) : null}
       </div>
-      {action ? <div className="absolute right-4 top-4 z-1">{action}</div> : null}
+      {action ? <div className="primer:absolute primer:right-4 primer:top-4 primer:z-1">{action}</div> : null}
     </>
   ) : (
     children
@@ -152,8 +156,8 @@ export function CardIcon({icon: Icon, className, 'aria-label': ariaLabel}: CardI
       aria-hidden={ariaLabel ? undefined : true}
       aria-label={ariaLabel}
       className={cn(
-        'flex items-center justify-start text-muted',
-        layout === 'default' && 'size-8 justify-center rounded-md bg-muted',
+        'primer:flex primer:items-center primer:justify-start primer:text-muted',
+        layout === 'default' && 'primer:size-8 primer:justify-center primer:rounded-md primer:bg-muted',
         className,
       )}
       data-component="Card.Icon"
@@ -172,7 +176,13 @@ export const CardImage = React.forwardRef<HTMLImageElement, CardImageProps>(func
   ref,
 ) {
   return (
-    <img {...rest} ref={ref} alt={alt} className={cn('block h-auto w-full', className)} data-component="Card.Image" />
+    <img
+      {...rest}
+      ref={ref}
+      alt={alt}
+      className={cn('primer:block primer:h-auto primer:w-full', className)}
+      data-component="Card.Image"
+    />
   )
 })
 export interface CardHeadingProps extends React.ComponentPropsWithoutRef<'h3'> {
@@ -189,8 +199,10 @@ export const CardHeading = React.forwardRef<HTMLHeadingElement, CardHeadingProps
       {...rest}
       ref={ref}
       className={cn(
-        'm-0 font-semibold text-default',
-        layout === 'compact' ? 'relative -top-1 text-sm leading-[21px]' : 'text-[16px] leading-6',
+        'primer:m-0 primer:font-semibold primer:text-default',
+        layout === 'compact'
+          ? 'primer:relative primer:-top-1 primer:text-sm primer:leading-[21px]'
+          : 'primer:text-[16px] primer:leading-6',
         className,
       )}
       data-component="Card.Heading"
@@ -204,7 +216,7 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, React.Comp
       <p
         {...rest}
         ref={ref}
-        className={cn('m-0 text-sm leading-[21px] text-muted', className)}
+        className={cn('primer:m-0 primer:text-sm primer:leading-[21px] primer:text-muted', className)}
         data-component="Card.Description"
       />
     )
@@ -219,7 +231,7 @@ export const CardMetadata = React.forwardRef<HTMLDivElement, React.ComponentProp
       <div
         {...rest}
         ref={ref}
-        className={cn('flex items-center gap-2 text-xs leading-[19.5px]', className)}
+        className={cn('primer:flex primer:items-center primer:gap-2 primer:text-xs primer:leading-[19.5px]', className)}
         data-component="Card.Metadata"
       />
     )

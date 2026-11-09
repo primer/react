@@ -19,19 +19,19 @@ export type DialogAlign = 'top' | 'center' | 'bottom'
 type DataAttributes = Record<`data-${string}`, string | undefined>
 
 const widthClassNames = {
-  small: 'w-[296px]',
-  medium: 'w-[320px]',
-  large: 'w-[480px]',
-  xlarge: 'w-[640px]',
+  small: 'primer:w-[296px]',
+  medium: 'primer:w-[320px]',
+  large: 'primer:w-[480px]',
+  xlarge: 'primer:w-[640px]',
 } as const
 
 const heightClassNames = {
-  small: 'h-[480px]',
-  large: 'h-[640px]',
-  auto: 'h-auto',
+  small: 'primer:h-[480px]',
+  large: 'primer:h-[640px]',
+  auto: 'primer:h-auto',
 } as const satisfies Record<DialogHeight, string>
 
-const sizeClassName = 'min-w-[296px] max-w-[calc(100dvw-64px)] max-h-[calc(100dvh-64px)]'
+const sizeClassName = 'primer:min-w-[min(296px,100%)] primer:max-w-[calc(100dvw-64px)] primer:max-h-[calc(100dvh-64px)]'
 
 function isNamedWidth(width: DialogWidth): width is keyof typeof widthClassNames {
   return width === 'small' || width === 'medium' || width === 'large' || width === 'xlarge'
@@ -51,7 +51,7 @@ export function getDialogSize({height, width}: {height: DialogHeight; width: Dia
   return {
     className: cn(
       sizeClassName,
-      namedWidth ? widthClassNames[width] : 'w-[var(--dialog-width)]',
+      namedWidth ? widthClassNames[width] : 'primer:w-[var(--dialog-width)]',
       heightClassNames[height],
     ),
     dataAttributes,
@@ -67,62 +67,77 @@ type Range = 'all' | 'regular' | 'narrow'
 
 const popupPositionClassNames = {
   all: {
-    center: 'data-[starting-style]:scale-50',
-    left: 'h-dvh max-h-none rounded-l-none data-[starting-style]:-translate-x-full data-[ending-style]:-translate-x-full',
+    center: 'primer:data-[starting-style]:scale-50',
+    left: 'primer:h-dvh primer:max-h-none primer:rounded-l-none primer:data-[starting-style]:-translate-x-full primer:data-[ending-style]:-translate-x-full',
     right:
-      'h-dvh max-h-none rounded-r-none data-[starting-style]:translate-x-full data-[ending-style]:translate-x-full',
+      'primer:h-dvh primer:max-h-none primer:rounded-r-none primer:data-[starting-style]:translate-x-full primer:data-[ending-style]:translate-x-full',
     bottom:
-      'h-auto w-dvw max-w-dvw rounded-b-none data-[starting-style]:translate-y-full data-[ending-style]:translate-y-full',
-    fullscreen: 'h-full max-h-dvh w-full max-w-dvw grow rounded-none data-[starting-style]:scale-50',
+      'primer:h-auto primer:w-dvw primer:max-w-dvw primer:rounded-b-none primer:data-[starting-style]:translate-y-full primer:data-[ending-style]:translate-y-full',
+    fullscreen:
+      'primer:h-full primer:max-h-dvh primer:w-full primer:max-w-dvw primer:grow primer:rounded-none primer:data-[starting-style]:scale-50',
   },
   regular: {
-    center: 'md:data-[starting-style]:scale-50',
-    left: 'md:h-dvh md:max-h-none md:rounded-l-none md:data-[starting-style]:-translate-x-full md:data-[ending-style]:-translate-x-full',
+    center: 'primer:md:data-[starting-style]:scale-50',
+    left: 'primer:md:h-dvh primer:md:max-h-none primer:md:rounded-l-none primer:md:data-[starting-style]:-translate-x-full primer:md:data-[ending-style]:-translate-x-full',
     right:
-      'md:h-dvh md:max-h-none md:rounded-r-none md:data-[starting-style]:translate-x-full md:data-[ending-style]:translate-x-full',
+      'primer:md:h-dvh primer:md:max-h-none primer:md:rounded-r-none primer:md:data-[starting-style]:translate-x-full primer:md:data-[ending-style]:translate-x-full',
     bottom:
-      'md:h-auto md:w-dvw md:max-w-dvw md:rounded-b-none md:data-[starting-style]:translate-y-full md:data-[ending-style]:translate-y-full',
+      'primer:md:h-auto primer:md:w-dvw primer:md:max-w-dvw primer:md:rounded-b-none primer:md:data-[starting-style]:translate-y-full primer:md:data-[ending-style]:translate-y-full',
     fullscreen:
-      'md:h-full md:max-h-dvh md:w-full md:max-w-dvw md:grow md:rounded-none md:data-[starting-style]:scale-50',
+      'primer:md:h-full primer:md:max-h-dvh primer:md:w-full primer:md:max-w-dvw primer:md:grow primer:md:rounded-none primer:md:data-[starting-style]:scale-50',
   },
   narrow: {
-    center: 'max-md:data-[starting-style]:scale-50',
-    left: 'max-md:h-dvh max-md:max-h-none max-md:rounded-l-none max-md:data-[starting-style]:-translate-x-full max-md:data-[ending-style]:-translate-x-full',
+    center: 'primer:max-md:data-[starting-style]:scale-50',
+    left: 'primer:max-md:h-dvh primer:max-md:max-h-none primer:max-md:rounded-l-none primer:max-md:data-[starting-style]:-translate-x-full primer:max-md:data-[ending-style]:-translate-x-full',
     right:
-      'max-md:h-dvh max-md:max-h-none max-md:rounded-r-none max-md:data-[starting-style]:translate-x-full max-md:data-[ending-style]:translate-x-full',
+      'primer:max-md:h-dvh primer:max-md:max-h-none primer:max-md:rounded-r-none primer:max-md:data-[starting-style]:translate-x-full primer:max-md:data-[ending-style]:translate-x-full',
     bottom:
-      'max-md:h-auto max-md:w-dvw max-md:max-w-dvw max-md:rounded-b-none max-md:data-[starting-style]:translate-y-full max-md:data-[ending-style]:translate-y-full',
+      'primer:max-md:h-auto primer:max-md:w-dvw primer:max-md:max-w-dvw primer:max-md:rounded-b-none primer:max-md:data-[starting-style]:translate-y-full primer:max-md:data-[ending-style]:translate-y-full',
     fullscreen:
-      'max-md:h-full max-md:max-h-dvh max-md:w-full max-md:max-w-dvw max-md:grow max-md:rounded-none max-md:data-[starting-style]:scale-50',
+      'primer:max-md:h-full primer:max-md:max-h-dvh primer:max-md:w-full primer:max-md:max-w-dvw primer:max-md:grow primer:max-md:rounded-none primer:max-md:data-[starting-style]:scale-50',
   },
 } as const satisfies Record<Range, Record<DialogPositionValue, string>>
 
 const viewportPositionClassNames = {
-  all: {center: '', left: 'justify-start p-0', right: 'justify-end p-0', bottom: 'items-end p-0', fullscreen: 'p-0'},
+  all: {
+    center: '',
+    left: 'primer:justify-start primer:p-0',
+    right: 'primer:justify-end primer:p-0',
+    bottom: 'primer:items-end primer:p-0',
+    fullscreen: 'primer:p-0',
+  },
   regular: {
     center: '',
-    left: 'md:justify-start md:p-0',
-    right: 'md:justify-end md:p-0',
-    bottom: 'md:items-end md:p-0',
-    fullscreen: 'md:p-0',
+    left: 'primer:md:justify-start primer:md:p-0',
+    right: 'primer:md:justify-end primer:md:p-0',
+    bottom: 'primer:md:items-end primer:md:p-0',
+    fullscreen: 'primer:md:p-0',
   },
   narrow: {
     center: '',
-    left: 'max-md:justify-start max-md:p-0',
-    right: 'max-md:justify-end max-md:p-0',
-    bottom: 'max-md:items-end max-md:p-0',
-    fullscreen: 'max-md:p-0',
+    left: 'primer:max-md:justify-start primer:max-md:p-0',
+    right: 'primer:max-md:justify-end primer:max-md:p-0',
+    bottom: 'primer:max-md:items-end primer:max-md:p-0',
+    fullscreen: 'primer:max-md:p-0',
   },
 } as const satisfies Record<Range, Record<DialogPositionValue, string>>
 
 // The viewport's padding provides the offset, matching the 64px gap of a top- or bottom-aligned Primer dialog.
 const viewportAlignClassNames = {
-  all: {top: 'items-start pt-16 pb-0', center: '', bottom: 'items-end pt-0 pb-16'},
-  regular: {top: 'md:items-start md:pt-16 md:pb-0', center: '', bottom: 'md:items-end md:pt-0 md:pb-16'},
-  narrow: {
-    top: 'max-md:items-start max-md:pt-16 max-md:pb-0',
+  all: {
+    top: 'primer:items-start primer:pt-16 primer:pb-0',
     center: '',
-    bottom: 'max-md:items-end max-md:pt-0 max-md:pb-16',
+    bottom: 'primer:items-end primer:pt-0 primer:pb-16',
+  },
+  regular: {
+    top: 'primer:md:items-start primer:md:pt-16 primer:md:pb-0',
+    center: '',
+    bottom: 'primer:md:items-end primer:md:pt-0 primer:md:pb-16',
+  },
+  narrow: {
+    top: 'primer:max-md:items-start primer:max-md:pt-16 primer:max-md:pb-0',
+    center: '',
+    bottom: 'primer:max-md:items-end primer:max-md:pt-0 primer:max-md:pb-16',
   },
 } as const satisfies Record<Range, Record<DialogAlign, string>>
 

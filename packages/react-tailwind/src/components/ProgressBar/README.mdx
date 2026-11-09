@@ -37,7 +37,7 @@ The track defaults to `size="medium"`, and a single segment defaults to `variant
 
 <Controls of={Stories.Playground} />
 
-`ProgressBar.Item` accepts `progress`, `variant`, and `animated`, plus standard `span` attributes. Its progress is also clamped to 0–100.
+`ProgressBar.Item` accepts `progress`, `variant`, `fillColor`, and `animated`, plus standard `span` attributes. Its progress is also clamped to 0–100.
 
 ## Composition
 
@@ -45,7 +45,7 @@ Use one `ProgressBar` for a single task. Use `ProgressBar.Item` children when th
 
 ## Accessibility
 
-Each item is a `progressbar` with `aria-valuemin="0"`, `aria-valuemax="100"`, and `aria-valuenow`. The root's `aria-label` is forwarded to the single item; provide an equivalent accessible name for composed segments.
+Each item is a `progressbar` with `aria-valuemin="0"`, `aria-valuemax="100"`, and `aria-valuenow` derived from `progress`. The root forwards its accessible name, description, and value attributes to a single item; provide those attributes on each item for composed segments. Root value attributes are ignored when items are present. If conditional children contain only `false`, `null`, or `undefined` values (including in arrays or fragments), the root renders a single segment at 0% unless `progress` or an accessible value is supplied. An explicit `aria-valuenow` or `aria-valuetext` can describe a value that differs from the visual fill, such as an empty state drawn at full width.
 
 ## Animation and reduced motion
 
@@ -53,7 +53,7 @@ Each item is a `progressbar` with `aria-valuemin="0"`, `aria-valuemax="100"`, an
 
 ## Theming and Tailwind
 
-Use the package compiled CSS or Tailwind v4 with the package `dist` path in `@source`. `className` can extend the track and item, while the component's semantic color utilities use Primer theme tokens. Do not load compiled and host-generated package utilities together.
+Use the package compiled CSS or Tailwind v4 with the package `dist` path in `@source`. `className` can extend the track and item, while the component's semantic color utilities use Primer theme tokens. For a custom fill, pass a CSS color or variable such as `fillColor="var(--my-progress-color)"` to the root's single segment or to `ProgressBar.Item`; it overrides `variant`. Do not load compiled and host-generated package utilities together.
 
 ### Data attributes
 
@@ -63,4 +63,6 @@ The track exposes `data-component="ProgressBar"` and each segment exposes `data-
 
 <Canvas of={Features.MultipleItems} />
 <Canvas of={Features.Animated} />
+<Canvas of={Features.CustomFillWithEmptyValue} />
+<Canvas of={Features.ConditionalSegments} />
 <Canvas of={Examples.WithVisibleTextValue} />

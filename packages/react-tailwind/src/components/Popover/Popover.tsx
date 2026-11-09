@@ -8,27 +8,27 @@ import {FloatingPortal} from '../../internal/FloatingPortal'
 import {mergeClassName} from '../../internal/mergeClassName'
 import type {FloatingContentProps, PopoverHeight, PopoverWidth} from '../../utils/types'
 import {Button, type ButtonProps} from '../Button'
-import {usePortalContainer} from '../../internal/portalRoot'
+import {FloatingPortalParentContext, useFloatingPortalContainer} from '../../internal/portalRoot'
 
 const popupClassName =
-  'rounded-md bg-[var(--overlay-bgColor)] p-6 text-default shadow-floating-sm outline-none contrast-more:border-current data-[closed]:hidden'
+  'primer:rounded-md primer:bg-[var(--overlay-bgColor)] primer:p-6 primer:text-default primer:shadow-floating-sm primer:outline-none primer:contrast-more:border-current primer:data-[closed]:hidden'
 
 const widthClassNames = {
-  xsmall: 'w-[var(--overlay-width-xsmall)]',
-  small: 'w-[var(--overlay-width-small)]',
-  medium: 'w-[var(--overlay-width-medium)]',
-  large: 'w-[var(--overlay-width-large)]',
-  xlarge: 'w-[var(--overlay-width-xlarge)]',
-  auto: 'w-auto',
+  xsmall: 'primer:w-[var(--overlay-width-xsmall)]',
+  small: 'primer:w-[var(--overlay-width-small)]',
+  medium: 'primer:w-[var(--overlay-width-medium)]',
+  large: 'primer:w-[var(--overlay-width-large)]',
+  xlarge: 'primer:w-[var(--overlay-width-xlarge)]',
+  auto: 'primer:w-auto',
 } as const satisfies Record<PopoverWidth, string>
 
 const heightClassNames = {
-  small: 'h-[var(--overlay-height-small)]',
-  medium: 'h-[var(--overlay-height-medium)]',
-  large: 'h-[var(--overlay-height-large)]',
-  xlarge: 'h-[var(--overlay-height-xlarge)]',
-  'fit-content': 'h-fit',
-  auto: 'h-auto',
+  small: 'primer:h-[var(--overlay-height-small)]',
+  medium: 'primer:h-[var(--overlay-height-medium)]',
+  large: 'primer:h-[var(--overlay-height-large)]',
+  xlarge: 'primer:h-[var(--overlay-height-xlarge)]',
+  'fit-content': 'primer:h-fit',
+  auto: 'primer:h-auto',
 } as const satisfies Record<PopoverHeight, string>
 
 export type PopoverRootProps<Payload = unknown> = BasePopover.Root.Props<Payload>
@@ -152,17 +152,17 @@ const Positioner = React.forwardRef<HTMLDivElement, PopoverPositionerProps>(func
     <BasePopover.Positioner
       {...rest}
       ref={ref}
-      className={mergeClassName('z-popover', className)}
+      className={mergeClassName('primer:z-popover', className)}
       data-component="Popover.Positioner"
     />
   )
 })
 
 function Portal({children, container, ...rest}: BasePopover.Portal.Props) {
-  const portalContainer = usePortalContainer(container)
+  const portalContainer = useFloatingPortalContainer(container)
   return (
     <BasePopover.Portal {...rest} container={portalContainer}>
-      {children}
+      <FloatingPortalParentContext.Provider value>{children}</FloatingPortalParentContext.Provider>
     </BasePopover.Portal>
   )
 }
@@ -178,7 +178,7 @@ const Arrow = React.forwardRef<HTMLDivElement, Omit<BasePopover.Arrow.Props, 'da
       className={mergeClassName(
         cn(
           floatingArrowClassName,
-          '[--arrow-bg-color:var(--overlay-bgColor)] [--arrow-border-color:var(--borderColor-default)]',
+          'primer:[--arrow-bg-color:var(--overlay-bgColor)] primer:[--arrow-border-color:var(--borderColor-default)]',
         ),
         className,
       )}
@@ -195,7 +195,7 @@ const Backdrop = React.forwardRef<HTMLDivElement, Omit<BasePopover.Backdrop.Prop
       <BasePopover.Backdrop
         {...rest}
         ref={ref}
-        className={mergeClassName('fixed inset-0 z-popover bg-transparent', className)}
+        className={mergeClassName('primer:fixed primer:inset-0 primer:z-popover primer:bg-transparent', className)}
         data-component="Popover.Backdrop"
       />
     )
@@ -208,7 +208,10 @@ const Title = React.forwardRef<HTMLHeadingElement, Omit<BasePopover.Title.Props,
       <BasePopover.Title
         {...rest}
         ref={ref}
-        className={mergeClassName('m-0 text-title-small font-semibold text-default', className)}
+        className={mergeClassName(
+          'primer:m-0 primer:text-title-small primer:font-semibold primer:text-default',
+          className,
+        )}
         data-component="Popover.Title"
       />
     )
@@ -221,7 +224,7 @@ const Description = React.forwardRef<HTMLParagraphElement, Omit<BasePopover.Desc
       <BasePopover.Description
         {...rest}
         ref={ref}
-        className={mergeClassName('mt-1 text-sm text-muted', className)}
+        className={mergeClassName('primer:mt-1 primer:text-sm primer:text-muted', className)}
         data-component="Popover.Description"
       />
     )

@@ -23,7 +23,7 @@ export function CharacterCounter({
 }: CharacterCounterProps) {
   return (
     <>
-      <AriaStatus announceOnShow={false} className="sr-only" delayMs={500}>
+      <AriaStatus announceOnShow={false} className="primer:sr-only" delayMs={500}>
         {counter.message}
       </AriaStatus>
       <VisuallyHidden id={id}>
@@ -31,7 +31,10 @@ export function CharacterCounter({
       </VisuallyHidden>
       <span
         aria-hidden="true"
-        className={cn('flex items-center gap-1 text-xs text-muted', counter.isOverLimit && 'text-danger')}
+        className={cn(
+          'primer:flex primer:items-center primer:gap-1 primer:text-xs primer:text-muted',
+          counter.isOverLimit && 'primer:text-danger',
+        )}
         data-component={dataComponent}
       >
         {counter.isOverLimit ? <AlertFillIcon size={16} /> : null}

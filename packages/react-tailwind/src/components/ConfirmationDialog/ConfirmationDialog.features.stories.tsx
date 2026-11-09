@@ -71,3 +71,14 @@ export const LoadingStates: Story = {
     />
   ),
 }
+
+export const LongTitleAndActions: Story = {
+  render: () => (
+    <ConfirmationDialog
+      title={<span lang="de">Repositoryzugriffsberechtigungsprüfung</span>}
+      description="Review the repository access settings before continuing."
+      confirmButtonContent={<span lang="de">Repositoryzugriffsberechtigung überprüfen</span>}
+      trigger={<Button>Show confirmation</Button>}
+    />
+  ),
+}

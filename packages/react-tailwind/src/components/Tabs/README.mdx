@@ -20,7 +20,7 @@ import * as Examples from './Tabs.examples.stories'
 ## Usage
 
 ```tsx
-import {Tab, TabList, TabPanel, Tabs} from '@primer/react-tailwind'
+import {Tab, TabList, TabPanel, Tabs} from '@primer/react-tailwind/Tabs'
 ;<Tabs defaultValue="one">
   <TabList aria-label="Views">
     <Tab value="one">One</Tab>
@@ -32,6 +32,14 @@ import {Tab, TabList, TabPanel, Tabs} from '@primer/react-tailwind'
 ```
 
 Use `defaultValue` for uncontrolled tabs or `value` with `onValueChange` for controlled tabs. Give each tab list an accessible label, preserve the tab-to-panel value relationship, and style the parts with static Tailwind classes or `render` composition.
+
+Import the complete composition from the `/Tabs` subpath. The root barrel exports `Tabs` and the compatibility hooks, but not `TabList`, `Tab`, or `TabPanel`; there are no `Tabs.List`, `Tabs.Tab`, or `Tabs.Panel` properties.
+
+### Migrating legacy behavior hooks
+
+Legacy experimental `useTab`, `useTabList`, and `useTabPanel` supplied behavior and ARIA props for native elements. The Tailwind hooks only return the supplied Base UI props: spreading them onto a plain `button` or `div` does not implement tabs. Replace those hook-based wrappers with `Tab`, `TabList`, and `TabPanel` inside `Tabs`. The [complete before/after example](./ALIGNMENT.md#migration-notes) shows vertical feature-preview tabs.
+
+Move legacy `aria-orientation="vertical"` from the list to `orientation="vertical"` on the root, and use layout classes such as `flex flex-col` on the list. Orientation controls keyboard behavior, not visual layout. Controlled `onValueChange` now receives `(value, eventDetails)` instead of `{value}`. Let the primitives own selection, roving tab indexes, tab/panel IDs, ARIA relationships, and keyboard handling; remove the old hook spreads and manual navigation handlers. Give each tab a distinct feature name and associate supplementary status text with `aria-describedby` rather than using that status as its name.
 
 <Canvas of={Features.Controlled} />
 

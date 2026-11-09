@@ -4,6 +4,21 @@
 
 Import: `import {Header} from '@primer/react-tailwind/Header'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Import and usage
+
+```tsx
+import {Header} from '@primer/react-tailwind/Header'
+;<Header>
+  <Header.Item full>
+    <Header.Link href="/">Repository</Header.Link>
+  </Header.Item>
+</Header>
+```
+
+Use one `full` item to absorb available space. Links retain native keyboard behavior, so provide specific link names and use buttons for actions.
+
 Renders a [`<header>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

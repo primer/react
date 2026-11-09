@@ -32,6 +32,8 @@ import {Text} from '@primer/react-tailwind/Text'
 
 Use `as` to retain the semantic element required by the surrounding content.
 
+Props, event targets, and refs follow the chosen root: `as="label"` accepts `htmlFor`, and `as="th"` accepts `scope` and table-cell attributes. Extracted prop types use the same element, such as `TextProps<'label'>` or `TextProps<'th'>`. Custom components preserve their required props and declared ref type and must forward the typography class name, DOM props, children, and ref.
+
 ## Accessibility
 
 Choose semantic text elements through `as`; typography should not replace document structure.

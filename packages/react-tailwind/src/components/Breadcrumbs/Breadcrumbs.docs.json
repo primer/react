@@ -33,6 +33,21 @@
       "id": "react-tailwind-navigation-breadcrumbs-features--two-items-with-overflow-menu-with-root"
     },
     {
+      "id": "react-tailwind-navigation-breadcrumbs-features--interactive-child-measurement"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--dynamic-repository"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--single-repository"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--focus-recovery-hidden-targets"
+    },
+    {
+      "id": "react-tailwind-navigation-breadcrumbs-features--short-repository-targets"
+    },
+    {
       "id": "react-tailwind-navigation-breadcrumbs--default"
     },
     {
@@ -62,9 +77,17 @@
       "props": [
         {
           "name": "as",
-          "type": "React.ElementType",
+          "type": "As",
           "defaultValue": "'a'",
-          "description": "Element to render. Use a non-anchor element for an item that does not link anywhere."
+          "description": "Element or component supplied by the wrapper."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLElement>"
         },
         {
           "name": "selected",

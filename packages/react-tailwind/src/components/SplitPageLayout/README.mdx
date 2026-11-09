@@ -26,5 +26,12 @@ import {SplitPageLayout} from '@primer/react-tailwind/SplitPageLayout'
 
 Use `Header`, `Pane` or `Sidebar`, `Content`, and `Footer` as direct children. The pane is sticky by default; opt out with `sticky={false}` when it should participate in normal flow.
 
+The inherited `wrapperClassName` and `contentRowClassName` props style the centered wrapper and its content-and-pane row.
+
+To let a non-resizable `Sidebar` follow a CSS-sized outer rail, set `widthMode="fill"` and size the rail with its `className` or `style`. The pane and divider share that width; the sidebar's pixel `width`, `minWidth`, and `currentWidth` do not determine the visible width in this mode. Switching back to `default` restores the pixel sizing behavior. Fill mode cannot be combined with `resizable`.
+
+An inline `style.width` takes precedence over the `fullscreen` responsive width. Use responsive CSS or classes when the rail should have a different width on narrow viewports.
+
+<Canvas of={Features.SidebarFillRail} />
 <Canvas of={Features.WithSidebarStart} />
 <Canvas of={Examples.SettingsWorkspace} />

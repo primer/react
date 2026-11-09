@@ -21,6 +21,11 @@ The table is generated from the attached default story and `CheckboxProps`, whic
 
 ```tsx
 import {Checkbox} from '@primer/react-tailwind/Checkbox'
+import {FormControl} from '@primer/react-tailwind/FormControl'
+;<FormControl layout="horizontal">
+  <Checkbox name="notifications" defaultChecked />
+  <FormControl.Label>Email me about updates</FormControl.Label>
+</FormControl>
 ```
 
 ## Controlled and uncontrolled

@@ -4,6 +4,29 @@
 
 Import: `import {ButtonGroup} from '@primer/react-tailwind/ButtonGroup'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Usage
+
+```tsx
+import {ButtonGroup} from '@primer/react-tailwind/ButtonGroup'
+;<ButtonGroup>
+  <button type="button">One</button>
+</ButtonGroup>
+```
+
+## Composition
+
+Compose adjacent controls as children; the group does not clone or modify them.
+
+## Accessibility
+
+Label groups of controls with `aria-label`, and use `role="toolbar"` when appropriate. A toolbar keeps one button in the tab order. The arrow keys in its orientation, Home, and End move focus between buttons, wrapping at either end.
+
+## Data attributes
+
+The root exposes `data-component="ButtonGroup"` and `data-orientation`.
+
 Renders a [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props

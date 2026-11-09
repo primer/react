@@ -15,7 +15,7 @@ import * as Examples from './ActionList.examples.stories'
 
 <Controls of={Stories.Playground} />
 
-`ActionList` accepts `role`, `selectionVariant`, `variant`, `showDividers`, `disableItemGap`, and a `heading` region. `Item` supports `selected`, `active`, `disabled`, `inactiveText`, `loading`, `loadingText`, `size` (`small`, `medium`, or `large`), danger styling, and `onSelect`; `LinkItem` supports `active`, `inactiveText`, and `size`. `Description` supports inline or block layout and truncation. `Heading` renders before the list and labels it, and supports `size` and `visuallyHidden`. `GroupHeading` supports subtle and filled variants and a small icon `TrailingAction`. `TrailingAction` supports button or link rendering, icon or text labels, and loading state; all documented child parts forward their relevant HTML props.
+`ActionList` accepts `role`, `selectionVariant`, `variant`, `showDividers`, `disableItemGap`, and a `heading` region. `Item` supports `selected`, `active`, `disabled`, `inactiveText`, `loading`, `loadingText`, `size` (`small`, `medium`, or `large`), danger styling, and `onSelect`; `LinkItem` supports `active`, `inactiveText`, `render`, and `size`. `Description` supports inline or block layout and truncation. `Heading` renders before the list and labels it, and supports `size` and `visuallyHidden`. `GroupHeading` supports `auxiliaryText`, subtle and filled variants, and a small icon `TrailingAction`. `TrailingAction` supports button or link rendering, icon or text labels, and loading state; all documented child parts forward their relevant HTML props.
 
 ## Import and composition
 
@@ -25,21 +25,115 @@ import {ActionList} from '@primer/react-tailwind/ActionList'
 
 Compose `Item` or `LinkItem`, optional `Group`, `GroupHeading`, `Heading`, `Divider`, `LeadingVisual`, `TrailingVisual`, `TrailingAction`, and one or more `Description` parts in author order. Inline descriptions share the label row and block descriptions create supporting rows. `TrailingAction` is rendered as an interactive sibling of the item action, so it never creates nested button or link markup.
 
+Long trailing text wraps within the available row width; inline descriptions can move below the label when space is limited. Custom trailing content with fixed or non-wrapping dimensions may require its own responsive layout. Prefer wrapping to `Description truncate` when people need the full text, especially at narrow widths or zoom.
+
+`GroupHeading` renders a heading for an ordinary list and a neutral text element for other list roles. Use `as` to choose an appropriate heading level in a plain list or a neutral element in a composite. Menu, menubar, and listbox group labels cannot be semantic headings; a custom `as` component must also render a neutral element. `auxiliaryText` appears below the heading without becoming part of its accessible name or automatically describing the group. Pass it to `Group` or `Listbox.Group` to apply it to the first heading; a value on `GroupHeading` takes precedence. When supplying a wrapped heading through a group's `heading` region, forward the supplied `id` to `GroupHeading` so the group retains its name.
+
+<Canvas of={Features.GroupHeadingAuxiliaryText} />
+
+For static status/error text in an ordinary list, render a native `li` directly or use the static `role="listitem"` item described below. Any other `Item` remains a button even without an action callback; `tabIndex={-1}` does not make it noninteractive, and changing its render element still retains button behavior. A native `li` can keep `tabIndex={-1}` and an `HTMLLIElement` ref when programmatic focus is needed. See the [static-row migration example](./ALIGNMENT.md#migration-notes). Do not place plain status rows inside menu/listbox/tree composites as if they were actions or options.
+
+For client-side navigation, pass your router's ref-forwarding link through `render` and its destination to that element:
+
+```tsx
+<ActionList.LinkItem render={<RouterLink to="/projects" />}>Projects</ActionList.LinkItem>
+```
+
+The router link must render a real anchor and forward its ref and received props. Use `onClick` for link activation; `LinkItem`'s `onSelect` is the native React selection event, not `Item.onSelect`. While `inactiveText` is present, `LinkItem` renders a non-navigable anchor without `href` and forwards its ref to that anchor. A custom `render` is not mounted until the item is available, so a ref attached to that custom element remains unset. `aria-disabled` alone does not disable navigation.
+
+<Canvas of={Features.RouterLinkComposition} />
+
+When `Item` uses a custom render component, it must forward the received ref and props, including capture handlers, to the same actionable element. The component must also respect its disabled state; side effects in its own earlier capture handlers or discarded props cannot be prevented by `Item`. If the render replaces the item's children, it must render and associate any inactive reason itself.
+
 ## Selection and events
 
-ActionList does not own selection state. Render `selected` and update it from `Item.onSelect`; listbox semantics use `selectionVariant` with the matching role and ARIA state.
+ActionList does not own selection state. Render `selected` and update it from `Item.onSelect`. For a listbox whose options are directly owned, use the `Listbox` composition:
+
+```tsx
+<ActionList.Listbox aria-label="Projects" selectionVariant="single">
+  <ActionList.Item selected onSelect={selectPrimer}>
+    Primer React
+  </ActionList.Item>
+  <ActionList.Listbox.Group aria-label="More projects">
+    <ActionList.GroupHeading variant="filled">More projects</ActionList.GroupHeading>
+    <ActionList.Item onSelect={selectOcticons}>Octicons</ActionList.Item>
+  </ActionList.Listbox.Group>
+  <ActionList.Listbox.Divider />
+  <ActionList.Item onSelect={selectOtherProjects}>Other projects</ActionList.Item>
+</ActionList.Listbox>
+```
+
+`Listbox` and `Listbox.Group` render `div` elements and forward their refs to those elements; their options are direct button or anchor elements. Use `Listbox.Divider` and `Listbox.Group` rather than the list-based `Divider` and `Group` in this composition. A group needs an accessible name, supplied by its heading, `aria-label`, or `aria-labelledby`. Group headings default to a non-heading element and cannot contain trailing actions. Direct options support visuals and descriptions, but not trailing actions or other nested interactive controls. Any custom option must retain the direct ownership and keyboard semantics of the listbox.
+
+`ActionList.LinkItem` in a `Listbox` retains its anchor and destination but is exposed as an option rather than a link. Do not rely on this composition when results need accessible link semantics. An ordinary `ActionList` with `LinkItem` children is a link list; an input-owned popup of navigable links requires a separately reviewed interaction pattern.
+
+<Canvas of={Features.DirectListbox} />
+
+For static results in a `role="list"` list, pass `role="listitem"` to `Item`. It renders one native, non-focusable `li` with the item's visuals and descriptions and no inner button, and may contain trailing content. It is static content: it throws when given `onSelect`, `onClick`, `render`, selection state, or `loading`, or when it is outside a `role="list"` list. Use an ordinary `Item` when the row itself is an action. Its ref, `className`, and other `li` attributes, including keyboard and capture handlers, target the `li`; an explicit `tabIndex={0}` puts a read-only row in the Tab order for legacy keyboard-traversal compatibility without adding activation behavior. Put interactive trailing content in `trailingAction` or `TrailingAction`, which follows the row in Tab order, rather than in `trailingVisual`. WAI-ARIA 1.2 deprecates `aria-disabled` on `listitem` and it does not make descendants inoperable, so a static row throws for `disabled` or `aria-disabled`; pass `inactiveText` instead to show a warning and the visible reason in the row's content. An inactive row hides its trailing action.
+
+This is not a drop-in replacement for a legacy static row whose unavailable state is only a boolean. `inactiveText` requires a meaningful reason, and hiding trailing actions may change the content or behavior. When no reason is available or interactive descendants are involved, the migration needs accessibility-specialist review; do not invent an explanation or remove meaningful passive trailing content.
+
+For a typed static-row wrapper, use `ActionListStaticItemProps`; its event handlers target the `li` and its type excludes unsupported action and disabled props. Action items continue to use `ActionListItemProps`.
+
+```tsx
+<ActionList aria-label="Results">
+  <ActionList.Item role="listitem" leadingVisual={<RepoIcon />} description="Owned by octocat">
+    primer/react
+  </ActionList.Item>
+</ActionList>
+```
+
+<Canvas of={Features.StaticItems} />
+
+For a custom checkbox tree, retain the `ActionList role="tree"` list and use `TreeItem` for its leaf items:
+
+```tsx
+<ActionList aria-label="Projects" aria-multiselectable="true" role="tree" selectionVariant="multiple" disableFocusZone>
+  <li role="treeitem" aria-level={1} aria-expanded="true" aria-checked="mixed">
+    <ActionList.GroupHeading as="div">Projects</ActionList.GroupHeading>
+    <ul role="group" aria-label="Projects">
+      <ActionList.TreeItem aria-level={2} aria-checked={selected} onSelect={toggleSelection}>
+        Primer React
+      </ActionList.TreeItem>
+    </ul>
+  </li>
+</ActionList>
+```
+
+`TreeItem` renders a focusable `li` with `role="treeitem"`, forwards its ref to that element, and supports item visuals and descriptions. It is a leaf: compose parent treeitems and their child groups yourself, without nested interactive controls. The root remains a `ul` and forwards its list ref unchanged.
+
+<Canvas of={Features.DirectTreeItems} />
+
+For custom selection semantics, an explicitly supplied `aria-checked` or `aria-selected` takes precedence over the role-derived attribute and `selected` for the indicator. For example, a checkbox tree can supply `aria-checked="mixed"` with `selectionVariant="multiple"` to show a partial-selection dash. If both ARIA attributes are supplied, both are preserved and the indicator follows `aria-checked`; use both only when they represent distinct states.
 
 <Canvas of={Examples.MixedSelection} />
 
 ## Accessibility, disabled behavior, and keyboard
 
-Choose `list`, `menu`, or `listbox` semantics intentionally and give interactive lists an accessible name. For selection variants, items receive `aria-selected` or `aria-checked`; disabled, inactive, and loading items cannot be activated. Inactive items use a warning indicator in ordinary lists and visible supporting text in menus and listboxes. The loading spinner and inactive warning indicator replace the leading visual when one exists, otherwise the trailing visual. Loading and inactive items suppress trailing actions. Native button and link keyboard behavior is retained.
+Choose `list`, `menu`, or listbox semantics intentionally and give interactive lists an accessible name. `Listbox` sets `aria-multiselectable` for `selectionVariant="multiple"`. For selection variants, items receive `aria-selected` or `aria-checked`; disabled, inactive, and loading items cannot be activated. Inactive items display their reason as supporting text and also use a warning indicator in ordinary lists. The loading spinner and inactive warning indicator replace the leading visual when one exists, otherwise the trailing visual. Loading and inactive items suppress trailing actions. Native button and link keyboard behavior is retained.
 
-Menu and listbox lists keep one item in the tab order. The arrow keys, Home, End, Page Up, and Page Down move focus between items, and menus wrap at either end. Pass `disableFocusZone` when a parent widget manages focus.
+`loadingText` is included in an inferred item name even without supporting descriptions. If the item has an explicit accessible name, the loading text is associated as a description instead, including when that name is supplied by a render element or callback.
+
+`Item` and `LinkItem` expose their `Description` parts and `inactiveText` as accessible descriptions instead of including them in the item name. The name is the primary label and visible trailing visual, with or without a description, so a leading visual's text or `aria-label` is never part of the name; put meaningful leading-visual information in the label or a description. An item without label text, such as an icon-only item, is named from its content. An explicit `aria-label` or `aria-labelledby` supplies the name instead; include the visible primary label. Additional `aria-describedby` references are retained:
+
+```tsx
+<ActionList.Item aria-label="Archive repository" aria-describedby="archive-details">
+  Archive
+  <ActionList.Description id="archive-details">Move this repository out of active lists</ActionList.Description>
+</ActionList.Item>
+```
+
+Pass a wrapped description through the `description` region. Tree items do not associate descriptions or inactive reasons automatically; provide an explicit name and `aria-describedby` when their supporting text should be announced separately.
+
+An `Item` with a string inactive reason also uses it as a native title unless an explicit `title` is supplied. Native titles are not reliably available to keyboard or touch users; the visible reason does not depend on the title.
+
+Menu, menubar, and listbox lists keep one item in the tab order. The arrow keys, Home, End, Page Up, and Page Down move focus between items, and menus wrap at either end. Pass `disableFocusZone` when a parent widget manages focus; it does not itself implement combobox relationships or keyboard behavior. Disabled items in these composite widgets and in a tree remain focusable with `aria-disabled`, but cannot be activated. Pass `focusableWhenDisabled={false}` to opt out.
+
+An `ActionList role="tree"` does not implement tree navigation or roving focus. Prefer `TreeView` for a complete tree; a custom tree must manage focus, keyboard interaction, and hierarchical semantics itself.
 
 ## State attributes
 
-Stable selectors include `ActionList`, `ActionList.Item`, `ActionList.Item.Action`, `ActionList.LinkItem`, `ActionList.Group`, and `ActionList.Divider`. Items expose `data-active`, `data-selected`, `data-variant`, and disabled state; root exposes `data-variant` and `data-dividers`.
+Stable selectors include `ActionList`, `ActionList.Listbox`, `ActionList.Item`, `ActionList.Item.Action`, `ActionList.TreeItem`, `ActionList.LinkItem`, `ActionList.Group`, `ActionList.Listbox.Group`, and their respective dividers. Items expose `data-active`, `data-selected`, `data-variant`, and disabled state; root exposes `data-variant` and `data-dividers`.
 
 <Canvas of={Features.SingleSelect} />
 <Canvas of={Features.SmallItem} />

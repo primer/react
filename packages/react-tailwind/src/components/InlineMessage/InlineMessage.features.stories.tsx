@@ -1,4 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import {InfoIcon, ShieldLockIcon} from '@primer/octicons-react'
+import {memo} from 'react'
 import {InlineMessage} from './InlineMessage'
 
 const meta = {
@@ -26,4 +28,28 @@ export const Small: Story = {args: {size: 'small', variant: 'success', children:
 
 export const CustomLeadingVisual: Story = {
   args: {variant: 'success', leadingVisual: <span aria-hidden="true">★</span>, children: 'Custom visual'},
+}
+
+const MemoShieldIcon = memo(ShieldLockIcon)
+
+export const ComponentLeadingVisuals: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <InlineMessage data-testid="forward-ref-visual" leadingVisual={InfoIcon}>
+        A forwardRef information icon
+      </InlineMessage>
+      <InlineMessage data-testid="memo-visual" leadingVisual={MemoShieldIcon}>
+        A memo security icon
+      </InlineMessage>
+      <InlineMessage
+        data-testid="element-visual"
+        leadingVisual={<ShieldLockIcon aria-hidden="true" className="consumer-icon" size={24} />}
+      >
+        An already-rendered security icon
+      </InlineMessage>
+      <InlineMessage data-testid="node-visual" leadingVisual={<span aria-hidden="true">!</span>}>
+        A rendered text visual
+      </InlineMessage>
+    </div>
+  ),
 }

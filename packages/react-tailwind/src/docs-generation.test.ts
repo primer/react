@@ -14,6 +14,22 @@ afterEach(() => {
 })
 
 describe('generated llms documentation', () => {
+  it('documents nested component parts with their own props and rendered elements', () => {
+    const treeDocs: {
+      subcomponents: Array<{name: string; props: Array<{name: string}>; passthrough?: {element: string}}>
+    } = JSON.parse(readFileSync(path.resolve(import.meta.dirname, './components/TreeView/TreeView.docs.json'), 'utf8'))
+    const subtree = treeDocs.subcomponents.find(part => part.name === 'TreeView.LinkTree.SubTree')
+    expect(subtree?.passthrough?.element).toBe('div')
+    expect(subtree?.props.map(prop => prop.name)).toEqual(expect.arrayContaining(['count', 'state']))
+
+    const generated = readFileSync(path.resolve(import.meta.dirname, '../llms/TreeView.md'), 'utf8')
+    expect(generated).toContain('## TreeView.LinkTree.SubTree')
+    const subtreeSection = generated.split('## TreeView.LinkTree.SubTree\n')[1]?.split('\n## ')[0]
+    expect(subtreeSection).toContain('Renders a [`<div>`]')
+    expect(subtreeSection).toContain('`count`')
+    expect(subtreeSection).toContain('`state`')
+  })
+
   it('checks the index and all component files without modifying stale or extra files', () => {
     outputDirectory = mkdtempSync(path.join(tmpdir(), 'react-tailwind-llms-'))
     const run = (...args: string[]) =>
@@ -21,8 +37,13 @@ describe('generated llms documentation', () => {
 
     expect(run().status).toBe(0)
     expect(run('--check').status).toBe(0)
-    expect(readFileSync(path.join(outputDirectory, 'llms/IconButton.md'), 'utf8')).toContain(
-      '- `aria-label` (required): `string`',
+    const iconButton = readFileSync(path.join(outputDirectory, 'llms/IconButton.md'), 'utf8')
+    expect(iconButton).toContain('requires an accessible name from either `aria-label` or `aria-labelledby`')
+    expect(iconButton).toContain('- `aria-label`: `string`')
+    expect(iconButton).toContain('- `aria-labelledby`: `string`')
+    expect(iconButton).not.toContain('- `aria-label` (required)')
+    expect(readFileSync(path.join(outputDirectory, 'llms/IconLinkButton.md'), 'utf8')).toContain(
+      'requires an accessible name from either `aria-label` or `aria-labelledby`',
     )
     const selectPanelAlignment = readFileSync(
       path.resolve(import.meta.dirname, './components/SelectPanel/ALIGNMENT.md'),
@@ -35,11 +56,15 @@ describe('generated llms documentation', () => {
     const generatedSelectPanel = readFileSync(path.join(outputDirectory, 'llms/SelectPanel.md'), 'utf8')
     expect(selectPanelNotes.length).toBeGreaterThan(1)
     for (const note of selectPanelNotes) expect(generatedSelectPanel).toContain(note)
+    // Indented blocks belonging to a note, such as the inside-* placement table, must survive generation.
+    expect(readFileSync(path.join(outputDirectory, 'llms/ActionMenu.md'), 'utf8')).toContain(
+      '| `inside-bottom` | `bottom` | `({positioner}) => -positioner.height - 8` | `0` |',
+    )
     expect(readFileSync(path.join(outputDirectory, 'llms.txt'), 'utf8')).toContain(
       'does not generate arbitrary app-owned Tailwind classes',
     )
     expect(readFileSync(path.join(outputDirectory, 'llms.txt'), 'utf8')).toContain(
-      'unprefixed utilities that can collide with legacy `@primer/css`',
+      'Package-owned utilities use the `primer:` prefix',
     )
     expect(readFileSync(path.join(outputDirectory, 'llms/Button.md'), 'utf8')).toContain(
       'Use `submit` to submit a form.',

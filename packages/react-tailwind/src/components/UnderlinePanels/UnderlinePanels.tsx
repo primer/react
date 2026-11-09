@@ -56,19 +56,25 @@ const Root = React.forwardRef<HTMLElement, UnderlinePanelsProps>(function Underl
           panel: 'UnderlinePanels.Panel',
         }}
       >
-        <Tabs {...props} ref={ref} className={cn('w-full', className)} onValueChange={handleValueChange} />
+        <Tabs {...props} ref={ref} className={cn('primer:w-full', className)} onValueChange={handleValueChange} />
       </TabsMarkerProvider>
     </UnderlinePanelsContext.Provider>
   )
 })
 
-export type UnderlinePanelsListProps = TabListProps
+export interface UnderlinePanelsListProps extends TabListProps {
+  /** Styles the outer layout and bottom-border wrapper without changing the tablist's className or ref. */
+  wrapperClassName?: string
+}
 const List = React.forwardRef<HTMLElement, UnderlinePanelsListProps>(function UnderlinePanelsList(
-  {className, ...props},
+  {className, wrapperClassName, ...props},
   ref,
 ) {
   return (
-    <div data-component="UnderlinePanels.ListWrapper" className={cn(underlineRootClassName, 'px-4')}>
+    <div
+      data-component="UnderlinePanels.ListWrapper"
+      className={cn(underlineRootClassName, 'primer:px-4', wrapperClassName)}
+    >
       <TabList {...props} ref={ref} className={cn(underlineListClassName, className)} />
     </div>
   )

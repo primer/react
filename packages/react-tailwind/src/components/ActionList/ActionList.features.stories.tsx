@@ -67,6 +67,196 @@ export const SimpleList: Story = {
     </ActionList>
   ),
 }
+
+export const StaticItems: Story = {
+  render: () => (
+    <ActionList aria-label="Repository statuses">
+      <ActionList.Item
+        role="listitem"
+        leadingVisual={<BookIcon />}
+        description="Owned by octocat"
+        trailingVisual={<span data-testid="passive-trailing">Changes blocked by enterprise</span>}
+      >
+        primer/react
+      </ActionList.Item>
+      <ActionList.Item
+        role="listitem"
+        trailingAction={<ActionList.TrailingAction as="a" href="#details" icon={ArrowRightIcon} label="View details" />}
+      >
+        Repository details
+      </ActionList.Item>
+    </ActionList>
+  ),
+}
+
+function WrappedRepositoryDescription(_props: {id?: string; variant?: 'block' | 'inline'}) {
+  // eslint-disable-next-line primer-react/direct-slot-children -- The wrapper is supplied through the description region.
+  return <ActionList.Description variant="block">Recently updated</ActionList.Description>
+}
+
+export const ItemDescriptions: Story = {
+  render: function ItemDescriptionsStory() {
+    const [selected, setSelected] = React.useState(false)
+    return (
+      <>
+        <ActionList aria-label="Repository actions">
+          <ActionList.Item>
+            Archive
+            <ActionList.Description variant="block">Move the repository out of active lists</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.LinkItem
+            aria-describedby="repository-detail"
+            description={<WrappedRepositoryDescription id="repository-detail" variant="block" />}
+            href="#repository"
+            trailingVisual={<ActionList.TrailingVisual>Ready</ActionList.TrailingVisual>}
+          >
+            Repository
+          </ActionList.LinkItem>
+        </ActionList>
+        <ActionList.Listbox aria-label="Project choices" selectionVariant="single">
+          <ActionList.Item onSelect={() => setSelected(true)} selected={selected}>
+            Primer React
+            <ActionList.Description>Design system</ActionList.Description>
+          </ActionList.Item>
+        </ActionList.Listbox>
+        <p role="status">Selected: {selected ? 'Primer React' : 'none'}</p>
+      </>
+    )
+  },
+}
+
+export const TreeWithManagedFocus: Story = {
+  render: function TreeWithManagedFocusStory() {
+    const items = ['First project', 'Unavailable project', 'Last project']
+    const [activeIndex, setActiveIndex] = React.useState(0)
+    const [activated, setActivated] = React.useState<string | null>(null)
+
+    return (
+      <>
+        <ActionList
+          aria-label="Projects"
+          aria-multiselectable="true"
+          onKeyDown={event => {
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return
+            event.preventDefault()
+            const offset = event.key === 'ArrowDown' ? 1 : -1
+            const nextIndex = Math.max(0, Math.min(items.length - 1, activeIndex + offset))
+            setActiveIndex(nextIndex)
+            event.currentTarget.querySelectorAll<HTMLElement>('[role="treeitem"]')[nextIndex].focus()
+          }}
+          role="tree"
+          selectionVariant="multiple"
+        >
+          {items.map((item, index) => (
+            <ActionList.Item
+              key={item}
+              aria-checked={index === 1 ? 'mixed' : activated === item}
+              disabled={index === 1}
+              onFocus={() => setActiveIndex(index)}
+              onSelect={() => setActivated(item)}
+              tabIndex={index === activeIndex ? 0 : -1}
+            >
+              {item}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+        <p role="status">Last activated: {activated ?? 'none'}</p>
+      </>
+    )
+  },
+}
+
+export const DirectTreeItems: Story = {
+  render: function DirectTreeItemsStory() {
+    const [activeIndex, setActiveIndex] = React.useState(0)
+    const [activated, setActivated] = React.useState<string | null>(null)
+    const [activationCount, setActivationCount] = React.useState(0)
+    const [expanded, setExpanded] = React.useState(true)
+
+    return (
+      <>
+        <ActionList
+          aria-label="Projects"
+          aria-multiselectable="true"
+          disableFocusZone
+          onKeyDown={event => {
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return
+            event.preventDefault()
+            const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('[role="treeitem"]')).filter(
+              item => item.getClientRects().length > 0,
+            )
+            const offset = event.key === 'ArrowDown' ? 1 : -1
+            const nextIndex = Math.max(0, Math.min(items.length - 1, activeIndex + offset))
+            setActiveIndex(nextIndex)
+            items[nextIndex].focus()
+          }}
+          role="tree"
+          selectionVariant="multiple"
+        >
+          <li
+            aria-checked="mixed"
+            aria-expanded={expanded}
+            aria-label="Project group"
+            aria-level={1}
+            onFocus={event => {
+              if (event.target === event.currentTarget) setActiveIndex(0)
+            }}
+            onKeyDown={event => {
+              if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
+                event.preventDefault()
+                setExpanded(value => !value)
+              }
+            }}
+            // eslint-disable-next-line jsx-a11y/role-has-required-aria-props -- Selection is represented by aria-checked.
+            role="treeitem"
+            tabIndex={activeIndex === 0 ? 0 : -1}
+          >
+            <ActionList.GroupHeading as="div">Projects</ActionList.GroupHeading>
+            <div hidden={!expanded}>
+              <ul aria-label="Projects" role="group">
+                <ActionList.TreeItem
+                  aria-checked="mixed"
+                  aria-level={2}
+                  disabled
+                  onFocus={() => setActiveIndex(1)}
+                  onSelect={() => {
+                    setActivated('Unavailable project')
+                    setActivationCount(count => count + 1)
+                  }}
+                  tabIndex={activeIndex === 1 ? 0 : -1}
+                >
+                  Unavailable project
+                  {/* eslint-disable-next-line primer-react/direct-slot-children -- TreeItem accepts Item content parts. */}
+                  <ActionList.Description>Archived</ActionList.Description>
+                </ActionList.TreeItem>
+                <ActionList.TreeItem
+                  aria-checked={activated === 'Primer React'}
+                  aria-level={2}
+                  onFocus={() => setActiveIndex(2)}
+                  onSelect={() => {
+                    setActivated('Primer React')
+                    setActivationCount(count => count + 1)
+                  }}
+                  tabIndex={activeIndex === 2 ? 0 : -1}
+                >
+                  Primer React
+                  {/* eslint-disable-next-line primer-react/direct-slot-children -- TreeItem accepts Item content parts. */}
+                  <ActionList.TrailingVisual>
+                    <CounterLabel>3</CounterLabel>
+                  </ActionList.TrailingVisual>
+                </ActionList.TreeItem>
+              </ul>
+            </div>
+          </li>
+        </ActionList>
+        <p role="status">
+          Last activated: {activated ?? 'none'}; count: {activationCount}
+        </p>
+      </>
+    )
+  },
+}
+
 export const WithVisualListHeading: Story = {
   render: () => (
     <ActionList>
@@ -144,6 +334,192 @@ export const WithCustomHeading: Story = {
     </>
   ),
 }
+
+const ExampleRouterLink = React.forwardRef<
+  HTMLAnchorElement,
+  React.ComponentPropsWithoutRef<'a'> & {onNavigate: (path: string) => void; to: string}
+>(function ExampleRouterLink({children, onClick, onNavigate, to, ...props}, ref) {
+  return (
+    <a
+      {...props}
+      href={to}
+      onClick={event => {
+        onClick?.(event)
+        if (!event.defaultPrevented) {
+          event.preventDefault()
+          onNavigate(to)
+        }
+      }}
+      ref={ref}
+    >
+      {children}
+    </a>
+  )
+})
+
+export const DirectListbox: Story = {
+  render: function DirectListboxStory() {
+    const [selected, setSelected] = React.useState('First project')
+    const [path, setPath] = React.useState('/')
+
+    return (
+      <>
+        <ActionList.Listbox aria-label="Select a project" selectionVariant="single" showDividers>
+          <ActionList.Listbox.Divider data-testid="first-divider" />
+          <ActionList.Item
+            aria-describedby="first-project-description"
+            aria-label="First project"
+            onSelect={() => setSelected('First project')}
+            selected={selected === 'First project'}
+          >
+            First project
+            <ActionList.Description id="first-project-description">Recently updated</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Listbox.Divider />
+          <ActionList.Listbox.Group aria-label="Repositories">
+            <ActionList.GroupHeading variant="filled">Repositories</ActionList.GroupHeading>
+            <ActionList.Item disabled onSelect={() => setSelected('Unavailable project')}>
+              Unavailable project
+            </ActionList.Item>
+            <ActionList.LinkItem
+              inactiveText="Temporarily unavailable"
+              render={<ExampleRouterLink onNavigate={setPath} to="/unavailable" />}
+            >
+              Unavailable link
+            </ActionList.LinkItem>
+            <ActionList.Item onSelect={() => setSelected('Primer React')} selected={selected === 'Primer React'}>
+              Primer React
+              <ActionList.TrailingVisual>
+                <CounterLabel>3</CounterLabel>
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.LinkItem
+              aria-selected="false"
+              render={<ExampleRouterLink onNavigate={setPath} to="/repositories" />}
+            >
+              Browse repositories
+            </ActionList.LinkItem>
+          </ActionList.Listbox.Group>
+        </ActionList.Listbox>
+        <p role="status">
+          Selected: {selected}; current path: {path}
+        </p>
+      </>
+    )
+  },
+}
+
+function WrappedProjectGroupHeading({id}: {id?: string}) {
+  return <ActionList.GroupHeading id={id}>Libraries</ActionList.GroupHeading>
+}
+
+export const GroupHeadingAuxiliaryText: Story = {
+  render: function GroupHeadingAuxiliaryTextStory() {
+    const [lastAction, setLastAction] = React.useState('None')
+    return (
+      <>
+        <ActionList aria-label="Repository actions">
+          <ActionList.Group>
+            <ActionList.GroupHeading auxiliaryText="Recently updated by your team" data-testid="group-heading-label">
+              Repositories
+              <ActionList.GroupHeading.TrailingAction
+                icon={ArrowRightIcon}
+                label="Manage repositories"
+                onClick={() => setLastAction('Manage repositories')}
+              />
+            </ActionList.GroupHeading>
+            <ActionList.Item>
+              Primer React
+              <ActionList.TrailingAction
+                icon={ArrowRightIcon}
+                label="Repository details"
+                onClick={() => setLastAction('Repository details')}
+              />
+            </ActionList.Item>
+          </ActionList.Group>
+        </ActionList>
+        <ActionList.Listbox aria-label="Projects">
+          <ActionList.Listbox.Group auxiliaryText="Additional projects" heading={<WrappedProjectGroupHeading />}>
+            <ActionList.Item>Octicons</ActionList.Item>
+          </ActionList.Listbox.Group>
+        </ActionList.Listbox>
+        <p role="status">Last action: {lastAction}</p>
+      </>
+    )
+  },
+}
+
+export const DirectListboxVisualParity: Story = {
+  render: () => {
+    const rows = (divider: React.ReactNode) => (
+      <>
+        <ActionList.Item selected>Selected project</ActionList.Item>
+        <ActionList.Item disabled>Unavailable project</ActionList.Item>
+        {divider}
+        <ActionList.Item active>Active project</ActionList.Item>
+        <ActionList.Item variant="danger">Remove project</ActionList.Item>
+      </>
+    )
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <ActionList
+          aria-label="Standard actions"
+          data-testid="standard-actions"
+          selectionVariant="multiple"
+          showDividers
+        >
+          {rows(<ActionList.Divider />)}
+        </ActionList>
+        <ActionList.Listbox
+          aria-label="Selectable actions"
+          data-testid="selectable-actions"
+          selectionVariant="multiple"
+          showDividers
+        >
+          {rows(<ActionList.Listbox.Divider />)}
+        </ActionList.Listbox>
+      </div>
+    )
+  },
+}
+
+export const RouterLinkComposition: Story = {
+  render: () => {
+    const [path, setPath] = React.useState('/')
+    return (
+      <>
+        <ActionList>
+          <ActionList.LinkItem
+            aria-label="Native projects link"
+            data-testid="native-link"
+            href="#projects"
+            size="small"
+          >
+            <ActionList.LeadingVisual>
+              <BookIcon />
+            </ActionList.LeadingVisual>
+            Projects
+            <ActionList.Description>View projects</ActionList.Description>
+          </ActionList.LinkItem>
+          <ActionList.LinkItem
+            aria-label="Router projects link"
+            data-testid="router-link"
+            render={<ExampleRouterLink onNavigate={setPath} to="/projects" />}
+            size="small"
+          >
+            <ActionList.LeadingVisual>
+              <BookIcon />
+            </ActionList.LeadingVisual>
+            Projects
+            <ActionList.Description>View projects</ActionList.Description>
+          </ActionList.LinkItem>
+        </ActionList>
+        <p role="status">Current path: {path}</p>
+      </>
+    )
+  },
+}
+
 export const WithIcons: Story = {
   render: () => (
     <ActionList>
@@ -445,6 +821,31 @@ export const InactiveItem: Story = {
           <ActionList.Description variant="block">{project.scope}</ActionList.Description>
         </ActionList.Item>
       ))}
+    </ActionList>
+  ),
+}
+export const InactiveReasons: Story = {
+  render: () => (
+    <ActionList aria-label="Project actions">
+      <ActionList.Item inactiveText="Contact an administrator to grant project:configure_administration_and_billing_permissions.">
+        <ActionList.LeadingVisual>
+          <ProjectIcon />
+        </ActionList.LeadingVisual>
+        Transfer project
+      </ActionList.Item>
+      <ActionList.LinkItem
+        href="#billing"
+        inactiveText={<span>Billing details are available to organization owners.</span>}
+      >
+        Billing settings
+      </ActionList.LinkItem>
+      <ActionList.LinkItem href="#security" inactiveText="Contact an owner to update security settings.">
+        <ActionList.LeadingVisual>
+          <ProjectIcon />
+        </ActionList.LeadingVisual>
+        Security settings
+        <ActionList.TrailingVisual>Admin</ActionList.TrailingVisual>
+      </ActionList.LinkItem>
     </ActionList>
   ),
 }

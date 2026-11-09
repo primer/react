@@ -252,7 +252,7 @@ export const LoadingTriggerInteractive: Story = {
   play: async ({canvasElement}) => {
     const canvas = within(canvasElement)
     await userEvent.click(canvas.getByRole('button', {name: 'Export'}))
-    await expect(canvas.getByRole('button', {name: /Export/})).toHaveAttribute('aria-busy', 'true')
+    await expect(canvas.getByRole('button', {name: /Export/})).toHaveAttribute('aria-disabled', 'true')
   },
 }
 
@@ -397,6 +397,6 @@ export const KeybindingHintWithLoadingInteractive: Story = {
   play: async ({canvasElement}) => {
     const canvas = within(canvasElement)
     await userEvent.click(canvas.getByRole('button', {name: /^Submit/}))
-    await expect(canvas.getByRole('button', {name: /Submit/})).toHaveAttribute('aria-busy', 'true')
+    await expect(canvas.getByRole('button', {name: /Submit/})).toHaveAttribute('aria-disabled', 'true')
   },
 }

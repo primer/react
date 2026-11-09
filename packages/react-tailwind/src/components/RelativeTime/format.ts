@@ -11,10 +11,13 @@ export interface RelativeTimeFormatOptions {
   format?: Format
   formatStyle?: FormatStyle
   hour?: NumericDatePart
+  hourCycle?: Intl.DateTimeFormatOptions['hourCycle']
   locale?: string
   minute?: NumericDatePart
   month?: NumericDatePart | 'short' | 'long' | 'narrow'
   precision?: Unit
+  /** Displays the user's preferred absolute date and time instead of relative or micro output. */
+  prefersAbsoluteTime?: boolean
   prefix?: string
   second?: NumericDatePart
   tense?: Tense
@@ -90,6 +93,7 @@ function dateTimeOptions(date: Date, now: number, options: RelativeTimeFormatOpt
         : datePart(options.year),
     timeZoneName: options.timeZoneName || undefined,
     timeZone: options.timeZone,
+    hourCycle: options.hourCycle,
   }
 }
 
@@ -106,7 +110,7 @@ function getTense(options: RelativeTimeFormatOptions) {
   return isTense(options.tense) ? options.tense : 'auto'
 }
 
-function getPrecision(options: RelativeTimeFormatOptions, format = getFormat(options)): Unit {
+export function getPrecision(options: RelativeTimeFormatOptions, format = getFormat(options)): Unit {
   return options.precision && ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'].includes(options.precision)
     ? options.precision
     : format === 'micro'
@@ -122,8 +126,8 @@ function getExplicitThreshold(options: RelativeTimeFormatOptions) {
   return options.threshold && isDuration(options.threshold) ? options.threshold : null
 }
 
-function getMicroDuration(duration: Duration, tense: Tense) {
-  const rounded = roundToSingleUnit(duration)
+function getMicroDuration(duration: Duration, tense: Tense, now: number) {
+  const rounded = roundToSingleUnit(duration, {relativeTo: now})
   if (
     rounded.months === 0 &&
     ((tense === 'past' && rounded.sign !== -1) || (tense === 'future' && rounded.sign !== 1))
@@ -168,19 +172,23 @@ function resolveFormat(
   duration: Duration,
   thresholdDuration: Duration,
   options: RelativeTimeFormatOptions,
+  now: number,
 ): FormattedRelativeTime['resolvedFormat'] {
   const format = getFormat(options)
   if (format === 'datetime') return 'datetime'
   if (format === 'duration' || format === 'elapsed') return 'duration'
   if (format === 'micro') {
     const threshold = getExplicitThreshold(options)
-    return threshold && Duration.compare(thresholdDuration, threshold) === -1 ? 'datetime' : 'duration'
+    return threshold && Duration.compare(thresholdDuration, threshold, now) === -1 ? 'datetime' : 'duration'
   }
   if (getTense(options) !== 'auto') return 'relative'
-  return Duration.compare(duration, getThreshold(options)) === 1 ? 'relative' : 'datetime'
+  return Duration.compare(duration, getThreshold(options), now) === 1 ? 'relative' : 'datetime'
 }
 
-export function getFormattedTitle(date: Date, options: Pick<RelativeTimeFormatOptions, 'locale' | 'timeZone'> = {}) {
+export function getFormattedTitle(
+  date: Date,
+  options: Pick<RelativeTimeFormatOptions, 'locale' | 'timeZone' | 'hourCycle'> = {},
+) {
   return new Intl.DateTimeFormat(options.locale, {
     day: 'numeric',
     month: 'short',
@@ -189,6 +197,7 @@ export function getFormattedTitle(date: Date, options: Pick<RelativeTimeFormatOp
     minute: '2-digit',
     timeZoneName: 'short',
     timeZone: options.timeZone,
+    hourCycle: options.hourCycle,
   }).format(date)
 }
 
@@ -197,13 +206,56 @@ export function getDateTimeText(date: Date, options: RelativeTimeFormatOptions, 
   return `${prefix} ${new Intl.DateTimeFormat(options.locale, dateTimeOptions(date, now, options)).format(date)}`.trim()
 }
 
+function isSameDatePart(
+  date: Date,
+  now: number,
+  options: RelativeTimeFormatOptions,
+  parts: Intl.DateTimeFormatOptions,
+) {
+  const formatter = new Intl.DateTimeFormat(options.locale, {...parts, timeZone: options.timeZone})
+  return formatter.format(date) === formatter.format(now)
+}
+
+/** Whether the user's absolute-time preference applies; like legacy, durations and elapsed timers stay durations. */
+export function shouldDisplayPreferredAbsoluteTime(options: RelativeTimeFormatOptions) {
+  const format = getFormat(options)
+  return Boolean(options.prefersAbsoluteTime) && format !== 'duration' && format !== 'elapsed'
+}
+
+/** Whether preferred absolute text can still change, because it names today or omits the current year. */
+export function isPreferredAbsoluteTimeChanging(date: Date, now: number, options: RelativeTimeFormatOptions) {
+  return isSameDatePart(date, now, options, {year: 'numeric'})
+}
+
+function getPreferredAbsoluteTimeText(date: Date, now: number, options: RelativeTimeFormatOptions) {
+  const {locale, timeZone, hourCycle} = options
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
+    timeZone,
+    hourCycle,
+  }
+  if (isSameDatePart(date, now, options, {year: 'numeric', month: '2-digit', day: '2-digit'})) {
+    const today = new Intl.RelativeTimeFormat(locale, {numeric: 'auto'}).format(0, 'day')
+    const todayText = today.charAt(0).toLocaleUpperCase(locale) + today.slice(1)
+    return `${todayText} ${new Intl.DateTimeFormat(locale, timeOptions).format(date)}`
+  }
+  const dateTimeOptions: Intl.DateTimeFormatOptions = {...timeOptions, day: 'numeric', month: 'short'}
+  if (!isPreferredAbsoluteTimeChanging(date, now, options)) dateTimeOptions.year = 'numeric'
+  return new Intl.DateTimeFormat(locale, dateTimeOptions).format(date)
+}
+
 export function formatRelativeTime(date: Date, now: number, options: RelativeTimeFormatOptions): FormattedRelativeTime {
   const format = getFormat(options)
   const precision = getPrecision(options, format)
   const locale = options.locale
-  const duration = elapsedTime(date, precision, now)
-  const resolvedFormat = resolveFormat(duration, elapsedTime(date, 'millisecond', now), options)
   const title = getFormattedTitle(date, options)
+  if (shouldDisplayPreferredAbsoluteTime(options)) {
+    return {text: getPreferredAbsoluteTimeText(date, now, options), title, resolvedFormat: 'datetime'}
+  }
+  const duration = elapsedTime(date, precision, now)
+  const resolvedFormat = resolveFormat(duration, elapsedTime(date, 'millisecond', now), options, now)
 
   if (resolvedFormat === 'datetime') return {text: getDateTimeText(date, options, now), title, resolvedFormat}
 
@@ -211,8 +263,10 @@ export function formatRelativeTime(date: Date, now: number, options: RelativeTim
   const style = getFormatStyle(options, format)
   if (resolvedFormat === 'duration') {
     if (format === 'micro' && tense !== 'auto') {
-      const microDuration = getMicroDuration(duration, tense)
-      const [value, unit] = getRelativeTimeUnit(microDuration.blank ? microEmptyDuration : microDuration)
+      const microDuration = getMicroDuration(duration, tense, now)
+      const [value, unit] = getRelativeTimeUnit(microDuration.blank ? microEmptyDuration : microDuration, {
+        relativeTo: now,
+      })
       return {
         text: new Intl.RelativeTimeFormat(locale, {numeric: 'always', style: 'narrow'}).format(
           Math.abs(value) * (tense === 'past' ? -1 : 1),
@@ -225,7 +279,7 @@ export function formatRelativeTime(date: Date, now: number, options: RelativeTim
 
     const displayedDuration =
       format === 'micro'
-        ? getMicroDuration(duration, tense)
+        ? getMicroDuration(duration, tense, now)
         : (tense === 'past' && duration.sign !== -1) || (tense === 'future' && duration.sign !== 1)
           ? emptyDuration
           : duration
@@ -243,7 +297,7 @@ export function formatRelativeTime(date: Date, now: number, options: RelativeTim
 
   const relativeDuration =
     (tense === 'future' && duration.sign !== 1) || (tense === 'past' && duration.sign !== -1) ? emptyDuration : duration
-  const [value, unit] = getRelativeTimeUnit(relativeDuration)
+  const [value, unit] = getRelativeTimeUnit(relativeDuration, {relativeTo: now})
   const relativeFormat = new Intl.RelativeTimeFormat(locale, {numeric: 'auto', style})
   return {
     text:

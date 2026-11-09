@@ -23,42 +23,42 @@ export type IssueLabelVariant =
   | 'teal'
   | 'yellow'
 const issueLabel = cva(
-  'inline-flex min-h-5 items-center whitespace-nowrap rounded-full border-0 px-2 py-0 text-xs font-semibold leading-[var(--text-body-lineHeight-small)] no-underline shadow-[0_0_0_1px_transparent]',
+  'primer:inline-flex primer:min-h-5 primer:items-center primer:whitespace-nowrap primer:rounded-full primer:border-0 primer:px-2 primer:py-0 primer:text-xs primer:font-semibold primer:leading-[var(--text-body-lineHeight-small)] primer:no-underline primer:shadow-[0_0_0_1px_transparent]',
   {
     variants: {
       variant: {
         auburn:
-          'bg-label-auburn-rest text-label-auburn-rest data-[interactive=true]:hover:bg-label-auburn-hover data-[interactive=true]:hover:text-label-auburn-hover data-[interactive=true]:active:bg-label-auburn-active data-[interactive=true]:active:text-label-auburn-active',
-        blue: 'bg-label-blue-rest text-label-blue-rest data-[interactive=true]:hover:bg-label-blue-hover data-[interactive=true]:hover:text-label-blue-hover data-[interactive=true]:active:bg-label-blue-active data-[interactive=true]:active:text-label-blue-active',
+          'primer:bg-label-auburn-rest primer:text-label-auburn-rest primer:data-[interactive=true]:hover:bg-label-auburn-hover primer:data-[interactive=true]:hover:text-label-auburn-hover primer:data-[interactive=true]:active:bg-label-auburn-active primer:data-[interactive=true]:active:text-label-auburn-active',
+        blue: 'primer:bg-label-blue-rest primer:text-label-blue-rest primer:data-[interactive=true]:hover:bg-label-blue-hover primer:data-[interactive=true]:hover:text-label-blue-hover primer:data-[interactive=true]:active:bg-label-blue-active primer:data-[interactive=true]:active:text-label-blue-active',
         brown:
-          'bg-label-brown-rest text-label-brown-rest data-[interactive=true]:hover:bg-label-brown-hover data-[interactive=true]:hover:text-label-brown-hover data-[interactive=true]:active:bg-label-brown-active data-[interactive=true]:active:text-label-brown-active',
+          'primer:bg-label-brown-rest primer:text-label-brown-rest primer:data-[interactive=true]:hover:bg-label-brown-hover primer:data-[interactive=true]:hover:text-label-brown-hover primer:data-[interactive=true]:active:bg-label-brown-active primer:data-[interactive=true]:active:text-label-brown-active',
         coral:
-          'bg-label-coral-rest text-label-coral-rest data-[interactive=true]:hover:bg-label-coral-hover data-[interactive=true]:hover:text-label-coral-hover data-[interactive=true]:active:bg-label-coral-active data-[interactive=true]:active:text-label-coral-active',
-        cyan: 'bg-label-cyan-rest text-label-cyan-rest data-[interactive=true]:hover:bg-label-cyan-hover data-[interactive=true]:hover:text-label-cyan-hover data-[interactive=true]:active:bg-label-cyan-active data-[interactive=true]:active:text-label-cyan-active',
-        gray: 'bg-label-gray-rest text-label-gray-rest data-[interactive=true]:hover:bg-label-gray-hover data-[interactive=true]:hover:text-label-gray-hover data-[interactive=true]:active:bg-label-gray-active data-[interactive=true]:active:text-label-gray-active',
+          'primer:bg-label-coral-rest primer:text-label-coral-rest primer:data-[interactive=true]:hover:bg-label-coral-hover primer:data-[interactive=true]:hover:text-label-coral-hover primer:data-[interactive=true]:active:bg-label-coral-active primer:data-[interactive=true]:active:text-label-coral-active',
+        cyan: 'primer:bg-label-cyan-rest primer:text-label-cyan-rest primer:data-[interactive=true]:hover:bg-label-cyan-hover primer:data-[interactive=true]:hover:text-label-cyan-hover primer:data-[interactive=true]:active:bg-label-cyan-active primer:data-[interactive=true]:active:text-label-cyan-active',
+        gray: 'primer:bg-label-gray-rest primer:text-label-gray-rest primer:data-[interactive=true]:hover:bg-label-gray-hover primer:data-[interactive=true]:hover:text-label-gray-hover primer:data-[interactive=true]:active:bg-label-gray-active primer:data-[interactive=true]:active:text-label-gray-active',
         green:
-          'bg-label-green-rest text-label-green-rest data-[interactive=true]:hover:bg-label-green-hover data-[interactive=true]:hover:text-label-green-hover data-[interactive=true]:active:bg-label-green-active data-[interactive=true]:active:text-label-green-active',
+          'primer:bg-label-green-rest primer:text-label-green-rest primer:data-[interactive=true]:hover:bg-label-green-hover primer:data-[interactive=true]:hover:text-label-green-hover primer:data-[interactive=true]:active:bg-label-green-active primer:data-[interactive=true]:active:text-label-green-active',
         indigo:
-          'bg-label-indigo-rest text-label-indigo-rest data-[interactive=true]:hover:bg-label-indigo-hover data-[interactive=true]:hover:text-label-indigo-hover data-[interactive=true]:active:bg-label-indigo-active data-[interactive=true]:active:text-label-indigo-active',
+          'primer:bg-label-indigo-rest primer:text-label-indigo-rest primer:data-[interactive=true]:hover:bg-label-indigo-hover primer:data-[interactive=true]:hover:text-label-indigo-hover primer:data-[interactive=true]:active:bg-label-indigo-active primer:data-[interactive=true]:active:text-label-indigo-active',
         lemon:
-          'bg-label-lemon-rest text-label-lemon-rest data-[interactive=true]:hover:bg-label-lemon-hover data-[interactive=true]:hover:text-label-lemon-hover data-[interactive=true]:active:bg-label-lemon-active data-[interactive=true]:active:text-label-lemon-active',
-        lime: 'bg-label-lime-rest text-label-lime-rest data-[interactive=true]:hover:bg-label-lime-hover data-[interactive=true]:hover:text-label-lime-hover data-[interactive=true]:active:bg-label-lime-active data-[interactive=true]:active:text-label-lime-active',
+          'primer:bg-label-lemon-rest primer:text-label-lemon-rest primer:data-[interactive=true]:hover:bg-label-lemon-hover primer:data-[interactive=true]:hover:text-label-lemon-hover primer:data-[interactive=true]:active:bg-label-lemon-active primer:data-[interactive=true]:active:text-label-lemon-active',
+        lime: 'primer:bg-label-lime-rest primer:text-label-lime-rest primer:data-[interactive=true]:hover:bg-label-lime-hover primer:data-[interactive=true]:hover:text-label-lime-hover primer:data-[interactive=true]:active:bg-label-lime-active primer:data-[interactive=true]:active:text-label-lime-active',
         olive:
-          'bg-label-olive-rest text-label-olive-rest data-[interactive=true]:hover:bg-label-olive-hover data-[interactive=true]:hover:text-label-olive-hover data-[interactive=true]:active:bg-label-olive-active data-[interactive=true]:active:text-label-olive-active',
+          'primer:bg-label-olive-rest primer:text-label-olive-rest primer:data-[interactive=true]:hover:bg-label-olive-hover primer:data-[interactive=true]:hover:text-label-olive-hover primer:data-[interactive=true]:active:bg-label-olive-active primer:data-[interactive=true]:active:text-label-olive-active',
         orange:
-          'bg-label-orange-rest text-label-orange-rest data-[interactive=true]:hover:bg-label-orange-hover data-[interactive=true]:hover:text-label-orange-hover data-[interactive=true]:active:bg-label-orange-active data-[interactive=true]:active:text-label-orange-active',
-        pine: 'bg-label-pine-rest text-label-pine-rest data-[interactive=true]:hover:bg-label-pine-hover data-[interactive=true]:hover:text-label-pine-hover data-[interactive=true]:active:bg-label-pine-active data-[interactive=true]:active:text-label-pine-active',
-        pink: 'bg-label-pink-rest text-label-pink-rest data-[interactive=true]:hover:bg-label-pink-hover data-[interactive=true]:hover:text-label-pink-hover data-[interactive=true]:active:bg-label-pink-active data-[interactive=true]:active:text-label-pink-active',
-        plum: 'bg-label-plum-rest text-label-plum-rest data-[interactive=true]:hover:bg-label-plum-hover data-[interactive=true]:hover:text-label-plum-hover data-[interactive=true]:active:bg-label-plum-active data-[interactive=true]:active:text-label-plum-active',
+          'primer:bg-label-orange-rest primer:text-label-orange-rest primer:data-[interactive=true]:hover:bg-label-orange-hover primer:data-[interactive=true]:hover:text-label-orange-hover primer:data-[interactive=true]:active:bg-label-orange-active primer:data-[interactive=true]:active:text-label-orange-active',
+        pine: 'primer:bg-label-pine-rest primer:text-label-pine-rest primer:data-[interactive=true]:hover:bg-label-pine-hover primer:data-[interactive=true]:hover:text-label-pine-hover primer:data-[interactive=true]:active:bg-label-pine-active primer:data-[interactive=true]:active:text-label-pine-active',
+        pink: 'primer:bg-label-pink-rest primer:text-label-pink-rest primer:data-[interactive=true]:hover:bg-label-pink-hover primer:data-[interactive=true]:hover:text-label-pink-hover primer:data-[interactive=true]:active:bg-label-pink-active primer:data-[interactive=true]:active:text-label-pink-active',
+        plum: 'primer:bg-label-plum-rest primer:text-label-plum-rest primer:data-[interactive=true]:hover:bg-label-plum-hover primer:data-[interactive=true]:hover:text-label-plum-hover primer:data-[interactive=true]:active:bg-label-plum-active primer:data-[interactive=true]:active:text-label-plum-active',
         purple:
-          'bg-label-purple-rest text-label-purple-rest data-[interactive=true]:hover:bg-label-purple-hover data-[interactive=true]:hover:text-label-purple-hover data-[interactive=true]:active:bg-label-purple-active data-[interactive=true]:active:text-label-purple-active',
-        red: 'bg-label-red-rest text-label-red-rest data-[interactive=true]:hover:bg-label-red-hover data-[interactive=true]:hover:text-label-red-hover data-[interactive=true]:active:bg-label-red-active data-[interactive=true]:active:text-label-red-active',
-        teal: 'bg-label-teal-rest text-label-teal-rest data-[interactive=true]:hover:bg-label-teal-hover data-[interactive=true]:hover:text-label-teal-hover data-[interactive=true]:active:bg-label-teal-active data-[interactive=true]:active:text-label-teal-active',
+          'primer:bg-label-purple-rest primer:text-label-purple-rest primer:data-[interactive=true]:hover:bg-label-purple-hover primer:data-[interactive=true]:hover:text-label-purple-hover primer:data-[interactive=true]:active:bg-label-purple-active primer:data-[interactive=true]:active:text-label-purple-active',
+        red: 'primer:bg-label-red-rest primer:text-label-red-rest primer:data-[interactive=true]:hover:bg-label-red-hover primer:data-[interactive=true]:hover:text-label-red-hover primer:data-[interactive=true]:active:bg-label-red-active primer:data-[interactive=true]:active:text-label-red-active',
+        teal: 'primer:bg-label-teal-rest primer:text-label-teal-rest primer:data-[interactive=true]:hover:bg-label-teal-hover primer:data-[interactive=true]:hover:text-label-teal-hover primer:data-[interactive=true]:active:bg-label-teal-active primer:data-[interactive=true]:active:text-label-teal-active',
         yellow:
-          'bg-label-yellow-rest text-label-yellow-rest data-[interactive=true]:hover:bg-label-yellow-hover data-[interactive=true]:hover:text-label-yellow-hover data-[interactive=true]:active:bg-label-yellow-active data-[interactive=true]:active:text-label-yellow-active',
+          'primer:bg-label-yellow-rest primer:text-label-yellow-rest primer:data-[interactive=true]:hover:bg-label-yellow-hover primer:data-[interactive=true]:hover:text-label-yellow-hover primer:data-[interactive=true]:active:bg-label-yellow-active primer:data-[interactive=true]:active:text-label-yellow-active',
       },
       interactive: {
-        true: 'cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        true: 'primer:cursor-pointer primer:focus-visible:outline-2 primer:focus-visible:outline-offset-2 primer:focus-visible:outline-focus',
         false: '',
       },
     },

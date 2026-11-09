@@ -70,7 +70,7 @@ describe('TreeView', () => {
     expect(screen.getByRole('treeitem', {name: /src/})).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByText('open')).toBeVisible()
     expect(screen.getByRole('treeitem', {name: /index\.ts/})).toHaveAttribute('aria-describedby')
-    expect(screen.getByText('modified')).toHaveClass('sr-only')
+    expect(screen.getByText('modified')).toHaveClass('primer:sr-only')
   })
 
   it('applies flat and truncate settings to nested item layout', () => {
@@ -86,9 +86,74 @@ describe('TreeView', () => {
     )
 
     expect(screen.getByRole('tree')).toHaveAttribute('data-flat')
-    expect(screen.getByText('A long file name that can wrap')).toHaveClass('break-words')
+    expect(screen.getByText('A long file name that can wrap')).toHaveClass('primer:break-words')
     expect(screen.getByRole('group')).toBeInTheDocument()
     expect(document.querySelector('[data-component="TreeView.Toggle"]')).not.toBeInTheDocument()
+  })
+
+  it('exposes the label container independently of the accessible name and truncation setting', () => {
+    const items = (
+      <>
+        <TreeView.Item id="parent" defaultExpanded>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.Item id="file" aria-label="A long file name, modified">
+              A long file name
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </>
+    )
+    const {rerender} = render(<TreeView aria-label="Files">{items}</TreeView>)
+    const parent = screen.getByRole('treeitem', {name: 'Parent'})
+    const file = screen.getByRole('treeitem', {name: 'A long file name, modified'})
+    const parentLabel = within(parent).getByText('Parent')
+    const fileLabel = within(file).getByText('A long file name')
+
+    expect(parentLabel).toHaveAttribute('data-component', 'TreeView.Item.Label')
+    expect(fileLabel).toHaveAttribute('data-component', 'TreeView.Item.Label')
+    expect(fileLabel).toHaveClass('primer:truncate')
+    expect(file).not.toHaveAttribute('aria-labelledby')
+
+    rerender(
+      <TreeView aria-label="Files" truncate={false}>
+        {items}
+      </TreeView>,
+    )
+    expect(within(file).getByText('A long file name')).toHaveAttribute('data-component', 'TreeView.Item.Label')
+    expect(within(file).getByText('A long file name')).toHaveClass('primer:break-words')
+  })
+
+  it('can hide guides without removing nested expansion or keyboard navigation', async () => {
+    const user = userEvent.setup()
+    const content = (
+      <TreeView.Item id="src" defaultExpanded>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="index">index.ts</TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    )
+    const {rerender} = render(<TreeView aria-label="Files">{content}</TreeView>)
+    const tree = screen.getByRole('tree', {name: 'Files'})
+    expect(tree.querySelector('[data-component="TreeView.LevelGuides"]')).toBeInTheDocument()
+    expect(tree.querySelector('[data-component="TreeView.LevelGuide"]')).toBeInTheDocument()
+    expect(tree.querySelector('[data-component="TreeView.Row"]')).toBeInTheDocument()
+    expect(tree.querySelector('[data-component="TreeView.ItemContent"]')).toBeInTheDocument()
+
+    rerender(
+      <TreeView aria-label="Files" showGuides={false}>
+        {content}
+      </TreeView>,
+    )
+    expect(tree.querySelector('[data-component="TreeView.LevelGuides"]')).not.toBeInTheDocument()
+    expect(tree.querySelector('[data-component="TreeView.Toggle"]')).toBeInTheDocument()
+    await user.tab()
+    expect(screen.getByRole('treeitem', {name: /^src$/})).toHaveFocus()
+    await user.keyboard('{ArrowRight}')
+    expect(screen.getByRole('treeitem', {name: /^index\.ts$/})).toHaveFocus()
+    await user.keyboard('{ArrowLeft}{ArrowLeft}')
+    expect(screen.getByRole('treeitem', {name: /^src$/})).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('forwards refs and DOM props to the semantic item element', () => {

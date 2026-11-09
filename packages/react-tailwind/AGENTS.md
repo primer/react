@@ -23,9 +23,11 @@ import {Button} from '@primer/react-tailwind'
 import {Button} from '@primer/react-tailwind/Button'
 ```
 
-The compiled `styles.css` styles package components; it does not generate arbitrary app-owned Tailwind classes. With this setup, use ordinary CSS or package layout components such as `Stack` for application layout. To use Tailwind utilities in app code, configure a Tailwind v4 build with Primer's config and scan both the app sources and the package's `dist`; import the generated CSS instead of `styles.css`. See the package README for both setups.
+Portal routing for host-composed Base UI parts lives in two narrow foundation subpaths with flat exports: `BasePortalProvider` (the same component as `Portal.Provider`) from `@primer/react-tailwind/base`, and `usePortalContainer` and `usePortalRoot` from `@primer/react-tailwind/behaviors`. Pass `usePortalContainer()` to a Base UI `Portal` part's `container`; do not reimplement portal mounting, focus, or dismissal. These subpaths contain nothing else.
 
-Both modes use unprefixed utilities that can collide with legacy `@primer/css` `!important` rules. Layer ordering alone does not isolate them, and the package does not yet provide a prefixed build. Verify stylesheet isolation before combining them.
+The compiled `styles.css` styles package components; it does not generate arbitrary app-owned Tailwind classes. With this setup, use ordinary CSS or package layout components such as `Stack` for application layout. To use Tailwind utilities in app code, run a separate Tailwind v4 build with Primer's config and unprefixed class names that scans only app sources; keep importing `styles.css` for components. See the package README.
+
+Package-owned utilities use the `primer:` prefix (first, before variants); caller `className` stays unprefixed and is merged over both prefixed and unprefixed package utilities. Compiled `styles.css` is the default and emits only package utilities. App utilities are unprefixed in the host's own Tailwind build, which must not scan the package `dist`. The optional `tailwind.css` is a standalone entry for a separate stylesheet and must not be imported into the same Tailwind stylesheet as app utilities (one prefix per build). The prefix is an unvalidated migration candidate: shared `--tw-*` properties may still interact with legacy `@primer/css`, so verify isolation in the host.
 
 ## Rules
 
@@ -35,7 +37,7 @@ Both modes use unprefixed utilities that can collide with legacy `@primer/css` `
 - In a host Tailwind build, focus treatment is `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus`.
 - Change the rendered element with `render` on Base UI-backed components such as `Button`, `Dialog`, and `Tooltip`, and with `as` on presentational components such as `Text`, `Stack`, `Card`, and `PageLayout`. Check the component's props before choosing.
 - React 19 is the only supported peer. The package is compiled with React Compiler; do not add manual `memo`, `useMemo`, or `useCallback` wrappers around package components for performance alone.
-- Components forward their root ref and unrecognized DOM props to their root element. Prefer passing standard DOM props directly instead of wrapping components in extra elements.
+- Most components forward their root ref and unrecognized DOM props to their root element; check the component's shipped `llms/` guide for exceptions. `TextInput` applies `className` to its visual wrapper, while its ref, native input props, and `style` apply to the underlying `<input>`. Component-owned style properties, such as geometry custom properties like `--dialog-width`, are layered over a caller's `style`, so do not assume caller `style` always wins. Prefer passing standard DOM props directly instead of wrapping components in extra elements.
 - There is no `Box` component. Use a plain element with `className`, or `Stack` for layout.
 - `Button` defaults to `type="button"`; set `type="submit"` on a form submission action.
 
@@ -85,4 +87,27 @@ Every interactive control needs an accessible name. `IconButton` requires `aria-
 
 ## Verifying generated code
 
-If a prop is uncertain, read the shipped TypeScript declarations rather than assuming the `@primer/react` signature. Each component directory also ships `README.mdx` for usage and `ALIGNMENT.md` for differences from the legacy component.
+If a prop is uncertain, read the shipped TypeScript declarations rather than assuming the `@primer/react` signature. The package ships `dist` (including declarations) and the `llms/` component guides; component `README.mdx` and `ALIGNMENT.md` files live in the repository source and are not shipped, and their guidance is summarized in the `llms/` guides.
+
+Start with `llms.txt`, then load the linked guide for the component you need. The guides include authored usage examples, composition, state and styling guidance where documented, generated prop references, and migration notes. This shared `AGENTS.md` applies to every component; do not create a second independently maintained set of agent instructions.
+
+Read these exports as files, not JavaScript modules. In a Node.js script inside the consuming application:
+
+```js
+import {readFile} from 'node:fs/promises'
+import {createRequire} from 'node:module'
+
+const require = createRequire(import.meta.url)
+const index = await readFile(require.resolve('@primer/react-tailwind/llms.txt'), 'utf8')
+const button = await readFile(require.resolve('@primer/react-tailwind/llms/Button.md'), 'utf8')
+```
+
+`@primer/react-tailwind/AGENTS.md` and `@primer/react-tailwind/api-inventory.schema.json` are also explicit file exports. Read the installed version, rather than assuming the documentation on the repository's default branch matches it. No CLI, raw-text bundler loader, or Tailwind compiler is required to retrieve guidance.
+
+## Customization boundaries
+
+Start with documented variants and semantic tokens, then use `className` on the documented component or part. When structure must change, compose public parts with `render`, `as`, or region props as supported. `ButtonBase` is a styled lower-level button, not an unstyled replacement for Base UI.
+
+Use the component guide's documented data attributes when styling state or parts. Other DOM structure, generated utility names, and internal helpers are not supported extension APIs. A class-merging result does not prove that a CSS declaration wins in the host's cascade; verify the result with the actual stylesheets, states, and viewports.
+
+Use `Portal.Provider` or a floating part's `container` to choose a portal destination. A custom destination outside a themed subtree does not automatically inherit that subtree's CSS custom properties. Retain the required theme styles and verify nested overlays, clipping, focus, dismissal, and return focus in the host.

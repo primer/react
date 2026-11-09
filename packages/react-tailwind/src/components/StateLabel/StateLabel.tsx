@@ -60,29 +60,34 @@ const iconLabels: Record<keyof typeof icons, string> = {
 }
 
 const stateLabelVariants = cva(
-  'inline-flex items-center gap-1 rounded-full text-center font-semibold leading-4 text-on-emphasis',
+  'primer:inline-flex primer:items-center primer:gap-1 primer:rounded-full primer:text-center primer:font-semibold primer:leading-4 primer:text-on-emphasis',
   {
     variants: {
       status: {
-        issueOpened: 'bg-open-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
-        pullOpened: 'bg-open-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
-        issueClosed: 'bg-done-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
-        issueClosedNotPlanned: 'bg-neutral-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
-        pullClosed: 'bg-closed-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-closed-emphasis)]',
-        pullMerged: 'bg-done-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
-        draft: 'bg-draft-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-draft-emphasis)]',
-        issueDraft: 'bg-draft-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-draft-emphasis)]',
-        pullQueued: 'bg-attention-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-attention-emphasis)]',
-        unavailable: 'bg-neutral-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
-        alertOpened: 'bg-open-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
-        alertFixed: 'bg-done-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
-        alertDismissed: 'bg-draft-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-draft-emphasis)]',
-        alertClosed: 'bg-closed-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-closed-emphasis)]',
-        archived: 'bg-neutral-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
-        open: 'bg-open-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
-        closed: 'bg-done-emphasis shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
+        issueOpened: 'primer:bg-open-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
+        pullOpened: 'primer:bg-open-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
+        issueClosed: 'primer:bg-done-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
+        issueClosedNotPlanned:
+          'primer:bg-neutral-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
+        pullClosed: 'primer:bg-closed-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-closed-emphasis)]',
+        pullMerged: 'primer:bg-done-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
+        draft: 'primer:bg-draft-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-draft-emphasis)]',
+        issueDraft: 'primer:bg-draft-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-draft-emphasis)]',
+        pullQueued:
+          'primer:bg-attention-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-attention-emphasis)]',
+        unavailable: 'primer:bg-neutral-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
+        alertOpened: 'primer:bg-open-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
+        alertFixed: 'primer:bg-done-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
+        alertDismissed: 'primer:bg-draft-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-draft-emphasis)]',
+        alertClosed: 'primer:bg-closed-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-closed-emphasis)]',
+        archived: 'primer:bg-neutral-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-neutral-emphasis)]',
+        open: 'primer:bg-open-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-open-emphasis)]',
+        closed: 'primer:bg-done-emphasis primer:shadow-[inset_0_0_0_1px_var(--borderColor-done-emphasis)]',
       },
-      size: {small: 'px-2 py-1 text-xs leading-4', medium: 'px-3 py-2 text-sm leading-4'},
+      size: {
+        small: 'primer:px-2 primer:py-1 primer:text-xs primer:leading-4',
+        medium: 'primer:px-3 primer:py-2 primer:text-sm primer:leading-4',
+      },
     },
     defaultVariants: {size: 'medium'},
   },
@@ -110,9 +115,9 @@ export const StateLabel = React.forwardRef<HTMLSpanElement, StateLabelProps>(fun
     >
       {Icon &&
         (iconLabels[status] ? (
-          <Icon aria-label={iconLabels[status]} className={size === 'small' ? 'w-3' : undefined} size={16} />
+          <Icon aria-label={iconLabels[status]} className={size === 'small' ? 'primer:w-3' : undefined} size={16} />
         ) : (
-          <Icon aria-hidden="true" className={size === 'small' ? 'w-3' : undefined} size={16} />
+          <Icon aria-hidden="true" className={size === 'small' ? 'primer:w-3' : undefined} size={16} />
         ))}
       {children}
     </span>

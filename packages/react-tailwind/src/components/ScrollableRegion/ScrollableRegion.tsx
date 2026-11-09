@@ -2,8 +2,8 @@
 
 import React from 'react'
 import {cn} from '../../internal/cn'
-import {assignRef} from '../../internal/refs'
-import {useOverflow} from './useOverflow'
+import {mergeRefs} from '../../internal/refs'
+import {useOverflowWithFocusRetention} from './useOverflow'
 
 type Labelled =
   | {
@@ -23,15 +23,9 @@ export const ScrollableRegion = React.forwardRef<HTMLElement, ScrollableRegionPr
   forwardedRef,
 ) {
   const [element, setElement] = React.useState<HTMLElement | null>(null)
-  const hasOverflow = useOverflow(element)
-  const ref = React.useCallback(
-    (node: HTMLElement | null) => {
-      setElement(node)
-      assignRef(forwardedRef, node)
-    },
-    [forwardedRef],
-  )
-  const regionProps = hasOverflow
+  const needsRegion = useOverflowWithFocusRetention(element)
+  const ref = React.useMemo(() => mergeRefs(setElement, forwardedRef), [forwardedRef])
+  const regionProps = needsRegion
     ? {
         'aria-label': ariaLabel,
         'aria-labelledby': ariaLabelledBy,
@@ -45,7 +39,7 @@ export const ScrollableRegion = React.forwardRef<HTMLElement, ScrollableRegionPr
       {...rest}
       {...regionProps}
       ref={ref}
-      className={cn('relative overflow-auto', className)}
+      className={cn('primer:relative primer:overflow-auto', className)}
       data-component="ScrollableRegion"
     >
       {children}

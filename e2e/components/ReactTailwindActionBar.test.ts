@@ -2,6 +2,73 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 
 test.describe('React Tailwind ActionBar overflow', () => {
+  for (const strictMode of [false, true]) {
+    test(`composes a SelectPanel at 30px without a render loop (StrictMode=${strictMode})`, async ({page}) => {
+      const errors: string[] = []
+      page.on('pageerror', error => errors.push(error.message))
+      await visit(page, {
+        id: 'react-tailwind-data-actionbar-features--select-panel-composition',
+        args: {strictMode},
+      })
+      const toolbar = page.getByRole('toolbar', {name: 'Filters'})
+      const more = toolbar.getByRole('button', {name: 'More items'})
+      const projects = toolbar.getByRole('button', {name: 'Projects', exact: true})
+      const labels = toolbar.getByRole('button', {name: 'Labels', exact: true})
+      const popup = page.getByRole('dialog', {name: 'Filter by project'})
+      const filter = popup.getByRole('combobox', {name: 'Filter items'})
+      const resize = (width: number) =>
+        toolbar.evaluate((element, value) => {
+          element.style.width = `${value}px`
+        }, width)
+      await expect(page.getByTestId('project-selection')).toHaveText('bug')
+      await expect(page.locator('[role="dialog"]')).toHaveCount(0)
+      await expect(more).toBeVisible()
+      await expect(projects).toHaveCount(0)
+      for (let cycle = 0; cycle < 3; cycle++) {
+        await more.focus()
+        await page.keyboard.press('Enter')
+        await page.keyboard.press('Home')
+        await expect(page.getByRole('menuitem', {name: 'Projects'})).toBeFocused()
+        await page.keyboard.press('Enter')
+        await expect(filter).toBeFocused()
+        await expect(popup.getByRole('option', {name: 'bug'})).toHaveAttribute('aria-selected', 'true')
+        await page.keyboard.press('Escape')
+        await expect(page.locator('[role="dialog"]')).toHaveCount(0)
+        await expect(more).toBeFocused()
+      }
+
+      await resize(600)
+      await expect(more).toHaveCount(0)
+      await expect(projects).toBeFocused()
+      await page.keyboard.press('ArrowRight')
+      await expect(labels).toBeFocused()
+      await page.keyboard.press('Home')
+      await expect(projects).toBeFocused()
+      await page.keyboard.press('End')
+      await expect(labels).toBeFocused()
+      await page.keyboard.press('Home')
+      await page.keyboard.press('Enter')
+      await expect(filter).toBeFocused()
+      await resize(30)
+      await expect(more).toBeVisible()
+      await expect(filter).toBeFocused()
+      await page.keyboard.press('Escape')
+      await expect(page.locator('[role="dialog"]')).toHaveCount(0)
+      await expect(more).toBeFocused()
+
+      await more.click()
+      await page.getByRole('menuitem', {name: 'Projects'}).click()
+      await expect(filter).toBeFocused()
+      await resize(600)
+      await expect(more).toHaveCount(0)
+      await expect(filter).toBeFocused()
+      await page.keyboard.press('Escape')
+      await expect(projects).toBeFocused()
+      await expect(page.getByTestId('project-selection')).toHaveText('bug')
+      expect(errors).toEqual([])
+    })
+  }
+
   for (const theme of ['light', 'dark', 'light_high_contrast', 'dark_high_contrast']) {
     test(`toolbar, overflow menu, and picker @aat ${theme}`, async ({page}) => {
       await page.setViewportSize({width: 1000, height: 800})
@@ -114,6 +181,38 @@ test.describe('React Tailwind ActionBar overflow', () => {
     await outside.click()
     await expect(popup).toBeHidden()
     await expect(outside).toBeFocused()
+
+    await more.click()
+    await page.getByRole('menuitem', {name: 'Projects'}).click()
+    await page.getByText('Outside content').click()
+    await expect(popup).toBeHidden()
+    await expect(more).not.toBeFocused()
+  })
+
+  test('restores focus after a declined outside close followed by a programmatic close', async ({page}) => {
+    await page.setViewportSize({width: 320, height: 800})
+    await visit(page, {id: 'react-tailwind-data-actionbar-features--guarded-overflow-picker'})
+    const more = page.getByRole('button', {name: 'More items'})
+    await more.click()
+    await page.getByRole('menuitem', {name: 'Projects'}).click()
+
+    const dialog = page.getByRole('dialog', {name: 'Projects'})
+    await expect(dialog.getByRole('combobox', {name: 'Filter items'})).toBeFocused()
+    await page.getByRole('button', {name: 'Outside target'}).click()
+    await expect(page.getByText('Close request declined')).toBeVisible()
+    await expect(dialog).toBeVisible()
+
+    await dialog.getByRole('button', {name: 'Finish pending work'}).click()
+    await expect(dialog).toBeHidden()
+    await expect(more).toBeFocused()
+
+    await more.click()
+    await page.getByRole('menuitem', {name: 'Projects'}).click()
+    await page.getByRole('button', {name: 'Outside target'}).click()
+    const finishOutside = page.getByRole('button', {name: 'Finish outside'})
+    await finishOutside.click()
+    await expect(dialog).toBeHidden()
+    await expect(finishOutside).toBeFocused()
   })
 
   test('keeps an open picker usable as its trigger moves into and out of overflow', async ({page}) => {

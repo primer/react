@@ -5,6 +5,8 @@ export {
   type TreeViewErrorDialogProps,
   type TreeViewItemProps,
   type TreeViewLeadingActionProps,
+  type TreeViewLinkSubTreeProps,
+  type TreeViewLinkTreeProps,
   type TreeViewProps,
   type TreeViewSecondaryActions,
   type TreeViewSubTreeProps,

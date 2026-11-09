@@ -145,7 +145,7 @@ export const WithCustomStyling: Story = {
     <form>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
-        <Select className="rounded-lg border border-dashed border-[var(--fgColor-default)]">{choices}</Select>
+        <Select className="rounded-lg border-thin border-dashed border-[var(--fgColor-default)]">{choices}</Select>
       </FormControl>
     </form>
   ),

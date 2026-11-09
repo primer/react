@@ -4,6 +4,31 @@
 
 Import: `import {Avatar} from '@primer/react-tailwind/Avatar'`
 
+Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
+
+## Usage
+
+```tsx
+import {Avatar} from '@primer/react-tailwind/Avatar'
+;<Avatar alt="GitHub" src="https://avatars.githubusercontent.com/github" />
+```
+
+## API notes
+
+The default size is `small`; named sizes also include `medium`, `large`, and `xlarge`. The default shape is `circle`.
+
+## Composition
+
+Use as an image primitive, including as a child of an avatar stack.
+
+## Accessibility
+
+Provide meaningful `alt` text for informative avatars; leave it empty only for decorative images.
+
+## Data attributes
+
+The image exposes `data-component="Avatar"` and `data-shape`.
+
 Renders an [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) and forwards unrecognized props to it, so it also accepts that element's native attributes.
 
 ## Props
