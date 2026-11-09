@@ -245,15 +245,28 @@ function assertStandalonePackageCss(css) {
   }
 }
 
-/** The app's own Tailwind build keeps unprefixed utilities and must not generate package classes. */
-function assertAppCss(css) {
+function assertAppUtilities(css) {
   for (const className of appUtilities) {
     if (!css.includes(classSelector(className))) {
       throw new Error(`Tailwind v4 app stylesheet did not emit the app-owned utility ${className}.`)
     }
   }
+}
+
+/** The app's own Tailwind build keeps unprefixed utilities and must not generate package classes. */
+function assertAppCss(css) {
+  assertAppUtilities(css)
   if (css.includes('.primer\\:')) {
     throw new Error('Tailwind v4 app stylesheet emitted package-prefixed utilities.')
+  }
+}
+
+function assertPackageComponentCssOnce(css) {
+  for (const rule of ['@keyframes primer-detect-overflow', '@keyframes primer-skeleton-shimmer']) {
+    const occurrences = css.split(rule).length - 1
+    if (occurrences !== 1) {
+      throw new Error(`Tailwind v4 host stylesheet emitted ${occurrences} copies of ${rule}; expected exactly one.`)
+    }
   }
 }
 
@@ -285,6 +298,26 @@ async function validateTailwindConsumer(consumerDirectory) {
 `,
     ),
   )
+  const hostCss = await compileTailwindConsumer(
+    consumerDirectory,
+    'host',
+    `@layer theme, base, components, utilities;
+
+@import '@primer/react-tailwind/styles.css';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import '@primer/tailwind-config';
+
+@source './';
+`,
+  )
+  assertAppUtilities(hostCss)
+  for (const className of packageUtilities) {
+    if (!hostCss.includes(classSelector(className))) {
+      throw new Error(`Tailwind v4 host stylesheet did not preserve the package utility ${className}.`)
+    }
+  }
+  assertPackageComponentCssOnce(hostCss)
 }
 
 async function validateConsumer(temporaryRoot, tarball, reactVersion, tailwindVersion) {

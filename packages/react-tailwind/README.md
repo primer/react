@@ -38,27 +38,30 @@ import './signup.css'
 }
 ```
 
-`base.css`, `components.css`, `theme.css`, and `tailwind.css` are also available as CSS subpath exports. `base.css` is an optional small global normalization stylesheet for box sizing, body margin, and table border collapsing; it does not include Tailwind Preflight. `components.css` contains the package's non-utility component rules and keyframes. Do not combine `styles.css` with a separately generated package stylesheet, or the component rules will be duplicated.
+`base.css`, `components.css`, `theme.css`, and `tailwind.css` are also available as CSS subpath exports. Use the granular theme, component, and base styles only when intentionally composing a custom package stylesheet; do not add them alongside `styles.css`. `base.css` is an optional small global normalization stylesheet for box sizing, body margin, and table border collapsing; it does not include Tailwind Preflight. `components.css` contains the package's non-utility component rules and keyframes.
 
 **Stacking tokens:** The current package CSS references Primer's `--zIndex-*` variables but does not define them. Hosts must supply these variables in every CSS setup. With a directly installed `@primer/primitives` 11.5.0 or later, include its `dist/css/functional/size/z-index.css` stylesheet. Earlier supported primitive versions do not contain that file, so those hosts need equivalent compatible variables from their existing theme. Without them, the overlay z-index utilities compute to `auto`.
 
 ## Tailwind v4
 
-Package-owned utilities use the `primer:` prefix in source (placed first, before variants, for example `primer:md:px-4`), so the package's default compiled `styles.css` emits only prefixed utilities and never your app's unprefixed classes. To use Tailwind utilities in application code, run your own Tailwind v4 build with Primer's configuration and unprefixed class names, and keep it separate from the package's stylesheet. For a stylesheet at `src/index.css`:
+Package-owned utilities use the `primer:` prefix in source (placed first, before variants, for example `primer:md:px-4`), so the package's default compiled `styles.css` emits only prefixed utilities and never your app's unprefixed classes. Hosts that do not compile the package should import that precompiled stylesheet once.
+
+To add host-owned Tailwind v4 utilities without compiling the package, include `styles.css` once in the host's Tailwind entry and compile only the application's unprefixed utilities around it. For a stylesheet at `src/index.css`:
 
 ```css
 @layer theme, base, components, utilities;
 
+@import '@primer/react-tailwind/styles.css';
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
-@import '@primer/react-tailwind/theme.css';
 @import '@primer/tailwind-config';
-@import '@primer/react-tailwind/components.css';
 
 @source './';
 ```
 
-Adjust the `@source` path to your app source locations; Tailwind must scan every directory containing the classes you use. Do not scan the package's `dist`: its utilities are prefixed and belong to the package's own stylesheet. Your app can then use unprefixed classes, for example `<main className="mx-auto grid max-w-[28rem] gap-5 py-12">`, while continuing to import `@primer/react-tailwind/styles.css` for the components. Caller `className` values are never prefixed, and the package's class merging lets them override package utilities, both prefixed and unprefixed.
+Adjust the `@source` path to your app source locations; Tailwind must scan every directory containing the classes you use. Do not scan the package's `dist`: its utilities are already compiled and prefixed in `styles.css`. Your app can then use unprefixed classes, for example `<main className="mx-auto grid max-w-[28rem] gap-5 py-12">`. Caller `className` values are never prefixed, and the package's class merging lets them replace conflicting package utilities in the rendered class list.
+
+If a custom host Tailwind build imports package layers such as `theme.css` or `components.css` directly, that build owns those layers and must not also import `styles.css`. Direct granular imports are building blocks for an intentional custom package compilation, not additions to the precompiled setup.
 
 The package's `tailwind.css` subpath is an optional, standalone Tailwind entry point for generating the package's own prefixed styles as a separate stylesheet. Do not import it into the same Tailwind stylesheet as your app's unprefixed utilities: a Tailwind build has one prefix, so the two would conflict. Use either compiled `styles.css` or a separately generated package stylesheet, not both. For granular host configuration, `@primer/tailwind-config` also provides modules such as `color`, `size`, `typography`, `shadow`, `radius`, `border`, `easing`, and `z-index`.
 
@@ -68,27 +71,25 @@ For that optional mode, create a separate entry such as `src/primer-components.c
 @import '@primer/react-tailwind/tailwind.css';
 ```
 
-Compile this entry independently from your application's Tailwind entry and load both generated stylesheets. Do not add another `@import 'tailwindcss'` to the package entry; it already supplies Tailwind's theme and utilities. This source configuration has not yet been verified against emitted CSS under the current build hold.
+Compile this entry independently from your application's Tailwind entry and load both generated stylesheets. Do not add another `@import 'tailwindcss'` to the package entry; it already supplies Tailwind's theme and utilities. The packed-consumer validation compiles this entry against the supported Tailwind versions.
 
 Load your application's utility stylesheet after the package stylesheet. Both use the `utilities` layer, so source order can decide equal-specificity rules that remain together, such as a package radius and a caller's partial-corner override. Class merging removes recognized full conflicts, not every combination of related properties.
 
-**Legacy Primer CSS:** Package-owned thin borders use Primer's `border-thin`, not `border`: legacy `@primer/css` defines `.border` as an important shorthand that otherwise overrides variant border colors. Use `border-thin` for app-authored borders too; adding `className="border"` opts back into that legacy shorthand. Consumer width overrides such as `border-0` and `border-2` still merge independently from border colors.
-
-The `primer:` prefix is a migration candidate for reducing collisions with legacy unprefixed utilities; it has not been validated in a built stylesheet or alongside legacy CSS. Shared `--tw-*` custom properties can still interact across stylesheets, so do not assume complete isolation. Verify computed styles in your host before relying on it.
+**Legacy Primer CSS:** Package-owned utilities are prefixed in the built stylesheet, but the packed-consumer validation does not load legacy `@primer/css`. Prefix-based coexistence therefore remains unverified, not an isolation guarantee. Host-authored unprefixed utilities can still match legacy selectors, and shared `--tw-*` custom properties can interact across stylesheets. Verify computed styles in your host before relying on the combination.
 
 #### Hosts that still load legacy Primer CSS
 
 Legacy `@primer/css` utilities such as `.p-0`, `.py-2`, and `.px-6` are unlayered `!important` declarations. They beat every normal declaration, whatever its layer, specificity, or stylesheet order: the package's layered utilities and an unlayered CSS-module rule such as `padding: 0` both lose. Legacy utilities also use physical properties, so a later `.py-2` overrides the top and bottom of an earlier `.p-0` on the same element.
 
-Whenever a package component emits a class name that legacy CSS also defines, the legacy rule decides the value and blocks your overrides. In github-ui, an inset `ActionList` emitted `py-2`, so a CSS-module `padding: 0` computed as `8px 0`.
+Whenever application code adds an unprefixed class name that legacy CSS also defines, the legacy rule decides the value and can block normal overrides.
 
 To resolve a collision:
 
-- **Remove the package class.** Pass the replacement utility in `className`: package components merge classes with `tailwind-merge`, so `className="p-0"` drops the emitted `py-2` instead of competing with it. Prefer a variant that does not emit the class at all, such as ActionList's `horizontal-inset`.
+- **Replace a conflicting package utility.** Pass the replacement utility in `className`: package components merge prefixed defaults and unprefixed caller classes with `tailwind-merge`, so a full conflict removes the package default from the rendered class list.
 - **Use an important utility in a layer.** For important declarations the cascade reverses: an important declaration inside any cascade layer beats unlayered `!important`. An unprefixed utility with the important modifier (a trailing `!` on the class name) from your app's own layered Tailwind build therefore wins over legacy `.py-2`. The compiled `styles.css` contains only the package's own prefixed classes, so this requires your app's build.
 - **Do not rely on layer order or specificity** for normal declarations, including CSS modules, while a colliding legacy class is present.
 
-For example, `IconButton` emits `rounded-md`, which legacy Primer CSS also uses for a responsive radius. A partial override such as `rounded-s-none` does not remove `rounded-md`. A full replacement such as `rounded-none` removes the conflicting class; then a CSS module can set the desired corners:
+For example, the button styling used by `IconButton` contributes `primer:rounded-md`. A partial override such as `rounded-s-none` does not fully conflict with that radius, but a full replacement such as `rounded-none` makes `tailwind-merge` remove `primer:rounded-md` from the rendered class list. A CSS module can then set the desired corners:
 
 ```tsx
 <IconButton aria-label="Add" icon={PlusIcon} className={`rounded-none ${styles.squareStart}`} />
@@ -102,7 +103,7 @@ For example, `IconButton` emits `rounded-md`, which legacy Primer CSS also uses 
 }
 ```
 
-The current compiled stylesheet includes `rounded-none`; your app's own Tailwind build must scan its own classes. This removes one collision, not other legacy rules or the need to verify the result in the host.
+The package's compiled stylesheet contains only the package-owned prefixed radius utilities, not the caller-owned unprefixed `rounded-none`. The host Tailwind setup above must scan and compile that caller class. This class-merging behavior does not verify coexistence with legacy CSS; test the result in the host.
 
 These are per-site mitigations, not isolation. Audit computed styles where package components sit inside legacy layouts, and retest whenever legacy CSS is loaded on the page.
 
