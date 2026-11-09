@@ -24,29 +24,9 @@
   justify-content: space-between;
   gap: var(--base-size-8);
 
-  &.HasLeadingVisual:where(:not([data-icon-only-counter])) {
-    padding-inline: var(--base-size-8) var(--base-size-12);
-
-    &:where([data-size='small']) {
-      padding-inline: var(--base-size-6) var(--base-size-8);
-    }
-
-    &:where([data-size='large']) {
-      padding-inline: var(--base-size-12) var(--base-size-16);
-    }
-  }
-
   /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has([data-kbd-chord]) {
-    padding-inline: calc(var(--base-size-12) - var(--base-size-2)) var(--base-size-8);
-
-    &:where([data-size='small']) {
-      padding-inline: var(--base-size-8) var(--base-size-6);
-    }
-
-    &:where([data-size='large']) {
-      padding-inline: var(--base-size-12) calc(var(--base-size-12) - var(--base-size-2));
-    }
+    padding-inline-end: var(--base-size-6);
   }
 
   &:hover {
@@ -171,7 +151,7 @@
     align-content: center;
 
     & > :not(:last-child) {
-      margin-right: var(--base-size-6);
+      margin-right: var(--base-size-8);
     }
 
     /* Content alignment */
@@ -190,8 +170,7 @@
   }
 
   & :where(.Label) {
-    /* stylelint-disable-next-line primer/typography -- match the 20px control label line height */
-    line-height: var(--base-size-20);
+    line-height: var(--text-body-lineHeight-medium);
     white-space: nowrap;
     grid-area: text;
   }
@@ -210,12 +189,16 @@
     height: var(--control-small-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-small-paddingInline-condensed);
-    gap: var(--base-size-6);
+    gap: var(--control-small-gap);
     font-size: var(--text-body-size-small);
-    line-height: var(--base-text-lineHeight-normal);
+
+    & .ButtonContent > :not(:last-child) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--control-small-gap);
+    }
 
     & .Label {
-      line-height: var(--base-text-lineHeight-normal);
+      line-height: var(--text-body-lineHeight-small);
     }
   }
 
@@ -223,7 +206,17 @@
     height: var(--control-large-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-large-paddingInline-spacious);
-    gap: var(--base-size-6);
+    gap: var(--control-large-gap);
+
+    & .ButtonContent > :not(:last-child) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--control-large-gap);
+    }
+
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
+    &:has([data-kbd-chord]) {
+      padding-inline-end: var(--base-size-8);
+    }
   }
 
   /* Full width */
@@ -624,12 +617,7 @@
     }
 
     & .Label {
-      line-height: var(--text-body-lineHeight-medium);
       white-space: unset;
-    }
-
-    &:where([data-size='small']) .Label {
-      line-height: var(--text-body-lineHeight-small);
     }
 
     &:not([data-no-visuals]) .Label {

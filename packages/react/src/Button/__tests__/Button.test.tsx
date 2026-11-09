@@ -7,7 +7,6 @@ import {IconButton, Button, LinkButton} from '../../Button'
 import classes from '../ButtonBase.module.css'
 import {implementsClassName} from '../../utils/testing'
 import {FeatureFlags} from '../../FeatureFlags'
-import {KeybindingHint} from '../../KeybindingHint'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -165,96 +164,6 @@ describe('Button', () => {
 
     const button = page.getByRole('button')
     expect(button.element()).toMatchSnapshot()
-  })
-
-  describe.each([
-    {size: 'small', padding: '8px', leadingPadding: '6px', height: '28px', lineHeight: '18px'},
-    {size: 'medium', padding: '12px', leadingPadding: '8px', height: '32px', lineHeight: '20px'},
-    {size: 'large', padding: '16px', leadingPadding: '12px', height: '40px', lineHeight: '20px'},
-  ] as const)('$size visual spacing', ({size, padding, leadingPadding, height, lineHeight}) => {
-    it.each([
-      {leading: false, trailing: false},
-      {leading: true, trailing: false},
-      {leading: false, trailing: true},
-      {leading: true, trailing: true},
-    ])('spaces buttons with leading=$leading and trailing=$trailing', async ({leading, trailing}) => {
-      render(
-        <Button
-          size={size}
-          leadingVisual={leading ? SearchIcon : undefined}
-          trailingVisual={trailing ? HeartIcon : undefined}
-        >
-          Search
-        </Button>,
-      )
-
-      const button = page.getByRole('button', {name: 'Search', exact: true})
-      await expect
-        .poll(() => getComputedStyle(button.element()).paddingInlineStart)
-        .toBe(leading ? leadingPadding : padding)
-      expect(getComputedStyle(button.element()).paddingInlineEnd).toBe(padding)
-      expect(getComputedStyle(button.element()).height).toBe(height)
-      expect(getComputedStyle(page.getByText('Search', {exact: true}).element()).lineHeight).toBe(lineHeight)
-
-      const label = page.getByText('Search', {exact: true}).element().getBoundingClientRect()
-      const icons = button.element().querySelectorAll('svg')
-      if (leading) {
-        expect(label.left - icons[0].getBoundingClientRect().right).toBe(6)
-      }
-      if (trailing) {
-        expect(icons[icons.length - 1].getBoundingClientRect().left - label.right).toBe(6)
-      }
-    })
-
-    it('preserves inline Link height while applying leading visual padding', async () => {
-      render(
-        <div style={{fontSize: 16}}>
-          <Button size={size} variant="link" leadingVisual={SearchIcon}>
-            Search
-          </Button>
-        </div>,
-      )
-      const button = page.getByRole('button', {name: 'Search', exact: true})
-      await expect.poll(() => getComputedStyle(button.element()).paddingInlineStart).toBe(leadingPadding)
-      expect(getComputedStyle(button.element()).paddingInlineEnd).toBe(padding)
-      expect(button.element().getBoundingClientRect().height).toBeLessThan(Number.parseFloat(height))
-      const labelStyle = getComputedStyle(page.getByText('Search', {exact: true}).element())
-      expect(labelStyle.fontSize).toBe('16px')
-      expect(labelStyle.lineHeight).toBe(size === 'small' ? '26px' : '24px')
-    })
-  })
-
-  it.each([
-    {size: 'small', padding: '4px'},
-    {size: 'medium', padding: '8px'},
-    {size: 'large', padding: '12px'},
-  ] as const)('preserves $size icon-only counter padding', async ({size, padding}) => {
-    render(<Button size={size} leadingVisual={HeartIcon} count={4} aria-label="Favorites" />)
-    const button = page.getByRole('button', {name: 'Favorites', exact: true})
-    await expect.poll(() => getComputedStyle(button.element()).paddingInlineStart).toBe(padding)
-    expect(getComputedStyle(button.element()).paddingInlineEnd).toBe(padding)
-  })
-
-  it.each([
-    {size: 'small', start: '8px', end: '6px'},
-    {size: 'medium', start: '10px', end: '8px'},
-    {size: 'large', start: '12px', end: '10px'},
-  ] as const)('pads $size shortcut buttons consistently for default and Link variants', async ({size, start, end}) => {
-    const {rerender} = render(
-      <Button size={size} trailingVisual={<KeybindingHint keys="Mod+Enter" />}>
-        Save
-      </Button>,
-    )
-    const button = page.getByRole('button', {name: /^Save/})
-    await expect.poll(() => getComputedStyle(button.element()).paddingInlineStart).toBe(start)
-    expect(getComputedStyle(button.element()).paddingInlineEnd).toBe(end)
-    rerender(
-      <Button size={size} variant="link" trailingVisual={<KeybindingHint keys="Mod+Enter" />}>
-        Save
-      </Button>,
-    )
-    await expect.poll(() => getComputedStyle(button.element()).paddingInlineStart).toBe(start)
-    expect(getComputedStyle(button.element()).paddingInlineEnd).toBe(end)
   })
 
   it('styles primary button appropriately', () => {
