@@ -38,6 +38,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
       - name: Check lockfiles for internal package feed URLs
         shell: bash
         run: |
@@ -46,6 +48,14 @@ jobs:
             echo "::error::A lockfile contains internal package feed URLs. Replace them with public registry URLs using script/update-registry-download-urls."
             exit 1
           fi
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: '.nvmrc'
+      - name: Check new locked packages are at least 7 days old
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha || github.event.before }}
+        run: node script/check-package-release-age.mts --diff "$BASE_REF"
 
   lint:
     runs-on: ubuntu-latest
@@ -101,7 +111,7 @@ jobs:
         run: npm run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Run tests defined in vitest
-        uses: docker://mcr.microsoft.com/playwright:v1.65.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.64.1-jammy
         with:
           args: npm test
 
