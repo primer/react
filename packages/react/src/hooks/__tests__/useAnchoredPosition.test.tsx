@@ -169,6 +169,8 @@ type FixtureProps = {
   floatingHeight?: number
   anchorStyle?: React.CSSProperties
   pinPosition?: boolean
+  enabled?: boolean
+  floatingKey?: string
   onPositionChange?: (position: AnchorPosition | undefined) => void
 }
 
@@ -179,11 +181,20 @@ const Fixture = ({
   floatingHeight = 50,
   anchorStyle,
   pinPosition,
+  enabled,
+  floatingKey,
   onPositionChange,
 }: FixtureProps) => {
   const floatingElementRef = React.useRef<HTMLDivElement>(null)
   const anchorElementRef = React.useRef<HTMLDivElement>(null)
-  const {position} = useAnchoredPosition({floatingElementRef, anchorElementRef, side, pinPosition, onPositionChange})
+  const {position} = useAnchoredPosition({
+    floatingElementRef,
+    anchorElementRef,
+    side,
+    pinPosition,
+    enabled,
+    onPositionChange,
+  })
   return (
     <div style={{position: 'relative', display: 'flow-root'}}>
       <div data-testid="spacer" style={{height: 0}} />
@@ -193,6 +204,7 @@ const Fixture = ({
         style={{marginTop: 200, width: 100, height: 20, ...anchorStyle}}
       />
       <div
+        key={floatingKey}
         data-testid="floating"
         ref={floatingElementRef}
         data-top={position?.top}
@@ -321,6 +333,31 @@ describe('re-render behavior', () => {
 
     await expect.poll(() => getFloating().style.height).toBe('100px')
     expect(readTop()).toBe(topBefore)
+  })
+
+  it('does not pin a reopened floating element to the height of the previous one', async () => {
+    const {rerender, onPositionChange, onCommit} = await renderSettled({
+      side: 'outside-top',
+      floatingHeight: 100,
+      pinPosition: true,
+      floatingKey: 'first',
+    })
+    const topBefore = Number(readTop())
+    const rerenderWith = (props: FixtureProps) =>
+      rerender(
+        <Harness side="outside-top" pinPosition onPositionChange={onPositionChange} onCommit={onCommit} {...props} />,
+      )
+
+    // Mirrors AnchoredOverlay: the floating element unmounts while closed and a new, shorter one mounts on reopen
+    rerenderWith({enabled: false, floatingHeight: 100, floatingKey: 'first'})
+    rerenderWith({enabled: false, floatingHeight: 50, floatingKey: 'second'})
+    rerenderWith({enabled: true, floatingHeight: 50, floatingKey: 'second'})
+
+    // An outside-top overlay sits above its anchor, so a shorter one has a lower top
+    await expect.poll(() => Number(readTop())).toBe(topBefore + 50)
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    // The fixture renders the new height inline, so anything else is a pin to the old height
+    expect(getFloating().style.height).toBe('50px')
   })
 
   it('repositions when side changes while open', async () => {

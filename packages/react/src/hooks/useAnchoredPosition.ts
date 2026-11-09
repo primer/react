@@ -56,7 +56,7 @@ export function useAnchoredPosition(
   const enabled = settings?.enabled ?? true
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  const prevHeightRef = React.useRef<number | undefined>(undefined)
+  const prevHeightRef = React.useRef<{element: Element; height: number} | undefined>(undefined)
 
   const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
     return (
@@ -82,7 +82,9 @@ export function useAnchoredPosition(
     () => {
       if (!enabled) return
       // Captured before the ref is updated below: state updaters can run later, during render.
-      const prevHeight = prevHeightRef.current
+      // Ignored when it was measured on another element, e.g. the previous session of a reopened overlay.
+      const prevMeasured = prevHeightRef.current
+      const prevHeight = prevMeasured?.element === floatingElementRef.current ? prevMeasured.height : undefined
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
         setPosition(prev => {
@@ -116,7 +118,9 @@ export function useAnchoredPosition(
         setPosition(undefined)
         savedOnPositionChange.current?.(undefined)
       }
-      prevHeightRef.current = floatingElementRef.current?.clientHeight
+      prevHeightRef.current = floatingElementRef.current
+        ? {element: floatingElementRef.current, height: floatingElementRef.current.clientHeight}
+        : undefined
     },
     // The primitive settings are listed instead of `settings` because callers pass inline objects.
     // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
