@@ -390,24 +390,6 @@ export const RelativeTime = React.forwardRef<HTMLElement, RelativeTimeProps>(fun
   }, [onRelativeTimeUpdated])
 
   React.useEffect(() => {
-    if (process.env.NODE_ENV === 'production') return
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- Inherited attributes are available after mounting.
-    if (!element) return
-    if (language && !locale) {
-      // eslint-disable-next-line no-console
-      console.warn(`RelativeTime: "${language}" is not a valid language tag; using the runtime's default locale.`)
-    }
-    if (hourCycleSetting && !isHourCycle(hourCycleSetting)) {
-      // eslint-disable-next-line no-console
-      console.warn(`RelativeTime: "${hourCycleSetting}" is not a valid hour cycle; using the runtime's default.`)
-    }
-    if (inheritedTimeZone && timeZoneSetting && !timeZone) {
-      // eslint-disable-next-line no-console
-      console.warn(`RelativeTime: "${timeZoneSetting}" is not a valid time zone; using the runtime's default.`)
-    }
-  }, [element, hourCycleSetting, inheritedTimeZone, language, locale, timeZone, timeZoneSetting])
-
-  React.useEffect(() => {
     if (!value || !element) return
 
     let timer: number | undefined

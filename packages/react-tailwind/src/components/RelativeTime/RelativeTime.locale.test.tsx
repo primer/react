@@ -295,7 +295,7 @@ describe('inherited formatting context', () => {
     expect(getTime(container)).toHaveTextContent(dateText('fr', 'Asia/Tokyo', 'h12'))
   })
 
-  it('falls back safely for invalid inherited values, then uses html context when they are removed', async () => {
+  it('falls back silently for invalid inherited values, then uses html context when they are removed', async () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const runtime = new nativeIntl.DateTimeFormat(undefined, {hour: 'numeric'}).resolvedOptions()
     const hourCycle = runtime.hour12 ? 'h12' : 'h23'
@@ -311,9 +311,7 @@ describe('inherited formatting context', () => {
     const time = getTime(container)
 
     expect(time).toHaveTextContent(dateText(runtime.locale, runtime.timeZone, hourCycle))
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining('not_a_language'))
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining('invalid'))
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining('Not/A_Timezone'))
+    expect(warn).not.toHaveBeenCalled()
 
     parent.removeAttribute('lang')
     parent.removeAttribute('time-zone')
