@@ -111,7 +111,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         {...rest}
         // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
         ref={mergedRef}
-        className={clsx(classes.ButtonBase, className)}
+        className={clsx(classes.ButtonBase, LeadingVisual && classes.HasLeadingVisual, className)}
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
         data-loading={Boolean(loading)}

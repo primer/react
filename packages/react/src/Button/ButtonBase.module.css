@@ -24,9 +24,26 @@
   justify-content: space-between;
   gap: var(--base-size-8);
 
+  &.HasLeadingVisual:where(:not([data-icon-only-counter])) {
+    padding-inline: var(--base-size-8) var(--base-size-12);
+
+    &:where([data-size='small']) {
+      padding-inline: var(--base-size-6) var(--base-size-8);
+    }
+
+    &:where([data-size='large']) {
+      padding-inline: var(--base-size-12) var(--base-size-16);
+    }
+  }
+
   /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has([data-kbd-chord]) {
     padding-inline-end: var(--base-size-6);
+
+    &:where([data-size='small']) {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-inline-start: var(--control-small-paddingInline-condensed);
+    }
 
     &:where([data-size='medium']) {
       padding-inline-start: calc(var(--base-size-12) - var(--base-size-2));
@@ -156,7 +173,7 @@
     align-content: center;
 
     & > :not(:last-child) {
-      margin-right: var(--base-size-8);
+      margin-right: var(--base-size-6);
     }
 
     /* Content alignment */
@@ -175,7 +192,8 @@
   }
 
   & :where(.Label) {
-    line-height: var(--text-body-lineHeight-medium);
+    /* stylelint-disable-next-line primer/typography -- match the 20px control label line height */
+    line-height: var(--base-size-20);
     white-space: nowrap;
     grid-area: text;
   }
@@ -194,16 +212,12 @@
     height: var(--control-small-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-small-paddingInline-condensed);
-    gap: var(--control-small-gap);
+    gap: var(--base-size-6);
     font-size: var(--text-body-size-small);
-
-    & .ButtonContent > :not(:last-child) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--control-small-gap);
-    }
+    line-height: var(--base-text-lineHeight-normal);
 
     & .Label {
-      line-height: var(--text-body-lineHeight-small);
+      line-height: var(--base-text-lineHeight-normal);
     }
   }
 
@@ -211,16 +225,12 @@
     height: var(--control-large-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-large-paddingInline-spacious);
-    gap: var(--control-large-gap);
-
-    & .ButtonContent > :not(:last-child) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--control-large-gap);
-    }
+    gap: var(--base-size-6);
 
     /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has([data-kbd-chord]) {
-      padding-inline-end: var(--base-size-8);
+      padding-inline-start: var(--base-size-12);
+      padding-inline-end: calc(var(--base-size-12) - var(--base-size-2));
     }
   }
 
@@ -622,7 +632,12 @@
     }
 
     & .Label {
+      line-height: var(--text-body-lineHeight-medium);
       white-space: unset;
+    }
+
+    &:where([data-size='small']) .Label {
+      line-height: var(--text-body-lineHeight-small);
     }
 
     &:not([data-no-visuals]) .Label {
