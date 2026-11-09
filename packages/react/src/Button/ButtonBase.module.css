@@ -27,6 +27,11 @@
   /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has([data-kbd-chord]) {
     padding-inline-end: var(--base-size-6);
+
+    &:where([data-size='medium']) {
+      padding-inline-start: calc(var(--base-size-12) - var(--base-size-2));
+      padding-inline-end: var(--base-size-8);
+    }
   }
 
   &:hover {
