@@ -50,22 +50,49 @@ function anchorSupportsPopupAria(node: HTMLElement): boolean {
 
 interface DetachedAnchorAria {
   node: HTMLElement
-  addedHasPopup: boolean
-  previousExpanded: string | null
+  observer: MutationObserver
+  consumerHasPopup: string | null
+  consumerExpanded: string | null
   expanded: string
 }
 
-function releaseDetachedAnchorAria({node, addedHasPopup, previousExpanded, expanded}: DetachedAnchorAria) {
-  if (addedHasPopup && node.getAttribute('aria-haspopup') === 'true') {
-    node.removeAttribute('aria-haspopup')
-  }
-  if (node.getAttribute('aria-expanded') === expanded) {
-    if (previousExpanded === null) {
-      node.removeAttribute('aria-expanded')
-    } else {
-      node.setAttribute('aria-expanded', previousExpanded)
+function captureConsumerAria(managed: DetachedAnchorAria, records: MutationRecord[]) {
+  for (const {attributeName} of records) {
+    if (attributeName === 'aria-haspopup') {
+      managed.consumerHasPopup = managed.node.getAttribute('aria-haspopup')
+    } else if (attributeName === 'aria-expanded') {
+      managed.consumerExpanded = managed.node.getAttribute('aria-expanded')
     }
   }
+}
+
+function setAnchorAttribute(node: HTMLElement, name: 'aria-haspopup' | 'aria-expanded', value: string | null) {
+  if (node.getAttribute(name) === value) return
+  if (value === null) {
+    node.removeAttribute(name)
+  } else {
+    node.setAttribute(name, value)
+  }
+}
+
+function syncDetachedAnchorAria(managed: DetachedAnchorAria) {
+  captureConsumerAria(managed, managed.observer.takeRecords())
+  managed.observer.disconnect()
+  setAnchorAttribute(
+    managed.node,
+    'aria-haspopup',
+    managed.consumerHasPopup ?? (managed.node.getAttribute('role') === 'combobox' ? null : 'true'),
+  )
+  setAnchorAttribute(managed.node, 'aria-expanded', managed.expanded)
+  managed.observer.observe(managed.node, {attributes: true, attributeFilter: ['aria-haspopup', 'aria-expanded']})
+}
+
+function releaseDetachedAnchorAria(managed: DetachedAnchorAria) {
+  // A consumer write and overlay unmount can occur in the same commit, before observer callbacks run.
+  captureConsumerAria(managed, managed.observer.takeRecords())
+  managed.observer.disconnect()
+  setAnchorAttribute(managed.node, 'aria-haspopup', managed.consumerHasPopup)
+  setAnchorAttribute(managed.node, 'aria-expanded', managed.consumerExpanded)
 }
 
 interface AnchoredOverlayPropsWithAnchor {
@@ -187,6 +214,12 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    *   even if `primer_react_css_anchor_positioning` is enabled and the browser supports it.
    */
   cssAnchorPositioningSettings?: {fallbackStrategy?: 'default' | 'none' | 'opposite-side'; disable?: boolean}
+  /**
+   * Private API for use internally only. Used by ActionMenu and SelectPanel, which always open an interactive
+   * popup, to manage `aria-haspopup` and `aria-expanded` on a detached anchor. Other detached overlays, such as
+   * hover cards, may not be popups.
+   */
+  _PrivateManageDetachedAnchorAria?: boolean
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -231,6 +264,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   closeButtonProps = defaultCloseButtonProps,
   renderAs = 'portal',
   cssAnchorPositioningSettings,
+  _PrivateManageDetachedAnchorAria = false,
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   // Lazy initial state so feature detection runs once per mount on the client.
@@ -369,7 +403,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   useEffect(() => {
     // A ref can acquire a new node without changing identity.
-    const node = renderAnchor === null && anchorRef.current
+    const node = _PrivateManageDetachedAnchorAria && renderAnchor === null && anchorRef.current
     const eligibleNode = node && anchorSupportsPopupAria(node) ? node : null
     let managed = detachedAnchorAria.current
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
@@ -380,24 +414,19 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!eligibleNode) return
 
-    const expanded = String(open)
     if (!managed) {
-      managed = {
+      const registration: DetachedAnchorAria = {
         node: eligibleNode,
-        addedHasPopup: !eligibleNode.hasAttribute('aria-haspopup'),
-        previousExpanded: eligibleNode.getAttribute('aria-expanded'),
-        expanded,
+        observer: new MutationObserver(records => captureConsumerAria(registration, records)),
+        consumerHasPopup: eligibleNode.getAttribute('aria-haspopup'),
+        consumerExpanded: eligibleNode.getAttribute('aria-expanded'),
+        expanded: String(open),
       }
-      if (managed.addedHasPopup) eligibleNode.setAttribute('aria-haspopup', 'true')
-      detachedAnchorAria.current = managed
+      detachedAnchorAria.current = managed = registration
     }
 
-    const currentExpanded = eligibleNode.getAttribute('aria-expanded')
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (currentExpanded !== managed.expanded) managed.previousExpanded = currentExpanded
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (currentExpanded !== expanded) eligibleNode.setAttribute('aria-expanded', expanded)
-    managed.expanded = expanded
+    managed.expanded = String(open)
+    syncDetachedAnchorAria(managed)
   })
 
   useEffect(() => {

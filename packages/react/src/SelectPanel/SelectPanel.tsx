@@ -956,6 +956,7 @@ function Panel({
           ...cssAnchorPositioningSettings,
           disable: variant === 'modal' || cssAnchorPositioningSettings?.disable,
         }}
+        _PrivateManageDetachedAnchorAria
       >
         <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
           <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
