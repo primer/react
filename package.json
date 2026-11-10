@@ -43,7 +43,7 @@
     "npm": ">=10.9.0"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.7",
+    "@babel/core": "^8.1.0",
     "@babel/eslint-parser": "8.0.7",
     "@changesets/changelog-github": "^1.0.0",
     "@changesets/cli": "^3.0.0",
