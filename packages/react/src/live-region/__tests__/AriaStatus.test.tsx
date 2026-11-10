@@ -1,8 +1,8 @@
 import {describe, expect, it, beforeEach, afterEach} from 'vitest'
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import React from 'react'
+import {page, userEvent} from 'vitest/browser'
 import {AriaStatus} from '../AriaStatus'
-import {userEvent} from '@testing-library/user-event'
 import {getLiveRegion} from './test-helpers'
 import {implementsClassName} from '../../utils/testing'
 
@@ -52,14 +52,12 @@ describe('AriaStatus', () => {
       )
     }
 
-    const user = userEvent.setup()
-
     render(<TestComponent />)
 
     const liveRegion = getLiveRegion()
     expect(liveRegion.getMessage('polite')).not.toBe('test')
 
-    await user.click(screen.getByText('Update message'))
+    await userEvent.click(page.getByText('Update message'))
     expect(liveRegion.getMessage('polite')).toBe('updated message')
   })
 
@@ -75,7 +73,7 @@ describe('AriaStatus', () => {
         test
       </AriaStatus>,
     )
-    expect(screen.getByTestId('container').tagName).toBe('SPAN')
+    expect(page.getByTestId('container').element().tagName).toBe('SPAN')
   })
 
   it('should update live-region element when AriaStatus goes from empty to populated', async () => {
@@ -95,14 +93,12 @@ describe('AriaStatus', () => {
         </>
       )
     }
-    const user = userEvent.setup()
-
     render(<TestComponent />)
 
     const liveRegion = getLiveRegion()
     expect(liveRegion.getMessage('polite')).toBe('')
 
-    await user.click(screen.getByText('Export data'))
+    await userEvent.click(page.getByText('Export data'))
     expect(liveRegion.getMessage('polite')).toBe('Export completed')
   })
 })
