@@ -49,10 +49,6 @@
     }
   }
 
-  &:hover {
-    transition-duration: 80ms;
-  }
-
   &:focus-visible {
     @mixin focusOutline;
   }
@@ -118,16 +114,13 @@
   }
 
   /* Visuals */
-  & :where(.Visual) {
+  & :where(.Visual, .VisualWrap) {
     display: flex;
-    color: var(--fgColor-muted);
     pointer-events: none;
   }
 
-  /* mostly for CounterLabel */
-  & :where(.VisualWrap) {
-    display: flex;
-    pointer-events: none;
+  & :where(.Visual) {
+    color: var(--fgColor-muted);
   }
 
   /* IconButton */
@@ -253,7 +246,6 @@
     }
 
     &:where([data-size='small']) {
-      height: unset;
       min-height: var(--control-small-size);
 
       & .ButtonContent {
@@ -263,7 +255,6 @@
     }
 
     &:where([data-size='large']) {
-      height: unset;
       min-height: var(--control-large-size);
       /* stylelint-disable-next-line primer/spacing */
       padding-inline: var(--control-large-paddingInline-spacious);
@@ -309,7 +300,6 @@
   /* Default Variant */
 
   &:where([data-variant='default']) {
-    color: var(--button-default-fgColor-rest);
     background-color: var(--button-default-bgColor-rest);
     box-shadow: var(--button-default-shadow-resting);
 
@@ -520,7 +510,6 @@
   /* Invisible variant */
 
   &:where([data-variant='invisible']) {
-    color: var(--button-default-fgColor-rest);
     border-color: var(--button-invisible-borderColor-rest);
     box-shadow: none;
 
