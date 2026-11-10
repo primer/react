@@ -3,6 +3,12 @@
     margin-right: var(--base-size-6);
   }
 
+  &:where(:not([data-component='IconButton'])) {
+    font-weight: var(--base-text-weight-semibold);
+    /* stylelint-disable-next-line primer/borders -- GitHub App's 8px radius has no matching Primer token */
+    border-radius: 8px;
+  }
+
   &:where(:not([data-variant='link'])) [data-component='text'] {
     /* stylelint-disable-next-line primer/typography -- match the 20px control label line height */
     line-height: var(--base-size-20);

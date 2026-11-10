@@ -172,6 +172,35 @@ describe('Button', () => {
     {size: 'medium', padding: '12px', leadingPadding: '8px', height: '32px', lineHeight: '20px'},
     {size: 'large', padding: '16px', leadingPadding: '12px', height: '40px', lineHeight: '20px'},
   ] as const)('$size visual spacing', ({size, padding, leadingPadding, height, lineHeight}) => {
+    it.each(['default', 'primary', 'danger', 'invisible', 'link'] as const)(
+      'uses semibold text and an 8px radius for the %s variant',
+      async variant => {
+        render(
+          <Button size={size} variant={variant}>
+            Label
+          </Button>,
+        )
+        const button = page.getByRole('button', {name: 'Label', exact: true})
+        const label = page.getByText('Label', {exact: true})
+        await expect.poll(() => getComputedStyle(button.element()).fontWeight).toBe('600')
+        await expect.poll(() => getComputedStyle(label.element()).fontWeight).toBe('600')
+        expect(getComputedStyle(button.element()).borderRadius).toBe('8px')
+      },
+    )
+
+    it('does not apply the label weight to shortcut keycaps', async () => {
+      render(
+        <Button size={size} trailingVisual={<KeybindingHint keys="Mod+Enter" />}>
+          Save
+        </Button>,
+      )
+      const button = page.getByRole('button', {name: /^Save/})
+      await expect
+        .poll(() => getComputedStyle(button.element().querySelector('[data-component="text"]')!).fontWeight)
+        .toBe('600')
+      expect(getComputedStyle(button.element().querySelector('[data-kbd-chord]')!).fontWeight).toBe('400')
+    })
+
     it.each([
       {leading: false, trailing: false},
       {leading: true, trailing: false},
@@ -222,6 +251,14 @@ describe('Button', () => {
       expect(labelStyle.fontSize).toBe('16px')
       expect(labelStyle.lineHeight).toBe(size === 'small' ? '26px' : '24px')
     })
+  })
+
+  it.each(['small', 'medium', 'large'] as const)('does not change %s IconButton styles', async size => {
+    render(<IconButton icon={SearchIcon} aria-label="Search" size={size} />)
+
+    const button = page.getByRole('button', {name: 'Search', exact: true})
+    await expect.poll(() => getComputedStyle(button.element()).fontWeight).toBe('500')
+    expect(getComputedStyle(button.element()).borderRadius).toBe('6px')
   })
 
   it.each([
