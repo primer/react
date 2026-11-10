@@ -19,12 +19,9 @@
     gap: var(--base-size-6);
   }
 
-  &:where([data-size='small']) {
+  &:where([data-size='small']),
+  &:where([data-size='small']:not([data-variant='link'])) [data-component='text'] {
     line-height: var(--base-text-lineHeight-normal);
-
-    &:where(:not([data-variant='link'])) [data-component='text'] {
-      line-height: var(--base-text-lineHeight-normal);
-    }
   }
 
   &.HasLeadingVisual:where(:not([data-icon-only-counter])) {
