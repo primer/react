@@ -5,6 +5,7 @@
 
   &:where(:not([data-component='IconButton'])) {
     font-weight: var(--base-text-weight-semibold);
+    -webkit-font-smoothing: antialiased;
     /* stylelint-disable-next-line primer/borders -- GitHub App's 8px radius has no matching Primer token */
     border-radius: 8px;
   }

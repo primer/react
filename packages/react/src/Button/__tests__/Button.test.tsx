@@ -196,9 +196,22 @@ describe('Button', () => {
       )
       const button = page.getByRole('button', {name: /^Save/})
       await expect
+        .poll(() => getComputedStyle(button.element()).getPropertyValue('-webkit-font-smoothing'))
+        .toBe('antialiased')
+      await expect
         .poll(() => getComputedStyle(button.element().querySelector('[data-component="text"]')!).fontWeight)
         .toBe('600')
+      expect(
+        getComputedStyle(button.element().querySelector('[data-component="text"]')!).getPropertyValue(
+          '-webkit-font-smoothing',
+        ),
+      ).toBe('antialiased')
       expect(getComputedStyle(button.element().querySelector('[data-kbd-chord]')!).fontWeight).toBe('400')
+      expect(
+        getComputedStyle(button.element().querySelector('[data-kbd-chord]')!).getPropertyValue(
+          '-webkit-font-smoothing',
+        ),
+      ).toBe('antialiased')
     })
 
     it.each([
@@ -259,6 +272,7 @@ describe('Button', () => {
     const button = page.getByRole('button', {name: 'Search', exact: true})
     await expect.poll(() => getComputedStyle(button.element()).fontWeight).toBe('500')
     expect(getComputedStyle(button.element()).borderRadius).toBe('6px')
+    expect(getComputedStyle(button.element()).getPropertyValue('-webkit-font-smoothing')).not.toBe('antialiased')
   })
 
   it.each([
