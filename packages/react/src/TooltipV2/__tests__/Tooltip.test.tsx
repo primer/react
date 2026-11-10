@@ -1,5 +1,6 @@
 import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
+import {page, userEvent} from 'vitest/browser'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {fireEvent, render as HTMLRender} from '@testing-library/react'
@@ -12,7 +13,7 @@ import {XIcon} from '@primer/octicons-react'
 import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
-import {createRef, forwardRef, useImperativeHandle} from 'react'
+import {createRef, forwardRef, useImperativeHandle, useState} from 'react'
 import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName, withExpectedConsoleError, withExpectedConsoleWarning} from '../../utils/testing'
 
@@ -236,6 +237,85 @@ describe('Tooltip', () => {
     const describedBy = triggerEL.getAttribute('aria-describedby')
     expect(describedBy).toContain(externalDescription.id)
     expect(describedBy).toContain(tooltipEl.id)
+  })
+})
+
+describe('Tooltip with empty text', () => {
+  const getTooltipElement = (container: HTMLElement) =>
+    container.querySelector<HTMLElement>('[data-component="Tooltip"]')!
+
+  it('does not describe the trigger', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent text="" />)
+    expect(getByRole('button')).not.toHaveAttribute('aria-describedby')
+  })
+
+  it('does not label the trigger when the tooltip type is label', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent text="" type="label" />)
+    const trigger = getByRole('button')
+    expect(trigger).not.toHaveAttribute('aria-labelledby')
+    expect(trigger).toHaveAccessibleName('Button Text')
+  })
+
+  it("keeps the trigger's own aria-describedby", () => {
+    const {getByRole} = HTMLRender(<TooltipComponentWithExistingDescription text="" />)
+    expect(getByRole('button')).toHaveAttribute('aria-describedby', 'external-description')
+  })
+
+  it('still labels the trigger when a keybinding hint is provided', () => {
+    const {getByRole, container} = HTMLRender(<TooltipComponent text="" type="label" keybindingHint="Control+K" />)
+    expect(getByRole('button')).toHaveAttribute(
+      'aria-labelledby',
+      getTooltipElement(container).querySelector('[id]')!.id,
+    )
+  })
+
+  it('does not open on keyboard focus', async () => {
+    const {container} = HTMLRender(<TooltipComponent text="" />)
+    await userEvent.tab()
+    expect(page.getByRole('button', {name: 'Button Text', exact: true}).element()).toHaveFocus()
+    expect(getTooltipElement(container).matches(':popover-open')).toBe(false)
+  })
+
+  it('closes an open tooltip when the text becomes empty', async () => {
+    const {container, rerender} = HTMLRender(<TooltipComponent />)
+    const tooltip = getTooltipElement(container)
+    await userEvent.tab()
+    expect(tooltip.matches(':popover-open')).toBe(true)
+
+    rerender(<TooltipComponent text="" />)
+    await expect.poll(() => tooltip.matches(':popover-open')).toBe(false)
+    expect(getTooltipElement(container)).toBe(tooltip)
+  })
+
+  it('keeps the trigger mounted and focused when the text is toggled', async () => {
+    function ConditionalTooltip() {
+      const [allowed, setAllowed] = useState(false)
+      return (
+        <Tooltip text={allowed ? '' : 'Not allowed'}>
+          <Button onClick={() => setAllowed(value => !value)}>Toggle</Button>
+        </Tooltip>
+      )
+    }
+    const {container} = HTMLRender(<ConditionalTooltip />)
+    const button = page.getByRole('button', {name: 'Toggle', exact: true})
+    const trigger = button.element()
+    const tooltip = getTooltipElement(container)
+
+    await userEvent.tab()
+    expect(trigger).toHaveFocus()
+    expect(tooltip.matches(':popover-open')).toBe(true)
+    expect(trigger).toHaveAccessibleDescription('Not allowed')
+
+    await userEvent.keyboard('{Enter}')
+    await expect.element(button).not.toHaveAttribute('aria-describedby')
+    await expect.poll(() => tooltip.matches(':popover-open')).toBe(false)
+    expect(button.element()).toBe(trigger)
+    expect(trigger).toHaveFocus()
+
+    await userEvent.keyboard('{Enter}')
+    await expect.element(button).toHaveAccessibleDescription('Not allowed')
+    expect(button.element()).toBe(trigger)
+    expect(trigger).toHaveFocus()
   })
 })
 

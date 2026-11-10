@@ -32,6 +32,9 @@
     },
     {
       "id": "components-tooltipv2-features--on-action-menu-anchor"
+    },
+    {
+      "id": "components-tooltipv2-features--conditional-text"
     }
   ],
   "props": [
@@ -45,7 +48,7 @@
       "name": "text",
       "required": true,
       "type": "string",
-      "description": "The text to be displayed in the tooltip"
+      "description": "The text to be displayed in the tooltip. When this is an empty string and there is no `keybindingHint`, the tooltip does not open and does not label or describe the trigger. Use this to turn a tooltip off conditionally while keeping the trigger mounted, so that it keeps focus."
     },
     {
       "name": "type",
