@@ -8,15 +8,18 @@ type ProgressProp = {
   bg?: string
 }
 
+type Animated = boolean | 'stripes'
+
 type StyledProgressContainerProps = {
   inline?: boolean
   barSize?: 'small' | 'default' | 'large'
-  animated?: boolean
+  animated?: Animated
 }
 
 export type ProgressBarItemProps = React.HTMLAttributes<HTMLSpanElement> & {
   'aria-label'?: string
   className?: string
+  animated?: Animated
 } & ProgressProp
 
 export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
@@ -29,6 +32,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
       className,
       style,
       bg,
+      animated,
       ...rest
     },
     forwardRef,
@@ -55,6 +59,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
     return (
       <span
         data-component="ProgressBar.Item"
+        data-animated={animated}
         className={clsx(className, classes.ProgressBarItem)}
         {...rest}
         role="progressbar"
@@ -113,7 +118,7 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
           children
         ) : (
           <Item
-            data-animated={animated}
+            animated={animated}
             progress={progress}
             aria-label={ariaLabel}
             aria-valuenow={ariaValueNow}
