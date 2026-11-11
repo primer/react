@@ -18,13 +18,16 @@ function handleEscape(event: KeyboardEvent) {
 type KeyboardEventCallback = (event: KeyboardEvent) => void
 
 const registry: {[id: number]: KeyboardEventCallback} = {}
+let registeredHandlerCount = 0
 
 function register(id: number, handler: KeyboardEventCallback): void {
   registry[id] = handler
+  registeredHandlerCount += 1
 }
 
 function deregister(id: number) {
   delete registry[id]
+  registeredHandlerCount -= 1
 }
 
 // For auto-incrementing unique identifiers for registered handlers.
@@ -56,6 +59,7 @@ let handlerId = 0
 export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
   callbackDependencies: React.DependencyList = [onEscape],
+  enabled = true,
 ): void => {
   // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
   const escapeCallback = useCallback(onEscape, callbackDependencies)
@@ -72,16 +76,17 @@ export const useOnEscapePress = (
     return id
   })
   useEffect(() => {
-    if (Object.keys(registry).length === 0) {
+    if (!enabled) return
+    if (registeredHandlerCount === 0) {
       document.addEventListener('keydown', handleEscape)
     }
     register(id, handler)
 
     return () => {
       deregister(id)
-      if (Object.keys(registry).length === 0) {
+      if (registeredHandlerCount === 0) {
         document.removeEventListener('keydown', handleEscape)
       }
     }
-  }, [id, handler])
+  }, [id, handler, enabled])
 }
