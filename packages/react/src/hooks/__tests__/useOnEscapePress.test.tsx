@@ -144,3 +144,29 @@ it('preserves nested handler priority after rerendering in StrictMode', () => {
   fireEvent.keyDown(document.body, {key: 'Escape'})
   expect(calls).toEqual([])
 })
+
+
+it('does not subscribe to Escape until enabled', () => {
+  const onEscape = vi.fn()
+  const addListener = vi.spyOn(document, 'addEventListener')
+  const removeListener = vi.spyOn(document, 'removeEventListener')
+  const {rerender, unmount} = renderHook(({enabled}) => useOnEscapePress(onEscape, [onEscape], enabled), {
+    initialProps: {enabled: false},
+  })
+  expect(addListener).not.toHaveBeenCalledWith('keydown', expect.any(Function))
+  fireEvent.keyDown(document.body, {key: 'Escape'})
+  expect(onEscape).not.toHaveBeenCalled()
+
+  rerender({enabled: true})
+  expect(addListener).toHaveBeenCalledWith('keydown', expect.any(Function))
+  fireEvent.keyDown(document.body, {key: 'Escape'})
+  expect(onEscape).toHaveBeenCalledTimes(1)
+
+  rerender({enabled: false})
+  expect(removeListener).toHaveBeenCalledWith('keydown', expect.any(Function))
+  fireEvent.keyDown(document.body, {key: 'Escape'})
+  expect(onEscape).toHaveBeenCalledTimes(1)
+  unmount()
+  addListener.mockRestore()
+  removeListener.mockRestore()
+})
