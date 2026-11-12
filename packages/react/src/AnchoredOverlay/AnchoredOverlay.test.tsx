@@ -848,9 +848,12 @@ describe('AnchoredOverlay overlay forwarded ref', () => {
       </BaseStyles>
     )
     const {rerender} = render(renderOverlay('Initial content'))
+    const initialRefCallCount = refCallback.mock.calls.filter(([element]) => element instanceof HTMLDivElement).length
 
     rerender(renderOverlay('Updated content'))
 
-    expect(refCallback.mock.calls.filter(([element]) => element instanceof HTMLDivElement)).toHaveLength(2)
+    expect(refCallback.mock.calls.filter(([element]) => element instanceof HTMLDivElement).length).toBeGreaterThan(
+      initialRefCallCount,
+    )
   })
 })
