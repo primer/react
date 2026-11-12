@@ -831,4 +831,26 @@ describe('AnchoredOverlay overlay forwarded ref', () => {
     )
     expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
   })
+
+  it('re-applies overlay refs after a rerender', () => {
+    const refCallback = vi.fn()
+    const renderOverlay = (content: string) => (
+      <BaseStyles>
+        <AnchoredOverlay
+          open
+          onClose={() => {}}
+          onOpen={() => {}}
+          renderAnchor={props => <Button {...props}>Anchor</Button>}
+          overlayProps={{ref: refCallback}}
+        >
+          <button type="button">{content}</button>
+        </AnchoredOverlay>
+      </BaseStyles>
+    )
+    const {rerender} = render(renderOverlay('Initial content'))
+
+    rerender(renderOverlay('Updated content'))
+
+    expect(refCallback.mock.calls.filter(([element]) => element instanceof HTMLDivElement)).toHaveLength(2)
+  })
 })
