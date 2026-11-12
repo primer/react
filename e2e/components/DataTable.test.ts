@@ -79,6 +79,57 @@ const stories: ReadonlyArray<{
 ]
 
 test.describe('DataTable', () => {
+  test('group expansion hides rows without changing selection scope @aat', async ({page}) => {
+    await visit(page, {id: 'experimental-components-datatable-features--with-collapsible-groups'})
+    const disclosure = page.getByRole('button', {name: 'Public', exact: true})
+    await disclosure.focus()
+    await page.keyboard.press('Space')
+    await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
+    await expect(disclosure).toBeFocused()
+    await expect(page.getByRole('checkbox', {name: 'Select primer/css', exact: true})).toHaveCount(0)
+    const bodyId = await disclosure.getAttribute('aria-controls')
+    await expect(page.locator(`[id="${bodyId}"]`)).toBeHidden()
+    const groupCheckbox = page.getByRole('checkbox', {name: 'Select Public', exact: true})
+    await groupCheckbox.check()
+    await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
+    await disclosure.focus()
+    await page.keyboard.press('Enter')
+    const member = page.getByRole('checkbox', {name: 'Select primer/css', exact: true})
+    await expect(member).toBeChecked()
+    await member.focus()
+    // A programmatic control activation models an external controlled update.
+    await page.getByRole('button', {name: 'Collapse all groups'}).dispatchEvent('click')
+    await expect(disclosure).toBeFocused()
+    await expect(page.locator(`[id="${bodyId}"]`)).toBeHidden()
+    await page.keyboard.press('Shift+Tab')
+    await expect(groupCheckbox).toBeFocused()
+    await page.keyboard.press('Tab')
+    await expect(disclosure).toBeFocused()
+    await page.keyboard.press('Tab')
+    await expect(page.getByRole('table').locator(':focus')).toHaveCount(0)
+    await expect(page).toHaveNoViolations()
+  })
+
+  for (const theme of ['light', 'dark'] as const) {
+    for (const state of ['expanded', 'collapsed'] as const) {
+      test(`group expansion ${state} ${theme} @vrt @aat`, async ({page}) => {
+        await visit(page, {
+          id: 'experimental-components-datatable-features--with-collapsible-groups',
+          globals: {colorScheme: theme},
+        })
+        if (state === 'collapsed') {
+          await page.getByRole('button', {name: 'Collapse all groups'}).click()
+        }
+        await expect(page).toHaveNoViolations()
+        expect(
+          await page.screenshot({
+            mask: await page.locator('td', {has: page.locator('relative-time')}).all(),
+          }),
+        ).toMatchSnapshot(`DataTable.Group expansion.${state}.${theme}.png`)
+      })
+    }
+  }
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {

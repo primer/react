@@ -8,6 +8,7 @@ import {
   TrashIcon,
 } from '@primer/octicons-react'
 import {action} from 'storybook/actions'
+import {expect, userEvent, within} from 'storybook/test'
 import type {Meta} from '@storybook/react-vite'
 import React from 'react'
 import {ActionList} from '../ActionList'
@@ -1772,6 +1773,76 @@ export const WithRowSelection = () => {
   )
 }
 
+export const WithBulkActions = () => {
+  const repositories = [
+    {id: 1, name: 'primer/react', visibility: 'Public'},
+    {id: 2, name: 'primer/css', visibility: 'Public'},
+    {id: 3, name: 'github/github', visibility: 'Internal'},
+  ]
+  const titleId = React.useId()
+  const [rows, setRows] = React.useState(repositories)
+  const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set([1]))
+  const resetButtonRef = React.useRef<HTMLButtonElement>(null)
+
+  return (
+    <Table.Container>
+      <Table.Title id={titleId}>Repositories</Table.Title>
+      <Table.Actions>
+        <Button
+          ref={resetButtonRef}
+          onClick={() => {
+            setRows(repositories)
+            setSelectedRows(new Set())
+          }}
+        >
+          Reset repositories
+        </Button>
+      </Table.Actions>
+      <DataTable
+        aria-labelledby={titleId}
+        data={[
+          ...rows.filter(row => row.visibility === 'Internal'),
+          {groupId: 'public', label: 'Public', rows: rows.filter(row => row.visibility === 'Public')},
+        ]}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true, sortBy: 'alphanumeric'},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
+        rowSelection
+        selectedRows={selectedRows}
+        onSelectionChange={({selectedRows: next}) => setSelectedRows(next)}
+        bulkActionsReturnFocusRef={rows.length === 0 ? resetButtonRef : undefined}
+        collapsibleGroups
+        renderBulkActions={({selectedRows: effectiveIds, clearSelection}) => (
+          <>
+            <Button
+              size="small"
+              onClick={() => {
+                setRows(current =>
+                  current.map(row => (effectiveIds.has(row.id) ? {...row, visibility: 'Internal'} : row)),
+                )
+                clearSelection()
+              }}
+            >
+              Make internal
+            </Button>
+            <Button
+              size="small"
+              variant="danger"
+              onClick={() => {
+                setRows(current => current.filter(row => !effectiveIds.has(row.id)))
+                clearSelection()
+              }}
+            >
+              Delete selected
+            </Button>
+          </>
+        )}
+      />
+    </Table.Container>
+  )
+}
+
 const repoGroupsWithDisabledRow = repoGroups.map(group => ({
   ...group,
   rows: group.rows.map(repo => (repo.id === 1 ? {...repo, name: `${repo.name} (not selectable)`} : repo)),
@@ -1818,6 +1889,54 @@ const sortableGroupedColumns = [
   }),
   groupedColumns[1],
 ]
+
+export const WithCollapsibleGroups = () => {
+  const titleId = React.useId()
+  const [expandedGroups, setExpandedGroups] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set(['public']))
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id={titleId}>
+        Repositories
+      </Table.Title>
+      <Table.Actions>
+        <Button onClick={() => setExpandedGroups(new Set())}>Collapse all groups</Button>
+        <Button onClick={() => setExpandedGroups(new Set(['public']))}>Expand all groups</Button>
+      </Table.Actions>
+      <DataTable
+        aria-labelledby={titleId}
+        data={[
+          {id: 'github', name: 'github/github', visibility: 'Internal'},
+          {
+            groupId: 'public',
+            label: 'Public',
+            rows: [
+              {id: 'react', name: 'primer/react', visibility: 'Public'},
+              {id: 'css', name: 'primer/css', visibility: 'Public'},
+            ],
+          },
+        ]}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true},
+          {header: 'Visibility', field: 'visibility'},
+        ]}
+        collapsibleGroups
+        expandedGroups={expandedGroups}
+        onExpandedGroupsChange={({expandedGroups}) => setExpandedGroups(expandedGroups)}
+        rowSelection
+        defaultSelectedRows={new Set(['react'])}
+      />
+    </Table.Container>
+  )
+}
+
+WithCollapsibleGroups.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const publicGroup = canvas.getByRole('button', {name: 'Public'})
+  await userEvent.click(publicGroup)
+  await expect(publicGroup).toHaveAttribute('aria-expanded', 'false')
+  await userEvent.keyboard('{Enter}')
+  await expect(publicGroup).toHaveAttribute('aria-expanded', 'true')
+}
 
 export const WithStandaloneAndGroupedRowSelection = () => {
   const [selectedRows, setSelectedRows] = React.useState<ReadonlySet<DataTableRowId>>(() => new Set())

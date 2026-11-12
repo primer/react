@@ -1,4 +1,4 @@
-import {render} from '@testing-library/react'
+import {act, render, renderHook} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, test, vi} from 'vitest'
 import type React from 'react'
@@ -18,6 +18,39 @@ describe('useControllableState', () => {
     const input = getByTestId('input')
     await userEvent.type(input, 'test')
     expect(input).toHaveValue('test')
+  })
+
+  test('keeps the setter stable while using the latest onChange callback', () => {
+    const initialOnChange = vi.fn()
+    const latestOnChange = vi.fn()
+    const {result, rerender} = renderHook(
+      ({onChange}) => {
+        return useControllableState({
+          defaultValue: '',
+          onChange,
+        })
+      },
+      {
+        initialProps: {
+          onChange: initialOnChange,
+        },
+      },
+    )
+    const setValue = result.current[1]
+
+    rerender({
+      onChange: latestOnChange,
+    })
+
+    expect(result.current[1]).toBe(setValue)
+
+    act(() => {
+      setValue('updated')
+    })
+
+    expect(result.current[0]).toBe('updated')
+    expect(initialOnChange).not.toHaveBeenCalled()
+    expect(latestOnChange).toHaveBeenCalledExactlyOnceWith('updated')
   })
 
   test('controlled to uncontrolled', async () => {

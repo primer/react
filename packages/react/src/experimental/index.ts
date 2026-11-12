@@ -20,6 +20,8 @@ export type {
   CardIconProps,
   CardImageProps,
   CardHeadingProps,
+  CardLinkProps,
+  CardButtonProps,
   CardDescriptionProps,
   CardActionProps,
   CardMetadataProps,
@@ -28,6 +30,8 @@ export type {
 export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
+  DataTableBulkActionsContext,
+  TableBulkActionsProps,
   DataTableData,
   DataTableRowGroup,
   DataTableRowId,

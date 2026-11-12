@@ -27,4 +27,4 @@ After adding, editing, or reverting changes in this PR, check the following:
 
 For changeset format, semver bump selection, when a changeset is not needed, and
 how to write terse descriptions, follow the `changesets` skill at
-`.github/skills/changesets/SKILL.md`.
+`.agent/skills/changesets/SKILL.md`.

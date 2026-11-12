@@ -1,6 +1,6 @@
+import {page, userEvent} from 'vitest/browser'
 import {describe, it, expect, vi} from 'vitest'
-import {render as HTMLRender} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
 import {ActionList} from '.'
 import {createRef} from 'react'
 import {ActionListContainerContext} from './ActionListContainerContext'
@@ -50,23 +50,25 @@ describe('ActionList', () => {
     )
 
     await userEvent.tab() // tab into the story, this should focus on the first button
-    expect(document.activeElement).toHaveTextContent('Option 1')
+    await expect.element(page.getByRole('option', {name: 'Option 1', exact: true})).toHaveFocus()
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).toHaveTextContent('Option 2')
+    await expect.element(page.getByRole('option', {name: 'Option 2', exact: true})).toHaveFocus()
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).toHaveTextContent('Option 3')
+    await expect.element(page.getByRole('option', {name: 'Option 3', exact: true})).toHaveFocus()
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).toHaveTextContent('Option 4')
+    await expect.element(page.getByRole('option', {name: 'Option 4', exact: true})).toHaveFocus()
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).toHaveAccessibleName('Option 5')
-    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
+    const inactiveOption = page.getByRole('option', {name: 'Option 5', exact: true})
+    await expect.element(inactiveOption).toHaveFocus()
+    await expect.element(inactiveOption).toHaveAccessibleName('Option 5')
+    await expect.element(inactiveOption).toHaveAccessibleDescription('Unavailable due to an outage')
 
     await userEvent.keyboard('{ArrowUp}')
-    expect(document.activeElement).toHaveTextContent('Option 4')
+    await expect.element(page.getByRole('option', {name: 'Option 4', exact: true})).toHaveFocus()
   })
 
   it('divider should support a custom `className`', () => {
@@ -139,10 +141,10 @@ describe('ActionList', () => {
     )
 
     await userEvent.tab() // tab into the story, this should focus on the first button
-    expect(document.activeElement).toHaveTextContent('Option 1')
+    await expect.element(page.getByRole('option', {name: 'Option 1', exact: true})).toHaveFocus()
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).toHaveTextContent('Option 1')
+    await expect.element(page.getByRole('option', {name: 'Option 1', exact: true})).toHaveFocus()
 
     expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveTextContent('Option 4')
     expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveAttribute('tabindex', '0')
@@ -540,7 +542,7 @@ describe('ActionList with role="tree"', () => {
       </ActionList>,
     )
 
-    const item = document.querySelector('[role="treeitem"]')!
+    const item = page.getByRole('treeitem')
     await userEvent.click(item)
     expect(onSelect).toHaveBeenCalledTimes(1)
   })
@@ -555,8 +557,10 @@ describe('ActionList with role="tree"', () => {
       </ActionList>,
     )
 
-    const item = document.querySelector('[role="treeitem"]')!
-    ;(item as HTMLElement).focus()
+    const item = page.getByRole('treeitem')
+    act(() => {
+      item.element().focus()
+    })
     await userEvent.keyboard('{Enter}')
     expect(onSelect).toHaveBeenCalledTimes(1)
   })
@@ -571,8 +575,8 @@ describe('ActionList with role="tree"', () => {
       </ActionList>,
     )
 
-    const item = document.querySelector('[role="treeitem"]')!
-    await userEvent.click(item)
+    const item = page.getByRole('treeitem')
+    fireEvent.click(item.element())
     expect(onSelect).not.toHaveBeenCalled()
   })
 

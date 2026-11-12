@@ -1,6 +1,5 @@
-import {render} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import {act} from 'react'
 import ReactDOM from 'react-dom/server'
 import {useMedia, MatchMedia} from '../useMedia'
 

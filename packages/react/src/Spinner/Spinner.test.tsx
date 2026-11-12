@@ -1,8 +1,7 @@
 import type {SpinnerProps} from '.'
 import Spinner from '.'
-import {render, screen} from '@testing-library/react'
+import {act, render, screen} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
-import {act} from 'react'
 import {implementsClassName} from '../utils/testing'
 import classes from './Spinner.module.css'
 
