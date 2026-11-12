@@ -1,26 +1,76 @@
 import {render} from '@testing-library/react'
-import type {ReactElement} from 'react'
-import {describe, expect, it} from 'vitest'
+import {createRef} from 'react'
+import {describe, expect, it, vi} from 'vitest'
+import {page} from 'vitest/browser'
 import Timeline from '..'
-import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../Timeline.module.css'
-
-function renderWithListSemantics(ui: ReactElement) {
-  return render(<FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>{ui}</FeatureFlags>)
-}
 
 describe('Timeline', () => {
   implementsClassName(Timeline, classes.Timeline)
 
-  it('renders as a div by default (flag off)', () => {
-    const {container} = render(<Timeline />)
-    expect(container.firstChild?.nodeName).toBe('DIV')
+  it('renders an ordered list with event items and a decorative break without a provider', async () => {
+    render(
+      <Timeline aria-label="Activity" start={3}>
+        <Timeline.Item value={3}>First event</Timeline.Item>
+        <Timeline.Break data-testid="break" />
+        <Timeline.Item>Second event</Timeline.Item>
+      </Timeline>,
+    )
+
+    const list = page.getByRole('list', {name: 'Activity'})
+    await expect.element(list).toHaveAttribute('role', 'list')
+    expect(list.element().tagName).toBe('OL')
+    expect(list.element()).toHaveAttribute('start', '3')
+    expect(Array.from(list.element().children, child => child.tagName)).toEqual(['LI', 'LI', 'LI'])
+    expect(page.getByRole('listitem').elements()).toHaveLength(2)
+    expect(page.getByText('First event').element()).toHaveAttribute('value', '3')
+    await expect.element(page.getByTestId('break')).toHaveAttribute('role', 'presentation')
   })
 
-  it('does not set role="list" by default (flag off)', () => {
-    const {container} = render(<Timeline />)
-    expect(container.firstChild).not.toHaveAttribute('role')
+  it('forwards object refs to the list and list items', () => {
+    const listRef = createRef<HTMLOListElement>()
+    const itemRef = createRef<HTMLLIElement>()
+    const breakRef = createRef<HTMLLIElement>()
+    const {unmount} = render(
+      <Timeline ref={listRef}>
+        <Timeline.Item ref={itemRef}>Event</Timeline.Item>
+        <Timeline.Break ref={breakRef} data-testid="break" />
+      </Timeline>,
+    )
+
+    expect(listRef.current).toBe(page.getByRole('list').element())
+    expect(itemRef.current).toBe(page.getByRole('listitem').element())
+    expect(breakRef.current).toBe(page.getByTestId('break').element())
+    expect(listRef.current).toBeInstanceOf(HTMLOListElement)
+    expect(itemRef.current).toBeInstanceOf(HTMLLIElement)
+    expect(breakRef.current).toBeInstanceOf(HTMLLIElement)
+
+    unmount()
+    expect(listRef.current).toBeNull()
+    expect(itemRef.current).toBeNull()
+    expect(breakRef.current).toBeNull()
+  })
+
+  it('forwards callback refs to the list and list items', () => {
+    const listRef = vi.fn<(node: HTMLOListElement | null) => void>()
+    const itemRef = vi.fn<(node: HTMLLIElement | null) => void>()
+    const breakRef = vi.fn<(node: HTMLLIElement | null) => void>()
+    const {unmount} = render(
+      <Timeline ref={listRef}>
+        <Timeline.Item ref={itemRef}>Event</Timeline.Item>
+        <Timeline.Break ref={breakRef} data-testid="break" />
+      </Timeline>,
+    )
+
+    expect(listRef).toHaveBeenLastCalledWith(page.getByRole('list').element())
+    expect(itemRef).toHaveBeenLastCalledWith(page.getByRole('listitem').element())
+    expect(breakRef).toHaveBeenLastCalledWith(page.getByTestId('break').element())
+
+    unmount()
+    expect(listRef).toHaveBeenLastCalledWith(null)
+    expect(itemRef).toHaveBeenLastCalledWith(null)
+    expect(breakRef).toHaveBeenLastCalledWith(null)
   })
 
   it('renders with clipSidebar prop (boolean)', () => {
@@ -54,40 +104,8 @@ describe('Timeline', () => {
   })
 })
 
-describe('Timeline with primer_react_timeline_list_semantics flag', () => {
-  it('renders as an ordered list', () => {
-    const {container} = renderWithListSemantics(<Timeline />)
-    expect(container.firstChild?.nodeName).toBe('OL')
-  })
-
-  it('has role="list" to restore semantics in Safari/VoiceOver', () => {
-    const {container} = renderWithListSemantics(<Timeline />)
-    expect(container.firstChild).toHaveAttribute('role', 'list')
-  })
-
-  it('renders items as list items', () => {
-    const {container} = renderWithListSemantics(
-      <Timeline>
-        <Timeline.Item />
-      </Timeline>,
-    )
-    expect(container.querySelector('ol > li')).not.toBeNull()
-  })
-
-  it('renders break as a presentational list item', () => {
-    const {container} = renderWithListSemantics(<Timeline.Break />)
-    expect(container.firstChild?.nodeName).toBe('LI')
-    expect(container.firstChild).toHaveAttribute('role', 'presentation')
-  })
-})
-
 describe('Timeline.Item', () => {
   implementsClassName(Timeline.Item, classes.TimelineItem)
-
-  it('renders as a div by default (flag off)', () => {
-    const {container} = render(<Timeline.Item />)
-    expect(container.firstChild?.nodeName).toBe('DIV')
-  })
 
   it('renders with condensed prop', () => {
     const {container} = render(<Timeline.Item condensed />)
@@ -120,12 +138,6 @@ describe('Timeline.Body', () => {
 
 describe('Timeline.Break', () => {
   implementsClassName(Timeline.Break, classes.TimelineBreak)
-
-  it('renders as a div by default (flag off)', () => {
-    const {container} = render(<Timeline.Break />)
-    expect(container.firstChild?.nodeName).toBe('DIV')
-    expect(container.firstChild).not.toHaveAttribute('role')
-  })
 })
 
 describe('Timeline.Actions', () => {
