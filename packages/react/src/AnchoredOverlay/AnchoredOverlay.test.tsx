@@ -492,6 +492,23 @@ describe('AnchoredOverlay anchor ARIA', () => {
     expect(anchor).toHaveAttribute('aria-expanded', 'false')
   })
 
+  it.each(['columnheader', 'rowheader'] as const)('supports the "%s" role as a detached trigger', role => {
+    const anchorRef = createRef<HTMLDivElement>()
+    const {getByTestId} = render(
+      <BaseStyles>
+        <div ref={anchorRef} role={role} data-testid="anchor">
+          Detached anchor
+        </div>
+        <AnchoredOverlay open={false} renderAnchor={null} _PrivateManageDetachedAnchorAria anchorRef={anchorRef}>
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>,
+    )
+    const anchor = getByTestId('anchor')
+    expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
   it('does not write ARIA to a non-interactive detached anchor (<div> or plain <input>)', async () => {
     function NonInteractiveAnchorComponent({tag}: {tag: 'div' | 'input'}) {
       const [open, setOpen] = useState(false)

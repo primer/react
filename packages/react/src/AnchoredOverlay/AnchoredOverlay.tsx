@@ -18,16 +18,19 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
 
-// Detached refs may point at positioning wrappers or textboxes, not popup triggers.
+// This is the intersection of roles supporting aria-haspopup and aria-expanded, including inherited support.
+// See https://www.w3.org/TR/wai-aria-1.2/#aria-haspopup and https://www.w3.org/TR/wai-aria-1.2/#aria-expanded.
 const rolesSupportingPopupAria = new Set([
   'application',
   'button',
+  'columnheader',
   'combobox',
   'gridcell',
   'link',
   'menuitem',
   'menuitemcheckbox',
   'menuitemradio',
+  'rowheader',
   'tab',
   'treeitem',
 ])
