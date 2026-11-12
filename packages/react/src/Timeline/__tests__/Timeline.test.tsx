@@ -68,9 +68,10 @@ describe('Timeline', () => {
     expect(breakRef).toHaveBeenLastCalledWith(page.getByTestId('break').element())
 
     unmount()
-    expect(listRef).toHaveBeenLastCalledWith(null)
-    expect(itemRef).toHaveBeenLastCalledWith(null)
-    expect(breakRef).toHaveBeenLastCalledWith(null)
+    // React 19's development ref cleanup passes additional internal arguments.
+    expect(listRef.mock.lastCall?.[0]).toBeNull()
+    expect(itemRef.mock.lastCall?.[0]).toBeNull()
+    expect(breakRef.mock.lastCall?.[0]).toBeNull()
   })
 
   it('renders with clipSidebar prop (boolean)', () => {
