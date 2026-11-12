@@ -8,9 +8,9 @@ import classes from './SkeletonText.module.css'
 describe('SkeletonText', () => {
   implementsClassName(SkeletonText, classes.SkeletonText)
 
-  it('should support spreading extra props on the outermost element', () => {
-    const {container} = render(<SkeletonText data-testid="skeleton-text" />)
-    expect(container.firstChild).toHaveAttribute('data-testid', 'skeleton-text')
+  it('should support spreading extra props on the outermost element', async () => {
+    render(<SkeletonText data-testid="skeleton-text" />)
+    await expect.element(page.getByTestId('skeleton-text')).toHaveAttribute('data-testid', 'skeleton-text')
   })
 
   it.each([
@@ -38,37 +38,44 @@ describe('SkeletonText', () => {
     })
   })
 
+  it('should render with the correct size attribute', async () => {
+    render(<SkeletonText data-testid="skeleton-text" size="display" />)
+    await expect.element(page.getByTestId('skeleton-text')).toHaveAttribute('data-text-skeleton-size', 'display')
+  })
+
   it('should render the correct number of lines', () => {
-    const {container} = render(<SkeletonText lines={3} />)
-    // Assuming each line is rendered as a child element (e.g., <span> or <div>)
-    // Adjust the selector as needed based on implementation
-    expect(container.firstChild?.childNodes.length).toBe(3)
+    render(<SkeletonText data-testid="skeleton-text" lines={3} />)
+    expect(page.getByTestId('skeleton-text').all()).toHaveLength(3)
   })
 
-  it('should apply maxWidth style', () => {
-    const {container} = render(<SkeletonText maxWidth="200px" />)
-    expect(container.firstChild).toHaveStyle({maxWidth: '200px'})
+  it('should apply maxWidth style', async () => {
+    render(<SkeletonText data-testid="skeleton-text" maxWidth="200px" />)
+    await expect.element(page.getByTestId('skeleton-text')).toHaveStyle({maxWidth: '200px'})
   })
 
-  it('renders data-component="SkeletonText" for a single line', () => {
-    const {container} = render(<SkeletonText />)
-    expect(container.firstChild).toHaveAttribute('data-component', 'SkeletonText')
+  it('renders data-component="SkeletonText" for a single line', async () => {
+    render(<SkeletonText data-testid="skeleton-text" />)
+    await expect.element(page.getByTestId('skeleton-text')).toHaveAttribute('data-component', 'SkeletonText')
   })
 
   // update below to data-component="SkeletonText" in next major
-  it('renders data-component="multilineContainer" for the multiline wrapper', () => {
-    const {container} = render(<SkeletonText lines={3} />)
-    expect(container.firstChild).toHaveAttribute('data-component', 'multilineContainer')
+  it('renders data-component="multilineContainer" for the multiline wrapper', async () => {
+    render(<SkeletonText data-testid="skeleton-text" lines={3} />)
+    const wrapper = page.getByTestId('skeleton-text').first().element().parentElement
+    if (!wrapper) {
+      throw new Error('Expected multiline wrapper')
+    }
+    await expect.element(wrapper).toHaveAttribute('data-component', 'multilineContainer')
   })
 
-  it('renders multiline children with stable component identifiers', () => {
-    const {container} = render(<SkeletonText lines={3} />)
-    const children = Array.from(container.firstChild?.childNodes ?? [])
+  it('renders multiline children as SkeletonBox instances', async () => {
+    render(<SkeletonText data-testid="skeleton-text" lines={3} />)
+    const children = page.getByTestId('skeleton-text').all()
 
     expect(children).toHaveLength(3)
 
     for (const child of children) {
-      expect(child).toHaveAttribute('data-component', 'SkeletonText')
+      await expect.element(child).toHaveAttribute('data-component', 'SkeletonText')
     }
   })
 
