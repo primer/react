@@ -2,7 +2,7 @@ import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {fireEvent, render as HTMLRender} from '@testing-library/react'
+import {fireEvent, render as HTMLRender, waitFor} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
@@ -280,6 +280,49 @@ describe('Tooltip forwarded ref (primer_react_merged_forwarded_refs)', () => {
         )
         const button = getByRole('button')
         expect(refCallback).toHaveBeenCalledWith(button)
+      })
+
+      it('calls a callback ref with the trigger element and opens the tooltip as expected', async () => {
+        const refCallback = vi.fn()
+        const {getByRole, getByText} = HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <Tooltip text="Tooltip text" ref={refCallback}>
+              <Button>Button Text</Button>
+            </Tooltip>
+          </FeatureFlags>,
+        )
+        const button = getByRole('button')
+        const tooltip = getByText('Tooltip text')
+
+        expect(refCallback).toHaveBeenCalledWith(button)
+        expect(tooltip.matches(':popover-open')).toBe(false)
+
+        fireEvent.mouseOver(button)
+        await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(true))
+      })
+
+      it('supports callback ref with side effects without interfering with tooltip trigger', async () => {
+        let sideEffectExecuted = false
+        const callbackRefWithSideEffect = (node: HTMLButtonElement | null) => {
+          if (node) {
+            sideEffectExecuted = true
+          }
+        }
+
+        const {getByRole, getByText} = HTMLRender(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <Tooltip text="Tooltip text" ref={callbackRefWithSideEffect}>
+              <Button>Button Text</Button>
+            </Tooltip>
+          </FeatureFlags>,
+        )
+        const button = getByRole('button')
+        const tooltip = getByText('Tooltip text')
+
+        expect(sideEffectExecuted).toBe(true)
+        expect(tooltip.matches(':popover-open')).toBe(false)
+        fireEvent.mouseOver(button)
+        await waitFor(() => expect(tooltip.matches(':popover-open')).toBe(true))
       })
 
       it("preserves trigger element's own ref", () => {
