@@ -1,4 +1,5 @@
-import {render, waitFor} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {describe, it, expect} from 'vitest'
 import type React from 'react'
 import createSlots from './create-slots'
@@ -43,7 +44,7 @@ describe('ComponentWithSlots', () => {
       </ComponentWithSlots>,
     )
 
-    await waitFor(() => component.getByText('first'))
+    await expect.element(page.getByText('first', {exact: false})).toBeInTheDocument()
     expect(component.container).toMatchSnapshot()
   })
 
