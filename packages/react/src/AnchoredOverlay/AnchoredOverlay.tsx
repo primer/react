@@ -17,6 +17,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // This is the intersection of roles supporting aria-haspopup and aria-expanded, including inherited support.
 // See https://www.w3.org/TR/wai-aria-1.2/#aria-haspopup and https://www.w3.org/TR/wai-aria-1.2/#aria-expanded.
@@ -404,23 +405,27 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     }
   }, [cssAnchorPositioning, anchorElement, anchorName])
 
-  useEffect(() => {
+  // Layout timing keeps aria-expanded current before Overlay's passive cleanup restores focus to the anchor.
+  useIsomorphicLayoutEffect(() => {
     // A ref can acquire a new node without changing identity.
     const node = _PrivateManageDetachedAnchorAria && renderAnchor === null && anchorRef.current
     const eligibleNode = node && anchorSupportsPopupAria(node) ? node : null
     let managed = detachedAnchorAria.current
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+
     if (managed && managed.node !== eligibleNode) {
       releaseDetachedAnchorAria(managed)
       detachedAnchorAria.current = managed = null
     }
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+
     if (!eligibleNode) return
 
     if (!managed) {
       const registration: DetachedAnchorAria = {
         node: eligibleNode,
-        observer: new MutationObserver(records => captureConsumerAria(registration, records)),
+        observer: new MutationObserver(records => {
+          captureConsumerAria(registration, records)
+          syncDetachedAnchorAria(registration)
+        }),
         consumerHasPopup: eligibleNode.getAttribute('aria-haspopup'),
         consumerExpanded: eligibleNode.getAttribute('aria-expanded'),
         expanded: String(open),
@@ -432,7 +437,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     syncDetachedAnchorAria(managed)
   })
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     return () => {
       if (detachedAnchorAria.current) releaseDetachedAnchorAria(detachedAnchorAria.current)
       detachedAnchorAria.current = null

@@ -1,5 +1,5 @@
 import {page, userEvent} from 'vitest/browser'
-import {createRef, useCallback, useRef, useState} from 'react'
+import {createRef, memo, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {act, render} from '@testing-library/react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -396,6 +396,60 @@ describe('AnchoredOverlay anchor ARIA', () => {
     rerender(<DetachedOverlayTestComponent consumerHasPopup={true} consumerExpanded={false} showOverlay={false} />)
     expect(anchor).toHaveAttribute('aria-haspopup', 'true')
     expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('collapses a detached anchor before focus returns to it on Escape', async () => {
+    const {getByTestId} = render(<DetachedOverlayTestComponent />)
+    const anchor = getByTestId('detached-anchor')
+    await userEvent.click(anchor)
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    const expandedOnFocus: Array<string | null> = []
+    anchor.addEventListener('focus', () => expandedOnFocus.push(anchor.getAttribute('aria-expanded')))
+    await userEvent.keyboard('{Escape}')
+
+    expect(anchor).toHaveFocus()
+    expect(expandedOnFocus).toEqual(['false'])
+  })
+
+  it('restores default popup semantics when a consumer removes its override without an overlay render', async () => {
+    const noop = () => {}
+    const MemoizedOverlay = memo(function MemoizedOverlay({
+      anchorRef,
+    }: {
+      anchorRef: React.RefObject<HTMLButtonElement | null>
+    }) {
+      return (
+        <AnchoredOverlay
+          open={false}
+          onOpen={noop}
+          onClose={noop}
+          renderAnchor={null}
+          _PrivateManageDetachedAnchorAria
+          anchorRef={anchorRef}
+        >
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      )
+    })
+    function Consumer({hasPopup}: {hasPopup?: 'listbox'}) {
+      const anchorRef = useRef<HTMLButtonElement>(null)
+      return (
+        <BaseStyles>
+          <button type="button" ref={anchorRef} data-testid="anchor" aria-haspopup={hasPopup}>
+            Anchor
+          </button>
+          <MemoizedOverlay anchorRef={anchorRef} />
+        </BaseStyles>
+      )
+    }
+
+    const {getByTestId, rerender} = render(<Consumer hasPopup="listbox" />)
+    const anchor = getByTestId('anchor')
+    expect(anchor).toHaveAttribute('aria-haspopup', 'listbox')
+
+    rerender(<Consumer />)
+    await expect.poll(() => anchor.getAttribute('aria-haspopup')).toBe('true')
   })
 
   it('resumes its default after a consumer removes their popup override', async () => {
