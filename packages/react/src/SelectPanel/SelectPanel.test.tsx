@@ -374,16 +374,14 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
       render(<DetachedSelectPanel />)
 
-      const trigger = screen.getByRole('button', {name: 'Detached select anchor'})
-      await waitFor(() => {
-        expect(trigger).toHaveAttribute('aria-haspopup', 'true')
-      })
-      expect(trigger).toHaveAttribute('aria-expanded', 'false')
+      const trigger = page.getByRole('button', {name: 'Detached select anchor'})
+      await expect.element(trigger).toHaveAttribute('aria-haspopup', 'true')
+      await expect.element(trigger).toHaveAttribute('aria-expanded', 'false')
 
       await userEvent.click(trigger)
-      expect(trigger).toHaveAttribute('aria-expanded', 'true')
+      await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
       await userEvent.keyboard('{Escape}')
-      expect(trigger).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(trigger).toHaveAttribute('aria-expanded', 'false')
     })
 
     it('should call onActiveDescendantChanged when using keyboard while focusing on an item', async () => {
