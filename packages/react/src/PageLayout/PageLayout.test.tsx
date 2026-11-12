@@ -1,6 +1,6 @@
 import {describe, it, expect, vi} from 'vitest'
-import {page} from 'vitest/browser'
-import {act, fireEvent, render, screen} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
+import {act, render} from '@testing-library/react'
 import 'react-intersection-observer/test-utils'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
@@ -72,7 +72,7 @@ describe('PageLayout', async () => {
       window.matchMedia(viewportRanges.narrow)
     })
 
-    const {getByText} = render(
+    render(
       <PageLayout>
         <PageLayout.Header>Header</PageLayout.Header>
         <PageLayout.Content>Content</PageLayout.Content>
@@ -81,7 +81,7 @@ describe('PageLayout', async () => {
       </PageLayout>,
     )
 
-    expect(getByText('Pane')).not.toBeVisible()
+    expect(page.getByText('Pane').element()).not.toBeVisible()
   })
 
   // The test suite can't compute styles so skipping
@@ -91,7 +91,7 @@ describe('PageLayout', async () => {
       matchMedia(viewportRanges.regular)
     })
 
-    const {getByText} = render(
+    render(
       <PageLayout>
         <PageLayout.Header>Header</PageLayout.Header>
         <PageLayout.Content>Content</PageLayout.Content>
@@ -100,7 +100,7 @@ describe('PageLayout', async () => {
       </PageLayout>,
     )
 
-    expect(getByText('Pane')).toBeVisible()
+    expect(page.getByText('Pane').element()).toBeVisible()
   })
 
   it('renders data-component attributes for PageLayout and exported subcomponents', () => {
@@ -145,9 +145,9 @@ describe('PageLayout', async () => {
       </PageLayout>,
     )
 
-    expect(screen.getByRole('banner')).toHaveAccessibleName('Header')
-    expect(screen.getByRole('main')).toHaveAccessibleName('Content')
-    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('Footer')
+    expect(page.getByRole('banner').element()).toHaveAccessibleName('Header')
+    expect(page.getByRole('main').element()).toHaveAccessibleName('Content')
+    expect(page.getByRole('contentinfo').element()).toHaveAccessibleName('Footer')
   })
 
   it('should support labeling landmarks through `aria-labelledby`', () => {
@@ -166,9 +166,9 @@ describe('PageLayout', async () => {
       </PageLayout>,
     )
 
-    expect(screen.getByRole('banner')).toHaveAccessibleName('header')
-    expect(screen.getByRole('main')).toHaveAccessibleName('content')
-    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
+    expect(page.getByRole('banner').element()).toHaveAccessibleName('header')
+    expect(page.getByRole('main').element()).toHaveAccessibleName('content')
+    expect(page.getByRole('contentinfo').element()).toHaveAccessibleName('footer')
   })
 
   describe('PageLayout.Pane', () => {
@@ -182,7 +182,7 @@ describe('PageLayout', async () => {
           </PageLayout.Pane>
         </PageLayout>,
       )
-      expect(ref).toHaveBeenCalledWith(screen.getByTestId('content').parentNode)
+      expect(ref).toHaveBeenCalledWith(page.getByTestId('content').element().parentNode)
     })
 
     it('should be resizable if `resizable` is set correctly', async () => {
@@ -197,17 +197,15 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      const placeholder = await screen.findByText('Pane')
+      const placeholder = page.getByText('Pane').element()
       const pane = placeholder.parentNode as HTMLElement | null
       const initialWidth = pane?.style.getPropertyValue('--pane-width')
-      const divider = await screen.findByRole('slider')
+      const divider = page.getByRole('slider').element()
 
       // Moving divider should resize pane.
-      fireEvent.focus(divider)
+      divider.focus()
       //move it right 3 times
-      fireEvent.keyDown(divider, {key: 'ArrowRight'})
-      fireEvent.keyDown(divider, {key: 'ArrowRight'})
-      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      await userEvent.keyboard('{ArrowRight}{ArrowRight}{ArrowRight}')
 
       const finalWidth = pane?.style.getPropertyValue('--pane-width')
       expect(finalWidth).not.toEqual(initialWidth)
@@ -226,16 +224,23 @@ describe('PageLayout', async () => {
       )
 
       const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
-      const divider = await screen.findByRole('slider')
+      const divider = page.getByRole('slider').element()
 
       // Before drag - no data-dragging attribute
       expect(contentWrapper).not.toHaveAttribute('data-dragging')
 
       // Start drag - optimization attribute is set
-      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      divider.dispatchEvent(
+        new PointerEvent('pointerdown', {
+          clientX: 300,
+          clientY: 200,
+          pointerId: 1,
+          bubbles: true,
+        }),
+      )
       expect(contentWrapper).toHaveAttribute('data-dragging', 'true')
       // End drag - pointer capture lost ends the drag and removes optimization attribute
-      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      divider.dispatchEvent(new PointerEvent('lostpointercapture', {pointerId: 1, bubbles: true}))
       expect(contentWrapper).not.toHaveAttribute('data-dragging')
     })
 
@@ -252,18 +257,18 @@ describe('PageLayout', async () => {
       )
 
       const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
-      const divider = await screen.findByRole('slider')
+      const divider = page.getByRole('slider').element()
 
       // Before interaction - no data-dragging attribute
       expect(contentWrapper).not.toHaveAttribute('data-dragging')
 
       // Start keyboard resize (focus first)
-      fireEvent.focus(divider)
-      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      divider.focus()
+      await userEvent.keyboard('{ArrowRight>}')
       expect(contentWrapper).toHaveAttribute('data-dragging', 'true')
 
       // End keyboard resize - removes optimization attribute
-      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      await userEvent.keyboard('{/ArrowRight}')
       expect(contentWrapper).not.toHaveAttribute('data-dragging')
     })
 
@@ -280,16 +285,23 @@ describe('PageLayout', async () => {
       )
 
       const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
-      const divider = await screen.findByRole('slider')
+      const divider = page.getByRole('slider').element()
 
       // Before drag - no will-change
       expect(pane!.style.willChange).toBe('')
 
       // Start drag - will-change should still not be set (removed optimization)
-      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      divider.dispatchEvent(
+        new PointerEvent('pointerdown', {
+          clientX: 300,
+          clientY: 200,
+          pointerId: 1,
+          bubbles: true,
+        }),
+      )
       expect(pane!.style.willChange).toBe('')
       // End drag - will-change remains unset
-      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      divider.dispatchEvent(new PointerEvent('lostpointercapture', {pointerId: 1, bubbles: true}))
       expect(pane!.style.willChange).toBe('')
     })
     it('should not cause a nested-update cascade on mount when resizable', async () => {
@@ -347,7 +359,7 @@ describe('PageLayout', async () => {
       expect(style.flexShrink).toBe('0')
     })
 
-    it('renders a resize handle and supports keyboard interaction when resizable', () => {
+    it('renders a resize handle and supports keyboard interaction when resizable', async () => {
       render(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
@@ -357,16 +369,13 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      const handle = screen.getByRole('slider')
+      const handle = page.getByRole('slider').element()
       expect(handle).toBeInTheDocument()
 
       // Exercise keyboard handler (e.g. arrow keys) without asserting
       // exact width math, to avoid coupling to implementation details.
       handle.focus()
-      fireEvent.keyDown(handle, {key: 'ArrowLeft'})
-      fireEvent.keyDown(handle, {key: 'ArrowRight'})
-      fireEvent.keyDown(handle, {key: 'Home'})
-      fireEvent.keyDown(handle, {key: 'End'})
+      await userEvent.keyboard('{ArrowLeft}{ArrowRight}{Home}{End}')
     })
 
     it('uses controlled `currentWidth` for the rendered --pane-width when provided', () => {
@@ -385,7 +394,7 @@ describe('PageLayout', async () => {
       expect(sidebar!.style.getPropertyValue('--pane-width')).toBe('400px')
     })
 
-    it('invokes onResizeEnd after a keyboard resize gesture', () => {
+    it('invokes onResizeEnd after a keyboard resize gesture', async () => {
       const onResizeEnd = vi.fn()
       render(
         <PageLayout>
@@ -396,10 +405,9 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      const handle = screen.getByRole('slider')
+      const handle = page.getByRole('slider').element()
       handle.focus()
-      fireEvent.keyDown(handle, {key: 'ArrowRight'})
-      fireEvent.keyUp(handle, {key: 'ArrowRight'})
+      await userEvent.keyboard('{ArrowRight}')
 
       expect(onResizeEnd).toHaveBeenCalledTimes(1)
       expect(typeof onResizeEnd.mock.calls[0][0]).toBe('number')
@@ -417,17 +425,24 @@ describe('PageLayout', async () => {
 
       const sidebar = container.querySelector<HTMLElement>('[class*="Sidebar"][data-resizable]')
       expect(sidebar).not.toBeNull()
-      const divider = await screen.findByRole('slider')
+      const divider = page.getByRole('slider').element()
 
       // Before drag - no data-dragging attribute
       expect(sidebar!).not.toHaveAttribute('data-dragging')
 
       // Start drag - optimization attribute is set on the sidebar element
-      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      divider.dispatchEvent(
+        new PointerEvent('pointerdown', {
+          clientX: 300,
+          clientY: 200,
+          pointerId: 1,
+          bubbles: true,
+        }),
+      )
       expect(sidebar!).toHaveAttribute('data-dragging', 'true')
 
       // End drag - pointer capture lost ends the drag and removes optimization attribute
-      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      divider.dispatchEvent(new PointerEvent('lostpointercapture', {pointerId: 1, bubbles: true}))
       expect(sidebar!).not.toHaveAttribute('data-dragging')
     })
 
@@ -443,18 +458,18 @@ describe('PageLayout', async () => {
 
       const sidebar = container.querySelector<HTMLElement>('[class*="Sidebar"][data-resizable]')
       expect(sidebar).not.toBeNull()
-      const divider = await screen.findByRole('slider')
+      const divider = page.getByRole('slider').element()
 
       // Before interaction - no data-dragging attribute
       expect(sidebar!).not.toHaveAttribute('data-dragging')
 
       // Start keyboard resize (focus first)
-      fireEvent.focus(divider)
-      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      divider.focus()
+      await userEvent.keyboard('{ArrowRight>}')
       expect(sidebar!).toHaveAttribute('data-dragging', 'true')
 
       // End keyboard resize - removes optimization attribute
-      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      await userEvent.keyboard('{/ArrowRight}')
       expect(sidebar!).not.toHaveAttribute('data-dragging')
     })
 

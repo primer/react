@@ -1,6 +1,7 @@
 import React from 'react'
-import {render as HTMLRender, fireEvent, act, render} from '@testing-library/react'
-import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
+import {page, userEvent} from 'vitest/browser'
+import {render, act} from '@testing-library/react'
+import {describe, expect, it, vi, afterEach} from 'vitest'
 import type {TokenSizeKeys} from '../Token/TokenBase'
 import {tokenSizes} from '../Token/constants'
 import {IssueLabelToken} from '../Token'
@@ -21,6 +22,12 @@ const mockTokens = [
   {text: 'seven', id: 7},
 ]
 
+function getToken(text: string) {
+  const token = page.getByText(text, {exact: false}).element().closest('[data-component="TextInputWithTokens.Token"]')
+  if (!token) throw new Error(`Could not find token for "${text}"`)
+  return page.elementLocator(token)
+}
+
 const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWithTokensProps>> = ({
   onTokenRemove,
   tokens,
@@ -33,10 +40,6 @@ const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWit
     <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} id="tokenInput" {...rest} />
   </>
 )
-
-beforeEach(() => {
-  vi.useFakeTimers()
-})
 
 afterEach(() => {
   vi.useRealTimers()
@@ -62,7 +65,7 @@ describe('TextInputWithTokens', () => {
 
   it('announces selected token values when used as a combobox', () => {
     const onRemoveMock = vi.fn()
-    const {getByRole} = render(
+    render(
       <LabelledTextInputWithTokens
         role="combobox"
         tokens={[
@@ -73,8 +76,8 @@ describe('TextInputWithTokens', () => {
       />,
     )
 
-    const combobox = getByRole('combobox', {name: 'Tokens'})
-    const describedByIds = combobox.getAttribute('aria-describedby')
+    const combobox = page.getByRole('combobox', {name: 'Tokens'})
+    const describedByIds = combobox.element().getAttribute('aria-describedby')
 
     expect(describedByIds).toBeTruthy()
 
@@ -147,6 +150,7 @@ describe('TextInputWithTokens', () => {
   })
 
   it('renders with a loading indicator', () => {
+    vi.useFakeTimers()
     const onRemoveMock = vi.fn()
     expect(
       render(
@@ -235,116 +239,104 @@ describe('TextInputWithTokens', () => {
     ).toMatchSnapshot()
   })
 
-  it('focuses the previous token when keying ArrowLeft', () => {
+  it('focuses the previous token when keying ArrowLeft', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
-    )
-    const inputNode = getByLabelText('Tokens')
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
     const lastTokenIndex = mockTokens.length - 1
-    const lastTokenNode = getByText(mockTokens[lastTokenIndex].text)
+    const lastTokenNode = getToken(mockTokens[lastTokenIndex].text)
 
-    expect(document.activeElement).not.toEqual(lastTokenNode)
+    await expect.element(lastTokenNode).not.toHaveFocus()
 
-    fireEvent.focus(inputNode)
-    fireEvent.keyDown(inputNode, {key: 'ArrowLeft'})
-    expect(document.activeElement?.id).toEqual(lastTokenNode.id)
+    act(() => inputNode.element().focus())
+    await userEvent.keyboard('{ArrowLeft}')
+    await expect.element(lastTokenNode).toHaveFocus()
 
-    fireEvent.keyDown(lastTokenNode, {key: 'ArrowLeft'})
-    expect(document.activeElement?.id).toEqual(getByText(mockTokens[lastTokenIndex - 1].text).id)
+    await userEvent.keyboard('{ArrowLeft}')
+    await expect.element(getToken(mockTokens[lastTokenIndex - 1].text)).toHaveFocus()
   })
 
-  it('focuses the next token when keying ArrowRight', () => {
+  it('focuses the next token when keying ArrowRight', async () => {
     const onRemoveMock = vi.fn()
-    const {getByText} = HTMLRender(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
-    const tokenNode = getByText(mockTokens[4].text)
+    render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const tokenNode = getToken(mockTokens[4].text)
 
     expect(onRemoveMock).not.toHaveBeenCalled()
 
-    fireEvent.focus(tokenNode)
-    fireEvent.keyDown(tokenNode, {key: 'ArrowRight'})
+    act(() => tokenNode.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
-    expect(document.activeElement?.id).toEqual(getByText(mockTokens[5].text).id)
+    await expect.element(getToken(mockTokens[5].text)).toHaveFocus()
   })
 
-  it('focuses the input when keying ArrowLeft on the first token', () => {
+  it('focuses the input when keying ArrowLeft on the first token', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
-    )
-    const inputNode = getByLabelText('Tokens')
-    const firstTokenNode = getByText(mockTokens[0].text)
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
+    const firstTokenNode = getToken(mockTokens[0].text)
 
-    expect(document.activeElement).not.toEqual(firstTokenNode)
+    await expect.element(firstTokenNode).not.toHaveFocus()
 
-    fireEvent.focus(firstTokenNode)
-    fireEvent.keyDown(firstTokenNode, {key: 'ArrowLeft'})
-    expect(document.activeElement?.id).toEqual(inputNode.id)
+    act(() => firstTokenNode.element().focus())
+    await userEvent.keyboard('{ArrowLeft}')
+    await expect.element(inputNode).toHaveFocus()
   })
 
-  it('focuses the input when keying ArrowRight on the last token', () => {
+  it('focuses the input when keying ArrowRight on the last token', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
-    )
-    const inputNode = getByLabelText('Tokens')
-    const lastTokenNode = getByText(mockTokens[mockTokens.length - 1].text)
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
+    const lastTokenNode = getToken(mockTokens[mockTokens.length - 1].text)
 
-    expect(document.activeElement).not.toEqual(lastTokenNode)
+    await expect.element(lastTokenNode).not.toHaveFocus()
 
-    fireEvent.focus(lastTokenNode)
-    fireEvent.keyDown(lastTokenNode, {key: 'ArrowRight'})
-    expect(document.activeElement?.id).toEqual(inputNode.id)
+    act(() => lastTokenNode.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
+    await expect.element(inputNode).toHaveFocus()
   })
 
-  it('focuses the input when keying Escape when focused on a token', () => {
+  it('focuses the input when keying Escape when focused on a token', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
-    )
-    const inputNode = getByLabelText('Tokens')
-    const lastTokenNode = getByText(mockTokens[mockTokens.length - 1].text)
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
+    const lastTokenNode = getToken(mockTokens[mockTokens.length - 1].text)
 
-    expect(document.activeElement?.id).not.toEqual(inputNode.id)
+    await expect.element(inputNode).not.toHaveFocus()
 
-    fireEvent.focus(lastTokenNode)
-    expect(document.activeElement?.id).toEqual(lastTokenNode.id)
-    fireEvent.keyUp(lastTokenNode, {key: 'Escape'})
+    act(() => lastTokenNode.element().focus())
+    await expect.element(lastTokenNode).toHaveFocus()
+    await userEvent.keyboard('{Escape}')
 
-    expect(document.activeElement?.id).not.toEqual(lastTokenNode.id)
-    expect(document.activeElement?.id).toEqual(inputNode.id)
+    await expect.element(lastTokenNode).not.toHaveFocus()
+    await expect.element(inputNode).toHaveFocus()
   })
 
-  it('does not focus the input when clicking a token', () => {
+  it('does not focus the input when clicking a token', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />,
-    )
-    const inputNode = getByLabelText('Tokens')
-    const tokenNode = getByText(mockTokens[0].text)
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
+    const tokenNode = getToken(mockTokens[0].text)
 
-    expect(document.activeElement).not.toEqual(inputNode.id)
-    fireEvent.click(tokenNode)
-    expect(document.activeElement?.id).not.toEqual(inputNode.id)
+    await expect.element(inputNode).not.toHaveFocus()
+    await userEvent.click(tokenNode)
+    await expect.element(inputNode).not.toHaveFocus()
   })
 
-  it('focuses the input when clicking somewhere in the component besides the tokens', () => {
+  it('focuses the input when clicking somewhere in the component besides the tokens', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />,
-    )
-    const inputNode = getByLabelText('Tokens')
-    const truncatedTokenCount = getByText('+6')
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
+    const truncatedTokenCount = page.getByText('+6')
 
-    expect(document.activeElement).not.toEqual(inputNode.id)
-    fireEvent.click(truncatedTokenCount)
-    expect(document.activeElement?.id).toEqual(inputNode.id)
+    await expect.element(inputNode).not.toHaveFocus()
+    await userEvent.click(truncatedTokenCount)
+    await expect.element(inputNode).toHaveFocus()
   })
 
-  it('shows all tokens when the input is focused and hides them when it is blurred (when visibleTokenCount is set)', () => {
+  it('shows all tokens when the input is focused and hides them when it is blurred (when visibleTokenCount is set)', async () => {
     const onRemoveMock = vi.fn()
     const visibleTokenCount = 2
-    const {getByLabelText, getByText} = HTMLRender(
+    render(
       <>
         <LabelledTextInputWithTokens
           tokens={mockTokens}
@@ -356,145 +348,126 @@ describe('TextInputWithTokens', () => {
         </button>
       </>,
     )
-    const inputNode = getByLabelText('Tokens')
-    const focusableOutsideComponentNode = getByText('Focus me')
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
+    const focusableOutsideComponentNode = page.getByText('Focus me')
     const allTokenLabels = mockTokens.map(token => token.text)
-    const truncatedTokenCountNode = getByText('+6')
+    const truncatedTokenCountNode = page.getByText('+6')
 
-    act(() => {
-      vi.runAllTimers()
-    })
-
-    fireEvent.focus(inputNode)
-
-    setTimeout(() => {
-      for (const tokenLabel of allTokenLabels) {
-        const tokenNode = getByText(tokenLabel)
-        expect(tokenNode).toBeDefined()
-      }
-    }, 0)
-
-    act(() => {
-      vi.runAllTimers()
-      // onBlur isn't called on input unless we specifically fire the "blur" event
-    })
-
-    fireEvent.focus(focusableOutsideComponentNode)
-
-    setTimeout(() => {
-      expect(truncatedTokenCountNode).toBeDefined()
-
-      for (const tokenLabel of allTokenLabels) {
-        const tokenNode = getByText(tokenLabel)
-        if (allTokenLabels.indexOf(tokenLabel) > visibleTokenCount) {
-          expect(tokenNode).toBeDefined()
-        } else {
-          expect(tokenNode).not.toBeDefined()
-        }
-      }
-    }, 0)
-  })
-
-  it('does not hide tokens when blurring the input to focus within the component (when visibleTokenCount is set)', () => {
-    const onRemoveMock = vi.fn()
-    const visibleTokenCount = 2
-    const {getByLabelText, getByText} = HTMLRender(
-      <>
-        <LabelledTextInputWithTokens
-          tokens={mockTokens}
-          onTokenRemove={onRemoveMock}
-          visibleTokenCount={visibleTokenCount}
-        />
-        <button type="button" id="focusableOutsideComponent">
-          Focus me
-        </button>
-      </>,
-    )
-    const inputNode = getByLabelText('Tokens')
-    const firstTokenNode = getByText(mockTokens[visibleTokenCount - 1].text)
-    const allTokenLabels = mockTokens.map(token => token.text)
-    const truncatedTokenCountNode = getByText('+6')
-
-    fireEvent.focus(inputNode)
-    fireEvent.focus(firstTokenNode)
-
-    expect(truncatedTokenCountNode).toBeDefined()
+    await expect.element(truncatedTokenCountNode).toBeInTheDocument()
+    act(() => inputNode.element().focus())
 
     for (const tokenLabel of allTokenLabels) {
-      const tokenNode = getByText(tokenLabel)
-      expect(tokenNode).toBeDefined()
+      await expect.element(page.getByText(tokenLabel, {exact: false})).toBeInTheDocument()
+    }
+    await expect.element(truncatedTokenCountNode).not.toBeInTheDocument()
+
+    act(() => focusableOutsideComponentNode.element().focus())
+
+    await expect.element(truncatedTokenCountNode).toBeInTheDocument()
+    for (const [index, tokenLabel] of allTokenLabels.entries()) {
+      const tokenNode = page.getByText(tokenLabel, {exact: false})
+      if (index < visibleTokenCount) {
+        await expect.element(tokenNode).toBeInTheDocument()
+      } else {
+        await expect.element(tokenNode).not.toBeInTheDocument()
+      }
     }
   })
 
-  it('focuses the first token when keying ArrowRight in the input', () => {
+  it('does not hide tokens when blurring the input to focus within the component (when visibleTokenCount is set)', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
+    const visibleTokenCount = 2
+    vi.useFakeTimers()
+    render(
+      <>
+        <LabelledTextInputWithTokens
+          tokens={mockTokens}
+          onTokenRemove={onRemoveMock}
+          visibleTokenCount={visibleTokenCount}
+        />
+        <button type="button" id="focusableOutsideComponent">
+          Focus me
+        </button>
+      </>,
     )
-    const inputNode = getByLabelText('Tokens')
-    const firstTokenNode = getByText(mockTokens[0].text)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
+    const firstTokenNode = getToken(mockTokens[visibleTokenCount - 1].text)
+    const allTokenLabels = mockTokens.map(token => token.text)
+    const truncatedTokenCountNode = page.getByText('+6')
+
+    act(() => inputNode.element().focus())
+    act(() => firstTokenNode.element().focus())
+    act(() => vi.advanceTimersByTime(0))
+
+    await expect.element(truncatedTokenCountNode).not.toBeInTheDocument()
+
+    for (const tokenLabel of allTokenLabels) {
+      const tokenNode = page.getByText(tokenLabel, {exact: false})
+      await expect.element(tokenNode).toBeInTheDocument()
+    }
+  })
+
+  it('focuses the first token when keying ArrowRight in the input', async () => {
+    const onRemoveMock = vi.fn()
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
+    const firstTokenNode = getToken(mockTokens[0].text)
 
     expect(onRemoveMock).not.toHaveBeenCalled()
 
-    fireEvent.focus(inputNode)
-    fireEvent.keyDown(inputNode, {key: 'ArrowRight'})
+    act(() => inputNode.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
-    expect(document.activeElement?.id).not.toEqual(inputNode.id)
-    expect(document.activeElement?.id).toEqual(firstTokenNode.id)
+    await expect.element(inputNode).not.toHaveFocus()
+    await expect.element(firstTokenNode).toHaveFocus()
   })
 
-  it('calls onTokenRemove on the last token when keying Backspace in an empty input', () => {
+  it('calls onTokenRemove on the last token when keying Backspace in an empty input', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
-    )
-    const inputNode = getByLabelText('Tokens')
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
     const lastTokenIndex = mockTokens.length - 1
 
     expect(onRemoveMock).not.toHaveBeenCalled()
 
-    fireEvent.focus(inputNode)
-    fireEvent.keyDown(inputNode, {key: 'Backspace'})
+    act(() => inputNode.element().focus())
+    await userEvent.keyboard('{Backspace}')
     expect(onRemoveMock).toHaveBeenCalledWith(mockTokens[lastTokenIndex].id)
   })
 
-  it("sets the input text to the last token's text when keying Backspace in an empty input", () => {
+  it("sets the input text to the last token's text when keying Backspace in an empty input", async () => {
     const onRemoveMock = vi.fn()
-    const {getByDisplayValue, getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
-    )
-    const inputNode = getByLabelText('Tokens')
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
     const lastTokenIndex = mockTokens.length - 1
 
     expect(onRemoveMock).not.toHaveBeenCalled()
 
-    fireEvent.focus(inputNode)
-    fireEvent.keyDown(inputNode, {key: 'Backspace'})
+    act(() => inputNode.element().focus())
+    await userEvent.keyboard('{Backspace}')
 
-    expect(getByDisplayValue(mockTokens[lastTokenIndex].text).id).toEqual(inputNode.id)
+    await expect.element(inputNode).toHaveValue(mockTokens[lastTokenIndex].text)
   })
 
-  it('does not call onTokenRemove on the last token when keying Backspace in an input that has a value', () => {
+  it('does not call onTokenRemove on the last token when keying Backspace in an input that has a value', async () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} defaultValue="test" />,
-    )
-    const inputNode = getByLabelText('Tokens')
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} defaultValue="test" />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
 
-    fireEvent.focus(inputNode)
-    fireEvent.keyDown(inputNode, {key: 'Backspace'})
+    act(() => inputNode.element().focus())
+    await userEvent.keyboard('{Backspace}')
     expect(onRemoveMock).not.toHaveBeenCalled()
   })
 
-  it('calls onTokenRemove on the focused token when keying Backspace and moves focus to the next token', () => {
+  it('calls onTokenRemove on the focused token when keying Backspace and moves focus to the next token', async () => {
     const onRemoveMock = vi.fn()
-    const {getByText} = HTMLRender(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
-    const tokenNode = getByText(mockTokens[4].text)
+    render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const tokenNode = getToken(mockTokens[4].text)
 
     expect(onRemoveMock).not.toHaveBeenCalled()
 
-    fireEvent.focus(tokenNode)
-    fireEvent.keyDown(tokenNode, {key: 'Backspace'})
+    act(() => tokenNode.element().focus())
+    await userEvent.keyboard('{Backspace}')
 
     expect(onRemoveMock).toHaveBeenCalledWith(mockTokens[4].id)
   })
@@ -516,20 +489,16 @@ describe('TextInputWithTokens', () => {
       )
     }
 
-    const {getByText} = HTMLRender(<TestComponent />)
-    const tokenNode = getByText(mockTokens[0].text)
+    render(<TestComponent />)
+    const tokenNode = getToken(mockTokens[0].text)
 
-    fireEvent.focus(tokenNode)
-    fireEvent.keyDown(tokenNode, {key: 'Backspace'})
+    act(() => tokenNode.element().focus())
+    await userEvent.keyboard('{Backspace}')
 
-    act(() => {
-      vi.runAllTimers()
-    })
-
-    expect(document.activeElement?.textContent).toContain(mockTokens[1].text)
+    await expect.element(getToken(mockTokens[1].text)).toHaveFocus()
   })
 
-  it('moves focus to the input when the last token is removed', () => {
+  it('moves focus to the input when the last token is removed', async () => {
     function TestComponent() {
       const [tokens, setTokens] = React.useState([mockTokens[0]])
       return (
@@ -546,88 +515,96 @@ describe('TextInputWithTokens', () => {
       )
     }
 
-    const {getByText, getByLabelText} = HTMLRender(<TestComponent />)
-    const tokenNode = getByText(mockTokens[0].text)
-    const inputNode = getByLabelText('Tokens')
+    render(<TestComponent />)
+    const tokenNode = getToken(mockTokens[0].text)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
 
-    fireEvent.focus(tokenNode)
-    fireEvent.keyDown(tokenNode, {key: 'Backspace'})
+    act(() => tokenNode.element().focus())
+    await userEvent.keyboard('{Backspace}')
 
-    act(() => {
-      vi.runAllTimers()
-    })
-
-    expect(document.activeElement?.id).toBe(inputNode.id)
+    await expect.element(inputNode).toHaveFocus()
   })
 
-  it('calls onKeyDown', () => {
+  it('calls onKeyDown', async () => {
     const onRemoveMock = vi.fn()
     const onKeyDownMock = vi.fn()
-    const {getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} onKeyDown={onKeyDownMock} />,
-    )
-    const inputNode = getByLabelText('Tokens')
+    render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} onKeyDown={onKeyDownMock} />)
+    const inputNode = page.getByRole('textbox', {name: 'Tokens'})
 
     expect(onKeyDownMock).not.toHaveBeenCalled()
-    fireEvent.focus(inputNode)
-    fireEvent.keyDown(inputNode, {key: 'a'})
+    act(() => inputNode.element().focus())
+    await userEvent.keyboard('a')
     expect(onKeyDownMock).toHaveBeenCalled()
   })
 
   describe('data-component attributes', () => {
-    it('renders TextInputWithTokens with data-component attribute', () => {
+    it('renders TextInputWithTokens with data-component attribute', async () => {
       const onRemoveMock = vi.fn()
       const {container} = render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />)
 
-      expect(container.querySelector('[data-component="TextInputWithTokens"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="TextInputWithTokens"]'))
+        .toBeInTheDocument()
     })
 
-    it('renders TextInputWithTokens.Input with data-component attribute', () => {
+    it('renders TextInputWithTokens.Input with data-component attribute', async () => {
       const onRemoveMock = vi.fn()
       const {container} = render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />)
 
-      expect(container.querySelector('[data-component="TextInputWithTokens.Input"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLInputElement>('[data-component="TextInputWithTokens.Input"]'))
+        .toBeInTheDocument()
     })
 
-    it('renders TextInputWithTokens.Token with data-component attribute', () => {
+    it('renders TextInputWithTokens.Token with data-component attribute', async () => {
       const onRemoveMock = vi.fn()
       const {container} = render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
 
-      expect(container.querySelector('[data-component="TextInputWithTokens.Token"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="TextInputWithTokens.Token"]'))
+        .toBeInTheDocument()
     })
 
-    it('renders TextInputWithTokens.Icon with data-component attribute', () => {
+    it('renders TextInputWithTokens.Icon with data-component attribute', async () => {
       const onRemoveMock = vi.fn()
       const {container} = render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} icon={MarkGithubIcon} />)
 
-      expect(container.querySelector('[data-component="TextInputWithTokens.Icon"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<SVGElement>('[data-component="TextInputWithTokens.Icon"]'))
+        .toBeInTheDocument()
     })
 
-    it('renders TextInputWithTokens.LeadingVisual with data-component attribute', () => {
+    it('renders TextInputWithTokens.LeadingVisual with data-component attribute', async () => {
       const onRemoveMock = vi.fn()
       const {container} = render(
         <TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} leadingVisual={MarkGithubIcon} />,
       )
 
-      expect(container.querySelector('[data-component="TextInputWithTokens.LeadingVisual"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="TextInputWithTokens.LeadingVisual"]'))
+        .toBeInTheDocument()
     })
 
-    it('renders TextInputWithTokens.TrailingVisual with data-component attribute', () => {
+    it('renders TextInputWithTokens.TrailingVisual with data-component attribute', async () => {
       const onRemoveMock = vi.fn()
       const {container} = render(
         <TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} trailingVisual={MarkGithubIcon} />,
       )
 
-      expect(container.querySelector('[data-component="TextInputWithTokens.TrailingVisual"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="TextInputWithTokens.TrailingVisual"]'))
+        .toBeInTheDocument()
     })
 
-    it('renders TextInputWithTokens.OverflowCount with data-component attribute when tokens are truncated', () => {
+    it('renders TextInputWithTokens.OverflowCount with data-component attribute when tokens are truncated', async () => {
       const onRemoveMock = vi.fn()
       const {container} = render(
         <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />,
       )
 
-      expect(container.querySelector('[data-component="TextInputWithTokens.OverflowCount"]')).toBeInTheDocument()
+      await expect
+        .element(container.querySelector<HTMLElement>('[data-component="TextInputWithTokens.OverflowCount"]'))
+        .toBeInTheDocument()
     })
   })
 })
