@@ -3,7 +3,8 @@ import {useState, useRef} from 'react'
 import Text from '../../Text'
 import {Button} from '../../Button'
 import {Dialog} from '../DialogV1'
-import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {implementsClassName} from '../../utils/testing'
 import classes from './Dialog.module.css'
 
@@ -113,59 +114,54 @@ describe('Dialog', () => {
   )
 
   it('Toggles when you click close button', async () => {
-    const {getByLabelText, getByTestId, queryByTestId} = HTMLRender(<Component />)
+    HTMLRender(<Component />)
 
-    expect(getByTestId('inner')).toBeTruthy()
-    fireEvent.click(getByLabelText('Close'))
+    await expect.element(page.getByTestId('inner')).toBeInTheDocument()
+    await page.getByRole('button', {name: 'Close', exact: true}).click()
 
-    expect(queryByTestId('inner')).toBeNull()
+    await expect.element(page.getByTestId('inner')).not.toBeInTheDocument()
   })
 
   it('Renders dialog when isOpen is true', async () => {
-    const {getByTestId} = HTMLRender(<Component />)
+    HTMLRender(<Component />)
 
-    expect(getByTestId('inner')).toBeTruthy()
+    await expect.element(page.getByTestId('inner')).toBeInTheDocument()
   })
 
   it('Does not render dialog when isOpen is false', async () => {
-    const {queryByTestId} = HTMLRender(<ClosedDialog />)
+    HTMLRender(<ClosedDialog />)
 
-    expect(queryByTestId('inner')).toBeNull()
+    await expect.element(page.getByTestId('inner')).not.toBeInTheDocument()
   })
 
   it('Focuses close button when Dialog is opened', async () => {
-    const {getByLabelText} = HTMLRender(<Component />)
-    const closeButton = getByLabelText('Close')
-    expect(document.activeElement).toEqual(closeButton)
+    HTMLRender(<Component />)
+    await expect.element(page.getByRole('button', {name: 'Close', exact: true})).toHaveFocus()
   })
 
   it('Focuses custom ref when Dialog is opened', async () => {
-    const {getByTestId} = HTMLRender(<DialogWithCustomFocusRef />)
-    const innerButton = getByTestId('inner-button')
-    expect(document.activeElement).toEqual(innerButton)
+    HTMLRender(<DialogWithCustomFocusRef />)
+    await expect.element(page.getByTestId('inner-button')).toHaveFocus()
   })
 
   it('Returns focus to returnFocusRef', async () => {
-    const {getByLabelText, getByTestId, queryByTestId} = HTMLRender(<Component />)
+    HTMLRender(<Component />)
 
-    expect(getByTestId('inner')).toBeTruthy()
-    fireEvent.click(getByLabelText('Close'))
+    await expect.element(page.getByTestId('inner')).toBeInTheDocument()
+    await page.getByRole('button', {name: 'Close', exact: true}).click()
 
-    expect(queryByTestId('inner')).toBeNull()
-    const triggerButton = getByTestId('trigger-button')
-    expect(document.activeElement).toEqual(triggerButton)
+    await expect.element(page.getByTestId('inner')).not.toBeInTheDocument()
+    await expect.element(page.getByTestId('trigger-button')).toHaveFocus()
   })
 
   it('Returns focus to returnFocusRef on escape', async () => {
-    const {getByTestId, queryByTestId} = HTMLRender(<DialogWithCustomFocusRefAndReturnFocusRef />)
-    const innerButton = getByTestId('inner-button')
-    expect(document.activeElement).toEqual(innerButton)
+    HTMLRender(<DialogWithCustomFocusRefAndReturnFocusRef />)
+    await expect.element(page.getByTestId('inner-button')).toHaveFocus()
 
-    expect(getByTestId('inner')).toBeTruthy()
-    fireEvent.keyDown(document.body, {key: 'Escape'})
+    await expect.element(page.getByTestId('inner')).toBeInTheDocument()
+    await userEvent.keyboard('{Escape}')
 
-    expect(queryByTestId('inner')).toBeNull()
-    const triggerButton = getByTestId('trigger-button')
-    expect(document.activeElement).toEqual(triggerButton)
+    await expect.element(page.getByTestId('inner')).not.toBeInTheDocument()
+    await expect.element(page.getByTestId('trigger-button')).toHaveFocus()
   })
 })

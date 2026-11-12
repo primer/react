@@ -533,6 +533,13 @@
     cursor: pointer;
   }
 
+  /* small */
+
+  &[data-size='small'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: var(--control-small-paddingBlock);
+  }
+
   /* large */
 
   &[data-size='large'] {
@@ -710,6 +717,11 @@ span wrapping svg or text */
   grid-area: label;
   /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
   word-break: break-word;
+}
+
+.ActionListContent[data-size='small'] .ItemLabel {
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-body-lineHeight-small);
 }
 
 .SubGroup {

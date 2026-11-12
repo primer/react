@@ -33,7 +33,7 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
    * - `"danger"` - A destructive action `Item`.
    */
   variant?: 'default' | 'danger'
-  size?: 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large'
   /**
    * Items that are disabled can not be clicked, selected, or navigated through.
    */

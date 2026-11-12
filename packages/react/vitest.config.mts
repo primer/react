@@ -1,19 +1,15 @@
 import {defineConfig} from '@primer/vitest-config/config'
-import babel from '@rolldown/plugin-babel'
 
-import react, {reactCompilerPreset} from '@vitejs/plugin-react'
-import {isSupported} from './script/react-compiler.mjs'
+import react from '@vitejs/plugin-react'
+import {files, isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
   plugins: [
-    react(),
-    babel({
-      presets: [
-        reactCompilerPreset({
-          sources: (filepath: string) => isSupported(filepath),
-          target: '18',
-        }),
-      ],
+    react({
+      compiler: {
+        sources: files.filter(isSupported),
+        target: '18',
+      },
     }),
   ],
   resolve: {
@@ -27,5 +23,12 @@ export default defineConfig({
     include: ['src/__tests__/exports.test.ts', 'src/__tests__/ssr.test.tsx', 'src/__tests__/storybook.test.tsx'],
     environment: 'node',
     detectAsyncLeaks: true,
+    server: {
+      deps: {
+        // Externalized octicons would resolve the root React copy instead of the one used by
+        // this package when the two differ (React 19 CI job), breaking server-rendered icons.
+        inline: [/@primer\/octicons-react/],
+      },
+    },
   },
 })

@@ -27,10 +27,6 @@ afterEach(() => {
   cleanup()
 })
 
-// @ts-expect-error this is needed for act() from React
-// @see https://react.dev/reference/react/act#error-the-current-testing-environment-is-not-configured-to-support-act
-globalThis.IS_REACT_ACT_ENVIRONMENT = true
-
 // eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 document.documentElement.setAttribute('data-color-mode', 'auto')
 // eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope

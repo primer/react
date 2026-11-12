@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import TabNav from '..'
-import {render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render, act} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {Button} from '../../Button'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../TabNav.module.css'
@@ -28,105 +28,106 @@ describe('TabNav', () => {
 
   describe('TabNav.Link', () => {
     implementsClassName(TabNav.Link, classes.TabNavLink)
-    it('renders without crashing', () => {
+    it('renders without crashing', async () => {
       render(<TabNav.Link href="#">Link Text</TabNav.Link>)
-      expect(screen.getByText('Link Text')).toBeInTheDocument()
+      await expect.element(page.getByText('Link Text')).toBeInTheDocument()
     })
   })
 
-  it('renders data-component attributes', () => {
+  it('renders data-component attributes', async () => {
     render(
       <TabNav>
         <TabNav.Link href="#">Link Text</TabNav.Link>
       </TabNav>,
     )
 
-    expect(screen.getByRole('navigation').parentElement).toHaveAttribute('data-component', 'TabNav')
-    expect(screen.getByRole('tab')).toHaveAttribute('data-component', 'TabNav.Link')
+    await expect
+      .element(page.getByRole('navigation').element().parentElement)
+      .toHaveAttribute('data-component', 'TabNav')
+    await expect.element(page.getByRole('tab')).toHaveAttribute('data-component', 'TabNav.Link')
   })
 
-  it('sets aria-label appropriately', () => {
+  it('sets aria-label appropriately', async () => {
     render(<TabNav aria-label="Test label" />)
-    expect(screen.getByLabelText('Test label')).toBeTruthy()
-    expect(screen.getByLabelText('Test label').tagName).toEqual('NAV')
+    await expect.element(page.getByLabelText('Test label')).toBeInTheDocument()
+    expect(page.getByLabelText('Test label').element().tagName).toEqual('NAV')
   })
 
-  it('selects a tab when tab is loaded', () => {
+  it('selects a tab when tab is loaded', async () => {
     render(tabNavMarkup)
-    expect(screen.getByRole('tab', {name: /Middle/})).toHaveClass('selected')
+    await expect.element(page.getByRole('tab', {name: /Middle/})).toHaveClass('selected')
   })
 
-  it('selects next tab when pressing right arrow', () => {
-    const {getByText} = render(tabNavMarkup)
-    const middleTab = getByText('Middle')
-    const lastTab = getByText('Last')
-
-    middleTab.focus()
-    middleTab.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowRight', bubbles: true}))
-
-    expect(lastTab).toHaveFocus()
-  })
-
-  it('selects previous tab when pressing left arrow', () => {
-    const {getByText} = render(tabNavMarkup)
-    const middleTab = getByText('Middle')
-    const firstTab = getByText('First')
-
-    middleTab.focus()
-    middleTab.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowLeft', bubbles: true}))
-
-    expect(firstTab).toHaveFocus()
-  })
-
-  it('selects last tab when pressing left arrow on first tab', () => {
-    const {getByText} = render(tabNavMarkup)
-    const firstTab = getByText('First')
-    const lastTab = getByText('Last')
-
-    firstTab.focus()
-    firstTab.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowLeft', bubbles: true}))
-
-    expect(lastTab).toHaveFocus()
-  })
-
-  it('selects first tab when pressing right arrow on last tab', () => {
+  it('selects next tab when pressing right arrow', async () => {
     render(tabNavMarkup)
-    const lastTab = screen.getByText('Last')
-    const firstTab = screen.getByText('First')
+    const middleTab = page.getByRole('tab', {name: /Middle/})
+    const lastTab = page.getByRole('tab', {name: 'Last'})
 
-    lastTab.focus()
-    lastTab.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowRight', bubbles: true}))
+    act(() => middleTab.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
-    expect(firstTab).toHaveFocus()
+    await expect.element(lastTab).toHaveFocus()
+  })
+
+  it('selects previous tab when pressing left arrow', async () => {
+    render(tabNavMarkup)
+    const middleTab = page.getByRole('tab', {name: /Middle/})
+    const firstTab = page.getByRole('tab', {name: 'First'})
+
+    act(() => middleTab.element().focus())
+    await userEvent.keyboard('{ArrowLeft}')
+
+    await expect.element(firstTab).toHaveFocus()
+  })
+
+  it('selects last tab when pressing left arrow on first tab', async () => {
+    render(tabNavMarkup)
+    const firstTab = page.getByRole('tab', {name: 'First'})
+    const lastTab = page.getByRole('tab', {name: 'Last'})
+
+    act(() => firstTab.element().focus())
+    await userEvent.keyboard('{ArrowLeft}')
+
+    await expect.element(lastTab).toHaveFocus()
+  })
+
+  it('selects first tab when pressing right arrow on last tab', async () => {
+    render(tabNavMarkup)
+    const lastTab = page.getByRole('tab', {name: 'Last'})
+    const firstTab = page.getByRole('tab', {name: 'First'})
+
+    act(() => lastTab.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
+
+    await expect.element(firstTab).toHaveFocus()
   })
 
   it('moves focus away from TabNav when pressing tab', async () => {
-    const user = userEvent.setup()
     render(tabNavMarkup)
-    const middleTab = screen.getByText('Middle')
-    const link = screen.getByText('Focusable Link')
-    const button = screen.getByRole('button')
+    const middleTab = page.getByRole('tab', {name: /Middle/})
+    const link = page.getByText('Focusable Link')
+    const button = page.getByRole('button')
 
-    await user.click(middleTab)
-    expect(middleTab).toHaveFocus()
-    await user.tab()
+    // Target the tab's padding rather than its nested link.
+    await userEvent.click(middleTab, {position: {x: 5, y: 5}})
+    await expect.element(middleTab).toHaveFocus()
+    await userEvent.tab()
 
-    expect(link).toHaveFocus()
-    await user.tab()
+    await expect.element(link).toHaveFocus()
+    await userEvent.tab()
 
-    expect(button).toHaveFocus()
+    await expect.element(button).toHaveFocus()
   })
 
   it('moves focus to selected tab when TabNav regains focus', async () => {
-    const user = userEvent.setup()
     render(tabNavMarkup)
-    const middleTab = screen.getByText('Middle')
-    const button = screen.getByRole('button')
+    const middleTab = page.getByRole('tab', {name: /Middle/})
+    const button = page.getByRole('button')
 
-    await user.click(button)
-    expect(button).toHaveFocus()
-    await user.tab({shift: true})
+    await userEvent.click(button)
+    await expect.element(button).toHaveFocus()
+    await userEvent.tab({shift: true})
 
-    expect(middleTab).toHaveFocus()
+    await expect.element(middleTab).toHaveFocus()
   })
 })
