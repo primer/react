@@ -1,2 +1,2 @@
 export {Tooltip} from './Tooltip'
-export type {TooltipProps, TooltipDirection, TooltipAnchorProps} from './Tooltip'
+export type {TooltipProps, TooltipDirection} from './Tooltip'

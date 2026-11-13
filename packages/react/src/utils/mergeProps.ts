@@ -13,7 +13,11 @@ type ClassValue = Parameters<typeof clsx>[number]
  *
  * In other cases, if a key exists in both `A` and `B` then the value in `B` will be used in the final result
  */
-function mergeProps<A extends object, B extends object = A>(a: A, b: B): Merge<A, B> {
+function mergeProps<A extends object, B extends object = A>(
+  a: A,
+  b: B,
+  options?: {eventHandlerOrder: 'consumer-first'},
+): Merge<A, B> {
   const merged = {...a} as Record<string, unknown>
 
   for (const [key, value] of Object.entries(b)) {
@@ -24,7 +28,10 @@ function mergeProps<A extends object, B extends object = A>(a: A, b: B): Merge<A
         merged[key] = clsx(existing as ClassValue, value as ClassValue)
       } else if (isEventHandlerKey(key) && isEventHandler(existing)) {
         if (isEventHandler(value)) {
-          merged[key] = composeEventHandlers(existing, value)
+          merged[key] =
+            options?.eventHandlerOrder === 'consumer-first'
+              ? composeEventHandlers(value, existing)
+              : composeEventHandlers(existing, value)
         } else if (value !== undefined) {
           merged[key] = value
         }

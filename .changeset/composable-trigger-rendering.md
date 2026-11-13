@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Tooltip, ActionMenu: Add custom trigger rendering to compose multiple behaviors on a single interactive element. AnchoredOverlay and SelectPanel expose the anchor ref in the render callback's second argument.
+ActionMenu, AnchoredOverlay, Tooltip: Add experimental element-based trigger composition through `@primer/react/experimental`, with automatically merged trigger props and refs.

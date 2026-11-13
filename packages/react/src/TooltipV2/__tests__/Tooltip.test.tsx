@@ -6,7 +6,7 @@ import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
-import {AnchoredOverlay} from '../../AnchoredOverlay'
+import {AnchoredOverlay, Tooltip as ExperimentalTooltip} from '../../experimental/TriggerComposition/TriggerComposition'
 import {ActionList} from '../../ActionList'
 import ButtonGroup from '../../ButtonGroup'
 import {XIcon} from '@primer/octicons-react'
@@ -61,123 +61,117 @@ function ExampleWithActionMenu({actionMenuTrigger}: {actionMenuTrigger: React.Re
 }
 
 describe('Tooltip', () => {
-  it('preserves a composed trigger label and explicitly merges its existing description IDs', () => {
-    const anchorProps = {'aria-labelledby': 'anchor-label', 'aria-describedby': 'anchor-description'}
-    HTMLRender(
-      <>
-        <span id="anchor-label">Existing label</span>
-        <span id="anchor-description">Existing description</span>
-        <Tooltip
-          id="composed-tooltip"
-          text="Additional context"
-          renderAnchor={tooltipProps => (
-            <button
-              {...anchorProps}
-              {...tooltipProps}
-              type="button"
-              aria-describedby={[anchorProps['aria-describedby'], tooltipProps['aria-describedby']]
-                .filter(Boolean)
-                .join(' ')}
-            />
-          )}
-        />
-      </>,
-    )
-    const button = page.getByRole('button', {name: 'Existing label', exact: true}).element()
-    expect(button).toHaveAttribute('aria-labelledby', 'anchor-label')
-    expect(button).toHaveAttribute('aria-describedby', 'anchor-description composed-tooltip')
-    expect(button).toHaveAccessibleDescription('Existing description Additional context')
-  })
-
-  it('does not erase an existing description when a custom trigger is labelled by its tooltip', () => {
-    HTMLRender(
-      <>
-        <span id="anchor-description">Existing description</span>
-        <Tooltip
-          type="label"
-          text="Existing label"
-          renderAnchor={tooltipProps => (
-            <button aria-describedby="anchor-description" {...tooltipProps} type="button" />
-          )}
-        />
-      </>,
-    )
-    const button = page.getByRole('button', {name: 'Existing label', exact: true}).element()
-    expect(button).toHaveAttribute('aria-describedby', 'anchor-description')
-    expect(button).toHaveAccessibleDescription('Existing description')
-  })
-
-  it('composes a tooltip with a popover anchor on a single element', async () => {
-    function Example() {
-      const [open, setOpen] = useState(false)
-      return (
-        <AnchoredOverlay
-          open={open}
-          onOpen={() => setOpen(true)}
-          onClose={() => setOpen(false)}
-          renderAnchor={(anchorProps, context) => (
-            <Tooltip
-              ref={context?.ref}
-              text="Show page details"
-              renderAnchor={tooltipProps => (
-                <Button {...anchorProps} {...tooltipProps}>
-                  Pages
-                </Button>
-              )}
-            />
-          )}
-        >
-          <Button onClick={() => setOpen(false)}>Close details</Button>
-        </AnchoredOverlay>
-      )
-    }
-
-    HTMLRender(<Example />)
-    const button = page.getByRole('button', {name: 'Pages', exact: true})
-    expect(document.querySelectorAll('button')).toHaveLength(1)
-    await userEvent.click(button)
-    await expect.element(button).toHaveAttribute('aria-expanded', 'true')
-    const close = page.getByRole('button', {name: 'Close details', exact: true})
-    await expect.element(close).toHaveFocus()
-    await userEvent.click(close)
-    await expect.element(button).toHaveAttribute('aria-expanded', 'false')
-    await expect.element(button).toHaveFocus()
-  })
-
-  it('renders and labels a custom trigger with a callback ref without requiring a feature flag', async () => {
-    const ref = createRef<HTMLElement>()
-    const {unmount} = HTMLRender(
-      <Tooltip ref={ref} text="Close" type="label" renderAnchor={props => <button {...props} type="button" />} />,
-    )
-    const button = page.getByRole('button', {name: 'Close', exact: true})
-    expect(ref.current).toBe(button.element())
-    const label = button.element().getAttribute('aria-labelledby')
-    expect(document.getElementById(label ?? '')).toHaveTextContent('Close')
-    await userEvent.tab()
-    await expect.element(button).toHaveFocus()
-    await expect.poll(() => document.getElementById(label ?? '')?.matches(':popover-open')).toBe(true)
-    await userEvent.keyboard('{Escape}')
-    await expect.poll(() => document.getElementById(label ?? '')?.matches(':popover-open')).toBe(false)
-    unmount()
-    expect(ref.current).toBeNull()
-  })
-
-  it('rejects children together with renderAnchor', () => {
-    withExpectedConsoleError(() => {
-      expect(() =>
-        HTMLRender(
+  describe('experimental renderAnchor', () => {
+    const Tooltip = ExperimentalTooltip
+    it('preserves a composed trigger label and explicitly merges its existing description IDs', () => {
+      const anchorProps = {'aria-labelledby': 'anchor-label', 'aria-describedby': 'anchor-description'}
+      HTMLRender(
+        <>
+          <span id="anchor-label">Existing label</span>
+          <span id="anchor-description">Existing description</span>
           <Tooltip
-            text="Description"
-            renderAnchor={props => (
-              <button {...props} type="button">
-                Custom
-              </button>
+            id="composed-tooltip"
+            text="Additional context"
+            renderAnchor={tooltipProps => (
+              <button
+                {...anchorProps}
+                {...tooltipProps}
+                type="button"
+                aria-describedby={[anchorProps['aria-describedby'], tooltipProps['aria-describedby']]
+                  .filter(Boolean)
+                  .join(' ')}
+              />
             )}
+          />
+        </>,
+      )
+      const button = page.getByRole('button', {name: 'Existing label', exact: true}).element()
+      expect(button).toHaveAttribute('aria-labelledby', 'anchor-label')
+      const description = document.querySelector('[data-component="Tooltip"]')?.id
+      expect(button).toHaveAttribute('aria-describedby', `anchor-description ${description}`)
+      expect(button).toHaveAccessibleDescription('Existing description Additional context')
+    })
+
+    it('does not erase an existing description when a custom trigger is labelled by its tooltip', () => {
+      HTMLRender(
+        <>
+          <span id="anchor-description">Existing description</span>
+          <Tooltip
+            type="label"
+            text="Existing label"
+            renderAnchor={tooltipProps => (
+              <button aria-describedby="anchor-description" {...tooltipProps} type="button" />
+            )}
+          />
+        </>,
+      )
+      const button = page.getByRole('button', {name: 'Existing label', exact: true}).element()
+      expect(button).toHaveAttribute('aria-describedby', 'anchor-description')
+      expect(button).toHaveAccessibleDescription('Existing description')
+    })
+
+    it('composes a tooltip with a popover anchor on a single element', async () => {
+      function Example() {
+        const [open, setOpen] = useState(false)
+        return (
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={<Tooltip text="Show page details" renderAnchor={<Button>Pages</Button>} />}
           >
-            <Button>Child</Button>
-          </Tooltip>,
-        ),
-      ).toThrow('Pass either `children` or `renderAnchor` to `Tooltip`, not both.')
+            <Button onClick={() => setOpen(false)}>Close details</Button>
+          </AnchoredOverlay>
+        )
+      }
+
+      HTMLRender(<Example />)
+      const button = page.getByRole('button', {name: 'Pages', exact: true})
+      expect(document.querySelectorAll('button')).toHaveLength(1)
+      await userEvent.click(button)
+      await expect.element(button).toHaveAttribute('aria-expanded', 'true')
+      const close = page.getByRole('button', {name: 'Close details', exact: true})
+      await expect.element(close).toHaveFocus()
+      await userEvent.click(close)
+      await expect.element(button).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(button).toHaveFocus()
+    })
+
+    it('renders and labels a custom trigger with a callback ref without requiring a feature flag', async () => {
+      const ref = createRef<HTMLElement>()
+      const {unmount} = HTMLRender(
+        <Tooltip ref={ref} text="Close" type="label" renderAnchor={props => <button {...props} type="button" />} />,
+      )
+      const button = page.getByRole('button', {name: 'Close', exact: true})
+      expect(ref.current).toBe(button.element())
+      const label = button.element().getAttribute('aria-labelledby')
+      expect(document.getElementById(label ?? '')).toHaveTextContent('Close')
+      await userEvent.tab()
+      await expect.element(button).toHaveFocus()
+      await expect.poll(() => document.getElementById(label ?? '')?.matches(':popover-open')).toBe(true)
+      await userEvent.keyboard('{Escape}')
+      await expect.poll(() => document.getElementById(label ?? '')?.matches(':popover-open')).toBe(false)
+      unmount()
+      expect(ref.current).toBeNull()
+    })
+
+    it('rejects children together with renderAnchor', () => {
+      withExpectedConsoleError(() => {
+        expect(() =>
+          HTMLRender(
+            <Tooltip
+              text="Description"
+              renderAnchor={props => (
+                <button {...props} type="button">
+                  Custom
+                </button>
+              )}
+            >
+              <Button>Child</Button>
+            </Tooltip>,
+          ),
+        ).toThrow('Pass either `children` or `renderAnchor` to `Tooltip`, not both.')
+      })
     })
   })
 

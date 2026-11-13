@@ -1,6 +1,6 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
-import type {AnchoredOverlayProps, AnchoredOverlayAnchorContext} from '../AnchoredOverlay'
+import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import type {FilteredActionListProps} from '../FilteredActionList'
@@ -632,19 +632,16 @@ function Panel({
     const selectedValueText = selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
     const shouldAutoWireLabel = isReferenced === false && Boolean(labelId) && Boolean(selectedValueId)
 
-    return <T extends React.HTMLAttributes<HTMLElement>>(props: T, context?: AnchoredOverlayAnchorContext) => {
-      return renderAnchor(
-        {
-          ...props,
-          ...(shouldAutoWireLabel
-            ? {
-                'aria-labelledby': [labelId, selectedValueId].filter(Boolean).join(' '),
-              }
-            : {}),
-          children: shouldAutoWireLabel ? <span id={selectedValueId}>{selectedValueText}</span> : selectedValueText,
-        },
-        context,
-      )
+    return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
+      return renderAnchor({
+        ...props,
+        ...(shouldAutoWireLabel
+          ? {
+              'aria-labelledby': [labelId, selectedValueId].filter(Boolean).join(' '),
+            }
+          : {}),
+        children: shouldAutoWireLabel ? <span id={selectedValueId}>{selectedValueText}</span> : selectedValueText,
+      })
     }
   }, [placeholder, renderAnchor, selected, isReferenced, labelId, selectedValueId])
 

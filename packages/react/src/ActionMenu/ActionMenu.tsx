@@ -20,6 +20,8 @@ import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 import {DialogContext} from '../Dialog/DialogContext'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import type {AnchorRenderProps} from '../internal/components/RenderAnchor'
+import {invariant} from '../utils/invariant'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -31,15 +33,11 @@ export type MenuContextProps = Pick<
 > & {
   onClose?: MenuCloseHandler
   isSubmenu?: boolean
+  isCustomAnchor?: boolean
 }
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
 export type ActionMenuProps = {
-  /**
-   * Render a custom trigger instead of ActionMenu.Button or ActionMenu.Anchor.
-   * Forward all supplied props, including ref, to a single interactive element.
-   */
-  renderAnchor?: (props: ActionMenuAnchorRenderProps) => React.ReactElement
   /**
    * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`
    */
@@ -56,10 +54,6 @@ export type ActionMenuProps = {
    */
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
-
-export type ActionMenuAnchorRenderProps = Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'> & {
-  ref: React.RefCallback<HTMLElement>
-}
 
 // anchorProps adds onClick and onKeyDown, so we need to merge them with buttonProps
 const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, buttonProps: ButtonProps) => {
@@ -90,13 +84,15 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
   return mergedAnchorProps
 }
 
-const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
+type ActionMenuImplProps = ActionMenuProps & {renderAnchor?: (props: AnchorRenderProps) => React.ReactElement}
+
+export const ActionMenuImpl: FCWithSlotMarker<React.PropsWithChildren<ActionMenuImplProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
   children,
   renderAnchor: customRenderAnchor,
-}: ActionMenuProps) => {
+}: ActionMenuImplProps) => {
   const parentMenuContext = useContext(MenuContext)
 
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
@@ -124,6 +120,19 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       (child.type === MenuButton || child.type === Anchor || isSlot(child, Anchor) || isSlot(child, MenuButton)),
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
+  const hasTooltipAnchor =
+    customRenderAnchor &&
+    React.Children.toArray(children).some(
+      child =>
+        React.isValidElement(child) &&
+        (child.type === Tooltip || isSlot(child, Tooltip)) &&
+        React.isValidElement(child.props.children) &&
+        (child.props.children.type === MenuButton || isSlot(child.props.children, MenuButton)),
+    )
+  invariant(
+    !customRenderAnchor || (!menuButtonChild && !hasTooltipAnchor),
+    'Pass either `renderAnchor` or `ActionMenu.Button`/`ActionMenu.Anchor`, not both.',
+  )
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const callbackAnchorRef = useMergedRefs(anchorRef, undefined)
@@ -203,8 +212,9 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       onOpen,
       onClose,
       isSubmenu,
+      isCustomAnchor: Boolean(customRenderAnchor),
     }),
-    [anchorRef, renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu],
+    [anchorRef, renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu, customRenderAnchor],
   )
 
   return <MenuContext.Provider value={menuContextValue}>{contents}</MenuContext.Provider>
@@ -314,6 +324,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     onOpen,
     onClose,
     isSubmenu = false,
+    isCustomAnchor = false,
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -345,10 +356,12 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
   useLayoutEffect(() => {
     if (open) {
-      setAnchorAriaLabelledby(anchorRef.current?.getAttribute('aria-labelledby') ?? null)
+      setAnchorAriaLabelledby(
+        anchorRef.current?.getAttribute('aria-labelledby') || (isCustomAnchor ? anchorRef.current?.id : null) || null,
+      )
       setAnchorLabelReady(true)
     }
-  }, [anchorRef, open])
+  }, [anchorRef, open, isCustomAnchor])
 
   const afterSelect = useCallback(() => onClose?.('item-select'), [onClose])
 
@@ -400,6 +413,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   )
 }
 
+const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ActionMenuImpl
 Menu.displayName = 'ActionMenu'
 
 MenuButton.__SLOT__ = Symbol('ActionMenu.Button')

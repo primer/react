@@ -21,8 +21,14 @@ import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
 import {createRenderCounter} from '../utils/testing/profiler'
 import {FeatureFlags} from '../FeatureFlags'
+import {
+  ActionMenu as ExperimentalActionMenu,
+  Tooltip as ExperimentalTooltip,
+} from '../experimental/TriggerComposition/TriggerComposition'
 
 describe('ActionMenu renderAnchor', () => {
+  const ActionMenu = ExperimentalActionMenu
+  const TooltipV2 = ExperimentalTooltip
   it.each([false, true])('composes a tooltip and menu on one button with merged refs (flag: %s)', async mergedRefs => {
     const anchorRef = createRef<HTMLElement>()
     const tooltipRef = vi.fn()

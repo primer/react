@@ -18,19 +18,13 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
 
-export type AnchoredOverlayAnchorContext = {
-  ref: {readonly current: HTMLElement | null}
-}
-
 interface AnchoredOverlayPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
-   * The second argument exposes the anchor's object ref for composing behaviors.
    */
   renderAnchor: <T extends Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'>>(
     props: T,
-    context?: AnchoredOverlayAnchorContext,
   ) => JSX.Element
 
   /**
@@ -413,7 +407,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     <>
       {renderAnchor &&
         renderAnchor(
-          // eslint-disable-next-line react-hooks/refs
+          // eslint-disable-next-line react-hooks/refs -- the callback forwards the object ref to an element
           {
             ref: anchorRef,
             id: anchorId,
@@ -424,8 +418,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
             onKeyDown: onAnchorKeyDown,
             ...popoverTargetProps,
           },
-          // eslint-disable-next-line react-hooks/refs
-          {ref: anchorRef},
         )}
       {open ? (
         <Overlay

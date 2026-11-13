@@ -1,7 +1,10 @@
 import {InfoIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, type AnchoredOverlayProps} from '.'
 import {IconButton} from '../Button'
-import {Tooltip} from '../TooltipV2'
+import {
+  AnchoredOverlay as ExperimentalAnchoredOverlay,
+  Tooltip,
+} from '../experimental/TriggerComposition/TriggerComposition'
 
 export function itemWithIconElements() {
   return (
@@ -13,22 +16,12 @@ export function itemWithIconElements() {
 
 export function itemWithTooltip() {
   return (
-    <AnchoredOverlay
+    <ExperimentalAnchoredOverlay
       open={false}
-      renderAnchor={(props, context) => (
-        <Tooltip
-          ref={context?.ref}
-          text="Additional context"
-          renderAnchor={tooltipProps => (
-            <button {...props} {...tooltipProps} type="button">
-              Info
-            </button>
-          )}
-        />
-      )}
+      renderAnchor={<Tooltip text="Additional context" renderAnchor={<button type="button">Info</button>} />}
     >
       <p>GitHub</p>
-    </AnchoredOverlay>
+    </ExperimentalAnchoredOverlay>
   )
 }
 

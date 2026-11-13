@@ -1,5 +1,5 @@
 import {ActionMenu} from '.'
-import {Tooltip} from '../TooltipV2'
+import {ActionMenu as ExperimentalActionMenu, Tooltip} from '../experimental/TriggerComposition/TriggerComposition'
 import {Button} from '../Button'
 
 export function actionButtonWithoutProps() {
@@ -29,6 +29,7 @@ export function actionOverlayWithInvalidPreventFocusOnClose() {
 }
 
 export function actionMenuWithComposedTrigger() {
+  const ActionMenu = ExperimentalActionMenu
   return (
     <ActionMenu
       renderAnchor={({ref, ...menuProps}) => (

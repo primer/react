@@ -15,14 +15,10 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
 import {TooltipContext} from './TooltipContext'
 import {reactMajorVersion} from '../utils/environment'
+import type {AnchorRenderProps} from '../internal/components/RenderAnchor'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
-  /**
-   * Render a single interactive trigger instead of passing children.
-   * Forward all supplied props, including ref, to that element.
-   */
-  renderAnchor?: (props: TooltipAnchorProps) => React.ReactElement
   direction?: TooltipDirection
   text: string
   type?: 'label' | 'description'
@@ -46,10 +42,6 @@ export type TooltipProps = React.PropsWithChildren<{
   _privateDisableTooltip?: boolean
 }> &
   React.HTMLAttributes<HTMLElement>
-
-export type TooltipAnchorProps = React.HTMLAttributes<HTMLElement> & {
-  ref: React.RefCallback<HTMLElement>
-}
 
 // map tooltip direction to anchoredPosition props
 const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: AnchorAlignment}> = {
@@ -101,10 +93,12 @@ const isInteractive = (element: HTMLElement) => {
 }
 const emptyKeybindingHints: Array<KeybindingHintProps['keys']> = []
 
-export const Tooltip: ForwardRefExoticComponent<
-  React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>
+type TooltipImplProps = TooltipProps & {renderAnchor?: (props: AnchorRenderProps) => React.ReactElement}
+
+export const TooltipImpl: ForwardRefExoticComponent<
+  React.PropsWithoutRef<TooltipImplProps> & React.RefAttributes<HTMLElement>
 > &
-  SlotMarker = React.forwardRef<HTMLElement, TooltipProps>(
+  SlotMarker = React.forwardRef<HTMLElement, TooltipImplProps>(
   (
     {
       direction = 's',
@@ -118,10 +112,11 @@ export const Tooltip: ForwardRefExoticComponent<
       delay = 'short',
       _privateDisableTooltip = false,
       ...rest
-    }: TooltipProps,
+    }: TooltipImplProps,
     forwardedRef,
   ) => {
     const tooltipId = useId(id)
+    const hasRenderAnchor = renderAnchor !== undefined
     invariant(!renderAnchor || children == null, 'Pass either `children` or `renderAnchor` to `Tooltip`, not both.')
     const child = renderAnchor ? undefined : Children.only(children)
     const isFragmentTrigger = React.isValidElement(child) && child.type === React.Fragment
@@ -161,6 +156,7 @@ export const Tooltip: ForwardRefExoticComponent<
         ) {
           const tooltip = tooltipElRef.current
           const trigger = readTriggerRef.current
+          if (hasRenderAnchor && trigger.matches(':disabled')) return
           tooltip.showPopover()
           setIsPopoverOpen(true)
           /*
@@ -246,7 +242,7 @@ export const Tooltip: ForwardRefExoticComponent<
        * ACCESSIBILITY CHECKS
        */
       // Has trigger element or any of its children interactive elements?
-      const isTriggerInteractive = isInteractive(trigger)
+      const isTriggerInteractive = isInteractive(trigger) || (hasRenderAnchor && trigger.matches(':disabled'))
       const triggerChildren = trigger.childNodes
       // two levels deep
       const hasInteractiveDescendant = Array.from(triggerChildren).some(child => {
@@ -283,7 +279,7 @@ export const Tooltip: ForwardRefExoticComponent<
 
       const tooltip = tooltipElRef.current
       tooltip.setAttribute('popover', 'auto')
-    }, [tooltipElRef, readTriggerRef, direction, type])
+    }, [tooltipElRef, readTriggerRef, direction, type, hasRenderAnchor])
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
@@ -418,4 +414,8 @@ export const Tooltip: ForwardRefExoticComponent<
   },
 )
 
+export const Tooltip: ForwardRefExoticComponent<
+  React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>
+> &
+  SlotMarker = TooltipImpl
 Tooltip.__SLOT__ = Symbol('Tooltip')

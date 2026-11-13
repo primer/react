@@ -29,11 +29,6 @@
   "importPath": "@primer/react",
   "props": [
     {
-      "name": "renderAnchor",
-      "type": "(props: ActionMenuAnchorRenderProps) => React.ReactElement",
-      "description": "Render a custom trigger instead of ActionMenu.Button or ActionMenu.Anchor. Forward every supplied prop, including ref, to a single interactive HTML element."
-    },
-    {
       "name": "children",
       "type": "React.ReactElement[]",
       "defaultValue": "",
