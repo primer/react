@@ -9,7 +9,6 @@ import type {Column} from '../column'
 import type {DataTableData, DataTableRowGroup} from '../row'
 import classes from '../Table.module.css'
 import {implementsClassName} from '../../utils/testing'
-import {FeatureFlags} from '../../FeatureFlags'
 
 interface Row {
   id: string | number
@@ -32,18 +31,16 @@ const data: Array<Row> = [
 ]
 
 describe('DataTable row selection', () => {
-  it.each([false, true])('preserves mixed state with a callback ref (merged refs: %s)', enabled => {
+  it('preserves mixed state with a callback ref', () => {
     const checkboxRef = vi.fn()
     const {unmount} = render(
-      <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-        <Table>
-          <Table.Head>
-            <Table.Row>
-              <Table.SelectionHeader selection="some" checkboxRef={checkboxRef} />
-            </Table.Row>
-          </Table.Head>
-        </Table>
-      </FeatureFlags>,
+      <Table>
+        <Table.Head>
+          <Table.Row>
+            <Table.SelectionHeader selection="some" checkboxRef={checkboxRef} />
+          </Table.Row>
+        </Table.Head>
+      </Table>,
     )
     const checkbox = screen.getByRole<HTMLInputElement>('checkbox', {name: 'Select rows'})
     expect(checkboxRef).toHaveBeenLastCalledWith(checkbox)
