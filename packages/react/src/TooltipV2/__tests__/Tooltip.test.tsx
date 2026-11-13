@@ -1,5 +1,6 @@
 import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
+import {page, userEvent} from 'vitest/browser'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {fireEvent, render as HTMLRender} from '@testing-library/react'
@@ -60,6 +61,58 @@ function ExampleWithActionMenu({actionMenuTrigger}: {actionMenuTrigger: React.Re
 
 describe('Tooltip', () => {
   implementsClassName(TooltipComponent, classes.Tooltip)
+
+  it('preserves trigger callbacks during pointer interaction', async () => {
+    const onFocus = vi.fn()
+    const onMouseOverCapture = vi.fn()
+    const onMouseEnter = vi.fn()
+    HTMLRender(
+      <Tooltip text="Tooltip text">
+        <button type="button" onFocus={onFocus} onMouseOverCapture={onMouseOverCapture} onMouseEnter={onMouseEnter}>
+          Trigger
+        </button>
+      </Tooltip>,
+    )
+    const trigger = page.getByRole('button', {name: 'Trigger', exact: true})
+
+    await userEvent.hover(trigger)
+    await expect.element(page.getByRole('tooltip', {includeHidden: true})).toBeVisible()
+    expect(onMouseOverCapture).toHaveBeenCalledOnce()
+    expect(onMouseEnter).toHaveBeenCalledOnce()
+
+    await userEvent.click(trigger)
+    expect(onFocus).toHaveBeenCalledOnce()
+  })
+
+  it('tracks availability without losing keyboard focus or undoing Escape dismissal', async () => {
+    const {rerender} = HTMLRender(<TooltipComponent _privateDisableTooltip />)
+    const trigger = page.getByRole('button', {name: 'Button Text', exact: true})
+    const originalTrigger = trigger.element()
+    const tooltip = page.getByRole('tooltip', {includeHidden: true})
+
+    await userEvent.tab()
+    await expect.element(trigger).toHaveFocus()
+    await expect.element(tooltip).not.toBeVisible()
+
+    rerender(<TooltipComponent />)
+    await expect.element(tooltip).toBeVisible()
+    expect(trigger.element()).toBe(originalTrigger)
+
+    rerender(<TooltipComponent _privateDisableTooltip />)
+    await expect.element(tooltip).not.toBeVisible()
+    await expect.element(trigger).toHaveFocus()
+
+    rerender(<TooltipComponent />)
+    await expect.element(tooltip).toBeVisible()
+    await userEvent.keyboard('{Escape}')
+    await expect.element(tooltip).not.toBeVisible()
+
+    rerender(<TooltipComponent _privateDisableTooltip />)
+    rerender(<TooltipComponent />)
+    await expect.element(tooltip).not.toBeVisible()
+    await expect.element(trigger).toHaveFocus()
+  })
+
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
     expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 's')
