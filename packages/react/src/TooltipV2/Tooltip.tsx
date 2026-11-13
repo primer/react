@@ -15,6 +15,7 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
 import {TooltipContext} from './TooltipContext'
 import {reactMajorVersion} from '../utils/environment'
+import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -30,7 +31,15 @@ export type TooltipProps = React.PropsWithChildren<{
    */
   delay?: 'short' | 'medium' | 'long'
   /**
-   * Private API for use internally only. Prevents the tooltip from opening if `true`.
+   * Closes and suppresses the tooltip without disabling its trigger or removing
+   * its accessible label or description. Either suppression prop being true wins.
+   * @default false
+   */
+  disabled?: boolean
+  /**
+   * @deprecated Use `disabled` instead.
+   *
+   * Private API for use internally only. Closes and prevents the tooltip from opening if `true`.
    *
    * Accessibility note: This prop should be used with caution. Only use when needing to
    * programmatically close the tooltip in response to a specific user action, such as
@@ -121,11 +130,13 @@ export const Tooltip: ForwardRefExoticComponent<
       className,
       keybindingHint = emptyKeybindingHints,
       delay = 'short',
+      disabled = false,
       _privateDisableTooltip = false,
       ...rest
     }: TooltipProps,
     forwardedRef,
   ) => {
+    const isTooltipDisabled = disabled || _privateDisableTooltip
     const tooltipId = useId(id)
     const child = Children.only(children)
     const isFragmentTrigger = React.isValidElement(child) && child.type === React.Fragment
@@ -161,7 +172,7 @@ export const Tooltip: ForwardRefExoticComponent<
           readTriggerRef.current instanceof HTMLElement &&
           tooltipElRef.current.hasAttribute('popover') &&
           !tooltipElRef.current.matches(':popover-open') &&
-          !_privateDisableTooltip
+          !isTooltipDisabled
         ) {
           const tooltip = tooltipElRef.current
           const trigger = readTriggerRef.current
@@ -197,8 +208,8 @@ export const Tooltip: ForwardRefExoticComponent<
         }
       }
     }
-    const closeTooltip = () => {
-      if (openTimeoutRef.current) {
+    const closeTooltip = useEffectCallback(() => {
+      if (openTimeoutRef.current !== null) {
         safeClearTimeout(openTimeoutRef.current)
         openTimeoutRef.current = null
       }
@@ -210,10 +221,8 @@ export const Tooltip: ForwardRefExoticComponent<
           tooltipElRef.current.matches(':popover-open')
         ) {
           tooltipElRef.current.hidePopover()
-          setIsPopoverOpen(false)
-        } else {
-          setIsPopoverOpen(false)
         }
+        setIsPopoverOpen(false)
       } catch (error) {
         // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
         // see https://github.com/github/issues/issues/12468
@@ -229,7 +238,13 @@ export const Tooltip: ForwardRefExoticComponent<
           throw error
         }
       }
-    }
+    })
+
+    useEffect(() => {
+      // Suppression must synchronize the external Popover API, not just future events.
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (isTooltipDisabled) closeTooltip()
+    }, [isTooltipDisabled, closeTooltip])
 
     // context value
     const value = useMemo(() => ({tooltipId}), [tooltipId])
@@ -289,14 +304,14 @@ export const Tooltip: ForwardRefExoticComponent<
     useOnEscapePress(
       (event: KeyboardEvent) => {
         if (isPopoverOpen) {
-          if (!_privateDisableTooltip) {
+          if (!isTooltipDisabled) {
             event.stopImmediatePropagation()
             event.preventDefault()
           }
           closeTooltip()
         }
       },
-      [isPopoverOpen, _privateDisableTooltip],
+      [isPopoverOpen, isTooltipDisabled],
     )
 
     const platform = usePlatform()
@@ -356,6 +371,8 @@ export const Tooltip: ForwardRefExoticComponent<
                 child.props.onFocus?.(event)
               },
               onMouseOverCapture: (event: React.MouseEvent) => {
+                if (isTooltipDisabled) return
+                if (openTimeoutRef.current !== null) safeClearTimeout(openTimeoutRef.current)
                 const delayTime = delayTimeMap[delay] || 50
                 // We use a `capture` event to ensure this is called first before
                 // events that might cancel the opening timeout (like `onTouchEnd`)
@@ -364,6 +381,7 @@ export const Tooltip: ForwardRefExoticComponent<
                 openTimeoutRef.current = safeSetTimeout(() => {
                   // if the mouse is already moved out, do not show the tooltip
                   if (!openTimeoutRef.current) return
+                  openTimeoutRef.current = null
                   openTooltip()
                   child.props.onMouseEnter?.(event)
                 }, delayTime)

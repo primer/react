@@ -63,6 +63,12 @@
       "type": "'short' | 'medium' | 'long'",
       "defaultValue": "short",
       "description": "Sets the delay before showing the tooltip. `short` is 50ms (default), `medium` is 400ms, and `long` is 1200ms."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Closes the visual tooltip, cancels pending opens, and prevents reopening without disabling its trigger or removing its accessible label or description. Re-enabling requires a fresh hover or focus. The deprecated _privateDisableTooltip alias remains compatible; either prop being true suppresses the tooltip."
     }
   ],
   "subcomponents": []
