@@ -1,7 +1,7 @@
-import {act, render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {act, render} from '@testing-library/react'
 import React from 'react'
 import {describe, expect, it} from 'vitest'
+import {page, userEvent} from 'vitest/browser'
 import {useFocus} from '../useFocus'
 import {createRenderCounter} from '../../../utils/testing/profiler'
 
@@ -28,8 +28,8 @@ describe('useFocus', () => {
     }
 
     render(<Demo />)
-    await userEvent.click(screen.getByText('show'))
-    expect(screen.getByTestId('target')).toHaveFocus()
+    await userEvent.click(page.getByText('show'))
+    expect(page.getByTestId('target').element()).toHaveFocus()
   })
 
   it('does not cause a cascade — one focus call produces exactly one render', async () => {
@@ -64,7 +64,7 @@ describe('useFocus', () => {
     render(<Demo />)
     counter.reset()
 
-    await userEvent.click(screen.getByText('show'))
+    await userEvent.click(page.getByText('show'))
 
     // Exactly one render from the click — no cascade from useFocus's effect.
     expect(counter.updateCount).toBe(1)

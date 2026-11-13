@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
-import {render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {Blankslate} from '../Blankslate'
 import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
@@ -40,19 +40,25 @@ function getSizePadding(size: 'small' | 'medium' | 'large', compactDefault = fal
 describe('Blankslate', () => {
   implementsClassName(Blankslate, classes.Blankslate)
 
-  it('should render with border when border is true', () => {
+  it('should render with border when border is true', async () => {
     const {container} = render(<Blankslate border>Test content</Blankslate>)
-    expect(container.firstChild!.firstChild).toHaveAttribute('data-border', '')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Blankslate"]'))
+      .toHaveAttribute('data-border', '')
   })
 
-  it('should render with narrow style when narrow is true', () => {
+  it('should render with narrow style when narrow is true', async () => {
     const {container} = render(<Blankslate narrow>Test content</Blankslate>)
-    expect(container.firstChild!.firstChild).toHaveAttribute('data-narrow', '')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Blankslate"]'))
+      .toHaveAttribute('data-narrow', '')
   })
 
-  it('should render with spacious style when spacious is true', () => {
+  it('should render with spacious style when spacious is true', async () => {
     const {container} = render(<Blankslate spacious>Test content</Blankslate>)
-    expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', '')
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Blankslate"]'))
+      .toHaveAttribute('data-spacious', '')
   })
 
   it('sets reduced padding for small size variant', () => {
@@ -61,40 +67,40 @@ describe('Blankslate', () => {
     expect(getSizePadding('small')).toMatch(/^var\(--base-size-16/)
   })
 
-  it('keeps the existing size scale when the compact default feature is disabled', () => {
-    const {container} = render(<Blankslate size="small">Test content</Blankslate>)
-    const blankslate = container.querySelector('[data-component="Blankslate"]')
+  it('keeps the existing size scale when the compact default feature is disabled', async () => {
+    render(<Blankslate size="small">Test content</Blankslate>)
+    const blankslate = page.getByText('Test content', {exact: true})
 
-    expect(blankslate).toHaveAttribute('data-size', 'small')
-    expect(blankslate).not.toHaveAttribute('data-compact-default')
+    await expect.element(blankslate).toHaveAttribute('data-size', 'small')
+    await expect.element(blankslate).not.toHaveAttribute('data-compact-default')
   })
 
-  it('uses the compact default size scale when the feature is enabled', () => {
-    const {container} = render(
+  it('uses the compact default size scale when the feature is enabled', async () => {
+    render(
       <FeatureFlags flags={{primer_react_blankslate_compact_default: true}}>
         <Blankslate>Test content</Blankslate>
       </FeatureFlags>,
     )
-    const blankslate = container.querySelector('[data-component="Blankslate"]')
+    const blankslate = page.getByText('Test content', {exact: true})
 
-    expect(blankslate).toHaveAttribute('data-size', 'medium')
-    expect(blankslate).toHaveAttribute('data-compact-default', '')
+    await expect.element(blankslate).toHaveAttribute('data-size', 'medium')
+    await expect.element(blankslate).toHaveAttribute('data-compact-default', '')
     expect(getSizePadding('medium', true)).toMatch(/^var\(--base-size-16/)
     expect(getSizePadding('large', true)).toMatch(/^var\(--base-size-32/)
   })
 
-  it('maps the legacy small size to the compact default size when the feature is enabled', () => {
-    const {container} = render(
+  it('maps the legacy small size to the compact default size when the feature is enabled', async () => {
+    render(
       <FeatureFlags flags={{primer_react_blankslate_compact_default: true}}>
         <Blankslate size="small">Test content</Blankslate>
       </FeatureFlags>,
     )
-    const blankslate = container.querySelector('[data-component="Blankslate"]')
+    const blankslate = page.getByText('Test content', {exact: true})
 
-    expect(blankslate).toHaveAttribute('data-size', 'medium')
+    await expect.element(blankslate).toHaveAttribute('data-size', 'medium')
   })
 
-  it('renders data-component attributes', () => {
+  it('renders data-component attributes', async () => {
     const {container} = render(
       <Blankslate>
         <Blankslate.Visual>
@@ -107,27 +113,41 @@ describe('Blankslate', () => {
       </Blankslate>,
     )
 
-    expect(container.querySelector('[data-component="Blankslate"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="Blankslate"]')).toBeInTheDocument()
 
-    expect(
-      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Visual"]'),
-    ).toBeInTheDocument()
-    expect(
-      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Heading"]'),
-    ).toBeInTheDocument()
-    expect(
-      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Description"]'),
-    ).toBeInTheDocument()
-    expect(
-      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.PrimaryAction"]'),
-    ).toBeInTheDocument()
-    expect(
-      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.SecondaryAction"]'),
-    ).toBeInTheDocument()
+    await expect
+      .element(
+        container.querySelector<HTMLElement>('[data-component="Blankslate"] [data-component="Blankslate.Visual"]'),
+      )
+      .toBeInTheDocument()
+    await expect
+      .element(
+        container.querySelector<HTMLElement>('[data-component="Blankslate"] [data-component="Blankslate.Heading"]'),
+      )
+      .toBeInTheDocument()
+    await expect
+      .element(
+        container.querySelector<HTMLElement>('[data-component="Blankslate"] [data-component="Blankslate.Description"]'),
+      )
+      .toBeInTheDocument()
+    await expect
+      .element(
+        container.querySelector<HTMLElement>(
+          '[data-component="Blankslate"] [data-component="Blankslate.PrimaryAction"]',
+        ),
+      )
+      .toBeInTheDocument()
+    await expect
+      .element(
+        container.querySelector<HTMLElement>(
+          '[data-component="Blankslate"] [data-component="Blankslate.SecondaryAction"]',
+        ),
+      )
+      .toBeInTheDocument()
   })
 
   describe('Blankslate.Visual', () => {
-    it('should render a visual element', () => {
+    it('should render a visual element', async () => {
       render(
         <Blankslate>
           <Blankslate.Visual>
@@ -135,53 +155,53 @@ describe('Blankslate', () => {
           </Blankslate.Visual>
         </Blankslate>,
       )
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument()
+      await expect.element(page.getByTestId('test-icon')).toBeInTheDocument()
     })
   })
 
   describe('Blankslate.Heading', () => {
-    it('should render a heading with h2 by default', () => {
+    it('should render a heading with h2 by default', async () => {
       render(
         <Blankslate>
           <Blankslate.Heading>Test Heading</Blankslate.Heading>
         </Blankslate>,
       )
-      expect(screen.getByRole('heading', {level: 2, name: 'Test Heading'})).toBeInTheDocument()
-      expect(screen.getByRole('heading', {level: 2})).toHaveClass('Blankslate-Heading')
+      await expect.element(page.getByRole('heading', {level: 2, name: 'Test Heading'})).toBeInTheDocument()
+      await expect.element(page.getByRole('heading', {level: 2})).toHaveClass('Blankslate-Heading')
     })
 
-    it('should render with a custom heading level', () => {
+    it('should render with a custom heading level', async () => {
       render(
         <Blankslate>
           <Blankslate.Heading as="h3">Test Heading</Blankslate.Heading>
         </Blankslate>,
       )
-      expect(screen.getByRole('heading', {level: 3, name: 'Test Heading'})).toBeInTheDocument()
+      await expect.element(page.getByRole('heading', {level: 3, name: 'Test Heading'})).toBeInTheDocument()
     })
   })
 
   describe('Blankslate.Description', () => {
-    it('should render a description', () => {
+    it('should render a description', async () => {
       render(
         <Blankslate>
           <Blankslate.Description>Test description</Blankslate.Description>
         </Blankslate>,
       )
-      expect(screen.getByText('Test description')).toBeInTheDocument()
+      await expect.element(page.getByText('Test description')).toBeInTheDocument()
     })
   })
 
   describe('Blankslate.PrimaryAction', () => {
-    it('should render a primary action button', () => {
+    it('should render a primary action button', async () => {
       render(
         <Blankslate>
           <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
         </Blankslate>,
       )
-      expect(screen.getByRole('button', {name: 'Primary action'})).toBeInTheDocument()
+      await expect.element(page.getByRole('button', {name: 'Primary action'})).toBeInTheDocument()
     })
 
-    it('uses the default button size when the compact default feature is enabled', () => {
+    it('uses the default button size when the compact default feature is enabled', async () => {
       render(
         <FeatureFlags flags={{primer_react_blankslate_compact_default: true}}>
           <Blankslate size="small">
@@ -190,21 +210,24 @@ describe('Blankslate', () => {
         </FeatureFlags>,
       )
 
-      expect(screen.getByRole('button', {name: 'Primary action'})).toHaveAttribute('data-size', 'medium')
+      await expect
+        .element(page.getByRole('button', {name: 'Primary action', exact: true}))
+        .toHaveAttribute('data-size', 'medium')
     })
 
-    it('keeps the small button size when the compact default feature is disabled', () => {
+    it('keeps the small button size when the compact default feature is disabled', async () => {
       render(
         <Blankslate size="small">
           <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
         </Blankslate>,
       )
 
-      expect(screen.getByRole('button', {name: 'Primary action'})).toHaveAttribute('data-size', 'small')
+      await expect
+        .element(page.getByRole('button', {name: 'Primary action', exact: true}))
+        .toHaveAttribute('data-size', 'small')
     })
 
     it('should handle click events on the button', async () => {
-      const user = userEvent.setup()
       const onClick = vi.fn()
       render(
         <Blankslate>
@@ -212,32 +235,32 @@ describe('Blankslate', () => {
         </Blankslate>,
       )
 
-      await user.click(screen.getByRole('button', {name: 'Primary action'}))
+      await userEvent.click(page.getByRole('button', {name: 'Primary action'}))
       expect(onClick).toHaveBeenCalledTimes(1)
     })
 
-    it('should render as an anchor when href is provided', () => {
+    it('should render as an anchor when href is provided', async () => {
       render(
         <Blankslate>
           <Blankslate.PrimaryAction href="https://example.com">Primary action</Blankslate.PrimaryAction>
         </Blankslate>,
       )
-      const link = screen.getByRole('link', {name: 'Primary action'})
-      expect(link).toBeInTheDocument()
-      expect(link).toHaveAttribute('href', 'https://example.com')
+      const link = page.getByRole('link', {name: 'Primary action'})
+      await expect.element(link).toBeInTheDocument()
+      await expect.element(link).toHaveAttribute('href', 'https://example.com')
     })
   })
 
   describe('Blankslate.SecondaryAction', () => {
-    it('should render a secondary action link', () => {
+    it('should render a secondary action link', async () => {
       render(
         <Blankslate>
           <Blankslate.SecondaryAction href="https://example.com">Secondary action</Blankslate.SecondaryAction>
         </Blankslate>,
       )
-      const link = screen.getByRole('link', {name: 'Secondary action'})
-      expect(link).toBeInTheDocument()
-      expect(link).toHaveAttribute('href', 'https://example.com')
+      const link = page.getByRole('link', {name: 'Secondary action'})
+      await expect.element(link).toBeInTheDocument()
+      await expect.element(link).toHaveAttribute('href', 'https://example.com')
     })
   })
 })

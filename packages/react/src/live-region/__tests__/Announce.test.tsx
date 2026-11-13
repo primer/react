@@ -1,5 +1,6 @@
 import {describe, expect, it, beforeEach, afterEach} from 'vitest'
-import {render, screen, act, waitFor} from '@testing-library/react'
+import {render, act, waitFor} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {Announce} from '../Announce'
 import {getLiveRegion} from './test-helpers'
 import {implementsClassName} from '../../utils/testing'
@@ -46,7 +47,7 @@ describe('Announce', () => {
         test
       </Announce>,
     )
-    expect(screen.getByTestId('container').tagName).toBe('SPAN')
+    expect(page.getByTestId('container').element().tagName).toBe('SPAN')
   })
 
   it('should not announce the contents of the container if `hidden={false}`', () => {
