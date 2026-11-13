@@ -31,6 +31,8 @@ export type TableGroupProps = {
    */
   rowCount: number
 
+  getRowCountLabel?: (rowCount: number) => string
+
   /**
    * Provide an accessible name for the group header
    */
@@ -67,11 +69,16 @@ export type TableGroupProps = {
   onToggleSelect?: () => void
 }
 
+function defaultRowCountLabel(rowCount: number) {
+  return `${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`
+}
+
 function TableGroup({
   className,
   id,
   label,
   rowCount,
+  getRowCountLabel = defaultRowCountLabel,
   colSpan,
   children,
   'aria-label': ariaLabel,
@@ -85,6 +92,7 @@ function TableGroup({
 }: TableGroupProps) {
   const headerId = useId()
   const bodyId = useId()
+  const countId = useId()
   const headerRef = useRef<HTMLTableCellElement>(null)
   const [expanded, setExpanded] = useControllableState({
     name: 'Table.Group expanded',
@@ -131,6 +139,7 @@ function TableGroup({
                 indeterminate={selection === 'some'}
                 disabled={selectionDisabled || !onToggleSelect}
                 aria-label={`Select ${ariaLabel ?? label}`}
+                aria-describedby={countId}
                 onChange={() => onToggleSelect?.()}
               />
             ) : null}
@@ -140,7 +149,7 @@ function TableGroup({
                   className={classes.TableGroupToggle}
                   data-component="Table.Group.Toggle"
                   aria-label={ariaLabel ?? label}
-                  aria-description={`${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`}
+                  aria-describedby={countId}
                   aria-expanded={isExpanded}
                   aria-controls={bodyId}
                   onClick={() => {
@@ -164,6 +173,9 @@ function TableGroup({
                 </span>
               </span>
             </span>
+            {collapsible || selection !== undefined ? (
+              <VisuallyHidden id={countId}>{getRowCountLabel(rowCount)}</VisuallyHidden>
+            ) : null}
           </th>
         </TableRow>
       </tbody>
