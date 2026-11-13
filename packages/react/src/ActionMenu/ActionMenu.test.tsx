@@ -221,6 +221,38 @@ describe('ActionMenu', () => {
     expect(component.baseElement.querySelector('[data-component="AnchoredOverlay"]')).toBeNull()
   })
 
+  it('removes the anchor keydown handler after repeated open and close cycles', async () => {
+    const component = HTMLRender(<Example />)
+    const button = page.getByRole('button', {name: 'Toggle Menu', exact: true})
+    const anchor = button.element()
+    const addEventListener = vi.spyOn(anchor, 'addEventListener')
+    const removeEventListener = vi.spyOn(anchor, 'removeEventListener')
+
+    for (let index = 0; index < 3; index++) {
+      const addsBeforeOpen = addEventListener.mock.calls.length
+      await userEvent.click(button)
+      await expect.element(page.getByRole('menu')).toBeInTheDocument()
+      const keydownHandlersAdded = addEventListener.mock.calls
+        .slice(addsBeforeOpen)
+        .filter(([type]) => type === 'keydown')
+        .map(([, listener]) => listener)
+
+      const removalsBeforeClose = removeEventListener.mock.calls.length
+      await userEvent.click(button)
+      await expect.element(page.getByRole('menu')).not.toBeInTheDocument()
+      const keydownHandlersRemoved = removeEventListener.mock.calls
+        .slice(removalsBeforeClose)
+        .filter(([type]) => type === 'keydown')
+        .map(([, listener]) => listener)
+
+      for (const listener of keydownHandlersAdded) {
+        expect(keydownHandlersRemoved).toContain(listener)
+      }
+    }
+
+    component.unmount()
+  })
+
   it('should open Menu on MenuButton click', async () => {
     HTMLRender(<Example />)
     const button = page.getByRole('button')
