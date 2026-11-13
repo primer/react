@@ -9,6 +9,12 @@
   }
 }
 
+@keyframes stripes {
+  to {
+    background-position: 22.63px 0;
+  }
+}
+
 .ProgressBarItem {
   /* these are passed from the component */
   --progress-width: ;
@@ -41,6 +47,20 @@
         animation-name: shimmer;
         animation-duration: 1s;
         animation-iteration-count: infinite;
+      }
+    }
+
+    &[data-animated='stripes'] {
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        position: absolute;
+        inset: 0;
+        content: '';
+        background-image: repeating-linear-gradient(45deg, rgb(255 255 255 / 25%) 0 8px, transparent 8px 16px);
+        background-size: 22.63px 22.63px;
+        animation: stripes 1s linear infinite;
       }
     }
   }
