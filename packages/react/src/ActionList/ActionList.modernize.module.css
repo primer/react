@@ -1,0 +1,212 @@
+.Overlay {
+  min-width: calc(var(--base-size-16) * 7);
+  background-color: var(--bgColor-default);
+  background-clip: padding-box;
+  /* stylelint-disable primer/box-shadow -- match GitHub App's floating border shadow */
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--borderColor-default) 50%, transparent),
+    0 6px 12px -3px color-mix(in srgb, color-mix(in srgb, #000 90%, var(--bgColor-default)) 4%, transparent),
+    0 6px 18px 0 color-mix(in srgb, color-mix(in srgb, #000 90%, var(--bgColor-default)) 12%, transparent);
+  /* stylelint-enable primer/box-shadow */
+}
+
+.ActionList {
+  --actionList-modernize-icon-size: calc(var(--base-size-16) - var(--base-size-2));
+
+  padding: var(--base-size-4);
+  /* stylelint-disable-next-line primer/typography -- GitHub App's menu typography has no matching Primer token */
+  font-size: 13px;
+  /* stylelint-disable-next-line primer/typography -- match the 20px menu row line height */
+  line-height: var(--base-size-20);
+
+  & [data-component='ActionList.Item'] {
+    margin-inline: 0;
+    /* stylelint-disable-next-line primer/borders -- GitHub App's 8px radius has no matching Primer token */
+    border-radius: 8px;
+
+    & > [data-size] {
+      min-height: var(--base-size-28);
+      padding-inline: var(--base-size-8);
+      cursor: default;
+      border-radius: inherit;
+    }
+
+    & > [data-size='medium'] {
+      padding-block: var(--base-size-4);
+    }
+
+    &:where([data-has-description='true']) [data-component='ActionList.LeadingVisual'] {
+      min-height: var(--base-size-20);
+      height: var(--base-size-20);
+      align-self: start;
+
+      & > [data-component='Avatar'] {
+        width: var(--base-size-20);
+        height: var(--base-size-20);
+      }
+    }
+
+    &:where([data-inactive='true']:not([data-has-description='true'])) [data-component='ActionList.LeadingVisual'] {
+      margin-block-start: calc(var(--base-size-6) / 2);
+      align-self: start;
+    }
+
+    &:where([aria-haspopup]) [data-component='ActionList.Item--DividerContainer'] > :not(:last-child) {
+      margin-inline-end: var(--base-size-8);
+    }
+
+    &:where([aria-haspopup][data-has-description='true']) [data-component='ActionList.TrailingVisual'] {
+      min-height: 0;
+      height: var(--actionList-modernize-icon-size);
+      margin-block-start: var(--base-size-2);
+    }
+  }
+
+  & [data-component='ActionList.Item.Label'],
+  & [data-component='ActionList.Description'],
+  & [data-component='ActionList.TrailingVisual'] {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  & [data-description-variant='block'] {
+    gap: 0;
+  }
+
+  & [data-has-description='true'] [data-component='ActionList.Item.Label'] {
+    font-weight: var(--base-text-weight-medium);
+  }
+
+  & [data-component='ActionList.Item--DividerContainer'] {
+    & > :not(:last-child) {
+      margin-inline-end: var(--base-size-24);
+    }
+  }
+
+  & [data-component='KeybindingHint'] {
+    display: inline-flex;
+  }
+
+  & [data-kbd-chord] {
+    min-width: 0;
+    padding: 0;
+    font-size: inherit;
+    line-height: inherit;
+    color: var(--fgColor-muted);
+    background: transparent;
+    border: 0;
+    gap: 0;
+
+    & > [aria-hidden] {
+      min-width: var(--actionList-modernize-icon-size);
+      text-align: center;
+    }
+  }
+
+  & [data-component='ActionList.LeadingVisual'] {
+    min-width: var(--actionList-modernize-icon-size);
+    min-height: 0;
+    height: var(--actionList-modernize-icon-size);
+    align-self: center;
+
+    & > :where(svg, [data-component='Avatar']) {
+      width: var(--actionList-modernize-icon-size);
+      height: var(--actionList-modernize-icon-size);
+    }
+  }
+
+  & [data-component='ActionList.Selection'] > svg,
+  & [data-component='ActionList.TrailingVisual'] > svg,
+  & [data-loading='true'] svg {
+    width: var(--actionList-modernize-icon-size);
+    height: var(--actionList-modernize-icon-size);
+  }
+
+  & [data-is-disabled] {
+    & [data-component='ActionList.Item.Label'],
+    & [data-component='ActionList.Description'],
+    & [data-component='ActionList.LeadingVisual'],
+    & [data-component='ActionList.TrailingVisual'],
+    & [data-component='ActionList.Selection'] {
+      color: var(--fgColor-muted);
+
+      & > svg {
+        color: inherit;
+      }
+    }
+  }
+
+  & [data-component='ActionList.Divider'] {
+    margin: var(--base-size-4) var(--base-size-8);
+    /* stylelint-disable-next-line primer/colors -- match GitHub App's subtle separator */
+    background: color-mix(in srgb, var(--borderColor-muted) 30%, transparent);
+  }
+
+  &[data-dividers='true'] {
+    & [data-component='ActionList.Item--DividerContainer']::before,
+    & [data-description-variant='inline']::before {
+      top: calc(-1 * var(--base-size-4));
+    }
+  }
+
+  & [data-component='ActionList.Group']:not(:first-child) {
+    margin-block-start: 0;
+  }
+
+  & [data-component='GroupHeadingWrap'] {
+    padding: var(--base-size-6) var(--base-size-8) var(--base-size-4);
+    font-weight: var(--base-text-weight-medium);
+    /* stylelint-disable-next-line primer/typography -- match GitHub App's 16px caption line height */
+    line-height: var(--base-size-16);
+
+    & > span {
+      font-weight: inherit;
+    }
+  }
+
+  & [data-component='ActionList.Item']:not([data-is-disabled], [data-inactive='true'], [data-loading='true']) {
+    @media (hover: hover) {
+      &:hover {
+        cursor: default;
+        box-shadow: none;
+      }
+    }
+
+    &:active {
+      box-shadow: none;
+    }
+
+    &:focus-visible {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
+  &
+    [data-component='ActionList.Item']:where([data-variant='danger']):where(
+      :not([data-is-disabled], [data-inactive='true'], [data-loading='true'])
+    ) {
+    @media (hover: hover) {
+      &:hover {
+        background: var(--bgColor-danger-muted);
+      }
+    }
+
+    &:active {
+      background: var(--bgColor-danger-muted);
+    }
+
+    &:hover,
+    &:active {
+      & [data-component='ActionList.Item.Label'],
+      & [data-component='ActionList.LeadingVisual'],
+      & [data-component='ActionList.Selection'] {
+        color: var(--fgColor-danger);
+      }
+
+      & [data-kbd-chord] {
+        background-color: transparent;
+      }
+    }
+  }
+}

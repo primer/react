@@ -21,6 +21,7 @@ import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
 import {createRenderCounter} from '../utils/testing/profiler'
 import {FeatureFlags} from '../FeatureFlags'
+import {KeybindingHint} from '../KeybindingHint'
 
 // Mock getAnchoredPosition for feature flag tests
 vi.mock('@primer/behaviors', async () => {
@@ -208,6 +209,58 @@ function ExampleWithSubmenus(): JSX.Element {
 
 describe('ActionMenu', () => {
   implementsClassName(ActionMenu.Button)
+
+  it('uses compact menu rows without changing standalone ActionLists', async () => {
+    HTMLRender(
+      <BaseStyles>
+        <Button>Standalone button</Button>
+        <ActionList aria-label="Standalone actions">
+          <ActionList.Item>Standalone action</ActionList.Item>
+        </ActionList>
+        <ActionMenu>
+          <ActionMenu.Button>Actions</ActionMenu.Button>
+          <ActionMenu.Overlay width="auto">
+            <ActionList>
+              <ActionList.Item>
+                Simple action
+                <ActionList.TrailingVisual>
+                  <KeybindingHint keys="Mod+S" />
+                </ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <SearchIcon />
+                </ActionList.LeadingVisual>
+                Search
+                <ActionList.Description variant="block">Find a file</ActionList.Description>
+              </ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>,
+    )
+
+    const trigger = page.getByRole('button', {name: 'Actions', exact: true})
+    expect(getComputedStyle(trigger.element()).fontSize).toBe('13px')
+    const standaloneButton = page.getByRole('button', {name: 'Standalone button', exact: true})
+    expect(getComputedStyle(standaloneButton.element()).fontSize).toBe('14px')
+    await userEvent.click(trigger)
+
+    const simpleItem = page.getByRole('menuitem', {name: /^Simple action/})
+    const descriptionItem = page.getByRole('menuitem', {name: 'Search', exact: true})
+    await expect.element(descriptionItem).toBeVisible()
+
+    expect(simpleItem.element().getBoundingClientRect().height).toBeCloseTo(28, 3)
+    expect(descriptionItem.element().getBoundingClientRect().height).toBeCloseTo(48, 3)
+    expect(descriptionItem.element().querySelector('svg')?.getBoundingClientRect().width).toBeCloseTo(14, 3)
+    const label = descriptionItem.element().querySelector('[data-component="ActionList.Item.Label"]')!
+    expect(getComputedStyle(label).fontSize).toBe('13px')
+    expect(getComputedStyle(label).fontWeight).toBe('500')
+    expect(getComputedStyle(label).lineHeight).toBe('20px')
+
+    const standaloneItem = page.getByRole('button', {name: 'Standalone action', exact: true})
+    expect(standaloneItem.element().getBoundingClientRect().height).toBeCloseTo(32, 3)
+  })
 
   it('renders data-component attributes for ActionMenu parts', async () => {
     const component = HTMLRender(<Example />)

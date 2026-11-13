@@ -15,6 +15,8 @@ import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
 import styles from './ActionMenu.module.css'
+import menuModernizeClasses from './ActionMenu.modernize.module.css'
+import modernizeClasses from '../ActionList/ActionList.modernize.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
@@ -254,10 +256,16 @@ const Anchor: WithSlotMarker<
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
 
-const MenuButton = React.forwardRef(({...props}, anchorRef) => {
+const MenuButton = React.forwardRef(({className, ...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button data-component="ActionMenu.Button" type="button" trailingAction={TriangleDownIcon} {...props} />
+      <Button
+        data-component="ActionMenu.Button"
+        type="button"
+        trailingAction={TriangleDownIcon}
+        {...props}
+        className={clsx(menuModernizeClasses.Button, className)}
+      />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
@@ -359,6 +367,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
       overlayProps={{
         ...overlayProps,
+        className: clsx(modernizeClasses.Overlay, overlayProps.className),
         'data-component': 'ActionMenu.Overlay',
       }}
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
