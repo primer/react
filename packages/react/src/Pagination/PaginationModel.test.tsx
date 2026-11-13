@@ -15,8 +15,8 @@ function last(array: Array<any>, count = 1) {
 }
 
 describe('Pagination model', () => {
-  it('correctly handles negative pages', () => {
-    const model = buildPaginationModel(-10, 1, true, 1, 2)
+  it.each([true, false])('correctly handles negative pages with showPages=%s', showPages => {
+    const model = buildPaginationModel(-10, 1, showPages, 1, 2)
     expect(first(model).type).toEqual('PREV')
     expect(first(model).disabled).toBe(true)
     expect(last(model).type).toEqual('NEXT')
@@ -24,8 +24,8 @@ describe('Pagination model', () => {
     expect(model.length).toBe(2)
   })
 
-  it('correctly handles zero pages', () => {
-    const model = buildPaginationModel(0, 1, true, 1, 2)
+  it.each([true, false])('correctly handles zero pages with showPages=%s', showPages => {
+    const model = buildPaginationModel(0, 1, showPages, 1, 2)
     expect(first(model).type).toEqual('PREV')
     expect(first(model).disabled).toBe(true)
     expect(last(model).type).toEqual('NEXT')
