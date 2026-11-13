@@ -1,7 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import type {ComponentProps} from '../utils/types'
-import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
 import {CopilotIcon, DependabotIcon} from '@primer/octicons-react'
 import Link from '../Link'
@@ -233,14 +232,4 @@ export default {
     'Timeline.Avatar': Timeline.Avatar,
     'Timeline.Body': Timeline.Body,
   },
-  decorators: [
-    // File-scoped: render every story in the future-state list semantics
-    // (`<ol>`/`<li>`). The `primer_react_timeline_list_semantics` flag is merged
-    // on main; this opts these stories into the DOM the timeline will ship.
-    Story => (
-      <FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
-        <Story />
-      </FeatureFlags>
-    ),
-  ],
 } as Meta<ComponentProps<typeof Timeline>>

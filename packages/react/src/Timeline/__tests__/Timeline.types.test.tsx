@@ -1,4 +1,50 @@
+import {createRef} from 'react'
+import {expectTypeOf} from 'vitest'
 import Timeline from '../Timeline'
+
+export function shouldAcceptListRefs() {
+  return (
+    <Timeline ref={createRef<HTMLOListElement>()}>
+      <Timeline.Item ref={createRef<HTMLLIElement>()} />
+      <Timeline.Break ref={createRef<HTMLLIElement>()} />
+    </Timeline>
+  )
+}
+
+export function shouldInferListCallbackRefs() {
+  return (
+    <Timeline
+      ref={node => {
+        expectTypeOf(node).toEqualTypeOf<HTMLOListElement | null>()
+      }}
+    >
+      <Timeline.Item
+        ref={node => {
+          expectTypeOf(node).toEqualTypeOf<HTMLLIElement | null>()
+        }}
+      />
+      <Timeline.Break
+        ref={node => {
+          expectTypeOf(node).toEqualTypeOf<HTMLLIElement | null>()
+        }}
+      />
+    </Timeline>
+  )
+}
+
+export function shouldNotAcceptDivRefs() {
+  const ref = createRef<HTMLDivElement>()
+  return (
+    <>
+      {/* @ts-expect-error Timeline renders an ol, not a div */}
+      <Timeline ref={ref} />
+      {/* @ts-expect-error Timeline.Item renders an li, not a div */}
+      <Timeline.Item ref={ref} />
+      {/* @ts-expect-error Timeline.Break renders an li, not a div */}
+      <Timeline.Break ref={ref} />
+    </>
+  )
+}
 
 export function shouldAcceptCallWithNoProps() {
   return (

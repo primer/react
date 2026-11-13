@@ -1,5 +1,13 @@
 # Migration guide
 
+## Unreleased: Timeline list semantics
+
+The next major release containing this change removes `primer_react_timeline_list_semantics`. `Timeline` always renders `<ol role="list">`, `Timeline.Item` renders `<li>`, and `Timeline.Break` renders `<li role="presentation">`. The break remains decorative rather than an event in the list. Styling and the other Timeline subcomponents remain unchanged.
+
+Update root refs to `HTMLOListElement` and item/break refs to `HTMLLIElement`. Replace selectors and DOM assumptions that require `div` elements. Keep event items directly under the list: replace intervening DOM wrappers with fragments, or move their layout outside `Timeline`. Raw headings, `div` elements, loading indicators, and empty-state markup cannot sit directly under the `ol`. Place that content outside the list where appropriate, or wrap in-list content and controls in an appropriate direct `li`. Existing Load more controls inside a direct `li` can remain and support discovery through list navigation. Do not apply `role="presentation"` to list items containing meaningful content or interactive controls. Keep `Timeline.Break` empty and decorative.
+
+Remove this flag from `FeatureFlags` providers after upgrading, preserving any other flags on those providers. Neither `true` nor `false` changes the retired behavior. Keep opt-in instructions and example providers in documentation that still targets an older published version; remove them only after adopting the release containing this change. GitHub's GA rollout does not upgrade external consumers. The release process assigns the exact version.
+
 ## `4.0.0-beta`
 
 [The 4.0.0-beta release](https://github.com/primer/react/releases/v4.0.0-beta) renames some components:

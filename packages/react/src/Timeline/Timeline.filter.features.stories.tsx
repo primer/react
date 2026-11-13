@@ -4,7 +4,6 @@ import {CheckCircleIcon, EyeIcon, IssueOpenedIcon} from '@primer/octicons-react'
 import type {ComponentProps} from '../utils/types'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
-import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
 import {Examples, MutedTime, UserActor} from './internal/timelineStoryHelpers'
 import {
@@ -23,15 +22,6 @@ export default {
     'Timeline.Badge': Timeline.Badge,
     'Timeline.Body': Timeline.Body,
   },
-  decorators: [
-    // File-scoped: render every story in the future-state list semantics
-    // (`<ol>`/`<li>`), matching the other Timeline surface stories.
-    Story => (
-      <FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
-        <Story />
-      </FeatureFlags>
-    ),
-  ],
 } as Meta<ComponentProps<typeof Timeline>>
 
 // The single representative surface for this demo. `issue` offers the richest
