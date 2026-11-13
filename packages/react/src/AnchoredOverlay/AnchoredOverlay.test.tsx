@@ -452,6 +452,65 @@ describe('AnchoredOverlay anchor ARIA', () => {
     await expect.poll(() => anchor.getAttribute('aria-haspopup')).toBe('true')
   })
 
+  it('keeps a shared detached anchor expanded while any of its overlays is open', async () => {
+    function SharedAnchor({
+      menuOpen,
+      panelOpen,
+      mounted = true,
+    }: {
+      menuOpen: boolean
+      panelOpen: boolean
+      mounted?: boolean
+    }) {
+      const anchorRef = useRef<HTMLButtonElement>(null)
+      return (
+        <BaseStyles>
+          <button type="button" ref={anchorRef} data-testid="anchor">
+            Anchor
+          </button>
+          {mounted ? (
+            <>
+              <AnchoredOverlay
+                open={menuOpen}
+                onClose={() => {}}
+                renderAnchor={null}
+                _PrivateManageDetachedAnchorAria
+                anchorRef={anchorRef}
+              >
+                <button type="button">Menu child</button>
+              </AnchoredOverlay>
+              <AnchoredOverlay
+                open={panelOpen}
+                onClose={() => {}}
+                renderAnchor={null}
+                _PrivateManageDetachedAnchorAria
+                anchorRef={anchorRef}
+              >
+                <button type="button">Panel child</button>
+              </AnchoredOverlay>
+            </>
+          ) : null}
+        </BaseStyles>
+      )
+    }
+
+    const {getByTestId, rerender} = render(<SharedAnchor menuOpen panelOpen={false} />)
+    const anchor = getByTestId('anchor')
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(<SharedAnchor menuOpen={false} panelOpen />)
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+    await new Promise(resolve => setTimeout(resolve, 0))
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(<SharedAnchor menuOpen={false} panelOpen={false} />)
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+
+    rerender(<SharedAnchor menuOpen={false} panelOpen={false} mounted={false} />)
+    expect(anchor).not.toHaveAttribute('aria-expanded')
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+  })
+
   it('resumes its default after a consumer removes their popup override', async () => {
     const {getByTestId, rerender} = render(<DetachedOverlayTestComponent consumerHasPopup="listbox" />)
     const anchor = getByTestId('detached-anchor')

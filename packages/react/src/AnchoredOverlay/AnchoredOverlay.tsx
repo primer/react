@@ -52,20 +52,22 @@ function anchorSupportsPopupAria(node: HTMLElement): boolean {
   }
 }
 
+// Several overlays can share one detached anchor, so they share one record of its consumer values.
 interface DetachedAnchorAria {
-  node: HTMLElement
   observer: MutationObserver
   consumerHasPopup: string | null
   consumerExpanded: string | null
-  expanded: string
+  overlays: Map<object, boolean>
 }
 
-function captureConsumerAria(managed: DetachedAnchorAria, records: MutationRecord[]) {
+const detachedAnchors = new WeakMap<HTMLElement, DetachedAnchorAria>()
+
+function captureConsumerAria(node: HTMLElement, managed: DetachedAnchorAria, records: MutationRecord[]) {
   for (const {attributeName} of records) {
     if (attributeName === 'aria-haspopup') {
-      managed.consumerHasPopup = managed.node.getAttribute('aria-haspopup')
+      managed.consumerHasPopup = node.getAttribute('aria-haspopup')
     } else if (attributeName === 'aria-expanded') {
-      managed.consumerExpanded = managed.node.getAttribute('aria-expanded')
+      managed.consumerExpanded = node.getAttribute('aria-expanded')
     }
   }
 }
@@ -79,24 +81,54 @@ function setAnchorAttribute(node: HTMLElement, name: 'aria-haspopup' | 'aria-exp
   }
 }
 
-function syncDetachedAnchorAria(managed: DetachedAnchorAria) {
-  captureConsumerAria(managed, managed.observer.takeRecords())
+function writeDetachedAnchorAria(node: HTMLElement, managed: DetachedAnchorAria, includeExpanded: boolean) {
+  captureConsumerAria(node, managed, managed.observer.takeRecords())
   managed.observer.disconnect()
   setAnchorAttribute(
-    managed.node,
+    node,
     'aria-haspopup',
-    managed.consumerHasPopup ?? (managed.node.getAttribute('role') === 'combobox' ? null : 'true'),
+    managed.consumerHasPopup ?? (node.getAttribute('role') === 'combobox' ? null : 'true'),
   )
-  setAnchorAttribute(managed.node, 'aria-expanded', managed.expanded)
-  managed.observer.observe(managed.node, {attributes: true, attributeFilter: ['aria-haspopup', 'aria-expanded']})
+  if (includeExpanded) {
+    setAnchorAttribute(node, 'aria-expanded', String([...managed.overlays.values()].some(Boolean)))
+  }
+  managed.observer.observe(node, {attributes: true, attributeFilter: ['aria-haspopup', 'aria-expanded']})
 }
 
-function releaseDetachedAnchorAria(managed: DetachedAnchorAria) {
+function manageDetachedAnchorAria(node: HTMLElement, overlay: object, open: boolean) {
+  let managed = detachedAnchors.get(node)
+  if (!managed) {
+    const registration: DetachedAnchorAria = {
+      // Restoring a removed popup default is the only write here: re-asserting aria-expanded against
+      // another writer, such as a second copy of Primer, would never settle.
+      observer: new MutationObserver(records => {
+        captureConsumerAria(node, registration, records)
+        writeDetachedAnchorAria(node, registration, false)
+      }),
+      consumerHasPopup: node.getAttribute('aria-haspopup'),
+      consumerExpanded: node.getAttribute('aria-expanded'),
+      overlays: new Map(),
+    }
+    detachedAnchors.set(node, registration)
+    managed = registration
+  }
+  managed.overlays.set(overlay, open)
+  writeDetachedAnchorAria(node, managed, true)
+}
+
+function releaseDetachedAnchorAria(node: HTMLElement, overlay: object) {
+  const managed = detachedAnchors.get(node)
+  if (!managed?.overlays.delete(overlay)) return
+  if (managed.overlays.size > 0) {
+    writeDetachedAnchorAria(node, managed, true)
+    return
+  }
   // A consumer write and overlay unmount can occur in the same commit, before observer callbacks run.
-  captureConsumerAria(managed, managed.observer.takeRecords())
+  captureConsumerAria(node, managed, managed.observer.takeRecords())
   managed.observer.disconnect()
-  setAnchorAttribute(managed.node, 'aria-haspopup', managed.consumerHasPopup)
-  setAnchorAttribute(managed.node, 'aria-expanded', managed.consumerExpanded)
+  detachedAnchors.delete(node)
+  setAnchorAttribute(node, 'aria-haspopup', managed.consumerHasPopup)
+  setAnchorAttribute(node, 'aria-expanded', managed.consumerExpanded)
 }
 
 interface AnchoredOverlayPropsWithAnchor {
@@ -289,7 +321,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
-  const detachedAnchorAria = useRef<DetachedAnchorAria | null>(null)
+  const managedDetachedAnchor = useRef<HTMLElement | null>(null)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
   // eslint-disable-next-line react-hooks/refs
   if (anchorRef.current !== anchorElement) {
@@ -410,37 +442,22 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     // A ref can acquire a new node without changing identity.
     const node = _PrivateManageDetachedAnchorAria && renderAnchor === null && anchorRef.current
     const eligibleNode = node && anchorSupportsPopupAria(node) ? node : null
-    let managed = detachedAnchorAria.current
 
-    if (managed && managed.node !== eligibleNode) {
-      releaseDetachedAnchorAria(managed)
-      detachedAnchorAria.current = managed = null
+    if (managedDetachedAnchor.current && managedDetachedAnchor.current !== eligibleNode) {
+      releaseDetachedAnchorAria(managedDetachedAnchor.current, managedDetachedAnchor)
+      managedDetachedAnchor.current = null
     }
 
     if (!eligibleNode) return
 
-    if (!managed) {
-      const registration: DetachedAnchorAria = {
-        node: eligibleNode,
-        observer: new MutationObserver(records => {
-          captureConsumerAria(registration, records)
-          syncDetachedAnchorAria(registration)
-        }),
-        consumerHasPopup: eligibleNode.getAttribute('aria-haspopup'),
-        consumerExpanded: eligibleNode.getAttribute('aria-expanded'),
-        expanded: String(open),
-      }
-      detachedAnchorAria.current = managed = registration
-    }
-
-    managed.expanded = String(open)
-    syncDetachedAnchorAria(managed)
+    managedDetachedAnchor.current = eligibleNode
+    manageDetachedAnchorAria(eligibleNode, managedDetachedAnchor, open)
   })
 
   useIsomorphicLayoutEffect(() => {
     return () => {
-      if (detachedAnchorAria.current) releaseDetachedAnchorAria(detachedAnchorAria.current)
-      detachedAnchorAria.current = null
+      if (managedDetachedAnchor.current) releaseDetachedAnchorAria(managedDetachedAnchor.current, managedDetachedAnchor)
+      managedDetachedAnchor.current = null
     }
   }, [])
 
