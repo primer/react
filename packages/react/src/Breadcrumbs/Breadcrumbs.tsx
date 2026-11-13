@@ -101,6 +101,21 @@ function getContentWidth(nav: HTMLElement) {
   return nav.clientWidth - parseFloat(paddingLeft) - parseFloat(paddingRight)
 }
 
+// A crumb can render several elements (e.g. a link and a sibling button), so its width spans
+// all of the item's children except the separator.
+function getCrumbWidth(li: HTMLElement) {
+  let left = Infinity
+  let right = -Infinity
+  for (const child of li.children) {
+    if (child.classList.contains(classes.ItemSeparator)) continue
+    const rect = child.getBoundingClientRect()
+    if (rect.width === 0) continue
+    left = Math.min(left, rect.left)
+    right = Math.max(right, rect.right)
+  }
+  return right > left ? right - left : 0
+}
+
 const sameFit = (a: Fit, b: Fit) => a.extra === b.extra && a.rootCollapsed === b.rootCollapsed && a.narrow === b.narrow
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -219,9 +234,8 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       }
       for (const li of nav.querySelectorAll<HTMLElement>(':scope > ol > li[data-index]')) {
         const key = items[Number(li.getAttribute('data-index'))]?.key
-        const crumb = li.firstElementChild
-        if (key == null || !crumb) continue
-        const crumbWidth = crumb.getBoundingClientRect().width
+        if (key == null || !li.firstElementChild) continue
+        const crumbWidth = getCrumbWidth(li)
         widths.set(key, crumbWidth)
         if (li.nextElementSibling && !li.hasAttribute('data-collapsed')) {
           const separator = li.getBoundingClientRect().width - crumbWidth
