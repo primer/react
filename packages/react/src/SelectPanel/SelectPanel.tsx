@@ -632,7 +632,7 @@ function Panel({
     const selectedValueText = selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
     const shouldAutoWireLabel = isReferenced === false && Boolean(labelId) && Boolean(selectedValueId)
 
-    return <T extends React.HTMLAttributes<HTMLElement>>(props: T, context: AnchoredOverlayAnchorContext) => {
+    return <T extends React.HTMLAttributes<HTMLElement>>(props: T, context?: AnchoredOverlayAnchorContext) => {
       return renderAnchor(
         {
           ...props,

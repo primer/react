@@ -61,6 +61,52 @@ function ExampleWithActionMenu({actionMenuTrigger}: {actionMenuTrigger: React.Re
 }
 
 describe('Tooltip', () => {
+  it('preserves a composed trigger label and explicitly merges its existing description IDs', () => {
+    const anchorProps = {'aria-labelledby': 'anchor-label', 'aria-describedby': 'anchor-description'}
+    HTMLRender(
+      <>
+        <span id="anchor-label">Existing label</span>
+        <span id="anchor-description">Existing description</span>
+        <Tooltip
+          id="composed-tooltip"
+          text="Additional context"
+          renderAnchor={tooltipProps => (
+            <button
+              {...anchorProps}
+              {...tooltipProps}
+              type="button"
+              aria-describedby={[anchorProps['aria-describedby'], tooltipProps['aria-describedby']]
+                .filter(Boolean)
+                .join(' ')}
+            />
+          )}
+        />
+      </>,
+    )
+    const button = page.getByRole('button', {name: 'Existing label', exact: true}).element()
+    expect(button).toHaveAttribute('aria-labelledby', 'anchor-label')
+    expect(button).toHaveAttribute('aria-describedby', 'anchor-description composed-tooltip')
+    expect(button).toHaveAccessibleDescription('Existing description Additional context')
+  })
+
+  it('does not erase an existing description when a custom trigger is labelled by its tooltip', () => {
+    HTMLRender(
+      <>
+        <span id="anchor-description">Existing description</span>
+        <Tooltip
+          type="label"
+          text="Existing label"
+          renderAnchor={tooltipProps => (
+            <button aria-describedby="anchor-description" {...tooltipProps} type="button" />
+          )}
+        />
+      </>,
+    )
+    const button = page.getByRole('button', {name: 'Existing label', exact: true}).element()
+    expect(button).toHaveAttribute('aria-describedby', 'anchor-description')
+    expect(button).toHaveAccessibleDescription('Existing description')
+  })
+
   it('composes a tooltip with a popover anchor on a single element', async () => {
     function Example() {
       const [open, setOpen] = useState(false)
@@ -69,9 +115,9 @@ describe('Tooltip', () => {
           open={open}
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
-          renderAnchor={(anchorProps, {ref}) => (
+          renderAnchor={(anchorProps, context) => (
             <Tooltip
-              ref={ref}
+              ref={context?.ref}
               text="Show page details"
               renderAnchor={tooltipProps => (
                 <Button {...anchorProps} {...tooltipProps}>

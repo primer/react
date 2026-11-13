@@ -79,6 +79,27 @@ element, not a wrapper or imperative handle.
   trigger. Use the existing `inactive` button pattern if an unavailable action
   needs an explanation.
 
+Tooltip supplies only the ARIA relationship for its selected type. A description
+tooltip does not supply `aria-labelledby`, so spreading its props preserves an
+overlay's existing label. A label tooltip similarly leaves existing descriptions
+alone. When both behaviors supply description IDs, explicitly combine them on the
+final element; the render callback cannot inspect the props you pass separately:
+
+```tsx
+<Tooltip
+  text="Additional context"
+  renderAnchor={tooltipProps => (
+    <Button
+      {...anchorProps}
+      {...tooltipProps}
+      aria-describedby={[anchorProps['aria-describedby'], tooltipProps['aria-describedby']].filter(Boolean).join(' ')}
+    >
+      Actions
+    </Button>
+  )}
+/>
+```
+
 `Popover` is presentational and does not provide trigger behavior. For a custom
 popover or picker interaction, `AnchoredOverlay` and `SelectPanel` provide the
 object ref in a second callback argument:
@@ -88,9 +109,9 @@ object ref in a second callback argument:
   open={open}
   onOpen={() => setOpen(true)}
   onClose={() => setOpen(false)}
-  renderAnchor={(anchorProps, {ref}) => (
+  renderAnchor={(anchorProps, context) => (
     <Tooltip
-      ref={ref}
+      ref={context?.ref}
       text="Show page details"
       renderAnchor={tooltipProps => (
         <Button {...anchorProps} {...tooltipProps}>
@@ -106,7 +127,10 @@ object ref in a second callback argument:
 
 The context ref is the same object already supplied at runtime in the anchor
 props. It is also the supplied `anchorRef`, if present. Existing one-argument
-callbacks and object-ref behavior are unchanged. Keeping the additional typed ref
+callbacks, one-argument callback invocations, and object-ref behavior are
+unchanged. Primer always supplies the context, but its type is optional for
+compatibility with callers invoking a render callback themselves; use
+`context?.ref` when forwarding it. Keeping the additional typed ref
 in a separate context avoids making existing prop spreads incompatible with
 more narrowly typed button and link refs.
 

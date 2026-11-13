@@ -69,7 +69,7 @@ const ActionMenuBase = ({
     if (renderAnchor === null) {
       return null
     }
-    return <T extends React.HTMLAttributes<HTMLElement>>(props: T, context: AnchoredOverlayAnchorContext) => {
+    return <T extends React.HTMLAttributes<HTMLElement>>(props: T, context?: AnchoredOverlayAnchorContext) => {
       return renderAnchor(
         {
           'aria-label': 'menu',

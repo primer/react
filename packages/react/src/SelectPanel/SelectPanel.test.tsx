@@ -103,9 +103,9 @@ globalThis.Element.prototype.scrollTo = vi.fn()
 describe('SelectPanel renderAnchor context', () => {
   it('forwards the unchanged object ref so a tooltip can compose with its trigger', async () => {
     const anchorRef = React.createRef<HTMLElement>()
-    const renderAnchor = vi.fn<NonNullable<SelectPanelProps['renderAnchor']>>((props, {ref}) => (
+    const renderAnchor = vi.fn<NonNullable<SelectPanelProps['renderAnchor']>>((props, context) => (
       <Tooltip
-        ref={ref}
+        ref={context?.ref}
         text="Choose items"
         renderAnchor={tooltipProps => (
           <Button {...props} {...tooltipProps}>
@@ -116,7 +116,7 @@ describe('SelectPanel renderAnchor context', () => {
     ))
     const {unmount} = render(<BasicSelectPanel anchorRef={anchorRef} renderAnchor={renderAnchor} />)
     const button = page.getByRole('button', {name: 'Select items', exact: true})
-    expect(renderAnchor.mock.calls[0][1].ref).toBe(anchorRef)
+    expect(renderAnchor.mock.calls[0][1]?.ref).toBe(anchorRef)
     expect(anchorRef.current).toBe(button.element())
     const description = button.element().getAttribute('aria-describedby')
     expect(document.getElementById(description ?? '')).toHaveTextContent('Choose items')

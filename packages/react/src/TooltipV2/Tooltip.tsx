@@ -309,24 +309,10 @@ export const Tooltip: ForwardRefExoticComponent<
     const triggerProps: React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLElement> = {
       // @ts-expect-error the provided-or-created ref path needs a non nullable ref
       ref: appliedTriggerRef,
-      // If it is a type description, we use tooltip to describe the trigger
-      'aria-describedby': (() => {
-        // If tooltip is not a description type, keep the original aria-describedby
-        if (type !== 'description') {
-          return elementChild?.props['aria-describedby']
-        }
-
-        // If tooltip is a description type, append our tooltipId
-        const existingDescribedBy = elementChild?.props['aria-describedby']
-        if (existingDescribedBy) {
-          return `${existingDescribedBy} ${tooltipId}`
-        }
-
-        // If no existing aria-describedby, use our tooltipId
-        return tooltipId
-      })(),
-      // If it is a label type, we use tooltip to label the trigger
-      'aria-labelledby': type === 'label' ? tooltipId : elementChild?.props['aria-labelledby'],
+      ...(type === 'description'
+        ? {'aria-describedby': [elementChild?.props['aria-describedby'], tooltipId].filter(Boolean).join(' ')}
+        : {}),
+      ...(type === 'label' ? {'aria-labelledby': tooltipId} : {}),
       onBlur: (event: React.FocusEvent) => {
         closeTooltip()
         elementChild?.props.onBlur?.(event)

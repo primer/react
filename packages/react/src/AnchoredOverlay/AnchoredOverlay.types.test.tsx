@@ -1,5 +1,5 @@
 import {InfoIcon} from '@primer/octicons-react'
-import {AnchoredOverlay} from '.'
+import {AnchoredOverlay, type AnchoredOverlayProps} from '.'
 import {IconButton} from '../Button'
 import {Tooltip} from '../TooltipV2'
 
@@ -15,9 +15,9 @@ export function itemWithTooltip() {
   return (
     <AnchoredOverlay
       open={false}
-      renderAnchor={(props, {ref}) => (
+      renderAnchor={(props, context) => (
         <Tooltip
-          ref={ref}
+          ref={context?.ref}
           text="Additional context"
           renderAnchor={tooltipProps => (
             <button {...props} {...tooltipProps} type="button">
@@ -30,4 +30,8 @@ export function itemWithTooltip() {
       <p>GitHub</p>
     </AnchoredOverlay>
   )
+}
+
+export function invokeExistingAnchor(renderAnchor: AnchoredOverlayProps['renderAnchor']) {
+  return renderAnchor?.({'aria-expanded': false})
 }

@@ -64,7 +64,7 @@
     },
     {
       "name": "renderAnchor",
-      "type": "<T extends React.HTMLAttributes<HTMLElement>>(props: T, context: AnchoredOverlayAnchorContext) => JSX.Element",
+      "type": "<T extends React.HTMLAttributes<HTMLElement>>(props: T, context?: AnchoredOverlayAnchorContext) => JSX.Element",
       "defaultValue": "",
       "description": "Render the anchor element. The second argument exposes the same object ref already supplied in the props, for composing trigger behaviors. Existing one-argument callbacks remain supported. When renderAnchor is null, an anchorRef is required."
     },

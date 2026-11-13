@@ -30,7 +30,7 @@ interface AnchoredOverlayPropsWithAnchor {
    */
   renderAnchor: <T extends Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'>>(
     props: T,
-    context: AnchoredOverlayAnchorContext,
+    context?: AnchoredOverlayAnchorContext,
   ) => JSX.Element
 
   /**
