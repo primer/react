@@ -10,11 +10,197 @@ import {
   CommentIcon,
   BookIcon,
   SparkleFillIcon,
+  PencilIcon,
+  DownloadIcon,
+  TrashIcon,
+  PeopleIcon,
+  PersonIcon,
 } from '@primer/octicons-react'
+import type {StoryObj} from '@storybook/react-vite'
+import {expect, userEvent, waitFor, within} from 'storybook/test'
+import Avatar from '../Avatar'
 import classes from './ActionMenu.features.stories.module.css'
 
 export default {
   title: 'Components/ActionMenu/Features',
+}
+
+export const ModernizedMenu: StoryObj = {
+  decorators: [
+    Story => (
+      <div className={classes.ComparisonStory}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => (
+    <ActionMenu>
+      <ActionMenu.Button>Actions</ActionMenu.Button>
+      <ActionMenu.Overlay width="auto">
+        <ActionList>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <CopyIcon />
+            </ActionList.LeadingVisual>
+            Copy
+            <ActionList.Description variant="block">Copy to clipboard</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <PencilIcon />
+            </ActionList.LeadingVisual>
+            Edit
+            <ActionList.Description variant="block">Edit this item</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <DownloadIcon />
+            </ActionList.LeadingVisual>
+            Download
+            <ActionList.Description variant="block">Download the file to your computer</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item variant="danger">
+            <ActionList.LeadingVisual>
+              <TrashIcon />
+            </ActionList.LeadingVisual>
+            Delete
+            <ActionList.Description variant="block">This action cannot be undone</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  ),
+  play: async ({canvasElement}) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(canvas.getByRole('button', {name: 'Actions'}))
+    const body = within(canvasElement.ownerDocument.body)
+    await waitFor(() => expect(body.getByRole('menu')).toBeVisible())
+    await userEvent.keyboard('{ArrowDown}')
+    await expect(body.getByRole('menuitem', {name: 'Edit'})).toHaveFocus()
+  },
+}
+
+export const ModernizedMenuWithAvatars: StoryObj = {
+  decorators: ModernizedMenu.decorators,
+  render: () => (
+    <ActionMenu>
+      <ActionMenu.Button>Reviewers</ActionMenu.Button>
+      <ActionMenu.Overlay width="auto" style={{minWidth: 280}}>
+        <ActionList>
+          <ActionList.Group>
+            <ActionList.GroupHeading>Request review</ActionList.GroupHeading>
+            {[
+              {name: 'maximedegreve', description: 'Frontend · Last active 2h ago'},
+              {name: 'adrianmg', description: 'Backend · Last active 30m ago'},
+              {name: 'daviddossett', description: 'Infrastructure · Last active 1d ago'},
+            ].map(({name, description}) => (
+              <ActionList.Item key={name}>
+                <ActionList.LeadingVisual>
+                  <Avatar src={`/mock-avatar-${name}.png`} />
+                </ActionList.LeadingVisual>
+                {name}
+                <ActionList.Description variant="block">{description}</ActionList.Description>
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  ),
+  play: async ({canvasElement}) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(canvas.getByRole('button', {name: 'Reviewers'}))
+    const body = within(canvasElement.ownerDocument.body)
+    await waitFor(() => expect(body.getByRole('menu')).toBeVisible())
+  },
+}
+
+export const ModernizedMenuWithAvatarsOnly: StoryObj = {
+  decorators: ModernizedMenu.decorators,
+  render: () => (
+    <ActionMenu>
+      <ActionMenu.Button>Reviewers</ActionMenu.Button>
+      <ActionMenu.Overlay width="auto" style={{minWidth: 280}}>
+        <ActionList>
+          <ActionList.Group>
+            <ActionList.GroupHeading>Request review</ActionList.GroupHeading>
+            {['maximedegreve', 'adrianmg', 'daviddossett'].map(name => (
+              <ActionList.Item key={name}>
+                <ActionList.LeadingVisual>
+                  <Avatar src={`/mock-avatar-${name}.png`} />
+                </ActionList.LeadingVisual>
+                {name}
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  ),
+  play: ModernizedMenuWithAvatars.play,
+}
+
+export const ModernizedMenuWithStates: StoryObj = {
+  render: () => (
+    <ActionMenu>
+      <ActionMenu.Button>Reviewers</ActionMenu.Button>
+      <ActionMenu.Overlay width="auto">
+        <ActionList>
+          <ActionList.Group>
+            <ActionList.GroupHeading>Request review</ActionList.GroupHeading>
+            {['mona', 'octocat', 'hubot'].map(name => (
+              <ActionList.Item key={name}>
+                <ActionList.LeadingVisual>
+                  <Avatar src="/mock-avatar.png" />
+                </ActionList.LeadingVisual>
+                {name}
+                <ActionList.Description variant="block">Available for review</ActionList.Description>
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <PeopleIcon />
+                </ActionList.LeadingVisual>
+                More reviewers
+                <ActionList.Description variant="block">Choose from another team</ActionList.Description>
+              </ActionList.Item>
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="auto">
+              <ActionList>
+                <ActionList.Item>Design</ActionList.Item>
+                <ActionList.Item>Engineering</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+          <ActionList.Item loading>
+            <ActionList.LeadingVisual>
+              <PersonIcon />
+            </ActionList.LeadingVisual>
+            Loading reviewers
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Review requests are temporarily unavailable">
+            <ActionList.LeadingVisual>
+              <PersonIcon />
+            </ActionList.LeadingVisual>
+            Request review
+          </ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  ),
+  play: async ({canvasElement}) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(canvas.getByRole('button', {name: 'Reviewers'}))
+    const body = within(canvasElement.ownerDocument.body)
+    await waitFor(() => expect(body.getByRole('menu')).toBeVisible())
+    await userEvent.keyboard('{ArrowDown}')
+    await expect(body.getByRole('menuitem', {name: 'octocat'})).toHaveFocus()
+  },
 }
 
 export const LinksAndActions = () => (

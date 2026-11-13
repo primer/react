@@ -1,0 +1,51 @@
+.ButtonBase {
+  & [data-component='buttonContent'] > :not(:last-child) {
+    margin-right: var(--base-size-6);
+  }
+
+  &:where(:not([data-component='IconButton'])) {
+    font-weight: var(--base-text-weight-semibold);
+    -webkit-font-smoothing: antialiased;
+    /* stylelint-disable-next-line primer/borders -- GitHub App's 8px radius has no matching Primer token */
+    border-radius: 8px;
+  }
+
+  &:where(:not([data-variant='link'])) [data-component='text'] {
+    /* stylelint-disable-next-line primer/typography -- match the 20px control label line height */
+    line-height: var(--base-size-20);
+  }
+
+  &:where([data-size='small'], [data-size='large']) {
+    gap: var(--base-size-6);
+  }
+
+  &:where([data-size='small']),
+  &:where([data-size='small']:not([data-variant='link'])) [data-component='text'] {
+    line-height: var(--base-text-lineHeight-normal);
+  }
+
+  &.HasLeadingVisual:where(:not([data-icon-only-counter])) {
+    padding-inline: var(--base-size-8) var(--base-size-12);
+
+    &:where([data-size='small']) {
+      padding-inline: var(--base-size-6) var(--base-size-8);
+    }
+
+    &:where([data-size='large']) {
+      padding-inline: var(--base-size-12) var(--base-size-16);
+    }
+  }
+
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to this CSS Module and a single keyboard chord attribute */
+  &:has([data-kbd-chord]) {
+    padding-inline: calc(var(--base-size-12) - var(--base-size-2)) var(--base-size-8);
+
+    &:where([data-size='small']) {
+      padding-inline: var(--base-size-8) var(--base-size-6);
+    }
+
+    &:where([data-size='large']) {
+      padding-inline: var(--base-size-12) calc(var(--base-size-12) - var(--base-size-2));
+    }
+  }
+}

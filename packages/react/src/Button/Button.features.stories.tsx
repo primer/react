@@ -7,6 +7,9 @@ import {
   GearIcon,
   InboxIcon,
   KebabHorizontalIcon,
+  SearchIcon,
+  ChevronDownIcon,
+  PlusIcon,
 } from '@primer/octicons-react'
 import {useState} from 'react'
 import {Button, IconButton} from '.'
@@ -14,6 +17,7 @@ import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'
 import {Tooltip} from '../TooltipV2/Tooltip'
 import {KeybindingHint} from '../KeybindingHint'
+import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
 
 export default {
@@ -27,6 +31,166 @@ export const Danger = () => <Button variant="danger">Danger</Button>
 export const Invisible = () => <Button variant="invisible">Invisible</Button>
 
 export const Link = () => <Button variant="link">Button that looks like a link</Button>
+
+export const AllSizes = () => (
+  <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--base-size-12)'}}>
+    <Button size="small">Small</Button>
+    <Button size="medium">Medium</Button>
+    <Button size="large">Large</Button>
+  </div>
+)
+
+const kitchenSinkVariants = ['default', 'primary', 'danger', 'invisible', 'link'] as const
+const kitchenSinkSizes = ['small', 'medium', 'large'] as const
+
+export const AllVariants = () => (
+  <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+    {kitchenSinkVariants.map(variant => (
+      <Button key={variant} variant={variant}>
+        {variant[0].toUpperCase() + variant.slice(1)}
+      </Button>
+    ))}
+  </Stack>
+)
+
+export const AllVariantsWithLeadingVisual = () => (
+  <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+    {kitchenSinkVariants.map(variant => (
+      <Button key={variant} variant={variant} leadingVisual={PlusIcon}>
+        {variant[0].toUpperCase() + variant.slice(1)}
+      </Button>
+    ))}
+  </Stack>
+)
+
+export const KitchenSink = {
+  parameters: {
+    layout: 'fullscreen',
+  },
+  render: () => (
+    <div style={{padding: '32px 32px 16px'}}>
+      <Stack gap="spacious">
+        {kitchenSinkSizes.map(size => (
+          <Stack key={size} gap="normal">
+            <Text as="h3" size="medium" weight="semibold" style={{margin: 0, textTransform: 'capitalize'}}>
+              {size}
+            </Text>
+            <Stack gap="normal">
+              <Stack gap="condensed">
+                <Text size="small" style={{color: 'var(--fgColor-muted)', lineHeight: '18px'}}>
+                  Variants
+                </Text>
+                <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+                  {kitchenSinkVariants.map(variant => (
+                    <Button key={variant} variant={variant} size={size}>
+                      {variant}
+                    </Button>
+                  ))}
+                </Stack>
+              </Stack>
+              <Stack gap="condensed">
+                <Text size="small" style={{color: 'var(--fgColor-muted)', lineHeight: '18px'}}>
+                  With leading visual
+                </Text>
+                <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+                  {kitchenSinkVariants.map(variant => (
+                    <Button key={variant} variant={variant} size={size} leadingVisual={SearchIcon}>
+                      {variant}
+                    </Button>
+                  ))}
+                </Stack>
+              </Stack>
+              <Stack gap="condensed">
+                <Text size="small" style={{color: 'var(--fgColor-muted)', lineHeight: '18px'}}>
+                  With trailing visual
+                </Text>
+                <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+                  {kitchenSinkVariants.map(variant => (
+                    <Button key={variant} variant={variant} size={size} trailingVisual={ChevronDownIcon}>
+                      {variant}
+                    </Button>
+                  ))}
+                </Stack>
+              </Stack>
+              <Stack gap="condensed">
+                <Text size="small" style={{color: 'var(--fgColor-muted)', lineHeight: '18px'}}>
+                  With both visuals
+                </Text>
+                <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+                  {kitchenSinkVariants.map(variant => (
+                    <Button
+                      key={variant}
+                      variant={variant}
+                      size={size}
+                      leadingVisual={PlusIcon}
+                      trailingVisual={ChevronDownIcon}
+                    >
+                      {variant}
+                    </Button>
+                  ))}
+                </Stack>
+              </Stack>
+              <Stack gap="condensed">
+                <Text size="small" style={{color: 'var(--fgColor-muted)', lineHeight: '18px'}}>
+                  Disabled
+                </Text>
+                <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+                  {kitchenSinkVariants.map(variant => (
+                    <Button key={variant} variant={variant} size={size} disabled leadingVisual={SearchIcon}>
+                      {variant}
+                    </Button>
+                  ))}
+                </Stack>
+              </Stack>
+              <Stack gap="condensed">
+                <Text size="small" style={{color: 'var(--fgColor-muted)', lineHeight: '18px'}}>
+                  Inactive
+                </Text>
+                <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+                  {kitchenSinkVariants.map(variant => (
+                    <Button key={variant} variant={variant} size={size} inactive leadingVisual={SearchIcon}>
+                      {variant}
+                    </Button>
+                  ))}
+                </Stack>
+              </Stack>
+              <Stack gap="condensed">
+                <Text size="small" style={{color: 'var(--fgColor-muted)', lineHeight: '18px'}}>
+                  With key shortcut
+                </Text>
+                <Stack direction="horizontal" gap="condensed" wrap="wrap" align="center">
+                  {kitchenSinkVariants.map(variant => (
+                    <Button
+                      key={variant}
+                      variant={variant}
+                      size={size}
+                      trailingVisual={() => <KeybindingHint keys="Mod+Enter" />}
+                    >
+                      {variant}
+                    </Button>
+                  ))}
+                </Stack>
+              </Stack>
+              <Stack gap="condensed">
+                <Text size="small" style={{color: 'var(--fgColor-muted)', lineHeight: '18px'}}>
+                  Block
+                </Text>
+                <Stack gap="condensed" style={{width: '16rem'}}>
+                  <Button size={size} block>
+                    Full width
+                  </Button>
+                  <Button size={size} block variant="primary" leadingVisual={PlusIcon}>
+                    Full width with icon
+                  </Button>
+                </Stack>
+              </Stack>
+            </Stack>
+          </Stack>
+        ))}
+      </Stack>
+    </div>
+  ),
+}
 
 export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
 

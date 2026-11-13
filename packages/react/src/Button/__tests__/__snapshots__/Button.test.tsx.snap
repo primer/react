@@ -2,7 +2,7 @@
 
 exports[`Button > respects block prop 1`] = `
 <button
-  class="prc-Button-ButtonBase-Eb8-K"
+  class="prc-Button-ButtonBase-Eb8-K prc-Button-ButtonBase-w4CiG"
   data-block="block"
   data-component="Button"
   data-loading="false"
@@ -29,7 +29,7 @@ exports[`Button > respects block prop 1`] = `
 
 exports[`Button > respects the alignContent prop 1`] = `
 <button
-  class="prc-Button-ButtonBase-Eb8-K"
+  class="prc-Button-ButtonBase-Eb8-K prc-Button-ButtonBase-w4CiG"
   data-component="Button"
   data-loading="false"
   data-no-visuals="true"
@@ -55,7 +55,7 @@ exports[`Button > respects the alignContent prop 1`] = `
 
 exports[`Button > respects the large size prop 1`] = `
 <button
-  class="prc-Button-ButtonBase-Eb8-K"
+  class="prc-Button-ButtonBase-Eb8-K prc-Button-ButtonBase-w4CiG"
   data-component="Button"
   data-loading="false"
   data-no-visuals="true"
@@ -81,7 +81,7 @@ exports[`Button > respects the large size prop 1`] = `
 
 exports[`Button > respects the small size prop 1`] = `
 <button
-  class="prc-Button-ButtonBase-Eb8-K"
+  class="prc-Button-ButtonBase-Eb8-K prc-Button-ButtonBase-w4CiG"
   data-component="Button"
   data-loading="false"
   data-no-visuals="true"
@@ -107,7 +107,7 @@ exports[`Button > respects the small size prop 1`] = `
 
 exports[`Button > styles danger button appropriately 1`] = `
 <button
-  class="prc-Button-ButtonBase-Eb8-K"
+  class="prc-Button-ButtonBase-Eb8-K prc-Button-ButtonBase-w4CiG"
   data-component="Button"
   data-loading="false"
   data-no-visuals="true"
@@ -133,7 +133,7 @@ exports[`Button > styles danger button appropriately 1`] = `
 
 exports[`Button > styles invisible button appropriately 1`] = `
 <button
-  class="prc-Button-ButtonBase-Eb8-K"
+  class="prc-Button-ButtonBase-Eb8-K prc-Button-ButtonBase-w4CiG"
   data-component="Button"
   data-loading="false"
   data-no-visuals="true"
@@ -159,7 +159,7 @@ exports[`Button > styles invisible button appropriately 1`] = `
 
 exports[`Button > styles primary button appropriately 1`] = `
 <button
-  class="prc-Button-ButtonBase-Eb8-K"
+  class="prc-Button-ButtonBase-Eb8-K prc-Button-ButtonBase-w4CiG"
   data-component="Button"
   data-loading="false"
   data-no-visuals="true"

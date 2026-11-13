@@ -1,0 +1,6 @@
+.Button:where([data-size='medium']) {
+  /* stylelint-disable-next-line primer/typography -- GitHub App's button typography has no matching Primer token */
+  font-size: 13px;
+  /* stylelint-disable-next-line primer/typography -- match the 20px control label line height */
+  line-height: var(--base-size-20);
+}

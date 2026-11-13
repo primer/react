@@ -28,6 +28,7 @@ storybook-static
 coverage/
 
 # Playwright
+.playwright-mcp/
 stats.html
 blob-report
 results.json

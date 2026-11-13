@@ -2,3 +2,7 @@
   color: var(--fgColor-muted);
   display: inline-block;
 }
+
+.ComparisonStory {
+  padding: var(--base-size-16);
+}

@@ -71,6 +71,56 @@ const featureFlagVariants = [
 ] as const
 
 test.describe('ActionMenu', () => {
+  test.describe('Modernized menu', () => {
+    for (const id of [
+      'components-actionmenu-features--modernized-menu',
+      'components-actionmenu-features--modernized-menu-with-avatars',
+    ]) {
+      for (const theme of themes) {
+        test(`${id} ${theme} @aat`, async ({page}) => {
+          await visit(page, {
+            id,
+            globals: {colorScheme: theme},
+          })
+          await expect(page.getByRole('menu')).toBeVisible()
+          await expect(page).toHaveNoViolations()
+        })
+      }
+    }
+
+    test('aligns avatars, loading indicators and submenu descriptions', async ({page}) => {
+      await visit(page, {id: 'components-actionmenu-features--modernized-menu-with-states'})
+      const menu = page.getByRole('menu')
+      await expect(menu.locator('[data-component="Avatar"]')).toHaveCount(3)
+      for (const avatar of await menu.locator('[data-component="Avatar"]').all()) {
+        await expect(avatar).toHaveCSS('width', '20px')
+        await expect(avatar).toHaveCSS('height', '20px')
+      }
+
+      const loading = page.getByRole('menuitem', {name: /^Loading reviewers/})
+      await expect(loading.locator('[data-component="Spinner"] svg')).toHaveCSS('width', '14px')
+      await expect(loading.locator('[data-component="Spinner"] svg')).toHaveCSS('height', '14px')
+
+      const inactive = page.getByRole('menuitem', {name: 'Request review', exact: true})
+      const inactiveIcon = await inactive.locator('svg').boundingBox()
+      const inactiveLabel = await inactive.locator('[data-component="ActionList.Item.Label"]').boundingBox()
+      expect(inactiveIcon!.y - inactiveLabel!.y).toBeCloseTo(3, 3)
+
+      const submenu = page.getByRole('menuitem', {name: 'More reviewers', exact: true})
+      await expect(submenu.locator('[data-description-variant]')).toHaveCSS('margin-right', '8px')
+      const chevron = await submenu.locator('[data-component="ActionList.TrailingVisual"] svg').boundingBox()
+      const label = await submenu.locator('[data-component="ActionList.Item.Label"]').boundingBox()
+      expect(chevron!.y - label!.y).toBeCloseTo(2, 3)
+
+      await submenu.focus()
+      await page.keyboard.press('ArrowRight')
+      await expect(page.getByRole('menuitem', {name: 'Design', exact: true})).toBeVisible()
+      await page.keyboard.press('ArrowLeft')
+      await expect(submenu).toBeFocused()
+      await expect(page.getByRole('menu')).toHaveCount(1)
+    })
+  })
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {

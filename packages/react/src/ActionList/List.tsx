@@ -9,6 +9,7 @@ import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
+import modernizeClasses from './ActionList.modernize.module.css'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {useFeatureFlag} from '../FeatureFlags'
 
@@ -110,7 +111,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     <ListContext.Provider value={listContextValue}>
       {slots.heading}
       <Component
-        className={clsx(classes.ActionList, className)}
+        className={clsx(classes.ActionList, container === 'ActionMenu' && modernizeClasses.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
         ref={appliedRef}

@@ -10,6 +10,7 @@ import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
+import modernizeClasses from './ButtonBase.modernize.module.css'
 import {isElement, isValidElementType} from 'react-is'
 import {useFeatureFlag} from '../FeatureFlags'
 
@@ -111,7 +112,12 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         {...rest}
         // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
         ref={mergedRef}
-        className={clsx(classes.ButtonBase, className)}
+        className={clsx(
+          classes.ButtonBase,
+          modernizeClasses.ButtonBase,
+          LeadingVisual && modernizeClasses.HasLeadingVisual,
+          className,
+        )}
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
         data-loading={Boolean(loading)}
