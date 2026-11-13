@@ -1,0 +1,37 @@
+import {Meta} from '@storybook/addon-docs/blocks'
+
+<Meta title="Experimental/Components/Tooltip" />
+
+# Tooltip
+
+Import `Tooltip` from `@primer/react/experimental` to compose tooltip behavior
+with another trigger using an element-valued `renderAnchor`. The stable export
+and the existing children API remain unchanged.
+
+```tsx
+import {Button} from '@primer/react'
+import {Tooltip} from '@primer/react/experimental'
+
+;<Tooltip text="Run the action" renderAnchor={<Button>Run action</Button>} />
+```
+
+See [trigger composition](?path=/docs/experimental-trigger-composition--docs)
+for menu and overlay examples, merged refs, handler ordering, ARIA ID merging,
+and callback escape hatches.
+
+## Attribute routing
+
+In **render mode**, HTML attributes such as `id`, `className`, `style`, `popover`,
+ARIA attributes, and handlers configure the **trigger**, not the tooltip bubble.
+`text`, `type`, `direction`, `delay`, and `keybindingHint` still configure the
+tooltip. The existing children mode retains its original bubble attribute routing.
+Bubble attribute overrides cannot be migrated unchanged to render mode.
+
+Provide either children or `renderAnchor`, not both. Custom render elements
+must forward received props and their ref to the interactive DOM element.
+
+## Accessible naming
+
+Use a description tooltip for a button that already has an accessible name;
+use a label tooltip for an otherwise unnamed trigger. Existing description IDs
+on the button are preserved automatically in element mode.

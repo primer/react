@@ -1,6 +1,8 @@
-# Extending components
+import {Meta} from '@storybook/addon-docs/blocks'
 
-## Experimental trigger composition
+<Meta title="Experimental/Trigger composition" />
+
+# Experimental trigger composition
 
 The `@primer/react/experimental` versions of `ActionMenu`, `AnchoredOverlay`, and
 `Tooltip` accept an element in `renderAnchor`. Like
@@ -17,7 +19,6 @@ usage remains supported. `SelectPanel` is not part of this experiment.
 ```tsx
 import {ActionList, Button} from '@primer/react'
 import {ActionMenu, Tooltip} from '@primer/react/experimental'
-
 ;<ActionMenu
   renderAnchor={
     <Tooltip text="Choose owner" renderAnchor={<Button onClick={event => event.stopPropagation()}>Owner</Button>} />
@@ -46,7 +47,6 @@ prop-merging contract.
 import {IconButton} from '@primer/react'
 import {AnchoredOverlay, Tooltip} from '@primer/react/experimental'
 import {InfoIcon} from '@primer/octicons-react'
-
 ;<AnchoredOverlay
   open={open}
   onOpen={() => setOpen(true)}
@@ -85,11 +85,8 @@ Two deliberate differences from Base UI apply: Primer uses the existing
 them. Element-first event ordering is an intentional exception to Primer's
 usual component-first prop-merging convention for this experiment.
 
-In the experimental Tooltip's **render mode**, HTML attributes such as `id`,
-`className`, `style`, ARIA attributes, and handlers configure its **trigger**, not
-its tooltip bubble. `text`, `type`, `direction`, `delay`, and `keybindingHint`
-still configure the tooltip. The existing children mode retains its original
-attribute routing.
+See the [experimental Tooltip documentation](?path=/docs/experimental-components-tooltip--docs)
+for tooltip attribute routing and accessible naming.
 
 ### Responsibilities and escape hatches
 
@@ -97,9 +94,6 @@ attribute routing.
   either Tooltip children or `renderAnchor`. Never nest native buttons.
 - Custom render elements must forward their ref and received trigger props to
   the interactive DOM element, not a wrapper or imperative handle.
-- Use a description tooltip for a button that already has an accessible name;
-  use a label tooltip for an otherwise unnamed trigger. Existing description IDs
-  on the button are preserved automatically in element mode.
 - Disabled behavior is not a generic boolean merge. Configure the actual
   rendered control using its normal `disabled` or `inactive` API. Native disabled
   controls cannot open the overlay or tooltip. `aria-disabled` controls cannot
