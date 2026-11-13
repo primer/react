@@ -1,0 +1,45 @@
+.Root {
+  padding: var(--base-size-16);
+  color: var(--fgColor-default);
+}
+
+.Instructions {
+  margin: 0 0 var(--base-size-16);
+}
+
+.Controls {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  padding: var(--base-size-8);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background: var(--bgColor-default);
+}
+
+.Status {
+  margin-left: auto;
+}
+
+.Timeline {
+  margin-top: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.Item {
+  min-height: 5rem;
+  padding: var(--base-size-16);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.Item:last-child {
+  border-bottom: 0;
+}
+
+.Anchor {
+  background: var(--bgColor-attention-muted);
+}
