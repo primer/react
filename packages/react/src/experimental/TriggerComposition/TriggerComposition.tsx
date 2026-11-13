@@ -54,7 +54,7 @@ export function AnchoredOverlay(props: React.PropsWithChildren<AnchoredOverlayPr
   )
 }
 
-export type TooltipProps = StableTooltipProps & {renderAnchor?: AnchorRenderer}
+export type TooltipProps = Omit<StableTooltipProps, 'disabled'> & {renderAnchor?: AnchorRenderer}
 
 export const Tooltip: React.ForwardRefExoticComponent<
   React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>

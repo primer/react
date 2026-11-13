@@ -34,3 +34,8 @@ export function stableTooltipContract() {
   // @ts-expect-error renderAnchor is an experimental Tooltip API
   return <StableTooltip text="Details" renderAnchor={<Button>Owner</Button>} />
 }
+
+export function experimentalTooltipSuppressionContract() {
+  // @ts-expect-error stable tooltip suppression is not an experimental trigger prop
+  return <Tooltip disabled text="Details" renderAnchor={<Button>Owner</Button>} />
+}
