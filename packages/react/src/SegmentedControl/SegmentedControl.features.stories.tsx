@@ -215,3 +215,79 @@ export const AssociatedWithALabelAndCaption = () => (
   </div>
 )
 AssociatedWithALabelAndCaption.storyName = '[Example] Associated with a label and caption'
+
+export const CompactToolbar = () => (
+  <div className={classes.CompactToolbar}>
+    <SegmentedControl aria-label="File view" size="small" className={classes.ConsumerTypography}>
+      <SegmentedControl.Button defaultSelected>Code</SegmentedControl.Button>
+      <SegmentedControl.Button>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+    <Button size="small">Raw</Button>
+  </div>
+)
+
+export const ConstrainedLabelOverflow = () => (
+  <div className={classes.ConstrainedLabelExamples}>
+    <div className={classes.ConstrainedLabelExample}>
+      <Text className={classes.TextMediumSubtle}>Full label</Text>
+      <SegmentedControl aria-label="File view, full label">
+        <SegmentedControl.Button defaultSelected>Preview changes</SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
+        <SegmentedControl.Button>Blame</SegmentedControl.Button>
+      </SegmentedControl>
+    </div>
+    <div className={classes.ConstrainedLabelExample}>
+      <Text className={classes.TextMediumSubtle}>Constrained label</Text>
+      <SegmentedControl aria-label="File view, constrained label">
+        <SegmentedControl.Button defaultSelected className={classes.ConstrainedLabelButton}>
+          Preview changes
+        </SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
+        <SegmentedControl.Button>Blame</SegmentedControl.Button>
+      </SegmentedControl>
+    </div>
+  </div>
+)
+
+ConstrainedLabelOverflow.parameters = {
+  docs: {
+    description: {
+      story:
+        'The second example limits the first segment to show label truncation. Hover or focus it to reveal the full label. Prefer enough space to display labels in full.',
+    },
+  },
+}
+
+export const ConstrainedLabelOverflowStressTest = () => (
+  <div className={classes.ConstrainedLabelStressExamples}>
+    {(['small', 'medium'] as const).flatMap(size =>
+      (['default', 'subtle'] as const).map(variant => (
+        <SegmentedControl
+          key={`${size}-${variant}`}
+          aria-label={`${size} ${variant}`}
+          size={size}
+          variant={variant}
+          fullWidth
+        >
+          <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon} count={5}>
+            Preview changes before publishing
+          </SegmentedControl.Button>
+          <SegmentedControl.Button>Code</SegmentedControl.Button>
+          <SegmentedControl.Button leadingVisual={PeopleIcon} count={2}>
+            Blame
+          </SegmentedControl.Button>
+        </SegmentedControl>
+      )),
+    )}
+  </div>
+)
+
+ConstrainedLabelOverflowStressTest.storyName = 'Constrained label overflow (stress test)'
+ConstrainedLabelOverflowStressTest.parameters = {
+  docs: {
+    description: {
+      story:
+        'Stress test of defensive label truncation, not a recommended layout. Keep labels short and provide enough space to show them in full. If labels regularly truncate, give the control more space, shorten the labels or use a different component.',
+    },
+  },
+}
