@@ -1,8 +1,9 @@
 import type React from 'react'
-import {describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {page, userEvent} from 'vitest/browser'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {fireEvent, render as HTMLRender} from '@testing-library/react'
+import {act, fireEvent, render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
@@ -329,4 +330,150 @@ describe('Tooltip forwarded ref (primer_react_merged_forwarded_refs)', () => {
       })
     })
   }
+})
+
+describe('Tooltip suppression', () => {
+  it.each(['label', 'description'] as const)(
+    'closes without removing the accessible %s or disabling its trigger',
+    async type => {
+      const onClick = vi.fn()
+      const example = (disabled: boolean) => (
+        <Tooltip text="Choose owner" type={type} disabled={disabled}>
+          <Button onClick={onClick}>{type === 'description' ? 'Owner' : null}</Button>
+        </Tooltip>
+      )
+      const {container, rerender} = HTMLRender(example(false))
+      const button = page.getByRole('button', {name: type === 'label' ? 'Choose owner' : 'Owner', exact: true})
+      const tooltip = container.querySelector('[data-component="Tooltip"]')!
+      const relationship = type === 'label' ? 'aria-labelledby' : 'aria-describedby'
+      const id = button.element().getAttribute(relationship)
+      expect(document.getElementById(id ?? '')).toHaveTextContent('Choose owner')
+      await userEvent.hover(button)
+      await expect.poll(() => tooltip.matches(':popover-open')).toBe(true)
+
+      rerender(example(true))
+      expect(tooltip.matches(':popover-open')).toBe(false)
+      expect(button.element()).toHaveAttribute(relationship, id)
+      expect(button.element()).toHaveAccessibleName(type === 'label' ? 'Choose owner' : 'Owner')
+      if (type === 'description') expect(button.element()).toHaveAccessibleDescription('Choose owner')
+      await expect.element(button).toBeEnabled()
+      expect(tooltip).not.toHaveAttribute('disabled')
+      await userEvent.tab()
+      await expect.element(button).toHaveFocus()
+      expect(tooltip.matches(':popover-open')).toBe(false)
+      await userEvent.click(button)
+      expect(onClick).toHaveBeenCalledOnce()
+      expect(tooltip.matches(':popover-open')).toBe(false)
+    },
+  )
+
+  it('preserves configured menu anchor behavior while suppressing the tooltip', async () => {
+    const onClick = vi.fn()
+    HTMLRender(
+      <ActionMenu>
+        <ActionMenu.Anchor>
+          <Tooltip disabled text="Choose owner">
+            <Button onClick={onClick}>Owner</Button>
+          </Tooltip>
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>Assign me</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>,
+    )
+    const button = page.getByRole('button', {name: 'Owner', exact: true})
+    expect(button.element()).toHaveAccessibleDescription('Choose owner')
+    await expect.element(button).toBeEnabled()
+    await userEvent.click(button)
+    expect(onClick).toHaveBeenCalledOnce()
+    await expect.element(button).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(page.getByRole('menuitem', {name: 'Assign me', exact: true})).toHaveFocus()
+  })
+
+  it('does not re-enable a separately disabled trigger', () => {
+    const example = (disabled: boolean) => (
+      <Tooltip disabled={disabled} text="Choose owner">
+        <Button disabled role="button">
+          Owner
+        </Button>
+      </Tooltip>
+    )
+    const {rerender} = HTMLRender(example(true))
+    expect(page.getByRole('button', {name: 'Owner', exact: true}).element()).toBeDisabled()
+    rerender(example(false))
+    expect(page.getByRole('button', {name: 'Owner', exact: true}).element()).toBeDisabled()
+  })
+
+  describe('pending opens', () => {
+    beforeEach(() => vi.useFakeTimers())
+    afterEach(() => vi.useRealTimers())
+
+    it('preserves private suppression and closes an already visible tooltip', () => {
+      const example = (disabled: boolean) => (
+        <Tooltip text="Choose owner" _privateDisableTooltip={disabled}>
+          <Button>Owner</Button>
+        </Tooltip>
+      )
+      const {container, rerender} = HTMLRender(example(false))
+      fireEvent.mouseOver(page.getByRole('button', {name: 'Owner', exact: true}).element())
+      act(() => vi.advanceTimersByTime(50))
+      const tooltip = container.querySelector('[data-component="Tooltip"]')!
+      expect(tooltip.matches(':popover-open')).toBe(true)
+      rerender(example(true))
+      expect(tooltip.matches(':popover-open')).toBe(false)
+    })
+
+    it('cancels pending work and requires fresh interaction after re-enabling', () => {
+      const example = (disabled: boolean) => (
+        <Tooltip text="Choose owner" delay="medium" disabled={disabled}>
+          <Button>Owner</Button>
+        </Tooltip>
+      )
+      const {container, rerender} = HTMLRender(example(false))
+      const button = page.getByRole('button', {name: 'Owner', exact: true}).element()
+      const tooltip = container.querySelector('[data-component="Tooltip"]')!
+      fireEvent.mouseOver(button)
+      fireEvent.mouseOver(button)
+      act(() => vi.advanceTimersByTime(100))
+      expect(tooltip.matches(':popover-open')).toBe(false)
+      rerender(example(true))
+      rerender(example(false))
+      expect(tooltip.matches(':popover-open')).toBe(false)
+      fireEvent.mouseOver(button)
+      act(() => vi.advanceTimersByTime(399))
+      expect(tooltip.matches(':popover-open')).toBe(false)
+      act(() => vi.advanceTimersByTime(1))
+      expect(tooltip.matches(':popover-open')).toBe(true)
+
+      rerender(example(true))
+      expect(tooltip.matches(':popover-open')).toBe(false)
+      fireEvent.mouseOver(button)
+      rerender(example(false))
+      act(() => vi.advanceTimersByTime(400))
+      expect(tooltip.matches(':popover-open')).toBe(false)
+      fireEvent.mouseOver(button)
+      act(() => vi.advanceTimersByTime(400))
+      expect(tooltip.matches(':popover-open')).toBe(true)
+    })
+
+    it.each([
+      {disabled: true, _privateDisableTooltip: false},
+      {disabled: false, _privateDisableTooltip: true},
+      {disabled: true, _privateDisableTooltip: true},
+      {disabled: false, _privateDisableTooltip: false},
+    ])('suppresses when either public or private prop is true (%j)', props => {
+      const {container} = HTMLRender(
+        <Tooltip {...props} text="Choose owner" delay="medium">
+          <Button>Owner</Button>
+        </Tooltip>,
+      )
+      fireEvent.mouseOver(page.getByRole('button', {name: 'Owner', exact: true}).element())
+      act(() => vi.advanceTimersByTime(400))
+      expect(container.querySelector('[data-component="Tooltip"]')?.matches(':popover-open')).toBe(
+        !props.disabled && !props._privateDisableTooltip,
+      )
+    })
+  })
 })

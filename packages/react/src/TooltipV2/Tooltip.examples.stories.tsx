@@ -1,4 +1,5 @@
-import {useState, useCallback, useRef} from 'react'
+import {useId, useState, useCallback, useRef} from 'react'
+import {action} from 'storybook/actions'
 import {Button, IconButton} from '../Button'
 import Breadcrumbs from '../Breadcrumbs'
 import {ActionMenu} from '../ActionMenu'
@@ -8,6 +9,7 @@ import {Tooltip} from './Tooltip'
 import {Dialog} from '../experimental'
 import {GitBranchIcon, KebabHorizontalIcon, TriangleDownIcon, CheckIcon, XIcon} from '@primer/octicons-react'
 import {default as VisuallyHidden} from '../_VisuallyHidden'
+import Checkbox from '../Checkbox'
 
 export default {
   title: 'Components/TooltipV2/Examples',
@@ -19,6 +21,67 @@ export const CustomId = () => (
     <IconButton aria-labelledby="tooltip-custom-id" icon={XIcon} variant="invisible" onClick={() => {}} />
   </Tooltip>
 )
+
+export function SuppressWhileMenuOpen() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  return (
+    <div style={{padding: 48}}>
+      <p>Hover or focus to show the hint. Opening the menu suppresses it without disabling the button.</p>
+      <ActionMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+        <ActionMenu.Anchor>
+          <Tooltip disabled={isMenuOpen} text="Choose an action">
+            <Button>Actions</Button>
+          </Tooltip>
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>View details</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
+  )
+}
+
+SuppressWhileMenuOpen.parameters = {
+  docs: {
+    description: {
+      story:
+        'Use Tooltip.disabled to suppress the hint while its menu is open. The trigger remains enabled and its accessible description is retained. This does not control tooltip visibility directly.',
+    },
+  },
+}
+
+export function TooltipOnlyDisabled() {
+  const checkboxId = useId()
+  const [disabled, setDisabled] = useState(false)
+  return (
+    <div style={{padding: 48}}>
+      <p>
+        Suppressing the tooltip does not disable the action or remove its accessible description. Trigger clicks still
+        appear in Actions.
+      </p>
+      <label htmlFor={checkboxId}>
+        <Checkbox id={checkboxId} checked={disabled} onChange={event => setDisabled(event.currentTarget.checked)} />
+        Suppress tooltip
+      </label>
+      <div style={{marginTop: 16}}>
+        <Tooltip disabled={disabled} text="Run the action">
+          <Button onClick={action('onClick')}>Run action</Button>
+        </Tooltip>
+      </div>
+    </div>
+  )
+}
+
+TooltipOnlyDisabled.parameters = {
+  docs: {
+    description: {
+      story:
+        'disabled closes visible bubbles and cancels pending opens. Re-enable, then hover or focus again to reopen. The existing _privateDisableTooltip remains compatible: either prop being true wins. Disable the Button separately when the action itself is unavailable.',
+    },
+  },
+}
 
 export const FilesPage = () => (
   <PageHeader role="banner" aria-label="Banner">
