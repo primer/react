@@ -16,21 +16,14 @@ type Story = StoryObj<typeof meta>
 export const CoordinateWithMenu: Story = {
   render: function CoordinateWithMenu() {
     const [menuOpen, setMenuOpen] = useState(false)
-    const [tooltipOpen, setTooltipOpen] = useState(false)
     return (
       <ActionMenu
         open={menuOpen}
-        onOpenChange={next => {
-          setMenuOpen(next)
-          if (next) setTooltipOpen(false)
-        }}
+        onOpenChange={setMenuOpen}
         renderAnchor={
           <Tooltip
             text="Choose an action"
-            open={!menuOpen && tooltipOpen}
-            onOpenChange={next => {
-              if (!menuOpen) setTooltipOpen(next)
-            }}
+            disabled={menuOpen}
             popupProps={{id: 'action-tooltip'}}
             renderAnchor={<Button>Actions</Button>}
           />
@@ -49,7 +42,7 @@ export const CoordinateWithMenu: Story = {
     docs: {
       description: {
         story:
-          'The application coordinates two visibility states on one composed trigger, without changing tooltip text, calling native popover methods, or merging refs and handlers. For tooltip-only suppression with the stable component, use its disabled prop instead.',
+          'Use the menu state to suppress its tooltip with disabled, without a second visibility state or private API. The composed trigger stays enabled, its accessible description is preserved, and refs and handlers merge automatically.',
       },
     },
   },

@@ -56,6 +56,8 @@ export function AnchoredOverlay(props: React.PropsWithChildren<AnchoredOverlayPr
 }
 
 export type TooltipProps = Omit<StableTooltipProps, 'disabled'> & {
+  /** Suppresses the tooltip, not its trigger. Either suppression prop being true wins. */
+  disabled?: boolean
   renderAnchor?: AnchorRenderer
   /** HTML props for the tooltip bubble, separate from the trigger's HTML props. */
   popupProps?: Omit<React.ComponentPropsWithoutRef<'span'>, 'children'> & {popover?: 'auto' | 'manual' | ''}
@@ -79,6 +81,7 @@ export const Tooltip: React.ForwardRefExoticComponent<
       direction,
       delay,
       keybindingHint,
+      disabled = false,
       _privateDisableTooltip,
       popupProps,
       open: controlledOpen,
@@ -119,7 +122,7 @@ export const Tooltip: React.ForwardRefExoticComponent<
         direction={direction}
         delay={delay}
         keybindingHint={keybindingHint}
-        _privateDisableTooltip={_privateDisableTooltip}
+        _privateDisableTooltip={disabled || _privateDisableTooltip}
         visibility={visibility}
         ref={ref}
         renderAnchor={tooltipAnchorProps => (

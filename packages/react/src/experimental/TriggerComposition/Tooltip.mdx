@@ -90,16 +90,31 @@ cannot override `open`; this takes precedence over `popupProps.popover`.
 Uncontrolled tooltips default to `popover="auto"` and synchronize native
 dismissal with their state.
 
-The existing `_privateDisableTooltip` compatibility prop takes precedence over
-visibility, closes the bubble and cancels pending opens while retaining its
-accessible text. In controlled mode it requests closing with reason `disabled`;
-if the owner keeps `open={true}`, removing suppression makes that value effective
-again. In uncontrolled mode a fresh interaction is required after re-enabling.
-This does not disable the trigger.
+### Tooltip-only suppression
 
-The stable Tooltip's public `disabled` API is not added to this experimental
-trigger surface. Use the stable export for tooltip-only suppression; use
-controlled visibility here when the application must own the visible state.
+Use `disabled` to suppress the tooltip without disabling or remounting its
+trigger. For example, reuse a menu's existing state without adding tooltip state:
+
+```tsx
+<Tooltip disabled={isMenuOpen} text="Choose an action" renderAnchor={<Button>Actions</Button>} />
+```
+
+Like Base UI's `Tooltip.Root disabled`, this is tooltip behavior, not a native
+trigger attribute. Base UI's `Tooltip.Trigger disabled` also suppresses tooltip
+interactions rather than disabling its DOM element. To disable the control
+itself, put `disabled` on the rendered element, such as
+`renderAnchor={<Button disabled>Actions</Button>}`.
+
+Suppression takes precedence over `open` and `defaultOpen`, closes a visible bubble,
+cancels pending opens, and blocks hover/focus reopening while retaining accessible
+labels and descriptions. `onOpenChange` requests closing with reason `disabled`
+when an open tooltip is suppressed, even if a controlled owner ignores it.
+If the owner keeps `open={true}`, removing suppression makes that value effective
+again. In uncontrolled mode a fresh interaction is required after re-enabling.
+
+The existing `_privateDisableTooltip` prop remains a compatibility alias.
+Either prop being `true` suppresses the tooltip, even when the other is `false`.
+Use public `disabled` for new code; neither prop is forwarded to the trigger.
 
 See the **Controlled visibility**, **Separate popup attributes**, and
 **Coordinate with menu** stories for interactive examples. These state controls

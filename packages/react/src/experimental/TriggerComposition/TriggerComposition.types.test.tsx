@@ -37,7 +37,6 @@ export function stableTooltipContract() {
 }
 
 export function experimentalTooltipSuppressionContract() {
-  // @ts-expect-error stable tooltip suppression is not an experimental trigger prop
   return <Tooltip disabled text="Details" renderAnchor={<Button>Owner</Button>} />
 }
 

@@ -174,7 +174,7 @@ describe('experimental Tooltip routing and visibility', () => {
     expect(onOpenChange).toHaveBeenLastCalledWith(true, expect.objectContaining({reason: 'trigger-hover'}))
   })
 
-  it.each(['label', 'description'] as const)('private suppression overrides open while retaining the %s', type => {
+  it.each(['label', 'description'] as const)('suppression overrides open while retaining the %s', type => {
     vi.useFakeTimers()
     const onOpenChange = vi.fn()
     const props = {
@@ -188,7 +188,7 @@ describe('experimental Tooltip routing and visibility', () => {
     const popup = getByText('Details')
     const button = page.getByRole('button', {name: type === 'label' ? 'Details' : 'Action', exact: true}).element()
     expect(popup.matches(':popover-open')).toBe(true)
-    rerender(<Tooltip {...props} _privateDisableTooltip />)
+    rerender(<Tooltip {...props} disabled />)
     expect(popup.matches(':popover-open')).toBe(false)
     expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'disabled'}))
     onOpenChange.mockClear()
@@ -201,7 +201,54 @@ describe('experimental Tooltip routing and visibility', () => {
     } else {
       expect(button).toHaveAccessibleDescription('Details')
     }
+    rerender(<Tooltip {...props} disabled={false} />)
+    expect(popup.matches(':popover-open')).toBe(true)
+    expect(onOpenChange).not.toHaveBeenCalled()
   })
+
+  it.each(['children', 'renderAnchor'] as const)(
+    'keeps suppression separate from trigger disabled in %s mode',
+    async mode => {
+      const ref = createRef<HTMLButtonElement>()
+      const onClick = vi.fn()
+      const onOpenChange = vi.fn()
+      const trigger = (
+        <Button ref={ref} onClick={onClick}>
+          Action
+        </Button>
+      )
+      const props = {
+        text: 'Details',
+        defaultOpen: true,
+        onOpenChange,
+        ...(mode === 'renderAnchor' ? {renderAnchor: trigger} : {children: trigger}),
+      }
+      const {getByText, rerender} = render(<Tooltip {...props} />)
+      const popup = getByText('Details')
+      const button = page.getByRole('button', {name: 'Action', exact: true})
+      for (const suppression of [
+        {disabled: true, _privateDisableTooltip: false},
+        {disabled: false, _privateDisableTooltip: true},
+        {disabled: true, _privateDisableTooltip: true},
+      ]) {
+        rerender(<Tooltip {...props} {...suppression} />)
+        expect(popup.matches(':popover-open')).toBe(false)
+        expect(button.element()).toBe(ref.current)
+        expect(button.element()).toBeEnabled()
+        expect(button.element()).toHaveAccessibleDescription('Details')
+        await userEvent.click(button)
+      }
+      expect(onClick).toHaveBeenCalledTimes(3)
+      expect(onOpenChange.mock.calls.some(([open]) => open)).toBe(false)
+
+      vi.useFakeTimers()
+      rerender(<Tooltip text="Details" disabled={false} renderAnchor={<Button disabled>Action</Button>} />)
+      expect(button.element()).toBeDisabled()
+      fireEvent.mouseOver(button.element())
+      act(() => vi.advanceTimersByTime(50))
+      expect(popup.matches(':popover-open')).toBe(false)
+    },
+  )
 
   it('cancels a pending open on suppression and requires a fresh interaction when re-enabled', () => {
     vi.useFakeTimers()
@@ -212,7 +259,7 @@ describe('experimental Tooltip routing and visibility', () => {
     const button = page.getByRole('button', {name: 'Action', exact: true}).element()
     fireEvent.mouseOver(button)
     act(() => vi.advanceTimersByTime(399))
-    rerender(<Tooltip {...props} _privateDisableTooltip />)
+    rerender(<Tooltip {...props} disabled />)
     act(() => vi.advanceTimersByTime(1))
     expect(onOpenChange).not.toHaveBeenCalled()
     rerender(<Tooltip {...props} />)
