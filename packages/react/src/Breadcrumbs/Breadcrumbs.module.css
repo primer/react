@@ -10,6 +10,13 @@
   margin-bottom: 0;
 }
 
+/* The menu modes fit the crumbs to the width the parent offers. As a flex item the nav would
+   otherwise never shrink below its crumbs, so they would always measure as fitting and nothing
+   would collapse until the parent was narrower than every crumb together. */
+.BreadcrumbsBase:where([data-overflow^='menu']) {
+  min-width: 0;
+}
+
 [data-overflow='menu'],
 [data-overflow='menu-with-root'] {
   & .BreadcrumbsList {
