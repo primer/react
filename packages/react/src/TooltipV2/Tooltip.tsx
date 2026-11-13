@@ -208,11 +208,7 @@ export const Tooltip: ForwardRefExoticComponent<
         }
       }
     }
-    const closeTooltip = () => {
-      if (openTimeoutRef.current) {
-        safeClearTimeout(openTimeoutRef.current)
-        openTimeoutRef.current = null
-      }
+    const hideTooltip = () => {
       try {
         if (
           tooltipElRef.current &&
@@ -242,13 +238,24 @@ export const Tooltip: ForwardRefExoticComponent<
       }
     }
 
-    // Close the tooltip and cancel any pending open if its content is removed while it is open. This syncs the
-    // imperative popover state with props, so it can't move to an event handler.
-    const closeTooltipFromEffect = useEffectCallback(closeTooltip)
+    const closeTooltip = () => {
+      if (openTimeoutRef.current) {
+        safeClearTimeout(openTimeoutRef.current)
+        openTimeoutRef.current = null
+      }
+      hideTooltip()
+    }
+
+    // A pending hover open outlives re-renders, so it must read the latest props when it fires.
+    const openTooltipFromTimeout = useEffectCallback(openTooltip)
+
+    // Hide the tooltip if its content is removed while it is open. This syncs the imperative popover state with props,
+    // so it can't move to an event handler. A pending hover open is kept, since it checks the content when it fires.
+    const hideTooltipFromEffect = useEffectCallback(hideTooltip)
     useEffect(() => {
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-      if (!hasContent) closeTooltipFromEffect()
-    }, [hasContent, closeTooltipFromEffect])
+      if (!hasContent) hideTooltipFromEffect()
+    }, [hasContent, hideTooltipFromEffect])
 
     // context value
     const value = useMemo(() => ({tooltipId}), [tooltipId])
@@ -380,7 +387,7 @@ export const Tooltip: ForwardRefExoticComponent<
                 openTimeoutRef.current = safeSetTimeout(() => {
                   // if the mouse is already moved out, do not show the tooltip
                   if (!openTimeoutRef.current) return
-                  openTooltip()
+                  openTooltipFromTimeout()
                   child.props.onMouseEnter?.(event)
                 }, delayTime)
               },

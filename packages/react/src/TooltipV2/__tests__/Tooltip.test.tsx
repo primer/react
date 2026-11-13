@@ -3,7 +3,7 @@ import {describe, expect, it, vi} from 'vitest'
 import {page, userEvent} from 'vitest/browser'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {fireEvent, render as HTMLRender} from '@testing-library/react'
+import {act, fireEvent, render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
@@ -285,6 +285,44 @@ describe('Tooltip with empty text', () => {
     rerender(<TooltipComponent text="" />)
     await expect.poll(() => tooltip.matches(':popover-open')).toBe(false)
     expect(getTooltipElement(container)).toBe(tooltip)
+  })
+
+  it('opens from a pending hover when the text returns before the delay elapses', () => {
+    vi.useFakeTimers()
+    try {
+      const {container, rerender, getByRole} = HTMLRender(<TooltipComponent />)
+      const tooltip = getTooltipElement(container)
+
+      fireEvent.mouseOver(getByRole('button'))
+      rerender(<TooltipComponent text="" />)
+      rerender(<TooltipComponent text="Back again" />)
+      act(() => {
+        vi.advanceTimersByTime(100)
+      })
+
+      expect(tooltip.matches(':popover-open')).toBe(true)
+      expect(tooltip).toHaveTextContent('Back again')
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('does not open from a pending hover when the text is still empty after the delay elapses', () => {
+    vi.useFakeTimers()
+    try {
+      const {container, rerender, getByRole} = HTMLRender(<TooltipComponent />)
+      const tooltip = getTooltipElement(container)
+
+      fireEvent.mouseOver(getByRole('button'))
+      rerender(<TooltipComponent text="" />)
+      act(() => {
+        vi.advanceTimersByTime(100)
+      })
+
+      expect(tooltip.matches(':popover-open')).toBe(false)
+    } finally {
+      vi.useRealTimers()
+    }
   })
 
   it('keeps the trigger mounted and focused when the text is toggled', async () => {
