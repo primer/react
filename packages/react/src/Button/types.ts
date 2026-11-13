@@ -66,13 +66,15 @@ export type ButtonProps = {
   icon?: React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>
 
   /**
-   * The leading visual which comes before the button content
+   * The leading visual which comes before the button content. Standard Octicons
+   * default to 14px in small buttons; explicit sizes and custom visuals are preserved.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   leadingVisual?: React.ElementType | React.ReactElement<any> | null
 
   /**
-   * The trailing visual which comes after the button content
+   * The trailing visual which comes after the button content. Standard Octicons
+   * default to 14px in small buttons; explicit sizes and custom visuals are preserved.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trailingVisual?: React.ElementType | React.ReactElement<any> | null
