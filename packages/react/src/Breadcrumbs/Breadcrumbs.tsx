@@ -101,19 +101,13 @@ function getContentWidth(nav: HTMLElement) {
   return nav.clientWidth - parseFloat(paddingLeft) - parseFloat(paddingRight)
 }
 
-// A crumb can render several elements (e.g. a link and a sibling button), so its width spans
-// all of the item's children except the separator.
-function getCrumbWidth(li: HTMLElement) {
-  let left = Infinity
-  let right = -Infinity
-  for (const child of li.children) {
-    if (child.classList.contains(classes.ItemSeparator)) continue
-    const rect = child.getBoundingClientRect()
-    if (rect.width === 0) continue
-    left = Math.min(left, rect.left)
-    right = Math.max(right, rect.right)
-  }
-  return right > left ? right - left : 0
+// A crumb can render several nodes (e.g. a link and a sibling button, or text), so its width is
+// the extent of everything in the item except the separator.
+function getCrumbWidth(li: HTMLElement, range: Range) {
+  range.selectNodeContents(li)
+  const last = li.lastElementChild
+  if (last?.classList.contains(classes.ItemSeparator)) range.setEndBefore(last)
+  return range.getBoundingClientRect().width
 }
 
 const sameFit = (a: Fit, b: Fit) => a.extra === b.extra && a.rootCollapsed === b.rootCollapsed && a.narrow === b.narrow
@@ -228,14 +222,15 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       const previous = widthsRef.current
       const widths = new Map<React.Key, number>()
       let separators = separatorsRef.current
+      const range = nav.ownerDocument.createRange()
       for (const item of items) {
         const width = previous.get(item.key ?? '')
         if (width !== undefined) widths.set(item.key ?? '', width)
       }
       for (const li of nav.querySelectorAll<HTMLElement>(':scope > ol > li[data-index]')) {
         const key = items[Number(li.getAttribute('data-index'))]?.key
-        if (key == null || !li.firstElementChild) continue
-        const crumbWidth = getCrumbWidth(li)
+        if (key == null) continue
+        const crumbWidth = getCrumbWidth(li, range)
         widths.set(key, crumbWidth)
         if (li.nextElementSibling && !li.hasAttribute('data-collapsed')) {
           const separator = li.getBoundingClientRect().width - crumbWidth
