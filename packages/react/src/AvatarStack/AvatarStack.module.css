@@ -68,10 +68,7 @@
     plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
     plus the visible part of the 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)
     */
-    min-width: calc(
-      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
-        (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus))
-    );
+    min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)));
   }
 
   &:where([data-avatar-count='3'][data-variant='stack']) {
@@ -90,10 +87,7 @@
     plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
     plus the visible part of the 3rd AND 4th avatar ➡️ (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
     */
-    min-width: calc(
-      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
-        (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
-    );
+    min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2);
   }
 
   &:where([data-avatar-count='3+'][data-variant='stack']) {
@@ -132,11 +126,14 @@
   height: var(--avatar-stack-size);
   overflow: hidden;
   flex-shrink: 0;
-  transition:
-    margin 0.2s ease-in-out,
-    opacity 0.2s ease-in-out,
-    mask-position 0.2s ease-in-out,
-    mask-size 0.2s ease-in-out;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      margin 0.2s ease-in-out,
+      opacity 0.2s ease-in-out,
+      mask-position 0.2s ease-in-out,
+      mask-size 0.2s ease-in-out;
+  }
 
   /* stylelint-disable-next-line selector-no-qualifying-type */
   .AvatarStack:where([data-shape='circle']) &:is(img) {
@@ -252,7 +249,8 @@
   width: auto;
 
   .AvatarItem {
-    --mask-size: 100%; /* reset size of the mask to prevent unintentionally clipping due to the additional size created by the border width */
+    --mask-size: 100%;
+    /* reset size of the mask to prevent unintentionally clipping due to the additional size created by the border width */
 
     position: relative;
     margin-inline-start: var(--base-size-4);
