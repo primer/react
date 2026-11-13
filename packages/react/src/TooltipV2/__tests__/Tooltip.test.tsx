@@ -255,6 +255,10 @@ describe('Tooltip', () => {
     const {getByRole} = HTMLRender(<TooltipComponent type="label" keybindingHint="Control+K" />)
     expect(getByRole('button', {name: 'Tooltip text (control k)'})).toBeInTheDocument()
   })
+  it('describes the trigger with keybinding hints when tooltip text is empty', async () => {
+    HTMLRender(<TooltipComponent text="" keybindingHint="Control+K" />)
+    await expect.element(page.getByRole('button')).toHaveAccessibleDescription('(control k)')
+  })
   it('allows overriding the accessible label with aria-label', () => {
     const {getByRole} = HTMLRender(
       <TooltipComponent type="label" keybindingHint="Control+K" aria-label="Overridden label" />,

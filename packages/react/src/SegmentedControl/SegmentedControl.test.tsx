@@ -80,6 +80,23 @@ describe('SegmentedControl', () => {
     await expect.element(page.getByRole('listitem')).toHaveAttribute('data-component', 'SegmentedControl.Button')
   })
 
+  it.each(['title', 'aria-description'] as const)(
+    'preserves %s descriptions when a segment label fits',
+    async attribute => {
+      const descriptionProps = {[attribute]: 'Switch views'}
+      render(
+        <SegmentedControl aria-label="File view">
+          <SegmentedControl.Button {...descriptionProps}>Code</SegmentedControl.Button>
+        </SegmentedControl>,
+      )
+
+      const button = page.getByRole('button')
+      // An empty description reference masks title/aria-description in the native accessibility tree.
+      await expect.element(button).not.toHaveAttribute('aria-describedby')
+      await expect.element(button).toHaveAccessibleDescription('Switch views')
+    },
+  )
+
   it('renders dividers without including them in selection indices', async () => {
     const onChange = vi.fn()
     const {container} = render(

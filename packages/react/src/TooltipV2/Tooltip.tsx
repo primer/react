@@ -326,8 +326,8 @@ export const Tooltip: ForwardRefExoticComponent<
               ref: appliedTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
-                // If tooltip is not a description type, keep the original aria-describedby
-                if (type !== 'description') {
+                // Keep the original description unless this tooltip has descriptive content.
+                if (type !== 'description' || (!text && keybindingHints.length === 0)) {
                   return child.props['aria-describedby']
                 }
 
