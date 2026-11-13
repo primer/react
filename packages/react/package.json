@@ -87,10 +87,8 @@
     "deepmerge": "^4.3.1",
     "focus-visible": "^5.2.1",
     "history": "^5.0.0",
-    "hsluv": "1.0.1",
     "lodash.isempty": "^4.4.0",
-    "lodash.isobject": "^3.0.2",
-    "react-intersection-observer": "^10.0.3"
+    "lodash.isobject": "^3.0.2"
   },
   "devDependencies": {
     "@actions/core": "1.11.1",
@@ -179,7 +177,8 @@
     "unist-util-find": "3.0.0",
     "unist-util-find-before": "4.0.0",
     "unist-util-flat-filter": "2.0.0",
-    "yaml": "2.7.0"
+    "yaml": "2.7.0",
+    "react-intersection-observer": "^10.0.3"
   },
   "peerDependencies": {
     "@types/react": "18.x || 19.x",
