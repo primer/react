@@ -1,4 +1,4 @@
-import {useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
+import {useEffect, useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -17,8 +17,11 @@ import {
 } from './Table'
 import {TableGroup} from './TableGroup'
 import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
+import {TableSelectionAnnouncementContext, defaultSelectedCountLabel} from './TableSelectionAnnouncementContext'
 import classes from './TableBulkActions.module.css'
 import VisuallyHidden from '../_VisuallyHidden'
+import {announce} from '@primer/live-region-element'
+import {isVisible} from '../internal/utils/isVisible'
 
 export interface DataTableBulkActionsContext {
   selectedRows: ReadonlySet<DataTableRowId>
@@ -241,6 +244,30 @@ function DataTableImplementation<Data extends UniqueRow>({
     </TableRow>
   )
 
+  const selectionAnnouncement = rowSelection
+    ? (bulkActionsProps?.getSelectedCountLabel ?? defaultSelectedCountLabel)(selection.selectedCount)
+    : null
+  const previousSelectionAnnouncement = useRef(selectionAnnouncement)
+  useEffect(() => {
+    const previous = previousSelectionAnnouncement.current
+    previousSelectionAnnouncement.current = selectionAnnouncement
+    if (previous === null || selectionAnnouncement === null || previous === selectionAnnouncement) {
+      return
+    }
+
+    const table = tableRef.current
+    if (!table || !isVisible(table)) {
+      return
+    }
+
+    const announcement = announce(selectionAnnouncement, {
+      politeness: 'polite',
+      delayMs: 150,
+      from: table,
+    })
+    return () => announcement.cancel()
+  }, [selectionAnnouncement])
+
   return (
     <Table
       ref={tableRef}
@@ -324,7 +351,7 @@ function DataTableImplementation<Data extends UniqueRow>({
           })}
         </TableRow>
         {hasBulkActions ? (
-          <TableRow className={classes.HeaderRow}>
+          <TableRow className={classes.HeaderRow} aria-hidden={!bulkActionsActive}>
             <VisuallyHidden
               as="td"
               isVisible={bulkActionsActive}
@@ -332,28 +359,30 @@ function DataTableImplementation<Data extends UniqueRow>({
               role="cell"
               className={bulkActionsActive ? classes.BulkActionsCell : undefined}
             >
-              <TableBulkActions
-                {...bulkActionsProps}
-                selectedCount={selection.selectedCount}
-                onFocusReturn={() => {
-                  const target = bulkActionsReturnFocusRef?.current
-                  if (target?.isConnected) {
-                    target.focus()
-                  } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
-                    selectionCheckboxRef.current.focus()
-                  } else {
-                    tableRef.current?.focus()
-                  }
-                }}
-              >
-                {bulkActionsActive
-                  ? renderBulkActions?.({
-                      selectedRows: new Set(selection.selectedRows),
-                      selectedCount: selection.selectedCount,
-                      clearSelection: actions.clearSelection,
-                    })
-                  : null}
-              </TableBulkActions>
+              <TableSelectionAnnouncementContext.Provider value={true}>
+                <TableBulkActions
+                  {...bulkActionsProps}
+                  selectedCount={selection.selectedCount}
+                  onFocusReturn={() => {
+                    const target = bulkActionsReturnFocusRef?.current
+                    if (target?.isConnected) {
+                      target.focus()
+                    } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
+                      selectionCheckboxRef.current.focus()
+                    } else {
+                      tableRef.current?.focus()
+                    }
+                  }}
+                >
+                  {bulkActionsActive
+                    ? renderBulkActions?.({
+                        selectedRows: new Set(selection.selectedRows),
+                        selectedCount: selection.selectedCount,
+                        clearSelection: actions.clearSelection,
+                      })
+                    : null}
+                </TableBulkActions>
+              </TableSelectionAnnouncementContext.Provider>
             </VisuallyHidden>
           </TableRow>
         ) : null}
