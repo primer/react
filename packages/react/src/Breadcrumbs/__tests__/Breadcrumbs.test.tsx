@@ -160,7 +160,7 @@ describe('Breadcrumbs', () => {
     const menuButton = page.getByRole('button', {name: /more breadcrumb items/i})
     await userEvent.click(menuButton)
 
-    const oldMenu = menuButton.element().closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')
+    const oldMenu = menuButton.element().closest('details')
     expect(oldMenu).not.toBeNull()
     await expect.element(page.elementLocator(oldMenu!).getByRole('link', {name: 'Old Home'})).toBeInTheDocument()
 
@@ -182,7 +182,7 @@ describe('Breadcrumbs', () => {
     const updatedMenu = page
       .getByRole('button', {name: /more breadcrumb items/i})
       .element()
-      .closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')
+      .closest('details')
     expect(updatedMenu).not.toBeNull()
     await expect.element(page.elementLocator(updatedMenu!).getByRole('link', {name: 'New Home'})).toBeInTheDocument()
     await expect
@@ -223,14 +223,14 @@ describe('Breadcrumbs', () => {
     // Open the overflow menu
     await userEvent.click(menuButton)
 
-    // Find the menu element that contains the overflow menu
-    const detailsEl = menuButton.element().closest<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]')
+    // Find the <details> element that contains the overflow menu
+    const detailsEl = menuButton.element().closest('details')
     expect(detailsEl).not.toBeNull()
     const detailsScope = page.elementLocator(detailsEl!)
 
     await expect.element(page.getByRole('link', {name: 'Home'})).toBeInTheDocument()
 
-    // These links should be inside the overflow menu
+    // These links should be inside the details (overflow) content
     await expect.element(detailsScope.getByRole('link', {name: 'Category', exact: true})).toBeInTheDocument()
     await expect.element(detailsScope.getByRole('link', {name: 'Subcategory'})).toBeInTheDocument()
     await expect.element(detailsScope.getByRole('link', {name: 'Product'})).toBeInTheDocument()
