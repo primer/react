@@ -4,10 +4,11 @@ import type {ActionMenuProps as StableActionMenuProps} from '../../ActionMenu/Ac
 import {AnchoredOverlay as StableAnchoredOverlay} from '../../AnchoredOverlay'
 import type {AnchoredOverlayProps as StableAnchoredOverlayProps} from '../../AnchoredOverlay'
 import {Tooltip as StableTooltip, TooltipImpl} from '../../TooltipV2/Tooltip'
-import type {TooltipProps as StableTooltipProps} from '../../TooltipV2/Tooltip'
+import type {TooltipProps as StableTooltipProps, TooltipOpenChangeDetails} from '../../TooltipV2/Tooltip'
+import {useControllableState} from '../../hooks/useControllableState'
 import {useProvidedRefOrCreate} from '../../hooks/useProvidedRefOrCreate'
 import {RenderAnchor, type AnchorRenderer} from '../../internal/components/RenderAnchor'
-import {mergeAnchorProps} from '../../internal/utils/mergeAnchorProps'
+import {mergeAnchorProps, type AnchorProps} from '../../internal/utils/mergeAnchorProps'
 import {invariant} from '../../utils/invariant'
 import {asSlot} from '../../utils/as-slot'
 import type {SlotMarker} from '../../utils/types'
@@ -54,31 +55,75 @@ export function AnchoredOverlay(props: React.PropsWithChildren<AnchoredOverlayPr
   )
 }
 
-export type TooltipProps = Omit<StableTooltipProps, 'disabled'> & {renderAnchor?: AnchorRenderer}
+export type TooltipProps = Omit<StableTooltipProps, 'disabled'> & {
+  renderAnchor?: AnchorRenderer
+  /** HTML props for the tooltip bubble, separate from the trigger's HTML props. */
+  popupProps?: Omit<React.ComponentPropsWithoutRef<'span'>, 'children'> & {popover?: 'auto' | 'manual' | ''}
+  open?: boolean
+  defaultOpen?: boolean
+  onOpenChange?: (open: boolean, details: TooltipOpenChangeDetails) => void
+}
+
+export type {TooltipOpenChangeDetails}
 
 export const Tooltip: React.ForwardRefExoticComponent<
   React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>
 > &
   SlotMarker = React.forwardRef<HTMLElement, TooltipProps>(
   (
-    {renderAnchor, children, text, type, direction, delay, keybindingHint, _privateDisableTooltip, ...anchorProps},
+    {
+      renderAnchor,
+      children,
+      text,
+      type,
+      direction,
+      delay,
+      keybindingHint,
+      _privateDisableTooltip,
+      popupProps,
+      open: controlledOpen,
+      defaultOpen = false,
+      onOpenChange,
+      ...anchorProps
+    },
     ref,
   ) => {
     invariant(!renderAnchor || children == null, 'Pass either `children` or `renderAnchor` to `Tooltip`, not both.')
-    const tooltipProps = {text, type, direction, delay, keybindingHint, _privateDisableTooltip}
-    if (!renderAnchor) {
-      return (
-        <StableTooltip {...tooltipProps} {...anchorProps} ref={ref}>
-          {children}
-        </StableTooltip>
-      )
+    const [open, setOpen] = useControllableState({
+      name: 'Tooltip',
+      value: controlledOpen,
+      defaultValue: defaultOpen,
+    })
+    const [controlled] = React.useState(controlledOpen !== undefined)
+    const visibility = React.useMemo(
+      () => ({
+        open,
+        controlled,
+        onOpenChange(next: boolean, details: TooltipOpenChangeDetails) {
+          if (open === next) return
+          setOpen(next)
+          onOpenChange?.(next, details)
+        },
+      }),
+      [open, controlled, setOpen, onOpenChange],
+    )
+    const trigger = renderAnchor ?? React.Children.only(children)
+    if (!React.isValidElement<AnchorProps>(trigger) && typeof trigger !== 'function') {
+      throw new Error('Tooltip requires a single trigger.')
     }
     return (
       <TooltipImpl
-        {...tooltipProps}
+        {...popupProps}
+        text={text}
+        type={type}
+        direction={direction}
+        delay={delay}
+        keybindingHint={keybindingHint}
+        _privateDisableTooltip={_privateDisableTooltip}
+        visibility={visibility}
         ref={ref}
         renderAnchor={tooltipAnchorProps => (
-          <RenderAnchor render={renderAnchor} props={mergeAnchorProps(tooltipAnchorProps, anchorProps)} />
+          <RenderAnchor render={trigger} props={mergeAnchorProps(tooltipAnchorProps, anchorProps)} />
         )}
       />
     )

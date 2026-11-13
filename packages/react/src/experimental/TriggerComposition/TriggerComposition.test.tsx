@@ -1,7 +1,7 @@
 import type React from 'react'
 import {createRef, useState} from 'react'
 import {act, fireEvent, render} from '@testing-library/react'
-import {describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 import {page, userEvent} from 'vitest/browser'
 import {InfoIcon} from '@primer/octicons-react'
 import {ActionMenu, AnchoredOverlay, Tooltip} from './TriggerComposition'
@@ -11,6 +11,236 @@ import {Button, IconButton} from '../../Button'
 import {FeatureFlags} from '../../FeatureFlags'
 import {withExpectedConsoleError} from '../../utils/testing'
 import {reactMajorVersion} from '../../utils/environment'
+
+describe('experimental Tooltip routing and visibility', () => {
+  afterEach(() => vi.useRealTimers())
+
+  it.each(['children', 'renderAnchor'] as const)('separates trigger and popup attributes in %s mode', mode => {
+    const onPopupEnter = vi.fn()
+    const buttonRef = createRef<HTMLButtonElement>()
+    const trigger = (
+      <button ref={buttonRef} type="button">
+        Action
+      </button>
+    )
+    const {getByText} = render(
+      <Tooltip
+        text="Additional context"
+        id="action-trigger"
+        className="trigger-class"
+        style={{color: 'blue'}}
+        aria-hidden={false}
+        popupProps={{
+          id: 'action-tooltip',
+          className: 'popup-class',
+          style: {color: 'red'},
+          popover: 'manual',
+          onMouseEnter: onPopupEnter,
+        }}
+        {...(mode === 'renderAnchor' ? {renderAnchor: trigger} : {children: trigger})}
+      />,
+    )
+    const button = page.getByRole('button', {name: 'Action', exact: true}).element()
+    const popup = getByText('Additional context')
+    expect(buttonRef.current).toBe(button)
+    expect(button).toHaveAttribute('id', 'action-trigger')
+    expect(button).toHaveClass('trigger-class')
+    expect(button).not.toHaveClass('popup-class')
+    expect(button).toHaveStyle({color: 'rgb(0, 0, 255)'})
+    expect(button).not.toHaveAttribute('popover')
+    expect(button).toHaveAccessibleDescription('Additional context')
+    expect(button).toHaveAttribute('aria-describedby', 'action-tooltip')
+    expect(popup).toHaveClass('popup-class')
+    expect(popup).not.toHaveClass('trigger-class')
+    expect(popup).toHaveStyle({color: 'rgb(255, 0, 0)'})
+    expect(popup).toHaveAttribute('popover', 'manual')
+    expect(popup).toHaveAttribute('aria-hidden', 'true')
+    fireEvent.mouseEnter(popup)
+    expect(onPopupEnter).toHaveBeenCalledOnce()
+    expect(popup.matches(':popover-open')).toBe(true)
+  })
+
+  it('honors controlled visibility and treats interactions as requests', () => {
+    vi.useFakeTimers()
+    const onOpenChange = vi.fn()
+    const props = {
+      text: 'Additional context',
+      onOpenChange,
+      delay: 'medium' as const,
+      renderAnchor: <button type="button">Action</button>,
+    }
+    const {getByText, rerender} = render(<Tooltip {...props} open={false} />)
+    const button = page.getByRole('button', {name: 'Action', exact: true}).element()
+    const popup = getByText('Additional context')
+    fireEvent.mouseOver(button)
+    act(() => vi.advanceTimersByTime(399))
+    expect(onOpenChange).not.toHaveBeenCalled()
+    expect(popup.matches(':popover-open')).toBe(false)
+    act(() => vi.advanceTimersByTime(1))
+    expect(onOpenChange).toHaveBeenLastCalledWith(true, expect.objectContaining({reason: 'trigger-hover'}))
+    expect(popup.matches(':popover-open')).toBe(false)
+
+    rerender(<Tooltip {...props} open />)
+    expect(popup.matches(':popover-open')).toBe(true)
+    expect(onOpenChange).toHaveBeenCalledOnce()
+    fireEvent.focusOut(button)
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'trigger-focus'}))
+    expect(popup.matches(':popover-open')).toBe(true)
+    fireEvent.keyDown(document, {key: 'Escape'})
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'escape-key'}))
+    expect(popup.matches(':popover-open')).toBe(true)
+    fireEvent.pointerDown(document.body)
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'outside-press'}))
+    expect(popup.matches(':popover-open')).toBe(true)
+    rerender(<Tooltip {...props} open={false} />)
+    expect(popup.matches(':popover-open')).toBe(false)
+    expect(onOpenChange).toHaveBeenCalledTimes(4)
+  })
+
+  it('keeps an explicit popup ID on the bubble without duplicating keybinding labels', () => {
+    const {container} = render(
+      <Tooltip
+        text="Run"
+        type="label"
+        keybindingHint="Control+K"
+        popupProps={{id: 'run-tooltip'}}
+        renderAnchor={<button type="button" />}
+      />,
+    )
+    const button = page.getByRole('button', {name: 'Run (control k)', exact: true}).element()
+    const popup = container.querySelector('[data-component="Tooltip"]')
+    expect(popup).toHaveAttribute('id', 'run-tooltip')
+    expect(button.getAttribute('aria-labelledby')).not.toBe('run-tooltip')
+    const label = document.getElementById(button.getAttribute('aria-labelledby') ?? '')
+    expect(label).toHaveTextContent('Run')
+    expect(popup).toContainElement(label)
+  })
+
+  it('opens on keyboard focus only when the owner accepts the request', async () => {
+    const onOpenChange = vi.fn()
+    const {getByText} = render(
+      <Tooltip open={false} onOpenChange={onOpenChange} text="Details" renderAnchor={<Button>Action</Button>} />,
+    )
+    await userEvent.tab()
+    expect(onOpenChange).toHaveBeenLastCalledWith(true, expect.objectContaining({reason: 'trigger-focus'}))
+    expect(getByText('Details').matches(':popover-open')).toBe(false)
+  })
+
+  it('keeps the popup open when moving between the trigger and popup', () => {
+    const onOpenChange = vi.fn()
+    const {getByText} = render(
+      <Tooltip defaultOpen onOpenChange={onOpenChange} text="Details" renderAnchor={<Button>Action</Button>} />,
+    )
+    const button = page.getByRole('button', {name: 'Action', exact: true}).element()
+    const popup = getByText('Details')
+    fireEvent.mouseOut(button, {relatedTarget: popup})
+    expect(popup.matches(':popover-open')).toBe(true)
+    fireEvent.mouseOut(popup, {relatedTarget: button})
+    expect(popup.matches(':popover-open')).toBe(true)
+    expect(onOpenChange).not.toHaveBeenCalled()
+    fireEvent.mouseOut(button, {relatedTarget: document.body})
+    expect(popup.matches(':popover-open')).toBe(false)
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'trigger-hover'}))
+  })
+
+  it('supports an uncontrolled initial value, ignores later default changes, and closes with Escape', async () => {
+    const onOpenChange = vi.fn()
+    const {getByText, rerender} = render(
+      <Tooltip defaultOpen onOpenChange={onOpenChange} text="Details" renderAnchor={<Button>Action</Button>} />,
+    )
+    const popup = getByText('Details')
+    expect(popup.matches(':popover-open')).toBe(true)
+    expect(onOpenChange).not.toHaveBeenCalled()
+    rerender(
+      <Tooltip defaultOpen={false} onOpenChange={onOpenChange} text="Details" renderAnchor={<Button>Action</Button>} />,
+    )
+    expect(popup.matches(':popover-open')).toBe(true)
+    await userEvent.keyboard('{Escape}')
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'escape-key'}))
+    expect(popup.matches(':popover-open')).toBe(false)
+  })
+
+  it('synchronizes native light dismissal and can reopen on a fresh hover', async () => {
+    const onOpenChange = vi.fn()
+    const {getByText} = render(
+      <Tooltip defaultOpen onOpenChange={onOpenChange} text="Details" renderAnchor={<Button>Action</Button>} />,
+    )
+    const popup = getByText('Details')
+    act(() => popup.hidePopover())
+    await expect.poll(() => onOpenChange.mock.calls.length).toBe(1)
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'none'}))
+    await userEvent.hover(page.getByRole('button', {name: 'Action', exact: true}))
+    await expect.poll(() => popup.matches(':popover-open')).toBe(true)
+    expect(onOpenChange).toHaveBeenLastCalledWith(true, expect.objectContaining({reason: 'trigger-hover'}))
+  })
+
+  it.each(['label', 'description'] as const)('private suppression overrides open while retaining the %s', type => {
+    vi.useFakeTimers()
+    const onOpenChange = vi.fn()
+    const props = {
+      text: 'Details',
+      type,
+      open: true,
+      onOpenChange,
+      renderAnchor: <button type="button">{type === 'description' ? 'Action' : null}</button>,
+    }
+    const {getByText, rerender} = render(<Tooltip {...props} />)
+    const popup = getByText('Details')
+    const button = page.getByRole('button', {name: type === 'label' ? 'Details' : 'Action', exact: true}).element()
+    expect(popup.matches(':popover-open')).toBe(true)
+    rerender(<Tooltip {...props} _privateDisableTooltip />)
+    expect(popup.matches(':popover-open')).toBe(false)
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, expect.objectContaining({reason: 'disabled'}))
+    onOpenChange.mockClear()
+    fireEvent.mouseOver(button)
+    act(() => vi.advanceTimersByTime(1200))
+    expect(onOpenChange).not.toHaveBeenCalled()
+    expect(button).toBeEnabled()
+    if (type === 'label') {
+      expect(button).toHaveAccessibleName('Details')
+    } else {
+      expect(button).toHaveAccessibleDescription('Details')
+    }
+  })
+
+  it('cancels a pending open on suppression and requires a fresh interaction when re-enabled', () => {
+    vi.useFakeTimers()
+    const onOpenChange = vi.fn()
+    const props = {text: 'Details', onOpenChange, renderAnchor: <Button>Action</Button>, delay: 'medium' as const}
+    const {getByText, rerender} = render(<Tooltip {...props} />)
+    const popup = getByText('Details')
+    const button = page.getByRole('button', {name: 'Action', exact: true}).element()
+    fireEvent.mouseOver(button)
+    act(() => vi.advanceTimersByTime(399))
+    rerender(<Tooltip {...props} _privateDisableTooltip />)
+    act(() => vi.advanceTimersByTime(1))
+    expect(onOpenChange).not.toHaveBeenCalled()
+    rerender(<Tooltip {...props} />)
+    act(() => vi.advanceTimersByTime(1200))
+    expect(popup.matches(':popover-open')).toBe(false)
+    fireEvent.mouseOver(button)
+    act(() => vi.advanceTimersByTime(400))
+    expect(popup.matches(':popover-open')).toBe(true)
+    expect(onOpenChange).toHaveBeenCalledOnce()
+  })
+
+  it('cancels delayed requests on pointer leave and unmount', () => {
+    vi.useFakeTimers()
+    const onOpenChange = vi.fn()
+    const {unmount} = render(
+      <Tooltip text="Details" onOpenChange={onOpenChange} renderAnchor={<Button>Action</Button>} />,
+    )
+    const button = page.getByRole('button', {name: 'Action', exact: true}).element()
+    fireEvent.mouseOver(button)
+    fireEvent.mouseLeave(button)
+    act(() => vi.advanceTimersByTime(50))
+    expect(onOpenChange).not.toHaveBeenCalled()
+    fireEvent.mouseOver(button)
+    unmount()
+    act(() => vi.advanceTimersByTime(50))
+    expect(onOpenChange).not.toHaveBeenCalled()
+  })
+})
 
 describe('experimental element renderAnchor', () => {
   it.runIf(reactMajorVersion >= 19)('preserves React 19 cleanup functions through every composed ref', () => {

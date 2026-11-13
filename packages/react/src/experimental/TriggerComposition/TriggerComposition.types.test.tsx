@@ -1,3 +1,4 @@
+import type React from 'react'
 import {InfoIcon} from '@primer/octicons-react'
 import {ActionMenu, AnchoredOverlay, Tooltip} from './TriggerComposition'
 import {ActionMenu as StableActionMenu} from '../../ActionMenu'
@@ -38,4 +39,23 @@ export function stableTooltipContract() {
 export function experimentalTooltipSuppressionContract() {
   // @ts-expect-error stable tooltip suppression is not an experimental trigger prop
   return <Tooltip disabled text="Details" renderAnchor={<Button>Owner</Button>} />
+}
+
+export function experimentalTooltipControlContract() {
+  return (
+    <Tooltip
+      open={false}
+      defaultOpen={false}
+      onOpenChange={(open, {reason, event}) => {
+        const next: boolean = open
+        const cause: string = reason
+        const source: Event | React.SyntheticEvent | undefined = event
+        return {next, cause, source}
+      }}
+      popupProps={{id: 'tooltip', className: 'tooltip-bubble', popover: 'manual'}}
+      id="trigger"
+      text="Details"
+      renderAnchor={<Button>Owner</Button>}
+    />
+  )
 }

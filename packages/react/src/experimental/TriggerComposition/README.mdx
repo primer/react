@@ -10,8 +10,8 @@ The `@primer/react/experimental` versions of `ActionMenu`, `AnchoredOverlay`, an
 composes behaviors onto one interactive element, automatically merging props and
 refs. It does not add a DOM wrapper or require separate Root/Trigger components.
 
-The stable exports remain unchanged. The experimental `Tooltip` also retains its
-existing children API, and configured `ActionMenu.Button`/`ActionMenu.Anchor`
+The stable exports remain unchanged. The experimental `Tooltip` also accepts
+children, with trigger-directed HTML props and separate `popupProps`, and configured `ActionMenu.Button`/`ActionMenu.Anchor`
 usage remains supported. `SelectPanel` is not part of this experiment.
 
 ## Menu and tooltip
@@ -102,7 +102,8 @@ for tooltip attribute routing and accessible naming.
   rendered control using its normal `disabled` or `inactive` API. Native disabled
   controls cannot open the overlay or tooltip. `aria-disabled` controls cannot
   activate the overlay but remain focusable for an explanatory tooltip; Tab is
-  not cancelled. No new root-level disabled state is introduced.
+  not cancelled. The experimental Tooltip's root API does not expose a `disabled`
+  prop.
 - Manage controlled open state normally. Composing triggers does not arbitrate
   between independently controlled menus, dialogs, or overlays.
 

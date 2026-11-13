@@ -6,12 +6,11 @@ import {Meta} from '@storybook/addon-docs/blocks'
 
 Import `Tooltip` from `@primer/react/experimental` to compose tooltip behavior
 with another trigger using an element-valued `renderAnchor`. The stable export
-and the existing children API remain unchanged.
+is unchanged.
 
 ```tsx
 import {Button} from '@primer/react'
 import {Tooltip} from '@primer/react/experimental'
-
 ;<Tooltip text="Run the action" renderAnchor={<Button>Run action</Button>} />
 ```
 
@@ -21,11 +20,32 @@ and callback escape hatches.
 
 ## Attribute routing
 
-In **render mode**, HTML attributes such as `id`, `className`, `style`, `popover`,
+HTML attributes such as `id`, `className`, `style`, `popover`,
 ARIA attributes, and handlers configure the **trigger**, not the tooltip bubble.
 `text`, `type`, `direction`, `delay`, and `keybindingHint` still configure the
-tooltip. The existing children mode retains its original bubble attribute routing.
-Bubble attribute overrides cannot be migrated unchanged to render mode.
+tooltip. Use `popupProps` for the bubble's HTML attributes in both `renderAnchor`
+and children mode:
+
+```tsx
+<Tooltip
+  id="run-action"
+  text="Run the action"
+  popupProps={{id: 'run-action-tooltip', className: 'action-tooltip'}}
+  renderAnchor={<Button>Run action</Button>}
+/>
+```
+
+This follows Base UI's separation between `Tooltip.Trigger` and `Tooltip.Popup`,
+flattened into Primer's existing component shape. Base UI uses separate parts,
+not a `popupProps` prop.
+
+When migrating the stable children API, move bubble attributes into `popupProps`.
+The experimental children syntax remains supported, but its HTML props now
+consistently configure the trigger. Tooltip ARIA relationships, bubble role,
+and `aria-hidden` remain managed internally. The forwarded `ref` targets the
+trigger. An explicit popup `id` stays on the bubble. With keybinding hints, the
+accessible relationship may reference an internal text node instead, avoiding
+duplicate key names.
 
 Provide either children or `renderAnchor`, not both. Custom render elements
 must forward received props and their ref to the interactive DOM element.
@@ -35,3 +55,52 @@ must forward received props and their ref to the interactive DOM element.
 Use a description tooltip for a button that already has an accessible name;
 use a label tooltip for an otherwise unnamed trigger. Existing description IDs
 on the button are preserved automatically in element mode.
+
+## Visibility
+
+The tooltip is uncontrolled by default. `defaultOpen` sets only its initial
+visibility. Pass `open` and `onOpenChange` to control visibility:
+
+```tsx
+const [open, setOpen] = useState(false)
+
+<Tooltip
+  open={open}
+  onOpenChange={(next, {reason}) => setOpen(next)}
+  text="Run the action"
+  renderAnchor={<Button>Run action</Button>}
+/>
+```
+
+`onOpenChange(next, details)` reports interaction requests, not a notification
+that a controlled bubble has changed. Hover requests opening after `delay`;
+keyboard focus requests it immediately. Leaving the trigger, blur, touch,
+Escape, and outside dismissal request closing. A supplied `open` remains
+authoritative: if the owner ignores a request, visibility does not change.
+Updating `open` directly and initial `defaultOpen` do not invoke the callback.
+Choose controlled or uncontrolled mode for the component's lifetime.
+
+`details.reason` identifies `trigger-hover`, `trigger-focus`, `trigger-press`,
+`escape-key`, `outside-press`, `disabled`, or `none` (native dismissal).
+`details.event`, when available, contains the originating event. Accept closing
+requests, especially Escape, to keep a controlled tooltip dismissible.
+
+Controlled tooltips use `popover="manual"` internally so native light dismissal
+cannot override `open`; this takes precedence over `popupProps.popover`.
+Uncontrolled tooltips default to `popover="auto"` and synchronize native
+dismissal with their state.
+
+The existing `_privateDisableTooltip` compatibility prop takes precedence over
+visibility, closes the bubble and cancels pending opens while retaining its
+accessible text. In controlled mode it requests closing with reason `disabled`;
+if the owner keeps `open={true}`, removing suppression makes that value effective
+again. In uncontrolled mode a fresh interaction is required after re-enabling.
+This does not disable the trigger.
+
+The stable Tooltip's public `disabled` API is not added to this experimental
+trigger surface. Use the stable export for tooltip-only suppression; use
+controlled visibility here when the application must own the visible state.
+
+See the **Controlled visibility**, **Separate popup attributes**, and
+**Coordinate with menu** stories for interactive examples. These state controls
+do not add positioning overrides, content portals, or new ARIA naming modes.

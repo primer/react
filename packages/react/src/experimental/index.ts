@@ -84,7 +84,12 @@ export type {
 } from '../NavList'
 export * from './SelectPanel2'
 export {Tooltip, ActionMenu, AnchoredOverlay} from './TriggerComposition/TriggerComposition'
-export type {TooltipProps, ActionMenuProps, AnchoredOverlayProps} from './TriggerComposition/TriggerComposition'
+export type {
+  TooltipProps,
+  TooltipOpenChangeDetails,
+  ActionMenuProps,
+  AnchoredOverlayProps,
+} from './TriggerComposition/TriggerComposition'
 export * from '../ActionBar'
 
 export {ScrollableRegion} from '../ScrollableRegion'

@@ -16,6 +16,7 @@ import type {SlotMarker} from '../utils/types'
 import {TooltipContext} from './TooltipContext'
 import {reactMajorVersion} from '../utils/environment'
 import type {AnchorRenderProps} from '../internal/components/RenderAnchor'
+import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -93,7 +94,20 @@ const isInteractive = (element: HTMLElement) => {
 }
 const emptyKeybindingHints: Array<KeybindingHintProps['keys']> = []
 
-type TooltipImplProps = TooltipProps & {renderAnchor?: (props: AnchorRenderProps) => React.ReactElement}
+export type TooltipOpenChangeDetails = {
+  reason: 'trigger-hover' | 'trigger-focus' | 'trigger-press' | 'escape-key' | 'outside-press' | 'disabled' | 'none'
+  event?: Event | React.SyntheticEvent
+}
+
+type TooltipImplProps = TooltipProps & {
+  popover?: 'auto' | 'manual' | ''
+  renderAnchor?: (props: AnchorRenderProps) => React.ReactElement
+  visibility?: {
+    open: boolean
+    controlled: boolean
+    onOpenChange: (open: boolean, details: TooltipOpenChangeDetails) => void
+  }
+}
 
 export const TooltipImpl: ForwardRefExoticComponent<
   React.PropsWithoutRef<TooltipImplProps> & React.RefAttributes<HTMLElement>
@@ -106,6 +120,8 @@ export const TooltipImpl: ForwardRefExoticComponent<
       type = 'description',
       children,
       renderAnchor,
+      visibility,
+      popover,
       id,
       className,
       keybindingHint = emptyKeybindingHints,
@@ -115,7 +131,9 @@ export const TooltipImpl: ForwardRefExoticComponent<
     }: TooltipImplProps,
     forwardedRef,
   ) => {
-    const tooltipId = useId(id)
+    const hasAriaLabel = 'aria-label' in rest
+    const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
+    const tooltipId = useId(visibility && keybindingHints.length > 0 && !hasAriaLabel ? undefined : id)
     const hasRenderAnchor = renderAnchor !== undefined
     invariant(!renderAnchor || children == null, 'Pass either `children` or `renderAnchor` to `Tooltip`, not both.')
     const child = renderAnchor ? undefined : Children.only(children)
@@ -144,8 +162,9 @@ export const TooltipImpl: ForwardRefExoticComponent<
     const openTimeoutRef = React.useRef<number | null>(null)
 
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const tooltipPopover = visibility ? (visibility.controlled ? 'manual' : (popover ?? 'auto')) : 'auto'
 
-    const openTooltip = () => {
+    const showPopover = useEffectCallback(() => {
       try {
         if (
           tooltipElRef.current &&
@@ -188,12 +207,15 @@ export const TooltipImpl: ForwardRefExoticComponent<
           throw error
         }
       }
-    }
-    const closeTooltip = () => {
-      if (openTimeoutRef.current) {
+    })
+    const clearOpenTimeout = useEffectCallback(() => {
+      if (openTimeoutRef.current !== null) {
         safeClearTimeout(openTimeoutRef.current)
         openTimeoutRef.current = null
       }
+    })
+    const hidePopover = useEffectCallback(() => {
+      clearOpenTimeout()
       try {
         if (
           tooltipElRef.current &&
@@ -221,7 +243,24 @@ export const TooltipImpl: ForwardRefExoticComponent<
           throw error
         }
       }
-    }
+    })
+    const openTooltip = useEffectCallback((details: TooltipOpenChangeDetails = {reason: 'trigger-hover'}) => {
+      if (visibility) {
+        if (!_privateDisableTooltip && !readTriggerRef.current?.matches(':disabled')) {
+          visibility.onOpenChange(true, details)
+        }
+      } else {
+        showPopover()
+      }
+    })
+    const closeTooltip = useEffectCallback((details: TooltipOpenChangeDetails = {reason: 'trigger-hover'}) => {
+      clearOpenTimeout()
+      if (visibility) {
+        visibility.onOpenChange(false, details)
+      } else {
+        hidePopover()
+      }
+    })
 
     // context value
     const value = useMemo(() => ({tooltipId}), [tooltipId])
@@ -278,8 +317,54 @@ export const TooltipImpl: ForwardRefExoticComponent<
       }
 
       const tooltip = tooltipElRef.current
-      tooltip.setAttribute('popover', 'auto')
-    }, [tooltipElRef, readTriggerRef, direction, type, hasRenderAnchor])
+      tooltip.setAttribute('popover', tooltipPopover)
+    }, [tooltipElRef, readTriggerRef, direction, type, hasRenderAnchor, tooltipPopover])
+
+    const synchronizeVisibility = useEffectCallback(() => {
+      if (!visibility) return
+      if (visibility.open && !_privateDisableTooltip) {
+        showPopover()
+      } else {
+        hidePopover()
+      }
+      if (_privateDisableTooltip) closeTooltip({reason: 'disabled'})
+    })
+    useEffect(() => {
+      // Synchronize React-owned visibility with the native Popover API.
+      synchronizeVisibility()
+    }, [visibility?.open, _privateDisableTooltip, synchronizeVisibility])
+
+    const onNativeToggle = useEffectCallback((event: Event) => {
+      const tooltip = tooltipElRef.current
+      if (!tooltip || !visibility || visibility.controlled) return
+      if (!tooltip.matches(':popover-open') && visibility.open) {
+        clearOpenTimeout()
+        visibility.onOpenChange(false, {reason: 'none', event})
+      }
+    })
+    useEffect(() => {
+      const tooltip = tooltipElRef.current
+      if (!visibility || !tooltip) return
+      tooltip.addEventListener('toggle', onNativeToggle)
+      return () => tooltip.removeEventListener('toggle', onNativeToggle)
+    }, [visibility, onNativeToggle])
+
+    const onOutsidePress = useEffectCallback((event: PointerEvent) => {
+      if (
+        visibility?.controlled &&
+        tooltipElRef.current?.matches(':popover-open') &&
+        event.target instanceof Node &&
+        !readTriggerRef.current?.contains(event.target) &&
+        !tooltipElRef.current.contains(event.target)
+      ) {
+        closeTooltip({reason: 'outside-press', event})
+      }
+    })
+    useEffect(() => {
+      if (!visibility?.controlled) return
+      document.addEventListener('pointerdown', onOutsidePress)
+      return () => document.removeEventListener('pointerdown', onOutsidePress)
+    }, [visibility?.controlled, onOutsidePress])
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
@@ -288,17 +373,13 @@ export const TooltipImpl: ForwardRefExoticComponent<
             event.stopImmediatePropagation()
             event.preventDefault()
           }
-          closeTooltip()
+          closeTooltip({reason: 'escape-key', event})
         }
       },
       [isPopoverOpen, _privateDisableTooltip],
     )
 
     const platform = usePlatform()
-    const hasAriaLabel = 'aria-label' in rest
-
-    // Normalize keybindingHint to an array for uniform rendering
-    const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
 
     if (isFragmentTrigger) return child
 
@@ -310,7 +391,7 @@ export const TooltipImpl: ForwardRefExoticComponent<
         : {}),
       ...(type === 'label' ? {'aria-labelledby': tooltipId} : {}),
       onBlur: (event: React.FocusEvent) => {
-        closeTooltip()
+        closeTooltip({reason: 'trigger-focus', event})
         elementChild?.props.onBlur?.(event)
       },
       onTouchEnd: (event: React.TouchEvent) => {
@@ -318,7 +399,7 @@ export const TooltipImpl: ForwardRefExoticComponent<
 
         // Hide tooltips on tap to essentially disable them on touch devices;
         // this still allows viewing the tooltip on tap-and-hold
-        safeSetTimeout(() => closeTooltip(), 10)
+        safeSetTimeout(() => closeTooltip({reason: 'trigger-press', event}), 10)
       },
       onFocus: (event: React.FocusEvent) => {
         // only show tooltip on :focus-visible, not on :focus
@@ -329,10 +410,12 @@ export const TooltipImpl: ForwardRefExoticComponent<
           // https://github.com/jsdom/jsdom/issues/3426
         }
 
-        openTooltip()
+        openTooltip({reason: 'trigger-focus', event})
         elementChild?.props.onFocus?.(event)
       },
       onMouseOverCapture: (event: React.MouseEvent) => {
+        if (visibility && _privateDisableTooltip) return
+        clearOpenTimeout()
         const delayTime = delayTimeMap[delay] || 50
         // We use a `capture` event to ensure this is called first before
         // events that might cancel the opening timeout (like `onTouchEnd`)
@@ -340,13 +423,18 @@ export const TooltipImpl: ForwardRefExoticComponent<
         // (prevent showing tooltip when mouse is just passing through)
         openTimeoutRef.current = safeSetTimeout(() => {
           // if the mouse is already moved out, do not show the tooltip
-          if (!openTimeoutRef.current) return
-          openTooltip()
+          if (openTimeoutRef.current === null) return
+          openTimeoutRef.current = null
+          openTooltip({reason: 'trigger-hover', event})
           elementChild?.props.onMouseEnter?.(event)
         }, delayTime)
       },
       onMouseLeave: (event: React.MouseEvent) => {
-        closeTooltip()
+        if (
+          !(visibility && event.relatedTarget instanceof Node && tooltipElRef.current?.contains(event.relatedTarget))
+        ) {
+          closeTooltip({reason: 'trigger-hover', event})
+        }
         elementChild?.props.onMouseLeave?.(event)
       },
     }
@@ -364,15 +452,31 @@ export const TooltipImpl: ForwardRefExoticComponent<
             data-direction={calculatedDirection}
             data-component="Tooltip"
             {...rest}
+            {...{popover: visibility ? tooltipPopover : popover}}
             // Only need tooltip role if the tooltip is a description for supplementary information
             role={type === 'description' ? 'tooltip' : undefined}
             // stop AT from announcing the tooltip twice: when it is a label type it will be announced with "aria-labelledby",when it is a description type it will be announced with "aria-describedby"
             aria-hidden={true}
             // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
-            onMouseEnter={openTooltip}
-            onMouseLeave={closeTooltip}
+            onMouseEnter={event => {
+              if (visibility) rest.onMouseEnter?.(event)
+              if (!event.defaultPrevented) openTooltip({reason: 'trigger-hover', event})
+            }}
+            onMouseLeave={event => {
+              if (visibility) rest.onMouseLeave?.(event)
+              if (
+                !event.defaultPrevented &&
+                !(
+                  visibility &&
+                  event.relatedTarget instanceof Node &&
+                  readTriggerRef.current?.contains(event.relatedTarget)
+                )
+              ) {
+                closeTooltip({reason: 'trigger-hover', event})
+              }
+            }}
             // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
-            id={hasAriaLabel || keybindingHints.length === 0 ? tooltipId : undefined}
+            id={hasAriaLabel || keybindingHints.length === 0 ? tooltipId : visibility ? id : undefined}
           >
             {keybindingHints.length > 0 ? (
               <>
