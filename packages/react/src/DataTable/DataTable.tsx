@@ -1,4 +1,4 @@
-import {useEffect, useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
+import {Children, useEffect, useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -17,7 +17,7 @@ import {
 } from './Table'
 import {TableGroup} from './TableGroup'
 import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
-import {TableSelectionAnnouncementContext, defaultSelectedCountLabel} from './TableSelectionAnnouncementContext'
+import {TableSelectionAnnouncementContext} from './TableSelectionAnnouncementContext'
 import classes from './TableBulkActions.module.css'
 import VisuallyHidden from '../_VisuallyHidden'
 import {announce} from '@primer/live-region-element'
@@ -27,6 +27,22 @@ export interface DataTableBulkActionsContext {
   selectedRows: ReadonlySet<DataTableRowId>
   selectedCount: number
   clearSelection: () => void
+}
+
+export interface DataTableSelectionAnnouncementContext {
+  selectedCount: number
+  bulkActionsAvailable: boolean
+}
+
+function defaultSelectionAnnouncement({selectedCount, bulkActionsAvailable}: DataTableSelectionAnnouncementContext) {
+  const message =
+    selectedCount === 0 ? 'Selection cleared' : `${selectedCount} ${selectedCount === 1 ? 'row' : 'rows'} selected`
+
+  if (bulkActionsAvailable && selectedCount > 0) {
+    return `${message}, additional bulk actions available`
+  }
+
+  return message
 }
 
 // ----------------------------------------------------------------------------
@@ -119,6 +135,11 @@ type DataTableBaseProps<Data extends UniqueRow> = {
   isRowSelectable?: (row: Data) => boolean
 
   /**
+   * Formats the live announcement after the selected row count changes.
+   */
+  getSelectionAnnouncement?: (context: DataTableSelectionAnnouncementContext) => string
+
+  /**
    * Whether groups have disclosure controls. Groups are expanded by default.
    */
   collapsibleGroups?: boolean
@@ -184,6 +205,7 @@ function DataTableImplementation<Data extends UniqueRow>({
   defaultSelectedRows,
   onSelectionChange,
   isRowSelectable,
+  getSelectionAnnouncement = defaultSelectionAnnouncement,
   collapsibleGroups = false,
   expandedGroups,
   defaultExpandedGroups,
@@ -215,6 +237,14 @@ function DataTableImplementation<Data extends UniqueRow>({
   const {headers, bodies, actions, selection, gridTemplateColumns} = table
   const hasBulkActions = Boolean(rowSelection && renderBulkActions)
   const bulkActionsActive = hasBulkActions && selection.selectedCount > 0
+  const renderedBulkActions = bulkActionsActive
+    ? renderBulkActions?.({
+        selectedRows: new Set(selection.selectedRows),
+        selectedCount: selection.selectedCount,
+        clearSelection: actions.clearSelection,
+      })
+    : null
+  const bulkActionsAvailable = Children.toArray(renderedBulkActions).length > 0
 
   const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
     <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
@@ -245,28 +275,58 @@ function DataTableImplementation<Data extends UniqueRow>({
   )
 
   const selectionAnnouncement = rowSelection
-    ? (bulkActionsProps?.getSelectedCountLabel ?? defaultSelectedCountLabel)(selection.selectedCount)
+    ? getSelectionAnnouncement({
+        selectedCount: selection.selectedCount,
+        bulkActionsAvailable,
+      })
     : null
-  const previousSelectionAnnouncement = useRef(selectionAnnouncement)
+  const selectedCountForAnnouncement = rowSelection ? selection.selectedCount : null
+  const previousSelectedCount = useRef(selectedCountForAnnouncement)
+  const previousSelectionAnnouncement = useRef<string | null>(null)
+  const pendingSelectionAnnouncement = useRef<ReturnType<typeof announce> | null>(null)
   useEffect(() => {
-    const previous = previousSelectionAnnouncement.current
-    previousSelectionAnnouncement.current = selectionAnnouncement
-    if (previous === null || selectionAnnouncement === null || previous === selectionAnnouncement) {
+    const previous = previousSelectedCount.current
+    previousSelectedCount.current = selectedCountForAnnouncement
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (selectedCountForAnnouncement === null) {
+      pendingSelectionAnnouncement.current?.cancel()
+      pendingSelectionAnnouncement.current = null
+      previousSelectionAnnouncement.current = null
+      return
+    }
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (previous === null || previous === selectedCountForAnnouncement || selectionAnnouncement === null) {
       return
     }
 
     const table = tableRef.current
     if (!table || !isVisible(table)) {
+      pendingSelectionAnnouncement.current?.cancel()
+      pendingSelectionAnnouncement.current = null
+      previousSelectionAnnouncement.current = null
       return
     }
 
-    const announcement = announce(selectionAnnouncement, {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (previousSelectionAnnouncement.current === selectionAnnouncement) {
+      return
+    }
+
+    pendingSelectionAnnouncement.current?.cancel()
+    previousSelectionAnnouncement.current = selectionAnnouncement
+
+    pendingSelectionAnnouncement.current = announce(selectionAnnouncement, {
       politeness: 'polite',
       delayMs: 150,
       from: table,
     })
-    return () => announcement.cancel()
-  }, [selectionAnnouncement])
+  }, [selectedCountForAnnouncement, selectionAnnouncement])
+  useEffect(
+    () => () => {
+      pendingSelectionAnnouncement.current?.cancel()
+    },
+    [],
+  )
 
   return (
     <Table
@@ -374,13 +434,7 @@ function DataTableImplementation<Data extends UniqueRow>({
                     }
                   }}
                 >
-                  {bulkActionsActive
-                    ? renderBulkActions?.({
-                        selectedRows: new Set(selection.selectedRows),
-                        selectedCount: selection.selectedCount,
-                        clearSelection: actions.clearSelection,
-                      })
-                    : null}
+                  {renderedBulkActions}
                 </TableBulkActions>
               </TableSelectionAnnouncementContext.Provider>
             </VisuallyHidden>

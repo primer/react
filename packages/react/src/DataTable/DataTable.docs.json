@@ -153,9 +153,14 @@
       "description": "Render actions in place of visible column labels when rowSelection is enabled and selectable rows are selected. Receives selectedRows IDs, selectedCount, and clearSelection, excluding missing and non-selectable rows."
     },
     {
+      "name": "getSelectionAnnouncement",
+      "type": "(context: DataTableSelectionAnnouncementContext) => string",
+      "description": "Localize the live announcement after the selected row count changes. Receives selectedCount and whether the active bulk-action renderer returned content."
+    },
+    {
       "name": "bulkActionsProps",
       "type": "Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel'>",
-      "description": "Localize the bulk-action group name and selected-count announcement (including zero). getSelectedCountLabel also applies without renderBulkActions."
+      "description": "Localize the bulk-action group name and visible selected count."
     },
     {
       "name": "bulkActionsReturnFocusRef",
