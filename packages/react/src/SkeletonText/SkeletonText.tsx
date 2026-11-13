@@ -2,7 +2,7 @@ import type React from 'react'
 import {type HTMLProps} from 'react'
 import classes from './SkeletonText.module.css'
 import {clsx} from 'clsx'
-import {SkeletonBox} from '../Skeleton'
+import skeletonClasses from '../Skeleton/skeleton.module.css'
 
 interface SkeletonTextProps extends Omit<HTMLProps<HTMLElement>, 'size'> {
   /** Size of the text that the skeleton is replacing. */
@@ -15,14 +15,26 @@ interface SkeletonTextProps extends Omit<HTMLProps<HTMLElement>, 'size'> {
   className?: string
 }
 
-function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, style, ...rest}: SkeletonTextProps) {
+function SkeletonText({
+  lines = 1,
+  maxWidth,
+  size = 'bodyMedium',
+  className,
+  style,
+  height,
+  width,
+  ref,
+  ...rest
+}: SkeletonTextProps) {
   if (lines < 2) {
     return (
-      <SkeletonBox
+      <div
+        ref={ref as React.Ref<HTMLDivElement>}
         data-text-skeleton-size={size}
-        width="100%"
-        className={clsx(className, classes.SkeletonText)}
+        className={clsx(className, classes.SkeletonText, skeletonClasses.skeleton)}
         style={{
+          height,
+          width: width ?? '100%',
           ...style,
           maxWidth,
         }}
@@ -43,12 +55,17 @@ function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, styl
       }}
     >
       {Array.from({length: lines}, (_, index) => (
-        <SkeletonBox
+        <div
+          ref={ref as React.Ref<HTMLDivElement>}
           key={index}
           data-component="SkeletonText"
           data-in-multiline="true"
           data-text-skeleton-size={size}
-          className={clsx(className, classes.SkeletonText)}
+          className={clsx(className, classes.SkeletonText, skeletonClasses.skeleton)}
+          style={{
+            height,
+            width,
+          }}
           {...rest}
         />
       ))}
