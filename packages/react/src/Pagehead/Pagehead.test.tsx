@@ -1,4 +1,5 @@
 import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {describe, expect, it} from 'vitest'
 import Pagehead from '../Pagehead'
 import {implementsClassName} from '../utils/testing'
@@ -13,7 +14,9 @@ describe('Pagehead', () => {
         Pagehead
       </Pagehead>,
     )
-    expect(container.firstChild).toHaveAttribute('data-testid', 'pagehead')
-    expect(container.firstChild).toHaveAttribute('data-component', 'Pagehead')
+    const pagehead = page.getByTestId('pagehead').element()
+    expect(pagehead).toBe(container.firstChild)
+    expect(pagehead).toHaveAttribute('data-testid', 'pagehead')
+    expect(pagehead).toHaveAttribute('data-component', 'Pagehead')
   })
 })

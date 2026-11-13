@@ -1,4 +1,5 @@
-import {render, fireEvent, waitFor} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
+import {render} from '@testing-library/react'
 import {afterEach, beforeEach, describe, it, expect, vi} from 'vitest'
 import type React from 'react'
 import {useCallback, useRef, useState} from 'react'
@@ -135,8 +136,8 @@ describe('ConfirmationDialog', () => {
     globalThis.ResizeObserver = originalResizeObserver
   })
 
-  it('renders data-component attribute', () => {
-    const {getByRole} = render(
+  it('renders data-component attribute', async () => {
+    render(
       <BaseStyles>
         <ConfirmationDialog title="Confirm" onClose={() => {}}>
           Test content
@@ -144,117 +145,117 @@ describe('ConfirmationDialog', () => {
       </BaseStyles>,
     )
 
-    expect(getByRole('alertdialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
+    await expect.element(page.getByRole('alertdialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
   })
 
   it('focuses the primary action when opened and the confirmButtonType is not set', async () => {
-    const {getByText, getByRole} = render(<Basic />)
-    fireEvent.click(getByText('Show dialog'))
-    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
-    expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
+    render(<Basic />)
+    await userEvent.click(page.getByText('Show dialog'))
+    await expect.element(page.getByRole('button', {name: 'Primary'})).toHaveFocus()
+    await expect.element(page.getByRole('button', {name: 'Secondary'})).not.toHaveFocus()
   })
 
   it('focuses the primary action when opened and the confirmButtonType is not danger', async () => {
-    const {getByText, getByRole} = render(<Basic confirmButtonType="primary" />)
-    fireEvent.click(getByText('Show dialog'))
-    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
-    expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
+    render(<Basic confirmButtonType="primary" />)
+    await userEvent.click(page.getByText('Show dialog'))
+    await expect.element(page.getByRole('button', {name: 'Primary'})).toHaveFocus()
+    await expect.element(page.getByRole('button', {name: 'Secondary'})).not.toHaveFocus()
   })
 
   it('focuses the secondary action when opened and the confirmButtonType is danger', async () => {
-    const {getByText, getByRole} = render(<Basic confirmButtonType="danger" />)
-    fireEvent.click(getByText('Show dialog'))
-    expect(getByRole('button', {name: 'Primary'})).not.toEqual(document.activeElement)
-    expect(getByRole('button', {name: 'Secondary'})).toEqual(document.activeElement)
+    render(<Basic confirmButtonType="danger" />)
+    await userEvent.click(page.getByText('Show dialog'))
+    await expect.element(page.getByRole('button', {name: 'Primary'})).not.toHaveFocus()
+    await expect.element(page.getByRole('button', {name: 'Secondary'})).toHaveFocus()
   })
 
   it('supports nested `focusTrap`s', async () => {
-    const {getByText, getByRole} = render(<ShorthandHookFromActionMenu />)
+    render(<ShorthandHookFromActionMenu />)
 
-    fireEvent.click(getByText('Show menu'))
-    fireEvent.click(getByText('Show dialog'))
+    await userEvent.click(page.getByText('Show menu'))
+    await userEvent.click(page.getByText('Show dialog'))
 
-    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
-    expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
+    await expect.element(page.getByRole('button', {name: 'Primary'})).toHaveFocus()
+    await expect.element(page.getByRole('button', {name: 'Secondary'})).not.toHaveFocus()
   })
 
   it('accepts a className prop', async () => {
     const testClassName = 'test-class-name'
-    const {getByText, getByRole} = render(<CustomProps className={testClassName} />)
+    render(<CustomProps className={testClassName} />)
 
-    fireEvent.click(getByText('Show dialog'))
+    await userEvent.click(page.getByText('Show dialog'))
 
-    const dialog = getByRole('alertdialog')
-    expect(dialog.classList.contains(testClassName)).toBe(true)
+    const dialog = page.getByRole('alertdialog')
+    await expect.element(dialog).toHaveClass(testClassName)
   })
 
   it('accepts a width prop', async () => {
-    const {getByText, getByRole} = render(<CustomProps width="large" />)
+    render(<CustomProps width="large" />)
 
-    fireEvent.click(getByText('Show dialog'))
+    await userEvent.click(page.getByText('Show dialog'))
 
-    const dialog = getByRole('alertdialog')
-    expect(dialog.getAttribute('data-width')).toBe('large')
+    const dialog = page.getByRole('alertdialog')
+    await expect.element(dialog).toHaveAttribute('data-width', 'large')
   })
 
   it('accepts a height prop', async () => {
-    const {getByText, getByRole} = render(<CustomProps height="small" />)
+    render(<CustomProps height="small" />)
 
-    fireEvent.click(getByText('Show dialog'))
+    await userEvent.click(page.getByText('Show dialog'))
 
-    const dialog = getByRole('alertdialog')
-    expect(dialog.getAttribute('data-height')).toBe('small')
+    const dialog = page.getByRole('alertdialog')
+    await expect.element(dialog).toHaveAttribute('data-height', 'small')
   })
 
   it('focuses the confirm button even when dangerous if initialButtonFocus is confirm', async () => {
-    const {getByText, getByRole} = render(<Basic confirmButtonType="danger" overrideButtonFocus="confirm" />)
+    render(<Basic confirmButtonType="danger" overrideButtonFocus="confirm" />)
 
-    fireEvent.click(getByText('Show dialog'))
+    await userEvent.click(page.getByText('Show dialog'))
 
-    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
-    expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
+    await expect.element(page.getByRole('button', {name: 'Primary'})).toHaveFocus()
+    await expect.element(page.getByRole('button', {name: 'Secondary'})).not.toHaveFocus()
   })
 
   describe('loading states', () => {
     it('applies loading state to confirm button when confirmButtonLoading is true', async () => {
-      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} />)
+      render(<LoadingStates confirmButtonLoading={true} />)
 
-      fireEvent.click(getByText('Show dialog'))
+      await userEvent.click(page.getByText('Show dialog'))
 
-      const confirmButton = getByRole('button', {name: 'Delete'})
-      const cancelButton = getByRole('button', {name: 'Cancel'})
+      const confirmButton = page.getByRole('button', {name: 'Delete'})
+      const cancelButton = page.getByRole('button', {name: 'Cancel'})
 
-      expect(confirmButton).toHaveAttribute('data-loading', 'true')
-      expect(cancelButton).not.toHaveAttribute('data-loading', 'true')
+      await expect.element(confirmButton).toHaveAttribute('data-loading', 'true')
+      await expect.element(cancelButton).not.toHaveAttribute('data-loading', 'true')
     })
 
     it('applies loading state to cancel button when cancelButtonLoading is true', async () => {
-      const {getByText, getByRole} = render(<LoadingStates cancelButtonLoading={true} />)
+      render(<LoadingStates cancelButtonLoading={true} />)
 
-      fireEvent.click(getByText('Show dialog'))
+      await userEvent.click(page.getByText('Show dialog'))
 
-      const confirmButton = getByRole('button', {name: 'Delete'})
-      const cancelButton = getByRole('button', {name: 'Cancel'})
+      const confirmButton = page.getByRole('button', {name: 'Delete'})
+      const cancelButton = page.getByRole('button', {name: 'Cancel'})
 
-      expect(cancelButton).toHaveAttribute('data-loading', 'true')
-      expect(confirmButton).not.toHaveAttribute('data-loading', 'true')
+      await expect.element(cancelButton).toHaveAttribute('data-loading', 'true')
+      await expect.element(confirmButton).not.toHaveAttribute('data-loading', 'true')
     })
 
     it('applies loading state to both buttons when both loading props are true', async () => {
-      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} cancelButtonLoading={true} />)
+      render(<LoadingStates confirmButtonLoading={true} cancelButtonLoading={true} />)
 
-      fireEvent.click(getByText('Show dialog'))
+      await userEvent.click(page.getByText('Show dialog'))
 
-      const confirmButton = getByRole('button', {name: 'Delete'})
-      const cancelButton = getByRole('button', {name: 'Cancel'})
+      const confirmButton = page.getByRole('button', {name: 'Delete'})
+      const cancelButton = page.getByRole('button', {name: 'Cancel'})
 
-      expect(confirmButton).toHaveAttribute('data-loading', 'true')
-      expect(cancelButton).toHaveAttribute('data-loading', 'true')
+      await expect.element(confirmButton).toHaveAttribute('data-loading', 'true')
+      await expect.element(cancelButton).toHaveAttribute('data-loading', 'true')
     })
 
     it('disables button clicks when button is loading', async () => {
       const mockOnClose = vi.fn()
-      const {getByRole} = render(
+      render(
         <BaseStyles>
           <ConfirmationDialog
             title="Confirm"
@@ -268,61 +269,61 @@ describe('ConfirmationDialog', () => {
         </BaseStyles>,
       )
 
-      const confirmButton = getByRole('button', {name: 'Delete'})
+      const confirmButton = page.getByRole('button', {name: 'Delete'})
 
-      fireEvent.click(confirmButton)
+      await userEvent.click(confirmButton, {force: true})
 
       // onClose should not be called when button is loading
       expect(mockOnClose).not.toHaveBeenCalled()
     })
 
     it('shows loading spinner in confirm button when loading', async () => {
-      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} />)
+      render(<LoadingStates confirmButtonLoading={true} />)
 
-      fireEvent.click(getByText('Show dialog'))
+      await userEvent.click(page.getByText('Show dialog'))
 
-      const confirmButton = getByRole('button', {name: 'Delete'})
+      const confirmButton = page.getByRole('button', {name: 'Delete'})
 
       // Check for loading spinner (Spinner component renders as an SVG)
-      const spinner = confirmButton.querySelector('svg')
-      expect(spinner).toBeInTheDocument()
-      expect(confirmButton.contains(spinner)).toBe(true)
+      const spinner = confirmButton.element().querySelector('svg')
+      await expect.element(spinner).toBeInTheDocument()
+      expect(confirmButton.element().contains(spinner)).toBe(true)
     })
 
     it('shows loading spinner in cancel button when loading', async () => {
-      const {getByText, getByRole} = render(<LoadingStates cancelButtonLoading={true} />)
+      render(<LoadingStates cancelButtonLoading={true} />)
 
-      fireEvent.click(getByText('Show dialog'))
+      await userEvent.click(page.getByText('Show dialog'))
 
-      const cancelButton = getByRole('button', {name: 'Cancel'})
+      const cancelButton = page.getByRole('button', {name: 'Cancel'})
 
       // Check for loading spinner in cancel button
-      const spinner = cancelButton.querySelector('svg')
-      expect(spinner).toBeInTheDocument()
-      expect(cancelButton.contains(spinner)).toBe(true)
+      const spinner = cancelButton.element().querySelector('svg')
+      await expect.element(spinner).toBeInTheDocument()
+      expect(cancelButton.element().contains(spinner)).toBe(true)
     })
 
     it('maintains proper focus management when confirm button is loading', async () => {
-      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} />)
+      render(<LoadingStates confirmButtonLoading={true} />)
 
-      fireEvent.click(getByText('Show dialog'))
+      await userEvent.click(page.getByText('Show dialog'))
 
-      const cancelButton = getByRole('button', {name: 'Cancel'})
+      const cancelButton = page.getByRole('button', {name: 'Cancel'})
 
       // When confirm button is loading and dangerous, focus should be on cancel button
-      expect(cancelButton).toEqual(document.activeElement)
+      await expect.element(cancelButton).toHaveFocus()
     })
 
     it('does not apply loading state when loading props are false', async () => {
-      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={false} cancelButtonLoading={false} />)
+      render(<LoadingStates confirmButtonLoading={false} cancelButtonLoading={false} />)
 
-      fireEvent.click(getByText('Show dialog'))
+      await userEvent.click(page.getByText('Show dialog'))
 
-      const confirmButton = getByRole('button', {name: 'Delete'})
-      const cancelButton = getByRole('button', {name: 'Cancel'})
+      const confirmButton = page.getByRole('button', {name: 'Delete'})
+      const cancelButton = page.getByRole('button', {name: 'Cancel'})
 
-      expect(confirmButton).not.toHaveAttribute('data-loading', 'true')
-      expect(cancelButton).not.toHaveAttribute('data-loading', 'true')
+      await expect.element(confirmButton).not.toHaveAttribute('data-loading', 'true')
+      await expect.element(cancelButton).not.toHaveAttribute('data-loading', 'true')
     })
   })
 
@@ -330,27 +331,27 @@ describe('ConfirmationDialog', () => {
 
   describe('useConfirm', () => {
     it('removes the host element from the document body when the dialog is closed', async () => {
-      const {getByText, getByRole} = render(<ShorthandHookFromActionMenu />)
+      render(<ShorthandHookFromActionMenu />)
 
-      fireEvent.click(getByText('Show menu'))
+      await userEvent.click(page.getByText('Show menu'))
 
       // Capture <body> children after the menu opens so we can reliably detect the confirm() host element
       const bodyChildrenBeforeDialog = Array.from(document.body.children)
 
-      fireEvent.click(getByText('Show dialog'))
+      await userEvent.click(page.getByText('Show dialog'))
 
-      expect(getByRole('alertdialog')).toBeInTheDocument()
+      await expect.element(page.getByRole('alertdialog')).toBeInTheDocument()
+      const dialogElement = page.getByRole('alertdialog').element()
 
       const hostElement = Array.from(document.body.children).find(el => !bodyChildrenBeforeDialog.includes(el))
       if (!hostElement) throw new Error('Expected confirm() to append a host element to <body>')
 
-      fireEvent.click(getByRole('button', {name: 'Secondary'}))
+      await userEvent.click(page.getByRole('button', {name: 'Secondary'}))
 
       // After closing, neither the dialog nor its host element should linger in the DOM
-      await waitFor(() => {
-        expect(document.querySelector('[role="alertdialog"]')).toBeNull()
-        expect(hostElement.isConnected).toBe(false)
-      })
+      await expect.element(page.getByRole('alertdialog')).not.toBeInTheDocument()
+      await expect.poll(() => dialogElement.isConnected).toBe(false)
+      await expect.poll(() => hostElement.isConnected).toBe(false)
     })
   })
 })
