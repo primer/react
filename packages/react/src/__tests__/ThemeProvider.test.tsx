@@ -1,5 +1,5 @@
-import {render, screen, waitFor} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import ThemeProvider from '../ThemeProvider'
@@ -30,17 +30,17 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 })
 
-it('defaults to light color scheme', () => {
+it('defaults to light color scheme', async () => {
   render(
     <ThemeProvider>
       <span style={{color: 'var(--fgColor-default)'}}>Hello</span>
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.light}`)
+  await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.light}`)
 })
 
-it('continues to provide legacy JavaScript theme values', () => {
+it('continues to provide legacy JavaScript theme values', async () => {
   function Consumer() {
     const {theme, resolvedColorScheme} = useTheme()
     return <span data-testid="theme">{String(theme !== undefined && resolvedColorScheme === 'light')}</span>
@@ -52,41 +52,41 @@ it('continues to provide legacy JavaScript theme values', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByTestId('theme')).toHaveTextContent('true')
+  await expect.element(page.getByTestId('theme')).toHaveTextContent('true')
 })
 
-it('defaults to dark color scheme in night mode', () => {
+it('defaults to dark color scheme in night mode', async () => {
   render(
     <ThemeProvider colorMode="night">
       <span style={{color: 'var(--fgColor-default)'}}>Hello</span>
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.dark}`)
+  await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
 })
 
-it('respects nightScheme prop', () => {
+it('respects nightScheme prop', async () => {
   render(
     <ThemeProvider colorMode="night" nightScheme="dark_dimmed">
       <span style={{color: 'var(--fgColor-default)'}}>Hello</span>
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.dark_dimmed}`)
+  await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark_dimmed}`)
 })
 
-it('works in auto mode', () => {
+it('works in auto mode', async () => {
   render(
     <ThemeProvider colorMode="auto">
       <span style={{color: 'var(--fgColor-default)'}}>Hello</span>
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(31, 35, 40)')
+  await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle('color: rgb(31, 35, 40)')
 })
 
 // TODO: need to wire up a prefers color scheme mock, vitest-matchmedia-mock?
-it.todo('works in auto mode (dark)', () => {
+it.todo('works in auto mode (dark)', async () => {
   const matchMediaSpy = vi.spyOn(window, 'matchMedia').mockImplementation(query => ({
     matches: true, // enable dark mode
     media: query,
@@ -104,14 +104,12 @@ it.todo('works in auto mode (dark)', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.dark}`)
+  await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
 
   matchMediaSpy.mockRestore()
 })
 
 it('updates when colorMode prop changes', async () => {
-  const user = userEvent.setup()
-
   function App() {
     const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
     return (
@@ -127,19 +125,15 @@ it('updates when colorMode prop changes', async () => {
   render(<App />)
 
   // starts in day mode (light scheme)
-  expect(screen.getByText('day')).toHaveStyle(`color: ${fgDefaultColors.light}`)
+  await expect.element(page.getByText('day', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.light}`)
 
-  await user.click(screen.getByRole('button'))
+  await userEvent.click(page.getByRole('button'))
 
-  await waitFor(() =>
-    // clicking the toggle button enables night mode (dark scheme)
-    expect(screen.getByText('night')).toHaveStyle(`color: ${fgDefaultColors.dark}`),
-  )
+  // clicking the toggle button enables night mode (dark scheme)
+  await expect.element(page.getByText('night', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
 })
 
 it('updates when dayScheme prop changes', async () => {
-  const user = userEvent.setup()
-
   function App() {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
@@ -155,19 +149,17 @@ it('updates when dayScheme prop changes', async () => {
   render(<App />)
 
   // starts in day mode (light scheme)
-  expect(screen.getByText('light')).toHaveStyle(`color: ${fgDefaultColors.light}`)
+  await expect.element(page.getByText('light', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.light}`)
 
-  await user.click(screen.getByRole('button'))
+  await userEvent.click(page.getByRole('button'))
 
-  await waitFor(() =>
-    // clicking the toggle sets the day scheme to light_high_contrast
-    expect(screen.getByText('light_high_contrast')).toHaveStyle(`color: ${fgDefaultColors.light_high_contrast}`),
-  )
+  // clicking the toggle sets the day scheme to light_high_contrast
+  await expect
+    .element(page.getByText('light_high_contrast', {exact: true}))
+    .toHaveStyle(`color: ${fgDefaultColors.light_high_contrast}`)
 })
 
 it('updates when nightScheme prop changes', async () => {
-  const user = userEvent.setup()
-
   function App() {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
@@ -183,19 +175,17 @@ it('updates when nightScheme prop changes', async () => {
   render(<App />)
 
   // starts in night mode (dark scheme)
-  expect(screen.getByText('dark')).toHaveStyle(`color: ${fgDefaultColors.dark}`)
+  await expect.element(page.getByText('dark', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
 
-  await user.click(screen.getByRole('button'))
+  await userEvent.click(page.getByRole('button'))
 
-  await waitFor(() =>
-    // clicking the toggle button sets the night scheme to dark_dimmed
-    expect(screen.getByText('dark_dimmed')).toHaveStyle(`color: ${fgDefaultColors.dark_dimmed}`),
-  )
+  // clicking the toggle button sets the night scheme to dark_dimmed
+  await expect
+    .element(page.getByText('dark_dimmed', {exact: true}))
+    .toHaveStyle(`color: ${fgDefaultColors.dark_dimmed}`)
 })
 
 it('inherits colorMode from parent', async () => {
-  const user = userEvent.setup()
-
   function App() {
     const [colorMode, setcolorMode] = React.useState<'day' | 'night'>('day')
     return (
@@ -212,16 +202,14 @@ it('inherits colorMode from parent', async () => {
 
   render(<App />)
 
-  expect(screen.getByText('day')).toHaveStyle(`color: ${fgDefaultColors.light}`)
+  await expect.element(page.getByText('day', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.light}`)
 
-  await user.click(screen.getByRole('button'))
+  await userEvent.click(page.getByRole('button'))
 
-  await waitFor(() => expect(screen.getByText('night')).toHaveStyle(`color: ${fgDefaultColors.dark}`))
+  await expect.element(page.getByText('night', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
 })
 
 it('inherits dayScheme from parent', async () => {
-  const user = userEvent.setup()
-
   function App() {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
@@ -238,18 +226,16 @@ it('inherits dayScheme from parent', async () => {
 
   render(<App />)
 
-  expect(screen.getByText('light')).toHaveStyle(`color: ${fgDefaultColors.light}`)
+  await expect.element(page.getByText('light', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.light}`)
 
-  await user.click(screen.getByRole('button'))
+  await userEvent.click(page.getByRole('button'))
 
-  await waitFor(() =>
-    expect(screen.getByText('light_high_contrast')).toHaveStyle(`color: ${fgDefaultColors.light_high_contrast}`),
-  )
+  await expect
+    .element(page.getByText('light_high_contrast', {exact: true}))
+    .toHaveStyle(`color: ${fgDefaultColors.light_high_contrast}`)
 })
 
 it('inherits nightScheme from parent', async () => {
-  const user = userEvent.setup()
-
   function App() {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
@@ -266,17 +252,17 @@ it('inherits nightScheme from parent', async () => {
 
   render(<App />)
 
-  expect(screen.getByText('dark')).toHaveStyle(`color: ${fgDefaultColors.dark}`)
+  await expect.element(page.getByText('dark', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
 
-  await user.click(screen.getByRole('button'))
+  await userEvent.click(page.getByRole('button'))
 
-  await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyle(`color: ${fgDefaultColors.dark_dimmed}`))
+  await expect
+    .element(page.getByText('dark_dimmed', {exact: true}))
+    .toHaveStyle(`color: ${fgDefaultColors.dark_dimmed}`)
 })
 
 describe('setColorMode', () => {
   it('changes the color mode', async () => {
-    const user = userEvent.setup()
-
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
       return (
@@ -294,19 +280,17 @@ describe('setColorMode', () => {
     )
 
     // starts in day mode (light scheme)
-    expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.light}`)
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.light}`)
 
-    await user.click(screen.getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
     // clicking the toggle button enables night mode (dark scheme)
-    expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.dark}`)
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
   })
 })
 
 describe('setDayScheme', () => {
   it('changes the day scheme', async () => {
-    const user = userEvent.setup()
-
     function ToggleDayScheme() {
       const {dayScheme, setDayScheme} = useTheme()
       return (
@@ -324,19 +308,17 @@ describe('setDayScheme', () => {
     )
 
     // starts in day mode (light scheme)
-    expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.light}`)
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.light}`)
 
-    await user.click(screen.getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
     // clicking the toggle button sets day scheme to dark
-    expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.dark}`)
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
   })
 })
 
 describe('setNightScheme', () => {
   it('changes the night scheme', async () => {
-    const user = userEvent.setup()
-
     function ToggleNightScheme() {
       const {nightScheme, setNightScheme} = useTheme()
       return (
@@ -354,19 +336,17 @@ describe('setNightScheme', () => {
     )
 
     // starts in night mode (dark scheme)
-    expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.dark}`)
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark}`)
 
-    await user.click(screen.getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
     // clicking the toggle button sets night scheme to dark_dimmed
-    expect(screen.getByText('Hello')).toHaveStyle(`color: ${fgDefaultColors.dark_dimmed}`)
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle(`color: ${fgDefaultColors.dark_dimmed}`)
   })
 })
 
 describe('useColorSchemeVar', () => {
   it('updates value when scheme changes', async () => {
-    const user = userEvent.setup()
-
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
       return (
@@ -396,16 +376,14 @@ describe('useColorSchemeVar', () => {
       </ThemeProvider>,
     )
 
-    expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(255, 0, 0)')
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle('background-color: rgb(255, 0, 0)')
 
-    await user.click(screen.getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
-    expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(0, 128, 0)')
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle('background-color: rgb(0, 128, 0)')
   })
 
   it('supports fallback value', async () => {
-    const user = userEvent.setup()
-
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
       return (
@@ -428,11 +406,11 @@ describe('useColorSchemeVar', () => {
       </ThemeProvider>,
     )
 
-    expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(255, 0, 0)')
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle('background-color: rgb(255, 0, 0)')
 
-    await user.click(screen.getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
-    expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(0, 0, 255)')
+    await expect.element(page.getByText('Hello', {exact: true})).toHaveStyle('background-color: rgb(0, 0, 255)')
   })
 })
 
@@ -445,7 +423,7 @@ describe('useTheme().resolvedColorScheme', () => {
 
     render(<Component />)
 
-    expect(screen.getByTestId('text').textContent).toEqual('')
+    expect(page.getByTestId('text').element().textContent).toEqual('')
   })
 
   it('is the same as the applied colorScheme when that colorScheme is in the theme', () => {
@@ -460,7 +438,7 @@ describe('useTheme().resolvedColorScheme', () => {
       </ThemeProvider>,
     )
 
-    expect(screen.getByTestId('text').textContent).toEqual('dark')
+    expect(page.getByTestId('text').element().textContent).toEqual('dark')
   })
 
   it('uses the fallback colorScheme when attempting to apply an invalid colorScheme', () => {
@@ -477,37 +455,37 @@ describe('useTheme().resolvedColorScheme', () => {
     )
 
     expect(spy).toHaveBeenCalledWith('`totally-invalid-colorscheme` scheme not defined in `theme.colorSchemes`')
-    expect(screen.getByTestId('text').textContent).toEqual('light')
+    expect(page.getByTestId('text').element().textContent).toEqual('light')
 
     spy.mockRestore()
   })
 })
 
 describe('contextOnly', () => {
-  it('renders a div with data-* attributes by default', () => {
+  it('renders a div with data-* attributes by default', async () => {
     const {container} = render(
       <ThemeProvider>
         <span>Hello</span>
       </ThemeProvider>,
     )
 
-    const div = container.querySelector('[data-color-mode]')
-    expect(div).toBeInTheDocument()
+    const div = container.querySelector<HTMLDivElement>('[data-color-mode]')
+    await expect.element(div).toBeInTheDocument()
     expect(div?.tagName).toBe('DIV')
-    expect(div).toHaveAttribute('data-component', 'ThemeProvider')
-    expect(div).toHaveAttribute('data-light-theme')
-    expect(div).toHaveAttribute('data-dark-theme')
+    await expect.element(div).toHaveAttribute('data-component', 'ThemeProvider')
+    await expect.element(div).toHaveAttribute('data-light-theme')
+    await expect.element(div).toHaveAttribute('data-dark-theme')
   })
 
-  it('does not render a div with data-* attributes when contextOnly is true', () => {
+  it('does not render a div with data-* attributes when contextOnly is true', async () => {
     const {container} = render(
       <ThemeProvider contextOnly>
         <span>Hello</span>
       </ThemeProvider>,
     )
 
-    const div = container.querySelector('[data-color-mode]')
-    expect(div).not.toBeInTheDocument()
+    const div = container.querySelector<HTMLDivElement>('[data-color-mode]')
+    await expect.element(div).not.toBeInTheDocument()
   })
 
   it('still provides theme context when contextOnly is true', () => {
@@ -526,6 +504,6 @@ describe('contextOnly', () => {
       </ThemeProvider>,
     )
 
-    expect(screen.getByTestId('consumer').textContent).toBe('night-light-dark_dimmed')
+    expect(page.getByTestId('consumer').element().textContent).toBe('night-light-dark_dimmed')
   })
 })

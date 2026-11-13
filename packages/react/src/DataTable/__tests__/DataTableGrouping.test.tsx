@@ -1,6 +1,5 @@
-import {render, renderHook, screen, within} from '@testing-library/react'
+import {act, render, renderHook, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {act} from 'react'
 import {hydrateRoot, type Root} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 import {describe, expect, it, vi} from 'vitest'
@@ -218,11 +217,11 @@ describe('DataTable grouping', () => {
     ])
     expect(result.current.bodies.map(body => body.key)).toEqual([
       'rows:start',
-      'group:5',
-      'group:public',
-      'rows:after:public',
-      'group:empty',
-      'rows:after:empty',
+      'group:number:5',
+      'group:string:public',
+      'rows:after:string:public',
+      'group:string:empty',
+      'rows:after:string:empty',
     ])
     expect(result.current.bodies.map(body => body.rows.length)).toEqual([2, 2, 2, 2, 0, 2])
     const rowHeaderIds: string[] = []
