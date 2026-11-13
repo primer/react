@@ -1,9 +1,9 @@
 import {page, userEvent} from 'vitest/browser'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
-import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
+import {render as HTMLRender, waitFor, act, within, fireEvent} from '@testing-library/react'
 import rtlUserEvent from '@testing-library/user-event'
 import type React from 'react'
-import {useRef, useState} from 'react'
+import {createRef, useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import {ActionMenu} from '.'
 import {ActionList} from '../ActionList'
@@ -21,6 +21,127 @@ import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
 import {createRenderCounter} from '../utils/testing/profiler'
 import {FeatureFlags} from '../FeatureFlags'
+import {
+  ActionMenu as ExperimentalActionMenu,
+  Tooltip as ExperimentalTooltip,
+} from '../experimental/TriggerComposition/TriggerComposition'
+
+describe('ActionMenu renderAnchor', () => {
+  const ActionMenu = ExperimentalActionMenu
+  const TooltipV2 = ExperimentalTooltip
+  it.each([false, true])('composes a tooltip and menu on one button with merged refs (flag: %s)', async mergedRefs => {
+    const anchorRef = createRef<HTMLElement>()
+    const tooltipRef = vi.fn()
+    const {unmount} = HTMLRender(
+      <FeatureFlags flags={{primer_react_merged_forwarded_refs: mergedRefs}}>
+        <ActionMenu
+          anchorRef={anchorRef}
+          renderAnchor={({ref, ...menuProps}) => (
+            <TooltipV2
+              ref={node => {
+                ref(node)
+                tooltipRef(node)
+              }}
+              text="Choose an action"
+              renderAnchor={tooltipProps => (
+                <IconButton
+                  {...menuProps}
+                  {...tooltipProps}
+                  icon={SearchIcon}
+                  aria-label="Actions"
+                  aria-labelledby={undefined}
+                />
+              )}
+            />
+          )}
+        >
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </FeatureFlags>,
+    )
+    const button = page.getByRole('button', {name: 'Actions', exact: true})
+    expect(document.querySelectorAll('button')).toHaveLength(1)
+    expect(anchorRef.current).toBe(button.element())
+    expect(tooltipRef).toHaveBeenLastCalledWith(button.element())
+    const description = button.element().getAttribute('aria-describedby')
+    expect(document.getElementById(description ?? '')).toHaveTextContent('Choose an action')
+    await expect.element(button).toHaveAttribute('aria-haspopup', 'true')
+
+    await userEvent.click(button)
+    await expect.element(button).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(page.getByRole('menuitem', {name: 'New file'})).toHaveFocus()
+    await userEvent.keyboard('{Escape}')
+    await expect.element(button).toHaveAttribute('aria-expanded', 'false')
+    await expect.element(button).toHaveFocus()
+
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(page.getByRole('menuitem', {name: 'New file'})).toHaveFocus()
+    unmount()
+    expect(anchorRef.current).toBeNull()
+    expect(tooltipRef).toHaveBeenLastCalledWith(null)
+  })
+
+  it('lets a custom trigger cancel opening before forwarding the event', async () => {
+    const onOpenChange = vi.fn()
+    const calls: string[] = []
+    HTMLRender(
+      <ActionMenu
+        onOpenChange={onOpenChange}
+        renderAnchor={props => (
+          <Button
+            {...props}
+            onClick={event => {
+              calls.push('consumer')
+              event.preventDefault()
+              props.onClick?.(event)
+              calls.push('forwarded')
+            }}
+            onKeyDown={event => {
+              event.preventDefault()
+              props.onKeyDown?.(event)
+            }}
+          >
+            Actions
+          </Button>
+        )}
+      >
+        <ActionMenu.Overlay>Menu contents</ActionMenu.Overlay>
+      </ActionMenu>,
+    )
+    const button = page.getByRole('button', {name: 'Actions', exact: true})
+    await userEvent.click(button)
+    expect(calls).toEqual(['consumer', 'forwarded'])
+    expect(onOpenChange).not.toHaveBeenCalled()
+    await userEvent.keyboard('{ArrowDown}')
+    expect(onOpenChange).not.toHaveBeenCalled()
+    await expect.element(button).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('preserves native disabled behavior for a custom trigger', async () => {
+    const onOpenChange = vi.fn()
+    HTMLRender(
+      <ActionMenu
+        onOpenChange={onOpenChange}
+        renderAnchor={props => (
+          <Button {...props} disabled>
+            Actions
+          </Button>
+        )}
+      >
+        <ActionMenu.Overlay>Menu contents</ActionMenu.Overlay>
+      </ActionMenu>,
+    )
+    const button = page.getByRole('button', {name: 'Actions', exact: true})
+    await expect.element(button).toBeDisabled()
+    fireEvent.click(button.element())
+    expect(onOpenChange).not.toHaveBeenCalled()
+    await expect.element(button).toHaveAttribute('aria-expanded', 'false')
+  })
+})
 
 // Mock getAnchoredPosition for feature flag tests
 vi.mock('@primer/behaviors', async () => {

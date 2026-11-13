@@ -406,17 +406,19 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   return (
     <>
       {renderAnchor &&
-        // eslint-disable-next-line react-hooks/refs
-        renderAnchor({
-          ref: anchorRef,
-          id: anchorId,
-          'aria-haspopup': 'true',
-          'aria-expanded': open,
-          tabIndex: 0,
-          onClick: onAnchorClick,
-          onKeyDown: onAnchorKeyDown,
-          ...popoverTargetProps,
-        })}
+        renderAnchor(
+          // eslint-disable-next-line react-hooks/refs -- the callback forwards the object ref to an element
+          {
+            ref: anchorRef,
+            id: anchorId,
+            'aria-haspopup': 'true',
+            'aria-expanded': open,
+            tabIndex: 0,
+            onClick: onAnchorClick,
+            onKeyDown: onAnchorKeyDown,
+            ...popoverTargetProps,
+          },
+        )}
       {open ? (
         <Overlay
           returnFocusRef={anchorRef}

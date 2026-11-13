@@ -4,7 +4,7 @@ import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
@@ -20,6 +20,8 @@ import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 import {DialogContext} from '../Dialog/DialogContext'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import type {AnchorRenderProps} from '../internal/components/RenderAnchor'
+import {invariant} from '../utils/invariant'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -31,6 +33,7 @@ export type MenuContextProps = Pick<
 > & {
   onClose?: MenuCloseHandler
   isSubmenu?: boolean
+  isCustomAnchor?: boolean
 }
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
@@ -81,12 +84,15 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
   return mergedAnchorProps
 }
 
-const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
+type ActionMenuImplProps = ActionMenuProps & {renderAnchor?: (props: AnchorRenderProps) => React.ReactElement}
+
+export const ActionMenuImpl: FCWithSlotMarker<React.PropsWithChildren<ActionMenuImplProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
   children,
-}: ActionMenuProps) => {
+  renderAnchor: customRenderAnchor,
+}: ActionMenuImplProps) => {
   const parentMenuContext = useContext(MenuContext)
 
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
@@ -114,15 +120,37 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       (child.type === MenuButton || child.type === Anchor || isSlot(child, Anchor) || isSlot(child, MenuButton)),
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
+  const hasTooltipAnchor =
+    customRenderAnchor &&
+    React.Children.toArray(children).some(
+      child =>
+        React.isValidElement(child) &&
+        (child.type === Tooltip || isSlot(child, Tooltip)) &&
+        React.isValidElement(child.props.children) &&
+        (child.props.children.type === MenuButton || isSlot(child.props.children, MenuButton)),
+    )
+  invariant(
+    !customRenderAnchor || (!menuButtonChild && !hasTooltipAnchor),
+    'Pass either `renderAnchor` or `ActionMenu.Button`/`ActionMenu.Anchor`, not both.',
+  )
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const callbackAnchorRef = useMergedRefs(anchorRef, undefined)
   const anchorId = useId(menuButtonChildId)
-  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
+  const renderCustomAnchor = useMemo(
+    () =>
+      customRenderAnchor
+        ? (props: React.HTMLAttributes<HTMLElement>) => customRenderAnchor({...props, ref: callbackAnchorRef})
+        : null,
+    [customRenderAnchor, callbackAnchorRef],
+  )
+  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = renderCustomAnchor
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
   // with additional props for accessibility
   // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
+    if (customRenderAnchor) return child
     // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger (ActionMenu.Button's grandchild)
     if (child.type === Tooltip || isSlot(child, Tooltip)) {
       // tooltip trigger
@@ -184,8 +212,9 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       onOpen,
       onClose,
       isSubmenu,
+      isCustomAnchor: Boolean(customRenderAnchor),
     }),
-    [anchorRef, renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu],
+    [anchorRef, renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu, customRenderAnchor],
   )
 
   return <MenuContext.Provider value={menuContextValue}>{contents}</MenuContext.Provider>
@@ -295,6 +324,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     onOpen,
     onClose,
     isSubmenu = false,
+    isCustomAnchor = false,
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -326,10 +356,12 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
   useLayoutEffect(() => {
     if (open) {
-      setAnchorAriaLabelledby(anchorRef.current?.getAttribute('aria-labelledby') ?? null)
+      setAnchorAriaLabelledby(
+        anchorRef.current?.getAttribute('aria-labelledby') || (isCustomAnchor ? anchorRef.current?.id : null) || null,
+      )
       setAnchorLabelReady(true)
     }
-  }, [anchorRef, open])
+  }, [anchorRef, open, isCustomAnchor])
 
   const afterSelect = useCallback(() => onClose?.('item-select'), [onClose])
 
@@ -381,6 +413,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   )
 }
 
+const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ActionMenuImpl
 Menu.displayName = 'ActionMenu'
 
 MenuButton.__SLOT__ = Symbol('ActionMenu.Button')

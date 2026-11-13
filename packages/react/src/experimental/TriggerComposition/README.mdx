@@ -1,0 +1,118 @@
+import {Meta} from '@storybook/addon-docs/blocks'
+
+<Meta title="Experimental/Trigger composition" />
+
+# Experimental trigger composition
+
+The `@primer/react/experimental` versions of `ActionMenu`, `AnchoredOverlay`, and
+`Tooltip` accept an element in `renderAnchor`. Like
+[Base UI's render prop](https://base-ui.com/react/handbook/composition), this
+composes behaviors onto one interactive element, automatically merging props and
+refs. It does not add a DOM wrapper or require separate Root/Trigger components.
+
+The stable exports remain unchanged. The experimental `Tooltip` also accepts
+children, with trigger-directed HTML props and separate `popupProps`, and configured `ActionMenu.Button`/`ActionMenu.Anchor`
+usage remains supported. `SelectPanel` is not part of this experiment.
+
+## Menu and tooltip
+
+```tsx
+import {ActionList, Button} from '@primer/react'
+import {ActionMenu, Tooltip} from '@primer/react/experimental'
+;<ActionMenu
+  renderAnchor={
+    <Tooltip text="Choose owner" renderAnchor={<Button onClick={event => event.stopPropagation()}>Owner</Button>} />
+  }
+>
+  <ActionMenu.Overlay>
+    <ActionList>
+      <ActionList.Item>Assign me</ActionList.Item>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
+```
+
+The button's handler and menu's toggle both run. The caller does not extract a
+ref, forward an internal handler, or merge tooltip description IDs. An existing
+button ref continues to receive that same button, alongside the behaviors' refs.
+
+Configured menus already render one native button, too. The benefit is not fewer
+DOM nodes: element rendering removes the need for the menu to recognize specific
+tooltip/anchor nesting patterns, and gives composed behaviors a consistent
+prop-merging contract.
+
+## Direct overlay and tooltip
+
+```tsx
+import {IconButton} from '@primer/react'
+import {AnchoredOverlay, Tooltip} from '@primer/react/experimental'
+import {InfoIcon} from '@primer/octicons-react'
+;<AnchoredOverlay
+  open={open}
+  onOpen={() => setOpen(true)}
+  onClose={() => setOpen(false)}
+  renderAnchor={
+    <Tooltip
+      text="Message details"
+      type="description"
+      renderAnchor={<IconButton icon={InfoIcon} aria-label="View message info" />}
+    />
+  }
+>
+  {children}
+</AnchoredOverlay>
+```
+
+The overlay and tooltip use the same DOM anchor for positioning, outside-click
+handling, and focus return. No broad object ref needs to be spread into a more
+narrowly typed button ref. This does not introduce an independent focus-return
+target or change overlay state management.
+
+## Element merging contract
+
+- **Refs:** All behavior, forwarded, and render-element refs receive the same DOM
+  node; React 19 cleanup functions are preserved.
+- **Event handlers:** The render element's handler runs first, followed by
+  supplied handlers unless `defaultPrevented`. `stopPropagation()` does not
+  cancel the internal handler.
+- **Classes:** Both `className` values are combined, render element first.
+- **Styles:** Shallow merge; the render element's values win.
+- **ARIA relationships:** `aria-labelledby` and `aria-describedby` ID lists are
+  combined, render element first, removing duplicates. An omitted or undefined
+  relationship does not erase another behavior's IDs.
+- **Other attributes:** The render element's value wins, including `id`. Menu
+  labelling follows the actual anchor's ID or label relationship.
+
+Two deliberate differences from Base UI apply: Primer uses the existing
+`preventDefault()` cancellation convention rather than adding
+`preventBaseUIHandler()`, and preserves ARIA ID lists rather than overwriting
+them. Element-first event ordering is an intentional exception to Primer's
+usual component-first prop-merging convention for this experiment.
+
+See the [experimental Tooltip documentation](?path=/docs/experimental-components-tooltip--docs)
+for tooltip attribute routing and accessible naming.
+
+## Responsibilities and escape hatches
+
+- Use `renderAnchor` or a configured menu anchor, not both. Similarly, provide
+  either Tooltip children or `renderAnchor`. Never nest native buttons.
+- Custom render elements must forward their ref and received trigger props to
+  the interactive DOM element, not a wrapper or imperative handle.
+- Disabled behavior is not a generic boolean merge. Configure the actual
+  rendered control using its normal `disabled` or `inactive` API. Native disabled
+  controls cannot open the overlay or tooltip. `aria-disabled` controls cannot
+  activate the overlay but remain focusable for an explanatory tooltip; Tab is
+  not cancelled. Tooltip's own `disabled` prop suppresses only the tooltip;
+  it never disables the rendered control. Set `disabled` on the render element
+  itself to disable that control.
+- Manage controlled open state normally. Composing triggers does not arbitrate
+  between independently controlled menus, dialogs, or overlays.
+
+Function-valued `renderAnchor` remains an escape hatch. It receives the supplied
+props and ref, but the caller owns how those props are applied and merged with
+the returned element's props. Spread order alone cannot preserve overlapping
+handlers or ARIA IDs. Do not call hooks inside render callbacks; render a
+component when hooks are needed.
+
+The original `AnchoredOverlay` callback still receives one argument with its
+original runtime object ref. There is no new second-argument ref context.
