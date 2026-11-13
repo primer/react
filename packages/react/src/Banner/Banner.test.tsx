@@ -247,12 +247,15 @@ describe('Banner', () => {
     rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
     await expect.element(page.getByTestId('icon')).toBeInTheDocument()
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="critical" icon={<CustomIcon />} />)
     await expect.element(page.getByTestId('icon')).not.toBeInTheDocument()
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="success" icon={<CustomIcon />} />)
     await expect.element(page.getByTestId('icon')).not.toBeInTheDocument()
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)
     await expect.element(page.getByTestId('icon')).not.toBeInTheDocument()
   })
@@ -267,12 +270,15 @@ describe('Banner', () => {
     rerender(<Banner title="test" description="test-description" variant="upsell" leadingVisual={<CustomIcon />} />)
     await expect.element(page.getByTestId('leading-visual')).toBeInTheDocument()
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="critical" leadingVisual={<CustomIcon />} />)
     await expect.element(page.getByTestId('leading-visual')).not.toBeInTheDocument()
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="success" leadingVisual={<CustomIcon />} />)
     await expect.element(page.getByTestId('leading-visual')).not.toBeInTheDocument()
 
+    // @ts-expect-error unsupported variant used to verify runtime fallback behavior
     rerender(<Banner title="test" description="test-description" variant="warning" leadingVisual={<CustomIcon />} />)
     await expect.element(page.getByTestId('leading-visual')).not.toBeInTheDocument()
   })
