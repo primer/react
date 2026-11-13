@@ -8,6 +8,7 @@ import {Button} from '../Button'
 import type React from 'react'
 import {useCallback, useMemo, type JSX} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
+import type {AnchoredOverlayAnchorContext} from '../AnchoredOverlay'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import type {OverlayProps} from '../Overlay'
 import {useProvidedRefOrCreate} from '../hooks'
@@ -68,12 +69,15 @@ const ActionMenuBase = ({
     if (renderAnchor === null) {
       return null
     }
-    return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
-      return renderAnchor({
-        'aria-label': 'menu',
-        children: anchorContent,
-        ...props,
-      })
+    return <T extends React.HTMLAttributes<HTMLElement>>(props: T, context: AnchoredOverlayAnchorContext) => {
+      return renderAnchor(
+        {
+          'aria-label': 'menu',
+          children: anchorContent,
+          ...props,
+        },
+        context,
+      )
     }
   }, [anchorContent, renderAnchor])
 

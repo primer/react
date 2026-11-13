@@ -85,9 +85,14 @@ export type {
   ActionListTrailingVisualProps,
 } from './ActionList'
 export {ActionMenu} from './ActionMenu'
-export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
+export type {
+  ActionMenuProps,
+  ActionMenuAnchorProps,
+  ActionMenuButtonProps,
+  ActionMenuAnchorRenderProps,
+} from './ActionMenu'
 export {AnchoredOverlay} from './AnchoredOverlay'
-export type {AnchoredOverlayProps} from './AnchoredOverlay'
+export type {AnchoredOverlayProps, AnchoredOverlayAnchorContext} from './AnchoredOverlay'
 export {default as Autocomplete} from './Autocomplete'
 export type {AutocompleteMenuProps, AutocompleteInputProps, AutocompleteOverlayProps} from './Autocomplete'
 export {default as Avatar} from './Avatar'
@@ -209,7 +214,7 @@ export type {
 export {default as Token, IssueLabelToken} from './Token'
 export type {TokenProps, IssueLabelTokenProps} from './Token'
 export {Tooltip} from './TooltipV2'
-export type {TooltipProps} from './TooltipV2'
+export type {TooltipProps, TooltipAnchorProps} from './TooltipV2'
 export {default as Truncate} from './Truncate'
 export type {TruncateProps} from './Truncate'
 

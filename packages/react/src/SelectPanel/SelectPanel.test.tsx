@@ -6,7 +6,8 @@ import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProp
 import {FeatureFlags} from '../FeatureFlags'
 import type {InitialLoadingType} from './SelectPanel'
 import type {LiveRegionElement} from '@primer/live-region-element'
-import {IconButton} from '../Button'
+import {Button, IconButton} from '../Button'
+import {Tooltip} from '../TooltipV2'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import classes from './SelectPanel.test.module.css'
 import {implementsClassName} from '../utils/testing'
@@ -98,6 +99,37 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
 }
 
 globalThis.Element.prototype.scrollTo = vi.fn()
+
+describe('SelectPanel renderAnchor context', () => {
+  it('forwards the unchanged object ref so a tooltip can compose with its trigger', async () => {
+    const anchorRef = React.createRef<HTMLElement>()
+    const renderAnchor = vi.fn<NonNullable<SelectPanelProps['renderAnchor']>>((props, {ref}) => (
+      <Tooltip
+        ref={ref}
+        text="Choose items"
+        renderAnchor={tooltipProps => (
+          <Button {...props} {...tooltipProps}>
+            Select items
+          </Button>
+        )}
+      />
+    ))
+    const {unmount} = render(<BasicSelectPanel anchorRef={anchorRef} renderAnchor={renderAnchor} />)
+    const button = page.getByRole('button', {name: 'Select items', exact: true})
+    expect(renderAnchor.mock.calls[0][1].ref).toBe(anchorRef)
+    expect(anchorRef.current).toBe(button.element())
+    const description = button.element().getAttribute('aria-describedby')
+    expect(document.getElementById(description ?? '')).toHaveTextContent('Choose items')
+    expect(document.querySelectorAll('button')).toHaveLength(1)
+    await userEvent.click(button)
+    await expect.element(button).toHaveAttribute('aria-expanded', 'true')
+    await userEvent.keyboard('{Escape}')
+    await expect.element(button).toHaveAttribute('aria-expanded', 'false')
+    await expect.element(button).toHaveFocus()
+    unmount()
+    expect(anchorRef.current).toBeNull()
+  })
+})
 
 describe('SelectPanel state synchronization', () => {
   const synchronizedItems: ItemInput[] = [

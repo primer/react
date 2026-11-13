@@ -36,6 +36,11 @@
   ],
   "props": [
     {
+      "name": "renderAnchor",
+      "type": "(props: TooltipAnchorProps) => React.ReactElement",
+      "description": "Render a single interactive trigger instead of children. Forward every supplied prop, including the callback ref, to that element. Tooltip combines its internal ref with any forwarded ref."
+    },
+    {
       "name": "direction",
       "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
       "defaultValue": "s",

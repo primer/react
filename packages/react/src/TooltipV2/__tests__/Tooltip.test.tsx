@@ -6,15 +6,17 @@ import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
+import {AnchoredOverlay} from '../../AnchoredOverlay'
 import {ActionList} from '../../ActionList'
 import ButtonGroup from '../../ButtonGroup'
 import {XIcon} from '@primer/octicons-react'
 import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
-import {createRef, forwardRef, useImperativeHandle} from 'react'
+import {createRef, forwardRef, useImperativeHandle, useState} from 'react'
 import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName, withExpectedConsoleError, withExpectedConsoleWarning} from '../../utils/testing'
+import {page, userEvent} from 'vitest/browser'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -59,6 +61,80 @@ function ExampleWithActionMenu({actionMenuTrigger}: {actionMenuTrigger: React.Re
 }
 
 describe('Tooltip', () => {
+  it('composes a tooltip with a popover anchor on a single element', async () => {
+    function Example() {
+      const [open, setOpen] = useState(false)
+      return (
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAnchor={(anchorProps, {ref}) => (
+            <Tooltip
+              ref={ref}
+              text="Show page details"
+              renderAnchor={tooltipProps => (
+                <Button {...anchorProps} {...tooltipProps}>
+                  Pages
+                </Button>
+              )}
+            />
+          )}
+        >
+          <Button onClick={() => setOpen(false)}>Close details</Button>
+        </AnchoredOverlay>
+      )
+    }
+
+    HTMLRender(<Example />)
+    const button = page.getByRole('button', {name: 'Pages', exact: true})
+    expect(document.querySelectorAll('button')).toHaveLength(1)
+    await userEvent.click(button)
+    await expect.element(button).toHaveAttribute('aria-expanded', 'true')
+    const close = page.getByRole('button', {name: 'Close details', exact: true})
+    await expect.element(close).toHaveFocus()
+    await userEvent.click(close)
+    await expect.element(button).toHaveAttribute('aria-expanded', 'false')
+    await expect.element(button).toHaveFocus()
+  })
+
+  it('renders and labels a custom trigger with a callback ref without requiring a feature flag', async () => {
+    const ref = createRef<HTMLElement>()
+    const {unmount} = HTMLRender(
+      <Tooltip ref={ref} text="Close" type="label" renderAnchor={props => <button {...props} type="button" />} />,
+    )
+    const button = page.getByRole('button', {name: 'Close', exact: true})
+    expect(ref.current).toBe(button.element())
+    const label = button.element().getAttribute('aria-labelledby')
+    expect(document.getElementById(label ?? '')).toHaveTextContent('Close')
+    await userEvent.tab()
+    await expect.element(button).toHaveFocus()
+    await expect.poll(() => document.getElementById(label ?? '')?.matches(':popover-open')).toBe(true)
+    await userEvent.keyboard('{Escape}')
+    await expect.poll(() => document.getElementById(label ?? '')?.matches(':popover-open')).toBe(false)
+    unmount()
+    expect(ref.current).toBeNull()
+  })
+
+  it('rejects children together with renderAnchor', () => {
+    withExpectedConsoleError(() => {
+      expect(() =>
+        HTMLRender(
+          <Tooltip
+            text="Description"
+            renderAnchor={props => (
+              <button {...props} type="button">
+                Custom
+              </button>
+            )}
+          >
+            <Button>Child</Button>
+          </Tooltip>,
+        ),
+      ).toThrow('Pass either `children` or `renderAnchor` to `Tooltip`, not both.')
+    })
+  })
+
   implementsClassName(TooltipComponent, classes.Tooltip)
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)

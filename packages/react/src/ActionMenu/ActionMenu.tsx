@@ -4,7 +4,7 @@ import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
@@ -36,6 +36,11 @@ const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, o
 
 export type ActionMenuProps = {
   /**
+   * Render a custom trigger instead of ActionMenu.Button or ActionMenu.Anchor.
+   * Forward all supplied props, including ref, to a single interactive element.
+   */
+  renderAnchor?: (props: ActionMenuAnchorRenderProps) => React.ReactElement
+  /**
    * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,6 +56,10 @@ export type ActionMenuProps = {
    */
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
+
+export type ActionMenuAnchorRenderProps = Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'> & {
+  ref: React.RefCallback<HTMLElement>
+}
 
 // anchorProps adds onClick and onKeyDown, so we need to merge them with buttonProps
 const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, buttonProps: ButtonProps) => {
@@ -86,6 +95,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   open,
   onOpenChange,
   children,
+  renderAnchor: customRenderAnchor,
 }: ActionMenuProps) => {
   const parentMenuContext = useContext(MenuContext)
 
@@ -116,13 +126,22 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const callbackAnchorRef = useMergedRefs(anchorRef, undefined)
   const anchorId = useId(menuButtonChildId)
-  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
+  const renderCustomAnchor = useMemo(
+    () =>
+      customRenderAnchor
+        ? (props: React.HTMLAttributes<HTMLElement>) => customRenderAnchor({...props, ref: callbackAnchorRef})
+        : null,
+    [customRenderAnchor, callbackAnchorRef],
+  )
+  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = renderCustomAnchor
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
   // with additional props for accessibility
   // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
+    if (customRenderAnchor) return child
     // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger (ActionMenu.Button's grandchild)
     if (child.type === Tooltip || isSlot(child, Tooltip)) {
       // tooltip trigger

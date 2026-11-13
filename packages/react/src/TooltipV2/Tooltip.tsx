@@ -18,6 +18,11 @@ import {reactMajorVersion} from '../utils/environment'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
+  /**
+   * Render a single interactive trigger instead of passing children.
+   * Forward all supplied props, including ref, to that element.
+   */
+  renderAnchor?: (props: TooltipAnchorProps) => React.ReactElement
   direction?: TooltipDirection
   text: string
   type?: 'label' | 'description'
@@ -42,19 +47,8 @@ export type TooltipProps = React.PropsWithChildren<{
 }> &
   React.HTMLAttributes<HTMLElement>
 
-type TriggerPropsType = Pick<
-  React.HTMLAttributes<HTMLElement>,
-  | 'aria-describedby'
-  | 'aria-labelledby'
-  | 'onBlur'
-  | 'onTouchEnd'
-  | 'onFocus'
-  | 'onMouseOverCapture'
-  | 'onMouseLeave'
-  | 'onTouchCancel'
-  | 'onTouchEnd'
-> & {
-  ref?: React.Ref<HTMLElement>
+export type TooltipAnchorProps = React.HTMLAttributes<HTMLElement> & {
+  ref: React.RefCallback<HTMLElement>
 }
 
 // map tooltip direction to anchoredPosition props
@@ -117,6 +111,7 @@ export const Tooltip: ForwardRefExoticComponent<
       text,
       type = 'description',
       children,
+      renderAnchor,
       id,
       className,
       keybindingHint = emptyKeybindingHints,
@@ -127,7 +122,8 @@ export const Tooltip: ForwardRefExoticComponent<
     forwardedRef,
   ) => {
     const tooltipId = useId(id)
-    const child = Children.only(children)
+    invariant(!renderAnchor || children == null, 'Pass either `children` or `renderAnchor` to `Tooltip`, not both.')
+    const child = renderAnchor ? undefined : Children.only(children)
     const isFragmentTrigger = React.isValidElement(child) && child.type === React.Fragment
     warning(
       isFragmentTrigger,
@@ -142,8 +138,8 @@ export const Tooltip: ForwardRefExoticComponent<
     // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
     // At graduation: remove the three declarations below, and replace all instances of `readTriggerRef` with `triggerRef` and `appliedTriggerRef` with `mergedTriggerRef`.
     const providedOrCreatedRef = useProvidedRefOrCreate((forwardedRef ?? childRef) as React.RefObject<HTMLElement>)
-    const readTriggerRef = mergedRefEnabled ? triggerRef : providedOrCreatedRef
-    const appliedTriggerRef = mergedRefEnabled ? mergedTriggerRef : providedOrCreatedRef
+    const readTriggerRef = renderAnchor || mergedRefEnabled ? triggerRef : providedOrCreatedRef
+    const appliedTriggerRef = renderAnchor || mergedRefEnabled ? mergedTriggerRef : providedOrCreatedRef
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
@@ -235,6 +231,8 @@ export const Tooltip: ForwardRefExoticComponent<
     const value = useMemo(() => ({tooltipId}), [tooltipId])
 
     useEffect(() => {
+      // The renderAnchor path intentionally selects the internal ref used by this effect.
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (!tooltipElRef.current || !readTriggerRef.current) return
       const trigger = readTriggerRef.current
       const isInvalidTrigger = !(trigger instanceof HTMLElement)
@@ -242,6 +240,7 @@ export const Tooltip: ForwardRefExoticComponent<
         isInvalidTrigger,
         'The `Tooltip` component expects its trigger ref to resolve to an HTML element. Ensure the trigger forwards its ref to a single interactive element instead of a React Fragment.',
       )
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (isInvalidTrigger) return
       /*
        * ACCESSIBILITY CHECKS
@@ -307,72 +306,76 @@ export const Tooltip: ForwardRefExoticComponent<
 
     if (isFragmentTrigger) return child
 
+    const triggerProps: React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLElement> = {
+      // @ts-expect-error the provided-or-created ref path needs a non nullable ref
+      ref: appliedTriggerRef,
+      // If it is a type description, we use tooltip to describe the trigger
+      'aria-describedby': (() => {
+        // If tooltip is not a description type, keep the original aria-describedby
+        if (type !== 'description') {
+          return elementChild?.props['aria-describedby']
+        }
+
+        // If tooltip is a description type, append our tooltipId
+        const existingDescribedBy = elementChild?.props['aria-describedby']
+        if (existingDescribedBy) {
+          return `${existingDescribedBy} ${tooltipId}`
+        }
+
+        // If no existing aria-describedby, use our tooltipId
+        return tooltipId
+      })(),
+      // If it is a label type, we use tooltip to label the trigger
+      'aria-labelledby': type === 'label' ? tooltipId : elementChild?.props['aria-labelledby'],
+      onBlur: (event: React.FocusEvent) => {
+        closeTooltip()
+        elementChild?.props.onBlur?.(event)
+      },
+      onTouchEnd: (event: React.TouchEvent) => {
+        elementChild?.props.onTouchEnd?.(event)
+
+        // Hide tooltips on tap to essentially disable them on touch devices;
+        // this still allows viewing the tooltip on tap-and-hold
+        safeSetTimeout(() => closeTooltip(), 10)
+      },
+      onFocus: (event: React.FocusEvent) => {
+        // only show tooltip on :focus-visible, not on :focus
+        try {
+          if (!event.target.matches(':focus-visible')) return
+        } catch (_error) {
+          // jsdom (jest) does not support `:focus-visible` yet and would throw an error
+          // https://github.com/jsdom/jsdom/issues/3426
+        }
+
+        openTooltip()
+        elementChild?.props.onFocus?.(event)
+      },
+      onMouseOverCapture: (event: React.MouseEvent) => {
+        const delayTime = delayTimeMap[delay] || 50
+        // We use a `capture` event to ensure this is called first before
+        // events that might cancel the opening timeout (like `onTouchEnd`)
+        // show tooltip after mouse has been hovering for the specified delay time
+        // (prevent showing tooltip when mouse is just passing through)
+        openTimeoutRef.current = safeSetTimeout(() => {
+          // if the mouse is already moved out, do not show the tooltip
+          if (!openTimeoutRef.current) return
+          openTooltip()
+          elementChild?.props.onMouseEnter?.(event)
+        }, delayTime)
+      },
+      onMouseLeave: (event: React.MouseEvent) => {
+        closeTooltip()
+        elementChild?.props.onMouseLeave?.(event)
+      },
+    }
+
     return (
       <TooltipContext.Provider value={value}>
         <>
-          {React.isValidElement(child) &&
-            React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              // @ts-expect-error the provided-or-created ref path needs a non nullable ref
-              ref: appliedTriggerRef,
-              // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': (() => {
-                // If tooltip is not a description type, keep the original aria-describedby
-                if (type !== 'description') {
-                  return child.props['aria-describedby']
-                }
-
-                // If tooltip is a description type, append our tooltipId
-                const existingDescribedBy = child.props['aria-describedby']
-                if (existingDescribedBy) {
-                  return `${existingDescribedBy} ${tooltipId}`
-                }
-
-                // If no existing aria-describedby, use our tooltipId
-                return tooltipId
-              })(),
-              // If it is a label type, we use tooltip to label the trigger
-              'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
-              onBlur: (event: React.FocusEvent) => {
-                closeTooltip()
-                child.props.onBlur?.(event)
-              },
-              onTouchEnd: (event: React.TouchEvent) => {
-                child.props.onTouchEnd?.(event)
-
-                // Hide tooltips on tap to essentially disable them on touch devices;
-                // this still allows viewing the tooltip on tap-and-hold
-                safeSetTimeout(() => closeTooltip(), 10)
-              },
-              onFocus: (event: React.FocusEvent) => {
-                // only show tooltip on :focus-visible, not on :focus
-                try {
-                  if (!event.target.matches(':focus-visible')) return
-                } catch (_error) {
-                  // jsdom (jest) does not support `:focus-visible` yet and would throw an error
-                  // https://github.com/jsdom/jsdom/issues/3426
-                }
-
-                openTooltip()
-                child.props.onFocus?.(event)
-              },
-              onMouseOverCapture: (event: React.MouseEvent) => {
-                const delayTime = delayTimeMap[delay] || 50
-                // We use a `capture` event to ensure this is called first before
-                // events that might cancel the opening timeout (like `onTouchEnd`)
-                // show tooltip after mouse has been hovering for the specified delay time
-                // (prevent showing tooltip when mouse is just passing through)
-                openTimeoutRef.current = safeSetTimeout(() => {
-                  // if the mouse is already moved out, do not show the tooltip
-                  if (!openTimeoutRef.current) return
-                  openTooltip()
-                  child.props.onMouseEnter?.(event)
-                }, delayTime)
-              },
-              onMouseLeave: (event: React.MouseEvent) => {
-                closeTooltip()
-                child.props.onMouseLeave?.(event)
-              },
-            })}
+          {renderAnchor
+            ? renderAnchor({...triggerProps, ref: mergedTriggerRef})
+            : React.isValidElement(child) &&
+              React.cloneElement(child as React.ReactElement<typeof triggerProps>, triggerProps)}
           <span
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
