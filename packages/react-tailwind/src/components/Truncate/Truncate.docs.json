@@ -1,0 +1,81 @@
+{
+  "id": "truncate",
+  "name": "Truncate",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Truncate",
+  "description": "`Truncate` applies single-line overflow truncation while preserving the full value in the native `title` tooltip.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-truncate-examples--navigation-label"
+    },
+    {
+      "id": "react-tailwind-display-truncate-examples--custom-content"
+    },
+    {
+      "id": "react-tailwind-display-truncate-examples--narrow-container"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--expandable"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--inline"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--max-width"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--overflow"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--custom-element"
+    },
+    {
+      "id": "react-tailwind-display-truncate-features--as-link"
+    },
+    {
+      "id": "react-tailwind-display-truncate--default"
+    },
+    {
+      "id": "react-tailwind-display-truncate--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'",
+      "description": "Element or component to render, such as `Link` for a truncated link. Components also receive `inline`."
+    },
+    {
+      "name": "expandable",
+      "type": "boolean",
+      "description": "Reveals the full text on hover and focus."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "description": "URL to navigate to when `as` renders a link."
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "description": "Renders inline rather than as a block."
+    },
+    {
+      "name": "maxWidth",
+      "type": "string | number",
+      "defaultValue": "125",
+      "description": "Width past which the text is clipped."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Full text, shown on hover and kept available to assistive technology when the text is clipped."
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

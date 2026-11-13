@@ -1,0 +1,61 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './SkeletonBox.docs.json'
+import * as Stories from './SkeletonBox.stories'
+import * as Features from './SkeletonBox.features.stories'
+import * as Examples from './SkeletonBox.examples.stories'
+
+<Meta of={Stories} />
+
+# SkeletonBox
+
+`SkeletonBox` reserves space for content that is loading, using a shimmer placeholder that can be delayed until a request has taken long enough to show.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {SkeletonBox} from '@primer/react-tailwind/SkeletonBox'
+;<SkeletonBox width="240px" height="48px" />
+```
+
+Use it in a loading composition with dimensions that match the eventual content. `as` changes the semantic element without changing the placeholder behavior.
+
+## Props
+
+<ApiReference {...api} />
+
+`delay="short"` waits 300 ms, `delay="long"` waits 1000 ms, and a number specifies milliseconds. Without a delay, the placeholder appears immediately.
+
+<Controls of={Stories.Playground} />
+
+## Composition
+
+Compose `SkeletonBox` directly for media and custom shapes, or use `SkeletonText` and `SkeletonAvatar` for common content patterns. Match dimensions and placement to the final content to avoid layout shift.
+
+## Accessibility
+
+The placeholder is decorative: it renders no role and no `aria-busy` (GitHub accessibility policy prohibits `aria-busy`, and legacy Primer never set it). Provide loading context separately, for example visually hidden “Loading” text, and announce completion through a persistent live region such as `AriaStatus` when the update matters. Passing `aria-label` or `aria-labelledby` opts into `role="img"`; use that only for a single placeholder, never once per repeated line. Do not use placeholder geometry as the only label for a control.
+
+## Animation and reduced motion
+
+The shimmer uses `primer-skeleton-shimmer` under `motion-safe`; it is not animated when motion is reduced. A delayed box is not mounted until its timer completes.
+
+## Theming and Tailwind
+
+The default background uses the `--skeletonLoader-bgColor` Primer token. Import the package styles or compile Tailwind v4 with the package `dist` in `@source`. Override dimensions with props and visual details with `className`; preserve contrast when changing the skeleton color.
+
+### Data attributes
+
+The root exposes `data-component="SkeletonBox"`. Dimensions and delay are represented by inline styles and mounting state.
+
+## Alignment
+
+Examples preserve the loading compositions using only local `SkeletonBox`, `SkeletonText`, and `SkeletonAvatar` primitives. Upstream data loading fixtures and Suspense helpers are not imported into this package.
+
+## Features and examples
+
+<Canvas of={Features.CustomHeight} />
+<Canvas of={Features.ReducedMotion} />
+<Canvas of={Examples.CommentsLoading} />

@@ -1,0 +1,29 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Header.stories'
+import * as Features from './Header.features.stories'
+import * as Examples from './Header.examples.stories'
+
+<Meta of={Stories} />
+
+# Header
+
+`Header` is a compact horizontal header primitive. Use `Header.Item` for layout participants and `Header.Link` for consistently styled navigation.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {Header} from '@primer/react-tailwind/Header'
+;<Header>
+  <Header.Item full>
+    <Header.Link href="/">Repository</Header.Link>
+  </Header.Item>
+</Header>
+```
+
+Use one `full` item to absorb available space. Links retain native keyboard behavior, so provide specific link names and use buttons for actions.
+
+<Canvas of={Features.WithFullSizeItem} />
+<Canvas of={Examples.RepositoryHeader} />

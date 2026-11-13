@@ -1,0 +1,17 @@
+/*
+ * Storybook combines the compiled, `primer:`-prefixed package stylesheet with a separate unprefixed build of the
+ * classes stories pass to components, mirroring how a host app adds its own Tailwind utilities.
+ * `build:css:storybook` builds `dist/styles.css` first. Only story files are scanned, so runtime lookup names are not
+ * generated as unprefixed utilities.
+ */
+@layer theme, base, components, utilities;
+
+@import '../../dist/styles.css';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+@import './theme.css';
+@import '@primer/tailwind-config';
+
+@source '../**/*.stories.tsx';
+@source '../**/*.stories.helpers.tsx';
+@source '../**/*.storyHelpers.tsx';

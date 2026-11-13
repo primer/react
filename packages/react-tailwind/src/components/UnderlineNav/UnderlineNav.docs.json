@@ -1,0 +1,124 @@
+{
+  "id": "underlinenav",
+  "name": "UnderlineNav",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/UnderlineNav",
+  "description": "`UnderlineNav` is a presentational navigation composition for sibling destinations. It keeps native link semantics, while consumers own route integration, item order, and selected state.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-underlinenav-item--playground"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-examples--pull-request-page"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-examples--repos-page"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-examples--profile-page"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--default"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--with-icons"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--with-counter-labels"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--overflow-template"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--overflow-on-narrow-screen"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--counters-loading-state"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-features--variant-flush"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-interactions--keyboard-navigation"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav-interactions--select-a-menu-item"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav--default"
+    },
+    {
+      "id": "react-tailwind-navigation-underlinenav--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'nav'",
+      "description": "Element to render."
+    },
+    {
+      "name": "hideIconsBreakpoint",
+      "type": "HideIconsBreakpoint",
+      "defaultValue": "'medium'",
+      "description": "Container width below which item icons are hidden to save space. To keep icons visible in a narrow container,\nuse a smaller breakpoint such as `xsmall`, or set to `null` to always show icons."
+    },
+    {
+      "name": "loadingCounters",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Shows placeholders in place of item counters while their values load."
+    },
+    {
+      "name": "variant",
+      "type": "\"flush\" | \"inset\"",
+      "defaultValue": "'inset'",
+      "description": "Whether the bar is inset from its container or sits flush against it."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "UnderlineNav.Item",
+      "props": [
+        {
+          "name": "as",
+          "type": "As",
+          "defaultValue": "'a'",
+          "description": "Element or component supplied by the wrapper."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "counter",
+          "type": "string | number",
+          "description": "Number shown after the label."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode",
+          "description": "Icon shown before the label."
+        },
+        {
+          "name": "onSelect",
+          "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void)",
+          "description": "Called when the item is activated, from the bar or from the \"More\" menu."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLElement>"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
+}

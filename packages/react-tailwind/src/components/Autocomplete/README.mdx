@@ -1,0 +1,62 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Autocomplete.stories'
+import * as Features from './Autocomplete.features.stories'
+import * as Examples from './Autocomplete.examples.stories'
+
+<Meta of={Stories} />
+
+# Autocomplete
+
+`Autocomplete` is a composable Base UI autocomplete for filtering and choosing from a known set of options.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+The root forwards Base UI autocomplete props, including `items`, `value`, `onValueChange`, `defaultValue`, and `mode`. Input, content, list, item, group, empty, and status subcomponents each forward their Base UI props.
+
+## Import and composition
+
+```tsx
+import {Autocomplete} from '@primer/react-tailwind/Autocomplete'
+;<Autocomplete items={['React', 'TypeScript', 'CSS']}>
+  <Autocomplete.Input aria-label="Technology" />
+  <Autocomplete.Content>
+    <Autocomplete.List>
+      {(item: string) => (
+        <Autocomplete.Item key={item} value={item}>
+          {item}
+        </Autocomplete.Item>
+      )}
+    </Autocomplete.List>
+  </Autocomplete.Content>
+</Autocomplete>
+```
+
+Compose `Input`, `Content`, `List`, and `Item` under the root. `Content` has `align`, `alignOffset`, `side`, `sideOffset`, `anchor`, `portal`, and `positionerClassName` options; set `portal={false}` to render the list in place. Use `Group`, `GroupLabel`, `Empty`, and `Status` for richer lists.
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+Give `Input` an accessible name. Base UI owns combobox and option relationships, filtering, active descendant updates, and disabled option semantics. Use external `FormControl` labels, captions, and validation when the input is part of a form.
+
+With the input outside `Content`, Base UI can temporarily apply `aria-hidden` to sibling dialog controls while suggestions are open, including when `modal={false}` or `portal={false}`. A composition that keeps those controls exposed while preserving the popup's keyboard and selection behavior has not been established; seek accessibility review when that simultaneous access is required.
+
+Use `Autocomplete` to choose values, not as a guaranteed way to present navigable link results. An `Item` rendered as an anchor still has the option role rather than an exposed link role, and its keyboard behavior is owned by the combobox. The [listbox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) does not provide an accessible interaction model for a list of interactive links. For results that need link semantics, consider an ordinary list of links or a separately reviewed grid or dialog pattern; this package does not currently document an input-owned link-results composition.
+
+## Keyboard, events, and state
+
+Arrow keys navigate options, Enter chooses the active option, and Escape closes the popup. `onValueChange` receives the updated value and details. Stable selectors include `Autocomplete.Input`, `Autocomplete.Content`, `Autocomplete.List`, `Autocomplete.Item`, and `Autocomplete.Positioner`; items expose `data-highlighted` and `data-disabled`.
+
+<Canvas of={Features.WithTokenInput} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) retain equivalent user-facing scenarios through Base UI autocomplete and local primitives while intentionally excluding legacy text input, token, dialog, and overlay APIs.

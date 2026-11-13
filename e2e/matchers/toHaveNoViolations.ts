@@ -10,8 +10,12 @@ const COLOR_CONTRAST_SKIP = [
   'components-underlinenav-examples--pull-request-page',
   'components-actionmenu-examples--groups-and-descriptions',
   'components-button-features--expanded-button',
+  'react-tailwind-components-actionmenu-examples--groups-and-descriptions', // Mirrors the upstream skip above
+  'react-tailwind-display-button-features--expanded-button', // Mirrors the upstream skip above
   'components-formcontrol-features--with-caption-and-disabled',
   'components-formcontrol-features--with-leading-visual',
+  'react-tailwind-forms-formcontrol-features--with-caption-and-disabled', // Same disabled caption token as upstream
+  'react-tailwind-forms-formcontrol-features--with-leading-visual', // Same disabled caption token as upstream
   'components-pageheader-examples--issues-page',
   'components-pageheader-examples--with-page-layout',
   'components-pageheader-examples--pull-request-page',
@@ -89,8 +93,10 @@ expect.extend({
       // @ts-ignore `axe` is a global variable defined by page.evaluate() above
       const axe = window.axe
 
+      // Base UI focus guards are hidden from assistive technology and immediately redirect focus into or out of a
+      // popup, so they intentionally pair `aria-hidden` with `tabindex`.
       // @ts-ignore `axe` is a global variable defined by page.evaluate() above
-      return axe.run(runConfig)
+      return axe.run({exclude: [['[data-base-ui-focus-guard]']]}, runConfig)
     }, runConfig)
 
     saveResult(result)

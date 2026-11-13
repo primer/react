@@ -1,0 +1,328 @@
+{
+  "id": "pageheader",
+  "name": "PageHeader",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/PageHeader",
+  "description": "`PageHeader` composes page context, a title, description, actions, and local navigation while preserving reading and focus order.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-pageheader-examples--webhooks"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--webhooks-on-narrow-viewport"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--pull-request-page"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--pull-request-page-on-narrow-viewport"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--files-page"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--files-page-on-narrow-viewport"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--with-page-layout"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-examples--issues-page"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--has-title-only"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--has-large-title"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-leading-and-trailing-visuals"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-leading-visual-hidden-on-regular-viewport"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-actions"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-description-slot"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-navigation-slot"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-custom-navigation"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-leading-and-trailing-actions"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-parent-link-and-actions-of-context-area"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-context-bar-and-actions-of-context-area"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--with-actions-that-have-responsive-content"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-features--has-bottom-border"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader-responsive-variants--title-area-size-responsive"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader--default"
+    },
+    {
+      "id": "react-tailwind-layout-pageheader--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'",
+      "description": "Element to render."
+    },
+    {
+      "name": "hasBorder",
+      "type": "boolean",
+      "description": "Draws a border below the header, separating it from the content."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "PageHeader.ContextArea",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.ParentLink",
+      "props": [
+        {
+          "name": "as",
+          "type": "As",
+          "defaultValue": "'a'",
+          "description": "Element or component supplied by the wrapper."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the parent link. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLElement>"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.ContextBar",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.ContextAreaActions",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.TitleArea",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        },
+        {
+          "name": "variant",
+          "type": "ResponsiveValue<TitleVariant>",
+          "defaultValue": "'medium'",
+          "description": "Size of the title area. Accepts a responsive object to vary it per viewport."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.LeadingAction",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.Breadcrumbs",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.LeadingVisual",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.Title",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+          "defaultValue": "'h2'",
+          "description": "Heading element to render, so the title fits the surrounding document outline."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the title. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.TrailingVisual",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.TrailingAction",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.Actions",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.Description",
+      "props": [
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "PageHeader.Navigation",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"div\" | \"nav\"",
+          "defaultValue": "'div'",
+          "description": "Element to render. Use `nav` only when the navigation has an accessible name."
+        },
+        {
+          "name": "hidden",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Hides the part. Accepts a responsive object to hide it only at some viewports."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

@@ -1,0 +1,500 @@
+import {Meta} from '@storybook/addon-docs/blocks'
+
+<Meta title="React Tailwind/Migrating from Primer React" />
+
+# Migrating from Primer React
+
+This package keeps Primer's component names and, wherever it can, their props. Most of a migration is mechanical. What follows is what actually changes; each component's **Alignment** page records its own differences.
+
+## Styling
+
+`sx` and styled-system props are gone. Use `className` with ordinary CSS, or with Primer's semantic utilities when your app compiles Tailwind and scans its own source files. The package's compiled `styles.css` does not generate arbitrary app classes.
+
+Package-owned utilities use the `primer:` prefix in source (first, before variants); your own `className` utilities stay unprefixed and override them. Legacy `@primer/css` includes `!important` rules for names such as `border`, `px-6`, and `py-8`, which CSS layers alone do not isolate. The prefix is a migration candidate: it has not been validated in a built stylesheet, and shared `--tw-*` properties can still interact, so verify computed styles in your host.
+
+```tsx
+// Before
+<Button sx={{mt: 2, width: '100%'}}>Save</Button>
+<Box sx={{p: 3, bg: 'canvas.subtle'}} />
+
+// After
+<Button className="mt-2 w-full">Save</Button>
+<div className="rounded-md bg-muted p-4" />
+```
+
+There is no `Box`. Use a plain element with `className`, or `Stack` when you want gap and direction props.
+
+Because Tailwind silently ignores an unknown class, the package runs a build check that fails on any class generating no CSS. Watch for utilities that do not exist here, most commonly Tailwind's default type scale: `text-base` and `text-lg` are replaced by `text-body-medium`, `text-body-large`, and the title sizes.
+
+## React 19 refs
+
+Callback refs can return a cleanup function, including when a component composes your ref with its own. Object refs and callbacks that expect `null` on detach remain supported.
+
+## Theme context
+
+Import `ThemeProvider` and `useTheme` from the package root. `colorMode` still accepts legacy `day`/`night` values, but `useTheme().resolvedColorMode` always returns `light`/`dark`. Replace resolved `day` comparisons with `light` and resolved `night` comparisons with `dark`; otherwise a legacy image selector can always choose its day asset. Use the resolved field rather than configured `colorMode` to handle `auto`.
+
+The hook requires a ThemeProvider ancestor; BaseStyles does not create that context. The packaged `llms/ThemeProvider.md` guide contains before/after image examples and the remaining context differences.
+
+## Composition
+
+Interactive components are built on Base UI, so use `render` to project behavior onto another element rather than `as`. Use `LinkButton` for navigation: a Base UI button rendered onto a non-`<button>` element (with `nativeButton={false}`) gets `role="button"`, even on a link.
+
+Use `IconLinkButton` for icon-only navigation and `Banner.PrimaryActionLink` or `Banner.SecondaryActionLink` for banner navigation. These preserve native link keyboard and pointer behavior rather than rendering a `Button` onto an anchor. They do not support disabled, inactive, or loading links; use noninteractive content or an action button when navigation is unavailable.
+
+```tsx
+// Before
+<Button as="a" href="/settings">Settings</Button>
+<Button as={RouterLink} to="/settings">Settings</Button>
+
+// After
+<LinkButton href="/settings">Settings</LinkButton>
+<LinkButton render={<RouterLink to="/settings" />}>Settings</LinkButton>
+```
+
+Presentational components still take `as`, for example `<Stack as="section">`, `<Text as="span">`, and `<Card as="article">`.
+
+Compound parts follow Base UI naming: `Root`, `Trigger`, `Portal`, `Positioner`, `Popup` or `Content`, `Title`, `Description`, and `Close`. Parts may be grouped in fragments anywhere in the package.
+
+## Standalone overlays
+
+`Overlay` is a presentational div, not a replacement for the legacy overlay controller. Do not spread `onEscape`, `onClickOutside`, `ignoreClickRefs`, `initialFocusRef`, `returnFocusRef`, `portalContainerName`, or legacy placement props onto it: they do not supply those behaviors and may reach the DOM.
+
+Use `Popover` or `AnchoredOverlay` for an anchored interactive surface, and `Dialog` for a modal one. Control the root with `open` and `onOpenChange(open, details)` and inspect `details.reason` for Escape or outside requests. Use `initialFocus` and `finalFocus` on the popup, and compose `Portal container={...}`, `Positioner`, and `Popup` when a specific portal destination is required. Legacy ignored-click refs and `inside-*` placements have no one-to-one props; account for trigger, focus-out, nested-overlay, and collision behavior when adapting them. See the [Overlay alignment notes](../components/Overlay/ALIGNMENT.md) for the differences.
+
+## Legacy Popover surfaces
+
+The legacy `Popover` is a manually positioned surface, not an anchored trigger and popup. Its `open` controls visibility, `relative` changes its positioning, and `Popover.Content` handles `onClickOutside`, `ignoreClickRefs`, and `onEscape`. The Tailwind `Popover` instead owns its trigger, positioning, portal, focus, and dismissal through Base UI. It is not a drop-in replacement for a static surface, and those legacy props must not be spread onto its parts.
+
+Both versions default `Popover.Content` to the `small` width token (20rem with the standard tokens); `medium` uses 30rem and `auto` follows available content. Verify sizing in the host when overriding tokens or styles. Legacy caret styles target `Popover.Content::before` and `::after` under the root's `data-caret`. The Tailwind `Popover.Arrow` is a separate element with an SVG graphic, so those selectors and offsets must be rewritten.
+
+For an anchored popover, use controlled `open` and `onOpenChange` and review `details.reason` for outside and Escape requests. `ignoreClickRefs` has no direct equivalent, and nested portaled surfaces need to be considered when adapting dismissal. `Overlay` can supply a presentational surface, but it does not supply the legacy caret, visibility, outside-click, ignored-ref, or Escape behavior. Keep or build a compatibility adapter when that static contract is still required; this package does not currently provide one. See the [Popover alignment notes](../components/Popover/ALIGNMENT.md).
+
+## NavList groups and wrapped headings
+
+`NavList.GroupHeading` supports `as` for the appropriate heading level and `NavList.GroupHeading.TrailingAction` for an action beside the heading. Pass a wrapped heading through `NavList.Group heading={<WrappedHeading />}` and forward its `id` to the underlying heading so the list remains named.
+
+A wrapper may return `NavList.Group` directly or alongside `NavList.Divider` in a fragment; the group supplies a list item when its parent is a generated list. Do not wrap it in another `li`. When an explicit divider precedes a group, pass `hideDivider` to avoid a second divider.
+
+Wrapped trailing actions are not recognized by component identity. Move them from `children` to the explicit `trailingAction` region so they remain separate from the primary action or link:
+
+```tsx
+<ActionList.Item trailingAction={<WrappedItemAction />}>Repository</ActionList.Item>
+<ActionList.GroupHeading trailingAction={<WrappedGroupAction />}>Projects</ActionList.GroupHeading>
+<NavList.Item href="/issues" trailingAction={<WrappedNavAction />}>Issues</NavList.Item>
+```
+
+The wrappers can render `ActionList.TrailingAction`, `ActionList.GroupHeading.TrailingAction`, and `NavList.TrailingAction` respectively. The same item region is available on `ActionList.LinkItem`.
+
+## ActionMenu dividers
+
+When migrating a legacy menu that contains `<ActionMenu.Overlay><ActionList showDividers>…</ActionList></ActionMenu.Overlay>`, move the option to the menu content as well as replacing its items:
+
+```tsx
+<ActionMenu.Content showDividers>
+  <ActionMenu.Item>Edit</ActionMenu.Item>
+  <ActionMenu.LinkItem href="/settings">Settings</ActionMenu.LinkItem>
+</ActionMenu.Content>
+```
+
+`showDividers` belongs to the whole `Content`, not an individual nested list. If the legacy menu applied it to only one of several lists, check the migrated sections rather than applying it to every item unintentionally. Use `ActionMenu.Divider` for an explicit separator.
+
+For router destinations, pass a ref-forwarding anchor component through `ActionMenu.LinkItem render={<RouterLink to="/projects" />}`. Unlike a legacy menu link or a standalone native `ActionList.LinkItem`, the Base UI menu link activates on Space as well as Enter. Review any migration that relies on Space dismissing the menu without navigating.
+
+For a tooltip-wrapped legacy `ActionMenu.Anchor`, render `Tooltip.Trigger` onto `ActionMenu.Button`, or onto `ActionMenu.Trigger` rendered as the button. Both triggers' refs, events, and ARIA props must reach the same native button; rendering the tooltip wrapper as the menu trigger does not provide that contract. See the [ActionMenu guide](../components/ActionMenu/README.mdx) for a complete example.
+
+## Toggle switches
+
+Replace `ToggleSwitch`'s legacy `onChange(checked)` with `onCheckedChange(checked, details)`. The visible control changes from a button with `aria-pressed` to a switch with `aria-checked`; update role and state queries, for example to `getByRole('switch', {checked: true})`.
+
+The switch also uses a hidden checkbox for form participation. An enclosing form may receive its change event, and its propagation and ordering can differ from the legacy button; verify parent handlers rather than relying on the old `onClick`/`onChange` sequence. `details.event` is a native event, not a React synthetic change event.
+
+## Checkbox groups
+
+Replace legacy `CheckboxGroup onChange(selectedValues, event)` with `onValueChange(selectedValues, details)`. A root `onChange` now receives a bubbling React change event, not the selection array.
+
+The group owns checked state for children with a non-empty `value` (or a `name` when no value is supplied), and its default selection is empty. Move child `defaultChecked` selections to the group's `defaultValue`. For individually controlled choices, derive the group's `value` from the existing state and map `onValueChange` back to that state; child `checked` does not override the group. See the [CheckboxGroup guide](../components/CheckboxGroup/README.mdx) for examples.
+
+## Item names and wrapped choice fields
+
+An `aria-label` on `ActionList.Item` or an `ActionMenu` item now supplies its accessible name; the legacy item's generated `aria-labelledby` could override it. Include the visible primary text in the label. `ActionList.Item`, `ActionList.LinkItem`, `NavList.Item`, and `ActionMenu`'s `Item`, `LinkItem`, `CheckboxItem`, and `RadioItem` associate their `Description` parts as accessible descriptions, preserving additional `aria-describedby` references. Pass a wrapped description through the item's `description` region. `ActionList` tree items and `ActionMenu.SubmenuTrigger` still need explicit description associations when their supporting text should be announced separately.
+
+For custom checkbox trees, pass `aria-checked` on `ActionList.Item` with `selectionVariant="multiple"`; `"mixed"` draws the partial-selection dash. Explicit selection attributes override role-derived attributes. Disabled tree items remain focusable but cannot be activated; tree navigation and roving focus still belong to the consumer, or use `TreeView`.
+
+`FormControl` automatically chooses horizontal layout only for direct package `Checkbox` and `Radio` children. A compatibility wrapper is not recognized by identity; pass `layout="horizontal"` explicitly. A wrapper that renders a package control still receives field context. A wrapper that renders a native radio or other custom control must apply `useFormControlForwardedProps(props)` to its input to receive the field ID, label association, descriptions, required and disabled state, and error state. Explicit input props override the context. See the [FormControl guide](../components/FormControl/README.mdx) for a native radio example.
+
+Standalone `FormControl.Validation variant="error"` needs a `FormControl` or Base UI `Field.Root` ancestor. If the editor sits outside that root, give the message an ID and manually set the editor's `aria-describedby` and `aria-invalid`; see the [FormControl guide](../components/FormControl/README.mdx). Success validation does not need a field ancestor.
+
+## Filtered lists and messages
+
+`FilteredActionList.Input` and `FilteredActionList.BodyLoader` are not exported. Compose `TextInput`, `Spinner`, and `SkeletonBox` for standalone pieces, including an accessible loading announcement. A standalone `TextInput` does not provide the configured filter's combobox keyboard, focus, or selection behavior.
+
+`FilteredActionListLoadingTypes` contains strings, not objects with `.name` or `.appearsInBody`. Compare with `FilteredActionListLoadingTypes.input`, `.bodySpinner`, or `.bodySkeleton` to preserve input and body loading modes. `SelectPanel.Message` takes supporting text in its `body` prop instead of children; it announces with `status`, or `alert` for errors, unless the role is explicitly changed.
+
+The configured single-select modal defers selection to Save and does not render a visible filter label or expose separate selection/cancel return-focus targets. For an instant modal picker with those requirements, compose `Dialog` and `TextInput` with `Combobox` from `@base-ui/react/combobox`; keep controlled state open while asynchronous work rejects a close request. Exact focus on a non-tabbable container still has the Base UI limitation below.
+
+## Dialog return focus
+
+Replace `returnFocusRef` with `finalFocus` on `Dialog.Content`. If its target is not tabbable and contains tabbable descendants, Base UI focuses the first such descendant instead of the exact container. `aria-disabled` alone does not remove a descendant from the tab order. An exact `tabIndex={-1}` container target cannot be requested through `finalFocus` alone.
+
+## Names that changed
+
+Experimental and versioned components are promoted to their stable names. Use `Dialog`, not `DialogV2`. Use `Tooltip`, not `TooltipV2`. Use `SelectPanel`, not `SelectPanel2`. Use `Breadcrumbs`, not `Breadcrumb`.
+
+Deprecated APIs are not included:
+
+{(
+
+<table style={{width: '100%', tableLayout: 'fixed', overflowWrap: 'anywhere'}}>
+  <thead>
+    <tr>
+      <th scope="col">Removed</th>
+      <th scope="col">Use instead</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>CircleBadge</code>
+      </td>
+      <td>
+        An Octicon from <code>@primer/octicons-react</code> with your own styling
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>SideNav</code>
+      </td>
+      <td>
+        <code>NavList</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>TextInputWithTokens</code>
+      </td>
+      <td>
+        <code>TextInput</code> composed with <code>Token</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>Breadcrumb</code>
+      </td>
+      <td>
+        <code>Breadcrumbs</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>SelectPanel2</code>
+      </td>
+      <td>
+        <code>SelectPanel</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>useRefObjectAsForwardedRef</code>
+      </td>
+      <td>
+        Pass <code>ref</code> as a prop; React 19 needs no hook
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>useResponsiveValue</code>
+      </td>
+      <td>Responsive class names or CSS media queries</td>
+    </tr>
+  </tbody>
+</table>
+)}
+
+## Values that changed
+
+Sizes read `small`, `medium`, and `large` everywhere. Two components inherited a different middle value upstream and were normalized:
+
+{(
+
+<table style={{width: '100%', tableLayout: 'fixed', overflowWrap: 'anywhere'}}>
+  <thead>
+    <tr>
+      <th scope="col">Component</th>
+      <th scope="col">Before</th>
+      <th scope="col">After</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>KeybindingHint</code>
+      </td>
+      <td>
+        <code>size="normal"</code>, <code>variant="normal"</code>
+      </td>
+      <td>
+        <code>size="medium"</code>, <code>variant="default"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>ProgressBar</code>
+      </td>
+      <td>
+        <code>barSize="default"</code>
+      </td>
+      <td>
+        <code>size="medium"</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+)}
+
+`ProgressBar` uses numeric `progress` and `size` instead of string percentages and `barSize`. Map semantic `bg` values such as `danger.emphasis` to `variant="danger"`, or use `fillColor` for a CSS color or variable such as `var(--my-progress-color)`. Do not spread the old `bg` or `barSize` props onto the track. Pass `aria-valuenow` or `aria-valuetext` when the announced value intentionally differs from the visual fill; the shorthand and empty-children fallback forward those attributes to their progressbar. For grouped segments, pass value attributes to each item rather than the root.
+
+## Contracts deliberately kept
+
+A few APIs stay as they are upstream so existing handlers port unchanged, even though they differ from the package's usual conventions:
+
+- `Pagination`'s `onPageChange(event, page)` keeps its event-first argument order.
+- `SelectPanel`'s `onOpenChange(open, gesture)` reports a gesture rather than Base UI change details.
+- `SelectPanel` uses the default-off `primer_react_select_panel_fullscreen_on_narrow` feature flag, and `disableFullscreenOnNarrow` opts out when it is enabled. `FilteredActionList.fullScreenOnNarrow` is opt-in. The `@primer/react-tailwind` and `@primer/react` feature-flag providers have separate contexts; pass the same flag value to both during an incremental migration.
+
+## Internals that are no longer exported
+
+Upstream implementation utilities are not part of this package's contract, including `useSlots`, `isSlot`, `asSlot`, `useFocusZone`, `useAnchoredPosition`, `useOnOutsideClick`, `useMergedRefs`, and `createComponent`. Base UI provides the equivalent behavior inside the components that need it.
+
+`RelativeTime` no longer depends on a custom element; it renders a semantic `time` element, so tests can read its text directly.
+
+## Replacing the slot system
+
+`useSlots` is the removed utility most likely to affect you: it appears in 32 files across `github/github-ui`. Those apps do not use it to consume Primer — they use it to build their **own** compound components on top of Primer.
+
+Upstream offers three ways for a component that is not a Primer part to be placed in a Primer parent's slot. An earlier `github-ui` inventory found these patterns:
+
+- **A `__SLOT__` marker copied onto the component.** Five assignments exist. `SidebarPageLayout.Sidebar` takes `PageLayout.Sidebar.__SLOT__`, `BulkSelectorGroup` takes `ActionList.Group.__SLOT__`, and `ExpirationSelect` and `OrganizationSelect` take `Select.__SLOT__`. The fifth, `CollapsibleParentLink`, copies from `PageHeader.ParentLink`, which has no marker — its own comment notes the value is `undefined` today.
+- **`_slotsConfig`**, a private `PageLayout` prop that replaces the matcher set for one instance. `SidebarPageLayout` passes `{header: Header, footer: Footer, sidebar: Sidebar}` so consumers can author its parts while `PageLayout` still positions them.
+- **`asSlot`**, the helper for copying a marker onto a wrapper. Product migrations also use it for trailing-action wrappers; verify current usages rather than relying on an earlier inventory.
+
+Each of these has a replacement here:
+
+- **`_slotsConfig` becomes ordinary composition, and call sites do not change.** The wrapper resolves its own parts and forwards them to the region props. This is the important case: `github-ui` has 434 `SidebarPageLayout.Sidebar` call sites and 140 `CollapsibleSidebar` call sites, and all of them keep their current shape — only the wrapper's own file changes.
+
+  ```tsx
+  function SidebarPageLayout({children}) {
+    const [{header, sidebar}, rest] = useParts(children, {header: Header, sidebar: Sidebar})
+    return (
+      <PageLayout header={header} sidebar={sidebar} containerWidth="full" padding="none">
+        {rest}
+      </PageLayout>
+    )
+  }
+  ```
+
+- **A marker adopted so a custom component can be dropped in as a child becomes a region prop.** `<PageLayout sidebar={<MySidebar />}>` needs nothing copied onto `MySidebar`, so it also works for wrappers that are memoized, lazily imported, or arbitrarily deep — none of which a marker survives.
+- **`ExpirationSelect` and `OrganizationSelect` need no replacement.** `FormControl` here distributes `id`, `name`, `required`, `disabled`, `aria-describedby`, and `aria-invalid` through context instead of finding its control among its children, so any control calling `useFormControlForwardedProps` is wired without being identified.
+- **`BulkSelectorGroup` needs no replacement either.** `ActionList` only ever matched a heading among its children, upstream included, so nothing read that marker.
+
+One upstream behaviour genuinely does not carry over: the two development-only warnings, for a duplicate slot and for a wrapper whose `displayName` matches a part but is missing the marker, have no equivalent, because this package has no warning convention. Duplicate parts behave as they do upstream — the first match wins and the rest are dropped.
+
+The rest of this section covers the patterns that carry over.
+
+### Extract named children yourself
+
+The replacement is a small local helper rather than a package import. It has no dependency on Primer internals, so it will not break again when a design system changes:
+
+```tsx
+function flattenChildren(children: React.ReactNode): React.ReactNode[] {
+  return React.Children.toArray(children).flatMap(child =>
+    React.isValidElement<{children?: React.ReactNode}>(child) && child.type === React.Fragment
+      ? flattenChildren(child.props.children)
+      : child,
+  )
+}
+
+function useParts<T extends Record<string, React.ElementType>>(children: React.ReactNode, config: T) {
+  const all = flattenChildren(children)
+  const parts = {} as {[K in keyof T]?: React.ReactNode}
+  const rest: React.ReactNode[] = []
+
+  for (const child of all) {
+    const key = React.isValidElement(child)
+      ? (Object.keys(config) as Array<keyof T>).find(name => child.type === config[name])
+      : undefined
+    if (key && parts[key] === undefined) parts[key] = child
+    else rest.push(child)
+  }
+
+  return [parts, rest] as const
+}
+```
+
+```tsx
+// After
+const [{header, headerActions, blankslate, rows}, children] = useParts(slottedChildren, {
+  header: PanelList.Header,
+  headerActions: PanelList.HeaderActions,
+  blankslate: PanelList.Blankslate,
+  rows: PanelList.Rows,
+})
+```
+
+The call site is unchanged, and the `?? default` fallback and trailing `children` behave as before. It keeps `useSlots`'s ordering semantics too: the first element matching a key wins and `rest` stays in author order. Note that this sketch pushes a duplicate into `rest`, where `useSlots` drops it; drop it instead if `rest` is somewhere a stray part would be visible, such as a label. Flattening fragments matches how this package's own compound components read their children, so authors can group parts in a fragment without breaking matching.
+
+### Prefer props for single values
+
+If a slot only ever carries a value rather than markup, a prop is simpler than extraction and gives you types for free:
+
+```tsx
+<PanelList header={<Header title="Alerts" />} />
+```
+
+Reserve child extraction for cases where the parent genuinely needs to place authored markup in several positions.
+
+### Wrapping a part so the parent still recognizes it
+
+`asSlot` copied a `__SLOT__` marker onto a wrapper so the parent kept matching it. These components match children by component identity, so a wrapper around one of their parts is not matched as that part:
+
+```tsx
+// Card matches on identity, so this is not treated as the heading
+const CardHeadingWithTooltip = props => <CardHeading {...props} />
+```
+
+Instead of adopting a marker, pass the wrapper to the region prop of the same name. Every compound component that identifies a child by role accepts one, and the prop wins over a matching child:
+
+```tsx
+<Card heading={<CardHeadingWithTooltip>Alerts</CardHeadingWithTooltip>} />
+```
+
+This is the direct replacement for `asSlot`, and it is stronger: the parent never has to recognize your component at all, so the wrapper can be arbitrarily deep, memoized, or lazily imported. Because resolution happens during render rather than in an effect, the result is identical in server HTML. Anything the parent derives from the region keeps working — a `section` card still derives its `aria-labelledby` from the heading you supply this way.
+
+The regions are `header`, `sidebar`, and `footer` on `PageLayout`; `icon`, `image`, `heading`, `description`, `metadata`, and `action` on `Card`; `label`, `caption`, `validation`, and `leadingVisual` on `FormControl`; `heading` on `NavList`, `NavList.Group`, and `ActionList.Group`; `leadingVisual`, `trailingVisual`, `description`, and `trailingAction` on `NavList.Item`, `ActionList.Item`, and `ActionList.LinkItem`; `trailingAction` on `NavList.GroupHeading` and `ActionList.GroupHeading`; and `leadingVisual`, `trailingVisual`, and `subtree` on `TreeView.Item`.
+
+Where you do not need a wrapper at all, these are still simpler:
+
+- Use `render` on Base UI-backed parts to project them onto your own element instead of wrapping them. Components that pass Base UI's props through accept it, including `Button`, `LinkButton`, and the `Trigger` parts of `Dialog`, `Popover`, and `Tooltip`. Check the part's props if you are unsure.
+- Use `as` on presentational parts such as `CardHeading` and `Text` to change the element without wrapping.
+- Render the part directly and move your customization inside it.
+
+#### Components that adopt a part's slot today
+
+`SidebarPageLayout.Sidebar` in `github-ui` copies `PageLayout.Sidebar.__SLOT__` so `PageLayout` hoists it. A component like that ports by resolving its own parts and forwarding them, which leaves every call site untouched:
+
+```tsx
+// Before: (Sidebar as {__SLOT__: symbol}).__SLOT__ = PageLayout.Sidebar.__SLOT__
+//         plus _slotsConfig={{header: Header, footer: Footer, sidebar: Sidebar}}
+function SidebarPageLayout({children}) {
+  const [{header, sidebar}, rest] = useParts(children, {header: Header, sidebar: Sidebar})
+
+  return (
+    <PageLayout header={header} sidebar={sidebar}>
+      {rest}
+    </PageLayout>
+  )
+}
+```
+
+Consumers keep writing `<SidebarPageLayout.Sidebar>` exactly as before. The wrapper stops depending on a private prop and a marker, both of which were internals rather than public API.
+
+A wrapper that renders a Primer part outside a direct-child position still trips the `primer-react/direct-slot-children` rule, so it needs the same scoped inline disable it already carries today.
+
+Where a custom component really is dropped straight into a Primer parent, name it at the call site instead:
+
+```tsx
+<PageLayout sidebar={<MySidebar />}>
+  <PageLayout.Content>{children}</PageLayout.Content>
+</PageLayout>
+```
+
+### Wrapper tolerance in your own components
+
+Base UI's model is the place to start, but it has an SSR constraint that decides which form you want.
+
+Slots exist because a parent has to _find_ a child in order to position it or read something off it. Base UI inverts that: the child publishes what the parent needs through context. Its own `Dialog` works this way, with `Dialog.Title` publishing its id and `Dialog.Popup` reading it for `aria-labelledby`, and no child scanning anywhere.
+
+The catch is that publishing upward happens in an effect, and effects do not run on the server. A parent that reads a value registered by a child renders **without** it in server HTML, and only picks it up after hydration. That is fine for overlays, which are client-only regardless — Base UI's `Dialog` renders nothing at all on the server — but it is wrong for content that must be correct in the server response.
+
+#### Allocate the id downward, not upward
+
+When the coordination is server-rendered, have the parent allocate during render and pass the value down. The child claims it instead of announcing it:
+
+```tsx
+import {useRender} from '@base-ui/react/use-render'
+
+const PanelContext = React.createContext<{headingId?: string}>({})
+
+function Panel({children}: {children?: React.ReactNode}) {
+  const headingId = React.useId()
+  const value = React.useMemo(() => ({headingId}), [headingId])
+  return (
+    <PanelContext.Provider value={value}>
+      <section aria-labelledby={headingId}>{children}</section>
+    </PanelContext.Provider>
+  )
+}
+
+function PanelHeading({render, ...props}: {render?: useRender.RenderProp} & React.ComponentPropsWithRef<'h2'>) {
+  const {headingId} = React.useContext(PanelContext)
+  return useRender({defaultTagName: 'h2', render, props: {...props, id: props.id ?? headingId}})
+}
+```
+
+This renders `<section aria-labelledby="…"><h2 id="…">` on the server, and it still resolves when a consumer wraps the heading, nests it arbitrarily deep, or projects it onto another element with `render`. None of those survive a `child.type === Part` check or a `__SLOT__` marker, so you keep the wrapper tolerance without giving up SSR.
+
+Its limitation is that the parent cannot tell whether the child is actually present, so only label unconditionally when the part is required. Otherwise let the consumer opt in.
+
+#### When to use which
+
+- **Server-rendered, and the parent must know a child exists.** Read children during render. Identity matching is correct here, and it is what `Card` does to decide whether to set `aria-labelledby` at all. This is the one case the old slot system served that context cannot.
+- **Server-rendered, and the child is required.** Allocate downward, as above. SSR-safe and wrapper-tolerant.
+- **Client-only and interactive**, such as overlays and menus. Effect-based upward registration is fine and is what Base UI does.
+
+`useRender` gives your part the same `render` contract Base UI parts have, so consumers compose instead of wrapping; `LinkButton` in this package is a worked example. Use `mergeProps` from `@base-ui/react/merge-props` to combine your props with a consumer's by hand.
+
+If you must both scan children and tolerate wrappers, a `Symbol` marker is the fallback. It has to be copied onto each wrapper deliberately, since that is the job `asSlot` used to do:
+
+```tsx
+const SECTION = Symbol('MyLayout.Section')
+const withSectionMarker = <T,>(component: T): T => Object.assign(component as object, {[SECTION]: true}) as T
+```
+
+### Moving children into a different position
+
+This is the case context cannot serve. `PanelList` in `github-ui` writes `Header`, `Rows`, and `Blankslate` as flat children and then renders the header above a box and the rows inside it. The parent is not reading a value off the child, it is relocating it, so it has to see the children.
+
+Read them during render. That is SSR-safe, unlike a portal, which renders nothing on the server — `renderToString` of a `Portal` produces an empty parent — so portals are not a way to reposition server-rendered content.
+
+```tsx
+const parts = flattenChildren(children)
+const header = parts.find(isHeader)
+const rest = parts.filter(child => child !== header)
+
+return (
+  <div>
+    {header}
+    <div className="body">{rest}</div>
+  </div>
+)
+```
+
+Match with identity when your parts are never wrapped, and with a `Symbol` marker when they are. `PageLayout` in this package uses markers for exactly that reason: `SplitPageLayout` wraps its `Header`, `Sidebar`, and `Footer`, and marker matching is what keeps those wrappers recognizable.
+
+Two things to know before relocating a child:
+
+- A relocated child reads context from where it is **rendered**, not where it was written. Moving it inside a provider changes what it sees, which is easy to miss when the move is only meant to be positional.
+- Relocation changes DOM order, and with it reading order and tab order.
+
+Because of that second point, prefer these when they fit:
+
+- **A prop**, when the part is a single value rather than free-form markup. `<Panel header={<Header />} />` is typed, SSR-safe, and wrapper-tolerant by construction, because the consumer hands you the element instead of you finding it.
+- **CSS**, when the move is only visual. Grid areas and `order` reposition a child without touching the tree, so the DOM keeps its authored reading and tab order. Reach for tree manipulation only when the child needs a different parent element, not merely a different position on screen.
+
+## Suggested order
+
+1. Set up `ThemeProvider`, `BaseStyles`, and the stylesheet, as described in **Get started**.
+2. Replace `sx` and `Box` first; that accounts for most of the diff.
+3. Swap deprecated components for their replacements.
+4. Run your build and check for classes that generate no CSS.
+5. Review the **Alignment** page of any component whose behavior looks different.

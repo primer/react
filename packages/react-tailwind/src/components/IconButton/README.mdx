@@ -1,0 +1,57 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './IconButton.docs.json'
+import * as Stories from './IconButton.stories'
+import * as Features from './IconButton.features.stories'
+import * as Examples from './IconButton.examples.stories'
+
+<Meta of={Stories} />
+
+# IconButton
+
+`IconButton` is a button whose only content is an icon. It requires an accessible name from either `aria-label` or `aria-labelledby`, because the control has no visible text.
+
+```tsx
+import {IconButton} from '@primer/react-tailwind/IconButton'
+;<IconButton aria-label="Add item" icon={PlusIcon} />
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+## Composition
+
+`IconButton` composes the local `Button` API and owns its icon visual. Use `IconLinkButton` instead when the icon navigates to a URL.
+
+## Accessibility
+
+Provide `aria-label` or reference existing label text with `aria-labelledby`; the icon itself is decorative. When only `aria-labelledby` is provided, supply `description` for a description tooltip or use an enclosing label Tooltip for visible tooltip text. See the [ActionMenu composition](../ActionMenu/README.mdx) for a tooltip-labelled menu trigger.
+
+For loading, `IconButton` shares Button's status and external-announcer contract. Set `loadingAnnouncement=""` when the host announces the loading state; the tooltip description remains available.
+
+By default, icon controls are at least 28 CSS pixels square, even with a reduced root font size. Custom size utilities replace this default; ensure the resulting pointer target is adequately sized or spaced.
+
+When both naming props are supplied, `aria-labelledby` provides the accessible name and `aria-label` provides the default label tooltip when there is no `description`. Include the tooltip text in the referenced name so speech-input users can activate the control by its visible label.
+
+Use `tooltipDirection` and surrounding spacing to keep the visual tooltip from covering nearby controls. Placement can flip when space is limited; see [Tooltip placement](../Tooltip/README.mdx#placement-and-delay).
+
+## Data attributes
+
+The root is identified as `data-component="IconButton"`. When it has a tooltip, its `data-tooltip-trigger` token identifies the visual popup as described in [Tooltip](../Tooltip/README.mdx#finding-the-visual-popup); it does not indicate whether that popup is visible.
+
+## Alignment
+
+[IconButton alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/IconButton/ALIGNMENT.md) document intentional differences from the upstream component. The default tooltip, keybinding hints, and menu anchoring compose the local Tooltip and ActionMenu primitives.
+
+## Features and examples
+
+<Canvas of={Features.Primary} />
+
+<Canvas of={Examples.ItemActions} />

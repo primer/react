@@ -1,0 +1,35 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './PageHeader.stories'
+import * as Features from './PageHeader.features.stories'
+import * as Examples from './PageHeader.examples.stories'
+
+<Meta of={Stories} />
+
+# PageHeader
+
+`PageHeader` composes page context, a title, description, actions, and local navigation while preserving reading and focus order.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {PageHeader} from '@primer/react-tailwind/PageHeader'
+;<PageHeader hasBorder>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Issues</PageHeader.Title>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+Keep its slots as direct children, use one clear page title, and give local navigation an accessible name. Use `hidden` only for responsive presentation, not to remove the only navigation path.
+
+Public parts expose namespaced `data-component` identifiers, such as `PageHeader.TitleArea` and `PageHeader.Actions`. Use `className` on a part for application-owned styling; see the [migration notes](./ALIGNMENT.md#migration-notes) when replacing legacy selectors.
+
+`PageHeader.ParentLink` accepts `href` for a native link, or a router component via `as` together with that component's required destination and options. Router props, events, and refs follow the selected component, which must forward them to its interactive element.
+
+For a typed wrapper, use `ParentLinkProps<typeof RouterLink>` to include the router's props. Unparameterized `ParentLinkProps` and `React.ComponentProps<typeof PageHeader.ParentLink>` retain the legacy anchor-shaped props and broadly typed `as`.
+
+<Canvas of={Features.WithActions} />
+<Canvas of={Examples.PullRequestPage} />

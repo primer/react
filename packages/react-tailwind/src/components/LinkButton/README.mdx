@@ -1,0 +1,61 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './LinkButton.docs.json'
+import * as Stories from './LinkButton.stories'
+import * as Features from './LinkButton.features.stories'
+import * as Examples from './LinkButton.examples.stories'
+
+<Meta of={Stories} />
+
+# LinkButton
+
+`LinkButton` navigates to a URL while looking like a `Button`. Supply `href` for a native anchor destination.
+
+```tsx
+import {LinkButton} from '@primer/react-tailwind/LinkButton'
+;<LinkButton href="#settings">Settings</LinkButton>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+## Composition
+
+This navigation primitive composes the shared Button presentation. Use `render={<RouterLink to="/settings" />}` for framework links and a real Button for actions that do not navigate.
+
+Link labels wrap by default inside `Dialog.Footer`. For non-link variants, set `labelWrap={false}` to retain the single-line treatment there. The link variant keeps its normal wrapping behavior.
+
+## Accessibility
+
+LinkButton renders a native anchor, so it keeps link semantics and is announced as a link. Do not add `role="button"` or button keyboard handling; use a real Button for actions that do not navigate.
+
+- **Naming:** the visible children are the accessible name. Name the destination or result rather than repeating generic text such as “Click here”. An icon-only link has no text, so provide `aria-label` or `aria-labelledby`. Octicon visuals are hidden from assistive technology, but text in a custom visual or `count` becomes part of the name. Loading keeps the visible label (or the supplied `aria-label`/`aria-labelledby`) as the name and, by default, adds `loadingAnnouncement` as a description.
+- **Keyboard and pointer:** with an `href`, Enter follows the link and Space does not activate it, as for any native link. Modifier-clicks, middle-click, and context-menu actions keep the browser's native behavior. `onClick` receives Enter and clicks, including modifier-clicks, so call `preventDefault()` only when you intend to replace navigation; middle-click does not fire `onClick`. When composing a router through `render`, the rendered element must be a real anchor with a destination and must preserve modifier-click and new-tab behavior. An anchor without `href` is not keyboard focusable or exposed as a link, so use one only for a placeholder.
+- **New tabs:** when `target="_blank"` opens a new tab or window, tell users in the visible label or a description, and pass the `rel` value your security policy requires.
+- **Target size:** `small`, `medium`, and `large` render at least 28, 32, and 40 CSS pixels tall. Content sets the width, so give an icon-only link square sizing through `className`. `variant="link"` uses inline text sizing and is intended for links within text, not standalone controls.
+- **Disabled:** `disabled` sets `aria-disabled`, removes the link from the tab order, and cancels clicks (including modifier-clicks) and Enter. The `href` remains, so middle-click and context-menu actions can still navigate; render noninteractive content when the destination must not be reachable.
+- **Loading:** `loading` sets `aria-disabled` (not `aria-busy`), keeps the link focusable, and cancels clicks (including modifier-clicks) and Enter while it remains reachable through middle-click and the context menu. It is not a substitute for removing an unavailable destination. The default status appears with its text, which does not guarantee a spoken announcement. When the host's announcer communicates loading, set `loadingAnnouncement=""` to omit the built-in status and description; consumer-supplied `aria-describedby` is preserved. The host must communicate the loading state and verify its supported assistive technologies.
+- **Inactive:** `inactive` only applies inactive styling. It neither disables navigation nor exposes a state to assistive technology, so explain the unavailable state in text when it matters.
+
+Verify naming, Enter/modifier/middle-click, context-menu, and new-tab behavior in the host's supported browsers and assistive technologies; this guidance describes the native anchor contract, not screen-reader announcement parity with legacy Primer.
+
+## Data attributes
+
+The anchor exposes `data-component="LinkButton"`.
+
+## Alignment
+
+[LinkButton alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/LinkButton/ALIGNMENT.md) describe the Base UI `render` replacement for the legacy `as` prop.
+
+## Features and examples
+
+<Canvas of={Features.Primary} />
+
+<Canvas of={Examples.SettingsNavigation} />

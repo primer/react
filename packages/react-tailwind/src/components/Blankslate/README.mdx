@@ -1,0 +1,66 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Blankslate.docs.json'
+import * as Stories from './Blankslate.stories'
+import * as Features from './Blankslate.features.stories'
+import * as Examples from './Blankslate.examples.stories'
+
+<Meta of={Stories} />
+
+# Blankslate
+
+`Blankslate` provides a structured empty state with optional visual, heading, description, and primary or secondary actions.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {
+  Blankslate,
+  BlankslateDescription,
+  BlankslateHeading,
+  BlankslatePrimaryAction,
+  BlankslateSecondaryAction,
+  BlankslateVisual,
+} from '@primer/react-tailwind/Blankslate'
+;<Blankslate border>
+  <BlankslateVisual aria-hidden="true">…</BlankslateVisual>
+  <BlankslateHeading>No results</BlankslateHeading>
+  <BlankslateDescription>Try a different search.</BlankslateDescription>
+  <BlankslatePrimaryAction href="/search">Search again</BlankslatePrimaryAction>
+  <BlankslateSecondaryAction href="/help">Learn more</BlankslateSecondaryAction>
+</Blankslate>
+```
+
+## Props
+
+<ApiReference {...api} />
+
+<Controls of={Stories.Playground} />
+
+## Composition
+
+Use the compound children in reading order: visual, heading, description, primary action, then secondary action. Primary actions accept either `href` or button props; secondary actions require an `href`.
+
+## Accessibility
+
+Use a heading that describes the empty state and actionable, meaningful labels. `BlankslateVisual` is decorative and is marked `aria-hidden`; do not put essential meaning only in the visual.
+
+## Animation and reduced motion
+
+`Blankslate` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+The component uses Primer spacing, border, and text tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` on each compound child for local extensions.
+
+### Data attributes
+
+The wrapper exposes `data-component="Blankslate.Container"`. The root exposes `data-component="Blankslate"` and `data-size`, plus `data-border`, `data-narrow`, and `data-spacious` when enabled. Compound parts expose their `Blankslate.*` component identifiers.
+
+## Features and examples
+
+<Canvas of={Features.WithPrimaryActionAsLink} />
+<Canvas of={Features.WithSecondaryAction} />
+<Canvas of={Examples.EmptyRepository} />

@@ -1,0 +1,104 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Token.docs.json'
+import * as Stories from './Token.stories'
+import * as Features from './Token.features.stories'
+import * as Examples from './Token.examples.stories'
+
+<Meta of={Stories} />
+
+# Token
+
+`Token` displays compact filter or selection content with optional leading visuals, selection state, and removal behavior. `IssueLabelToken` provides the same token interaction model with a custom label color.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {Token} from '@primer/react-tailwind/Token'
+;<Token text="bug" isSelected onRemove={() => removeFilter('bug')} />
+```
+
+## Props
+
+<ApiReference {...api} />
+
+Named sizes are `small`, `medium`, `large`, and `xlarge`. `onRemove` receives no arguments; `id` is applied to the root element.
+
+<Controls of={Stories.Playground} />
+
+`TokenBase` exposes the shared base API. `IssueLabelToken` adds `fillColor?: string` and derives light- and dark-theme backgrounds, foregrounds, borders, hover states, and selection treatment from that color.
+
+## Composition
+
+Use tokens as filter chips or selected values. Use an interactive parent (`as="button"`, `as="a"`, or `onClick`) when the whole token is actionable. Button tokens default to `type="button"`; pass `type="submit"` or `type="reset"` when that form behavior is intended. For removal, pass `onRemove`; do not add a second nested remove button yourself.
+
+For a non-interactive removable token, `removeButtonLabel` supplies the full accessible name of its separate remove button. Include the remove action, the visible token text, and enough context to identify what will be removed. Without the prop, string text produces `Remove <text>` and non-string text produces the generic `Remove token`; provide a specific label for rich content or localization. This prop does not label the aria-hidden pointer affordance used by interactive tokens.
+
+```tsx
+<Token
+  text={
+    <>
+      <VisuallyHidden>Open pull request </VisuallyHidden>#42
+    </>
+  }
+  onRemove={removePullRequest}
+  removeButtonLabel="Remove linked pull request #42"
+/>
+```
+
+### Native props, custom actions, and root refs
+
+Native anchor and button props follow `as`. Custom `as` components retain their required props (for example a router link's `to`) and must forward DOM props and refs.
+
+When `onRemove` is present and `hideRemoveButton` is false, an interactive `Token` or `IssueLabelToken` uses a span shell around the primary action and removal affordance. Link props such as `target`, `rel`, and `download`, button form props such as `name`, `value`, and `formAction`, and custom router props go to the inner action. Global DOM/ARIA/data props, IDs, classes, styles, and non-click event handlers stay on the root; `onClick` goes to the action.
+
+The ref always points to the root. For HTML-root tokens use `React.useRef<HTMLElement>(null)`, not an anchor-only or button-only ref: optional/dynamic removal props can replace the selected root with a span. The types conservatively include this span possibility even if removal is currently hidden or omitted. `TokenBase` never creates the sibling-action shell and retains the selected element's native/custom ref type.
+
+For wrappers that accept different HTML roots, unparameterized `TokenProps` and `IssueLabelTokenProps` include native anchor and button attributes and a span-capable `HTMLElement` ref. These broad types work with interfaces and utilities such as `Omit`, but do not correlate attributes with `as`; the wrapper must pass attributes appropriate to the selected root. Direct JSX with a concrete `as` checks that root, as do explicit types such as `TokenProps<'a'>` or `TokenProps<typeof RouterLink>`. An undefined `as` renders a span, so direct calls with an undefined or optional root reject anchor- and button-only attributes; narrow the root or render conditionally before passing those attributes. For a custom non-HTML root, use an explicit generic and a ref that accepts both that root and `HTMLSpanElement`.
+
+React's structurally typed refs can allow a narrower ref to be widened through a stored props type. Create the ref with the correct root type rather than relying on an assignment to catch an anchor-only or button-only ref.
+
+```tsx
+const tokenRef = React.useRef<HTMLElement>(null)
+
+<Token
+  as="a"
+  href="/issues"
+  target="_blank"
+  rel="noopener noreferrer"
+  text="Issues (opens in a new tab)"
+  onRemove={canRemove ? removeFilter : undefined}
+  hideRemoveButton={hideRemoval}
+  ref={tokenRef}
+/>
+```
+
+The removable link now preserves new-tab behavior; legacy Primer React placed these attributes on its shell instead. See the alignment notes for the full runtime/ref distinction.
+
+## Accessibility
+
+Interactive tokens expose button or link semantics. `Enter` and `Space` invoke an interactive span's click handler, while `Backspace` and `Delete` invoke `onRemove`. When an interactive token is also removable, its action and pointer removal affordance are composed as sibling targets inside the token shell, avoiding nested controls. `Token` includes removal instructions in its text; `IssueLabelToken` does not, so consumers of an interactive removable issue label must add those instructions to its action's accessible name or description. Non-interactive tokens receive a real, labelled remove button.
+
+## Animation and reduced motion
+
+`Token` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Use `className` to extend token layout and Primer semantic border/background tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`. `IssueLabelToken` uses package CSS and internal custom properties to preserve arbitrary consumer-provided colors in light, dark, and automatic color modes without requiring generated Tailwind classes.
+
+### Data attributes
+
+`Token` and `IssueLabelToken` expose `data-component="TokenBase"`, `data-cursor-is-interactive`, `data-is-selected`, and `data-size`. The remove affordance exposes `data-component="Token.RemoveButton"`.
+
+## Alignment
+
+Interactive removable tokens render their primary action and pointer removal affordance as siblings inside `TokenBase`, avoiding nested controls while preserving Backspace and Delete removal. Non-interactive tokens retain a labelled remove button.
+
+## Features and examples
+
+<Canvas of={Features.InteractiveToken} />
+<Canvas of={Features.InteractiveIssueLabelToken} />
+<Canvas of={Examples.FilterChips} />

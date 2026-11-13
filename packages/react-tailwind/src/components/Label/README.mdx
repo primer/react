@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Label.docs.json'
+import * as Stories from './Label.stories'
+import * as Features from './Label.features.stories'
+import * as Examples from './Label.examples.stories'
+
+<Meta of={Stories} />
+
+# Label
+
+`Label` marks an item with a short piece of metadata, such as a status or category. It is presentational and does not label form fields; use `FormControl.Label` for that.
+
+```tsx
+import {Label} from '@primer/react-tailwind/Label'
+;<Label variant="success">ready for review</Label>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+The default variant is `default` and the default size is `small`.
+
+## Composition
+
+Use labels as inline metadata and choose `as` when the surrounding structure needs a different element. Element-specific props and refs follow the selected element, for example `<Label as="a" href="/issues">Issues</Label>`.
+
+## Accessibility
+
+Include text that communicates the state; color should not be the only cue.
+
+## Data attributes
+
+The rendered element has `data-component="Label"` and `data-variant`, which defaults to `default` and otherwise reflects the `variant` prop. Passing `variant={null}` removes the variant styling and omits the attribute. An explicitly supplied `data-variant` overrides this value, as in `@primer/react`.
+
+## Features and examples
+
+<Canvas of={Features.Primary} />
+
+<Canvas of={Examples.IssueMetadata} />

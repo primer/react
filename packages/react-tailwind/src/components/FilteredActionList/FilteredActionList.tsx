@@ -1,0 +1,1174 @@
+'use client'
+
+import {Combobox} from '@base-ui/react/combobox'
+import React from 'react'
+import {cn} from '../../internal/cn'
+import {areItemsEqual, getItemRenderKey, getItemText, itemIdKey, renderItemVisual} from '../../internal/collectionItem'
+import {joinIdRefs} from '../../internal/idRefs'
+import {mergeRefs} from '../../internal/refs'
+import type {CSSPropertiesWithCustomProperties} from '../../utils/types'
+import {
+  ActionItemContent,
+  ActionList,
+  type ActionListItemProps,
+  type ActionListRootProps,
+} from '../ActionList/ActionList'
+import {getActionItemStateAttributes} from '../ActionList/itemState'
+import {TextInput, type TextInputProps} from '../TextInput'
+import {FilteredActionListLoadingTypes, type FilteredActionListLoadingType} from './constants'
+import {
+  filteredActionListContainerClassName,
+  filteredActionListGroupClassName,
+  filteredActionListHeaderClassName,
+  getFilteredActionListGroupHeadingClassName,
+  getFilteredActionListListClassName,
+  getFilteredActionListOptionClassName,
+} from './filteredActionListClassNames'
+import {BodyLoader, ComboboxSelectionIndicator, SelectAllRow} from './FilteredActionListParts'
+
+export type FilteredActionListItemId = string | number
+export type {FilteredActionListLoadingType} from './constants'
+
+type ItemVisual = React.ElementType | React.ReactNode
+type FilteredActionListValue = {
+  item: FilteredActionListItem
+  label: string
+  renderKey: string
+}
+
+export interface FilteredActionListItem {
+  /** Stable identity used for selection. Number and string ids stay distinct. */
+  id?: FilteredActionListItemId
+  /** Primary label for the item. */
+  text?: React.ReactNode
+  /** Text used to filter an item whose label is not plain text. */
+  filterValue?: string
+  /** Secondary text shown with the label. */
+  description?: React.ReactNode
+  /** Whether the description sits beside the label or on its own line. */
+  descriptionVariant?: 'inline' | 'block'
+  /** Visual shown before the label. */
+  leadingVisual?: ItemVisual
+  /** Visual shown after the label. */
+  trailingVisual?: ItemVisual
+  /** Marks the item selected in an uncontrolled list. */
+  selected?: boolean
+  /** Prevents the item being activated or selected. */
+  disabled?: boolean
+  /** Group this item belongs to, matched against `groupMetadata`. */
+  groupId?: string
+  /** Use `danger` for a destructive action. */
+  variant?: 'default' | 'danger'
+  children?: React.ReactNode
+  className?: string
+  /** Called when the item is activated by click or keyboard. */
+  onAction?: (
+    item: FilteredActionListItem,
+    event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+  ) => void
+  /** Renderer for this item, taking precedence over the group and list renderers. */
+  renderItem?: FilteredActionListRenderItem
+}
+
+export type FilteredActionListRenderItem = (item: FilteredActionListItem) => React.ReactElement | null
+
+export interface FilteredActionListGroup {
+  /** Identifier items reference through their own `groupId`. */
+  groupId: string
+  /** Heading shown above the group. */
+  header?: {
+    title?: React.ReactNode
+    variant?: 'subtle' | 'filled'
+  }
+  /** Renderer for items in this group, taking precedence over the list renderer. */
+  renderItem?: FilteredActionListRenderItem
+  /** Component used to render this group, replacing the default group element. */
+  renderGroup?: React.ElementType
+}
+
+export interface FilteredActionListTextInputProps
+  extends Omit<TextInputProps, 'aria-label' | 'onChange' | 'placeholder' | 'value'> {
+  /** Visual shown inside the filter input, before the text. */
+  leadingVisual?: ItemVisual
+}
+
+export interface FilteredActionListProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'data-component' | 'onChange'> {
+  /** Items to list. Filtering, selection, and virtualization all operate on this array. */
+  items: readonly FilteredActionListItem[]
+  /** Group headers and per-group renderers, matched to items by `groupId`. */
+  groupMetadata?: readonly FilteredActionListGroup[]
+  /** A list-level renderer used unless a group or item provides one. */
+  renderItem?: FilteredActionListRenderItem
+  /** Component used to render each group, replacing the default group element. */
+  renderGroup?: React.ElementType
+  /** Density and inset treatment of the underlying list. */
+  variant?: 'inset' | 'horizontal-inset' | 'full'
+  /** How many items may be selected and which selection semantics the list reports. */
+  selectionVariant?: 'single' | 'multiple' | 'radio'
+  /** Draws a divider between items. */
+  showItemDividers?: boolean
+  /** Controlled filter query. */
+  filterValue?: string
+  /** Initial filter query for an uncontrolled list. */
+  defaultFilterValue?: string
+  /** Called with the new query whenever the filter input changes. */
+  onFilterChange?: (value: string, details: Combobox.Root.ChangeEventDetails) => void
+  /** Controlled selected IDs. Number and string IDs remain distinct. */
+  selectedItemIds?: readonly FilteredActionListItemId[]
+  /** Initially selected ids for an uncontrolled list. */
+  defaultSelectedItemIds?: readonly FilteredActionListItemId[]
+  /** Called with the full set of selected ids whenever selection changes. */
+  onSelectedChange?: (selectedItemIds: FilteredActionListItemId[], details?: Combobox.Root.ChangeEventDetails) => void
+  /** Opts a multiple-selection list into a select-all control. */
+  onSelectAllChange?: (selected: boolean) => void
+  /** Shows a loading affordance in place of results. */
+  loading?: boolean
+  /** Which loading affordance to show, and whether it replaces the list or sits beside it. */
+  loadingType?: FilteredActionListLoadingType
+  /** Placeholder shown in the filter input. */
+  placeholderText?: string
+  /** Extra props forwarded to the filter input. */
+  textInputProps?: FilteredActionListTextInputProps
+  /** Content shown in place of the list, for an error or other terminal state. */
+  message?: React.ReactNode
+  /** Title and description for the built-in message, as an alternative to supplying `message`. */
+  messageText?: {title: string; description: string}
+  /** Content shown when the filter matches no items. Pass `null` to suppress the built-in message. */
+  emptyStateText?: React.ReactNode
+  /** Extra props forwarded to the underlying list. */
+  actionListProps?: Omit<Partial<ActionListRootProps>, 'children' | 'data-component'>
+  /** Ref to the filter input, for focusing it from outside. */
+  inputRef?: React.Ref<HTMLInputElement>
+  /** Ref to the scrolling results container. */
+  scrollContainerRef?: React.Ref<HTMLDivElement>
+  /** Called when the filter input element is attached or replaced. */
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement | null>) => void
+  /** Called when the results container element is attached or replaced. */
+  onListContainerRefChanged?: (element: HTMLElement | null) => void
+  /** Announces result counts and selection changes to assistive technology. */
+  announcementsEnabled?: boolean
+  /**
+   * Increases the input text size on narrow viewports to prevent iOS from
+   * zooming while the input is focused.
+   */
+  fullScreenOnNarrow?: boolean
+  /**
+   * Determines whether keyboard navigation stops or wraps at the first and
+   * last enabled option.
+   * @default 'wrap'
+   */
+  focusOutBehavior?: 'stop' | 'wrap'
+  /** Called when keyboard focus moves to a different option. */
+  onActiveDescendantChanged?: (
+    current: HTMLElement | undefined,
+    previous: HTMLElement | undefined,
+    directlyActivated: boolean,
+  ) => void
+  /** Stops hovering an option from making it the active descendant. */
+  disableSelectOnHover?: boolean
+  /** Suppresses filter-change highlighting unless focusPrependedElements is enabled. Initial item highlighting is not yet supported. */
+  setInitialFocus?: boolean
+  /** Enables automatic highlighting as the filter changes; it does not re-highlight items prepended to an unchanged filter. */
+  focusPrependedElements?: boolean
+  /** Scrolling behavior used when bringing the active option into view. */
+  scrollBehavior?: ScrollBehavior
+  /** Enables fixed-row virtualization for ungrouped, uniform default items. */
+  virtualized?: boolean
+}
+
+const compactVirtualRowHeight = 32
+const blockDescriptionVirtualRowHeight = 52
+const virtualOverscan = 6
+
+function getVirtualRowHeight(
+  items: readonly FilteredActionListItem[],
+  grouped: boolean,
+  itemRenderer?: FilteredActionListRenderItem,
+) {
+  if (
+    grouped ||
+    itemRenderer !== undefined ||
+    !items.every(
+      item =>
+        !item.disabled &&
+        !item.renderItem &&
+        item.children === undefined &&
+        item.className === undefined &&
+        item.variant === undefined &&
+        typeof item.text === 'string',
+    )
+  ) {
+    return undefined
+  }
+
+  if (items.every(item => item.description === undefined && item.descriptionVariant === undefined)) {
+    return compactVirtualRowHeight
+  }
+
+  if (items.every(item => item.description !== undefined && item.descriptionVariant === 'block')) {
+    return blockDescriptionVirtualRowHeight
+  }
+
+  return undefined
+}
+
+interface FilteredActionListOptionProps {
+  group?: FilteredActionListGroup
+  itemNodes: React.RefObject<Map<FilteredActionListItem, HTMLElement>>
+  itemRenderer?: FilteredActionListRenderItem
+  item: FilteredActionListValue
+  multiple: boolean
+  optionCount: number
+  behaviorIndex: number
+  optionIndex: number
+  radio: boolean
+  selectable: boolean
+  selected: boolean
+  showItemDividers: boolean
+  variant: NonNullable<FilteredActionListProps['variant']>
+  virtualized?: boolean
+}
+
+type FilteredActionListRenderedItemProps = Pick<
+  ActionListItemProps,
+  | 'aria-describedby'
+  | 'aria-label'
+  | 'aria-labelledby'
+  | 'children'
+  | 'description'
+  | 'leadingVisual'
+  | 'trailingVisual'
+> & {
+  className?: string
+  disabled?: boolean
+  onClick?: React.MouseEventHandler<HTMLElement>
+  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  variant?: FilteredActionListItem['variant']
+}
+
+function FilteredActionListOption({
+  group,
+  itemNodes,
+  itemRenderer,
+  item: value,
+  multiple,
+  optionCount,
+  behaviorIndex,
+  optionIndex,
+  radio,
+  selectable,
+  selected,
+  showItemDividers,
+  variant: listVariant,
+  virtualized = false,
+}: FilteredActionListOptionProps) {
+  const accessibilityId = React.useId()
+  const item = value.item
+  const {
+    children,
+    className,
+    description,
+    descriptionVariant,
+    disabled,
+    filterValue,
+    groupId,
+    id: itemId,
+    leadingVisual,
+    onAction,
+    renderItem,
+    text,
+    trailingVisual,
+    variant,
+  } = item
+  const renderer = renderItem ?? group?.renderItem ?? itemRenderer
+  const renderedItem = renderer?.({...item, selected})
+  const renderedActionListItem =
+    React.isValidElement<FilteredActionListRenderedItemProps>(renderedItem) && renderedItem.type === ActionList.Item
+      ? renderedItem
+      : undefined
+  const resolvedContent = ActionItemContent.resolveOption(
+    {
+      children: (
+        <>
+          {children}
+          {text}
+        </>
+      ),
+      description,
+      descriptionVariant,
+      leadingVisual: leadingVisual ? renderItemVisual(leadingVisual) : undefined,
+      trailingVisual: trailingVisual ? renderItemVisual(trailingVisual) : undefined,
+    },
+    renderedItem,
+    renderedActionListItem,
+    accessibilityId,
+  )
+  const ariaLabel = renderedActionListItem?.props['aria-label']
+  const optionDisabled = Boolean(disabled || renderedActionListItem?.props.disabled)
+  const optionVariant = renderedActionListItem?.props.variant ?? variant
+  const selection = selectable ? (
+    <ComboboxSelectionIndicator
+      disabled={optionDisabled}
+      variant={multiple ? 'multiple' : radio ? 'radio' : 'single'}
+    />
+  ) : null
+
+  return (
+    <Combobox.Item
+      {...getActionItemStateAttributes({disabled: optionDisabled, variant: optionVariant})}
+      aria-describedby={joinIdRefs(
+        renderedActionListItem?.props['aria-describedby'],
+        ...(resolvedContent?.descriptionIds ?? []),
+      )}
+      aria-label={ariaLabel}
+      aria-labelledby={
+        renderedActionListItem?.props['aria-labelledby'] ??
+        ActionItemContent.optionLabelledBy(resolvedContent, ariaLabel)
+      }
+      aria-posinset={optionIndex + 1}
+      aria-setsize={optionCount}
+      className={cn(
+        getFilteredActionListOptionClassName({
+          descriptionVariant,
+          disabled: optionDisabled,
+          listVariant,
+          variant: optionVariant,
+          virtualized,
+        }),
+        className,
+        renderedActionListItem?.props.className,
+      )}
+      data-component="FilteredActionList.Item"
+      data-filter-value={filterValue}
+      data-group-id={groupId}
+      data-index={optionIndex}
+      data-item-id={itemId === undefined ? undefined : itemIdKey(itemId)}
+      disabled={optionDisabled}
+      index={virtualized ? behaviorIndex : undefined}
+      onClick={event => {
+        renderedActionListItem?.props.onClick?.(event)
+        if (!event.defaultPrevented) {
+          if (renderedActionListItem?.props.onSelect) renderedActionListItem.props.onSelect(event)
+          else onAction?.(item, event)
+        }
+        if (event.defaultPrevented) event.preventBaseUIHandler()
+      }}
+      ref={node => {
+        if (node) itemNodes.current.set(item, node)
+        else itemNodes.current.delete(item)
+      }}
+      value={value}
+    >
+      {resolvedContent ? (
+        <ActionItemContent
+          resolvedContent={resolvedContent}
+          selection={selection}
+          showDivider={showItemDividers && optionIndex > 0}
+        />
+      ) : (
+        renderedItem
+      )}
+    </Combobox.Item>
+  )
+}
+
+interface FilteredActionListDisabledOptionProps {
+  group?: FilteredActionListGroup
+  itemRenderer?: FilteredActionListRenderItem
+  item: FilteredActionListValue
+  optionCount: number
+  optionIndex: number
+  showItemDividers: boolean
+  variant: NonNullable<FilteredActionListProps['variant']>
+}
+
+function FilteredActionListDisabledOption({
+  group,
+  itemRenderer,
+  item: value,
+  optionCount,
+  optionIndex,
+  showItemDividers,
+  variant: listVariant,
+}: FilteredActionListDisabledOptionProps) {
+  const accessibilityId = React.useId()
+  const item = value.item
+  const {
+    children,
+    className,
+    description,
+    descriptionVariant,
+    filterValue,
+    groupId,
+    id: itemId,
+    leadingVisual,
+    renderItem,
+    text,
+    trailingVisual,
+    variant,
+  } = item
+  const renderer = renderItem ?? group?.renderItem ?? itemRenderer
+  const renderedItem = renderer?.({...item, selected: false})
+  const renderedActionListItem =
+    React.isValidElement<FilteredActionListRenderedItemProps>(renderedItem) && renderedItem.type === ActionList.Item
+      ? renderedItem
+      : undefined
+  const resolvedContent = ActionItemContent.resolveOption(
+    {
+      children: (
+        <>
+          {children}
+          {text}
+        </>
+      ),
+      description,
+      descriptionVariant,
+      leadingVisual: leadingVisual ? renderItemVisual(leadingVisual) : undefined,
+      trailingVisual: trailingVisual ? renderItemVisual(trailingVisual) : undefined,
+    },
+    renderedItem,
+    renderedActionListItem,
+    accessibilityId,
+  )
+  const ariaLabel = renderedActionListItem?.props['aria-label']
+  const optionVariant = renderedActionListItem?.props.variant ?? variant
+
+  return (
+    <div
+      {...getActionItemStateAttributes({disabled: true, variant: optionVariant})}
+      aria-describedby={joinIdRefs(
+        renderedActionListItem?.props['aria-describedby'],
+        ...(resolvedContent?.descriptionIds ?? []),
+      )}
+      aria-disabled="true"
+      aria-label={ariaLabel}
+      aria-labelledby={
+        renderedActionListItem?.props['aria-labelledby'] ??
+        ActionItemContent.optionLabelledBy(resolvedContent, ariaLabel)
+      }
+      aria-posinset={optionIndex + 1}
+      aria-selected="false"
+      aria-setsize={optionCount}
+      className={cn(
+        getFilteredActionListOptionClassName({
+          descriptionVariant,
+          disabled: true,
+          highlightable: false,
+          listVariant,
+          variant: optionVariant,
+        }),
+        className,
+        renderedActionListItem?.props.className,
+      )}
+      data-component="FilteredActionList.Item"
+      data-filter-value={filterValue}
+      data-group-id={groupId}
+      data-index={optionIndex}
+      data-item-id={itemId === undefined ? undefined : itemIdKey(itemId)}
+      role="option"
+    >
+      {resolvedContent ? (
+        <ActionItemContent resolvedContent={resolvedContent} showDivider={showItemDividers && optionIndex > 0} />
+      ) : (
+        renderedItem
+      )}
+    </div>
+  )
+}
+
+interface FilteredActionListVirtualizedOptionsProps {
+  itemNodes: React.RefObject<Map<FilteredActionListItem, HTMLElement>>
+  itemRenderer?: FilteredActionListRenderItem
+  multiple: boolean
+  onRowOverflow: (anchor: VirtualFallbackAnchor | null) => void
+  onScrollPositionChange: (scrollTop: number) => void
+  radio: boolean
+  rowHeight: number
+  selectable: boolean
+  scrollContainerRef: React.RefObject<HTMLDivElement | null>
+  scrollTop: number
+  selectedKeys: ReadonlySet<string>
+  showItemDividers: boolean
+  values: readonly FilteredActionListValue[]
+  variant: NonNullable<FilteredActionListProps['variant']>
+}
+
+interface VirtualFallbackAnchor {
+  index: number
+  offset: number
+}
+
+function FilteredActionListVirtualizedOptions({
+  itemNodes,
+  itemRenderer,
+  multiple,
+  onRowOverflow,
+  onScrollPositionChange,
+  radio,
+  rowHeight,
+  selectable,
+  scrollContainerRef,
+  scrollTop,
+  selectedKeys,
+  showItemDividers,
+  values,
+  variant,
+}: FilteredActionListVirtualizedOptionsProps) {
+  const [viewportHeight, setViewportHeight] = React.useState(320)
+  const virtualContentRef = React.useRef<HTMLDivElement>(null)
+  const firstIndex = Math.max(0, Math.floor(scrollTop / rowHeight) - virtualOverscan)
+  const lastIndex = Math.min(values.length, Math.ceil((scrollTop + viewportHeight) / rowHeight) + virtualOverscan)
+  const visibleValues = values.slice(firstIndex, lastIndex)
+  const virtualStyle: CSSPropertiesWithCustomProperties = {
+    '--filtered-action-list-virtual-height': `${values.length * rowHeight}px`,
+    '--filtered-action-list-virtual-row-height': `${rowHeight}px`,
+  }
+
+  React.useLayoutEffect(() => {
+    const scrollElement =
+      scrollContainerRef.current ??
+      virtualContentRef.current?.closest<HTMLDivElement>('[data-component="FilteredActionList.Container"]')
+    if (!scrollElement) return
+
+    onScrollPositionChange(scrollElement.scrollTop)
+    let active = true
+    const rows = Array.from(scrollElement.querySelectorAll<HTMLElement>('[data-component="FilteredActionList.Item"]'))
+    const fallBack = () => {
+      active = false
+      const viewport = scrollElement.getBoundingClientRect()
+      const firstVisible = rows.find(row => {
+        const bounds = row.getBoundingClientRect()
+        return bounds.bottom > viewport.top && bounds.top < viewport.bottom
+      })
+      const index = firstVisible?.getAttribute('data-index')
+      onRowOverflow(
+        firstVisible && index !== null && index !== undefined
+          ? {index: Number(index), offset: firstVisible.getBoundingClientRect().top - viewport.top}
+          : null,
+      )
+    }
+    const inspectRows = () => {
+      if (!active) return true
+      const overflowing = rows.some(row => {
+        const bounds = row.getBoundingClientRect()
+        if (!bounds.width || !bounds.height) return false
+        return Array.from(row.children).some(child => {
+          const childBounds = child.getBoundingClientRect()
+          return childBounds.top < bounds.top - 1 || childBounds.bottom > bounds.bottom + 1
+        })
+      })
+      if (!overflowing) return false
+
+      fallBack()
+      return true
+    }
+
+    if (inspectRows()) return
+    if (typeof ResizeObserver === 'undefined') {
+      fallBack()
+      return
+    }
+    const observer = new ResizeObserver(inspectRows)
+    observer.observe(scrollElement)
+    for (const row of rows) {
+      observer.observe(row)
+      for (const child of row.children) observer.observe(child)
+    }
+    return () => {
+      active = false
+      observer.disconnect()
+    }
+  }, [firstIndex, lastIndex, onRowOverflow, onScrollPositionChange, scrollContainerRef, values])
+
+  React.useEffect(() => {
+    const element = scrollContainerRef.current
+    if (!element) return
+
+    if (typeof ResizeObserver === 'undefined') return
+
+    const observer = new ResizeObserver(entries => {
+      const height = entries[0]?.contentRect.height
+      if (height) setViewportHeight(height)
+    })
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [scrollContainerRef])
+
+  return (
+    <div
+      className="primer:relative primer:w-full primer:h-[var(--filtered-action-list-virtual-height)]"
+      ref={virtualContentRef}
+      role="presentation"
+      style={virtualStyle}
+    >
+      {visibleValues.map((value, offset) => {
+        const index = firstIndex + offset
+        const itemStyle: CSSPropertiesWithCustomProperties = {
+          '--filtered-action-list-virtual-offset': `${index * rowHeight}px`,
+        }
+
+        return (
+          <div
+            className="primer:absolute primer:inset-x-0 primer:top-0 primer:translate-y-[var(--filtered-action-list-virtual-offset)]"
+            key={value.renderKey}
+            role="presentation"
+            style={itemStyle}
+          >
+            <FilteredActionListOption
+              item={value}
+              itemNodes={itemNodes}
+              itemRenderer={itemRenderer}
+              multiple={multiple}
+              optionCount={values.length}
+              behaviorIndex={index}
+              optionIndex={index}
+              radio={radio}
+              selectable={selectable}
+              selected={value.item.id !== undefined && selectedKeys.has(itemIdKey(value.item.id))}
+              showItemDividers={showItemDividers}
+              variant={variant}
+              virtualized
+            />
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function scrollVirtualizedOptionIntoView(
+  container: HTMLDivElement | null,
+  index: number,
+  rowHeight: number,
+  behavior: ScrollBehavior | undefined,
+) {
+  if (!container) return
+
+  const itemTop = index * rowHeight
+  const itemBottom = itemTop + rowHeight
+  const viewportTop = container.scrollTop
+  const viewportBottom = viewportTop + container.clientHeight
+  const top =
+    itemTop < viewportTop ? itemTop : itemBottom > viewportBottom ? itemBottom - container.clientHeight : undefined
+
+  if (top !== undefined && 'scrollTo' in container) container.scrollTo({top, behavior: behavior ?? 'auto'})
+}
+
+/** A configured, data-driven filterable ActionList. */
+export const FilteredActionList = React.forwardRef<HTMLElement, FilteredActionListProps>(function FilteredActionList(
+  {
+    'aria-label': ariaLabel = 'Filter items',
+    actionListProps,
+    announcementsEnabled = true,
+    className,
+    defaultFilterValue = '',
+    defaultSelectedItemIds,
+    disableSelectOnHover = false,
+    emptyStateText = 'No items found',
+    filterValue: controlledFilterValue,
+    focusOutBehavior = 'wrap',
+    focusPrependedElements = false,
+    fullScreenOnNarrow = false,
+    groupMetadata,
+    inputRef,
+    items,
+    loading = false,
+    loadingType = FilteredActionListLoadingTypes.bodySpinner,
+    message,
+    messageText,
+    onActiveDescendantChanged,
+    onFilterChange,
+    onInputRefChanged,
+    onListContainerRefChanged,
+    onSelectAllChange,
+    onSelectedChange,
+    placeholderText = 'Filter items',
+    renderGroup,
+    renderItem,
+    scrollBehavior,
+    scrollContainerRef,
+    selectedItemIds,
+    selectionVariant,
+    setInitialFocus = false,
+    showItemDividers = false,
+    textInputProps,
+    variant = 'inset',
+    virtualized = false,
+    ...rootProps
+  },
+  forwardedRef,
+) {
+  const [uncontrolledFilterValue, setUncontrolledFilterValue] = React.useState(defaultFilterValue)
+  const [uncontrolledSelectedItemIds, setUncontrolledSelectedItemIds] = React.useState<FilteredActionListItemId[]>(
+    () => {
+      return defaultSelectedItemIds
+        ? [...defaultSelectedItemIds]
+        : items.flatMap(item => (item.selected && item.id !== undefined ? [item.id] : []))
+    },
+  )
+  const [virtualScrollTop, setVirtualScrollTop] = React.useState(0)
+  const [virtualFallbackItems, setVirtualFallbackItems] = React.useState<readonly FilteredActionListItem[] | null>(null)
+  const [previousVirtualized, setPreviousVirtualized] = React.useState(virtualized)
+  if (previousVirtualized !== virtualized) {
+    setPreviousVirtualized(virtualized)
+    if (!virtualized) setVirtualFallbackItems(null)
+  }
+  const virtualFallbackAnchor = React.useRef<VirtualFallbackAnchor | null>(null)
+  const inputElementRef = React.useRef<HTMLInputElement | null>(null)
+  const itemNodes = React.useRef(new Map<FilteredActionListItem, HTMLElement>())
+  const previousActiveItem = React.useRef<HTMLElement | undefined>(undefined)
+  const scrollElementRef = React.useRef<HTMLDivElement | null>(null)
+  const filterDescriptionId = React.useId()
+  const generatedListId = React.useId()
+  const filterValue = controlledFilterValue ?? uncontrolledFilterValue
+  const grouped = Boolean(groupMetadata?.length)
+  const multiple = selectionVariant === 'multiple'
+  const radio = selectionVariant === 'radio'
+  const selectable = selectionVariant !== undefined
+  const virtualRowHeight = getVirtualRowHeight(items, grouped, renderItem)
+  const useVirtualization = virtualized && virtualRowHeight !== undefined && virtualFallbackItems !== items
+  const onVirtualRowOverflow = React.useCallback(
+    (anchor: VirtualFallbackAnchor | null) => {
+      virtualFallbackAnchor.current = anchor
+      setVirtualFallbackItems(items)
+    },
+    [items],
+  )
+  React.useLayoutEffect(() => {
+    const anchor = virtualFallbackAnchor.current
+    const element = scrollElementRef.current
+    if (useVirtualization || !anchor || !element) return
+    const row = element.querySelector<HTMLElement>(
+      `[data-component="FilteredActionList.Item"][data-index="${anchor.index}"]`,
+    )
+    if (row) element.scrollTop += row.getBoundingClientRect().top - element.getBoundingClientRect().top - anchor.offset
+    virtualFallbackAnchor.current = null
+  }, [items, useVirtualization])
+  const hasLegacySelectedItems = selectedItemIds === undefined && items.some(item => item.selected !== undefined)
+  const selectedIds =
+    selectedItemIds ??
+    (hasLegacySelectedItems
+      ? items.flatMap(item => (item.selected && item.id !== undefined ? [item.id] : []))
+      : uncontrolledSelectedItemIds)
+  const selectedKeys = React.useMemo(() => new Set(selectedIds.map(itemIdKey)), [selectedIds])
+  const visibleItems = React.useMemo(() => {
+    const query = filterValue.trim().toLocaleLowerCase()
+    if (!query) return items
+    return items.filter(item => getItemText(item).toLocaleLowerCase().includes(query))
+  }, [filterValue, items])
+  const values = React.useMemo(
+    () =>
+      visibleItems.map((item, index) => ({
+        item,
+        label: getItemText(item),
+        renderKey: getItemRenderKey(item, index),
+      })),
+    [visibleItems],
+  )
+  const selectableValues = React.useMemo(() => values.filter(value => !value.item.disabled), [values])
+  const optionIndexByValue = React.useMemo(() => new Map(values.map((value, index) => [value, index])), [values])
+  const behaviorIndexByValue = React.useMemo(
+    () => new Map(selectableValues.map((value, index) => [value, index])),
+    [selectableValues],
+  )
+  const groupedValues = React.useMemo(() => {
+    if (!groupMetadata?.length) return undefined
+
+    return groupMetadata
+      .map(group => ({
+        groupId: group.groupId,
+        header: group.header,
+        items: values.filter(value => value.item.groupId === group.groupId),
+        renderGroup: group.renderGroup,
+        renderItem: group.renderItem,
+      }))
+      .filter(group => group.items.length > 0)
+  }, [groupMetadata, values])
+  const selectedValues = React.useMemo(
+    () =>
+      items.flatMap((item, index) =>
+        item.id !== undefined && selectedKeys.has(itemIdKey(item.id))
+          ? [{item, label: getItemText(item), renderKey: getItemRenderKey(item, index)}]
+          : [],
+      ),
+    [items, selectedKeys],
+  )
+  const bodyLoading = loading && loadingType !== FilteredActionListLoadingTypes.input
+  const hasMessage = message !== null && message !== undefined
+  const hasEmptyStateContent = emptyStateText !== null && typeof emptyStateText !== 'boolean' && emptyStateText !== ''
+  const showEmptyState = !bodyLoading && !hasMessage && visibleItems.length === 0 && hasEmptyStateContent
+  const {
+    className: actionListClassName,
+    id: actionListId,
+    onScroll: actionListOnScroll,
+    selectionVariant: _actionListSelectionVariant,
+    showDividers: _actionListShowDividers,
+    style: actionListStyle,
+    variant: _actionListVariant,
+    ...actionListDomProps
+  } = actionListProps ?? {}
+  const {className: inputClassName, id: inputId, leadingVisual: LeadingVisual, ...inputProps} = textInputProps ?? {}
+  void _actionListSelectionVariant
+  void _actionListShowDividers
+  void _actionListVariant
+
+  React.useEffect(() => {
+    onInputRefChanged?.(inputElementRef)
+  }, [onInputRefChanged])
+
+  const setListElement = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      onListContainerRefChanged?.(node)
+    },
+    [onListContainerRefChanged],
+  )
+
+  const setScrollElement = React.useMemo(() => mergeRefs(scrollElementRef, scrollContainerRef), [scrollContainerRef])
+  const setInputElement = React.useMemo(() => mergeRefs(inputElementRef, inputRef), [inputRef])
+
+  const onFilterValueChange = React.useCallback(
+    (nextFilterValue: string, details: Combobox.Root.ChangeEventDetails) => {
+      if (controlledFilterValue === undefined) setUncontrolledFilterValue(nextFilterValue)
+      onFilterChange?.(nextFilterValue, details)
+    },
+    [controlledFilterValue, onFilterChange],
+  )
+
+  const updateSelectedIds = React.useCallback(
+    (nextSelectedIds: FilteredActionListItemId[], details?: Combobox.Root.ChangeEventDetails) => {
+      if (selectedItemIds === undefined && !hasLegacySelectedItems) setUncontrolledSelectedItemIds(nextSelectedIds)
+      onSelectedChange?.(nextSelectedIds, details)
+    },
+    [hasLegacySelectedItems, onSelectedChange, selectedItemIds],
+  )
+
+  const onValueChange = React.useCallback(
+    (
+      nextValue: FilteredActionListValue | FilteredActionListValue[] | null,
+      details: Combobox.Root.ChangeEventDetails,
+    ) => {
+      const nextValues = Array.isArray(nextValue) ? nextValue : nextValue ? [nextValue] : []
+      const nextIds = nextValues.flatMap(value => (value.item.id === undefined ? [] : [value.item.id]))
+      const visibleItemKeys = new Set(
+        values.flatMap(value => (value.item.id === undefined ? [] : [itemIdKey(value.item.id)])),
+      )
+      const preservedIds = multiple ? selectedIds.filter(id => !visibleItemKeys.has(itemIdKey(id))) : []
+      const nextSelectedIds =
+        !multiple && selectionVariant === 'single' && nextIds.length === 1 && selectedKeys.has(itemIdKey(nextIds[0]))
+          ? []
+          : [...new Map([...preservedIds, ...nextIds].map(id => [itemIdKey(id), id])).values()]
+      updateSelectedIds(nextSelectedIds, details)
+    },
+    [multiple, selectedIds, selectedKeys, selectionVariant, updateSelectedIds, values],
+  )
+
+  const onHighlighted = React.useCallback(
+    (value: FilteredActionListValue | undefined, details: Combobox.Root.HighlightEventDetails) => {
+      const current = value ? itemNodes.current.get(value.item) : undefined
+      onActiveDescendantChanged?.(current, previousActiveItem.current, details.reason === 'keyboard')
+      previousActiveItem.current = current
+
+      if (details.reason !== 'keyboard' || !value) return
+      const index = details.index
+      if (useVirtualization && index >= 0) {
+        scrollVirtualizedOptionIntoView(scrollElementRef.current, index, virtualRowHeight, scrollBehavior)
+      } else if (current && 'scrollIntoView' in current) {
+        current.scrollIntoView({behavior: scrollBehavior ?? 'auto', block: 'nearest'})
+      }
+    },
+    [onActiveDescendantChanged, scrollBehavior, useVirtualization, virtualRowHeight],
+  )
+
+  const selectableVisibleItems = visibleItems.filter(item => !item.disabled && item.id !== undefined)
+  const allSelected =
+    selectableVisibleItems.length > 0 && selectableVisibleItems.every(item => selectedKeys.has(itemIdKey(item.id!)))
+  const someSelected = !allSelected && selectableVisibleItems.some(item => selectedKeys.has(itemIdKey(item.id!)))
+  const selectAllLabel = allSelected ? 'Deselect all' : 'Select all'
+
+  return (
+    <Combobox.Root<FilteredActionListValue, boolean>
+      autoHighlight={focusPrependedElements || !setInitialFocus}
+      defaultInputValue={defaultFilterValue}
+      filteredItems={selectableValues}
+      highlightItemOnHover={!disableSelectOnHover}
+      inline
+      inputValue={filterValue}
+      isItemEqualToValue={(first, second) => areItemsEqual(first.item, second.item)}
+      itemToStringLabel={value => value.label}
+      items={selectableValues}
+      loopFocus={focusOutBehavior !== 'stop'}
+      multiple={multiple}
+      onInputValueChange={onFilterValueChange}
+      onItemHighlighted={onHighlighted}
+      onValueChange={onValueChange}
+      open
+      value={multiple ? selectedValues : (selectedValues[0] ?? null)}
+      virtualized={useVirtualization}
+    >
+      <div
+        {...rootProps}
+        ref={forwardedRef as React.Ref<HTMLDivElement>}
+        className={cn(
+          'primer:flex primer:h-full primer:min-h-0 primer:w-full primer:flex-col primer:overflow-hidden',
+          className,
+        )}
+        data-component="FilteredActionList"
+      >
+        <div className={filteredActionListHeaderClassName} data-component="FilteredActionList.Header">
+          <Combobox.Input
+            // The input tracks its own `id`, so it must not be overridden on the render element.
+            id={inputId}
+            aria-expanded={!bodyLoading && !hasMessage}
+            aria-describedby={filterDescriptionId}
+            aria-label={ariaLabel}
+            placeholder={placeholderText}
+            ref={setInputElement}
+            render={
+              <TextInput
+                loaderPosition="leading"
+                {...inputProps}
+                block
+                leadingVisual={LeadingVisual ? renderItemVisual(LeadingVisual) : undefined}
+                loading={loading && loadingType === FilteredActionListLoadingTypes.input}
+                className={cn(
+                  'primer:min-w-0',
+                  // Match upstream: keep iOS from zooming the viewport when focusing a narrow input.
+                  fullScreenOnNarrow &&
+                    'primer:max-md:supports-[-webkit-touch-callout:none]:text-[var(--text-title-size-small)]',
+                  inputClassName,
+                )}
+              />
+            }
+          />
+        </div>
+        <span id={filterDescriptionId} className="primer:sr-only">
+          Items will be filtered as you type
+        </span>
+        {announcementsEnabled ? (
+          <span aria-live="polite" className="primer:sr-only">
+            {loading
+              ? 'Loading items'
+              : `${visibleItems.length} ${visibleItems.length === 1 ? 'item' : 'items'} available`}
+          </span>
+        ) : null}
+        {multiple && onSelectAllChange ? (
+          <SelectAllRow
+            checked={allSelected}
+            indeterminate={someSelected}
+            label={selectAllLabel}
+            onCheckedChange={checked => {
+              const visibleKeys = new Set(selectableVisibleItems.map(item => itemIdKey(item.id!)))
+              const nextSelectedIds = checked
+                ? [
+                    ...selectedIds,
+                    ...selectableVisibleItems
+                      .filter(item => !selectedKeys.has(itemIdKey(item.id!)))
+                      .map(item => item.id!),
+                  ]
+                : selectedIds.filter(id => !visibleKeys.has(itemIdKey(id)))
+              updateSelectedIds(nextSelectedIds)
+              onSelectAllChange(checked)
+            }}
+          />
+        ) : null}
+        <div
+          className={filteredActionListContainerClassName}
+          data-component="FilteredActionList.Container"
+          onScroll={event => {
+            ;(actionListOnScroll as React.UIEventHandler<HTMLDivElement> | undefined)?.(event)
+            if (useVirtualization) setVirtualScrollTop(event.currentTarget.scrollTop)
+          }}
+          ref={setScrollElement}
+        >
+          {bodyLoading ? (
+            <BodyLoader announce={!announcementsEnabled} loadingType={loadingType} />
+          ) : hasMessage ? (
+            <div className="primer:flex primer:flex-1" data-component="FilteredActionList.MessageContainer">
+              {message}
+            </div>
+          ) : (
+            <Combobox.List
+              {...(actionListDomProps as React.ComponentPropsWithoutRef<typeof Combobox.List>)}
+              aria-label={actionListProps?.['aria-label'] ?? ariaLabel}
+              className={cn(
+                getFilteredActionListListClassName({variant, virtualized: useVirtualization}),
+                actionListClassName,
+              )}
+              data-component="FilteredActionList.List"
+              id={actionListId ?? generatedListId}
+              ref={setListElement}
+              style={actionListStyle}
+            >
+              {useVirtualization ? (
+                <FilteredActionListVirtualizedOptions
+                  itemNodes={itemNodes}
+                  itemRenderer={renderItem}
+                  multiple={multiple}
+                  onRowOverflow={onVirtualRowOverflow}
+                  onScrollPositionChange={setVirtualScrollTop}
+                  radio={radio}
+                  rowHeight={virtualRowHeight}
+                  selectable={selectable}
+                  scrollContainerRef={scrollElementRef}
+                  scrollTop={virtualScrollTop}
+                  selectedKeys={selectedKeys}
+                  showItemDividers={showItemDividers}
+                  values={values}
+                  variant={variant}
+                />
+              ) : groupedValues ? (
+                groupedValues.map(group => {
+                  const hasDisabledItems = group.items.some(value => value.item.disabled)
+                  const renderOption = (value: FilteredActionListValue) => {
+                    const optionIndex = optionIndexByValue.get(value)!
+                    if (value.item.disabled) {
+                      return (
+                        <FilteredActionListDisabledOption
+                          group={group}
+                          item={value}
+                          itemRenderer={renderItem}
+                          key={value.renderKey}
+                          optionCount={values.length}
+                          optionIndex={optionIndex}
+                          showItemDividers={showItemDividers}
+                          variant={variant}
+                        />
+                      )
+                    }
+
+                    return (
+                      <FilteredActionListOption
+                        behaviorIndex={behaviorIndexByValue.get(value)!}
+                        group={group}
+                        item={value}
+                        itemNodes={itemNodes}
+                        itemRenderer={renderItem}
+                        key={value.renderKey}
+                        multiple={multiple}
+                        optionCount={values.length}
+                        optionIndex={optionIndex}
+                        radio={radio}
+                        selectable={selectable}
+                        selected={value.item.id !== undefined && selectedKeys.has(itemIdKey(value.item.id))}
+                        showItemDividers={showItemDividers}
+                        variant={variant}
+                      />
+                    )
+                  }
+                  const groupContent = (
+                    <>
+                      <Combobox.GroupLabel
+                        className={getFilteredActionListGroupHeadingClassName(group.header?.variant)}
+                        data-component="FilteredActionList.GroupHeading"
+                      >
+                        {group.header?.title ?? `Group ${group.groupId}`}
+                      </Combobox.GroupLabel>
+                      {hasDisabledItems ? (
+                        group.items.map(renderOption)
+                      ) : (
+                        <Combobox.Collection>
+                          {(value: FilteredActionListValue) => renderOption(value)}
+                        </Combobox.Collection>
+                      )}
+                    </>
+                  )
+                  const GroupRenderer = group.renderGroup ?? renderGroup
+
+                  return (
+                    <Combobox.Group
+                      className={filteredActionListGroupClassName}
+                      items={group.items.filter(value => !value.item.disabled)}
+                      key={group.groupId}
+                    >
+                      {GroupRenderer ? <GroupRenderer>{groupContent}</GroupRenderer> : groupContent}
+                    </Combobox.Group>
+                  )
+                })
+              ) : (
+                <>
+                  {values.some(value => value.item.disabled) ? (
+                    values.map(value => {
+                      const optionIndex = optionIndexByValue.get(value)!
+                      if (value.item.disabled) {
+                        return (
+                          <FilteredActionListDisabledOption
+                            item={value}
+                            itemRenderer={renderItem}
+                            key={value.renderKey}
+                            optionCount={values.length}
+                            optionIndex={optionIndex}
+                            showItemDividers={showItemDividers}
+                            variant={variant}
+                          />
+                        )
+                      }
+
+                      return (
+                        <FilteredActionListOption
+                          behaviorIndex={behaviorIndexByValue.get(value)!}
+                          item={value}
+                          itemNodes={itemNodes}
+                          itemRenderer={renderItem}
+                          key={value.renderKey}
+                          multiple={multiple}
+                          optionCount={values.length}
+                          optionIndex={optionIndex}
+                          radio={radio}
+                          selectable={selectable}
+                          selected={value.item.id !== undefined && selectedKeys.has(itemIdKey(value.item.id))}
+                          showItemDividers={showItemDividers}
+                          variant={variant}
+                        />
+                      )
+                    })
+                  ) : (
+                    <Combobox.Collection>
+                      {(value: FilteredActionListValue) => {
+                        const optionIndex = optionIndexByValue.get(value)!
+                        return (
+                          <FilteredActionListOption
+                            behaviorIndex={behaviorIndexByValue.get(value)!}
+                            item={value}
+                            itemNodes={itemNodes}
+                            itemRenderer={renderItem}
+                            key={value.renderKey}
+                            multiple={multiple}
+                            optionCount={values.length}
+                            optionIndex={optionIndex}
+                            radio={radio}
+                            selectable={selectable}
+                            selected={value.item.id !== undefined && selectedKeys.has(itemIdKey(value.item.id))}
+                            showItemDividers={showItemDividers}
+                            variant={variant}
+                          />
+                        )
+                      }}
+                    </Combobox.Collection>
+                  )}
+                </>
+              )}
+            </Combobox.List>
+          )}
+        </div>
+        <Combobox.Empty
+          className={showEmptyState ? 'primer:flex primer:flex-1' : undefined}
+          data-component="FilteredActionList.Empty"
+        >
+          {showEmptyState ? (
+            <div className="primer:box-border primer:min-w-0 primer:w-full primer:p-3 primer:text-sm primer:text-muted">
+              {emptyStateText}
+            </div>
+          ) : null}
+        </Combobox.Empty>
+        {messageText ? (
+          <span className="primer:sr-only" role="status">
+            {messageText.title}. {messageText.description}
+          </span>
+        ) : null}
+      </div>
+    </Combobox.Root>
+  )
+})
+
+FilteredActionList.displayName = 'FilteredActionList'

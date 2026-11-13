@@ -1,0 +1,56 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './IconLinkButton.docs.json'
+import * as Stories from './IconLinkButton.stories'
+import * as Features from './IconLinkButton.features.stories'
+
+<Meta of={Stories} />
+
+# IconLinkButton
+
+`IconLinkButton` is an icon-only navigation link with the visual treatment and tooltip behavior of `IconButton`. It requires an accessible name from either `aria-label` or `aria-labelledby`.
+
+```tsx
+import {IconLinkButton} from '@primer/react-tailwind/IconLinkButton'
+;<IconLinkButton aria-label="View repository" href="/repository" icon={LinkExternalIcon} />
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+## Composition
+
+Supply `href` for a native anchor or use `render={<RouterLink to="/repository" />}` for a router link that forwards its props and ref. Use `IconButton` for actions that do not navigate. This component does not offer disabled, inactive, or loading links; use noninteractive content or an action button when navigation is unavailable.
+
+Descriptions supplied on a rendered element or returned by a `render` callback are merged with the tooltip description. A custom router component must forward the received `aria-describedby` to its anchor, merging it with any description IDs it adds internally rather than overwriting it.
+
+## Accessibility
+
+Provide an accessible name with `aria-label` or `aria-labelledby`; the icon is decorative. The default tooltip shows the label, or exposes `description` as an accessible description. With only `aria-labelledby`, supply `description` or an enclosing Tooltip for visible tooltip text. A surrounding `Tooltip` replaces the default tooltip. Native links activate with Enter, while Space retains its normal scrolling behavior.
+
+By default, icon controls are at least 28 CSS pixels square, even with a reduced root font size. Custom size utilities replace this default; ensure the resulting pointer target is adequately sized or spaced.
+
+When both naming props are supplied, `aria-labelledby` provides the accessible name and `aria-label` provides the default label tooltip when there is no `description`. Include the tooltip text in the referenced name so speech-input users can activate the link by its visible label.
+
+## Data attributes
+
+The anchor exposes `data-component="IconLinkButton"`.
+
+## Alignment
+
+[IconLinkButton alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/IconLinkButton/ALIGNMENT.md) describe the native-link composition and migration from button-rendered anchors.
+
+## Features
+
+<Canvas of={Features.WithDescription} />
+
+<Canvas of={Features.ExternalTooltip} />
+
+<Canvas of={Features.SizeVariants} />

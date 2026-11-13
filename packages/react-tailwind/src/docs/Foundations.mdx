@@ -1,0 +1,184 @@
+import {Meta} from '@storybook/addon-docs/blocks'
+
+<Meta title="React Tailwind/Foundations" />
+
+export const Row = ({children, name}) => (
+  <div style={{display: 'flex', alignItems: 'center', gap: 10, padding: '5px 0'}}>
+    {children}
+    <code style={{fontSize: 12}}>{name}</code>
+  </div>
+)
+
+export const Fg = ({className, name}) => (
+  <Row name={name}>
+    <span
+      className={className}
+      style={{
+        width: 40,
+        height: 24,
+        borderRadius: 6,
+        flex: 'none',
+        display: 'grid',
+        placeItems: 'center',
+        fontWeight: 600,
+        fontSize: 13,
+        border: '1px solid var(--borderColor-muted)',
+      }}
+    >
+      Aa
+    </span>
+  </Row>
+)
+
+export const Bg = ({className, name}) => (
+  <Row name={name}>
+    <span
+      className={className}
+      style={{width: 40, height: 24, borderRadius: 6, flex: 'none', border: '1px solid var(--borderColor-muted)'}}
+    />
+  </Row>
+)
+
+export const Border = ({className, name}) => (
+  <Row name={name}>
+    <span
+      className={className}
+      style={{width: 40, height: 24, borderRadius: 6, flex: 'none', borderWidth: 2, borderStyle: 'solid'}}
+    />
+  </Row>
+)
+
+export const Grid = ({children}) => (
+  <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))', gap: 2}}>{children}</div>
+)
+
+# Foundations
+
+Presentation comes from Primer design tokens, exposed as Tailwind utilities. Use these rather than raw palette values such as `text-gray-500` or a hardcoded hex, so light, dark, and high-contrast schemes all keep working. A build check fails on any hardcoded colour and on any class that generates no CSS.
+
+When no utility exists for a token, reference the variable directly: `bg-[var(--borderColor-muted)]`.
+
+## Text colour
+
+<Grid>
+  <Fg className="text-default" name="text-default" />
+  <Fg className="text-muted" name="text-muted" />
+  <Fg className="text-disabled" name="text-disabled" />
+  <Fg className="text-accent" name="text-accent" />
+  <Fg className="text-success" name="text-success" />
+  <Fg className="text-attention" name="text-attention" />
+  <Fg className="text-severe" name="text-severe" />
+  <Fg className="text-danger" name="text-danger" />
+  <Fg className="text-done" name="text-done" />
+  <Fg className="text-sponsors" name="text-sponsors" />
+  <Fg className="text-upsell" name="text-upsell" />
+  <Fg className="bg-neutral-emphasis text-on-emphasis" name="text-on-emphasis" />
+</Grid>
+
+`text-on-emphasis` is the only foreground that belongs on an `-emphasis` background.
+
+## Background
+
+Each role has a `-muted` fill for subtle surfaces and an `-emphasis` fill for solid ones.
+
+<Grid>
+  <Bg className="bg-default" name="bg-default" />
+  <Bg className="bg-muted" name="bg-muted" />
+  <Bg className="bg-inset" name="bg-inset" />
+  <Bg className="bg-neutral-muted" name="bg-neutral-muted" />
+  <Bg className="bg-neutral-emphasis" name="bg-neutral-emphasis" />
+  <Bg className="bg-accent-muted" name="bg-accent-muted" />
+  <Bg className="bg-accent-emphasis" name="bg-accent-emphasis" />
+  <Bg className="bg-success-muted" name="bg-success-muted" />
+  <Bg className="bg-success-emphasis" name="bg-success-emphasis" />
+  <Bg className="bg-attention-muted" name="bg-attention-muted" />
+  <Bg className="bg-attention-emphasis" name="bg-attention-emphasis" />
+  <Bg className="bg-danger-muted" name="bg-danger-muted" />
+  <Bg className="bg-danger-emphasis" name="bg-danger-emphasis" />
+  <Bg className="bg-severe-emphasis" name="bg-severe-emphasis" />
+  <Bg className="bg-done-emphasis" name="bg-done-emphasis" />
+  <Bg className="bg-sponsors-emphasis" name="bg-sponsors-emphasis" />
+  <Bg className="bg-upsell-muted" name="bg-upsell-muted" />
+</Grid>
+
+`bg-open-emphasis`, `bg-closed-emphasis`, and `bg-draft-emphasis` carry issue and pull request state; prefer `StateLabel` over applying them directly.
+
+## Border
+
+<Grid>
+  <Border className="border-default" name="border-default" />
+  <Border className="border-muted" name="border-muted" />
+  <Border className="border-emphasis" name="border-emphasis" />
+  <Border className="border-accent-emphasis" name="border-accent-emphasis" />
+  <Border className="border-success-emphasis" name="border-success-emphasis" />
+  <Border className="border-attention-emphasis" name="border-attention-emphasis" />
+  <Border className="border-danger-emphasis" name="border-danger-emphasis" />
+</Grid>
+
+## Typography
+
+The Primer type scale replaces Tailwind's default one. `text-base`, `text-lg`, and the rest of Tailwind's scale do not exist here.
+
+<div className="text-display">text-display</div>
+<div className="text-title-large">text-title-large</div>
+<div className="text-title-medium">text-title-medium</div>
+<div className="text-title-small">text-title-small</div>
+<div className="text-body-large">text-body-large</div>
+<div className="text-body-medium">text-body-medium</div>
+
+Each utility sets font size, line height, and weight together. Use `Heading` for section headings so structure stays semantic, and `Text` for inline and block text.
+
+## Focus
+
+One focus treatment applies across the package, so keyboard users see the same affordance everywhere:
+
+```tsx
+<button className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" />
+```
+
+## Viewport ranges
+
+Primer's ranges map onto Tailwind breakpoints. Narrow is the unprefixed base, so design narrow-first and layer wider ranges on top.
+
+<table style={{width: '100%', tableLayout: 'fixed', overflowWrap: 'anywhere'}}>
+  <thead>
+    <tr>
+      <th scope="col">Primer range</th>
+      <th scope="col">Tailwind prefix</th>
+      <th scope="col">Applies from</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Narrow</td>
+      <td>none</td>
+      <td>
+        below <code>48rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Regular</td>
+      <td>
+        <code>md:</code>
+      </td>
+      <td>
+        <code>48rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Wide</td>
+      <td>
+        <code>2xl:</code>
+      </td>
+      <td>
+        <code>87.5rem</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+`lg:` is `63.25rem` and is **not** the Primer wide range. Components that accept responsive values, such as `PageLayout` and `Stack`, take `{narrow, regular, wide}` objects instead of raw prefixes.
+
+## Spacing and radius
+
+Spacing uses Tailwind's numeric scale against Primer's base unit, so `p-2` and `gap-2` behave as expected. Border radius follows Primer: `rounded-md` is the standard control radius, `rounded-lg` suits larger surfaces, and `rounded-full` produces pills and avatars.

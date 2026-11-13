@@ -1,0 +1,447 @@
+{
+  "id": "token",
+  "name": "Token",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Token",
+  "exports": [
+    "Token",
+    "IssueLabelToken",
+    "TokenBase"
+  ],
+  "description": "`Token` displays compact filter or selection content with optional leading visuals, selection state, and removal behavior. `IssueLabelToken` provides the same token interaction model with a custom label color.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-token-examples--filter-chips"
+    },
+    {
+      "id": "react-tailwind-content-token-examples--removable-filters"
+    },
+    {
+      "id": "react-tailwind-content-token-examples--long-token-content"
+    },
+    {
+      "id": "react-tailwind-content-token-features--interactive-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--token-with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-content-token-features--token-with-on-remove-fn"
+    },
+    {
+      "id": "react-tailwind-content-token-features--default-issue-label-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--interactive-issue-label-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--issue-label-token-with-on-remove-fn"
+    },
+    {
+      "id": "react-tailwind-content-token-features--small-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--mediuml-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--large-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--x-large-token"
+    },
+    {
+      "id": "react-tailwind-content-token-features--issue-label-token-custom-colors"
+    },
+    {
+      "id": "react-tailwind-content-token-features--dismissible-token"
+    },
+    {
+      "id": "react-tailwind-content-token--default"
+    },
+    {
+      "id": "react-tailwind-content-token--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "TokenElement",
+      "defaultValue": "'span'",
+      "description": "Element to render. Use `a` or `button` when the token is interactive."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Prevents interaction with the token and its remove button."
+    },
+    {
+      "name": "download",
+      "type": "undefined"
+    },
+    {
+      "name": "form",
+      "type": "undefined"
+    },
+    {
+      "name": "formAction",
+      "type": "undefined"
+    },
+    {
+      "name": "formEncType",
+      "type": "undefined"
+    },
+    {
+      "name": "formMethod",
+      "type": "undefined"
+    },
+    {
+      "name": "formNoValidate",
+      "type": "undefined"
+    },
+    {
+      "name": "formTarget",
+      "type": "undefined"
+    },
+    {
+      "name": "hideRemoveButton",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Hides the remove button while `onRemove` still handles removal by keyboard."
+    },
+    {
+      "name": "href",
+      "type": "undefined"
+    },
+    {
+      "name": "hrefLang",
+      "type": "undefined"
+    },
+    {
+      "name": "id",
+      "type": "string | number",
+      "description": "Identifier applied to the root element."
+    },
+    {
+      "name": "isSelected",
+      "type": "boolean",
+      "description": "Marks the token as the current one in a list of tokens."
+    },
+    {
+      "name": "leadingVisual",
+      "type": "React.ElementType",
+      "description": "Icon shown before the token's text."
+    },
+    {
+      "name": "media",
+      "type": "undefined"
+    },
+    {
+      "name": "name",
+      "type": "undefined"
+    },
+    {
+      "name": "onRemove",
+      "type": "(() => void)",
+      "description": "Shows a remove button and is called when it is activated."
+    },
+    {
+      "name": "ping",
+      "type": "undefined"
+    },
+    {
+      "name": "ref",
+      "type": "Ref<HTMLElement>",
+      "description": "Root ref, including the span shell used by visibly removable actions."
+    },
+    {
+      "name": "referrerPolicy",
+      "type": "undefined"
+    },
+    {
+      "name": "removeButtonLabel",
+      "type": "string",
+      "description": "Full accessible name for the separate remove button, including the visible text and item context."
+    },
+    {
+      "name": "size",
+      "type": "TokenSize",
+      "description": "Height and text size of the token."
+    },
+    {
+      "name": "target",
+      "type": "undefined"
+    },
+    {
+      "name": "text",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "Label shown on the token."
+    },
+    {
+      "name": "type",
+      "type": "undefined"
+    },
+    {
+      "name": "value",
+      "type": "undefined"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "IssueLabelToken",
+      "props": [
+        {
+          "name": "as",
+          "type": "TokenElement",
+          "defaultValue": "'span'",
+          "description": "Element to render. Use `a` or `button` when the token is interactive."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents interaction with the token and its remove button."
+        },
+        {
+          "name": "download",
+          "type": "undefined"
+        },
+        {
+          "name": "fillColor",
+          "type": "string",
+          "description": "Custom hex colour for the token, matching the label it represents."
+        },
+        {
+          "name": "form",
+          "type": "undefined"
+        },
+        {
+          "name": "formAction",
+          "type": "undefined"
+        },
+        {
+          "name": "formEncType",
+          "type": "undefined"
+        },
+        {
+          "name": "formMethod",
+          "type": "undefined"
+        },
+        {
+          "name": "formNoValidate",
+          "type": "undefined"
+        },
+        {
+          "name": "formTarget",
+          "type": "undefined"
+        },
+        {
+          "name": "hideRemoveButton",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Hides the remove button while `onRemove` still handles removal by keyboard."
+        },
+        {
+          "name": "href",
+          "type": "undefined"
+        },
+        {
+          "name": "hrefLang",
+          "type": "undefined"
+        },
+        {
+          "name": "id",
+          "type": "string | number",
+          "description": "Identifier applied to the root element."
+        },
+        {
+          "name": "isSelected",
+          "type": "boolean",
+          "description": "Marks the token as the current one in a list of tokens."
+        },
+        {
+          "name": "media",
+          "type": "undefined"
+        },
+        {
+          "name": "name",
+          "type": "undefined"
+        },
+        {
+          "name": "onRemove",
+          "type": "(() => void)",
+          "description": "Shows a remove button and is called when it is activated."
+        },
+        {
+          "name": "ping",
+          "type": "undefined"
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLElement>",
+          "description": "Root ref, including the span shell used by visibly removable actions."
+        },
+        {
+          "name": "referrerPolicy",
+          "type": "undefined"
+        },
+        {
+          "name": "removeButtonLabel",
+          "type": "string",
+          "description": "Full accessible name for the separate remove button, including the visible text and item context."
+        },
+        {
+          "name": "size",
+          "type": "TokenSize",
+          "description": "Height and text size of the token."
+        },
+        {
+          "name": "target",
+          "type": "undefined"
+        },
+        {
+          "name": "text",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Label shown on the token."
+        },
+        {
+          "name": "type",
+          "type": "undefined"
+        },
+        {
+          "name": "value",
+          "type": "undefined"
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "TokenBase",
+      "props": [
+        {
+          "name": "as",
+          "type": "TokenElement",
+          "defaultValue": "'span'",
+          "description": "Element to render. Use `a` or `button` when the token is interactive.\nElement or component to render."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents interaction with the token and its remove button."
+        },
+        {
+          "name": "download",
+          "type": "undefined"
+        },
+        {
+          "name": "form",
+          "type": "undefined"
+        },
+        {
+          "name": "formAction",
+          "type": "undefined"
+        },
+        {
+          "name": "formEncType",
+          "type": "undefined"
+        },
+        {
+          "name": "formMethod",
+          "type": "undefined"
+        },
+        {
+          "name": "formNoValidate",
+          "type": "undefined"
+        },
+        {
+          "name": "formTarget",
+          "type": "undefined"
+        },
+        {
+          "name": "hideRemoveButton",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Hides the remove button while `onRemove` still handles removal by keyboard."
+        },
+        {
+          "name": "href",
+          "type": "undefined"
+        },
+        {
+          "name": "hrefLang",
+          "type": "undefined"
+        },
+        {
+          "name": "id",
+          "type": "string | number",
+          "description": "Identifier applied to the root element."
+        },
+        {
+          "name": "isSelected",
+          "type": "boolean",
+          "description": "Marks the token as the current one in a list of tokens."
+        },
+        {
+          "name": "media",
+          "type": "undefined"
+        },
+        {
+          "name": "name",
+          "type": "undefined"
+        },
+        {
+          "name": "onRemove",
+          "type": "(() => void)",
+          "description": "Shows a remove button and is called when it is activated."
+        },
+        {
+          "name": "ping",
+          "type": "undefined"
+        },
+        {
+          "name": "ref",
+          "type": "(Ref & CompatibleRootRef<ComponentRef<As>, Ref>)"
+        },
+        {
+          "name": "referrerPolicy",
+          "type": "undefined"
+        },
+        {
+          "name": "size",
+          "type": "TokenSize",
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the token."
+        },
+        {
+          "name": "target",
+          "type": "undefined"
+        },
+        {
+          "name": "text",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Label shown on the token."
+        },
+        {
+          "name": "type",
+          "type": "undefined"
+        },
+        {
+          "name": "value",
+          "type": "undefined"
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
+}

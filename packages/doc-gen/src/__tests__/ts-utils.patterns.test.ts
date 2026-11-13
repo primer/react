@@ -1,9 +1,14 @@
 import path from 'path'
 import {describe, it, expect} from 'vitest'
-import {parseTypeInfo} from '../ts-utils'
+import {parseTypeInfo, simplifyReactType} from '../ts-utils'
 
 const directory = path.resolve(import.meta.dirname)
 const FIXTURE_PATH = path.join(directory, 'fixtures')
+
+function simplifyPropType(type: string | undefined) {
+  if (type === undefined) throw new Error('Expected a declared prop type')
+  return simplifyReactType(type)
+}
 
 describe('getPropTypeForComponent', {timeout: 30_000}, () => {
   it('extracts props for FunctionComponent', () => {
@@ -40,5 +45,22 @@ describe('getPropTypeForComponent', {timeout: 30_000}, () => {
 
     expect(info.subComponents).toHaveProperty('SubComponent2')
     expect(info.subComponents?.SubComponent2.props.baz).toMatchObject({name: 'baz', type: 'number', required: true})
+  })
+
+  it("preserves each component's declared children type", () => {
+    const info = parseTypeInfo(FIXTURE_PATH, 'ChildrenComponent')
+
+    expect(simplifyPropType(info.props.children!.type)).toBe('React.ReactNode')
+    expect(info.props.children?.required).toBe(false)
+    expect(simplifyPropType(info.subComponents!.ElementChild.props.children!.type)).toBe('React.ReactElement<any>')
+    expect(simplifyPropType(info.subComponents!.TextChild.props.children!.type)).toBe('string')
+    expect(simplifyPropType(info.subComponents!.RenderChild.props.children!.type)).toBe(
+      '(count: number) => React.ReactNode',
+    )
+    expect(simplifyPropType(info.subComponents!.ElementOrTextChild.props.children!.type)).toBe(
+      'string | React.ReactElement<any>',
+    )
+    expect(info.subComponents!.LongChild.props.children!.type).toContain('"choice-twenty-four"')
+    expect(info.subComponents!.LongChild.props.children!.type).not.toContain('...')
   })
 })

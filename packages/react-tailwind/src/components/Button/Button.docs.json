@@ -1,0 +1,253 @@
+{
+  "id": "button",
+  "name": "Button",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Button",
+  "exports": [
+    "Button",
+    "ButtonBase"
+  ],
+  "description": "`Button` triggers an action in the current view. Use `LinkButton` when the control navigates to a URL, and `IconButton` when the control has no visible label.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-button-examples--loading-status-announcement-successful"
+    },
+    {
+      "id": "react-tailwind-display-button-examples--loading-status-announcement-successful-interactive"
+    },
+    {
+      "id": "react-tailwind-display-button-examples--loading-status-announcement-error"
+    },
+    {
+      "id": "react-tailwind-display-button-examples--loading-status-announcement-error-interactive"
+    },
+    {
+      "id": "react-tailwind-display-button-features--primary"
+    },
+    {
+      "id": "react-tailwind-display-button-features--danger"
+    },
+    {
+      "id": "react-tailwind-display-button-features--invisible"
+    },
+    {
+      "id": "react-tailwind-display-button-features--link"
+    },
+    {
+      "id": "react-tailwind-display-button-features--leading-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--notification-indicator"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-counter"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-counter-with-no-text"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-counter-with-human-format"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-counter-all-variants"
+    },
+    {
+      "id": "react-tailwind-display-button-features--trailing-action"
+    },
+    {
+      "id": "react-tailwind-display-button-features--block"
+    },
+    {
+      "id": "react-tailwind-display-button-features--disabled"
+    },
+    {
+      "id": "react-tailwind-display-button-features--inactive"
+    },
+    {
+      "id": "react-tailwind-display-button-features--small"
+    },
+    {
+      "id": "react-tailwind-display-button-features--medium"
+    },
+    {
+      "id": "react-tailwind-display-button-features--large"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-custom-announcement"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-with-trailing-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-trigger"
+    },
+    {
+      "id": "react-tailwind-display-button-features--loading-trigger-interactive"
+    },
+    {
+      "id": "react-tailwind-display-button-features--label-wrap"
+    },
+    {
+      "id": "react-tailwind-display-button-features--inactive-button-with-tooltip"
+    },
+    {
+      "id": "react-tailwind-display-button-features--expanded-button"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-basic"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-all-variants"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-all-sizes"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-sequence"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-with-loading"
+    },
+    {
+      "id": "react-tailwind-display-button-features--keybinding-hint-with-loading-interactive"
+    },
+    {
+      "id": "react-tailwind-display-button--default"
+    },
+    {
+      "id": "react-tailwind-display-button--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "alignContent",
+      "type": "\"center\" | \"start\"",
+      "defaultValue": "'center'",
+      "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "description": "Stretches the button to fill the width of its container."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "className",
+      "type": "string"
+    },
+    {
+      "name": "count",
+      "type": "string | number",
+      "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
+    },
+    {
+      "name": "data-component",
+      "type": "string",
+      "defaultValue": "'Button'",
+      "description": "Overrides the marker used to identify this element in tests and styling."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Prevents activation and removes the button from the keyboard order."
+    },
+    {
+      "name": "inactive",
+      "type": "boolean",
+      "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+    },
+    {
+      "name": "labelWrap",
+      "type": "boolean",
+      "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+    },
+    {
+      "name": "leadingVisual",
+      "type": "ButtonVisual",
+      "description": "Icon shown before the label."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "description": "Replaces the leading visual with a spinner and suppresses activation."
+    },
+    {
+      "name": "loadingAnnouncement",
+      "type": "string",
+      "defaultValue": "'Loading'",
+      "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+    },
+    {
+      "name": "notificationIndicator",
+      "type": "\"button\" | \"leadingVisual\"",
+      "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+    },
+    {
+      "name": "size",
+      "type": "ControlSize",
+      "defaultValue": "'medium'",
+      "description": "Height and text size of the button."
+    },
+    {
+      "name": "trailingAction",
+      "type": "ButtonVisual",
+      "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+    },
+    {
+      "name": "trailingVisual",
+      "type": "ButtonVisual",
+      "description": "Icon shown after the label."
+    },
+    {
+      "name": "type",
+      "type": "\"button\" | \"reset\" | \"submit\"",
+      "defaultValue": "'button'",
+      "description": "Native button behavior. Use `submit` to submit a form."
+    },
+    {
+      "name": "variant",
+      "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+      "defaultValue": "'default'",
+      "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ButtonBase",
+      "props": [
+        {
+          "name": "data-component",
+          "type": "string",
+          "defaultValue": "'ButtonBase'",
+          "description": "Overrides the marker used to identify this element in tests and styling."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Button",
+    "url": "https://base-ui.com/react/components/button#api-reference"
+  }
+}

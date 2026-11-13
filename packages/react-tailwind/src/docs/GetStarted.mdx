@@ -1,0 +1,116 @@
+import {Meta} from '@storybook/addon-docs/blocks'
+
+<Meta title="React Tailwind/Get started" />
+
+# Get started
+
+`@primer/react-tailwind` implements Primer with Tailwind CSS and Base UI. It is a separate implementation from `@primer/react`, not a drop-in replacement: there is no `sx` prop, no styled-system props, and no `Box`.
+
+## Install
+
+```bash
+npm install @primer/react-tailwind
+```
+
+React 19 and React DOM 19 are peer dependencies. There are no other runtime dependencies to configure.
+
+## Set up the app
+
+Import the stylesheet once at your entry point, then wrap the app in `ThemeProvider` and `BaseStyles`.
+
+```tsx
+import '@primer/react-tailwind/styles.css'
+import {BaseStyles, ThemeProvider} from '@primer/react-tailwind'
+
+export function App({children}) {
+  return (
+    <ThemeProvider colorMode="auto">
+      <BaseStyles>{children}</BaseStyles>
+    </ThemeProvider>
+  )
+}
+```
+
+`ThemeProvider` emits the `data-color-mode`, `data-light-theme`, and `data-dark-theme` attributes the compiled themes read. `BaseStyles` scopes Primer's typography and box-sizing defaults to your app instead of applying them globally.
+
+## Choose a CSS mode
+
+Pick one. Using both duplicates every component rule.
+
+**Compiled CSS** is the default and needs no Tailwind tooling:
+
+```tsx
+import '@primer/react-tailwind/styles.css'
+```
+
+This stylesheet contains utilities needed by the package components, not arbitrary classes from your app. Use ordinary CSS or package layout components for your own layout:
+
+```tsx
+import './layout.css'
+;<main className="app-layout">{children}</main>
+```
+
+```css
+.app-layout {
+  width: min(100%, 28rem);
+  margin-inline: auto;
+  padding-block: 3rem;
+}
+```
+
+**App-owned Tailwind** is an optional addition, not a replacement: keep importing `styles.css` for package components, and run your own Tailwind v4 build with unprefixed class names for app code:
+
+```css
+@import 'tailwindcss';
+@import '@primer/tailwind-config';
+
+@source './';
+```
+
+Package-owned utilities use the `primer:` prefix and are emitted only by the package's `styles.css`. Do not scan the package's `dist` in your build. The optional `@primer/react-tailwind/tailwind.css` is a standalone entry for generating a separate package stylesheet; do not import it into the same Tailwind stylesheet as your app utilities, because a build has one prefix. Caller `className` stays unprefixed and overrides package utilities.
+
+The prefix is a migration candidate that has not been validated in a built stylesheet. Shared `--tw-*` properties can still interact with legacy `@primer/css`, so verify computed styles in your host before assuming isolation.
+
+## Use a component
+
+Import from the root or from a component subpath. Both resolve to the same implementation, and subpath imports keep bundles small when you only need a few components.
+
+```tsx
+import {Button} from '@primer/react-tailwind'
+import {Button} from '@primer/react-tailwind/Button'
+;<Button variant="primary">Save changes</Button>
+```
+
+## Style a component
+
+Components take `className` and generally forward unrecognized DOM props and their root ref to the root element. Exceptions are documented per component: `TextInput` applies `className` to its wrapper, and its ref, native props, and `style` to the input. Component-owned style properties are layered over a caller's `style`. With Tailwind utilities in your own build, use Primer's semantic utilities so themes and high-contrast schemes keep working, and reach for a token when no utility exists.
+
+```tsx
+<Button className="mt-2 w-full">Save</Button>
+<div className="rounded-md border border-default bg-muted p-4 text-default" />
+<div className="border-l-2 border-l-[var(--borderColor-accent-emphasis)]" />
+```
+
+Not every default Tailwind utility exists. The Primer type scale replaces Tailwind's, so `text-base` and `text-lg` generate nothing; use `text-body-medium`, `text-body-large`, or a title size. A build check fails on any class that produces no CSS, so mistakes surface before review.
+
+## Compose behavior
+
+Interactive components are built on Base UI. Use the `render` prop to project their behavior onto a different element rather than nesting interactive elements.
+
+```tsx
+<Dialog>
+  <Dialog.Trigger render={<Button>Open</Button>} />
+  <Dialog.Content>
+    <Dialog.Title>Confirm</Dialog.Title>
+  </Dialog.Content>
+</Dialog>
+```
+
+Presentational components use `as` instead, for example `<Stack as="section">` and `<Text as="span">`.
+
+## Where to go next
+
+- **Foundations** documents the color, typography, spacing, and viewport tokens.
+- **Migrating from Primer React** covers what changes when porting an existing app.
+- Each component has a README with props and examples, and an Alignment page describing how it differs from `@primer/react`.
+- `AGENTS.md` and `llms.txt` ship with the package so AI tooling generates correct code against it.

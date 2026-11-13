@@ -1,0 +1,52 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as Stories from './Timeline.stories'
+import * as Features from './Timeline.features.stories'
+import * as Examples from './Timeline.examples.stories'
+import * as Filter from './Timeline.filter.features.stories'
+
+<Meta of={Stories} />
+
+# Timeline
+
+`Timeline` is a presentational compound activity stream built from `Item`, `Badge`, `Body`, `Actions`, `Avatar`, and `Break` parts.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Usage
+
+```tsx
+import {Timeline} from '@primer/react-tailwind'
+;<Timeline>
+  <Timeline.Item>
+    <Timeline.Badge variant="success">✓</Timeline.Badge>
+    <Timeline.Body>Deployment succeeded.</Timeline.Body>
+  </Timeline.Item>
+</Timeline>
+```
+
+Use `Timeline.Item` for each event and preserve reading order when adding actions. The root is an ordered list and each item is a list item; `Timeline.Break` is a presentational list item. `clipSidebar` trims the first and/or last event's rule. At container widths below 480px, actions wrap below the event body.
+
+Timeline does not prescribe event taxonomies. Compose package primitives such as `Avatar`, `Label`, `Link`, and `RelativeTime` inside its parts. The event stories demonstrate Issues, comments, Code Scanning, Dependabot, License Compliance, and Secret Scanning compositions without adding product-specific runtime APIs.
+
+<Canvas of={Features.WithActions} />
+
+<Canvas of={Examples.ActivityStream} />
+
+## Playgrounds
+
+The Event Playground configures a single event from public parts: actor size and type, badge icon and variant, timestamp format, an optional app attribution, note, and actions. The Timeline Playground renders representative rows for one product surface and filters them by the categories and event types checked in the Controls panel.
+
+<Canvas of={Stories.EventPlayground} />
+
+<Canvas of={Stories.TimelinePlayground} />
+
+## Filtering
+
+Timeline does not filter events. Consumers own the predicate and render only the items that pass it. Optional `data-event-scope`, `data-event-type`, `data-event-category`, `data-event-visibility`, and `data-actor-type` attributes on `Timeline.Item` give filtering code a stable hook without changing the visual output. The example below toggles categories with a multi-select `ActionMenu` and pins the opening and closing rows so the timeline is never empty.
+
+<Canvas of={Filter.WithFiltering} />

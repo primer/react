@@ -1,0 +1,84 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './TreeView.stories'
+import * as Features from './TreeView.features.stories'
+import * as Examples from './TreeView.examples.stories'
+
+<Meta of={Stories} />
+
+# TreeView
+
+`TreeView` is a presentational compound component for hierarchical files, folders, and nested resources. Compose its parts in author order to retain control of item content and visuals while TreeView owns tree semantics, expansion, roving focus, and typeahead.
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.Playground} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {TreeView} from '@primer/react-tailwind/TreeView'
+;<TreeView aria-label="Files">
+  <TreeView.Item id="src" defaultExpanded>
+    <TreeView.LeadingVisual>
+      <TreeView.DirectoryIcon />
+    </TreeView.LeadingVisual>
+    src
+    <TreeView.SubTree>
+      <TreeView.Item id="src/index.ts">index.ts</TreeView.Item>
+    </TreeView.SubTree>
+  </TreeView.Item>
+</TreeView>
+```
+
+Every item needs a stable `id`. Put `LeadingVisual`, item text, `TrailingVisual`, and `SubTree` directly inside `Item`; `SubTree` is rendered as the item’s nested tree group. Visual children can be a node or a function that receives `{expanded}`. Give a non-decorative visual a `label`; its label is exposed as the item description.
+
+`expanded` and `onExpandedChange` control expansion; use `defaultExpanded` for uncontrolled trees. The `subtree`, `leadingAction`, `leadingVisual`, and `trailingVisual` props remain available as convenience APIs, but compound composition is preferred when structure or visual state matters. Use `containIntrinsicSize` on very large trees to apply `content-visibility: auto` to each row without changing its accessible tree semantics.
+
+### Trees with links
+
+Use `TreeView.LinkTree` and `TreeView.LinkTree.SubTree` when items need to be native links without presentational list-item wrappers. These parts forward refs to `HTMLDivElement` elements; the original `TreeView` and `TreeView.SubTree` retain their `HTMLUListElement` refs.
+
+```tsx
+<TreeView.LinkTree aria-label="Files">
+  <TreeView.Item id="src" defaultExpanded>
+    src
+    <TreeView.LinkTree.SubTree>
+      <TreeView.Item as="a" href="/src/index.ts" id="src/index.ts" current>
+        index.ts
+      </TreeView.Item>
+    </TreeView.LinkTree.SubTree>
+  </TreeView.Item>
+</TreeView.LinkTree>
+```
+
+For router links, pass a ref-forwarding link component with `as` and its destination with `to`. Links retain native navigation, including modifier and middle clicks; use `onSelect` when activation also needs a callback. Linked items may contain noninteractive visuals but must not contain `LeadingAction`, `secondaryActions`, or other interactive descendants. A linked branch owns its sibling group with `aria-owns`; validate that combination with the assistive technologies supported by your product.
+
+Set `showGuides={false}` to hide the decorative level lines while retaining indentation and expansion toggles. Set the `--tree-indent-size` CSS custom property on the root to change the indentation per level; by default it is half the toggle width.
+
+The `TreeView.Row`, `TreeView.ItemContent`, `TreeView.Item.Label`, `TreeView.Toggle`, `TreeView.LeadingAction`, `TreeView.LevelGuides`, and `TreeView.LevelGuide` `data-component` values are supported hooks. Select them beneath the tree root or item rather than relying on element types or child positions. `TreeView.Item.Label` identifies the clipping container even when the item has an explicit `aria-label`; scope a measurement to the item's own row when it has nested items.
+
+For subtrees that load on demand, set `SubTree`'s `state` to `loading` (with an optional placeholder `count`), then `done`. Render `TreeView.ErrorDialog` inside a subtree in the `error` state to offer retry and dismiss. Put pointer affordances such as drag handles in `LeadingAction`, and per-item commands in `secondaryActions`.
+
+## Accessibility
+
+The root has `role="tree"`, items have `role="treeitem"`, and expanded descendants are in `role="group"` containers. TreeView keeps one roving tab stop. Arrow Up/Down moves among visible items, Right expands or enters a group, Left collapses or moves to the parent, Home/End move to the first/last visible item, and Backspace moves to the parent. Enter follows a native link; Space invokes an item's `onSelect` when supplied or toggles a branch. Typeahead moves to a matching visible label. Loading and loaded subtrees are announced through a status region.
+
+For non-link items, `secondaryActions` are hidden from assistive technology and removed from the tab order; keyboard users reach them with Shift+Meta+U on Apple platforms or Shift+Control+U elsewhere. `LeadingAction` is also hidden from assistive technology and removed from the tab order, so give keyboard users an equivalent through the item itself.
+
+`LeadingAction` is a high-risk, pointer-only slot: it puts its children under `aria-hidden` and removes controls from sequential keyboard navigation. Do not programmatically focus a control in that hidden subtree. The package does not provide a specialist-reviewed composition for a keyboard drag sensor that requires the handle itself to receive focus. Consult the accessibility team before choosing a drag interaction or focus model. The draggable example illustrates a pointer affordance, not a complete accessible reordering implementation.
+
+Reordering also needs a single-pointer alternative that does not require dragging, unless an applicable exception is established. An item action or move dialog may be a direction to evaluate with accessibility specialists, but it is not automatically equivalent to an existing keyboard drag sensor.
+
+Long labels are truncated by default, matching Primer React. Use `truncate={false}` when the full label needs to wrap and remain visible at narrow widths or zoom.
+
+See [alignment decisions](./ALIGNMENT.md) for differences from the legacy component.
+
+<Canvas of={Features.Files} />
+<Canvas of={Features.WithoutGuides} />
+<Canvas of={Features.LinkedFiles} />
+<Canvas of={Features.AsyncError} />
+<Canvas of={Examples.TrailingActions} />
+<Canvas of={Examples.DraggableListItem} />

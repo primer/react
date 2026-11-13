@@ -1,0 +1,38 @@
+{
+  "id": "details",
+  "name": "Details",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Details",
+  "description": "`Details` is a native disclosure element with a styled summary.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-details-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-details-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-details-features--with-custom-summary"
+    },
+    {
+      "id": "react-tailwind-forms-details--default"
+    },
+    {
+      "id": "react-tailwind-forms-details--playground"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Details.Summary",
+      "props": [],
+      "passthrough": {
+        "element": "summary",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "details",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#attributes"
+  }
+}

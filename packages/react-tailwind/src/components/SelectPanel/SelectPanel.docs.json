@@ -1,0 +1,673 @@
+{
+  "id": "selectpanel",
+  "name": "SelectPanel",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SelectPanel",
+  "description": "`SelectPanel` is a data-driven, filterable picker built with Base UI Combobox and Primer's Popover and Dialog primitives.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-selectpanel-examples--height-initial-with-overflowing-items-story"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--height-initial-with-underflowing-items-story"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--above-tall-body"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--height-variations-and-scroll"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--custom-item-renderer"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--items-in-scope"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--reposition-after-loading"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--select-panel-reposition-inside-dialog"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--portal-in-scrollable-dialog"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--modal-in-scrollable-dialog-portal"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--default-portal-in-dialog"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--modal-with-default-portal-in-dialog"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--portal-in-transformed-scroll-container"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--action-menu-anchor"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--with-default-message"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--render-more-on-scroll"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--virtualized-consumer-side"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--virtualized-built-in"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-examples--virtualized-emoji-picker"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-item-dividers"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-placeholder-for-search-input"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--single-select"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--multi-select"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--selected-options-first"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-disabled-item"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-option-descriptions"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-external-anchor"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-secondary-action-button"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-secondary-action-link"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-notice"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-groups"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-label-visually-hidden"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-label-internally"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--async-fetch"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--customised-no-initial-items"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--customised-no-results"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-on-cancel"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--multi-select-modal"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--single-select-modal"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--guarded-modal-close"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--inside-required-form-control"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--modal-inside-required-form-control"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--fullscreen-on-narrow"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--fullscreen-on-narrow-with-max-height"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-inactive-items"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-message"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel-features--with-select-all"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel--default"
+    },
+    {
+      "id": "react-tailwind-components-selectpanel--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "actionListProps",
+      "type": "SelectPanelActionListProps",
+      "description": "Extra props forwarded to the underlying list."
+    },
+    {
+      "name": "align",
+      "type": "Align",
+      "defaultValue": "'start'",
+      "description": "Alignment of the panel along the anchor's edge."
+    },
+    {
+      "name": "anchorId",
+      "type": "string",
+      "description": "Id of the element the panel is anchored to."
+    },
+    {
+      "name": "anchorProps",
+      "type": "Pick<Omit<Omit<PopoverTriggerProps, \"ref\"> & RefAttributes<HTMLElement>, \"ref\">, \"nativeButton\" | \"role\">",
+      "description": "Not supported when the anchor is rendered externally.\nConfigure a custom anchor's element and, when needed, its role inside a composite widget."
+    },
+    {
+      "name": "anchorRef",
+      "type": "RefObject<HTMLElement | null>",
+      "description": "Ref to your own anchor element, when you render the anchor yourself.\nRef to the anchor element the panel renders."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Accessible name for the panel."
+    },
+    {
+      "name": "className",
+      "type": "string"
+    },
+    {
+      "name": "cssAnchorPositioningSettings",
+      "type": "{ fallbackStrategy?: \"default\" | \"none\" | \"opposite-side\" | undefined; }",
+      "description": "How the panel falls back when CSS anchor positioning cannot place it."
+    },
+    {
+      "name": "defaultFilterValue",
+      "type": "string",
+      "defaultValue": "''",
+      "description": "Initial filter query when the panel owns its own state."
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the panel starts open when it owns its own state."
+    },
+    {
+      "name": "disableFullscreenOnNarrow",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Keeps the panel anchored on narrow viewports when the fullscreen feature flag is enabled."
+    },
+    {
+      "name": "disableSelectOnHover",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Stops hovering an option from making it the active descendant."
+    },
+    {
+      "name": "displayInViewport",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Keeps the panel within the viewport rather than its nearest scrolling ancestor."
+    },
+    {
+      "name": "filterValue",
+      "type": "string",
+      "description": "Controls the filter query. Supply it with `onFilterChange` to own the state."
+    },
+    {
+      "name": "focusOutBehavior",
+      "type": "\"start\" | \"stop\" | \"wrap\"",
+      "defaultValue": "'wrap'",
+      "description": "Whether keyboard navigation stops or wraps at the first and last option."
+    },
+    {
+      "name": "focusPrependedElements",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Enables automatic highlighting as the filter changes; it does not re-highlight items prepended to an unchanged filter."
+    },
+    {
+      "name": "groupMetadata",
+      "type": "readonly SelectPanelGroupMetadata[]",
+      "description": "Group headers, matched to options by their group id."
+    },
+    {
+      "name": "height",
+      "type": "OverlayHeight",
+      "description": "Height of the panel."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Identifier for the panel, used to associate it with its anchor."
+    },
+    {
+      "name": "initialLoadingType",
+      "type": "\"skeleton\" | \"spinner\"",
+      "defaultValue": "'spinner'",
+      "description": "Which affordance the first load shows."
+    },
+    {
+      "name": "inputLabel",
+      "type": "string",
+      "description": "Accessible name for the filter input."
+    },
+    {
+      "name": "items",
+      "type": "readonly TItem[]",
+      "required": true,
+      "description": "Options to choose from."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Shows a loading affordance in place of the options."
+    },
+    {
+      "name": "message",
+      "type": "SelectPanelMessage | React.ReactNode",
+      "description": "Content shown in place of the options, for an error or other terminal state."
+    },
+    {
+      "name": "notice",
+      "type": "SelectPanelNotice",
+      "description": "Banner shown above the options, for a warning that does not replace them."
+    },
+    {
+      "name": "onActiveDescendantChanged",
+      "type": "((current: HTMLElement | undefined, previous: HTMLElement | undefined, directlyActivated: boolean) => void)",
+      "description": "Called when keyboard focus moves to a different option."
+    },
+    {
+      "name": "onCancel",
+      "type": "(() => void) | (() => void)",
+      "description": "Called when the panel is dismissed without a selection.\nCalled when the panel is dismissed without a selection. Required for a modal panel."
+    },
+    {
+      "name": "onFilterChange",
+      "type": "((filter: string, details: ChangeEventDetails) => void)",
+      "description": "Called with the new query whenever the filter input changes."
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean, gesture: SelectPanelOpenChangeGesture) => void)",
+      "description": "Called when the panel opens or closes, with the gesture that caused it."
+    },
+    {
+      "name": "onScrollEnd",
+      "type": "(() => void)",
+      "description": "Called when the options are scrolled to the end, for loading another page."
+    },
+    {
+      "name": "onSelectedChange",
+      "type": "((selected: TItem | TSelectedItem | undefined, details?: ChangeEventDetails | undefined) => void) | ((selected: (TItem | TSelectedItem)[], details?: ChangeEventDetails | undefined) => void)",
+      "required": true,
+      "description": "Called with the new selection: one option or `undefined` for single selection, or an array for multiple selection."
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "Controls whether the panel is open. Supply it with `onOpenChange` to own the state."
+    },
+    {
+      "name": "overlayProps",
+      "type": "SelectPanelOverlayProps",
+      "description": "Size and positioning of the panel overlay."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "description": "Text shown on the anchor when nothing is selected."
+    },
+    {
+      "name": "placeholderText",
+      "type": "string",
+      "defaultValue": "'Filter items'",
+      "description": "Placeholder shown in the filter input."
+    },
+    {
+      "name": "renderAnchor",
+      "type": "((props: SelectPanelAnchorProps) => React.ReactElement) | null",
+      "description": "Set to null when the anchor is rendered outside the panel and referenced by `anchorRef`.\nReturns one ref-capable trigger element; the panel attaches its trigger behavior to that element."
+    },
+    {
+      "name": "renderGroup",
+      "type": "SelectPanelRenderGroup",
+      "description": "Renders each group yourself."
+    },
+    {
+      "name": "renderItem",
+      "type": "SelectPanelRenderItem<TItem>",
+      "description": "Renders each option yourself."
+    },
+    {
+      "name": "scrollContainerRef",
+      "type": "Ref<HTMLDivElement>",
+      "description": "Ref to the scrolling options container."
+    },
+    {
+      "name": "secondaryAction",
+      "type": "React.ReactElement",
+      "description": "Extra control shown in the panel's footer."
+    },
+    {
+      "name": "selected",
+      "type": "TSelectedItem | readonly TSelectedItem[] | undefined",
+      "required": true,
+      "description": "Currently selected option or options: one option or `undefined` for single selection, or an array (`[]` when empty) for multiple selection."
+    },
+    {
+      "name": "selectionVariant",
+      "type": "\"multiple\" | \"single\"",
+      "description": "Selection mode. Defaults to `'multiple'` when `selected` is an array and `'single'` otherwise; when set, it must match the shape of `selected`."
+    },
+    {
+      "name": "setInitialFocus",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Suppresses filter-change highlighting unless focusPrependedElements is enabled. Initial item highlighting is not yet supported."
+    },
+    {
+      "name": "showItemDividers",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Draws a divider between options."
+    },
+    {
+      "name": "showSelectAll",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Shows a control that selects or clears every option at once."
+    },
+    {
+      "name": "showSelectedOptionsFirst",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "Moves selected options to the top when the selected-option ordering feature flag is enabled."
+    },
+    {
+      "name": "subtitle",
+      "type": "React.ReactNode",
+      "description": "Supporting text shown below the title."
+    },
+    {
+      "name": "textInputProps",
+      "type": "Partial<Omit<TextInputProps, \"defaultValue\" | \"onChange\" | \"value\">>",
+      "description": "Extra props forwarded to the filter input."
+    },
+    {
+      "name": "title",
+      "type": "React.ReactNode",
+      "description": "Heading shown at the top of the panel."
+    },
+    {
+      "name": "variant",
+      "type": "\"anchored\" | \"modal\"",
+      "defaultValue": "'anchored'",
+      "description": "How the panel presents itself. `anchored` attaches it to its anchor.\nHow the panel presents itself. `modal` presents it over the page and requires `onCancel`."
+    },
+    {
+      "name": "virtualized",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Renders only visible options for supported text or noninteractive label content."
+    },
+    {
+      "name": "width",
+      "type": "OverlayWidth",
+      "description": "Width of the panel."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SelectPanel.Message",
+      "props": [
+        {
+          "name": "action",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "body",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "role",
+          "type": "AriaRole",
+          "description": "Defaults to `status`, or `alert` for errors. Use `none` when announcements are handled separately."
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "type": "\"empty\" | \"error\" | \"warning\"",
+          "defaultValue": "'empty'"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.SecondaryActionButton",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Stretches the button to fill the width of its container."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
+        },
+        {
+          "name": "data-component",
+          "type": "string",
+          "description": "Overrides the marker used to identify this element in tests and styling."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+        },
+        {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"leadingVisual\"",
+          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the button."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron for a button that opens something."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+          "defaultValue": "'default'",
+          "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "SelectPanel.SecondaryActionLink",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter."
+        },
+        {
+          "name": "data-component",
+          "type": "string",
+          "description": "Overrides the marker used to identify this element in tests and styling."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Removes the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": true,
+          "description": "URL the secondary action navigates to."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the link temporarily unavailable while keeping it focusable."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Replaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "defaultValue": "'Loading'",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLAnchorElement>",
+          "description": "Called when the link is activated."
+        },
+        {
+          "name": "render",
+          "type": "RenderProp<LinkButtonState>",
+          "description": "Renders the link as your own element, for a router link that still needs button styling."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the link."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "description": "Icon shown at the far end, conventionally a chevron."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown after the label."
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    }
+  ]
+}

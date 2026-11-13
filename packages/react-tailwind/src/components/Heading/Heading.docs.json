@@ -1,0 +1,43 @@
+{
+  "id": "heading",
+  "name": "Heading",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Heading",
+  "description": "`Heading` renders a section heading. Choose the level with `as` for document structure and `size` for visual size, so heading order stays correct independently of scale.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-heading-examples--page-outline"
+    },
+    {
+      "id": "react-tailwind-display-heading-features--small"
+    },
+    {
+      "id": "react-tailwind-display-heading-features--medium"
+    },
+    {
+      "id": "react-tailwind-display-heading-features--large"
+    },
+    {
+      "id": "react-tailwind-display-heading--default"
+    },
+    {
+      "id": "react-tailwind-display-heading--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+      "defaultValue": "'h2'",
+      "description": "Heading element to render, so the level fits the surrounding document outline independently of its size."
+    },
+    {
+      "name": "size",
+      "type": "\"display\" | \"large\" | \"medium\" | \"small\" | null"
+    }
+  ],
+  "passthrough": {
+    "element": "h2",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+  }
+}

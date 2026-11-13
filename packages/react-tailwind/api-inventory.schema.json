@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Primer React Tailwind API inventory",
+  "description": "The inclusion boundary for the package's public API, and the source of record for which upstream Primer React exports are implemented, intentionally excluded, or not required.",
+  "type": "object",
+  "required": ["upstream", "included", "excluded", "notRequired"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "upstream": {
+      "description": "Upstream Primer React entry points that define the candidate export surface.",
+      "type": "object",
+      "required": ["stable", "experimental"],
+      "additionalProperties": false,
+      "properties": {
+        "stable": {
+          "type": "string"
+        },
+        "experimental": {
+          "type": "string"
+        }
+      }
+    },
+    "included": {
+      "description": "Exports this package implements and must expose from its root entry point.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "kind", "family"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": ["component", "hook", "provider", "utility"]
+          },
+          "family": {
+            "enum": [
+              "accessibility",
+              "data",
+              "display",
+              "forms",
+              "foundation",
+              "layout",
+              "navigation",
+              "overlay",
+              "selection"
+            ]
+          },
+          "rootExport": {
+            "description": "Set to false for parts reachable only through a parent component's namespace rather than the root entry point.",
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "excluded": {
+      "description": "Upstream exports this package intentionally does not implement.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "reason", "replacement"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "reason": {
+            "enum": ["deprecated"]
+          },
+          "replacement": {
+            "description": "What to use instead. Consumed by documentation and agent tooling, so it must name a supported API.",
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "notRequired": {
+      "description": "Upstream implementation utilities that are not part of this package's public contract.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

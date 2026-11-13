@@ -1,0 +1,33 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as Stories from './Popover.stories'
+import * as Features from './Popover.features.stories'
+import * as Examples from './Popover.examples.stories'
+
+<Meta of={Stories} />
+
+# Popover
+
+`Popover` pairs a trigger with positioned, dismissible content.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Usage
+
+```tsx
+import {Popover} from '@primer/react-tailwind'
+;<Popover>
+  <Popover.Button>More information</Popover.Button>
+  <Popover.Content>Helpful, non-modal information.</Popover.Content>
+</Popover>
+```
+
+Give interactive content an appropriate role and label. Keep a visible keyboard focus indicator and a clear close path. Set `id` on `Popover.Button` or `Popover.Trigger` rather than on a rendered element, because the trigger tracks its open state by its `id`.
+
+<Canvas of={Features.CloseOnClickOutside} />
+
+<Canvas of={Examples.HelpPopover} />

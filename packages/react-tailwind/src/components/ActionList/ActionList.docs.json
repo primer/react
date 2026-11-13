@@ -1,0 +1,882 @@
+{
+  "id": "actionlist",
+  "name": "ActionList",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ActionList",
+  "description": "`ActionList` is a semantic action, menu, or listbox list composed from explicit child parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-actionlist-examples--list-link-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--mixed-selection"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--mixed-selection-interactive"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--async-list-with-spinner"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--async-list-with-spinner-interactive"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--all-combinations"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--all-combinations-interactive"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-examples--custom-tree-role"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--simple-list"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--static-items"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--item-descriptions"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--tree-with-managed-focus"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--direct-tree-items"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-visual-list-heading"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-custom-heading"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--direct-listbox"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--group-heading-auxiliary-text"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--direct-listbox-visual-parity"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--router-link-composition"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-icons"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-avatars"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--item-dividers"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--single-divider"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inline-description"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--block-description"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--single-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inactive-single-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--multi-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--listbox-single-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--listbox-multi-select"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-dynamic-content"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--disabled-selected-multiselect"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--disabled-multiselect"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inactive-multiselect"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--disabled-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inactive-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inactive-reasons"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--loading-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--links"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--custom-item-children"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--text-wrap-and-truncation"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--conditional-children"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--child-with-side-effects"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--inside-overlay"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--group-with-subtle-title"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--group-with-filled-title"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-custom-trailing-visuals"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-keyboard-shortcuts"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-trailing-count"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--with-trailing-action-on-group-heading"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--full-variant"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--large-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--small-item"
+    },
+    {
+      "id": "react-tailwind-components-actionlist-features--disable-item-gap"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--default"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--playground"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--item-playground"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--link-item-playground"
+    },
+    {
+      "id": "react-tailwind-components-actionlist--group-playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "disableFocusZone",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the\ntab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys."
+    },
+    {
+      "name": "disableItemGap",
+      "type": "boolean",
+      "description": "Disable the gap between items when this list is rendered in a `NavList`."
+    },
+    {
+      "name": "heading",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "selectionVariant",
+      "type": "SelectionVariant",
+      "description": "How many items may be selected, which also decides the list's ARIA role."
+    },
+    {
+      "name": "showDividers",
+      "type": "boolean",
+      "description": "Draws a divider between items."
+    },
+    {
+      "name": "variant",
+      "type": "\"full\" | \"horizontal-inset\" | \"inset\"",
+      "description": "Density and inset treatment of the list."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionList.Root",
+      "props": [
+        {
+          "name": "disableFocusZone",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the\ntab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys."
+        },
+        {
+          "name": "disableItemGap",
+          "type": "boolean",
+          "description": "Disable the gap between items when this list is rendered in a `NavList`."
+        },
+        {
+          "name": "heading",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "selectionVariant",
+          "type": "SelectionVariant",
+          "description": "How many items may be selected, which also decides the list's ARIA role."
+        },
+        {
+          "name": "showDividers",
+          "type": "boolean",
+          "description": "Draws a divider between items."
+        },
+        {
+          "name": "variant",
+          "type": "\"full\" | \"horizontal-inset\" | \"inset\"",
+          "description": "Density and inset treatment of the list."
+        }
+      ],
+      "passthrough": {
+        "element": "ul",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Item",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "description": "Highlights the item as the current one, without marking it selected."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Description` child."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents activation. In a plain list the item also leaves the keyboard order; in a menu, menubar, listbox, or\ntree it stays focusable and is marked `aria-disabled`, so keyboard users can still discover it.\nStatic list items cannot be disabled."
+        },
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the item temporarily unavailable and displays why. Unlike `disabled`, the item stays reachable."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation.\nLoading state is not supported on a static list item."
+        },
+        {
+          "name": "loadingText",
+          "type": "string",
+          "description": "Text announced to assistive technology while the item is loading.\nStatic list items do not announce a loading state."
+        },
+        {
+          "name": "onSelect",
+          "type": "((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)",
+          "description": "Called when the item is activated by click or keyboard.\nSelection handlers are not supported on a static list item."
+        },
+        {
+          "name": "role",
+          "type": "(Role & AriaRole)",
+          "description": "Renders a static item in an ordinary list rather than an interactive action."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Marks the item selected, reported through the role's selection attribute.\nSelection is not supported on a static list item."
+        },
+        {
+          "name": "size",
+          "type": "\"large\" | \"medium\" | \"small\"",
+          "defaultValue": "'medium'",
+          "description": "Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target."
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child."
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\"",
+          "defaultValue": "'default'",
+          "description": "Use `danger` for a destructive action."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "ActionList.TreeItem",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "description": "Highlights the item as the current one, without marking it selected."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents activation. In a plain list the item also leaves the keyboard order; in a menu, menubar, listbox, or\ntree it stays focusable and is marked `aria-disabled`, so keyboard users can still discover it."
+        },
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the item temporarily unavailable and displays why. Unlike `disabled`, the item stays reachable."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation."
+        },
+        {
+          "name": "loadingText",
+          "type": "string",
+          "description": "Text announced to assistive technology while the item is loading."
+        },
+        {
+          "name": "onSelect",
+          "type": "((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)",
+          "description": "Called when the item is activated by click or keyboard."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Marks the item selected, reported through the role's selection attribute."
+        },
+        {
+          "name": "size",
+          "type": "\"large\" | \"medium\" | \"small\"",
+          "description": "Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\"",
+          "description": "Use `danger` for a destructive action."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "ActionList.LinkItem",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "description": "Highlights the link as the current one."
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "description": "Supplies the description region. Takes precedence over a matching `ActionList.Description` child."
+        },
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the link temporarily unavailable and displays why. The link cannot navigate until it is available."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the leadingVisual region. Takes precedence over a matching `ActionList.LeadingVisual` child."
+        },
+        {
+          "name": "render",
+          "type": "RenderProp<{ active: boolean; }>",
+          "description": "Renders the link using a ref-forwarding element, such as a router link."
+        },
+        {
+          "name": "size",
+          "type": "\"large\" | \"medium\" | \"small\"",
+          "defaultValue": "'medium'",
+          "description": "Row height and label size. Use `small` for dense lists and `large` for a more comfortable touch target."
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.TrailingAction` child."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingVisual region. Takes precedence over a matching `ActionList.TrailingVisual` child."
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\"",
+          "defaultValue": "'default'",
+          "description": "Use `danger` for a destructive navigation."
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Group",
+      "props": [
+        {
+          "name": "auxiliaryText",
+          "type": "string",
+          "description": "Secondary text shown below the group's first heading."
+        },
+        {
+          "name": "heading",
+          "type": "React.ReactNode",
+          "description": "Supplies the heading region. Takes precedence over a matching `ActionList.GroupHeading` child."
+        },
+        {
+          "name": "selectionVariant",
+          "type": "false | SelectionVariant",
+          "description": "Overrides the list's selection behaviour for this group. `false` renders the group's items without selection."
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "description": "Heading text for the group, as an alternative to supplying a heading child."
+        }
+      ],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Listbox",
+      "props": [
+        {
+          "name": "disableFocusZone",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Keeps every item in the tab order. Otherwise a `menu`, `menubar`, or `listbox` list keeps only one item in the\ntab order and moves focus between items with the arrow, Home, End, Page Up, and Page Down keys."
+        },
+        {
+          "name": "disableItemGap",
+          "type": "boolean",
+          "description": "Disable the gap between items when this list is rendered in a `NavList`."
+        },
+        {
+          "name": "heading",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "selectionVariant",
+          "type": "SelectionVariant",
+          "description": "How many items may be selected, which also decides the list's ARIA role."
+        },
+        {
+          "name": "showDividers",
+          "type": "boolean",
+          "description": "Draws a divider between items."
+        },
+        {
+          "name": "variant",
+          "type": "\"full\" | \"horizontal-inset\" | \"inset\"",
+          "description": "Density and inset treatment of the list."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Listbox.Group",
+      "props": [
+        {
+          "name": "auxiliaryText",
+          "type": "string",
+          "description": "Secondary text shown below the group's first heading."
+        },
+        {
+          "name": "heading",
+          "type": "React.ReactNode",
+          "description": "Supplies the heading region. Takes precedence over a matching `ActionList.GroupHeading` child."
+        },
+        {
+          "name": "selectionVariant",
+          "type": "false | SelectionVariant",
+          "description": "Overrides the list's selection behaviour for this group."
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "description": "Heading text for the group, as an alternative to supplying a heading child."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Listbox.Divider",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "ActionList.GroupHeading",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "description": "Heading element to render, so the group heading fits the surrounding document outline."
+        },
+        {
+          "name": "auxiliaryText",
+          "type": "string",
+          "description": "Secondary text shown below the group heading."
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `ActionList.GroupHeading.TrailingAction` child."
+        },
+        {
+          "name": "variant",
+          "type": "\"filled\" | \"subtle\"",
+          "defaultValue": "'subtle'",
+          "description": "Use `filled` to give the heading a background and separate it from the items above."
+        }
+      ],
+      "passthrough": {
+        "element": "h3",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#attributes"
+      }
+    },
+    {
+      "name": "ActionList.GroupHeading.TrailingAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\"",
+          "defaultValue": "'button'",
+          "description": "Renders the action as a button.\nRenders the action as a link."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container.\nStretches the link to fill the width of its container."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity.\nNumber shown in a trailing counter."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents activation and removes the button from the keyboard order.\nRemoves the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Not available on a button action. Use `as=\"a\"` to make the action navigate."
+        },
+        {
+          "name": "icon",
+          "type": "(React.ElementType | undefined) & React.ElementType",
+          "required": true,
+          "description": "Icon component to render.\nIcon rendered inside the heading's trailing action."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.\nMarks the link temporarily unavailable while keeping it focusable."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the action, since the icon alone conveys nothing."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "defaultValue": "'Loading'",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'w'",
+          "description": "Side and alignment of the tooltip that shows `label` for an icon action."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Divider",
+      "props": [],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
+    },
+    {
+      "name": "ActionList.LeadingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "ActionList.TrailingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Description",
+      "props": [
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "description": "Clips the description to one line instead of wrapping."
+        },
+        {
+          "name": "variant",
+          "type": "\"block\" | \"inline\"",
+          "defaultValue": "'inline'",
+          "description": "Whether the description sits beside the label or on its own line."
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "ActionList.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'h2'",
+          "description": "Heading element to render, so the list heading fits the surrounding document outline."
+        },
+        {
+          "name": "size",
+          "type": "\"large\" | \"medium\" | \"small\"",
+          "description": "Title size of the heading. Omit it to keep the default large heading font size."
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Hides the heading visually while it still names the list for assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
+    },
+    {
+      "name": "ActionList.TrailingAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\"",
+          "defaultValue": "'button'",
+          "description": "Renders the action as a button.\nRenders the action as a link."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container.\nStretches the link to fill the width of its container."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity.\nNumber shown in a trailing counter."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents activation and removes the button from the keyboard order.\nRemoves the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Not available on a button action. Use `as=\"a\"` to make the action navigate."
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "description": "Icon component to render."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.\nMarks the link temporarily unavailable while keeping it focusable."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the action, since the icon alone conveys nothing."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "defaultValue": "'Loading'",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'w'",
+          "description": "Side and alignment of the tooltip that shows `label` for an icon action."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "ul",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+  }
+}

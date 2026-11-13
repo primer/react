@@ -1,0 +1,94 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Pagination",
+  "description": "`Pagination` renders previous, next, and page links from a controlled current page and page count.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-pagination-examples--search-results"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--larger-page-count-margin"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--hide-page-numbers"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--hide-page-numbers-by-viewport"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--higher-surrounding-page-count"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination-features--render-links"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination--default"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination--playground"
+    },
+    {
+      "id": "react-tailwind-navigation-pagination--responsive"
+    }
+  ],
+  "props": [
+    {
+      "name": "currentPage",
+      "type": "number",
+      "required": true,
+      "description": "Page currently being viewed, counting from one."
+    },
+    {
+      "name": "data-component",
+      "type": "string",
+      "defaultValue": "'Pagination'",
+      "description": "Overrides the marker used to identify this element in tests and styling."
+    },
+    {
+      "name": "hrefBuilder",
+      "type": "((page: number) => string)",
+      "defaultValue": "page => `#${page}`",
+      "description": "Builds the URL for a page, so pagination works without JavaScript."
+    },
+    {
+      "name": "marginPageCount",
+      "type": "number",
+      "defaultValue": "1",
+      "description": "How many pages stay visible at each end of the range."
+    },
+    {
+      "name": "onPageChange",
+      "type": "((event: MouseEvent<Element, MouseEvent>, page: number) => void)",
+      "description": "Called with the event and the requested page when a page is selected."
+    },
+    {
+      "name": "pageCount",
+      "type": "number",
+      "required": true,
+      "description": "Total number of pages."
+    },
+    {
+      "name": "renderPage",
+      "type": "((props: PageProps) => React.ReactNode)",
+      "description": "Renders each page link yourself, for integrating with a router."
+    },
+    {
+      "name": "showPages",
+      "type": "ResponsiveValue<boolean>",
+      "defaultValue": "true",
+      "description": "Shows the numbered pages. Accepts a responsive object to hide them on narrow viewports."
+    },
+    {
+      "name": "surroundingPageCount",
+      "type": "number",
+      "defaultValue": "2",
+      "description": "How many pages stay visible on each side of the current one."
+    }
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "visuallyhidden",
+  "name": "VisuallyHidden",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/VisuallyHidden",
+  "description": "`VisuallyHidden` hides content visually while keeping it available to screen readers. Use it for context that is obvious visually but missing from the accessible name.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-visuallyhidden-examples--icon-only-control"
+    },
+    {
+      "id": "react-tailwind-display-visuallyhidden-features--focusable-skip-link"
+    },
+    {
+      "id": "react-tailwind-display-visuallyhidden--default"
+    },
+    {
+      "id": "react-tailwind-display-visuallyhidden--playground"
+    }
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
+}

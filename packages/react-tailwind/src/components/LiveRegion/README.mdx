@@ -1,0 +1,33 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as Stories from './Announce.stories'
+import * as Features from './Announce.features.stories'
+import * as Examples from './Announce.examples.stories'
+
+<Meta of={Stories} />
+
+# LiveRegion
+
+`Announce`, `AriaStatus`, and `AriaAlert` announce asynchronous changes without moving focus. They share one live-region implementation; `AriaStatus` and `AriaAlert` fix the politeness.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Usage
+
+```tsx
+import {Announce, AriaAlert, AriaStatus} from '@primer/react-tailwind'
+
+<AriaStatus>3 results loaded</AriaStatus>
+<AriaAlert>Could not save changes</AriaAlert>
+<Announce>Upload complete</Announce>
+```
+
+`AriaStatus` is polite and `AriaAlert` is assertive. Keep messages concise and do not combine a live-region announcement with unexpected focus movement.
+
+<Canvas of={Features.WithDelay} />
+
+<Canvas of={Examples.AsyncSave} />

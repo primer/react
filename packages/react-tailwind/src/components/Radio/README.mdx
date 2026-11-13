@@ -1,0 +1,52 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Radio.stories'
+import * as Features from './Radio.features.stories'
+import * as Examples from './Radio.examples.stories'
+
+<Meta of={Stories} />
+
+# Radio
+
+`Radio` is a styled radio primitive for use in a `RadioGroup`.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+`RadioProps` forwards Base UI radio props, including `value`, disabled state, and form fields. Selection is owned by the surrounding `RadioGroup`; the component owns its indicator and `data-component`.
+
+## Import and composition
+
+```tsx
+import {Radio} from '@primer/react-tailwind/Radio'
+import {FormControl} from '@primer/react-tailwind/FormControl'
+;<FormControl layout="horizontal">
+  <Radio name="shipping" value="standard" />
+  <FormControl.Label>Standard shipping</FormControl.Label>
+</FormControl>
+import {RadioGroup} from '@primer/react-tailwind/RadioGroup'
+```
+
+Place radios in a `RadioGroup` and associate each with visible label text.
+
+## Controlled and uncontrolled
+
+<Canvas of={Examples.Controlled} />
+
+<Canvas of={Examples.Uncontrolled} />
+
+## Accessibility, forms, and validation
+
+Use an associated label or `aria-label`; a radio's `value` is submitted through its group `name`. Group-level captions and validation belong in `FormControl`. A disabled radio is unavailable to mouse and keyboard input.
+
+## Keyboard, events, and state
+
+Radio-group arrow-key navigation selects and focuses choices. `RadioGroup.onValueChange` receives the next value and Base UI details. The primitive exposes `data-component="Radio"` plus `data-checked` and `data-disabled`; its state-aware `className` can tailor styles.
+
+<Canvas of={Features.Checked} />
+
+## Alignment
+
+The [alignment notes](./ALIGNMENT.md) retain leading visual, disabled, caption, checked, focus, keyboard, and form behavior without introducing the upstream avatar dependency.

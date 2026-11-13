@@ -1,0 +1,300 @@
+{
+  "id": "autocomplete",
+  "name": "Autocomplete",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Autocomplete",
+  "description": "`Autocomplete` is a composable Base UI autocomplete for filtering and choosing from a known set of options.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-autocomplete-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--with-token-input"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--add-new-item"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--custom-search-filter-fn"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--custom-sort-after-menu-close"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--with-callback-when-overlay-open-state-changes"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--async-loading-of-items"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--rendering-the-menu-outside-an-overlay"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--custom-overlay-menu-anchor"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--in-overlay-with-custom-scroll-container-ref"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete-features--in-a-dialog"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete--default"
+    },
+    {
+      "id": "react-tailwind-components-autocomplete--playground"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Autocomplete.Root",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.Root",
+        "url": "https://base-ui.com/react/components/autocomplete#root"
+      }
+    },
+    {
+      "name": "Autocomplete.Input",
+      "props": [
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the input to fill the width of its container."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "TextInputVisual",
+          "description": "Icon or text shown inside the input, before the value."
+        },
+        {
+          "name": "loaderPosition",
+          "type": "\"auto\" | \"leading\" | \"trailing\"",
+          "description": "Which end the spinner appears at, or `auto` to take the place of an existing visual."
+        },
+        {
+          "name": "loaderText",
+          "type": "string",
+          "description": "Text included in the input's accessible description while loading."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Shows a spinner inside the input while a value is being resolved."
+        },
+        {
+          "name": "monospace",
+          "type": "boolean",
+          "description": "Renders the value in a monospace face, for code or identifiers."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "description": "Height and text size of the input."
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactElement",
+          "description": "Interactive control shown at the end of the input, such as a clear button."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "TextInputVisual",
+          "description": "Icon or text shown inside the input, after the value."
+        },
+        {
+          "name": "validationStatus",
+          "type": "\"error\" | \"success\"",
+          "description": "Marks the value invalid or confirmed, which sets the border colour and `aria-invalid`."
+        }
+      ],
+      "passthrough": {
+        "element": "Autocomplete.Input",
+        "url": "https://base-ui.com/react/components/autocomplete#input"
+      }
+    },
+    {
+      "name": "Autocomplete.Trigger",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.Trigger",
+        "url": "https://base-ui.com/react/components/autocomplete#trigger"
+      }
+    },
+    {
+      "name": "Autocomplete.InputGroup",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.InputGroup",
+        "url": "https://base-ui.com/react/components/autocomplete#inputgroup"
+      }
+    },
+    {
+      "name": "Autocomplete.Content",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'start'",
+          "description": "Alignment of the content along the anchor's edge."
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset",
+          "description": "Shift in pixels along the anchor's edge, or a callback that computes it from the measured sizes."
+        },
+        {
+          "name": "anchor",
+          "type": "FloatingAnchor",
+          "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Where the content is rendered in the DOM. Set `false` to keep it in place."
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string",
+          "description": "Classes applied to the element that positions the content."
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "defaultValue": "'bottom'",
+          "description": "Side of the anchor the content opens on."
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "4",
+          "description": "Distance in pixels between the content and its anchor, or a callback that computes it."
+        }
+      ],
+      "passthrough": {
+        "element": "Autocomplete.Popup",
+        "url": "https://base-ui.com/react/components/autocomplete#popup"
+      }
+    },
+    {
+      "name": "Autocomplete.Popup",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'start'",
+          "description": "Alignment of the content along the anchor's edge."
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset",
+          "description": "Shift in pixels along the anchor's edge, or a callback that computes it from the measured sizes."
+        },
+        {
+          "name": "anchor",
+          "type": "FloatingAnchor",
+          "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Where the content is rendered in the DOM. Set `false` to keep it in place."
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string",
+          "description": "Classes applied to the element that positions the content."
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "defaultValue": "'bottom'",
+          "description": "Side of the anchor the content opens on."
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "4",
+          "description": "Distance in pixels between the content and its anchor, or a callback that computes it."
+        }
+      ],
+      "passthrough": {
+        "element": "Autocomplete.Popup",
+        "url": "https://base-ui.com/react/components/autocomplete#popup"
+      }
+    },
+    {
+      "name": "Autocomplete.Positioner",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.Positioner",
+        "url": "https://base-ui.com/react/components/autocomplete#positioner"
+      }
+    },
+    {
+      "name": "Autocomplete.Portal",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.Portal",
+        "url": "https://base-ui.com/react/components/autocomplete#portal"
+      }
+    },
+    {
+      "name": "Autocomplete.List",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.List",
+        "url": "https://base-ui.com/react/components/autocomplete#list"
+      }
+    },
+    {
+      "name": "Autocomplete.Item",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.Item",
+        "url": "https://base-ui.com/react/components/autocomplete#item"
+      }
+    },
+    {
+      "name": "Autocomplete.Group",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.Group",
+        "url": "https://base-ui.com/react/components/autocomplete#group"
+      }
+    },
+    {
+      "name": "Autocomplete.GroupLabel",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.GroupLabel",
+        "url": "https://base-ui.com/react/components/autocomplete#grouplabel"
+      }
+    },
+    {
+      "name": "Autocomplete.Empty",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.Empty",
+        "url": "https://base-ui.com/react/components/autocomplete#empty"
+      }
+    },
+    {
+      "name": "Autocomplete.Status",
+      "props": [],
+      "passthrough": {
+        "element": "Autocomplete.Status",
+        "url": "https://base-ui.com/react/components/autocomplete#status"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Autocomplete.Root",
+    "url": "https://base-ui.com/react/components/autocomplete#root"
+  }
+}

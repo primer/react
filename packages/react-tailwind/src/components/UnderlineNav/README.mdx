@@ -1,0 +1,56 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './UnderlineNav.stories'
+import * as Features from './UnderlineNav.features.stories'
+import * as Examples from './UnderlineNav.examples.stories'
+
+<Meta of={Stories} />
+
+# UnderlineNav
+
+`UnderlineNav` is a presentational navigation composition for sibling destinations. It keeps native link semantics, while consumers own route integration, item order, and selected state.
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.Playground} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {UnderlineNav} from '@primer/react-tailwind/UnderlineNav'
+;<UnderlineNav aria-label="Repository">
+  <UnderlineNav.Item href="/code" aria-current="page">
+    Code
+  </UnderlineNav.Item>
+</UnderlineNav>
+```
+
+Place `UnderlineNav.Item` links directly in the root, which renders them as a list. Items that do not fit move into a "More" menu, in order. Give the navigation landmark an accessible name and use one `aria-current="page"` item for the current destination. `Item` renders an anchor by default; use `as` to compose a router link when its props are compatible.
+
+Native anchor items default to `href="#"`. When a custom component is supplied with `as`, no default `href` is added, so the component can supply its own navigation target. `UnderlineNav.Item` infers the selected component's props and ref, including router-specific props such as `to`. The router component must forward the supplied props and ref to its interactive element; the same navigation props are used in the overflow menu.
+
+For a typed wrapper, use `UnderlineNavItemProps<typeof RouterLink>` to include the router's props. Unparameterized `UnderlineNavItemProps` and `React.ComponentProps<typeof UnderlineNav.Item>` retain the legacy anchor-shaped props and broadly typed `as`.
+
+<Canvas of={Features.WithIcons} />
+<Canvas of={Features.WithCounterLabels} />
+<Canvas of={Features.CountersLoadingState} />
+<Canvas of={Features.OverflowOnNarrowScreen} />
+<Canvas of={Examples.PullRequestPage} />
+
+## Responsive behavior
+
+The list keeps one visible row and moves items that do not fit into the "More" menu. `hideIconsBreakpoint` hides leading visuals at the selected root container width; set it to `null` to always show them. The default is `medium`, so icons show when the navigation is at least 768px wide. To keep icons visible in a narrow container, use a smaller breakpoint such as `xsmall`.
+
+## Events and state
+
+`onSelect` is called after an unprevented native click, which makes it suitable for client-side navigation. Keep selected state in the consuming application and update `aria-current` in response. `loadingCounters` replaces every supplied counter with a skeleton to reserve counter space while data loads.
+
+## Accessibility
+
+This is navigation, not a tablist: use destination links rather than `role="tab"` or arrow-key tab behavior. `CounterLabel` supplies an accessible counter label, and a loading counter is hidden from the accessible name until its value is available. Native links retain standard keyboard activation and focus behavior.
+
+## Alignment
+
+See [legacy alignment notes](./ALIGNMENT.md) for composition and responsive-overflow differences from `@primer/react`.
