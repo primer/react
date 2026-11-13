@@ -1915,10 +1915,8 @@ describe('Keyboard interactions', () => {
         apple.element().focus()
       })
 
-      // Press C + A + N
-      await userEvent.keyboard('c')
-      await userEvent.keyboard('a')
-      await userEvent.keyboard('n')
+      // Press C + A + N within the typeahead timeout
+      await userEvent.keyboard('can')
 
       // Cantalope should be focused
       await expect.element(cantalope).toHaveFocus()

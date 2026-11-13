@@ -1,20 +1,21 @@
 import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {it, expect} from 'vitest'
 import {useProvidedStateOrCreate} from '../../hooks/useProvidedStateOrCreate'
 import {useState} from 'react'
 
-it('will use the provided state', () => {
+it('will use the provided state', async () => {
   const Component = () => {
     const [state, setState] = useState('foo')
     const [combinedState] = useProvidedStateOrCreate(state, setState, 'bar')
     return <div>{combinedState}</div>
   }
 
-  const doc = render(<Component />)
-  expect(doc.baseElement.textContent!.trim()).toEqual('foo')
+  render(<Component />)
+  await expect.element(page.getByText('foo', {exact: true})).toBeInTheDocument()
 })
 
-it('will set state correctly when provided a set state method', () => {
+it('will set state correctly when provided a set state method', async () => {
   const Component = () => {
     const [state, setState] = useState('foo')
     const [combinedState, setCombinedState] = useProvidedStateOrCreate(state, setState, 'bar')
@@ -22,11 +23,11 @@ it('will set state correctly when provided a set state method', () => {
     return <div>{combinedState}</div>
   }
 
-  const doc = render(<Component />)
-  expect(doc.baseElement.textContent!.trim()).toEqual('baz')
+  render(<Component />)
+  await expect.element(page.getByText('baz', {exact: true})).toBeInTheDocument()
 })
 
-it('if not provided a state, will use an internal state', () => {
+it('if not provided a state, will use an internal state', async () => {
   const Component = () => {
     const state = undefined
     const setState = undefined
@@ -35,6 +36,6 @@ it('if not provided a state, will use an internal state', () => {
     return <div>{combinedState}</div>
   }
 
-  const doc = render(<Component />)
-  expect(doc.baseElement.textContent!.trim()).toEqual('bar')
+  render(<Component />)
+  await expect.element(page.getByText('bar', {exact: true})).toBeInTheDocument()
 })
