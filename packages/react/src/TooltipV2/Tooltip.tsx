@@ -12,6 +12,7 @@ import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintPr
 import {usePlatform} from '../KeybindingHint/platform'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 import type {SlotMarker} from '../utils/types'
 import {TooltipContext} from './TooltipContext'
 import {reactMajorVersion} from '../utils/environment'
@@ -19,6 +20,11 @@ import {reactMajorVersion} from '../utils/environment'
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
   direction?: TooltipDirection
+  /**
+   * The text to display in the tooltip. When this is an empty string and there is no `keybindingHint`, the tooltip
+   * does not open and does not label or describe the trigger. Use this to turn a tooltip off conditionally while
+   * keeping the trigger mounted, so that it keeps focus.
+   */
   text: string
   type?: 'label' | 'description'
   keybindingHint?: KeybindingHintProps['keys'] | Array<KeybindingHintProps['keys']>
@@ -146,6 +152,10 @@ export const Tooltip: ForwardRefExoticComponent<
     const appliedTriggerRef = mergedRefEnabled ? mergedTriggerRef : providedOrCreatedRef
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
+    // Normalize keybindingHint to an array for uniform rendering
+    const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
+    const hasContent = Boolean(text) || keybindingHints.length > 0
+
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
@@ -161,7 +171,8 @@ export const Tooltip: ForwardRefExoticComponent<
           readTriggerRef.current instanceof HTMLElement &&
           tooltipElRef.current.hasAttribute('popover') &&
           !tooltipElRef.current.matches(':popover-open') &&
-          !_privateDisableTooltip
+          !_privateDisableTooltip &&
+          hasContent
         ) {
           const tooltip = tooltipElRef.current
           const trigger = readTriggerRef.current
@@ -197,11 +208,7 @@ export const Tooltip: ForwardRefExoticComponent<
         }
       }
     }
-    const closeTooltip = () => {
-      if (openTimeoutRef.current) {
-        safeClearTimeout(openTimeoutRef.current)
-        openTimeoutRef.current = null
-      }
+    const hideTooltip = () => {
       try {
         if (
           tooltipElRef.current &&
@@ -230,6 +237,25 @@ export const Tooltip: ForwardRefExoticComponent<
         }
       }
     }
+
+    const closeTooltip = () => {
+      if (openTimeoutRef.current) {
+        safeClearTimeout(openTimeoutRef.current)
+        openTimeoutRef.current = null
+      }
+      hideTooltip()
+    }
+
+    // A pending hover open outlives re-renders, so it must read the latest props when it fires.
+    const openTooltipFromTimeout = useEffectCallback(openTooltip)
+
+    // Hide the tooltip if its content is removed while it is open. This syncs the imperative popover state with props,
+    // so it can't move to an event handler. A pending hover open is kept, since it checks the content when it fires.
+    const hideTooltipFromEffect = useEffectCallback(hideTooltip)
+    useEffect(() => {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (!hasContent) hideTooltipFromEffect()
+    }, [hasContent, hideTooltipFromEffect])
 
     // context value
     const value = useMemo(() => ({tooltipId}), [tooltipId])
@@ -302,9 +328,6 @@ export const Tooltip: ForwardRefExoticComponent<
     const platform = usePlatform()
     const hasAriaLabel = 'aria-label' in rest
 
-    // Normalize keybindingHint to an array for uniform rendering
-    const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
-
     if (isFragmentTrigger) return child
 
     return (
@@ -316,8 +339,8 @@ export const Tooltip: ForwardRefExoticComponent<
               ref: appliedTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
-                // If tooltip is not a description type, keep the original aria-describedby
-                if (type !== 'description') {
+                // If tooltip is not a description type or has no content, keep the original aria-describedby
+                if (type !== 'description' || !hasContent) {
                   return child.props['aria-describedby']
                 }
 
@@ -331,7 +354,7 @@ export const Tooltip: ForwardRefExoticComponent<
                 return tooltipId
               })(),
               // If it is a label type, we use tooltip to label the trigger
-              'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
+              'aria-labelledby': type === 'label' && hasContent ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
                 closeTooltip()
                 child.props.onBlur?.(event)
@@ -364,7 +387,7 @@ export const Tooltip: ForwardRefExoticComponent<
                 openTimeoutRef.current = safeSetTimeout(() => {
                   // if the mouse is already moved out, do not show the tooltip
                   if (!openTimeoutRef.current) return
-                  openTooltip()
+                  openTooltipFromTimeout()
                   child.props.onMouseEnter?.(event)
                 }, delayTime)
               },
