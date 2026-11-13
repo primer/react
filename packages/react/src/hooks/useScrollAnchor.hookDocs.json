@@ -1,0 +1,22 @@
+{
+  "name": "useScrollAnchor",
+  "importPath": "@primer/react",
+  "stories": [{"id": "hooks-usescrollanchor--scroll-anchor"}],
+  "parameters": [
+    {
+      "name": "containerRef",
+      "type": "RefObject<HTMLElement | null>",
+      "required": true,
+      "description": "A ref to the container whose DOM changes should be observed."
+    },
+    {
+      "name": "anchorRef",
+      "type": "RefObject<HTMLElement | null>",
+      "required": true,
+      "description": "A ref to the visible element whose viewport position should be preserved. Only window scrolling is adjusted."
+    }
+  ],
+  "returns": {
+    "type": "void"
+  }
+}
