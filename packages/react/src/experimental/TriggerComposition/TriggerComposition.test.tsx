@@ -9,11 +9,25 @@ import {ActionMenu as StableActionMenu} from '../../ActionMenu'
 import {ActionList} from '../../ActionList'
 import {Button, IconButton} from '../../Button'
 import {FeatureFlags} from '../../FeatureFlags'
-import {withExpectedConsoleError} from '../../utils/testing'
+import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
 import {reactMajorVersion} from '../../utils/environment'
 
 describe('experimental Tooltip routing and visibility', () => {
   afterEach(() => vi.useRealTimers())
+
+  describe.each(['children', 'renderAnchor'] as const)('trigger className in %s mode', mode => {
+    implementsClassName(({className}: {className?: string}) => {
+      const trigger = <Button className="tooltip-trigger">Action</Button>
+      return (
+        <Tooltip
+          text="Additional context"
+          className={className}
+          popupProps={{className: 'tooltip-popup'}}
+          {...(mode === 'renderAnchor' ? {renderAnchor: trigger} : {children: trigger})}
+        />
+      )
+    }, 'tooltip-trigger')
+  })
 
   it.each(['children', 'renderAnchor'] as const)('separates trigger and popup attributes in %s mode', mode => {
     const onPopupEnter = vi.fn()
