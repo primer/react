@@ -78,7 +78,7 @@ TooltipOnlyDisabled.parameters = {
   docs: {
     description: {
       story:
-        'disabled closes visible bubbles and cancels pending opens. Re-enable, then hover or focus again to reopen. The existing _privateDisableTooltip remains compatible: either prop being true wins. Disable the Button separately when the action itself is unavailable.',
+        'disabled closes visible bubbles and cancels pending opens. Re-enable, then hover or focus again to reopen. The deprecated _privateDisableTooltip alias remains compatible: either prop being true wins. Disable the Button separately when the action itself is unavailable.',
     },
   },
 }

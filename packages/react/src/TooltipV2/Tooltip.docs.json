@@ -68,7 +68,7 @@
       "name": "disabled",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Closes the visual tooltip, cancels pending opens, and prevents reopening without disabling its trigger or removing its accessible label or description. Re-enabling requires a fresh hover or focus. Either disabled or _privateDisableTooltip being true suppresses the tooltip."
+      "description": "Closes the visual tooltip, cancels pending opens, and prevents reopening without disabling its trigger or removing its accessible label or description. Re-enabling requires a fresh hover or focus. The deprecated _privateDisableTooltip alias remains compatible; either prop being true suppresses the tooltip."
     }
   ],
   "subcomponents": []

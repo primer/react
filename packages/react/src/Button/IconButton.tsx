@@ -63,7 +63,7 @@ const IconButton = forwardRef(
           type={description ? undefined : 'label'}
           direction={tooltipDirection}
           keybindingHint={keybindingHint ?? keyshortcuts}
-          _privateDisableTooltip={hasActivePopup}
+          disabled={hasActivePopup}
         >
           <ButtonBase
             icon={Icon}

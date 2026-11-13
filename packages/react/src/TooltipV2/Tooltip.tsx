@@ -37,6 +37,8 @@ export type TooltipProps = React.PropsWithChildren<{
    */
   disabled?: boolean
   /**
+   * @deprecated Use `disabled` instead.
+   *
    * Private API for use internally only. Closes and prevents the tooltip from opening if `true`.
    *
    * Accessibility note: This prop should be used with caution. Only use when needing to
