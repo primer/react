@@ -14,7 +14,7 @@ The stable exports remain unchanged. The experimental `Tooltip` also retains its
 existing children API, and configured `ActionMenu.Button`/`ActionMenu.Anchor`
 usage remains supported. `SelectPanel` is not part of this experiment.
 
-### Menu and tooltip
+## Menu and tooltip
 
 ```tsx
 import {ActionList, Button} from '@primer/react'
@@ -41,7 +41,7 @@ DOM nodes: element rendering removes the need for the menu to recognize specific
 tooltip/anchor nesting patterns, and gives composed behaviors a consistent
 prop-merging contract.
 
-### Direct overlay and tooltip
+## Direct overlay and tooltip
 
 ```tsx
 import {IconButton} from '@primer/react'
@@ -68,16 +68,20 @@ handling, and focus return. No broad object ref needs to be spread into a more
 narrowly typed button ref. This does not introduce an independent focus-return
 target or change overlay state management.
 
-### Element merging contract
+## Element merging contract
 
-| Prop                                  | Behavior                                                                                                                                                    |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ref`                                 | All behavior, forwarded, and render-element refs receive the same DOM node; React 19 cleanup functions are preserved.                                       |
-| Event handlers                        | The render element's handler runs first, followed by supplied handlers unless `defaultPrevented`. `stopPropagation()` does not cancel the internal handler. |
-| `className`                           | Both values are combined, render element first.                                                                                                             |
-| `style`                               | Shallow merge; the render element's values win.                                                                                                             |
-| `aria-labelledby`, `aria-describedby` | ID lists are combined, render element first, removing duplicates. An omitted or undefined relationship does not erase another behavior's IDs.               |
-| Other attributes                      | The render element's value wins, including `id`. Menu labelling follows the actual anchor's ID or label relationship.                                       |
+- **Refs:** All behavior, forwarded, and render-element refs receive the same DOM
+  node; React 19 cleanup functions are preserved.
+- **Event handlers:** The render element's handler runs first, followed by
+  supplied handlers unless `defaultPrevented`. `stopPropagation()` does not
+  cancel the internal handler.
+- **Classes:** Both `className` values are combined, render element first.
+- **Styles:** Shallow merge; the render element's values win.
+- **ARIA relationships:** `aria-labelledby` and `aria-describedby` ID lists are
+  combined, render element first, removing duplicates. An omitted or undefined
+  relationship does not erase another behavior's IDs.
+- **Other attributes:** The render element's value wins, including `id`. Menu
+  labelling follows the actual anchor's ID or label relationship.
 
 Two deliberate differences from Base UI apply: Primer uses the existing
 `preventDefault()` cancellation convention rather than adding
@@ -88,7 +92,7 @@ usual component-first prop-merging convention for this experiment.
 See the [experimental Tooltip documentation](?path=/docs/experimental-components-tooltip--docs)
 for tooltip attribute routing and accessible naming.
 
-### Responsibilities and escape hatches
+## Responsibilities and escape hatches
 
 - Use `renderAnchor` or a configured menu anchor, not both. Similarly, provide
   either Tooltip children or `renderAnchor`. Never nest native buttons.
