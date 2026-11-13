@@ -52,7 +52,8 @@ export function useScrollAnchor({containerRef, anchorRef}: UseScrollAnchorSettin
       childList: true,
       subtree: true,
     })
-    window.addEventListener('scroll', updateAnchorTop, {passive: true})
+    // eslint-disable-next-line github/prefer-observers -- Track every scroll position to preserve the anchor's current viewport position.
+    window.addEventListener('scroll', updateAnchorTop)
 
     return () => {
       observer.disconnect()

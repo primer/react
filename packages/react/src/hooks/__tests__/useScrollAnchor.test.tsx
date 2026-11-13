@@ -5,7 +5,7 @@ import {useScrollAnchor} from '../../hooks/useScrollAnchor'
 
 function ScrollRegion({getAnchorTop, anchorVersion = 'initial'}: {getAnchorTop: () => number; anchorVersion?: string}) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
+  const anchorRef = useRef<HTMLDivElement | null>(null)
 
   useScrollAnchor({containerRef, anchorRef})
 
