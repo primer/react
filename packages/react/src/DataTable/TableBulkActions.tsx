@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useCallback, useRef} from 'react'
 import {clsx} from 'clsx'
 import {AriaStatus} from '../live-region'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -31,37 +31,47 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
 ) {
   const focusedAction = useRef<HTMLElement | null>(null)
   const focusObserver = useRef<MutationObserver | null>(null)
+  const onFocusReturnRef = useRef(onFocusReturn)
   const active = selectedCount > 0
 
-  function recoverFocus() {
+  const disconnectFocusObserver = useCallback(() => {
+    focusObserver.current?.disconnect()
+    focusObserver.current = null
+  }, [])
+
+  const recoverFocus = useCallback(() => {
     const element = focusedAction.current
     if (element && !element.isConnected) {
       focusedAction.current = null
-      focusObserver.current?.disconnect()
+      disconnectFocusObserver()
       const document = element.ownerDocument
       if (document.activeElement === document.body) {
-        onFocusReturn?.()
+        onFocusReturnRef.current?.()
       }
     }
-  }
+  }, [disconnectFocusObserver])
 
-  function observeFocusedAction() {
-    focusObserver.current?.disconnect()
+  const observeFocusedAction = useCallback(() => {
+    disconnectFocusObserver()
     const element = focusedAction.current
     if (element) {
       const observer = new MutationObserver(recoverFocus)
       observer.observe(element.ownerDocument.body, {childList: true, subtree: true})
       focusObserver.current = observer
     }
-  }
+  }, [disconnectFocusObserver, recoverFocus])
 
   useLayoutEffect(() => {
+    onFocusReturnRef.current = onFocusReturn
     recoverFocus()
-    observeFocusedAction()
-    return () => {
-      focusObserver.current?.disconnect()
-    }
   })
+
+  useLayoutEffect(() => {
+    if (focusedAction.current && !focusObserver.current) {
+      observeFocusedAction()
+    }
+    return disconnectFocusObserver
+  }, [disconnectFocusObserver, observeFocusedAction])
 
   const count = (
     <AriaStatus as="span" className={classes.Count} announceOnShow={active}>
@@ -85,7 +95,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
       onBlurCapture={event => {
         if (event.target.isConnected) {
           focusedAction.current = null
-          focusObserver.current?.disconnect()
+          disconnectFocusObserver()
         }
         if (!event.defaultPrevented) {
           onBlurCapture?.(event)
