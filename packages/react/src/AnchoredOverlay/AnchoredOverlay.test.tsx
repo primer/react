@@ -1,7 +1,7 @@
+import {page, userEvent} from 'vitest/browser'
 import {createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {act, fireEvent, render} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {act, render} from '@testing-library/react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
@@ -97,14 +97,14 @@ describe.each([true, false])(
     it('should call onOpen when the anchor is clicked', async () => {
       const mockOpenCallback = vi.fn()
       const mockCloseCallback = vi.fn()
-      const anchoredOverlay = render(
+      render(
         <AnchoredOverlayTestComponent
           onOpenCallback={mockOpenCallback}
           onCloseCallback={mockCloseCallback}
           withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
         />,
       )
-      const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
+      const anchor = page.getByRole('button', {name: 'Anchor Button', exact: true})
       await userEvent.click(anchor)
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(1)
@@ -115,15 +115,18 @@ describe.each([true, false])(
     it('should call onOpen when the anchor activated by a key press', async () => {
       const mockOpenCallback = vi.fn()
       const mockCloseCallback = vi.fn()
-      const anchoredOverlay = render(
+      render(
         <AnchoredOverlayTestComponent
           onOpenCallback={mockOpenCallback}
           onCloseCallback={mockCloseCallback}
           withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
         />,
       )
-      const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-      fireEvent.keyDown(anchor, {key: ' '})
+      const anchor = page.getByRole('button', {name: 'Anchor Button', exact: true})
+      act(() => {
+        anchor.element().focus()
+      })
+      await userEvent.keyboard(' ')
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(1)
       expect(mockOpenCallback).toHaveBeenCalledWith('anchor-key-press')
@@ -133,15 +136,20 @@ describe.each([true, false])(
     it('should call onClose when the user clicks off of the overlay', async () => {
       const mockOpenCallback = vi.fn()
       const mockCloseCallback = vi.fn()
-      const anchoredOverlay = render(
-        <AnchoredOverlayTestComponent
-          initiallyOpen={true}
-          onOpenCallback={mockOpenCallback}
-          onCloseCallback={mockCloseCallback}
-          withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
-        />,
+      render(
+        <>
+          <AnchoredOverlayTestComponent
+            initiallyOpen={true}
+            onOpenCallback={mockOpenCallback}
+            onCloseCallback={mockCloseCallback}
+            withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
+          />
+          <button type="button" style={{position: 'fixed', right: 0, bottom: 0}}>
+            Outside overlay
+          </button>
+        </>,
       )
-      await userEvent.click(anchoredOverlay.baseElement)
+      await userEvent.click(page.getByRole('button', {name: 'Outside overlay', exact: true}))
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(0)
       expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -277,7 +285,7 @@ describe('AnchoredOverlay scroll/resize cascade', () => {
     )
 
     // Open then close the overlay so position has a non-undefined last value.
-    await userEvent.click(document.body.querySelector('button')!)
+    await userEvent.click(page.getByRole('button', {name: 'Toggle', exact: true}))
     await userEvent.keyboard('{Escape}')
 
     // Let any pending close-time effects flush.
@@ -706,7 +714,7 @@ describe('AnchoredOverlay CSS anchor positioning viewport handling', () => {
 })
 
 describe('AnchoredOverlay anchor element replacement', () => {
-  it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', () => {
+  it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', async () => {
     function TestComponent() {
       const anchorRef = useRef<HTMLButtonElement>(null)
       const [open, setOpen] = useState(true)
@@ -736,31 +744,25 @@ describe('AnchoredOverlay anchor element replacement', () => {
       )
     }
 
-    const {baseElement} = render(<TestComponent />)
+    render(<TestComponent />)
 
     // Verify anchor-name is set on the initial anchor element
-    const initialAnchor = baseElement.querySelector('[data-testid="anchor"]') as HTMLElement
+    const initialAnchor = page.getByTestId('anchor').element()
     expect(initialAnchor.style.getPropertyValue('anchor-name')).not.toBe('')
     const anchorName = initialAnchor.style.getPropertyValue('anchor-name')
 
     // Close the overlay
-    const toggleButton = baseElement.querySelector('[data-testid="toggle"]') as HTMLElement
-    act(() => {
-      toggleButton.click()
-    })
+    const toggleButton = page.getByTestId('toggle')
+    await userEvent.click(toggleButton)
 
     // Replace the anchor DOM element by changing its key while overlay is closed
-    const switchButton = baseElement.querySelector('[data-testid="switch"]') as HTMLElement
-    act(() => {
-      switchButton.click()
-    })
+    const switchButton = page.getByTestId('switch')
+    await userEvent.click(switchButton)
 
     // Reopen the overlay — the new anchor should get anchor-name before paint
-    act(() => {
-      toggleButton.click()
-    })
+    await userEvent.click(toggleButton)
 
-    const newAnchor = baseElement.querySelector('[data-testid="anchor"]') as HTMLElement
+    const newAnchor = page.getByTestId('anchor').element()
     expect(newAnchor).not.toBe(initialAnchor)
     expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(anchorName)
   })

@@ -1,0 +1,48 @@
+/*
+ * The shimmer moves a masked layer with `transform` instead of animating `mask-position`, so the compositor can run it
+ * without a style recalc and repaint on every frame. The layer is 3x the box width and its mask tile is 2x the box
+ * width (the previous `mask-size: 200%`), so translating it by one tile reproduces the previous mask positions exactly.
+ */
+@keyframes shimmer {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(200% / 3));
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern -- Shared utility, not a component class. */
+.skeleton {
+  background-color: var(--skeletonLoader-bgColor);
+
+  @media (prefers-reduced-motion: no-preference) {
+    position: relative;
+    overflow: hidden;
+    /* The shimmer layer paints the background so the mask can move with it */
+    background-color: transparent;
+    isolation: isolate;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -200%;
+      z-index: -1;
+      width: 300%;
+      content: '';
+      background-color: var(--skeletonLoader-bgColor);
+      mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
+      mask-size: calc(200% / 3) 100%;
+      animation: shimmer;
+      animation-duration: var(--base-duration-1000);
+      animation-iteration-count: infinite;
+    }
+  }
+
+  @media (forced-colors: active) {
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+  }
+}
