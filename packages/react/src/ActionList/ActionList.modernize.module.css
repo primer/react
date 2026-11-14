@@ -87,7 +87,7 @@
     display: inline-flex;
   }
 
-  & [data-kbd-chord] {
+  & [data-kbd-chord][data-size] {
     min-width: 0;
     padding: 0;
     font-size: inherit;
@@ -97,9 +97,21 @@
     border: 0;
     gap: 0;
 
-    & > [aria-hidden] {
+    & > [data-component='KeybindingHint.Key'] {
       min-width: var(--actionList-modernize-icon-size);
+      width: auto;
+      padding: 0;
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+      color: inherit;
+      font-size: inherit;
+      line-height: inherit;
       text-align: center;
+
+      &:where(:not([data-single-character])) {
+        padding-inline: var(--base-size-4);
+      }
     }
   }
 

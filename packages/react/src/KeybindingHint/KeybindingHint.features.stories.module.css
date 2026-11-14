@@ -3,6 +3,32 @@
   padding: var(--base-size-12);
 }
 
+.Comparison,
+.ComparisonRows {
+  padding: var(--base-size-16);
+  font-size: var(--text-body-size-small);
+}
+
+.Comparison {
+  display: flex;
+}
+
+.ComparisonRows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-12);
+}
+
+.ComparisonRow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-size-8);
+
+  & > span {
+    color: var(--fgColor-muted);
+  }
+}
+
 .PrimaryBackground {
   background-color: var(--button-primary-bgColor-rest);
   padding: var(--base-size-12);

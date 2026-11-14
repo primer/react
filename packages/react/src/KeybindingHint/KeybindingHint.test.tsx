@@ -8,6 +8,32 @@ import {implementsClassName} from '../utils/testing'
 describe('KeybindingHint', () => {
   implementsClassName(props => <KeybindingHint keys="Control" {...props} />)
 
+  it('renders individually sized keycaps with space between them', async () => {
+    render(<KeybindingHint keys="Control+Shift+K" />)
+    const keys = ['⌃', '⇧', 'K'].map(name => page.getByText(name, {exact: true}))
+    for (const key of keys) {
+      await expect.element(key).toHaveStyle({width: '18px', height: '20px'})
+    }
+    const boxes = keys.map(key => key.element().getBoundingClientRect())
+    expect(boxes[1].left - boxes[0].right).toBe(4)
+    expect(boxes[2].left - boxes[1].right).toBe(4)
+    expect(keys[0].element().closest('[data-kbd-chord]')?.getBoundingClientRect().height).toBe(20)
+  })
+
+  it('lets word labels grow without widening single-character keycaps', async () => {
+    render(
+      <>
+        <KeybindingHint keys="Escape" />
+        <KeybindingHint keys="K" />
+      </>,
+    )
+    const word = page.getByText('Esc', {exact: true})
+    const letter = page.getByText('K', {exact: true})
+    await expect.element(letter).toHaveStyle({width: '18px'})
+    expect(word.element().getBoundingClientRect().width).toBeGreaterThan(18)
+    expect(word.element().getBoundingClientRect().height).toBe(letter.element().getBoundingClientRect().height)
+  })
+
   it('renders data-component="KeybindingHint" on the root element', async () => {
     render(<KeybindingHint keys="Control" />)
     await expect.element(page.getByTestId('keybinding-hint')).toHaveAttribute('data-component', 'KeybindingHint')

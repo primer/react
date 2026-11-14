@@ -1,4 +1,9 @@
 .ButtonBase {
+  & [data-component='KeybindingHint.Key'] {
+    border: 0;
+    box-shadow: none;
+  }
+
   & [data-component='buttonContent'] > :not(:last-child) {
     margin-right: var(--base-size-6);
   }

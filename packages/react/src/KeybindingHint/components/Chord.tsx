@@ -5,11 +5,14 @@ import {Key} from './Key'
 import {clsx} from 'clsx'
 import classes from './Chord.module.css'
 import {splitChord} from './utils'
+import modernizeClasses from '../KeybindingHint.modernize.module.css'
 
 export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
   <Text
     data-kbd-chord
-    className={clsx(classes.Chord, {
+    data-size={size}
+    data-variant={variant}
+    className={clsx(classes.Chord, modernizeClasses.Chord, {
       [classes.ChordNormal]: variant === 'normal',
       [classes.ChordOnEmphasis]: variant === 'onEmphasis',
       [classes.ChordOnPrimary]: variant === 'onPrimary',
@@ -24,7 +27,7 @@ export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'n
           ' ' // space is nonvisual due to flex layout but critical for labelling / screen readers
         )}
 
-        <Key name={k} format={format} />
+        <Key name={k} format={format} variant={variant} size={size} />
       </Fragment>
     ))}
   </Text>

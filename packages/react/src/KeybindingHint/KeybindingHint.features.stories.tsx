@@ -2,6 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {KeybindingHint, type KeybindingHintProps} from '.'
 import {PlatformOverrideProvider, type Platform} from './platform'
 import classes from './KeybindingHint.features.stories.module.css'
+import {Button} from '../Button'
 
 export default {
   title: 'Experimental/Components/KeybindingHint/Features',
@@ -9,6 +10,58 @@ export default {
 } satisfies Meta<typeof KeybindingHint>
 
 const chord = 'Mod+Shift+K'
+
+export const ModernizedKey = () => (
+  <div className={classes.Comparison}>
+    <KeybindingHint keys="K" />
+  </div>
+)
+
+export const ModernizedSequences = () => (
+  <div className={classes.ComparisonRows}>
+    <div className={classes.ComparisonRow}>
+      <KeybindingHint keys="Mod+K" />
+      <span>Open command palette</span>
+    </div>
+    <div className={classes.ComparisonRow}>
+      <KeybindingHint keys="Shift+Enter" />
+      <span>Submit without closing</span>
+    </div>
+  </div>
+)
+
+export const ModernizedChord = () => (
+  <div className={classes.Comparison}>
+    <div className={classes.ComparisonRow}>
+      <KeybindingHint keys="Mod+Shift+K" />
+      <span>Modifier keys are ordered consistently</span>
+    </div>
+  </div>
+)
+
+export const ModernizedLabels = () => (
+  <div className={classes.ComparisonRows}>
+    <div className={classes.ComparisonRow}>
+      <KeybindingHint keys="K" />
+      <KeybindingHint keys="[" />
+      <span>Single-character keycaps are fixed width</span>
+    </div>
+    <div className={classes.ComparisonRow}>
+      <KeybindingHint keys="Escape" />
+      <KeybindingHint keys="Enter" format="full" />
+      <KeybindingHint keys="Control" format="full" />
+      <span>Word keys auto-size to their label width</span>
+    </div>
+  </div>
+)
+
+export const ModernizedButton = () => (
+  <div className={classes.Comparison}>
+    <Button size="small" variant="primary" trailingVisual={() => <KeybindingHint keys="K" variant="onPrimary" />}>
+      Save
+    </Button>
+  </div>
+)
 
 export const Condensed = {args: {keys: chord}}
 

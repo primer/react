@@ -1,0 +1,65 @@
+.Chord[data-kbd-chord][data-size] {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  align-items: center;
+  gap: var(--base-size-4);
+  overflow: visible;
+}
+
+.Key {
+  display: inline-block;
+  padding-block: var(--base-size-4);
+  padding-inline: var(--base-size-6);
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  /* stylelint-disable-next-line primer/borders -- match the reference's 4px keycap radius */
+  border-radius: 4px;
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-default);
+  /* stylelint-disable primer/typography -- match the reference's 11px labels and 10px keycap line height */
+  font-size: 11px;
+  line-height: 10px;
+  /* stylelint-enable primer/typography */
+  font-family: inherit;
+  font-weight: var(--base-text-weight-normal);
+  text-align: center;
+  vertical-align: middle;
+  /* stylelint-disable-next-line primer/box-shadow -- the keycap's bottom edge uses its border token */
+  box-shadow: inset 0 -1px 0 var(--borderColor-muted);
+
+  &:where([data-single-character]) {
+    width: calc(var(--base-size-20) - var(--base-size-2));
+    padding-inline: 0;
+  }
+}
+
+.Key:where([data-size='small']) {
+  min-width: var(--base-size-16);
+  padding-block: var(--base-size-2);
+  /* stylelint-disable-next-line primer/typography -- retain the existing small keycap height */
+  line-height: var(--base-size-8);
+
+  &:where([data-single-character]) {
+    width: var(--base-size-16);
+  }
+}
+
+.Key:where([data-variant='onEmphasis'], [data-variant='onPrimary']) {
+  border-color: transparent;
+  color: var(--fgColor-onEmphasis);
+  box-shadow: none;
+}
+
+.Key:where([data-variant='onEmphasis']) {
+  background-color: var(--counter-bgColor-emphasis);
+}
+
+.Key:where([data-variant='onPrimary']) {
+  background-color: var(--button-primary-bgColor-active);
+}
