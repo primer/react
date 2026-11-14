@@ -43,11 +43,6 @@
   & [data-component='Dialog.CloseButton'] {
     width: var(--base-size-28);
     height: var(--base-size-28);
-
-    & svg {
-      width: calc(var(--base-size-16) - var(--base-size-2));
-      height: calc(var(--base-size-16) - var(--base-size-2));
-    }
   }
 }
 

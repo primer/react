@@ -21,9 +21,10 @@ export default {
 
 function ComparisonDialog({small = false, tall = false}: {small?: boolean; tall?: boolean}) {
   const [open, setOpen] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement>(null)
   return (
     <div className={classes.Comparison}>
-      <Button onClick={() => setOpen(true)}>
+      <Button ref={triggerRef} onClick={() => setOpen(true)}>
         {tall ? 'Open tall dialog' : small ? 'Open small dialog' : 'Open dialog'}
       </Button>
       {open && (
@@ -33,6 +34,7 @@ function ComparisonDialog({small = false, tall = false}: {small?: boolean; tall?
           width={small ? 'small' : 'large'}
           height={tall ? 'small' : 'auto'}
           onClose={() => setOpen(false)}
+          returnFocusRef={triggerRef}
           footerButtons={[
             {content: tall ? 'Decline' : 'Cancel', onClick: () => setOpen(false)},
             {content: tall ? 'Accept' : 'Confirm', variant: 'primary', onClick: () => setOpen(false)},
