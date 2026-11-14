@@ -1,0 +1,219 @@
+.Workspace {
+  height: 100dvh;
+  min-height: 480px;
+  padding: var(--base-size-8);
+  color: var(--fgColor-default);
+  background: var(--bgColor-muted);
+}
+
+.Layout {
+  height: 100%;
+}
+
+/* Keep PageLayout's flex wrappers shrinkable so the document and navigation scroll independently. */
+.Layout,
+.Layout > div,
+.Layout > div > div,
+.ContentRegion,
+.ContentRegion > div {
+  min-height: 0;
+  flex-wrap: nowrap;
+}
+
+.ContentRegion > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.Sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding-right: var(--base-size-8);
+}
+
+.Brand {
+  min-height: calc(var(--control-large-size) + var(--base-size-8));
+}
+
+.Project {
+  flex-shrink: 0;
+  margin-block: var(--base-size-4);
+}
+
+.ProjectCoverLink {
+  flex: 1;
+  min-width: 0;
+}
+
+.Navigation {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.SidebarFooter {
+  padding-top: var(--base-size-12);
+}
+
+.Account {
+  margin-top: var(--base-size-12);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.PagePanel {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--bgColor-default);
+  border-radius: var(--borderRadius-large);
+}
+
+.Header {
+  flex-shrink: 0;
+  min-height: var(--control-large-size);
+}
+
+.Breadcrumb {
+  min-width: 0;
+}
+
+.HeaderActions {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.HeaderDivider {
+  height: var(--base-size-16);
+  margin-inline: var(--base-size-4);
+  border-left: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.ScrollArea {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+
+.Document {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 768px;
+  margin-inline: auto;
+  padding: var(--base-size-64) var(--base-size-40) var(--base-size-128);
+  overflow-wrap: anywhere;
+
+  :where(p, ul) {
+    margin: 0;
+  }
+}
+
+.PagePanel:where([data-wide='true']) .Document {
+  max-width: 1120px;
+}
+
+.EditorFooter {
+  flex-shrink: 0;
+  min-height: var(--control-medium-size);
+}
+
+.Notice {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Muted {
+  color: var(--fgColor-muted);
+}
+
+.Comments {
+  height: 100%;
+  min-width: 0;
+  overflow: auto;
+  padding: var(--base-size-16);
+  border-left: var(--borderWidth-thin) solid var(--borderColor-default);
+
+  li {
+    overflow-wrap: anywhere;
+  }
+}
+
+.CommentsRegion > [data-component='PageLayout.Pane'] {
+  height: 100%;
+  min-height: 0;
+}
+
+@media (max-width: 1100px) {
+  .SecondaryActions {
+    display: none;
+  }
+
+  .Workspace:where([data-comments='true']) {
+    .Layout > div > div {
+      flex-direction: column;
+    }
+
+    .SidebarRegion {
+      display: none;
+    }
+
+    .CommentsRegion {
+      flex-shrink: 0;
+      width: 100%;
+      height: min(320px, 40dvh);
+
+      > [data-component='PageLayout.Pane'] {
+        width: 100%;
+      }
+    }
+
+    .Comments {
+      border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+      border-left: 0;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .Layout {
+    flex-direction: column;
+  }
+
+  .SidebarRegion {
+    width: 100%;
+    height: 30dvh;
+
+    > [data-component='PageLayout.VerticalDivider'] {
+      display: none;
+    }
+  }
+
+  .Sidebar {
+    padding-right: 0;
+  }
+
+  .Project,
+  .SidebarFooter {
+    display: none;
+  }
+
+  .Breadcrumb {
+    flex-basis: 100%;
+  }
+
+  .HeaderActions {
+    margin-left: 0;
+  }
+
+  .Document {
+    padding: var(--base-size-32) var(--base-size-24) var(--base-size-64);
+  }
+}
