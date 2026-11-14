@@ -11,5 +11,4 @@ export const DefaultFeatureFlags = FeatureFlagScope.create({
   primer_react_timeline_list_semantics: false,
   primer_react_merged_forwarded_refs: false,
   primer_react_button_loading_disabled_styles: false,
-  primer_react_blankslate_compact_default: false,
 })
