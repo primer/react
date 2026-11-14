@@ -1,5 +1,5 @@
-import {render, screen, fireEvent, act} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render, fireEvent, act} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import React from 'react'
 import {describe, test, expect, vi} from 'vitest'
 import {Tabs, TabList, Tab, TabPanel} from './Tabs'
@@ -21,7 +21,7 @@ describe('Tabs', () => {
       <TabPanel {...props}></TabPanel>
     </Tabs>
   ))
-  test('`defaultValue` sets the default selected tab', () => {
+  test('`defaultValue` sets the default selected tab', async () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -35,13 +35,13 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
-    const tabC = screen.getByRole('tab', {name: 'Tab C'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
+    const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    expect(tabA).toHaveAttribute('aria-selected', 'true')
-    expect(tabB).toHaveAttribute('aria-selected', 'false')
-    expect(tabC).toHaveAttribute('aria-selected', 'false')
+    await expect.element(tabA).toHaveAttribute('aria-selected', 'true')
+    await expect.element(tabB).toHaveAttribute('aria-selected', 'false')
+    await expect.element(tabC).toHaveAttribute('aria-selected', 'false')
   })
 
   test('`value` prop controls the selected tab when provided', async () => {
@@ -63,12 +63,11 @@ describe('Tabs', () => {
 
     render(<Wrapper />)
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    expect(tabA).toHaveAttribute('aria-selected', 'true')
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    await expect.element(tabA).toHaveAttribute('aria-selected', 'true')
   })
 
   test('onValueChange is called when tab changes', async () => {
-    const user = userEvent.setup()
     const onValueChange = vi.fn()
 
     render(
@@ -82,15 +81,14 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
-    await user.click(tabB)
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
+    await userEvent.click(tabB)
 
     expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
     expect(onValueChange).toHaveBeenCalledTimes(1)
   })
 
   test('onValueChange is not called when the selected tab is re-selected', async () => {
-    const user = userEvent.setup()
     const onValueChange = vi.fn()
 
     render(
@@ -104,13 +102,13 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    await user.click(screen.getByRole('tab', {name: 'Tab A'}))
+    await userEvent.click(page.getByRole('tab', {name: 'Tab A'}))
 
     expect(onValueChange).not.toHaveBeenCalled()
   })
 
   describe('TabList', () => {
-    test('renders with role="tablist"', () => {
+    test('renders with role="tablist"', async () => {
       render(
         <Tabs defaultValue="a">
           <TabList aria-label="Test tabs">
@@ -120,12 +118,12 @@ describe('Tabs', () => {
         </Tabs>,
       )
 
-      const tablist = screen.getByRole('tablist')
-      expect(tablist).toBeInTheDocument()
-      expect(tablist).toHaveAttribute('aria-label', 'Test tabs')
+      const tablist = page.getByRole('tablist')
+      await expect.element(tablist).toBeInTheDocument()
+      await expect.element(tablist).toHaveAttribute('aria-label', 'Test tabs')
     })
 
-    test('supports labeling with aria-label', () => {
+    test('supports labeling with aria-label', async () => {
       render(
         <div>
           <Tabs defaultValue="a">
@@ -137,14 +135,16 @@ describe('Tabs', () => {
         </div>,
       )
 
-      expect(
-        screen.getByRole('tablist', {
-          name: 'Test Tabs',
-        }),
-      ).toBeInTheDocument()
+      await expect
+        .element(
+          page.getByRole('tablist', {
+            name: 'Test Tabs',
+          }),
+        )
+        .toBeInTheDocument()
     })
 
-    test('supports labeling with aria-labelledby', () => {
+    test('supports labeling with aria-labelledby', async () => {
       render(
         <div>
           <span id="tabs-label">test</span>
@@ -157,16 +157,18 @@ describe('Tabs', () => {
         </div>,
       )
 
-      expect(
-        screen.getByRole('tablist', {
-          name: 'test',
-        }),
-      ).toBeInTheDocument()
+      await expect
+        .element(
+          page.getByRole('tablist', {
+            name: 'test',
+          }),
+        )
+        .toBeInTheDocument()
     })
   })
 
   describe('Tab', () => {
-    test('renders with default tabIndex based on selection', () => {
+    test('renders with default tabIndex based on selection', async () => {
       render(
         <Tabs defaultValue="a">
           <TabList aria-label="Test tabs">
@@ -178,14 +180,14 @@ describe('Tabs', () => {
         </Tabs>,
       )
 
-      const tabA = screen.getByRole('tab', {name: 'Tab A'})
-      const tabB = screen.getByRole('tab', {name: 'Tab B'})
+      const tabA = page.getByRole('tab', {name: 'Tab A'})
+      const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-      expect(tabA).toHaveAttribute('tabindex', '0')
-      expect(tabB).toHaveAttribute('tabindex', '-1')
+      await expect.element(tabA).toHaveAttribute('tabindex', '0')
+      await expect.element(tabB).toHaveAttribute('tabindex', '-1')
     })
 
-    test('sets `aria-disabled` to true when `disabled`', () => {
+    test('sets `aria-disabled` to true when `disabled`', async () => {
       render(
         <Tabs defaultValue="a">
           <TabList aria-label="Test tabs">
@@ -199,13 +201,13 @@ describe('Tabs', () => {
         </Tabs>,
       )
 
-      const tabB = screen.getByRole('tab', {name: 'Tab B'})
-      expect(tabB).toHaveAttribute('aria-disabled', 'true')
+      const tabB = page.getByRole('tab', {name: 'Tab B'})
+      await expect.element(tabB).toHaveAttribute('aria-disabled', 'true')
     })
   })
 
   describe('TabPanel', () => {
-    test('renders with role="tabpanel"', () => {
+    test('renders with role="tabpanel"', async () => {
       render(
         <Tabs defaultValue="a">
           <TabList aria-label="Test tabs">
@@ -215,9 +217,9 @@ describe('Tabs', () => {
         </Tabs>,
       )
 
-      const panel = screen.getByRole('tabpanel')
-      expect(panel).toBeInTheDocument()
-      expect(panel).toHaveTextContent('Panel A')
+      const panel = page.getByRole('tabpanel')
+      await expect.element(panel).toBeInTheDocument()
+      await expect.element(panel).toHaveTextContent('Panel A')
     })
   })
 
@@ -231,13 +233,13 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tab = screen.getByRole('tab', {name: 'Tab A'})
-    const panel = screen.getByRole('tabpanel')
+    const tab = page.getByRole('tab', {name: 'Tab A'})
+    const panel = page.getByRole('tabpanel')
 
-    const tabId = tab.getAttribute('id')
-    const panelId = panel.getAttribute('id')
-    const tabControls = tab.getAttribute('aria-controls')
-    const panelLabelledBy = panel.getAttribute('aria-labelledby')
+    const tabId = tab.element().getAttribute('id')
+    const panelId = panel.element().getAttribute('id')
+    const tabControls = tab.element().getAttribute('aria-controls')
+    const panelLabelledBy = panel.element().getAttribute('aria-labelledby')
 
     expect(tabId).toBeTruthy()
     expect(panelId).toBeTruthy()
@@ -245,7 +247,7 @@ describe('Tabs', () => {
     expect(panelLabelledBy).toBe(tabId)
   })
 
-  test('TabPanel has data-selected attribute when selected', () => {
+  test('TabPanel has data-selected attribute when selected', async () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -257,16 +259,14 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const panelA = screen.getByText('Panel A')
-    const panelB = screen.getByText('Panel B')
+    const panelA = page.getByText('Panel A')
+    const panelB = page.getByText('Panel B')
 
-    expect(panelA).toHaveAttribute('data-selected', '')
-    expect(panelB).not.toHaveAttribute('data-selected')
+    await expect.element(panelA).toHaveAttribute('data-selected', '')
+    await expect.element(panelB).not.toHaveAttribute('data-selected')
   })
 
   test('clicking a tab selects it', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -280,18 +280,14 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
-    await act(async () => {
-      await user.click(tabB)
-    })
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
+    await userEvent.click(tabB)
 
-    expect(tabB).toHaveAttribute('aria-selected', 'true')
-    expect(tabB).toHaveAttribute('tabindex', '0')
+    await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
+    await expect.element(tabB).toHaveAttribute('tabindex', '0')
   })
 
   test('ArrowRight navigates to next tab', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -305,20 +301,16 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowRight}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
-    expect(tabB).toHaveFocus()
+    await expect.element(tabB).toHaveFocus()
   })
 
   test('ArrowRight wraps from last tab to first tab', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="c">
         <TabList aria-label="Test tabs">
@@ -332,20 +324,16 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabC = screen.getByRole('tab', {name: 'Tab C'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabC.focus()
-      await user.keyboard('{ArrowRight}')
-    })
+    act(() => tabC.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
-    expect(tabA).toHaveFocus()
+    await expect.element(tabA).toHaveFocus()
   })
 
   test('ArrowLeft navigates to previous tab', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="b">
         <TabList aria-label="Test tabs">
@@ -359,20 +347,16 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabB.focus()
-      await user.keyboard('{ArrowLeft}')
-    })
+    act(() => tabB.element().focus())
+    await userEvent.keyboard('{ArrowLeft}')
 
-    expect(tabA).toHaveFocus()
+    await expect.element(tabA).toHaveFocus()
   })
 
   test('ArrowLeft wraps from first tab to last tab', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -386,20 +370,16 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabC = screen.getByRole('tab', {name: 'Tab C'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowLeft}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowLeft}')
 
-    expect(tabC).toHaveFocus()
+    await expect.element(tabC).toHaveFocus()
   })
 
   test('Home key navigates to first tab', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="c">
         <TabList aria-label="Test tabs">
@@ -413,20 +393,16 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabC = screen.getByRole('tab', {name: 'Tab C'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabC.focus()
-      await user.keyboard('{Home}')
-    })
+    act(() => tabC.element().focus())
+    await userEvent.keyboard('{Home}')
 
-    expect(tabA).toHaveFocus()
+    await expect.element(tabA).toHaveFocus()
   })
 
   test('End key navigates to last tab', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -440,19 +416,15 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabC = screen.getByRole('tab', {name: 'Tab C'})
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{End}')
-    })
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabC = page.getByRole('tab', {name: 'Tab C'})
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{End}')
 
-    expect(tabC).toHaveFocus()
+    await expect.element(tabC).toHaveFocus()
   })
 
   test('Space key activates focused tab', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -464,21 +436,17 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowRight}')
-      await user.keyboard(' ')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
+    await userEvent.keyboard(' ')
 
-    expect(tabB).toHaveAttribute('aria-selected', 'true')
+    await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
   })
 
   test('Enter key activates focused tab', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -490,16 +458,14 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowRight}')
-      await user.keyboard('{Enter}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
+    await userEvent.keyboard('{Enter}')
 
-    expect(tabB).toHaveAttribute('aria-selected', 'true')
+    await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
   })
 
   test('focusing a non-selected tab selects it', async () => {
@@ -514,18 +480,16 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
 
     act(() => {
-      fireEvent.focus(tabB)
+      tabB.element().focus()
     })
 
-    expect(tabB).toHaveAttribute('aria-selected', 'true')
+    await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
   })
 
   test('disabled tabs are skipped during keyboard navigation', async () => {
-    const user = userEvent.setup()
-
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -541,15 +505,13 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabC = screen.getByRole('tab', {name: 'Tab C'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowRight}')
-    })
+    act(() => tabA.element().focus())
+    await userEvent.keyboard('{ArrowRight}')
 
-    expect(tabC).toHaveFocus()
+    await expect.element(tabC).toHaveFocus()
   })
 
   test('clicking disabled tab does not select it', async () => {
@@ -566,22 +528,22 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
 
     // Verify the disabled tab has aria-disabled attribute
-    expect(tabB).toHaveAttribute('aria-disabled', 'true')
+    await expect.element(tabB).toHaveAttribute('aria-disabled', 'true')
 
     await act(() => {
-      fireEvent.click(tabB)
+      fireEvent.click(tabB.element())
     })
 
     // The selected tab should remain the same (tabA)
-    expect(tabA).toHaveAttribute('aria-selected', 'true')
-    expect(tabB).toHaveAttribute('aria-selected', 'false')
+    await expect.element(tabA).toHaveAttribute('aria-selected', 'true')
+    await expect.element(tabB).toHaveAttribute('aria-selected', 'false')
   })
 
-  test('only selected tab is included in tab sequence', () => {
+  test('only selected tab is included in tab sequence', async () => {
     render(
       <Tabs defaultValue="b">
         <TabList aria-label="Test tabs">
@@ -595,13 +557,13 @@ describe('Tabs', () => {
       </Tabs>,
     )
 
-    const tabA = screen.getByRole('tab', {name: 'Tab A'})
-    const tabB = screen.getByRole('tab', {name: 'Tab B'})
-    const tabC = screen.getByRole('tab', {name: 'Tab C'})
+    const tabA = page.getByRole('tab', {name: 'Tab A'})
+    const tabB = page.getByRole('tab', {name: 'Tab B'})
+    const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-    expect(tabA).toHaveAttribute('tabindex', '-1')
-    expect(tabB).toHaveAttribute('tabindex', '0')
-    expect(tabC).toHaveAttribute('tabindex', '-1')
+    await expect.element(tabA).toHaveAttribute('tabindex', '-1')
+    await expect.element(tabB).toHaveAttribute('tabindex', '0')
+    await expect.element(tabC).toHaveAttribute('tabindex', '-1')
   })
 
   describe('manual activation', () => {
@@ -620,60 +582,51 @@ describe('Tabs', () => {
       )
 
     test('arrow keys move focus without changing selection', async () => {
-      const user = userEvent.setup()
       const onValueChange = vi.fn()
       renderManualTabs(onValueChange)
 
-      const tabA = screen.getByRole('tab', {name: 'Tab A'})
-      const tabB = screen.getByRole('tab', {name: 'Tab B'})
+      const tabA = page.getByRole('tab', {name: 'Tab A'})
+      const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-      await act(async () => {
-        tabA.focus()
-        await user.keyboard('{ArrowRight}')
-      })
+      act(() => tabA.element().focus())
+      await userEvent.keyboard('{ArrowRight}')
 
-      expect(tabB).toHaveFocus()
-      expect(tabA).toHaveAttribute('aria-selected', 'true')
-      expect(tabB).toHaveAttribute('aria-selected', 'false')
+      await expect.element(tabB).toHaveFocus()
+      await expect.element(tabA).toHaveAttribute('aria-selected', 'true')
+      await expect.element(tabB).toHaveAttribute('aria-selected', 'false')
       expect(onValueChange).not.toHaveBeenCalled()
-      expect(tabB).toHaveAttribute('tabindex', '0')
-      expect(tabA).toHaveAttribute('tabindex', '-1')
+      await expect.element(tabB).toHaveAttribute('tabindex', '0')
+      await expect.element(tabA).toHaveAttribute('tabindex', '-1')
     })
 
     test('Enter commits the focused tab', async () => {
-      const user = userEvent.setup()
       const onValueChange = vi.fn()
       renderManualTabs(onValueChange)
 
-      const tabA = screen.getByRole('tab', {name: 'Tab A'})
-      const tabB = screen.getByRole('tab', {name: 'Tab B'})
+      const tabA = page.getByRole('tab', {name: 'Tab A'})
+      const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-      await act(async () => {
-        tabA.focus()
-        await user.keyboard('{ArrowRight}')
-        await user.keyboard('{Enter}')
-      })
+      act(() => tabA.element().focus())
+      await userEvent.keyboard('{ArrowRight}')
+      await userEvent.keyboard('{Enter}')
 
-      expect(tabB).toHaveAttribute('aria-selected', 'true')
+      await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
       expect(onValueChange).toHaveBeenCalledTimes(1)
       expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
     })
 
     test('Space commits the focused tab', async () => {
-      const user = userEvent.setup()
       const onValueChange = vi.fn()
       renderManualTabs(onValueChange)
 
-      const tabA = screen.getByRole('tab', {name: 'Tab A'})
-      const tabC = screen.getByRole('tab', {name: 'Tab C'})
+      const tabA = page.getByRole('tab', {name: 'Tab A'})
+      const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-      await act(async () => {
-        tabA.focus()
-        await user.keyboard('{ArrowLeft}')
-        await user.keyboard(' ')
-      })
+      act(() => tabA.element().focus())
+      await userEvent.keyboard('{ArrowLeft}')
+      await userEvent.keyboard(' ')
 
-      expect(tabC).toHaveAttribute('aria-selected', 'true')
+      await expect.element(tabC).toHaveAttribute('aria-selected', 'true')
       expect(onValueChange).toHaveBeenCalledWith({value: 'c'})
     })
 
@@ -681,33 +634,28 @@ describe('Tabs', () => {
       const onValueChange = vi.fn()
       renderManualTabs(onValueChange)
 
-      const tabB = screen.getByRole('tab', {name: 'Tab B'})
+      const tabB = page.getByRole('tab', {name: 'Tab B'})
 
-      await act(() => {
-        fireEvent.mouseDown(tabB)
-      })
+      await tabB.click()
 
-      expect(tabB).toHaveAttribute('aria-selected', 'true')
+      await expect.element(tabB).toHaveAttribute('aria-selected', 'true')
       expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
     })
 
     test('subsequent arrow keys move relative to the focused tab, not the selected tab', async () => {
-      const user = userEvent.setup()
       renderManualTabs()
 
-      const tabA = screen.getByRole('tab', {name: 'Tab A'})
-      const tabB = screen.getByRole('tab', {name: 'Tab B'})
-      const tabC = screen.getByRole('tab', {name: 'Tab C'})
+      const tabA = page.getByRole('tab', {name: 'Tab A'})
+      const tabB = page.getByRole('tab', {name: 'Tab B'})
+      const tabC = page.getByRole('tab', {name: 'Tab C'})
 
-      await act(async () => {
-        tabA.focus()
-        await user.keyboard('{ArrowRight}')
-        await user.keyboard('{ArrowRight}')
-      })
+      act(() => tabA.element().focus())
+      await userEvent.keyboard('{ArrowRight}')
+      await userEvent.keyboard('{ArrowRight}')
 
-      expect(tabA).toHaveAttribute('aria-selected', 'true')
-      expect(tabC).toHaveFocus()
-      expect(tabB).not.toHaveFocus()
+      await expect.element(tabA).toHaveAttribute('aria-selected', 'true')
+      await expect.element(tabC).toHaveFocus()
+      await expect.element(tabB).not.toHaveFocus()
     })
   })
 })
