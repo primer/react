@@ -30,9 +30,9 @@ export const ModernizedSizes: StoryObj = {
   decorators: ModernizedInput.decorators,
   render: () => (
     <div className={classes.ComparisonSizes}>
-      <TextInput size="small" aria-label="Small input" placeholder="Small input" block />
-      <TextInput size="medium" aria-label="Medium input" placeholder="Medium input" block />
-      <TextInput size="large" aria-label="Large input" placeholder="Large input" block />
+      <TextInput size="small" aria-label="Small input" placeholder="Small input" leadingVisual={SearchIcon} block />
+      <TextInput size="medium" aria-label="Medium input" placeholder="Medium input" leadingVisual={SearchIcon} block />
+      <TextInput size="large" aria-label="Large input" placeholder="Large input" leadingVisual={SearchIcon} block />
     </div>
   ),
 }
