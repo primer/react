@@ -101,6 +101,71 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
 
 globalThis.Element.prototype.scrollTo = vi.fn()
 
+describe('SelectPanel hidden title', () => {
+  it('preserves custom popup dimensions and consumer ActionList classes', async () => {
+    render(
+      <SelectPanel
+        open
+        title="Custom panel"
+        items={items}
+        selected={undefined}
+        onSelectedChange={() => {}}
+        onOpenChange={() => {}}
+        onFilterChange={() => {}}
+        overlayProps={{style: {width: 320}}}
+        actionListProps={{className: 'consumer-list'}}
+      />,
+    )
+    const dialog = page.getByRole('dialog', {name: 'Custom panel', exact: true})
+    await expect.element(dialog).toHaveStyle({width: '320px'})
+    await expect.element(page.getByRole('listbox')).toHaveClass('consumer-list')
+  })
+
+  it('keeps the accessible name and search focus when the visible title is hidden', async () => {
+    render(
+      <SelectPanel
+        open
+        title="Choose an option"
+        titleVisuallyHidden
+        items={items}
+        selected={undefined}
+        onSelectedChange={() => {}}
+        onOpenChange={() => {}}
+        onFilterChange={() => {}}
+      />,
+    )
+    await expect.element(page.getByRole('dialog', {name: 'Choose an option', exact: true})).toBeVisible()
+    const title = page.getByRole('heading', {name: 'Choose an option', exact: true}).element()
+    expect(title.getBoundingClientRect().width).toBe(1)
+    expect(title.getBoundingClientRect().height).toBe(1)
+    await expect.element(page.getByRole('combobox', {name: 'Filter items', exact: true})).toHaveFocus()
+    const input = page.getByRole('combobox', {name: 'Filter items', exact: true}).element()
+    const control = input.closest('[data-component="TextInput"]')
+    expect(control).not.toBeNull()
+    expect(getComputedStyle(control!).outlineWidth).toBe('2px')
+  })
+
+  it('retains the subtitle as the description when the title is visually hidden', async () => {
+    render(
+      <SelectPanel
+        open
+        title="Choose an option"
+        subtitle="Choose one item from the list"
+        titleVisuallyHidden
+        items={items}
+        selected={undefined}
+        onSelectedChange={() => {}}
+        onOpenChange={() => {}}
+        onFilterChange={() => {}}
+      />,
+    )
+    await expect
+      .element(page.getByRole('dialog', {name: 'Choose an option', exact: true}))
+      .toHaveAccessibleDescription('Choose one item from the list')
+    await expect.element(page.getByText('Choose one item from the list', {exact: true})).toBeVisible()
+  })
+})
+
 describe('SelectPanel state synchronization', () => {
   const synchronizedItems: ItemInput[] = [
     {id: 'one', text: 'item one'},

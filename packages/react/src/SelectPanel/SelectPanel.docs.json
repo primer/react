@@ -36,6 +36,12 @@
   "importPath": "@primer/react",
   "props": [
     {
+      "name": "titleVisuallyHidden",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Visually hides the title while retaining the panel's accessible name. Use only for intentionally headerless designs."
+    },
+    {
       "name": "items",
       "type": "ItemInput[]",
       "required": true,

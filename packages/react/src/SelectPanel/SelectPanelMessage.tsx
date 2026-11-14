@@ -36,7 +36,7 @@ export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   const IconComponent = CustomIcon || (variant !== 'empty' ? AlertIcon : undefined)
 
   return (
-    <div className={clsx(classes.Message, className)} data-component="SelectPanel.Message">
+    <div className={clsx(classes.Message, className)} data-component="SelectPanel.Message" data-variant={variant}>
       {IconComponent && (
         <Octicon
           icon={IconComponent}

@@ -22,6 +22,9 @@ import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActi
 import {useFeatureFlag} from '../FeatureFlags'
 import {announce, announceFromElement} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
+import modernizeClasses from './SelectPanel.modernize.module.css'
+import actionListModernizeClasses from '../ActionList/ActionList.modernize.module.css'
+import visuallyHiddenClasses from '../VisuallyHidden/VisuallyHidden.module.css'
 import {clsx} from 'clsx'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -75,6 +78,8 @@ export type SelectPanelSecondaryAction =
   | React.ReactElement<typeof SecondaryLink>
 
 interface SelectPanelBaseProps {
+  /** Visually hide the title while keeping the panel's accessible name. */
+  titleVisuallyHidden?: boolean
   // TODO: Make `title` required in the next major version
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   title?: string | React.ReactElement<any>
@@ -192,6 +197,7 @@ function Panel({
   selected,
   title = isMultiSelectVariant(selected) ? 'Select items' : 'Select an item',
   subtitle,
+  titleVisuallyHidden = false,
   onSelectedChange,
   filterValue: externalFilterValue,
   onFilterChange: externalOnFilterChange,
@@ -635,6 +641,7 @@ function Panel({
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
+        className: clsx(props.className, modernizeClasses.Anchor),
         ...(shouldAutoWireLabel
           ? {
               'aria-labelledby': [labelId, selectedValueId].filter(Boolean).join(' '),
@@ -787,7 +794,7 @@ function Panel({
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
-      className: classes.TextInput,
+      className: clsx(classes.TextInput, modernizeClasses.TextInput),
       contrast: legacyContrast,
       leadingVisual: SearchIcon,
       'aria-label': inputLabel,
@@ -917,21 +924,37 @@ function Panel({
           }
         : {}),
       style: {
-        transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+        ...(variant === 'anchored' && !height && !usingFullScreenOnNarrow
+          ? {maxHeight: 'min(384px, calc(100dvh - 32px))'}
+          : {}),
+        ...overlayProps?.style,
+        ...(variant === 'modal' ? {transform: 'translate(-50%, -50%)'} : {}),
         ...(isKeyboardVisible
           ? {
               maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
             }
           : {}),
-      } as React.CSSProperties,
+      },
       onKeyDown: preventBubbling,
     }),
-    [titleId, subtitle, subtitleId, overlayProps, variant, isKeyboardVisible, availablePanelHeight, preventBubbling],
+    [
+      titleId,
+      subtitle,
+      subtitleId,
+      overlayProps,
+      variant,
+      height,
+      usingFullScreenOnNarrow,
+      isKeyboardVisible,
+      availablePanelHeight,
+      preventBubbling,
+    ],
   )
 
   return (
     <>
       <AnchoredOverlay
+        anchorOffset={8}
         renderAnchor={renderMenuAnchor}
         anchorRef={anchorRef}
         align={align}
@@ -946,7 +969,7 @@ function Panel({
         anchorId={id}
         variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
         pinPosition={!height}
-        className={classes.Overlay}
+        className={clsx(classes.Overlay, actionListModernizeClasses.Overlay)}
         displayCloseButton={showXCloseIcon}
         closeButtonProps={closeButtonProps}
         displayInViewport={displayInViewport}
@@ -957,10 +980,24 @@ function Panel({
           disable: variant === 'modal' || cssAnchorPositioningSettings?.disable,
         }}
       >
-        <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
-          <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
+        <div
+          className={clsx(classes.Wrapper, modernizeClasses.Wrapper)}
+          data-variant={variant}
+          data-title-visually-hidden={titleVisuallyHidden || undefined}
+          data-component="SelectPanel"
+        >
+          <div
+            className={clsx(classes.Header, modernizeClasses.Header)}
+            data-variant={currentResponsiveVariant}
+            data-component="SelectPanel.Header"
+          >
             <div>
-              <Heading as="h1" id={titleId} className={classes.Title} data-component="SelectPanel.Title">
+              <Heading
+                as="h1"
+                id={titleId}
+                className={clsx(classes.Title, {[visuallyHiddenClasses.VisuallyHidden]: titleVisuallyHidden})}
+                data-component="SelectPanel.Title"
+              >
                 {title}
               </Heading>
               {subtitle ? (
@@ -1028,6 +1065,10 @@ function Panel({
             }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
             className={clsx(className, classes.FilteredActionList)}
+            actionListProps={{
+              ...listProps.actionListProps,
+              className: clsx(listProps.actionListProps?.className, actionListModernizeClasses.ActionList),
+            }}
             focusPrependedElements={focusPrependedElements}
             virtualized={virtualized}
           />
@@ -1053,7 +1094,7 @@ function Panel({
               {showPermanentCancelSaveButtons || showResponsiveCancelSaveButtons ? (
                 <div
                   data-stretch-save-button={stretchSaveButton}
-                  className={clsx(classes.CancelSaveButtons, {
+                  className={clsx(classes.CancelSaveButtons, modernizeClasses.FooterButtons, {
                     [classes.ResponsiveSaveButton]: showResponsiveCancelSaveButtons,
                   })}
                 >

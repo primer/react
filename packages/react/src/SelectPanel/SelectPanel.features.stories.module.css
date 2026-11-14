@@ -8,6 +8,14 @@
   box-sizing: border-box;
 }
 
+.Comparison {
+  padding: var(--base-size-16);
+}
+
+.ComparisonField {
+  width: 240px;
+}
+
 .MutedText {
   color: var(--fgColor-muted);
   display: inline-block;

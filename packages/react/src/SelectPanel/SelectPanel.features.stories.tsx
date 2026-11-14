@@ -38,6 +38,150 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
+type ComparisonPanelProps = {
+  countries?: boolean
+  multiple?: boolean
+  modal?: boolean
+  loading?: boolean
+  empty?: boolean
+  wide?: boolean
+  long?: boolean
+  grouped?: boolean
+  descriptions?: boolean
+  trailing?: boolean
+  defaultValue?: boolean
+  virtualized?: boolean
+}
+
+const comparisonCountryNames = [
+  'United States',
+  'Canada',
+  'United Kingdom',
+  'Germany',
+  'France',
+  'Japan',
+  'Australia',
+  'Brazil',
+]
+const comparisonGroupNames = ['Type', 'Priority', 'Area']
+const comparisonGroupLabels = [
+  'Bug',
+  'Feature request',
+  'Documentation',
+  'High',
+  'Medium',
+  'Low',
+  'Frontend',
+  'Backend',
+  'Infrastructure',
+]
+function ComparisonPanel(props: ComparisonPanelProps) {
+  const data = React.useMemo(() => {
+    const names =
+      props.empty || props.loading
+        ? []
+        : props.countries
+          ? comparisonCountryNames
+          : props.grouped
+            ? comparisonGroupLabels
+            : Array.from({length: props.long ? 50 : 5}, (_, i) => `Option ${i + 1}`)
+    return names.map((text, i) => ({
+      id: text,
+      text,
+      groupId: props.grouped ? comparisonGroupNames[Math.floor(i / 3)] : undefined,
+      description: props.descriptions ? `Description for ${text}` : undefined,
+      descriptionVariant: 'block' as const,
+      trailingText: props.trailing ? (i % 2 ? 'TypeScript' : 'JavaScript') : undefined,
+    }))
+  }, [props.empty, props.loading, props.countries, props.grouped, props.long, props.descriptions, props.trailing])
+  const [single, setSingle] = useState<ItemInput | undefined>(props.defaultValue ? data[0] : undefined)
+  const [multiple, setMultiple] = useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = useState('')
+  const title = props.countries ? 'Select a country' : props.grouped ? 'Select labels' : 'Options'
+  const placeholder = props.countries
+    ? 'Select a country'
+    : props.grouped
+      ? 'Select labels'
+      : props.multiple
+        ? 'Select items'
+        : 'Select an option'
+  const search = props.countries
+    ? 'Search countries...'
+    : props.grouped
+      ? 'Filter labels...'
+      : props.multiple
+        ? 'Search items...'
+        : 'Search options...'
+  const emptyText = props.countries ? 'No countries found' : 'No results found'
+  const filtered = data.filter(item => item.text.toLowerCase().includes(filter.toLowerCase()))
+  const selectionProps = props.multiple
+    ? {selected: multiple, onSelectedChange: setMultiple}
+    : {selected: single, onSelectedChange: setSingle}
+  const variantProps = props.modal
+    ? {variant: 'modal' as const, onCancel: () => setOpen(false)}
+    : {variant: 'anchored' as const}
+  return (
+    <div className={classes.Comparison}>
+      <FormControl className={classes.ComparisonField}>
+        <FormControl.Label>{props.countries ? 'Country' : props.grouped ? 'Labels' : 'Option'}</FormControl.Label>
+        <SelectPanel
+          {...selectionProps}
+          {...variantProps}
+          title={title}
+          titleVisuallyHidden={!props.modal}
+          open={open}
+          onOpenChange={setOpen}
+          onFilterChange={setFilter}
+          filterValue={filter}
+          placeholder={placeholder}
+          placeholderText={search}
+          inputLabel={search}
+          items={filtered}
+          loading={props.loading}
+          virtualized={props.virtualized}
+          groupMetadata={
+            props.grouped ? comparisonGroupNames.map(groupId => ({groupId, header: {title: groupId}})) : undefined
+          }
+          textInputProps={props.modal ? undefined : {leadingVisual: undefined}}
+          message={!filtered.length && !props.loading ? {variant: 'empty', title: emptyText, body: ''} : undefined}
+          overlayProps={{
+            style: {width: props.modal ? 480 : props.wide ? 384 : 280, height: props.modal ? 480 : undefined},
+          }}
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button block trailingVisual={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+              {props.multiple && multiple.length ? `${multiple.length} selected` : children}
+            </Button>
+          )}
+        />
+      </FormControl>
+    </div>
+  )
+}
+
+const openComparisonPanel: StoryObj<typeof SelectPanel>['play'] = async ({canvas, canvasElement, userEvent}) => {
+  await userEvent.click(canvas.getByRole('button'))
+  await expect(within(canvasElement.ownerDocument.body).getByRole('listbox')).toBeVisible()
+}
+function comparisonPanelStory(props: ComparisonPanelProps = {}): StoryObj<typeof SelectPanel> {
+  return {render: () => <ComparisonPanel {...props} />, play: openComparisonPanel}
+}
+export const ModernizedPanel = comparisonPanelStory()
+export const ModernizedCountries = comparisonPanelStory({countries: true})
+export const ModernizedWide = comparisonPanelStory({countries: true, wide: true})
+export const ModernizedMultiple = comparisonPanelStory({multiple: true})
+export const ModernizedDefaultValue = comparisonPanelStory({defaultValue: true})
+export const ModernizedEmpty = comparisonPanelStory({empty: true})
+export const ModernizedLoading = comparisonPanelStory({loading: true})
+export const ModernizedGroups = comparisonPanelStory({grouped: true, multiple: true})
+export const ModernizedDescriptions = comparisonPanelStory({descriptions: true})
+export const ModernizedTrailingText = comparisonPanelStory({trailing: true})
+export const ModernizedLongList = comparisonPanelStory({long: true})
+export const ModernizedVirtualized = comparisonPanelStory({long: true, virtualized: true})
+export const ModernizedModal = comparisonPanelStory({countries: true, modal: true})
+export const ModernizedModalMultiple = comparisonPanelStory({grouped: true, multiple: true, modal: true})
+export const ModernizedModalLoading = comparisonPanelStory({countries: true, modal: true, loading: true})
+
 export const LegacyContrast: StoryObj<typeof SelectPanel> = {
   render: () => (
     <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: true}}>
