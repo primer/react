@@ -1,5 +1,5 @@
 ---
-'@primer/react': patch
+'@primer/react': major
 ---
 
-Blankslate: Make compact sizing and default-sized primary actions standard. The `small` size remains supported as an alias for `medium`.
+Blankslate: Make compact sizing and default-sized primary actions standard. Remove the `small` size; use `medium` instead.

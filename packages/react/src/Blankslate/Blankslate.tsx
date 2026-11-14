@@ -26,9 +26,9 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
   spacious?: boolean
 
   /**
-   * Specify the size of this component. Small is an alias for the compact medium size.
+   * Specify the size of this component
    */
-  size?: 'small' | 'medium' | 'large'
+  size?: 'medium' | 'large'
 }
 
 function Blankslate({border, children, narrow, spacious, className, size = 'medium', ...rest}: BlankslateProps) {
@@ -40,7 +40,7 @@ function Blankslate({border, children, narrow, spacious, className, size = 'medi
         data-border={border ? '' : undefined}
         data-narrow={narrow ? '' : undefined}
         data-spacious={spacious ? '' : undefined}
-        data-size={size === 'small' ? 'medium' : size}
+        data-size={size}
       >
         {children}
       </div>
