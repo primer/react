@@ -6,7 +6,6 @@ import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
 import classes from '../ButtonBase.module.css'
 import {implementsClassName} from '../../utils/testing'
-import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -345,48 +344,45 @@ describe('Button', () => {
       return {backgroundColor, borderColor, color, cursor}
     }
 
-    const renderWithLoadingDisabledStyles = (children: React.ReactNode) =>
-      render(<FeatureFlags flags={{primer_react_button_loading_disabled_styles: true}}>{children}</FeatureFlags>)
+    it.each(['default', 'primary', 'danger', 'invisible', 'link'] as const)(
+      'applies disabled styles to a loading %s button without using native disabled',
+      async variant => {
+        render(
+          <>
+            <Button variant={variant} loading>
+              Loading
+            </Button>
+            <Button variant={variant} disabled>
+              Disabled
+            </Button>
+            <Button variant={variant}>Enabled</Button>
+          </>,
+        )
 
-    it('applies disabled styles to a loading primary button without using native disabled', async () => {
-      renderWithLoadingDisabledStyles(
-        <>
-          <Button variant="primary" loading>
-            Loading
-          </Button>
-          <Button variant="primary" disabled>
-            Disabled
-          </Button>
-          <Button variant="primary">Enabled</Button>
-        </>,
-      )
+        const loadingButton = page.getByRole('button', {
+          name: 'Loading',
+          exact: true,
+        })
+        const disabledButton = page.getByRole('button', {
+          name: 'Disabled',
+          exact: true,
+        })
+        const enabledButton = page.getByRole('button', {
+          name: 'Enabled',
+          exact: true,
+        })
 
-      const loadingButton = page.getByRole('button', {
-        name: 'Loading',
-        exact: true,
-      })
-      const disabledButton = page.getByRole('button', {
-        name: 'Disabled',
-        exact: true,
-      })
-      const enabledButton = page.getByRole('button', {
-        name: 'Enabled',
-        exact: true,
-      })
-
-      await expect.element(loadingButton).toHaveAttribute('aria-disabled', 'true')
-      await expect.element(loadingButton).toHaveAttribute('data-loading', 'true')
-      await expect.element(loadingButton).toHaveAttribute('data-loading-disabled-styles', 'true')
-      await expect.element(loadingButton).not.toBeDisabled()
-      expect(visualStyles(loadingButton.element())).toEqual(visualStyles(disabledButton.element()))
-      expect(visualStyles(loadingButton.element()).backgroundColor).not.toBe(
-        visualStyles(enabledButton.element()).backgroundColor,
-      )
-      expect(visualStyles(loadingButton.element()).cursor).toBe('not-allowed')
-    })
+        await expect.element(loadingButton).toHaveAttribute('aria-disabled', 'true')
+        await expect.element(loadingButton).toHaveAttribute('data-loading', 'true')
+        await expect.element(loadingButton).not.toBeDisabled()
+        expect(visualStyles(loadingButton.element())).toEqual(visualStyles(disabledButton.element()))
+        expect(visualStyles(loadingButton.element())).not.toEqual(visualStyles(enabledButton.element()))
+        expect(visualStyles(loadingButton.element()).cursor).toBe('not-allowed')
+      },
+    )
 
     it('applies disabled styles when loading is combined with aria-disabled', async () => {
-      renderWithLoadingDisabledStyles(
+      render(
         <>
           <Button variant="primary" loading aria-disabled>
             Loading
@@ -411,15 +407,13 @@ describe('Button', () => {
       expect(visualStyles(loadingButton.element())).toEqual(visualStyles(disabledButton.element()))
     })
 
-    it('preserves existing loading styles when the feature flag is disabled', async () => {
-      render(
+    it('restores enabled styles when loading finishes', async () => {
+      const {rerender} = render(
         <>
           <Button variant="primary" loading>
             Loading
           </Button>
-          <Button variant="primary" disabled>
-            Disabled
-          </Button>
+          <Button variant="primary">Enabled</Button>
         </>,
       )
 
@@ -427,13 +421,22 @@ describe('Button', () => {
         name: 'Loading',
         exact: true,
       })
-      const disabledButton = page.getByRole('button', {
-        name: 'Disabled',
+      const enabledButton = page.getByRole('button', {
+        name: 'Enabled',
         exact: true,
       })
 
-      await expect.element(loadingButton).not.toHaveAttribute('data-loading-disabled-styles')
-      expect(visualStyles(loadingButton.element())).not.toEqual(visualStyles(disabledButton.element()))
+      rerender(
+        <>
+          <Button variant="primary" loading={false}>
+            Loading
+          </Button>
+          <Button variant="primary">Enabled</Button>
+        </>,
+      )
+
+      await expect.element(loadingButton).not.toHaveAttribute('aria-disabled')
+      await expect.poll(() => visualStyles(loadingButton.element())).toEqual(visualStyles(enabledButton.element()))
     })
 
     it('does not call onClick while loading', () => {
