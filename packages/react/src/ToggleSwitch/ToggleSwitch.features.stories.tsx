@@ -5,10 +5,51 @@ import {action} from 'storybook/actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
 import {clsx} from 'clsx'
 import styles from './ToggleSwitch.features.stories.module.css'
+import {VisuallyHidden} from '../VisuallyHidden'
+import {useId} from '../hooks/useId'
+import type {ToggleSwitchProps} from './ToggleSwitch'
+import type {StoryObj} from '@storybook/react-vite'
+import {expect} from 'storybook/test'
 
 export default {
   title: 'Components/ToggleSwitch/Features',
+  component: ToggleSwitch,
 }
+
+function ComparisonSwitch({
+  label,
+  ...props
+}: Pick<ToggleSwitchProps, 'size' | 'defaultChecked' | 'disabled'> & {label: string}) {
+  const id = useId()
+  return (
+    <div className={styles.Comparison}>
+      <VisuallyHidden id={id}>{label}</VisuallyHidden>
+      <ToggleSwitch size="small" {...props} aria-labelledby={id} />
+    </div>
+  )
+}
+
+export const ModernizedSwitch: StoryObj<typeof ToggleSwitch> = {
+  render: () => <ComparisonSwitch label="Enable notifications" />,
+  play: async ({canvas, userEvent}) => {
+    const button = canvas.getByRole('button', {name: 'Enable notifications'})
+    await userEvent.click(button)
+    await expect(button).toHaveAttribute('aria-pressed', 'true')
+    await userEvent.click(button)
+    await expect(button).toHaveAttribute('aria-pressed', 'false')
+  },
+}
+
+export const ModernizedChecked = () => <ComparisonSwitch label="Dark mode" defaultChecked />
+export const ModernizedDisabled = () => <ComparisonSwitch label="Disabled switch" disabled />
+export const ModernizedCheckedDisabled = () => <ComparisonSwitch label="Disabled switch" disabled defaultChecked />
+export const ModernizedSizes = () => (
+  <div className={styles.ComparisonSizes}>
+    {(['compact', 'small', 'medium'] as const).map(size => (
+      <ComparisonSwitch key={size} label={`${size[0].toUpperCase()}${size.slice(1)} size`} size={size} />
+    ))}
+  </div>
+)
 
 export const Small = () => (
   <ToggleSwitchStoryWrapper>

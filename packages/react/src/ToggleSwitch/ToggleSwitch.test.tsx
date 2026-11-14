@@ -5,11 +5,67 @@ import ToggleSwitch from './'
 import userEvent from '@testing-library/user-event'
 import {implementsClassName} from '../utils/testing'
 import classes from './ToggleSwitch.module.css'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 
 const SWITCH_LABEL_TEXT = 'Switch label'
 
 describe('ToggleSwitch', () => {
   implementsClassName(ToggleSwitch, classes.ToggleSwitch)
+  it.each([
+    ['compact', 30, 16],
+    ['small', 40, 20],
+    ['medium', 48, 24],
+  ] as const)('keeps the %s thumb inside the control in both directions', async (size, width, height) => {
+    const {rerender} = render(
+      <div dir="ltr">
+        <span id="size-label">Size preview</span>
+        <ToggleSwitch size={size} aria-labelledby="size-label" />
+      </div>,
+    )
+    for (const direction of ['ltr', 'rtl']) {
+      rerender(
+        <div dir={direction}>
+          <span id="size-label">Size preview</span>
+          <ToggleSwitch size={size} aria-labelledby="size-label" />
+        </div>,
+      )
+      const button = page.getByRole('button', {name: 'Size preview', exact: true})
+      await expect.element(button).toHaveStyle({width: `${width}px`, height: `${height}px`})
+      for (let toggle = 0; toggle < 2; toggle++) {
+        await browserUserEvent.click(button)
+        await expect
+          .poll(() => {
+            const track = button.element().getBoundingClientRect()
+            const thumb = button.element().lastElementChild?.getBoundingClientRect()
+            return thumb && thumb.left >= track.left && thumb.right <= track.right
+          })
+          .toBe(true)
+      }
+    }
+  })
+
+  it('toggles a compact control with the keyboard and keeps custom state labels', async () => {
+    render(
+      <>
+        <span id="compact-label">Compact preference</span>
+        <ToggleSwitch
+          size="compact"
+          aria-labelledby="compact-label"
+          buttonLabelOn="Enabled"
+          buttonLabelOff="Disabled"
+        />
+      </>,
+    )
+    const button = page.getByRole('button', {name: 'Compact preference', exact: true})
+    await browserUserEvent.tab()
+    await expect.element(button).toHaveFocus()
+    await browserUserEvent.keyboard(' ')
+    await expect.element(button).toHaveAttribute('aria-pressed', 'true')
+    await expect.element(page.getByText('Enabled', {exact: true})).toBeVisible()
+    await browserUserEvent.keyboard('{Enter}')
+    await expect.element(button).toHaveAttribute('aria-pressed', 'false')
+    await expect.element(page.getByText('Disabled', {exact: true})).toBeVisible()
+  })
   it('renders a switch that is turned off', () => {
     const {getByLabelText} = render(
       <>

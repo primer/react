@@ -50,7 +50,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['small', 'medium'],
+    options: ['compact', 'small', 'medium'],
   },
   buttonLabelOn: {
     control: {

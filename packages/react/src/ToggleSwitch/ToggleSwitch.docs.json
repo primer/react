@@ -88,7 +88,7 @@
     },
     {
       "name": "size",
-      "type": "'small' | 'medium'",
+      "type": "'compact' | 'small' | 'medium'",
       "defaultValue": "'medium'",
       "description": "Size of the switch"
     },

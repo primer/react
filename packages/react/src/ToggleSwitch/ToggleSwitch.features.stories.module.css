@@ -4,6 +4,21 @@
   gap: var(--base-size-16);
 }
 
+.Comparison {
+  padding: var(--base-size-16);
+}
+
+.ComparisonSizes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-12);
+  padding: var(--base-size-16);
+
+  & .Comparison {
+    padding: 0;
+  }
+}
+
 .ColGrow {
   flex-grow: 1;
 }

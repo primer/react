@@ -8,6 +8,7 @@ import type {CellAlignment} from '../DataTable/column'
 import {AriaStatus} from '../live-region'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import classes from './ToggleSwitch.module.css'
+import modernizeClasses from './ToggleSwitch.modernize.module.css'
 
 export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** The id of the DOM node that labels the switch */
@@ -25,7 +26,7 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
   /** The callback that is called when the switch is clicked */
   onClick?: MouseEventHandler
   /** Size of the switch */
-  size?: 'small' | 'medium'
+  size?: 'compact' | 'small' | 'medium'
   /** Whether the "on" and "off" labels should appear before or after the switch.
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
@@ -50,11 +51,13 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
 
 type InnerIconProps = {size?: ToggleSwitchProps['size']}
 
+const iconSizes = {compact: 8, small: 10, medium: 12}
+
 const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
     aria-hidden="true"
-    width={size === 'small' ? '12' : '16'}
-    height={size === 'small' ? '12' : '16'}
+    width={iconSizes[size ?? 'medium']}
+    height={iconSizes[size ?? 'medium']}
     viewBox="0 0 16 16"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -66,8 +69,8 @@ const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) =
 const LineIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
     aria-hidden="true"
-    width={size === 'small' ? '12' : '16'}
-    height={size === 'small' ? '12' : '16'}
+    width={iconSizes[size ?? 'medium']}
+    height={iconSizes[size ?? 'medium']}
     viewBox="0 0 16 16"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +157,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
       ) : null}
 
       <span
-        className={classes.StatusText}
+        className={clsx(classes.StatusText, modernizeClasses.StatusText)}
         data-size={size}
         data-disabled={!acceptsInteraction}
         aria-hidden="true"
@@ -172,7 +175,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
         ref={ref}
         // eslint-disable-next-line react/button-has-type
         type={buttonType}
-        className={classes.SwitchButton}
+        className={clsx(classes.SwitchButton, modernizeClasses.SwitchButton)}
         data-size={size}
         data-checked={isOn}
         data-disabled={!acceptsInteraction}
@@ -199,7 +202,8 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
           </div>
         </div>
         <div
-          className={classes.ToggleKnob}
+          className={clsx(classes.ToggleKnob, modernizeClasses.ToggleKnob)}
+          data-size={size}
           data-checked={isOn}
           data-disabled={!acceptsInteraction}
           aria-hidden="true"
