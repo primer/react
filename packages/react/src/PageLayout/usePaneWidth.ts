@@ -32,8 +32,8 @@ export type UsePaneWidthOptions = {
   paneRef: React.RefObject<HTMLDivElement | null>
   handleRef: React.RefObject<HTMLDivElement | null>
   /**
-   * Optional ref to the content wrapper element. Only used by PageLayout for its
-   * viewport/content math during resize. Standalone consumers can omit this.
+   * @deprecated No longer used. Viewport resizes no longer toggle layout containment on the
+   * content wrapper. Kept so existing callers continue to type-check.
    */
   contentWrapperRef?: React.RefObject<HTMLDivElement | null>
   /**
@@ -205,7 +205,6 @@ export function usePaneWidth({
   widthStorageKey,
   paneRef,
   handleRef,
-  contentWrapperRef,
   constrainToViewport = false,
   onResizeEnd,
   currentWidth: controlledWidth,
@@ -356,8 +355,7 @@ export function usePaneWidth({
     formatValueTextRef.current = formatValueText
   })
 
-  // Update CSS variable, refs, and ARIA on mount and window resize.
-  // Strategy: Only sync when resize stops (debounced) to avoid layout thrashing on large DOMs
+  // Update CSS variable, refs, and ARIA on mount and when the viewport width changes.
   useIsomorphicLayoutEffect(() => {
     if (!resizable) return
 
@@ -439,30 +437,18 @@ export function usePaneWidth({
     // Throttle approach for window resize - provides immediate visual feedback for small DOMs
     // while still limiting update frequency
     const THROTTLE_MS = 16 // ~60fps
-    const DEBOUNCE_MS = 150 // Delay before removing containment after resize stops
     let lastUpdateTime = 0
     let pendingUpdate = false
     let rafId: number | null = null
-    let debounceId: ReturnType<typeof setTimeout> | null = null
-    let isResizing = false
-
-    const startResizeOptimizations = () => {
-      if (isResizing) return
-      isResizing = true
-      paneRef.current?.setAttribute('data-dragging', 'true')
-      contentWrapperRef?.current?.setAttribute('data-dragging', 'true')
-    }
-
-    const endResizeOptimizations = () => {
-      if (!isResizing) return
-      isResizing = false
-      paneRef.current?.removeAttribute('data-dragging')
-      contentWrapperRef?.current?.removeAttribute('data-dragging')
-    }
+    let lastResizeViewportWidth = window.innerWidth
 
     const handleResize = () => {
-      // Apply containment on first resize event (stays applied until resize stops)
-      startResizeOptimizations()
+      // The max width only depends on the viewport width, so ignore height-only resizes
+      // (mobile URL bar, on-screen keyboard). Reading before any DOM write keeps this read
+      // from forcing an extra layout.
+      const viewportWidth = window.innerWidth
+      if (viewportWidth === lastResizeViewportWidth) return
+      lastResizeViewportWidth = viewportWidth
 
       const now = Date.now()
       if (now - lastUpdateTime >= THROTTLE_MS) {
@@ -477,24 +463,15 @@ export function usePaneWidth({
           syncAll()
         })
       }
-
-      // Debounce the cleanup — remove containment after resize stops
-      if (debounceId !== null) clearTimeout(debounceId)
-      debounceId = setTimeout(() => {
-        debounceId = null
-        endResizeOptimizations()
-      }, DEBOUNCE_MS)
     }
 
     // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
       if (rafId !== null) cancelAnimationFrame(rafId)
-      if (debounceId !== null) clearTimeout(debounceId)
-      endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
-  }, [resizable, customMaxWidth, constrainToViewport, minPaneWidth, paneRef, handleRef, contentWrapperRef])
+  }, [resizable, customMaxWidth, constrainToViewport, minPaneWidth, paneRef, handleRef])
 
   return {
     currentWidth,
