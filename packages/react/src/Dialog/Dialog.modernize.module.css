@@ -1,0 +1,91 @@
+.Dialog[data-component] {
+  & .OverflowWrapper {
+    border-bottom: 0;
+  }
+
+  &:where([data-size='small']) {
+    & .Body {
+      /* stylelint-disable primer/typography -- match compact UI typography */
+      font-size: 13px;
+      line-height: var(--base-size-20);
+      /* stylelint-enable primer/typography */
+      padding: var(--base-size-16);
+    }
+
+    & .Footer {
+      padding: var(--base-size-12);
+      gap: var(--base-size-8);
+    }
+  }
+}
+
+.Header {
+  min-height: var(--base-size-48);
+  padding-block: var(--base-size-8);
+  padding-inline: calc(var(--base-size-20) - var(--base-size-2)) var(--base-size-8);
+  box-shadow: none;
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.Header[data-size='small'],
+:where(.Dialog[data-size='small']) .Header {
+  min-height: var(--base-size-40);
+  padding-block: var(--base-size-6);
+  padding-inline: var(--base-size-16) var(--base-size-6);
+
+  & .Title {
+    /* stylelint-disable primer/typography -- match compact UI typography */
+    font-size: 13px;
+    line-height: var(--base-size-20);
+    /* stylelint-enable primer/typography */
+  }
+
+  & [data-component='Dialog.CloseButton'] {
+    width: var(--base-size-28);
+    height: var(--base-size-28);
+
+    & svg {
+      width: calc(var(--base-size-16) - var(--base-size-2));
+      height: calc(var(--base-size-16) - var(--base-size-2));
+    }
+  }
+}
+
+.HeaderInner {
+  align-items: center;
+}
+
+.Header[data-has-subtitle='true'] .HeaderInner {
+  align-items: flex-start;
+}
+
+.HeaderContent {
+  min-width: 0;
+  padding: 0;
+}
+
+.Title {
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--base-text-lineHeight-normal);
+}
+
+.Subtitle {
+  margin-top: 0;
+}
+
+.Body {
+  padding: var(--base-size-20);
+}
+
+.Footer {
+  & [data-component='Button']:where([data-size='medium']) {
+    /* stylelint-disable-next-line primer/typography -- match footer control labels without changing standalone buttons */
+    font-size: 13px;
+  }
+
+  padding-block: var(--base-size-16);
+  padding-inline: var(--base-size-20);
+  gap: var(--base-size-12);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}

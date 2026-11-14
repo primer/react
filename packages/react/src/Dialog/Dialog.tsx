@@ -14,6 +14,7 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 import classes from './Dialog.module.css'
+import modernizeClasses from './Dialog.modernize.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
 import {useResizeObserver} from '../hooks/useResizeObserver'
@@ -61,6 +62,8 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
  */
 export interface DialogProps {
   'data-component'?: string
+  /** Visual density of the dialog header, body, and footer. */
+  size?: 'small' | 'medium'
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
@@ -216,6 +219,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
   title,
   subtitle,
+  size,
   dialogDescriptionId,
   onClose,
 }) => {
@@ -237,9 +241,9 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
     [onClose],
   )
   return (
-    <Dialog.Header>
-      <div className={classes.HeaderInner}>
-        <div className={classes.HeaderContent}>
+    <Dialog.Header data-size={size} data-has-subtitle={Boolean(subtitle)}>
+      <div className={clsx(classes.HeaderInner, modernizeClasses.HeaderInner)}>
+        <div className={clsx(classes.HeaderContent, modernizeClasses.HeaderContent)}>
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </div>
@@ -251,14 +255,16 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
 const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
   return <Dialog.Body>{children}</Dialog.Body>
 }
-const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
+const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons, size}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',
   })
   return footerButtons ? (
     <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
-      <Dialog.Buttons buttons={footerButtons} />
+      <Dialog.Buttons
+        buttons={footerButtons.map(button => ({size: size === 'small' ? 'small' : 'medium', ...button}))}
+      />
     </Dialog.Footer>
   ) : null
 }
@@ -286,6 +292,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
+    size = 'medium',
     footerButtons = defaultFooterButtons,
     position = defaultPosition,
     align,
@@ -305,7 +312,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   }
   const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
   const [footerButtonLayout, setFooterButtonLayout] = useState<'scroll' | 'wrap'>('wrap')
-  const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
+  const defaultedProps = {...props, title, subtitle, size, role, dialogLabelId, dialogDescriptionId}
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
       if (e.target === e.currentTarget && lastMouseDownIsBackdrop) {
@@ -424,7 +431,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-height={height}
             data-has-footer={hasFooter ? '' : undefined}
             data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
-            className={clsx(className, classes.Dialog)}
+            className={clsx(className, classes.Dialog, modernizeClasses.Dialog)}
+            data-size={size}
             style={{
               ...style,
               ...(!isWidthMapKey(width) ? {'--dialog-width': normalizeWidth(width)} : {}),
@@ -432,7 +440,10 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-component={dataComponent}
           >
             {header}
-            <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
+            <ScrollableRegion
+              aria-labelledby={dialogLabelId}
+              className={clsx(classes.DialogOverflowWrapper, modernizeClasses.OverflowWrapper)}
+            >
               {body}
             </ScrollableRegion>
             {footer}
@@ -447,15 +458,29 @@ _Dialog.displayName = 'Dialog'
 type StyledHeaderProps = React.ComponentProps<'div'>
 
 const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} data-component="Dialog.Header" />
+  return (
+    <div
+      ref={forwardRef}
+      className={clsx(className, classes.Header, modernizeClasses.Header)}
+      {...rest}
+      data-component="Dialog.Header"
+    />
+  )
 }) as PolymorphicForwardRefComponent<'div', StyledHeaderProps>
 Header.displayName = 'Dialog.Header'
 
 type StyledTitleProps = React.ComponentProps<'h1'>
 
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
-  // eslint-disable-next-line jsx-a11y/heading-has-content
-  return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} data-component="Dialog.Title" />
+  return (
+    // eslint-disable-next-line jsx-a11y/heading-has-content
+    <h1
+      ref={forwardRef}
+      className={clsx(className, classes.Title, modernizeClasses.Title)}
+      {...rest}
+      data-component="Dialog.Title"
+    />
+  )
 })
 Title.displayName = 'Dialog.Title'
 
@@ -467,7 +492,12 @@ const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(funct
 ) {
   return (
     // eslint-disable-next-line jsx-a11y/heading-has-content
-    <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} data-component="Dialog.Subtitle" />
+    <h2
+      ref={forwardRef}
+      className={clsx(className, classes.Subtitle, modernizeClasses.Subtitle)}
+      {...rest}
+      data-component="Dialog.Subtitle"
+    />
   )
 })
 Subtitle.displayName = 'Dialog.Subtitle'
@@ -475,7 +505,14 @@ Subtitle.displayName = 'Dialog.Subtitle'
 type StyledBodyProps = React.ComponentProps<'div'>
 
 const Body = React.forwardRef<HTMLDivElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Body)} {...rest} data-component="Dialog.Body" />
+  return (
+    <div
+      ref={forwardRef}
+      className={clsx(className, classes.Body, modernizeClasses.Body)}
+      {...rest}
+      data-component="Dialog.Body"
+    />
+  )
 }) as PolymorphicForwardRefComponent<'div', StyledBodyProps>
 
 Body.displayName = 'Dialog.Body'
@@ -483,7 +520,14 @@ Body.displayName = 'Dialog.Body'
 type StyledFooterProps = React.ComponentProps<'div'>
 
 const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} data-component="Dialog.Footer" />
+  return (
+    <div
+      ref={forwardRef}
+      className={clsx(className, classes.Footer, modernizeClasses.Footer)}
+      {...rest}
+      data-component="Dialog.Footer"
+    />
+  )
 }) as PolymorphicForwardRefComponent<'div', StyledFooterProps>
 Footer.displayName = 'Dialog.Footer'
 

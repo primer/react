@@ -45,6 +45,12 @@
   "importPath": "@primer/react",
   "props": [
     {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "defaultValue": "'medium'",
+      "description": "Visual density of the header, body, and footer. Small uses compact typography and spacing without changing the dialog's width or height."
+    },
+    {
       "name": "title",
       "type": "React.ReactNode",
       "description": "Title of the Dialog. Also serves as the aria-label for this Dialog."

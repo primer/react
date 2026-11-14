@@ -10,6 +10,39 @@ import classes from './Dialog.module.css'
 
 describe('Dialog', () => {
   implementsClassName(Dialog, classes.Dialog)
+  it.each([
+    ['small', '13px', '16px', 41],
+    ['medium', '14px', '20px', 49],
+  ] as const)(
+    'applies %s visual density to the actual header and body',
+    async (size, fontSize, padding, headerHeight) => {
+      render(
+        <Dialog size={size} title="Density preview" onClose={() => {}} footerButtons={[{content: 'Confirm'}]}>
+          Density content
+        </Dialog>,
+      )
+      const dialog = page.getByRole('dialog', {name: 'Density preview', exact: true}).element()
+      const title = page.getByRole('heading', {name: 'Density preview', exact: true})
+      await expect.element(title).toHaveStyle({fontSize})
+      const body = dialog.querySelector('[data-component="Dialog.Body"]')
+      expect(body).toHaveStyle({padding})
+      expect(dialog.querySelector('[data-component="Dialog.Header"]')?.getBoundingClientRect().height).toBe(
+        headerHeight,
+      )
+      await expect.element(page.getByRole('button', {name: 'Confirm', exact: true})).toHaveStyle({
+        height: size === 'small' ? '28px' : '32px',
+      })
+    },
+  )
+
+  it('preserves an explicit footer button size in a small dialog', async () => {
+    render(
+      <Dialog size="small" onClose={() => {}} footerButtons={[{content: 'Large action', size: 'large'}]}>
+        Content
+      </Dialog>,
+    )
+    await expect.element(page.getByRole('button', {name: 'Large action', exact: true})).toHaveStyle({height: '40px'})
+  })
   it('renders with role "dialog" by default', async () => {
     render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 

@@ -7,12 +7,106 @@ import {ActionList} from '../ActionList'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
 import classes from './Dialog.stories.module.css'
+import baseClasses from './Dialog.module.css'
+import modernizeClasses from './Dialog.modernize.module.css'
+import type {Meta, StoryObj} from '@storybook/react-vite'
+import {expect, within} from 'storybook/test'
 
 /* Dialog Version 2 */
 
 export default {
   title: 'Components/Dialog/Features',
+  component: Dialog,
+} satisfies Meta<typeof Dialog>
+
+function ComparisonDialog({small = false, tall = false}: {small?: boolean; tall?: boolean}) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className={classes.Comparison}>
+      <Button onClick={() => setOpen(true)}>
+        {tall ? 'Open tall dialog' : small ? 'Open small dialog' : 'Open dialog'}
+      </Button>
+      {open && (
+        <Dialog
+          title={tall ? 'Terms and conditions' : 'Confirm action'}
+          size={small ? 'small' : 'medium'}
+          width={small ? 'small' : 'large'}
+          height={tall ? 'small' : 'auto'}
+          onClose={() => setOpen(false)}
+          footerButtons={[
+            {content: tall ? 'Decline' : 'Cancel', onClick: () => setOpen(false)},
+            {content: tall ? 'Accept' : 'Confirm', variant: 'primary', onClick: () => setOpen(false)},
+          ]}
+        >
+          {tall
+            ? Array.from(
+                {length: 60},
+                (_, i) =>
+                  `Paragraph ${i + 1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+              ).map(paragraph => (
+                <p className={classes.ComparisonParagraph} key={paragraph}>
+                  {paragraph}
+                </p>
+              ))
+            : small
+              ? 'This dialog uses the small UI font size.'
+              : 'This dialog is configured from Storybook controls.'}
+        </Dialog>
+      )}
+    </div>
+  )
 }
+
+const openComparisonDialog: StoryObj<typeof Dialog>['play'] = async ({canvas, canvasElement, userEvent}) => {
+  await userEvent.click(canvas.getByRole('button'))
+  await expect(within(canvasElement.ownerDocument.body).getByRole('dialog')).toBeVisible()
+}
+
+export const ModernizedDialog: StoryObj<typeof Dialog> = {
+  render: () => <ComparisonDialog />,
+  play: openComparisonDialog,
+}
+export const ModernizedSmall: StoryObj<typeof Dialog> = {
+  render: () => <ComparisonDialog small />,
+  play: openComparisonDialog,
+}
+export const ModernizedTall: StoryObj<typeof Dialog> = {
+  render: () => <ComparisonDialog tall />,
+  play: openComparisonDialog,
+}
+
+function ComparisonHeader({
+  small = false,
+  subtitle,
+  closeButton = true,
+}: {
+  small?: boolean
+  subtitle?: string
+  closeButton?: boolean
+}) {
+  return (
+    <div className={classes.Comparison}>
+      <div className={classes.ComparisonHeader} style={{width: small ? 296 : 480}}>
+        <Dialog.Header data-size={small ? 'small' : 'medium'} data-has-subtitle={!!subtitle}>
+          <div className={`${baseClasses.HeaderInner} ${modernizeClasses.HeaderInner}`}>
+            <div className={`${baseClasses.HeaderContent} ${modernizeClasses.HeaderContent}`}>
+              <Dialog.Title>Dialog title</Dialog.Title>
+              {subtitle && <Dialog.Subtitle>{subtitle}</Dialog.Subtitle>}
+            </div>
+            {closeButton && <Dialog.CloseButton onClose={() => {}} />}
+          </div>
+        </Dialog.Header>
+      </div>
+    </div>
+  )
+}
+
+export const ModernizedHeader = () => <ComparisonHeader />
+export const ModernizedHeaderSmall = () => <ComparisonHeader small />
+export const ModernizedHeaderSubtitle = () => (
+  <ComparisonHeader subtitle="A short description of what this dialog does" />
+)
+export const ModernizedHeaderTitleOnly = () => <ComparisonHeader closeButton={false} />
 
 const lipsum = (
   <>

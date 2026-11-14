@@ -2,3 +2,19 @@
   font-size: var(--text-body-size-medium, 0.75rem);
   margin-block-start: 0;
 }
+
+.Comparison {
+  padding: var(--base-size-16);
+}
+
+.ComparisonParagraph {
+  margin: 0 0 var(--base-size-12);
+}
+
+.ComparisonHeader {
+  max-width: 100%;
+  overflow: hidden;
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-radius: var(--borderRadius-large);
+  background: var(--bgColor-default);
+}
