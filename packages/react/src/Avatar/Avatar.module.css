@@ -1,6 +1,7 @@
 :where(.Avatar) {
   display: inline-block;
   width: var(--avatarSize-regular);
+  flex-shrink: 0;
   height: var(--avatarSize-regular);
   overflow: hidden; /* Ensure page layout in Firefox should images fail to load */
   /* stylelint-disable-next-line primer/typography */
