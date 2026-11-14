@@ -1,5 +1,15 @@
 # @primer/react
 
+## 38.47.0
+
+### Minor Changes
+
+- [#8563](https://github.com/primer/react/pull/8563) [`998b471`](https://github.com/primer/react/commit/998b471a4ad78c7c23426038ef0c4a5261fc41cf) Thanks [@joshblack](https://github.com/joshblack)! - ActionMenu: Improve rendering performance with React Compiler support.
+
+### Patch Changes
+
+- [#8708](https://github.com/primer/react/pull/8708) [`16c41d3`](https://github.com/primer/react/commit/16c41d3e57bb7358d887c613aaeb22aaea3a0d97) Thanks [@vivanvv](https://github.com/vivanvv)! - Pagination: Disable Next for empty results when page numbers are hidden.
+
 ## 38.46.0
 
 ### Minor Changes
