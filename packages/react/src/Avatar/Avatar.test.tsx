@@ -37,6 +37,31 @@ describe('Avatar', () => {
     await expect.element(avatar).toHaveAttribute('src', 'primer.png')
   })
 
+  it('renders a text placeholder when src is omitted', async () => {
+    render(<Avatar placeholder="NS" size={40} data-testid="avatar" />)
+    const avatar = page.getByTestId('avatar')
+    await expect.element(avatar).toHaveTextContent('NS')
+    await expect.element(avatar).toHaveAttribute('role', 'img')
+    await expect.element(avatar).toHaveAttribute('aria-label', 'NS')
+    await expect.element(avatar).toHaveAttribute('data-placeholder')
+    await expect.element(avatar).toHaveAttribute('data-component', 'Avatar')
+    await expect.element(avatar).not.toHaveAttribute('src')
+  })
+
+  it('prefers the image when both src and placeholder are provided', async () => {
+    render(<Avatar src="primer.png" placeholder="NS" alt="Naveed" data-testid="avatar" />)
+    const avatar = page.getByTestId('avatar')
+    expect(avatar.element().tagName).toBe('IMG')
+    await expect.element(avatar).toHaveAttribute('src', 'primer.png')
+    await expect.element(avatar).toHaveAttribute('alt', 'Naveed')
+    await expect.element(avatar).not.toHaveAttribute('data-placeholder')
+  })
+
+  it('uses alt text as the accessible name for a placeholder when provided', async () => {
+    render(<Avatar placeholder="NS" alt="Naveed Sajjad" data-testid="avatar" />)
+    await expect.element(page.getByTestId('avatar')).toHaveAttribute('aria-label', 'Naveed Sajjad')
+  })
+
   it('should support the `style` prop without overriding internal styles', async () => {
     render(
       <Avatar
