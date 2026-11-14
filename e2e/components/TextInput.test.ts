@@ -3,6 +3,22 @@ import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
 test.describe('TextInput', () => {
+  test.describe('Modernized accessibility', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        for (const story of ['modernized-input', 'modernized-search', 'modernized-states']) {
+          test(`${story} @avt`, async ({page}) => {
+            await visit(page, {
+              id: `components-textinput-features--${story}`,
+              globals: {colorScheme: theme},
+            })
+            await expect(page).toHaveNoViolations()
+          })
+        }
+      })
+    }
+  })
+
   test.describe('Default', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

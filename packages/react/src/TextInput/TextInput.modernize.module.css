@@ -1,0 +1,118 @@
+.TextInput[data-component='TextInput'] {
+  --textInput-modernize-padding: var(--base-size-12);
+  --textInput-modernize-visual-inset: var(--base-size-8);
+  --textInput-modernize-icon-size: var(--base-size-16);
+  --textInput-modernize-gap: var(--base-size-6);
+  --textInput-modernize-trailing-gap: var(--base-size-8);
+  --inner-action-size: var(--base-size-24);
+
+  padding: 0;
+  /* stylelint-disable-next-line primer/typography -- GitHub App's 13px input text has no matching Primer token */
+  font-size: 13px;
+  line-height: var(--base-text-lineHeight-normal);
+  -webkit-font-smoothing: antialiased;
+  /* stylelint-disable-next-line primer/borders -- GitHub App's 8px radius has no matching Primer token */
+  border-radius: 8px;
+  box-shadow: none;
+
+  &:where([data-size='small'], [data-variant='small']) {
+    --textInput-modernize-padding: var(--base-size-8);
+    --textInput-modernize-visual-inset: var(--base-size-6);
+    --textInput-modernize-icon-size: calc(var(--base-size-16) - var(--base-size-2));
+    --textInput-modernize-gap: var(--base-size-4);
+    --textInput-modernize-trailing-gap: var(--base-size-4);
+
+    font-size: var(--text-body-size-small);
+  }
+
+  &:where([data-size='large'], [data-variant='large']) {
+    --textInput-modernize-padding: calc(var(--base-size-16) - var(--base-size-2));
+    --textInput-modernize-visual-inset: calc(var(--base-size-12) - var(--base-size-2));
+    --textInput-modernize-gap: var(--base-size-8);
+    --textInput-modernize-trailing-gap: var(--base-size-12);
+
+    height: var(--base-size-40);
+    font-size: var(--text-body-size-medium);
+  }
+
+  /* stylelint-disable primer/spacing -- local spacing variables reference Primer size tokens */
+  & > :not(:last-child) {
+    margin-inline: 0 var(--textInput-modernize-gap);
+  }
+
+  & > input {
+    min-width: 0;
+    padding: 0;
+    line-height: inherit;
+
+    &::placeholder {
+      opacity: 1;
+    }
+  }
+
+  &:where([data-no-leading-visual]) > input {
+    padding-inline-start: var(--textInput-modernize-padding);
+  }
+
+  &:where([data-no-trailing-visual][data-no-trailing-action]) > input {
+    padding-inline-end: var(--textInput-modernize-padding);
+  }
+
+  &:where([data-leading-visual]) {
+    padding-inline-start: var(--textInput-modernize-visual-inset);
+  }
+
+  &:where([data-trailing-visual], [data-trailing-action]) {
+    padding-inline-end: var(--base-size-4);
+
+    & > input:not(:last-child) {
+      margin-inline-end: var(--textInput-modernize-trailing-gap);
+    }
+  }
+  /* stylelint-enable primer/spacing */
+
+  & [data-component='TextInput.LeadingVisual'],
+  & [data-component='TextInput.TrailingVisual'] {
+    display: inline-flex;
+    align-items: center;
+
+    & svg {
+      width: var(--textInput-modernize-icon-size);
+      height: var(--textInput-modernize-icon-size);
+    }
+  }
+
+  & [data-component='TextInput.TrailingVisual'] {
+    min-width: var(--base-size-24);
+    justify-content: center;
+  }
+
+  & [data-component='TextInput.Action'] {
+    margin-inline: 0;
+  }
+
+  & [data-component='TextInput.Action'] svg {
+    width: calc(var(--base-size-16) - var(--base-size-2));
+    height: calc(var(--base-size-16) - var(--base-size-2));
+  }
+
+  &:where([data-disabled]) {
+    color: var(--control-fgColor-disabled);
+  }
+
+  &:where([data-disabled], [data-validation='error'], [data-trailing-action][data-focused]),
+  &:where([data-no-trailing-action]):focus-within {
+    border-color: var(--control-borderColor-rest);
+  }
+
+  &:where([data-validation='error']) {
+    outline: var(--borderWidth-thin) solid var(--borderColor-danger-emphasis);
+    outline-offset: -1px;
+
+    &:where([data-trailing-action])[data-focused],
+    &:where([data-no-trailing-action]):focus-within {
+      outline-color: var(--borderColor-danger-emphasis);
+      outline-width: var(--borderWidth-thick);
+    }
+  }
+}

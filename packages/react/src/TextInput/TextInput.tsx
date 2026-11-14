@@ -6,6 +6,7 @@ import {clsx} from 'clsx'
 import {AlertFillIcon} from '@primer/octicons-react'
 
 import classes from './TextInput.module.css'
+import modernizeClasses from './TextInput.modernize.module.css'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import type {Merge} from '../utils/types'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
@@ -138,7 +139,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const isOverLimit = counter?.isOverLimit ?? false
 
     // this class is necessary to style FilterSearch, plz no touchy!
-    const wrapperClasses = clsx(className, 'TextInput-wrapper')
+    const wrapperClasses = clsx(className, modernizeClasses.TextInput, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
       loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
     const showTrailingLoadingIndicator =

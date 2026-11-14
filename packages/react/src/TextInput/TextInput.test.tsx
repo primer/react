@@ -2,6 +2,7 @@ import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {render, fireEvent, screen, act} from '@testing-library/react'
 import {describe, it, expect, vi, afterEach} from 'vitest'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import React, {createRef} from 'react'
 import TextInput from '../TextInput'
 import {FeatureFlags} from '../FeatureFlags'
@@ -32,6 +33,58 @@ describe('TextInput', () => {
   it('renders large', () => {
     const {container} = render(<TextInput name="zipcode" size="large" />)
     expect(container.firstElementChild).toHaveAttribute('data-size', 'large')
+  })
+
+  describe.each(['ltr', 'rtl'] as const)('modernized spacing in %s', direction => {
+    it.each([
+      {size: 'small', height: 28, fontSize: '12px', iconSize: 14, gap: 4},
+      {size: 'medium', height: 32, fontSize: '13px', iconSize: 16, gap: 6},
+      {size: 'large', height: 40, fontSize: '14px', iconSize: 16, gap: 8},
+    ] as const)('aligns $size input text and visuals', async ({size, height, fontSize, iconSize, gap}) => {
+      render(
+        <div dir={direction}>
+          <TextInput size={size} aria-label="Search" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
+        </div>,
+      )
+      const input = page.getByRole('textbox', {name: 'Search', exact: true}).element()
+      const wrapper = input.parentElement
+      const icon = wrapper?.querySelector('[data-component="TextInput.LeadingVisual"] svg')
+      if (!wrapper || !icon) {
+        throw new Error('Expected the input wrapper and leading icon')
+      }
+
+      await expect.poll(() => wrapper.getBoundingClientRect().height).toBe(height)
+      await expect.poll(() => getComputedStyle(input).fontSize).toBe(fontSize)
+      await expect.poll(() => icon.getBoundingClientRect().width).toBe(iconSize)
+      await expect
+        .poll(() => {
+          const inputBounds = input.getBoundingClientRect()
+          const iconBounds = icon.getBoundingClientRect()
+          return direction === 'rtl' ? iconBounds.left - inputBounds.right : inputBounds.left - iconBounds.right
+        })
+        .toBe(gap)
+    })
+  })
+
+  it.each([false, true])('emphasizes errors on focus with trailing action: %s', async withAction => {
+    render(
+      <TextInput
+        aria-label="Invalid input"
+        validationStatus="error"
+        trailingAction={withAction ? <TextInput.Action icon={SearchIcon} aria-label="Search action" /> : undefined}
+      />,
+    )
+    const input = page.getByRole('textbox', {name: 'Invalid input', exact: true})
+    const wrapper = input.element().parentElement
+    if (!wrapper) {
+      throw new Error('Expected the input wrapper')
+    }
+
+    await expect.poll(() => getComputedStyle(wrapper).outlineWidth).toBe('1px')
+    const errorColor = getComputedStyle(wrapper).outlineColor
+    await browserUserEvent.click(input)
+    await expect.poll(() => getComputedStyle(wrapper).outlineWidth).toBe('2px')
+    expect(getComputedStyle(wrapper).outlineColor).toBe(errorColor)
   })
 
   it('renders block', () => {

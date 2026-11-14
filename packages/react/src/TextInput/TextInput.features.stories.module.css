@@ -5,3 +5,26 @@
 .MarginBottomLarge {
   margin-bottom: var(--base-size-32);
 }
+
+.ComparisonStory {
+  padding: var(--base-size-16);
+}
+
+.ComparisonSizes {
+  display: flex;
+  width: calc(var(--base-size-40) * 8);
+  max-width: 100%;
+  flex-direction: column;
+  gap: var(--base-size-8);
+}
+
+.HiddenClearAction {
+  visibility: hidden;
+}
+
+.CustomSearch {
+  & > input::-webkit-search-cancel-button,
+  & > input::-webkit-search-decoration {
+    display: none;
+  }
+}

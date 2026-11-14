@@ -1,17 +1,110 @@
 import type React from 'react'
-import {useState} from 'react'
+import {useRef, useState} from 'react'
+import type {StoryObj} from '@storybook/react-vite'
 import FormControl from '../FormControl'
 import Heading from '../Heading'
 import {Stack} from '../Stack'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
-import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
+import {CalendarIcon, CheckIcon, XCircleFillIcon, SearchIcon, LockIcon} from '@primer/octicons-react'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
 import classes from './TextInput.features.stories.module.css'
 
 export default {
   title: 'Components/TextInput/Features',
+}
+
+export const ModernizedInput: StoryObj = {
+  decorators: [
+    Story => (
+      <div className={classes.ComparisonStory}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => <TextInput aria-label="Enter text" placeholder="Enter text..." />,
+}
+
+export const ModernizedSizes: StoryObj = {
+  decorators: ModernizedInput.decorators,
+  render: () => (
+    <div className={classes.ComparisonSizes}>
+      <TextInput size="small" aria-label="Small input" placeholder="Small input" block />
+      <TextInput size="medium" aria-label="Medium input" placeholder="Medium input" block />
+      <TextInput size="large" aria-label="Large input" placeholder="Large input" block />
+    </div>
+  ),
+}
+
+export const ModernizedSearch: StoryObj = {
+  decorators: ModernizedInput.decorators,
+  render: function SearchInput() {
+    const [value, setValue] = useState('Search query')
+    const inputRef = useRef<HTMLInputElement>(null)
+    return (
+      <TextInput
+        ref={inputRef}
+        className={classes.CustomSearch}
+        type="search"
+        aria-label="Search"
+        placeholder="Search..."
+        leadingVisual={SearchIcon}
+        value={value}
+        onChange={event => setValue(event.target.value)}
+        trailingAction={
+          <TextInput.Action
+            icon={XCircleFillIcon}
+            aria-label="Clear search"
+            className={value ? undefined : classes.HiddenClearAction}
+            onClick={() => {
+              setValue('')
+              inputRef.current?.focus()
+            }}
+          />
+        }
+      />
+    )
+  },
+}
+
+export const ModernizedPassword: StoryObj = {
+  decorators: ModernizedInput.decorators,
+  render: () => (
+    <TextInput type="password" aria-label="Enter password" placeholder="Enter password" leadingVisual={LockIcon} />
+  ),
+}
+
+export const ModernizedStates: StoryObj = {
+  decorators: ModernizedInput.decorators,
+  render: () => (
+    <div className={classes.ComparisonSizes}>
+      <TextInput aria-label="Disabled input" placeholder="Disabled input" disabled block />
+      <TextInput aria-label="Read-only input" defaultValue="Read-only input" readOnly block />
+      <TextInput aria-label="Invalid input" placeholder="Invalid input" validationStatus="error" block />
+      <TextInput aria-label="Valid input" defaultValue="Valid input" validationStatus="success" block />
+      <TextInput aria-label="Loading input" placeholder="Loading input" loading leadingVisual={SearchIcon} block />
+    </div>
+  ),
+}
+
+export const ModernizedVisualSizes: StoryObj = {
+  decorators: ModernizedInput.decorators,
+  render: () => (
+    <div className={classes.ComparisonSizes}>
+      {(['small', 'medium', 'large'] as const).map(size => (
+        <TextInput
+          key={size}
+          size={size}
+          aria-label={`${size} input with visuals`}
+          placeholder={`${size} input with visuals`}
+          leadingVisual={SearchIcon}
+          trailingVisual={CheckIcon}
+          block
+        />
+      ))}
+    </div>
+  ),
 }
 
 export const Disabled = () => (
