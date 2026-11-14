@@ -924,7 +924,7 @@ function Panel({
           }
         : {}),
       style: {
-        ...(variant === 'anchored' && !height && !usingFullScreenOnNarrow
+        ...(variant === 'anchored' && !height && !overlayProps?.maxHeight && !usingFullScreenOnNarrow
           ? {maxHeight: 'min(384px, calc(100dvh - 32px))'}
           : {}),
         ...overlayProps?.style,

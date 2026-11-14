@@ -112,12 +112,13 @@ describe('SelectPanel hidden title', () => {
         onSelectedChange={() => {}}
         onOpenChange={() => {}}
         onFilterChange={() => {}}
-        overlayProps={{style: {width: 320}}}
+        overlayProps={{style: {width: 320}, maxHeight: 'xsmall'}}
         actionListProps={{className: 'consumer-list'}}
       />,
     )
     const dialog = page.getByRole('dialog', {name: 'Custom panel', exact: true})
     await expect.element(dialog).toHaveStyle({width: '320px'})
+    await expect.element(dialog).toHaveStyle({maxHeight: '192px'})
     await expect.element(page.getByRole('listbox')).toHaveClass('consumer-list')
   })
 
