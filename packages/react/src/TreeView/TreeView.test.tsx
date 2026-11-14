@@ -581,6 +581,36 @@ describe('SubTree accessible name', () => {
   })
 })
 
+describe('Focus within', () => {
+  it('sets data-focus-within on the root only while focus is inside the tree', async () => {
+    render(
+      <>
+        <button type="button">Before</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+          <TreeView.Item id="item-2">Item 2</TreeView.Item>
+        </TreeView>
+        <button type="button">After</button>
+      </>,
+    )
+    const root = page.getByRole('tree').element()
+
+    expect(root).not.toHaveAttribute('data-focus-within')
+
+    act(() => page.getByRole('button', {name: 'Before'}).element().focus())
+    await userEvent.keyboard('{Tab}')
+    expect(root).toHaveAttribute('data-focus-within')
+
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 2'})).toHaveFocus()
+    expect(root).toHaveAttribute('data-focus-within')
+
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('button', {name: 'After'})).toHaveFocus()
+    expect(root).not.toHaveAttribute('data-focus-within')
+  })
+})
+
 describe('Tab order', () => {
   const getTabStops = (container: Element) =>
     Array.from(container.querySelectorAll('[tabindex="0"]')).map(element => element.id || element.textContent)
