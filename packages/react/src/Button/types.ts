@@ -36,7 +36,7 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   /**
-   * Specify whether the button is in a loading state
+   * Specify whether the button is in a loading state. Loading buttons appear disabled but remain focusable.
    */
   loading?: boolean
   /**

@@ -135,7 +135,7 @@
     {
       "name": "loading",
       "type": "boolean",
-      "description": "When true, the button is in a loading state."
+      "description": "When true, the button is in a loading state and appears disabled while remaining focusable."
     },
     {
       "name": "loadingAnnouncement",
