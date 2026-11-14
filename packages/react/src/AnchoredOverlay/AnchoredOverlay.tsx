@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, useState, type JSX} from 'react'
+import {useCallback, useEffect, useRef, useState, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -17,6 +17,119 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
 import {reactMajorVersion} from '../utils/environment'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+
+// This is the intersection of roles supporting aria-haspopup and aria-expanded, including inherited support.
+// See https://www.w3.org/TR/wai-aria-1.2/#aria-haspopup and https://www.w3.org/TR/wai-aria-1.2/#aria-expanded.
+const rolesSupportingPopupAria = new Set([
+  'application',
+  'button',
+  'columnheader',
+  'combobox',
+  'gridcell',
+  'link',
+  'menuitem',
+  'menuitemcheckbox',
+  'menuitemradio',
+  'rowheader',
+  'tab',
+  'treeitem',
+])
+
+function anchorSupportsPopupAria(node: HTMLElement): boolean {
+  const explicitRole = node.getAttribute('role')
+  if (explicitRole) return rolesSupportingPopupAria.has(explicitRole)
+  switch (node.tagName) {
+    case 'BUTTON':
+    case 'SUMMARY':
+      return true
+    case 'A':
+      return node.hasAttribute('href')
+    case 'INPUT':
+      return ['button', 'submit', 'reset', 'image'].includes((node as HTMLInputElement).type)
+    default:
+      return false
+  }
+}
+
+// Several overlays can share one detached anchor, so they share one record of its consumer values.
+interface DetachedAnchorAria {
+  observer: MutationObserver
+  consumerHasPopup: string | null
+  consumerExpanded: string | null
+  overlays: Map<object, boolean>
+}
+
+const detachedAnchors = new WeakMap<HTMLElement, DetachedAnchorAria>()
+
+function captureConsumerAria(node: HTMLElement, managed: DetachedAnchorAria, records: MutationRecord[]) {
+  for (const {attributeName} of records) {
+    if (attributeName === 'aria-haspopup') {
+      managed.consumerHasPopup = node.getAttribute('aria-haspopup')
+    } else if (attributeName === 'aria-expanded') {
+      managed.consumerExpanded = node.getAttribute('aria-expanded')
+    }
+  }
+}
+
+function setAnchorAttribute(node: HTMLElement, name: 'aria-haspopup' | 'aria-expanded', value: string | null) {
+  if (node.getAttribute(name) === value) return
+  if (value === null) {
+    node.removeAttribute(name)
+  } else {
+    node.setAttribute(name, value)
+  }
+}
+
+function writeDetachedAnchorAria(node: HTMLElement, managed: DetachedAnchorAria, includeExpanded: boolean) {
+  captureConsumerAria(node, managed, managed.observer.takeRecords())
+  managed.observer.disconnect()
+  setAnchorAttribute(
+    node,
+    'aria-haspopup',
+    managed.consumerHasPopup ?? (node.getAttribute('role') === 'combobox' ? null : 'true'),
+  )
+  if (includeExpanded) {
+    setAnchorAttribute(node, 'aria-expanded', String([...managed.overlays.values()].some(Boolean)))
+  }
+  managed.observer.observe(node, {attributes: true, attributeFilter: ['aria-haspopup', 'aria-expanded']})
+}
+
+function manageDetachedAnchorAria(node: HTMLElement, overlay: object, open: boolean) {
+  let managed = detachedAnchors.get(node)
+  if (!managed) {
+    const registration: DetachedAnchorAria = {
+      // Restoring a removed popup default is the only write here: re-asserting aria-expanded against
+      // another writer, such as a second copy of Primer, would never settle.
+      observer: new MutationObserver(records => {
+        captureConsumerAria(node, registration, records)
+        writeDetachedAnchorAria(node, registration, false)
+      }),
+      consumerHasPopup: node.getAttribute('aria-haspopup'),
+      consumerExpanded: node.getAttribute('aria-expanded'),
+      overlays: new Map(),
+    }
+    detachedAnchors.set(node, registration)
+    managed = registration
+  }
+  managed.overlays.set(overlay, open)
+  writeDetachedAnchorAria(node, managed, true)
+}
+
+function releaseDetachedAnchorAria(node: HTMLElement, overlay: object) {
+  const managed = detachedAnchors.get(node)
+  if (!managed?.overlays.delete(overlay)) return
+  if (managed.overlays.size > 0) {
+    writeDetachedAnchorAria(node, managed, true)
+    return
+  }
+  // A consumer write and overlay unmount can occur in the same commit, before observer callbacks run.
+  captureConsumerAria(node, managed, managed.observer.takeRecords())
+  managed.observer.disconnect()
+  detachedAnchors.delete(node)
+  setAnchorAttribute(node, 'aria-haspopup', managed.consumerHasPopup)
+  setAnchorAttribute(node, 'aria-expanded', managed.consumerExpanded)
+}
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -137,6 +250,12 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    *   even if `primer_react_css_anchor_positioning` is enabled and the browser supports it.
    */
   cssAnchorPositioningSettings?: {fallbackStrategy?: 'default' | 'none' | 'opposite-side'; disable?: boolean}
+  /**
+   * Private API for use internally only. Used by ActionMenu and SelectPanel, which always open an interactive
+   * popup, to manage `aria-haspopup` and `aria-expanded` on a detached anchor. Other detached overlays, such as
+   * hover cards, may not be popups.
+   */
+  _PrivateManageDetachedAnchorAria?: boolean
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -181,6 +300,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   closeButtonProps = defaultCloseButtonProps,
   renderAs = 'portal',
   cssAnchorPositioningSettings,
+  _PrivateManageDetachedAnchorAria = false,
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   // Lazy initial state so feature detection runs once per mount on the client.
@@ -201,6 +321,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const managedDetachedAnchor = useRef<HTMLElement | null>(null)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
   // eslint-disable-next-line react-hooks/refs
   if (anchorRef.current !== anchorElement) {
@@ -315,6 +436,30 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       }
     }
   }, [cssAnchorPositioning, anchorElement, anchorName])
+
+  // Layout timing keeps aria-expanded current before Overlay's passive cleanup restores focus to the anchor.
+  useIsomorphicLayoutEffect(() => {
+    // A ref can acquire a new node without changing identity.
+    const node = _PrivateManageDetachedAnchorAria && renderAnchor === null && anchorRef.current
+    const eligibleNode = node && anchorSupportsPopupAria(node) ? node : null
+
+    if (managedDetachedAnchor.current && managedDetachedAnchor.current !== eligibleNode) {
+      releaseDetachedAnchorAria(managedDetachedAnchor.current, managedDetachedAnchor)
+      managedDetachedAnchor.current = null
+    }
+
+    if (!eligibleNode) return
+
+    managedDetachedAnchor.current = eligibleNode
+    manageDetachedAnchorAria(eligibleNode, managedDetachedAnchor, open)
+  })
+
+  useIsomorphicLayoutEffect(() => {
+    return () => {
+      if (managedDetachedAnchor.current) releaseDetachedAnchorAria(managedDetachedAnchor.current, managedDetachedAnchor)
+      managedDetachedAnchor.current = null
+    }
+  }, [])
 
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
