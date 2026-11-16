@@ -1,10 +1,10 @@
 import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
-import {useId, useOnEscapePress, useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useId, useOnEscapePress, useMergedRefs, useProvidedRefOrCreate, useAnchoredPosition} from '../hooks'
 import {useFeatureFlag} from '../FeatureFlags'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
-import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
+import type {AnchorSide, AnchorAlignment, AnchorPosition} from '@primer/behaviors'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 import {clsx} from 'clsx'
 import classes from './Tooltip.module.css'
@@ -15,8 +15,9 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
 import {TooltipContext} from './TooltipContext'
 import {reactMajorVersion} from '../utils/environment'
-import type {AnchorRenderProps} from '../internal/components/RenderAnchor'
+import {RenderAnchor, type AnchorRenderProps} from '../internal/components/RenderAnchor'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -109,6 +110,34 @@ type TooltipImplProps = TooltipProps & {
   }
 }
 
+function TooltipPositionTracker({
+  tooltipRef,
+  triggerRef,
+  direction,
+  enabled,
+  onPositionChange,
+}: {
+  tooltipRef: React.RefObject<HTMLElement | null>
+  triggerRef: React.RefObject<HTMLElement | null>
+  direction: TooltipDirection
+  enabled: boolean
+  onPositionChange: (position: AnchorPosition) => void
+}) {
+  const {position} = useAnchoredPosition(
+    {
+      ...directionToPosition[direction],
+      floatingElementRef: tooltipRef,
+      anchorElementRef: triggerRef,
+      enabled,
+    },
+    [direction],
+  )
+  useLayoutEffect(() => {
+    if (enabled && position) onPositionChange(position)
+  }, [enabled, position, onPositionChange])
+  return null
+}
+
 export const TooltipImpl: ForwardRefExoticComponent<
   React.PropsWithoutRef<TooltipImplProps> & React.RefAttributes<HTMLElement>
 > &
@@ -163,6 +192,13 @@ export const TooltipImpl: ForwardRefExoticComponent<
 
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
     const tooltipPopover = visibility ? (visibility.controlled ? 'manual' : (popover ?? 'auto')) : 'auto'
+    const positionSettings = directionToPosition[direction]
+    const applyPosition = useEffectCallback(({top, left, anchorAlign, anchorSide}: AnchorPosition) => {
+      if (!tooltipElRef.current) return
+      setCalculatedDirection(positionToDirection[`${anchorSide}-${anchorAlign}`])
+      tooltipElRef.current.style.top = `${top}px`
+      tooltipElRef.current.style.left = `${left}px`
+    })
 
     const showPopover = useEffectCallback(() => {
       try {
@@ -178,19 +214,7 @@ export const TooltipImpl: ForwardRefExoticComponent<
           if (hasRenderAnchor && trigger.matches(':disabled')) return
           tooltip.showPopover()
           setIsPopoverOpen(true)
-          /*
-           * TOOLTIP POSITIONING
-           */
-          const settings = {
-            side: directionToPosition[direction].side,
-            align: directionToPosition[direction].align,
-          }
-          const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
-          // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-          const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-          setCalculatedDirection(calculatedDirection)
-          tooltip.style.top = `${top}px`
-          tooltip.style.left = `${left}px`
+          applyPosition(getAnchoredPosition(tooltip, trigger, positionSettings))
         }
       } catch (error) {
         // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
@@ -442,10 +466,12 @@ export const TooltipImpl: ForwardRefExoticComponent<
     return (
       <TooltipContext.Provider value={value}>
         <>
-          {renderAnchor
-            ? renderAnchor({...triggerProps, ref: mergedTriggerRef})
-            : React.isValidElement(child) &&
-              React.cloneElement(child as React.ReactElement<typeof triggerProps>, triggerProps)}
+          {renderAnchor ? (
+            <RenderAnchor render={renderAnchor} props={{...triggerProps, ref: mergedTriggerRef}} />
+          ) : (
+            React.isValidElement(child) &&
+            React.cloneElement(child as React.ReactElement<typeof triggerProps>, triggerProps)
+          )}
           <span
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
@@ -512,6 +538,15 @@ export const TooltipImpl: ForwardRefExoticComponent<
               text
             )}
           </span>
+          {visibility ? (
+            <TooltipPositionTracker
+              tooltipRef={tooltipElRef}
+              triggerRef={readTriggerRef}
+              direction={direction}
+              enabled={isPopoverOpen}
+              onPositionChange={applyPosition}
+            />
+          ) : null}
         </>
       </TooltipContext.Provider>
     )

@@ -50,6 +50,21 @@ duplicate key names.
 Provide either children or `renderAnchor`, not both. Custom render elements
 must forward received props and their ref to the interactive DOM element.
 
+## Positioning
+
+The trigger is the positioning anchor. An open experimental tooltip stays
+anchored when its scrollable ancestors or the page scroll, the viewport resizes,
+or its text changes size. `direction` retains the existing outside-placement and
+collision behavior.
+
+The native popover uses the browser's top layer, not a React portal: the bubble
+remains next to its trigger in the DOM. This experiment does not yet expose a
+separate geometry anchor, inside placement, custom offsets, or a portal
+destination. A single interactive trigger is still required; composition does
+not add support for arbitrary static content.
+
+See **Scrolling container** for an interactive example.
+
 ## Accessible naming
 
 Use a description tooltip for a button that already has an accessible name;

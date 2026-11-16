@@ -65,3 +65,41 @@ export const SeparatePopupAttributes: Story = {
     },
   },
 }
+
+export const ScrollingContainer: Story = {
+  render: function ScrollingContainer(args) {
+    const [open, setOpen] = useState(true)
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Show tooltip</Button>
+        <p>Scroll the container while the tooltip is visible. Escape dismisses it.</p>
+        <div
+          role="region"
+          aria-label="Scrollable example"
+          style={{width: '70vw', height: 200, overflow: 'auto', border: '1px solid var(--borderColor-default)'}}
+        >
+          <div
+            style={{
+              width: '120%',
+              height: 500,
+              paddingBlock: 80,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Tooltip {...args} open={open} onOpenChange={setOpen} />
+          </div>
+        </div>
+      </>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'An open tooltip follows its trigger when scrollable ancestors move, and repositions when the viewport or popup size changes. The native popover uses the top layer; its DOM is not moved into a portal.',
+      },
+    },
+  },
+}

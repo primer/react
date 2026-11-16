@@ -29,6 +29,72 @@ describe('experimental Tooltip routing and visibility', () => {
     }, 'tooltip-trigger')
   })
 
+  it('keeps an open tooltip anchored through nested vertical and horizontal scrolling', async () => {
+    const outerRef = createRef<HTMLDivElement>()
+    const innerRef = createRef<HTMLDivElement>()
+    const onOpenChange = vi.fn()
+    const {getByText} = render(
+      <div ref={outerRef} style={{width: 350, height: 220, overflow: 'auto'}}>
+        <div style={{width: 700, padding: 40}}>
+          <div ref={innerRef} style={{height: 140, overflow: 'auto'}}>
+            <div style={{height: 400, padding: '60px 120px'}}>
+              <Tooltip
+                open
+                onOpenChange={onOpenChange}
+                direction="s"
+                text="Details"
+                renderAnchor={<Button>Action</Button>}
+              />
+            </div>
+          </div>
+        </div>
+      </div>,
+    )
+    const button = page.getByRole('button', {name: 'Action', exact: true}).element()
+    const popup = getByText('Details')
+    const initialTop = popup.getBoundingClientRect().top
+    const initialLeft = popup.getBoundingClientRect().left
+    const gap = initialTop - button.getBoundingClientRect().bottom
+    act(() => {
+      if (innerRef.current) innerRef.current.scrollTop = 20
+    })
+    await expect.poll(() => popup.getBoundingClientRect().top).toBeCloseTo(initialTop - 20, 0)
+    expect(popup.getBoundingClientRect().top - button.getBoundingClientRect().bottom).toBeCloseTo(gap, 0)
+    act(() => {
+      if (outerRef.current) outerRef.current.scrollLeft = 30
+    })
+    await expect.poll(() => popup.getBoundingClientRect().left).toBeCloseTo(initialLeft - 30, 0)
+    expect(popup.matches(':popover-open')).toBe(true)
+    expect(onOpenChange).not.toHaveBeenCalled()
+  })
+
+  it('repositions an open tooltip when its text wraps without requesting visibility changes', async () => {
+    const onOpenChange = vi.fn()
+    const props = {
+      open: true,
+      onOpenChange,
+      direction: 'n' as const,
+      renderAnchor: <Button>Action</Button>,
+    }
+    const {getByText, rerender} = render(
+      <div style={{padding: 200}}>
+        <Tooltip {...props} text="Details" />
+      </div>,
+    )
+    const popup = getByText('Details')
+    const initialHeight = popup.getBoundingClientRect().height
+    const initialBottom = popup.getBoundingClientRect().bottom
+    rerender(
+      <div style={{padding: 200}}>
+        <Tooltip {...props} text={'Additional context that wraps onto several lines. '.repeat(5)} />
+      </div>,
+    )
+    await expect.poll(() => popup.getBoundingClientRect().height).toBeGreaterThan(initialHeight)
+    await expect.poll(() => popup.getBoundingClientRect().bottom).toBeCloseTo(initialBottom, 0)
+    expect(popup.matches(':popover-open')).toBe(true)
+    expect(onOpenChange).not.toHaveBeenCalled()
+  })
+
   it.each(['children', 'renderAnchor'] as const)('separates trigger and popup attributes in %s mode', mode => {
     const onPopupEnter = vi.fn()
     const buttonRef = createRef<HTMLButtonElement>()
