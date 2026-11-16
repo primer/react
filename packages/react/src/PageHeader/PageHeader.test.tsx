@@ -1,4 +1,5 @@
 import {describe, expect, it, vi} from 'vitest'
+import {page} from 'vitest/browser'
 import React from 'react'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
@@ -66,7 +67,7 @@ describe('PageHeader', () => {
   })
 
   it('respects the title variant prop', () => {
-    const {getByText} = render(
+    render(
       <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea variant="large">
           <PageHeader.Title>Title</PageHeader.Title>
@@ -74,11 +75,11 @@ describe('PageHeader', () => {
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
       </PageHeader>,
     )
-    expect(getByText('Title')).toHaveStyle('font-size: 32px')
+    expect(page.getByText('Title').element()).toHaveStyle('font-size: 32px')
   })
 
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
-    const {getByLabelText, getByText} = render(
+    render(
       <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea>
           <PageHeader.Title>Title</PageHeader.Title>
@@ -88,12 +89,12 @@ describe('PageHeader', () => {
         </PageHeader.Navigation>
       </PageHeader>,
     )
-    expect(getByLabelText('Custom')).toBeInTheDocument()
-    expect(getByText('Navigation')).toHaveAttribute('aria-label', 'Custom')
+    expect(page.getByLabelText('Custom').element()).toBeInTheDocument()
+    expect(page.getByText('Navigation').element()).toHaveAttribute('aria-label', 'Custom')
   })
 
   it('does not render "aria-label" prop when Navigation is rendered as "div"', () => {
-    const {getByText} = render(
+    render(
       <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea>
           <PageHeader.Title>Title</PageHeader.Title>
@@ -101,7 +102,7 @@ describe('PageHeader', () => {
         <PageHeader.Navigation aria-label="Custom">Navigation</PageHeader.Navigation>
       </PageHeader>,
     )
-    expect(getByText('Navigation')).not.toHaveAttribute('aria-label')
+    expect(page.getByText('Navigation').element()).not.toHaveAttribute('aria-label')
   })
 
   it('logs a warning when the Navigation component is rendered as "nav" but no "aria-label" or "aria-labelledby" prop is provided', () => {
@@ -264,7 +265,7 @@ describe('PageHeader', () => {
   })
 
   it('forwards rest props to the underlying element in ParentLink', () => {
-    const {getByTestId} = render(
+    render(
       <PageHeader role="banner" aria-label="Title">
         <PageHeader.ContextArea>
           <PageHeader.ParentLink href="/parent" data-testid="parent-link">
@@ -276,8 +277,8 @@ describe('PageHeader', () => {
         </PageHeader.TitleArea>
       </PageHeader>,
     )
-    expect(getByTestId('parent-link')).toBeInTheDocument()
-    expect(getByTestId('parent-link')).toHaveAttribute('href', '/parent')
+    expect(page.getByTestId('parent-link').element()).toBeInTheDocument()
+    expect(page.getByTestId('parent-link').element()).toHaveAttribute('href', '/parent')
   })
 
   it('forwards rest props to a custom "as" component in ParentLink', () => {
@@ -292,7 +293,7 @@ describe('PageHeader', () => {
     ))
     CustomLink.displayName = 'CustomLink'
 
-    const {getByRole} = render(
+    render(
       <PageHeader role="banner" aria-label="Title">
         <PageHeader.ContextArea>
           <PageHeader.ParentLink as={CustomLink} to="/somewhere">
@@ -304,7 +305,7 @@ describe('PageHeader', () => {
         </PageHeader.TitleArea>
       </PageHeader>,
     )
-    expect(getByRole('link', {name: /parent/i})).toHaveAttribute('href', '/somewhere')
+    expect(page.getByRole('link', {name: /parent/i}).element()).toHaveAttribute('href', '/somewhere')
   })
 })
 
