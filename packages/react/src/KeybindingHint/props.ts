@@ -13,6 +13,7 @@ export interface KeybindingHintProps {
    * represents "a then b". To represent the " " key, use "Space".
    *
    * The fake key name "Mod" can be used to represent "Command" on macOS and "Control" on other platforms.
+   * It is sorted alongside the corresponding platform modifier.
    *
    * See https://github.com/github/hotkey for format details.
    */
