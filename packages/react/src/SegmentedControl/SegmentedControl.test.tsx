@@ -1,6 +1,6 @@
-import {act, render, fireEvent, waitFor} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon, PlusIcon} from '@primer/octicons-react'
-import userEvent from '@testing-library/user-event'
+import {page, userEvent} from 'vitest/browser'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import {SegmentedControl} from '../SegmentedControl'
@@ -35,8 +35,8 @@ const segmentData = [
 describe('SegmentedControl', () => {
   implementsClassName(props => <SegmentedControl aria-label="File view" {...props} />, classes.SegmentedControl)
 
-  it('renders data-component attribute on the root', () => {
-    const {getByRole} = render(
+  it('renders data-component attribute on the root', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label}) => (
           <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
@@ -44,48 +44,45 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(getByRole('list')).toHaveAttribute('data-component', 'SegmentedControl')
+    await expect.element(page.getByRole('list')).toHaveAttribute('data-component', 'SegmentedControl')
   })
 
-  it('renders the subtle variant', () => {
-    const {getByRole} = render(
+  it('renders the subtle variant', async () => {
+    render(
       <SegmentedControl aria-label="File view" variant="subtle">
         <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
       </SegmentedControl>,
     )
 
-    expect(getByRole('list')).toHaveAttribute('data-variant', 'subtle')
+    await expect.element(page.getByRole('list')).toHaveAttribute('data-variant', 'subtle')
   })
 
-  it('renders the subtle variant responsively', () => {
-    const {container} = render(
+  it('renders the subtle variant responsively', async () => {
+    render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}>
         <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
       </SegmentedControl>,
     )
-    const list = container.querySelector('[data-component="SegmentedControl"]')
+    const list = page.getByRole('list', {includeHidden: true})
 
-    expect(list).toHaveAttribute('data-variant-narrow', 'dropdown')
-    expect(list).toHaveAttribute('data-variant-regular', 'subtle')
-    expect(list).toHaveAttribute('data-variant-wide', 'subtle')
+    await expect.element(list).toHaveAttribute('data-variant-narrow', 'dropdown')
+    await expect.element(list).toHaveAttribute('data-variant-regular', 'subtle')
+    await expect.element(list).toHaveAttribute('data-variant-wide', 'subtle')
   })
 
-  it('renders data-component attribute on segmented control buttons', () => {
-    const {getByRole} = render(
+  it('renders data-component attribute on segmented control buttons', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         <SegmentedControl.Button>Preview</SegmentedControl.Button>
       </SegmentedControl>,
     )
 
-    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute(
-      'data-component',
-      'SegmentedControl.Button',
-    )
+    await expect.element(page.getByRole('listitem')).toHaveAttribute('data-component', 'SegmentedControl.Button')
   })
 
   it('renders dividers without including them in selection indices', async () => {
     const onChange = vi.fn()
-    const {container, getByRole} = render(
+    const {container} = render(
       <SegmentedControl aria-label="File view" variant="subtle" onChange={onChange}>
         <SegmentedControl.Button>Preview</SegmentedControl.Button>
         <SegmentedControl.Divider />
@@ -93,15 +90,17 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(container.querySelector('[data-component="SegmentedControl.Divider"]')).toBeInTheDocument()
-    await userEvent.click(getByRole('button', {name: 'Raw'}))
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="SegmentedControl.Divider"]'))
+      .toBeInTheDocument()
+    await userEvent.click(page.getByRole('button', {name: 'Raw'}))
     expect(onChange).toHaveBeenCalledWith(1)
   })
 
   it('renders wrapped dividers in the segmented control and dropdown', async () => {
     const onChange = vi.fn()
     const WrappedDivider = asSlot(() => <SegmentedControl.Divider />, SegmentedControl.Divider)
-    const {container, getAllByRole} = render(
+    const {container} = render(
       <SegmentedControl
         aria-label="File view"
         variant={{narrow: 'dropdown', regular: 'subtle', wide: 'subtle'}}
@@ -113,28 +112,31 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(container.querySelector('[data-component="SegmentedControl.Divider"]')).toBeInTheDocument()
-    await userEvent.click(document.querySelector('[data-component="ActionMenu.Button"]')!)
-    expect(document.querySelector('[data-component="ActionList.Divider"]')).toBeInTheDocument()
-    await userEvent.click(getAllByRole('menuitemradio')[1])
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="SegmentedControl.Divider"]'))
+      .toBeInTheDocument()
+    await userEvent.click(page.getByRole('button', {name: 'Preview, File view'}))
+    await expect
+      .element(document.querySelector<HTMLElement>('[data-component="ActionList.Divider"]'))
+      .toBeInTheDocument()
+    await userEvent.click(page.getByRole('menuitemradio', {name: 'Raw'}))
     expect(onChange).toHaveBeenCalledWith(1)
   })
 
-  it('renders data-component attribute on segmented control icon buttons', () => {
-    const {getByRole} = render(
+  it('renders data-component attribute on segmented control icon buttons', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         <SegmentedControl.IconButton icon={() => <EyeIcon />} aria-label="Preview" />
       </SegmentedControl>,
     )
 
-    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute(
-      'data-component',
-      'SegmentedControl.IconButton',
-    )
+    await expect
+      .element(page.getByRole('button', {name: 'Preview'}).element().closest<HTMLElement>('li'))
+      .toHaveAttribute('data-component', 'SegmentedControl.IconButton')
   })
 
   it('renders with a selected segment - controlled', () => {
-    const {getByText} = render(
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 1} key={label}>
@@ -144,13 +146,13 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const selectedButton = getByText('Raw').closest('button')
+    const selectedButton = page.getByText('Raw', {exact: true}).element().closest<HTMLElement>('button')
 
     expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
   })
 
   it('renders with a selected segment - uncontrolled', () => {
-    const {getByText} = render(
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button defaultSelected={index === 1} key={label}>
@@ -160,13 +162,13 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const selectedButton = getByText('Raw').closest('button')
+    const selectedButton = page.getByText('Raw', {exact: true}).element().closest<HTMLElement>('button')
 
     expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
   })
 
-  it('renders the dropdown variant', () => {
-    const {getByRole} = render(
+  it('renders the dropdown variant', async () => {
+    render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 1} key={label}>
@@ -175,14 +177,14 @@ describe('SegmentedControl', () => {
         ))}
       </SegmentedControl>,
     )
-    const button = getByRole('button', {name: `${segmentData[1].label}, File view`})
+    const button = page.getByRole('button', {name: `${segmentData[1].label}, File view`})
 
-    expect(button).toBeInTheDocument()
-    expect(button.closest('button')?.getAttribute('aria-haspopup')).toBe('true')
+    await expect.element(button).toBeInTheDocument()
+    await expect.element(button).toHaveAttribute('aria-haspopup', 'true')
   })
 
-  it('renders the hideLabels variant', () => {
-    const {getByRole} = render(
+  it('renders the hideLabels variant', async () => {
+    render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label, icon}, index) => (
           <SegmentedControl.Button leadingVisual={icon} selected={index === 1} key={label}>
@@ -193,13 +195,13 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const labelledButton = getByRole('button', {name: datum.iconLabel})
-      expect(labelledButton).toBeInTheDocument()
+      const labelledButton = page.getByRole('button', {name: datum.iconLabel})
+      await expect.element(labelledButton).toBeInTheDocument()
     }
   })
 
   it('renders the first segment as selected if no child has the `selected` prop passed', () => {
-    const {getByText} = render(
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label}) => (
           <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
@@ -207,13 +209,16 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const selectedButton = getByText('Preview').closest('button')
+    const selectedButton = page.getByText('Preview', {exact: true}).element().closest<HTMLElement>('button')
+    if (!selectedButton) {
+      throw new Error('Expected selected button')
+    }
 
-    expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
+    expect(selectedButton.getAttribute('aria-pressed')).toBe('true')
   })
 
-  it('renders segments with segment labels that have leading icons', () => {
-    const {getByLabelText} = render(
+  it('renders segments with segment labels that have leading icons', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}, index) => (
           <SegmentedControl.Button selected={index === 0} leadingVisual={icon} key={label}>
@@ -224,13 +229,13 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const iconEl = getByLabelText(datum.iconLabel)
-      expect(iconEl).toBeDefined()
+      const iconEl = page.getByLabelText(datum.iconLabel)
+      await expect.element(iconEl).toBeInTheDocument()
     }
   })
 
-  it('renders segments with accessible icon-only labels', () => {
-    const {getByLabelText} = render(
+  it('renders segments with accessible icon-only labels', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
@@ -239,13 +244,13 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const labelledButton = getByLabelText(datum.label)
-      expect(labelledButton).toBeDefined()
+      const labelledButton = page.getByLabelText(datum.label)
+      await expect.element(labelledButton).toBeInTheDocument()
     }
   })
 
-  it('renders IconButton with aria-pressed when selected', () => {
-    const {getByRole} = render(
+  it('renders IconButton with aria-pressed when selected', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}, index) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} selected={index === 1} key={label} />
@@ -253,12 +258,12 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(getByRole('button', {name: 'Raw'})).toHaveAttribute('aria-pressed', 'true')
-    expect(getByRole('button', {name: 'Preview'})).toHaveAttribute('aria-pressed', 'false')
+    await expect.element(page.getByRole('button', {name: 'Raw'})).toHaveAttribute('aria-pressed', 'true')
+    await expect.element(page.getByRole('button', {name: 'Preview'})).toHaveAttribute('aria-pressed', 'false')
   })
 
-  it('renders icon button with tooltip as label', () => {
-    const {getByRole, getByText} = render(
+  it('renders icon button with tooltip as label', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
@@ -267,15 +272,15 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const labelledButton = getByRole('button', {name: datum.label})
-      const tooltipElement = getByText(datum.label)
-      expect(labelledButton).toHaveAttribute('aria-labelledby', tooltipElement.id)
-      expect(labelledButton).not.toHaveAttribute('aria-label')
+      const labelledButton = page.getByRole('button', {name: datum.label})
+      const tooltipElement = page.getByText(datum.label, {exact: true})
+      await expect.element(labelledButton).toHaveAttribute('aria-labelledby', tooltipElement.element().id)
+      await expect.element(labelledButton).not.toHaveAttribute('aria-label')
     }
   })
 
-  it('renders icon button with tooltip description', () => {
-    const {getByRole, getByText} = render(
+  it('renders icon button with tooltip description', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon, description}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
@@ -284,18 +289,17 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const labelledButton = getByRole('button', {name: datum.label})
-      const tooltipElement = getByText(datum.description)
-      expect(labelledButton).toHaveAttribute('aria-describedby', tooltipElement.id)
-      expect(labelledButton).toHaveAccessibleName(datum.label)
-      expect(labelledButton).toHaveAttribute('aria-label', datum.label)
+      const labelledButton = page.getByRole('button', {name: datum.label})
+      const tooltipElement = page.getByText(datum.description, {exact: true})
+      await expect.element(labelledButton).toHaveAttribute('aria-describedby', tooltipElement.element().id)
+      await expect.element(labelledButton).toHaveAccessibleName(datum.label)
+      await expect.element(labelledButton).toHaveAttribute('aria-label', datum.label)
     }
   })
 
   it('calls onChange with index of clicked segment button', async () => {
-    const user = userEvent.setup()
     const handleChange = vi.fn()
-    const {getByText} = render(
+    render(
       <SegmentedControl aria-label="File view" onChange={handleChange}>
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 0} key={label}>
@@ -305,18 +309,15 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const buttonToClick = getByText('Raw').closest('button')
+    const buttonToClick = page.getByRole('button', {name: /Raw/})
 
     expect(handleChange).not.toHaveBeenCalled()
-    if (buttonToClick) {
-      await user.click(buttonToClick)
-    }
+    await userEvent.click(buttonToClick)
     expect(handleChange).toHaveBeenCalledWith(1)
   })
 
   it('changes selection to the clicked segment even without onChange being passed', async () => {
-    const user = userEvent.setup()
-    const {getByText} = render(
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label}) => (
           <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
@@ -324,19 +325,16 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const buttonToClick = getByText('Raw').closest('button')
+    const buttonToClick = page.getByRole('button', {name: /Raw/})
 
-    expect(buttonToClick?.getAttribute('aria-pressed')).toBe('false')
-    if (buttonToClick) {
-      await user.click(buttonToClick)
-    }
-    expect(buttonToClick?.getAttribute('aria-pressed')).toBe('true')
+    await expect.element(buttonToClick).toHaveAttribute('aria-pressed', 'false')
+    await userEvent.click(buttonToClick)
+    await expect.element(buttonToClick).toHaveAttribute('aria-pressed', 'true')
   })
 
   it('calls segment button onClick if it is passed', async () => {
-    const user = userEvent.setup()
     const handleClick = vi.fn()
-    const {getByText} = render(
+    render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 0} onClick={index === 1 ? handleClick : undefined} key={label}>
@@ -346,18 +344,16 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const buttonToClick = getByText('Raw').closest('button')
+    const buttonToClick = page.getByRole('button', {name: /Raw/})
 
     expect(handleClick).not.toHaveBeenCalled()
-    if (buttonToClick) {
-      await user.click(buttonToClick)
-    }
+    await userEvent.click(buttonToClick)
     expect(handleClick).toHaveBeenCalled()
   })
 
   it('calls onChange with index of clicked segment button when using the dropdown variant', async () => {
     const handleChange = vi.fn()
-    const component = render(
+    render(
       <BaseStyles>
         <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
           {segmentData.map(({label}, index) => (
@@ -368,19 +364,18 @@ describe('SegmentedControl', () => {
         </SegmentedControl>
       </BaseStyles>,
     )
-    const button = component.getByRole('button', {name: `${segmentData[0].label}, File view`})
+    const button = page.getByRole('button', {name: `${segmentData[0].label}, File view`})
 
-    fireEvent.click(button)
+    await userEvent.click(button)
     expect(handleChange).not.toHaveBeenCalled()
-    const menuItems = await waitFor(() => component.getAllByRole('menuitemradio'))
-    fireEvent.click(menuItems[1])
+    await userEvent.click(page.getByRole('menuitemradio', {name: 'Raw'}))
 
     expect(handleChange).toHaveBeenCalledWith(1)
   })
 
   it('calls segment button onClick if it is passed when using the dropdown variant', async () => {
     const handleClick = vi.fn()
-    const component = render(
+    render(
       <BaseStyles>
         <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
           {segmentData.map(({label}, index) => (
@@ -391,19 +386,18 @@ describe('SegmentedControl', () => {
         </SegmentedControl>
       </BaseStyles>,
     )
-    const button = component.getByRole('button', {name: `${segmentData[0].label}, File view`})
+    const button = page.getByRole('button', {name: `${segmentData[0].label}, File view`})
 
-    fireEvent.click(button)
+    await userEvent.click(button)
     expect(handleClick).not.toHaveBeenCalled()
-    const menuItems = await waitFor(() => component.getAllByRole('menuitemradio'))
-    fireEvent.click(menuItems[1])
+    await userEvent.click(page.getByRole('menuitemradio', {name: 'Raw'}))
 
     expect(handleClick).toHaveBeenCalled()
   })
 
   it('renders the action as a labeled menu item after a divider in the dropdown', async () => {
     const handleAddView = vi.fn()
-    const component = render(
+    render(
       <BaseStyles>
         <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
           <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
@@ -413,19 +407,18 @@ describe('SegmentedControl', () => {
       </BaseStyles>,
     )
 
-    fireEvent.click(component.getByRole('button', {name: 'Preview, File view'}))
+    await userEvent.click(page.getByRole('button', {name: 'Preview, File view'}))
 
-    const menuAction = await waitFor(() => component.getByRole('menuitem', {name: 'Add view'}))
-    expect(menuAction.closest('[data-component="ActionList.Item"]')?.previousElementSibling).toHaveAttribute(
-      'data-component',
-      'ActionList.Divider',
-    )
-    expect(menuAction).toHaveAttribute('data-component', 'SegmentedControl.Action')
+    const menuAction = page.getByRole('menuitem', {name: 'Add view'})
+    await expect.element(menuAction).toBeInTheDocument()
+    const menuActionItem = menuAction.element().closest<HTMLElement>('[data-component="ActionList.Item"]')
+    expect(menuActionItem?.previousElementSibling?.getAttribute('data-component')).toBe('ActionList.Divider')
+    await expect.element(menuAction).toHaveAttribute('data-component', 'SegmentedControl.Action')
 
-    fireEvent.click(menuAction)
+    await userEvent.click(menuAction)
 
     expect(handleAddView).toHaveBeenCalledExactlyOnceWith()
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    await expect.element(page.getByRole('menu')).toBeInTheDocument()
   })
 
   it('renders a wrapped action slot in the dropdown', async () => {
@@ -434,7 +427,7 @@ describe('SegmentedControl', () => {
       () => <SegmentedControl.Action label="Add view" icon={PlusIcon} onClick={handleAddView} />,
       SegmentedControl.Action,
     )
-    const component = render(
+    render(
       <BaseStyles>
         <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
           <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
@@ -443,28 +436,31 @@ describe('SegmentedControl', () => {
       </BaseStyles>,
     )
 
-    fireEvent.click(component.getByRole('button', {name: 'Preview, File view'}))
-    fireEvent.click(await component.findByRole('menuitem', {name: 'Add view'}))
+    await userEvent.click(page.getByRole('button', {name: 'Preview, File view'}))
+    await userEvent.click(page.getByRole('menuitem', {name: 'Add view'}))
 
     expect(handleAddView).toHaveBeenCalledOnce()
   })
 
-  it('applies responsive full-width attributes to the layout wrapper', () => {
-    const {getByRole} = render(
+  it('applies responsive full-width attributes to the layout wrapper', async () => {
+    render(
       <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false}}>
         <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
         <SegmentedControl.Action label="Add view" icon={PlusIcon} />
       </SegmentedControl>,
     )
 
-    expect(getByRole('list').parentElement).toHaveAttribute('data-full-width-narrow', 'true')
-    expect(getByRole('list').parentElement).toHaveAttribute('data-full-width-regular', 'false')
+    await expect
+      .element(page.getByRole('list').element().parentElement)
+      .toHaveAttribute('data-full-width-narrow', 'true')
+    await expect
+      .element(page.getByRole('list').element().parentElement)
+      .toHaveAttribute('data-full-width-regular', 'false')
   })
 
   it('calls the action from the icon action button', async () => {
-    const user = userEvent.setup()
     const handleAddView = vi.fn()
-    const {getByRole} = render(
+    render(
       <BaseStyles>
         <SegmentedControl aria-label="File view">
           <SegmentedControl.Button defaultSelected count={5}>
@@ -477,25 +473,24 @@ describe('SegmentedControl', () => {
       </BaseStyles>,
     )
 
-    const iconActionButton = getByRole('button', {name: 'Add view'})
+    const iconActionButton = page.getByRole('button', {name: 'Add view'})
 
-    expect(iconActionButton.parentElement?.closest('[data-component]')).toHaveAttribute(
-      'data-component',
-      'SegmentedControl.Action',
-    )
+    await expect
+      .element(iconActionButton.element().parentElement?.closest<HTMLElement>('[data-component]') ?? null)
+      .toHaveAttribute('data-component', 'SegmentedControl.Action')
 
-    await user.click(iconActionButton)
+    await userEvent.click(iconActionButton)
 
     expect(handleAddView).toHaveBeenCalledExactlyOnceWith()
   })
 
-  it('disables the knob transition while the number of rendered segments changes', () => {
+  it('disables the knob transition while the number of rendered segments changes', async () => {
     let animationFrameCallback: FrameRequestCallback | undefined
     const requestAnimationFrameSpy = vi.spyOn(globalThis, 'requestAnimationFrame').mockImplementation(callback => {
       animationFrameCallback = callback
       return 1
     })
-    const {getByRole, rerender} = render(
+    const {rerender} = render(
       <SegmentedControl aria-label="File view">
         <SegmentedControl.Button defaultSelected>All</SegmentedControl.Button>
         <SegmentedControl.Button>Active</SegmentedControl.Button>
@@ -511,30 +506,37 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(getByRole('list')).toHaveAttribute('data-disable-knob-transition', '')
+    await expect.element(page.getByRole('list')).toHaveAttribute('data-disable-knob-transition', '')
 
     act(() => animationFrameCallback?.(0))
 
-    expect(getByRole('list')).not.toHaveAttribute('data-disable-knob-transition')
+    await expect.element(page.getByRole('list')).not.toHaveAttribute('data-disable-knob-transition')
     requestAnimationFrameSpy.mockRestore()
   })
 
-  it('supports deprecated leadingIcon prop for backward compatibility', () => {
-    const {getByText} = render(
+  it('supports deprecated leadingIcon prop for backward compatibility', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         <SegmentedControl.Button leadingIcon={EyeIcon}>Preview</SegmentedControl.Button>
         <SegmentedControl.Button>Code</SegmentedControl.Button>
       </SegmentedControl>,
     )
 
-    const button = getByText('Preview').closest('button')
-    expect(button).toBeDefined()
+    const button = page.getByText('Preview', {exact: true}).element().closest<HTMLElement>('button')
+    if (!button) {
+      throw new Error('Expected button')
+    }
+    await expect.element(button).toBeInTheDocument()
     // Verify the icon is rendered
-    expect(button?.querySelector('svg')).toBeDefined()
+    const icon = button.querySelector<SVGSVGElement>('svg')
+    if (!icon) {
+      throw new Error('Expected icon')
+    }
+    await expect.element(icon).toBeInTheDocument()
   })
 
-  it('prioritizes leadingVisual over deprecated leadingIcon when both are provided', () => {
-    const {getByRole} = render(
+  it('prioritizes leadingVisual over deprecated leadingIcon when both are provided', async () => {
+    render(
       <SegmentedControl aria-label="File view">
         <SegmentedControl.Button
           leadingVisual={() => <EyeIcon aria-label="EyeIcon" />}
@@ -546,7 +548,7 @@ describe('SegmentedControl', () => {
     )
 
     // Should find EyeIcon, not FileCodeIcon
-    expect(getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
+    await expect.element(page.getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
   })
 
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
@@ -566,8 +568,8 @@ describe('SegmentedControl', () => {
     spy.mockRestore()
   })
 
-  it('should include the visual text if the user specifies an aria-label', () => {
-    const {getByLabelText} = render(
+  it('should include the visual text if the user specifies an aria-label', async () => {
+    render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 2} key={label}>
@@ -577,7 +579,7 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const menuButton = getByLabelText('Blame, File view')
-    expect(menuButton).toBeInTheDocument()
+    const menuButton = page.getByLabelText('Blame, File view')
+    await expect.element(menuButton).toBeInTheDocument()
   })
 })

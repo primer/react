@@ -1,17 +1,18 @@
 import {describe, expect, it} from 'vitest'
 import StateLabel from '../StateLabel'
 import {render as HTMLRender} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../StateLabel.module.css'
 
 describe('StateLabel', () => {
   implementsClassName(props => <StateLabel {...props} status="issueOpened" />, classes.StateLabel)
 
-  it('renders data-component attribute', () => {
-    expect(HTMLRender(<StateLabel status="issueOpened" />).container.firstChild).toHaveAttribute(
-      'data-component',
-      'StateLabel',
-    )
+  it('renders data-component attribute', async () => {
+    const {container} = HTMLRender(<StateLabel status="issueOpened" />)
+    await expect
+      .element(container.querySelector<HTMLElement>(':first-child'))
+      .toHaveAttribute('data-component', 'StateLabel')
   })
 
   it('respects the status prop', () => {
@@ -45,42 +46,42 @@ describe('StateLabel', () => {
     expect(HTMLRender(<StateLabel status="issueOpened">hi</StateLabel>).container).toMatchSnapshot()
   })
 
-  it('adds label to icon', () => {
+  it('adds label to icon', async () => {
     const screen1 = HTMLRender(<StateLabel status="issueOpened">Open</StateLabel>)
-    expect(screen1.getByLabelText('Issue')).toBeInTheDocument() // svg
-    expect(screen1.getByText('Open')).toBeInTheDocument() // text
+    await expect.element(page.getByLabelText('Issue')).toBeInTheDocument() // svg
+    await expect.element(page.getByText('Open')).toBeInTheDocument() // text
     screen1.unmount()
 
     const screen2 = HTMLRender(<StateLabel status="pullMerged">Merged</StateLabel>)
-    expect(screen2.getByLabelText('Pull request')).toBeInTheDocument() // svg
-    expect(screen2.getByText('Merged')).toBeInTheDocument() // text
+    await expect.element(page.getByLabelText('Pull request')).toBeInTheDocument() // svg
+    await expect.element(page.getByText('Merged')).toBeInTheDocument() // text
     screen2.unmount()
 
     const screen3 = HTMLRender(<StateLabel status="alertFixed">Fixed</StateLabel>)
-    expect(screen3.getByLabelText('Alert')).toBeInTheDocument() // svg
-    expect(screen3.getByText('Fixed')).toBeInTheDocument() // text
+    await expect.element(page.getByLabelText('Alert')).toBeInTheDocument() // svg
+    await expect.element(page.getByText('Fixed')).toBeInTheDocument() // text
     screen3.unmount()
 
     const screen4 = HTMLRender(<StateLabel status="alertClosed">Closed</StateLabel>)
-    expect(screen4.getByLabelText('Alert')).toBeInTheDocument() // svg
-    expect(screen4.getByText('Closed')).toBeInTheDocument() // text
+    await expect.element(page.getByLabelText('Alert')).toBeInTheDocument() // svg
+    await expect.element(page.getByText('Closed')).toBeInTheDocument() // text
     screen4.unmount()
 
     const screenArchived = HTMLRender(<StateLabel status="archived">Archived</StateLabel>)
-    expect(screenArchived.getByLabelText('Archived')).toBeInTheDocument() // svg
-    expect(screenArchived.getByText('Archived')).toBeInTheDocument() // text
+    await expect.element(page.getByLabelText('Archived')).toBeInTheDocument() // svg
+    await expect.element(page.getByText('Archived')).toBeInTheDocument() // text
     screenArchived.unmount()
   })
 
-  it('renders open status without an icon', () => {
-    const screen = HTMLRender(<StateLabel status="open">Open</StateLabel>)
-    expect(screen.queryByRole('img')).not.toBeInTheDocument() // svg
-    expect(screen.getByText('Open')).toBeInTheDocument() // text
+  it('renders open status without an icon', async () => {
+    HTMLRender(<StateLabel status="open">Open</StateLabel>)
+    await expect.element(page.getByRole('img')).not.toBeInTheDocument() // svg
+    await expect.element(page.getByText('Open')).toBeInTheDocument() // text
   })
 
-  it('renders closed status without an icon', () => {
-    const screen = HTMLRender(<StateLabel status="closed">Closed</StateLabel>)
-    expect(screen.queryByRole('img')).not.toBeInTheDocument() // svg
-    expect(screen.getByText('Closed')).toBeInTheDocument() // text
+  it('renders closed status without an icon', async () => {
+    HTMLRender(<StateLabel status="closed">Closed</StateLabel>)
+    await expect.element(page.getByRole('img')).not.toBeInTheDocument() // svg
+    await expect.element(page.getByText('Closed')).toBeInTheDocument() // text
   })
 })

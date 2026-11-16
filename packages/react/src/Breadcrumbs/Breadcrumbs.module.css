@@ -165,3 +165,66 @@
     }
   }
 }
+
+/* A collapsed crumb that can reappear at wider sizes. It stays mounted, so it never remounts
+   and can still be measured. It stays in flow as a zero-size item: out-of-flow (absolute)
+   boxes made resize layout measurably slower. The grid track is sized to the content, not to
+   the zero-width item, so the crumb keeps its natural width whatever its `min-width` is.
+   Without that it would shrink to its minimum, measure narrower than it is when shown, and
+   the fit would flip between the two. */
+.BreadcrumbsItem[data-collapsed] {
+  grid-auto-columns: max-content;
+  flex: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* The overflow menu is rendered but hidden while nothing is collapsed, so the pre-hydration
+   narrow rule below can show it. */
+.BreadcrumbsItem[hidden] {
+  display: none;
+}
+
+/*
+ * Before hydration, CSS approximates the rules JS applies once it can measure. JS sets
+ * `data-hydrated` (never rendered by React) in its first layout effect, before measuring,
+ * so none of this applies afterwards or costs anything at runtime.
+ *
+ * Crumbs that don't fit are clipped at the start, so the leaf stays visible and nothing
+ * paints outside the nav. Browsers don't scroll a partially visible focus target into view, so
+ * while a crumb has focus the list wraps and every crumb is fully visible. It is start-aligned
+ * because content that overflows the start edge can't be scrolled to, and snaps to the leaf
+ * initially.
+ */
+.BreadcrumbsBase:where([data-overflow^='menu']:not([data-hydrated])) > .BreadcrumbsList {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  scroll-snap-type: x mandatory;
+
+  & > :last-child {
+    scroll-snap-align: end;
+  }
+
+  &:focus-within {
+    flex-wrap: wrap;
+  }
+}
+
+/* The narrow rule uses the container width. A viewport query never shows the narrow layout
+   when JS wouldn't, unless the nav is wider than the viewport. A container query would be
+   exact, but its size containment collapses content-sized containers to 0px. */
+@media (max-width: 543.98px) {
+  .BreadcrumbsBase:where([data-overflow='menu']:not([data-hydrated])) > .BreadcrumbsList[data-narrow-collapse] {
+    & > :not(:last-child, [data-overflow-menu]) {
+      display: none;
+    }
+
+    & > [hidden] {
+      display: inline-grid;
+    }
+  }
+}
