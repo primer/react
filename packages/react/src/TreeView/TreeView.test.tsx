@@ -1891,7 +1891,6 @@ describe('Keyboard interactions', () => {
     })
 
     it('supports multiple typed characters', async () => {
-      // Browser-command latency must not expire the search between keystrokes.
       vi.useFakeTimers()
 
       render(
