@@ -4,6 +4,26 @@
 }
 
 .Wrapper[data-component='SelectPanel'] {
+  & [data-component='ActionList.Selection'] > div {
+    width: calc(var(--base-size-16) - var(--base-size-2));
+    height: calc(var(--base-size-16) - var(--base-size-2));
+    border: 0;
+    background: transparent;
+
+    &::before {
+      width: inherit;
+      height: inherit;
+      background-color: currentColor;
+      clip-path: none;
+      animation: none;
+      transition: none;
+
+      @media (forced-colors: active) {
+        forced-color-adjust: none;
+      }
+    }
+  }
+
   & [data-description-variant='block'] {
     padding-block: var(--base-size-2);
     gap: var(--base-size-2);
