@@ -1,60 +1,65 @@
 import {describe, expect, it} from 'vitest'
-import {CounterLabel} from '..'
+import {page} from 'vitest/browser'
+import CounterLabel from '.'
 import {render as HTMLRender} from '@testing-library/react'
+import classes from './CounterLabel.module.css'
+import {implementsClassName} from '../utils/testing'
 
 describe('CounterLabel', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <CounterLabel className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(CounterLabel, classes.CounterLabel)
 
   it('renders a <span>', () => {
     const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
     expect(container.firstChild?.nodeName).toEqual('SPAN')
   })
 
-  it('renders the counter correctly', () => {
-    const {container} = HTMLRender(<CounterLabel>12K</CounterLabel>)
-    expect(container.firstChild).toHaveTextContent('12K')
+  it('renders data-component attribute', async () => {
+    HTMLRender(<CounterLabel>1234</CounterLabel>)
+    await expect.element(page.getByText('1234', {exact: true})).toHaveAttribute('data-component', 'CounterLabel')
   })
 
-  it('renders the visually visible span with "aria-hidden=true"', () => {
-    const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
-    expect(container.firstChild).toHaveAttribute('aria-hidden', 'true')
+  it('renders the counter correctly', async () => {
+    HTMLRender(<CounterLabel>12K</CounterLabel>)
+    await expect.element(page.getByText('12K', {exact: true})).toHaveTextContent('12K')
   })
 
-  it('respects the primary "variant" prop', () => {
-    const {container} = HTMLRender(<CounterLabel variant="primary">1234</CounterLabel>)
-    expect(container.firstChild).toBeInTheDocument()
-    expect(container.firstChild).toHaveAttribute('data-variant', 'primary')
+  it('renders the visually visible span with "aria-hidden=true"', async () => {
+    HTMLRender(<CounterLabel>1234</CounterLabel>)
+    await expect.element(page.getByText('1234', {exact: true})).toHaveAttribute('aria-hidden', 'true')
   })
 
-  it('respects the secondary "variant" prop', () => {
-    const {container} = HTMLRender(<CounterLabel variant="secondary">1234</CounterLabel>)
-    expect(container.firstChild).toBeInTheDocument()
-    expect(container.firstChild).toHaveAttribute('data-variant', 'secondary')
+  it('respects the primary "variant" prop', async () => {
+    HTMLRender(<CounterLabel variant="primary">1234</CounterLabel>)
+    await expect.element(page.getByText('1234', {exact: true})).toBeInTheDocument()
+    await expect.element(page.getByText('1234', {exact: true})).toHaveAttribute('data-variant', 'primary')
   })
 
-  it('respects the primary "scheme" prop', () => {
-    const {container} = HTMLRender(<CounterLabel scheme="primary">1234</CounterLabel>)
-    expect(container.firstChild).toBeInTheDocument()
-    expect(container.firstChild).toHaveAttribute('data-variant', 'primary')
+  it('respects the secondary "variant" prop', async () => {
+    HTMLRender(<CounterLabel variant="secondary">1234</CounterLabel>)
+    await expect.element(page.getByText('1234', {exact: true})).toBeInTheDocument()
+    await expect.element(page.getByText('1234', {exact: true})).toHaveAttribute('data-variant', 'secondary')
   })
 
-  it('renders with secondary variant when no "scheme" or "variant" prop is provided', () => {
-    const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
-    expect(container.firstChild).toBeInTheDocument()
-    expect(container.firstChild).toHaveAttribute('data-variant', 'secondary')
+  it('respects the primary "scheme" prop', async () => {
+    HTMLRender(<CounterLabel scheme="primary">1234</CounterLabel>)
+    await expect.element(page.getByText('1234', {exact: true})).toBeInTheDocument()
+    await expect.element(page.getByText('1234', {exact: true})).toHaveAttribute('data-variant', 'primary')
   })
 
-  it('prefer variant over "scheme" prop', () => {
-    const {container} = HTMLRender(
+  it('renders with secondary variant when no "scheme" or "variant" prop is provided', async () => {
+    HTMLRender(<CounterLabel>1234</CounterLabel>)
+    await expect.element(page.getByText('1234', {exact: true})).toBeInTheDocument()
+    await expect.element(page.getByText('1234', {exact: true})).toHaveAttribute('data-variant', 'secondary')
+  })
+
+  it('prefer variant over "scheme" prop', async () => {
+    HTMLRender(
       <CounterLabel scheme="secondary" variant="primary">
         1234
       </CounterLabel>,
     )
-    expect(container.firstChild).toBeInTheDocument()
-    expect(container.firstChild).toHaveAttribute('data-variant', 'primary')
+    await expect.element(page.getByText('1234', {exact: true})).toBeInTheDocument()
+    await expect.element(page.getByText('1234', {exact: true})).toHaveAttribute('data-variant', 'primary')
   })
 
   it('should render visually hidden span correctly for screen readers', () => {

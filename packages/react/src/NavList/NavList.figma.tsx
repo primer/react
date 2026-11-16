@@ -1,4 +1,4 @@
-import {NavList} from '../../src'
+import {NavList} from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(

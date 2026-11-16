@@ -43,14 +43,16 @@ function getFirstMatchingFile(componentPath: string, componentName: string): str
 }
 
 export function getTSProgram(rootDir?: string) {
-  const configPath = ts.findConfigFile(rootDir ?? process.cwd(), ts.sys.fileExists)
-  const config = ts.readConfigFile(configPath ?? 'tsconfig.json', ts.sys.readFile)
+  const configSearchDir = rootDir ? path.resolve(rootDir) : process.cwd()
+  const configPath = ts.findConfigFile(configSearchDir, ts.sys.fileExists)
+  const fallbackConfigPath = path.join(configSearchDir, 'tsconfig.json')
+  const config = ts.readConfigFile(configPath ?? fallbackConfigPath, ts.sys.readFile)
   const parsedConfig = ts.parseJsonConfigFileContent(
     config.config,
     ts.sys,
-    configPath ? path.dirname(configPath) : process.cwd(),
+    configPath ? path.dirname(configPath) : configSearchDir,
     undefined,
-    'tsconfig.json',
+    configPath ?? fallbackConfigPath,
   )
   const program = ts.createProgram({
     rootNames: parsedConfig.fileNames,

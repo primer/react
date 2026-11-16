@@ -1,3 +1,9 @@
+.Heading {
+  margin-block-end: var(--base-size-8);
+  /* stylelint-disable-next-line primer/spacing */
+  margin-inline-start: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
+}
+
 .GroupHeading > a {
   color: var(--fgColor-default);
   text-decoration: inherit;

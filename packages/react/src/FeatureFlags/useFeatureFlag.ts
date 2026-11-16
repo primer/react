@@ -6,5 +6,6 @@ import {FeatureFlagContext} from './FeatureFlagContext'
  */
 export function useFeatureFlag(flag: string): boolean {
   const context = useContext(FeatureFlagContext)
-  return context.enabled(flag)
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return context?.enabled(flag) ?? false
 }

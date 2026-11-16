@@ -75,7 +75,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
           }
 
     return (
-      <span className={clsx('TextInput-action', styles.TextInputAction)}>
+      <span className={clsx('TextInput-action', styles.TextInputAction)} data-component="TextInput.Action">
         {icon && !children && ariaLabel ? (
           <IconButton
             {...accessibleLabel}

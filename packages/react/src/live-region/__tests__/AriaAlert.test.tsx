@@ -1,11 +1,13 @@
 import {describe, expect, it, beforeEach, afterEach} from 'vitest'
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import React from 'react'
+import {page, userEvent} from 'vitest/browser'
 import {AriaAlert} from '../AriaAlert'
-import {userEvent} from '@testing-library/user-event'
 import {getLiveRegion} from './test-helpers'
+import {implementsClassName} from '../../utils/testing'
 
 describe('AriaAlert', () => {
+  implementsClassName(AriaAlert)
   beforeEach(() => {
     const liveRegion = document.createElement('live-region')
     document.body.appendChild(liveRegion)
@@ -37,7 +39,7 @@ describe('AriaAlert', () => {
         test
       </AriaAlert>,
     )
-    expect(screen.getByTestId('container').tagName).toBe('SPAN')
+    expect(page.getByTestId('container').element().tagName).toBe('SPAN')
   })
 
   it('should update live-region element when AriaAlert goes from empty to populated', async () => {
@@ -57,14 +59,12 @@ describe('AriaAlert', () => {
         </>
       )
     }
-    const user = userEvent.setup()
-
     render(<TestComponent />)
 
     const liveRegion = getLiveRegion()
     expect(liveRegion.getMessage('assertive')).toBe('')
 
-    await user.click(screen.getByText('Export data'))
+    await userEvent.click(page.getByText('Export data'))
     expect(liveRegion.getMessage('assertive')).toBe('Failed to export data!')
   })
 })

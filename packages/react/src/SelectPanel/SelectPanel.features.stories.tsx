@@ -27,6 +27,9 @@ import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
 import classes from './SelectPanel.features.stories.module.css'
+import {FeatureFlags} from '../FeatureFlags'
+import {Default} from './SelectPanel.stories'
+import {expect, within} from 'storybook/test'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
@@ -34,6 +37,26 @@ const meta: Meta<typeof SelectPanel> = {
 } satisfies Meta<SelectPanelProps>
 
 export default meta
+
+export const LegacyContrast: StoryObj<typeof SelectPanel> = {
+  render: () => (
+    <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: true}}>
+      <Default />
+    </FeatureFlags>
+  ),
+  play: async ({canvas, canvasElement, userEvent}) => {
+    await userEvent.click(canvas.getByRole('button', {name: /bug/}))
+    const body = within(canvasElement.ownerDocument.body)
+    const input = body.getByRole('combobox', {name: 'Filter items'})
+    await expect(input.closest('[data-component="TextInput"]')).toHaveAttribute('data-contrast')
+    await expect(input).toBeEnabled()
+    await expect(input).toHaveFocus()
+    await userEvent.type(input, 'enhancement')
+    await expect(body.getAllByRole('option')).toHaveLength(1)
+    await expect(body.getByRole('option', {name: /enhancement/})).toBeVisible()
+    await userEvent.clear(input)
+  },
+}
 
 const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => {
   return {
@@ -753,6 +776,7 @@ export const WithOnCancel = () => {
 
   const [open, setOpen] = useState(false)
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setInitialSelection(selected) // set initialSelection for next time
   }, [open, selected])
 
@@ -783,13 +807,16 @@ export const WithOnCancel = () => {
 
 export const MultiSelectModal = () => {
   const [initialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
-
   const [selected, setSelected] = React.useState<ItemInput[]>(initialSelection)
+  const [savedSelection, setSavedSelection] = React.useState<ItemInput[]>(initialSelection)
   const [filter, setFilter] = React.useState('')
   const [open, setOpen] = useState(false)
 
   React.useEffect(() => {
-    if (!open) setInitialSelection(selected) // Save selection as initialSelection for next time
+    // Sync initialSelection with the last committed selection after the modal closes.
+    // onCancel uses initialSelection to discard unsaved changes made while the modal is open.
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state, react-you-might-not-need-an-effect/no-event-handler
+    if (!open) setInitialSelection(selected)
   }, [open, selected])
 
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -800,13 +827,18 @@ export const MultiSelectModal = () => {
       title="Select labels"
       placeholder="Select labels"
       subtitle="Use labels to organize issues and pull requests"
-      renderAnchor={({children, ...anchorProps}) => (
+      renderAnchor={({...anchorProps}) => (
         <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-          {children}
+          {savedSelection.map(item => item.text).join(', ') || 'Select labels'}
         </Button>
       )}
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={(nextOpen, gesture) => {
+        setOpen(nextOpen)
+        if (!nextOpen && gesture === 'selection') {
+          setSavedSelection(selected)
+        }
+      }}
       items={filteredItems}
       selected={selected}
       onSelectedChange={setSelected}
@@ -944,7 +976,7 @@ export const WithMessage = () => {
   const filteredItems = itemsToShow.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
     setFilter('')
   }, [messageVariant])
 

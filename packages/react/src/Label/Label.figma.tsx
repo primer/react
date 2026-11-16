@@ -1,4 +1,4 @@
-import {Label} from '../../src'
+import Label from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(Label, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=18959-65008&m=dev', {

@@ -13,7 +13,7 @@ const transformChildren = (children: React.ReactNode, shape: AvatarStackProps['s
     if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
       ...child.props,
-      square: shape === 'square' ? true : undefined,
+      square: (shape === 'square' ? true : undefined) || child.props.square,
       className: clsx(child.props.className, 'pc-AvatarItem', classes.AvatarItem),
     })
   })
@@ -42,6 +42,7 @@ const AvatarStackBody = ({
 } & React.ComponentPropsWithoutRef<'div'>) => {
   return (
     <div
+      data-component="AvatarStack.Body"
       data-disable-expand={disableExpand ? '' : undefined}
       className={clsx(
         {
@@ -125,6 +126,7 @@ const AvatarStack = ({
       observer.observe(stackContainer.current, {childList: true})
 
       // Call on initial render, then call it again only if there's a mutation
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-initialize-state
       interactiveChildren()
 
       return () => {
@@ -158,6 +160,7 @@ const AvatarStack = ({
 
   return (
     <span
+      data-component="AvatarStack"
       data-variant={variant}
       data-shape={shape}
       data-avatar-count={count > 3 ? '3+' : count}

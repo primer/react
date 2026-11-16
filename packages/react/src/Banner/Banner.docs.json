@@ -117,6 +117,12 @@
       "name": "actionsLayout",
       "type": "'default' | 'inline' | 'stacked'",
       "description": "Override the responsive layout of the action buttons. 'inline' layout will display the buttons inline with the title and description, while 'stacked' layout will always render the buttons in a new row."
+    },
+    {
+      "name": "flush",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Full width banner specifically for use within confined spaces, such as dialogs, tables, cards, or boxes where available space is limited."
     }
   ],
   "subcomponents": [

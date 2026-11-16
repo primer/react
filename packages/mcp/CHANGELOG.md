@@ -1,5 +1,117 @@
 # @primer/mcp
 
+## 1.1.2
+
+### Patch Changes
+
+- [#8582](https://github.com/primer/react/pull/8582) [`e0524db`](https://github.com/primer/react/commit/e0524db5b12eea7a2b1537c895f83491eac4288d) Thanks [@Pranay623](https://github.com/Pranay623)! - Update component MCP tools to match on the slug of components for HTTP requests to primer.style
+- Updated dependencies [[`c29b6fe`](https://github.com/primer/react/commit/c29b6fec94c8b18b4f59f7935740ab7b94598ecc), [`6f52273`](https://github.com/primer/react/commit/6f522732b1370954fd1de47b806864c6a46886c5), [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3), [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3), [`746d76a`](https://github.com/primer/react/commit/746d76ae7a21ba675ebb4282dd5771c351aeb8f3), [`c29b6fe`](https://github.com/primer/react/commit/c29b6fec94c8b18b4f59f7935740ab7b94598ecc), [`0d5607c`](https://github.com/primer/react/commit/0d5607c3b29ab090a0a97d1532fdc3a066a37d3d)]:
+  - @primer/react@38.43.0
+
+## 1.1.1
+
+### Patch Changes
+
+- [#8530](https://github.com/primer/react/pull/8530) [`7b4281b`](https://github.com/primer/react/commit/7b4281bdbd6475ed2bfc6837ae724d18aad50469) Thanks [@joshfarrant](https://github.com/joshfarrant)! - MCP: Correct component usage-guideline routes and ConfirmationDialog documentation URLs.
+- Updated dependencies [[`1bab81a`](https://github.com/primer/react/commit/1bab81a0eb3f613c8d6b4abd36bd92d0ac6cedc4), [`013ab30`](https://github.com/primer/react/commit/013ab3078785ee90afe8a7562576fe0a26001b96), [`f71dce4`](https://github.com/primer/react/commit/f71dce4869dedf4cb8460ed2fa8e18edc0604198), [`1528a48`](https://github.com/primer/react/commit/1528a483f9efa41fdb4bea7793c49bcde6fb4220), [`78ba2e0`](https://github.com/primer/react/commit/78ba2e08bc194f36b023e126a3084468aabff2ac), [`6d14fa0`](https://github.com/primer/react/commit/6d14fa092e3e9e470991dab7f8e753bfb265a905), [`e236683`](https://github.com/primer/react/commit/e236683d5c21c1d4b8121d35f4960986f5cd3a5f), [`66a9f31`](https://github.com/primer/react/commit/66a9f31611c642209f66ed68b7d43712b09dbd88)]:
+  - @primer/react@38.42.0
+
+## 1.1.0
+
+### Minor Changes
+
+- [#8342](https://github.com/primer/react/pull/8342) [`fbe2a70`](https://github.com/primer/react/commit/fbe2a709b93661cc5944f3652f9504214b1f4311) Thanks [@mattobee](https://github.com/mattobee)! - MCP server: Add Create, Customize, Delegate, Edit and View scenario patterns to the `list_patterns` and `get_pattern` tools.
+
+### Patch Changes
+
+- Updated dependencies [[`7034e1f`](https://github.com/primer/react/commit/7034e1fbb754883b29a05fdf75eea8704359e7bb), [`3a32d6f`](https://github.com/primer/react/commit/3a32d6ff015b11dd2ac9bf299f8f558bb1e46ef5), [`f7329dc`](https://github.com/primer/react/commit/f7329dc8224166fad2698ae7d6c518dc97d89754), [`4266cab`](https://github.com/primer/react/commit/4266cab4cb9e744f70cc13a8904c3b29a6499284), [`1f5b99e`](https://github.com/primer/react/commit/1f5b99edc63e3989eb470d258c4d7b8703540f6b), [`a79d6c6`](https://github.com/primer/react/commit/a79d6c60ca23abce6f85502e1db78458f5fc3e90)]:
+  - @primer/react@38.38.0
+
+## 1.0.0
+
+### Major Changes
+
+- [#8249](https://github.com/primer/react/pull/8249) [`2cbe47d`](https://github.com/primer/react/commit/2cbe47d4cab232677c3ac65a6acca98b468823df) Thanks [@joshblack](https://github.com/joshblack)! - MCP server: Upgrade to the MCP TypeScript SDK v2 and support the 2026-07-28 protocol over stdio.
+
+### Patch Changes
+
+- Updated dependencies [[`da3df9a`](https://github.com/primer/react/commit/da3df9aba582c7bcedbe69f1bdc5ab64ac90d32b)]:
+  - @primer/react@38.35.0
+
+## 0.5.1
+
+### Patch Changes
+
+- [#8231](https://github.com/primer/react/pull/8231) [`c2110e0`](https://github.com/primer/react/commit/c2110e0e6e3eea565b39ef16dfba25e8d43f8f7d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Components: Clarify when agents should use single-component and batch documentation tools.
+
+## 0.5.0
+
+### Minor Changes
+
+- [#8150](https://github.com/primer/react/pull/8150) [`c261f95`](https://github.com/primer/react/commit/c261f9551a9f98e5414d3bab3ab53b61574ac4f7) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Components: Add a batch tool for retrieving documentation for multiple components in one call.
+
+### Patch Changes
+
+- Updated dependencies [[`eb447fe`](https://github.com/primer/react/commit/eb447fef0f1565934dc38d09df21d8063957aa9d), [`4045abe`](https://github.com/primer/react/commit/4045abea621d0940edcd1120fc70e6ed5f797205), [`f061bc4`](https://github.com/primer/react/commit/f061bc41483211bef1ec8b1dfe07937f20a9ddd6), [`2a67c19`](https://github.com/primer/react/commit/2a67c191a0038df64d2225c0bc11c020c2def03c), [`f8e7cf2`](https://github.com/primer/react/commit/f8e7cf2e1bd3eb02d4106b4932b487bb8ff108e6), [`cade4af`](https://github.com/primer/react/commit/cade4af9a70f3fd2622031af585dc07dccd79e11), [`f86e5a6`](https://github.com/primer/react/commit/f86e5a6420e857e7476c3954d419f4e228bdcf1a), [`d60d05b`](https://github.com/primer/react/commit/d60d05b2684056b653cb605418d6f1cae0ba38e2)]:
+  - @primer/react@38.33.0
+
+## 0.4.0
+
+### Minor Changes
+
+- [#8058](https://github.com/primer/react/pull/8058) [`0a49d7d`](https://github.com/primer/react/commit/0a49d7d2fad0ff897c53a7b77583d6058b79005a) Thanks [@mattobee](https://github.com/mattobee)! - MCP server: Add Copy, Delete, Filter and Search scenario patterns to the `list_patterns` and `get_pattern` tools. Scenario patterns take precedence over UI patterns when a name matches.
+
+### Patch Changes
+
+- Updated dependencies [[`0add561`](https://github.com/primer/react/commit/0add5615720d17d69c77b014786c5e17e4337bb0), [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd), [`5b3c806`](https://github.com/primer/react/commit/5b3c806305cfa09d33d42fc2957d55105725ea3b), [`cb79351`](https://github.com/primer/react/commit/cb79351f29b9a1aea7bacf890eca97a5c9d97590), [`f052126`](https://github.com/primer/react/commit/f0521263c85a8d665f7c031bd711b3568bdac8e2), [`b906268`](https://github.com/primer/react/commit/b906268b7ebe8d684d8b5e9b1c4e9b528a5dd67a), [`73a45df`](https://github.com/primer/react/commit/73a45dfe11c3a297e4f2f8317caa4a535a70ce80), [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd), [`6131a94`](https://github.com/primer/react/commit/6131a9424b5bd5bb98b7ae05771d8187fe2f58cd), [`e58907c`](https://github.com/primer/react/commit/e58907c5559f5ef8133a1d98a05e2e4a6c1ca6cb)]:
+  - @primer/react@38.30.0
+
+## 0.3.3
+
+### Patch Changes
+
+- [#7965](https://github.com/primer/react/pull/7965) [`53ea013`](https://github.com/primer/react/commit/53ea0139bc48f5497bab5b43baed959b69dd16b0) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - MCP server: Add `readOnlyHint` annotation to all tools, allowing them to run without human-in-the-loop approval in agentic environments such as Copilot cloud agent.
+
+- Updated dependencies [[`45be31b`](https://github.com/primer/react/commit/45be31b561b2c1280b182531069e8a84364a4185), [`95986ce`](https://github.com/primer/react/commit/95986ce22eaca6f4cb2122a00d51ec93d72f2dfe), [`6a7e130`](https://github.com/primer/react/commit/6a7e13051139ba06e48391edc0b05ef555b814b9), [`55b7b04`](https://github.com/primer/react/commit/55b7b04647af9d7812e9ff77605524048358039c), [`3af5edc`](https://github.com/primer/react/commit/3af5edc56dd21aaa16c7c1676c4627c4ecd6f0f2), [`2087e87`](https://github.com/primer/react/commit/2087e87c9fe869a59fc1dcb0546ee25a14767006), [`0f0f79f`](https://github.com/primer/react/commit/0f0f79f5da92087e636cde0d0709479c9c68d2d1), [`0c38cfa`](https://github.com/primer/react/commit/0c38cfaeabab347e48d4e34c200739e32efa73a2)]:
+  - @primer/react@38.28.0
+
+## 0.3.2
+
+### Patch Changes
+
+- [#7710](https://github.com/primer/react/pull/7710) [`e15db4c`](https://github.com/primer/react/commit/e15db4c29a0852524741c62dce694703dc48b6fd) Thanks [@adierkens](https://github.com/adierkens)! - Removes fallback for legacy documentation for components using `get_component`
+
+- Updated dependencies [[`ec6c88f`](https://github.com/primer/react/commit/ec6c88fe3eb3ef349500617c90378712f802376d), [`f5f2869`](https://github.com/primer/react/commit/f5f28691d9e5c9f8495e8c592635d2b616f7cb49), [`d7b9313`](https://github.com/primer/react/commit/d7b9313b53e370e258c152084ac1f0402d64b77f), [`b7dfb78`](https://github.com/primer/react/commit/b7dfb78079c50c6798aa4e09212aede701bf6c56), [`d7380a7`](https://github.com/primer/react/commit/d7380a7616a6c0cf861b5fe3dd9bd8d76470ca2e), [`b9211db`](https://github.com/primer/react/commit/b9211db173841c9d9a531c777c5ce2c0cd8af60f), [`efa7af8`](https://github.com/primer/react/commit/efa7af8d1e628cddc2f0356de83e7af5568ff358), [`30206c4`](https://github.com/primer/react/commit/30206c4fab92de8888f3f103f9b05bff96fdc1b9), [`5c34ab4`](https://github.com/primer/react/commit/5c34ab45c8744d7d038d63773adff324015f5643)]:
+  - @primer/react@38.20.0
+
+## 0.3.1
+
+### Patch Changes
+
+- [#7632](https://github.com/primer/react/pull/7632) [`49d32f2`](https://github.com/primer/react/commit/49d32f26aa42d788d94a4962b0695c2b611037e1) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Add motion and animation token support to MCP design token search, including `animation` and `duration` semantic prefixes, transition usage hints, and updated optimization recipes
+
+- [#7601](https://github.com/primer/react/pull/7601) [`e103951`](https://github.com/primer/react/commit/e10395113bae756edae8143fc51d39b7b519aa7b) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Expose lineHeight tokens in design token search results, added color name to token conversion and `lint_css` tool for self-check loop
+
+- Updated dependencies [[`7e108fe`](https://github.com/primer/react/commit/7e108fea1a9f92ce22f46ff1d55bfe4753d89ad8), [`3dd2c78`](https://github.com/primer/react/commit/3dd2c78f768ad560ee0f37947af2c17ca8d7938c), [`f6d4311`](https://github.com/primer/react/commit/f6d431194d217fbb7d456e58bcbbcbb434896fe1), [`79c855a`](https://github.com/primer/react/commit/79c855abeb6f46d3fefafb236f00ea65dfcd1ed4), [`74762e2`](https://github.com/primer/react/commit/74762e265a44b4fa46fcb4db8fd5194cb81b14c4), [`9585669`](https://github.com/primer/react/commit/958566907a580b54b484ff2339b32315b8a3b4b7), [`f7bdd1c`](https://github.com/primer/react/commit/f7bdd1c04f8cbb17b6a913ba55f7d0855c8eebf1), [`17a103c`](https://github.com/primer/react/commit/17a103c0726ff2903e008a69dfd141461f99591f), [`e649da3`](https://github.com/primer/react/commit/e649da3c89b38f477fb574acf5bb06a49b41ee9d), [`1e54bdf`](https://github.com/primer/react/commit/1e54bdf72c9466f23c567cfdc73b7b5c243782a4)]:
+  - @primer/react@38.15.0
+
+## 0.3.0
+
+### Minor Changes
+
+- [#7574](https://github.com/primer/react/pull/7574) [`14c5a6c`](https://github.com/primer/react/commit/14c5a6c70921e67f9704cd05ad15be9c8fdaa72d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replace design token tools with enhanced search and bundle system. The single `list_tokens` tool is replaced by `find_tokens`, `get_token_group_bundle`, `get_design_token_specs`, and `get_token_usage_patterns` for improved token discovery and usage guidance.
+
+## 0.2.0
+
+### Minor Changes
+
+- [#7495](https://github.com/primer/react/pull/7495) [`b69325f`](https://github.com/primer/react/commit/b69325fcb75261707f7cac01bb8f075fc13081f2) Thanks [@adierkens](https://github.com/adierkens)! - Adds support for fetching docs via the `/llms.txt` endpoint per-component
+
+### Patch Changes
+
+- Updated dependencies [[`3c160b2`](https://github.com/primer/react/commit/3c160b26bded975de6175ccf04272e8946cef54e), [`c87db98`](https://github.com/primer/react/commit/c87db981280090cdccc84d19c607d1462212d223), [`d86c970`](https://github.com/primer/react/commit/d86c970be94dc47da55d492dc978d63d3f9ca005)]:
+  - @primer/react@38.12.0
+
 ## 0.1.0
 
 ### Minor Changes

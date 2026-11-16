@@ -1,8 +1,8 @@
 import react from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
-import {defineConfig} from 'vitest/config'
+import {defineConfig} from '@primer/vitest-config/config'
 import postcssPresetPrimer from 'postcss-preset-primer'
-import {isSupported} from './script/react-compiler.mjs'
+import {files, isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
   css: {
@@ -15,19 +15,15 @@ export default defineConfig({
   },
   plugins: [
     react({
-      babel: {
-        plugins: [
-          [
-            'babel-plugin-react-compiler',
-            {
-              target: '18',
-              sources: isSupported,
-            },
-          ],
-        ],
+      compiler: {
+        target: '18',
+        sources: files.filter(isSupported),
       },
     }),
   ],
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
   define: {
     __DEV__: true,
     'process.env.CI': JSON.stringify(process.env.CI),
@@ -37,13 +33,12 @@ export default defineConfig({
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
-      '**/lib-esm/**',
-      '**/lib/**',
       '**/generated/**',
       '**/*.figma.tsx',
       '**/*.types.test.ts',
       '**/*.types.test.tsx',
       'src/__tests__/exports.test.ts',
+      'src/__tests__/ssr.test.tsx',
       'src/__tests__/storybook.test.tsx',
     ],
     include: ['src/**/*.test.?(c|m)[jt]s?(x)'],

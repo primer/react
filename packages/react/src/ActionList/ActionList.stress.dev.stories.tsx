@@ -16,6 +16,11 @@ const projects = Array.from({length: totalIterations}, (_, i) => ({
   scope: `Scope ${i + 1}`,
 }))
 
+const mixedProjects = Array.from({length: totalIterations}, (_, i) => ({
+  name: `Project ${i + 1}`,
+  scope: i % 2 === 0 ? `Scope ${i + 1}` : undefined,
+}))
+
 export const SingleSelect = () => {
   return (
     <StressTest
@@ -39,6 +44,41 @@ export const SingleSelect = () => {
                   </ActionList.LeadingVisual>
                   {project.name}
                   <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+            </ActionList>
+          </>
+        )
+      }}
+    />
+  )
+}
+
+export const MixedDescriptions = () => {
+  return (
+    <StressTest
+      componentName="ActionList"
+      title="Mixed Descriptions"
+      description="Stress test with a mix of items with and without descriptions to test :has() selector perf."
+      totalIterations={totalIterations}
+      renderIteration={count => {
+        return (
+          <>
+            <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
+              {mixedProjects.map((project, index) => (
+                <ActionList.Item
+                  key={index}
+                  role="menuitemradio"
+                  selected={index === count}
+                  aria-checked={index === count}
+                >
+                  <ActionList.LeadingVisual>
+                    <TableIcon />
+                  </ActionList.LeadingVisual>
+                  {project.name}
+                  {project.scope ? (
+                    <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+                  ) : null}
                 </ActionList.Item>
               ))}
             </ActionList>

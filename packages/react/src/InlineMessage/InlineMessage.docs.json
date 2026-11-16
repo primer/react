@@ -37,6 +37,12 @@
       "description": "Specify the type of the inline message",
       "type": "'critical' | 'success' | 'unvailable' | 'warning'",
       "required": true
+    },
+    {
+      "name": "leadingVisual",
+      "description": "A custom leading visual to display instead of the default variant icon.",
+      "type": "React.ElementType | React.ReactNode",
+      "required": false
     }
   ]
 }

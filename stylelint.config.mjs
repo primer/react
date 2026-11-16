@@ -14,6 +14,17 @@ export default {
       },
     ],
     'layer-name-pattern': '^[a-z][a-zA-Z0-9.-]*$',
+    // :has() can cause severe perf issues in Safari (quadratic style invalidation).
+    // See github/github-ui#17224 for audit. Existing usages are audited and scoped.
+    // New usages must be explicitly approved and marked with a stylelint-disable comment.
+    'selector-pseudo-class-disallowed-list': [
+      ['has'],
+      {
+        severity: 'error',
+        message:
+          ':has() selectors can cause severe Safari performance issues (github/github-ui#17224). Verify the selector is scoped (CSS Modules) and does not match broadly, then add a scoped stylelint disable (e.g. "stylelint-disable-next-line" or a minimal "stylelint-disable"/"stylelint-enable" block), not a file-level disable.',
+      },
+    ],
   },
   overrides: [
     {

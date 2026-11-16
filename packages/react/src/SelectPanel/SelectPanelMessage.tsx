@@ -36,11 +36,26 @@ export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   const IconComponent = CustomIcon || (variant !== 'empty' ? AlertIcon : undefined)
 
   return (
-    <div className={clsx(classes.Message, className)}>
-      {IconComponent && <Octicon icon={IconComponent} className={classes.MessageIcon} data-variant={variant} />}
-      <Text className={classes.MessageTitle}>{title}</Text>
-      <Text className={classes.MessageBody}>{children}</Text>
-      {action && <div className={classes.MessageAction}>{action}</div>}
+    <div className={clsx(classes.Message, className)} data-component="SelectPanel.Message">
+      {IconComponent && (
+        <Octicon
+          icon={IconComponent}
+          className={classes.MessageIcon}
+          data-variant={variant}
+          data-component="SelectPanel.MessageIcon"
+        />
+      )}
+      <Text className={classes.MessageTitle} data-component="SelectPanel.MessageTitle">
+        {title}
+      </Text>
+      <Text className={classes.MessageBody} data-component="SelectPanel.MessageBody">
+        {children}
+      </Text>
+      {action && (
+        <div className={classes.MessageAction} data-component="SelectPanel.MessageAction">
+          {action}
+        </div>
+      )}
     </div>
   )
 }

@@ -1,13 +1,13 @@
 import React, {forwardRef} from 'react'
-import {useRefObjectAsForwardedRef} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {default as HeadingComponent} from '../Heading'
 import {ListContext} from './shared'
-import VisuallyHidden from '../_VisuallyHidden'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import classes from './Heading.module.css'
+import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type HeadingVariants = 'large' | 'medium' | 'small'
@@ -21,7 +21,7 @@ export type ActionListHeadingProps = {
 
 export const Heading = forwardRef(({as, size, children, visuallyHidden = false, className, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+  const mergedRef = useMergedRefs(forwardedRef, innerRef)
 
   const {headingId: headingId, variant: listVariant} = React.useContext(ListContext)
   const {container} = React.useContext(ActionListContainerContext)
@@ -33,20 +33,23 @@ export const Heading = forwardRef(({as, size, children, visuallyHidden = false, 
   )
 
   return (
-    <VisuallyHidden isVisible={!visuallyHidden}>
-      <HeadingComponent
-        as={as}
-        variant={size}
-        ref={innerRef}
-        // use custom id if it is provided. Otherwise, use the id from the context
-        id={props.id ?? headingId}
-        className={clsx(className, classes.ActionListHeader)}
-        data-list-variant={listVariant}
-        {...props}
-      >
-        {children}
-      </HeadingComponent>
-    </VisuallyHidden>
+    <HeadingComponent
+      as={as}
+      variant={size}
+      ref={mergedRef}
+      // use custom id if it is provided. Otherwise, use the id from the context
+      id={props.id ?? headingId}
+      // Apply the visually-hidden styles directly to the heading rather than wrapping
+      // it in a span (a heading isn't valid phrasing content inside a span).
+      className={clsx(className, classes.ActionListHeader, {
+        [visuallyHiddenClasses.InternalVisuallyHidden]: visuallyHidden,
+      })}
+      data-component="ActionList.Heading"
+      data-list-variant={listVariant}
+      {...props}
+    >
+      {children}
+    </HeadingComponent>
   )
 }) as PolymorphicForwardRefComponent<HeadingLevels, ActionListHeadingProps>
 

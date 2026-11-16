@@ -1,12 +1,11 @@
 import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
 import Link from '../Link'
+import classes from '../Link.module.css'
+import {implementsClassName} from '../../utils/testing'
 
 describe('Link', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Link href="#" className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Link, classes.Link)
 
   it('passes href down to link element', () => {
     const {container} = render(<Link href="https://github.com" />)
@@ -26,6 +25,7 @@ describe('Link', () => {
   it('respects the "muted" prop', () => {
     const {container} = render(<Link muted />)
     expect(container.firstChild).toHaveAttribute('data-muted', 'true')
+    expect(container.firstChild).not.toHaveAttribute('muted')
   })
 
   it('logs a warning when trying to render invalid "as" prop', () => {
@@ -35,5 +35,12 @@ describe('Link', () => {
     expect(consoleSpy).toHaveBeenCalled()
 
     consoleSpy.mockRestore()
+  })
+
+  describe('data-component attributes', () => {
+    it('should have data-component="Link" on the link element', () => {
+      const {container} = render(<Link href="#">Test</Link>)
+      expect(container.querySelector('[data-component="Link"]')).toBeInTheDocument()
+    })
   })
 })

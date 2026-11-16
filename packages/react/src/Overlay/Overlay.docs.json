@@ -17,6 +17,12 @@
   "importPath": "@primer/react",
   "props": [
     {
+      "name": "preventFocusOnClose",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If true, focus will not be returned to returnFocusRef when the Overlay is unmounted. Consumers must manage focus themselves."
+    },
+    {
       "name": "returnFocusRef",
       "type": "React.RefObject<HTMLElement>",
       "defaultValue": "",

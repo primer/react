@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList} from '../../index'
+import {ActionList} from '../../ActionList'
 import data from './mock-story-data'
 import sharedClasses from './SelectPanel2.stories.module.css'
 

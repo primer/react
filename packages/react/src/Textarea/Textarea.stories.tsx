@@ -1,7 +1,7 @@
 import type {Meta} from '@storybook/react-vite'
-import type {TextareaProps} from '..'
-import {FormControl, Textarea} from '..'
-import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
+import type {TextareaProps} from '.'
+import FormControl from '../FormControl'
+import Textarea, {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '.'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {formControlArgTypes, formControlArgs, getFormControlArgsByChildComponent} from '../utils/story-helpers'
 
@@ -30,6 +30,7 @@ Playground.args = {
   block: false,
   cols: DEFAULT_TEXTAREA_COLS,
   disabled: false,
+  autoSize: false,
   resize: DEFAULT_TEXTAREA_RESIZE,
   contrast: false,
   rows: DEFAULT_TEXTAREA_ROWS,
@@ -43,6 +44,9 @@ Playground.argTypes = {
     control: {type: 'number'},
   },
   disabled: {
+    control: {type: 'boolean'},
+  },
+  autoSize: {
     control: {type: 'boolean'},
   },
   resize: {

@@ -1,8 +1,9 @@
 import {useState} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
-
-import {Avatar, Link, Text} from '..'
+import Avatar from '../Avatar'
+import Link from '../Link'
+import Text from '../Text'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import Octicon from '../Octicon'

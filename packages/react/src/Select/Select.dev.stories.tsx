@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {FormControl} from '..'
+import FormControl from '../FormControl'
 import Select from './Select'
 import classes from './Select.dev.stories.module.css'
 

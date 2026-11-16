@@ -1,6 +1,7 @@
 import {useState, useRef, useCallback} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Button, Text} from '..'
+import {Button} from '../Button'
+import Text from '../Text'
 import type {DialogProps} from './Dialog'
 import {Dialog} from './Dialog'
 import classes from './Dialog.stories.module.css'
@@ -144,9 +145,9 @@ Playground.args = {
 Playground.argTypes = {
   width: {
     control: {
-      type: 'radio',
+      type: 'text',
     },
-    options: ['small', 'medium', 'large', 'xlarge'],
+    description: 'Named size (small, medium, large, xlarge) or a custom CSS width value (e.g. 400px, 80rem)',
   },
   height: {
     control: {

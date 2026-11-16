@@ -1,7 +1,3 @@
-.BadgeWithDoneBackground {
-  background-color: var(--bgColor-done-emphasis);
-}
-
 .LinkWithBoldStyle {
   font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-default);
@@ -12,6 +8,128 @@
   color: var(--fgColor-accent);
 }
 
-.GitMergeIcon {
-  color: var(--fgColor-onEmphasis);
+.RealisticTimeline {
+  /* GitHub renders the timeline at most 1012px wide in product surfaces.
+     Constrain the story width to match so Timeline.Actions content sits a
+     realistic distance from the event text. */
+  max-width: 1012px;
+}
+
+.ShaLink {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  text-decoration: underline;
+}
+
+.CommitSha {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+.SignatureLabelVerified {
+  /* Verified signatures on github.com keep the default muted Label border
+     but render the text in success green. Label variant="success" would
+     also color the border, which is louder than the real product. */
+  color: var(--fgColor-success);
+}
+
+.IconSuccess {
+  color: var(--fgColor-success);
+}
+
+.IconDanger {
+  color: var(--fgColor-danger);
+}
+
+.ChecksSubline {
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.InlineAvatar {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+/* Title on top, lock icon and state pill stacked below at narrow;
+   inline row with the title claiming remaining space above 480px. */
+.CrossReferenceRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--base-size-12);
+  margin-top: var(--base-size-4);
+}
+
+@container (width < 480px) {
+  .CrossReferenceRow {
+    flex-direction: column;
+    gap: var(--base-size-4);
+  }
+}
+
+.CrossReferenceTitle {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-title-size-small);
+  line-height: var(--text-title-lineHeight-small);
+}
+
+.CrossReferenceLink {
+  color: var(--fgColor-default);
+  text-decoration: underline;
+}
+
+.CrossReferenceLink:hover {
+  color: var(--fgColor-accent);
+}
+
+.CrossReferenceName {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.CrossReferenceNumber {
+  color: var(--fgColor-muted);
+}
+
+.CrossReferenceLink:hover .CrossReferenceNumber {
+  color: var(--fgColor-accent);
+}
+
+.CrossReferenceTaskline {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.CrossReferenceMeta {
+  color: var(--fgColor-muted);
+  flex-shrink: 0;
+}
+
+/* Hides Timeline.Actions children (Verified / Unverified signature labels
+   on commit rows) when Timeline is narrow, so only the compact icon + SHA
+   cluster remains after the Actions row wraps beneath Body. */
+@container (width < 480px) {
+  .HideAtNarrow {
+    display: none;
+  }
+}
+
+.Timestamp {
+  text-decoration: underline;
+}
+
+.AvatarGutter {
+  /* Reserve space in the left gutter so Timeline.Avatar is visible, and
+     constrain to 1012px (GitHub's product max-width, which includes the
+     gutter) so the avatar sits a realistic distance from the event text. */
+  max-width: 1012px;
+  padding-left: calc(var(--base-size-40) + var(--base-size-32));
 }

@@ -1,6 +1,8 @@
 import type React from 'react'
 import {useState} from 'react'
-import {FormControl, Heading, Stack} from '..'
+import FormControl from '../FormControl'
+import Heading from '../Heading'
+import {Stack} from '../Stack'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
@@ -318,3 +320,44 @@ export const WithAutocompleteAttribute = () => (
     </FormControl>
   </form>
 )
+
+export const WithCharacterLimit = () => {
+  const [value, setValue] = useState('')
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Username</FormControl.Label>
+        <TextInput value={value} onChange={e => setValue(e.target.value)} characterLimit={20} />
+      </FormControl>
+    </form>
+  )
+}
+
+export const WithCharacterLimitAndCaption = () => {
+  const [value, setValue] = useState('')
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Username</FormControl.Label>
+        <TextInput value={value} onChange={e => setValue(e.target.value)} characterLimit={20} />
+        <FormControl.Caption>Choose a unique username</FormControl.Caption>
+      </FormControl>
+    </form>
+  )
+}
+
+export const WithCharacterLimitExceeded = () => {
+  const [value, setValue] = useState('This is a very long text that exceeds the limit')
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Bio</FormControl.Label>
+        <TextInput value={value} onChange={e => setValue(e.target.value)} characterLimit={20} />
+        <FormControl.Caption>Keep it short</FormControl.Caption>
+      </FormControl>
+    </form>
+  )
+}

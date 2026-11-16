@@ -1,61 +1,102 @@
+import {page} from 'vitest/browser'
 import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
-import {ActionMenu} from '..'
+import {ActionMenu} from '../ActionMenu'
+import {implementsClassName, withExpectedConsoleError} from '../utils/testing'
+import classes from './Heading.module.css'
+import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
 
 describe('ActionList.Heading', () => {
+  implementsClassName(
+    props => (
+      <ActionList>
+        <ActionList.Heading as="h1" {...props}>
+          Heading
+        </ActionList.Heading>
+      </ActionList>
+    ),
+    classes.ActionListHeader,
+  )
+
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
-    const container = HTMLRender(
+    HTMLRender(
       <ActionList>
         <ActionList.Heading as="h1">Heading</ActionList.Heading>
       </ActionList>,
     )
-    const heading = container.getByRole('heading', {level: 1})
-    expect(heading).toBeInTheDocument()
-    expect(heading).toHaveTextContent('Heading')
+    const heading = page.getByRole('heading', {level: 1})
+    await expect.element(heading).toBeInTheDocument()
+    await expect.element(heading).toHaveTextContent('Heading')
+  })
+
+  it('should not wrap the heading in a span', async () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1">Heading</ActionList.Heading>
+      </ActionList>,
+    )
+    const heading = page.getByRole('heading', {level: 1})
+    expect(heading.element().parentElement?.tagName).not.toBe('SPAN')
+    await expect.element(heading).toHaveClass(classes.ActionListHeader)
+  })
+
+  it('should apply the visually-hidden class to the heading when visuallyHidden is set', async () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1" visuallyHidden>
+          Heading
+        </ActionList.Heading>
+      </ActionList>,
+    )
+    const heading = page.getByRole('heading', {level: 1})
+    await expect.element(heading).toHaveClass(visuallyHiddenClasses.InternalVisuallyHidden)
+    await expect.element(heading).toHaveClass(classes.ActionListHeader)
+  })
+
+  it('should not apply the visually-hidden class to the heading by default', async () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1">Heading</ActionList.Heading>
+      </ActionList>,
+    )
+    const heading = page.getByRole('heading', {level: 1})
+    await expect.element(heading).not.toHaveClass(visuallyHiddenClasses.InternalVisuallyHidden)
+    await expect.element(heading).toHaveClass(classes.ActionListHeader)
   })
 
   it('should label the action list with the heading id', async () => {
-    const {container, getByRole} = HTMLRender(
+    const {container} = HTMLRender(
       <ActionList>
         <ActionList.Heading as="h1">Heading</ActionList.Heading>
         <ActionList.Item>Item</ActionList.Item>
       </ActionList>,
     )
     const list = container.querySelector('ul')
-    const heading = getByRole('heading', {level: 1})
-    expect(list).toHaveAttribute('aria-labelledby', heading.id)
+    const heading = page.getByRole('heading', {level: 1})
+    expect(list).toHaveAttribute('aria-labelledby', heading.element().id)
   })
 
   it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
-    expect(() =>
-      HTMLRender(
-        <BaseStyles>
-          <ActionMenu open={true}>
-            <ActionMenu.Button>Trigger</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Heading as="h1">Heading</ActionList.Heading>
-                <ActionList.Item>Item</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>,
-      ),
-    ).toThrow(
-      "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
-    )
-  })
-
-  it('should support a custom `className` on the outermost element', () => {
-    const actionList = HTMLRender(
-      <ActionList>
-        <ActionList.Heading as="h2" className="test-class-name">
-          Filter by
-        </ActionList.Heading>
-      </ActionList>,
-    )
-    expect(actionList.container.querySelector('h2')).toHaveClass('test-class-name')
+    withExpectedConsoleError(() => {
+      expect(() =>
+        HTMLRender(
+          <BaseStyles>
+            <ActionMenu open={true}>
+              <ActionMenu.Button>Trigger</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Heading as="h1">Heading</ActionList.Heading>
+                  <ActionList.Item>Item</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>,
+        ),
+      ).toThrow(
+        "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
+      )
+    })
   })
 })

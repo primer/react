@@ -35,6 +35,10 @@ const stories = [
     title: 'All Colors',
     id: 'components-progressbar-features--all-colors',
   },
+  {
+    title: 'Animated',
+    id: 'components-progressbar-features--animated',
+  },
 ] as const
 
 test.describe('ProgressBar', () => {

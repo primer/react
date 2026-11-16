@@ -37,6 +37,7 @@ const UnderlineNavLink = React.forwardRef<HTMLAnchorElement, UnderlineNavLinkPro
   forwardRef,
 ) {
   const linkClasses = clsx(classes.UnderlineNavItem, className, classes.UnderlineNavLink)
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
   return <a ref={forwardRef} data-selected={selected ? '' : undefined} className={linkClasses} {...props} />
 })
 

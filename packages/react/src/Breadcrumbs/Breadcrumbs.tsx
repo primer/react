@@ -1,16 +1,15 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React, {useState, useRef, useCallback, useEffect, useMemo, type ForwardedRef} from 'react'
+import React, {useState, useRef, useCallback, useMemo, type ForwardedRef} from 'react'
 import classes from './Breadcrumbs.module.css'
-import Details from '../Details'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button/IconButton'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
-import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
-import {useFeatureFlag} from '../FeatureFlags'
+import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
 
 export type BreadcrumbsProps = React.PropsWithChildren<{
   /**
@@ -36,321 +35,322 @@ export type BreadcrumbsProps = React.PropsWithChildren<{
   style?: React.CSSProperties
 }>
 
-const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
-  return <ol className={classes.BreadcrumbsList}>{children}</ol>
+const MENU_BUTTON_WIDTH = 32 // small IconButton
+// Width of the chevron icon drawn between collapsed-style crumbs. Also the starting guess for
+// the plain separator until one has been measured.
+const SEPARATOR_ICON_WIDTH = 16
+const NARROW_WIDTH = 544
+
+/**
+ * Collapse state that depends on layout. `extra` is the number of crumbs collapsed beyond
+ * the count rule, so adding or removing crumbs in a wide container never changes state.
+ */
+type Fit = {extra: number; rootCollapsed: boolean; narrow: boolean}
+
+const INITIAL_FIT: Fit = {extra: 0, rootCollapsed: false, narrow: false}
+
+function minVisible(withRoot: boolean, narrow: boolean, itemCount: number) {
+  if (withRoot) return 3
+  return narrow && itemCount > 2 ? 1 : 4
 }
 
-type BreadcrumbsMenuItemProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  items: React.ReactElement<any>[]
-  'aria-label'?: string
+// Leading crumbs that collapse by count alone. Needs no measurement, so it is applied
+// during render (including on the server).
+function countRule(withRoot: boolean, narrow: boolean, itemCount: number) {
+  return Math.max(0, itemCount - minVisible(withRoot, narrow, itemCount))
 }
 
-const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenuItemProps>(
-  ({items, 'aria-label': ariaLabel, ...rest}, menuRefCallback) => {
-    const [isOpen, setIsOpen] = useState(false)
-    const detailsRef = useRef<HTMLDetailsElement | null>(null)
-    const menuButtonRef = useRef<HTMLButtonElement | null>(null)
-    const menuContainerRef = useRef<HTMLDivElement>(null)
-    const detailsRefCallback = useCallback(
-      (element: HTMLDetailsElement | null) => {
-        detailsRef.current = element
-        if (typeof menuRefCallback === 'function') {
-          menuRefCallback(element)
-        }
-      },
-      [menuRefCallback],
-    )
-    const handleSummaryClick = useCallback((event: React.MouseEvent) => {
-      // Prevent the button click from bubbling up and interfering with details toggle
+/**
+ * Separator width after a crumb, per rendering. The plain one is drawn in `em`, so it follows the
+ * text size; the collapsed one is the fixed-size icon.
+ */
+type Separators = {plain: number; collapsed: number}
+
+const INITIAL_SEPARATORS: Separators = {plain: SEPARATOR_ICON_WIDTH, collapsed: SEPARATOR_ICON_WIDTH}
+
+function computeFit(widths: number[], separators: Separators, available: number, withRoot: boolean): Fit {
+  const itemCount = widths.length
+  if (available <= 0 || itemCount === 0) return INITIAL_FIT
+  const narrow = available < NARROW_WIDTH
+  const min = minVisible(withRoot, narrow, itemCount)
+  const rootWidth = withRoot ? widths[0] + separators.collapsed : 0
+  // Collapsing the first `collapsed` crumbs. Mirrors the rendering: with nothing in the menu every
+  // crumb is shown with the plain separator (the last has none). Otherwise the visible crumbs
+  // each count a collapsed separator, the last one's standing in for the menu item's own.
+  const menuCount = (collapsed: number) => Math.max(0, collapsed - (withRoot ? 1 : 0))
+  let tailWidth = widths.reduce((sum, width) => sum + width + separators.collapsed, 0)
+  const total = widths.reduce((sum, width) => sum + width, 0)
+  const width = (collapsed: number) =>
+    menuCount(collapsed) === 0 ? total + separators.plain * (itemCount - 1) : rootWidth + tailWidth + MENU_BUTTON_WIDTH
+  let collapsed = 0
+  let rootCollapsed = false
+  while (width(collapsed) > available || itemCount - collapsed > min) {
+    tailWidth -= widths[collapsed] + separators.collapsed
+    collapsed += 1
+    if (itemCount - collapsed === 1 && width(collapsed) > available) {
+      rootCollapsed = withRoot
+      break
+    }
+  }
+  return {extra: collapsed - countRule(withRoot, narrow, itemCount), rootCollapsed, narrow}
+}
+
+// Content box width: excludes padding, matching what the crumbs can occupy.
+function getContentWidth(nav: HTMLElement) {
+  const {paddingLeft, paddingRight} = getComputedStyle(nav)
+  return nav.clientWidth - parseFloat(paddingLeft) - parseFloat(paddingRight)
+}
+
+// A crumb can render several nodes (e.g. a link and a sibling button, or text), so its width is
+// the extent of everything in the item except the separator.
+function getCrumbWidth(li: HTMLElement, range: Range) {
+  range.selectNodeContents(li)
+  const last = li.lastElementChild
+  if (last?.classList.contains(classes.ItemSeparator)) range.setEndBefore(last)
+  return range.getBoundingClientRect().width
+}
+
+const sameFit = (a: Fit, b: Fit) => a.extra === b.extra && a.rootCollapsed === b.rootCollapsed && a.narrow === b.narrow
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type CrumbElement = React.ReactElement<any>
+
+function getValidChildren(children: React.ReactNode) {
+  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as CrumbElement[]
+}
+
+type OverflowMenuProps = {items: CrumbElement[]}
+
+function OverflowMenu({
+  items,
+  open,
+  setOpen,
+}: OverflowMenuProps & {open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const close = useCallback(() => setOpen(false), [setOpen])
+  return (
+    <div className={classes.MenuDetails} data-component="Breadcrumbs.MenuItem">
+      <IconButton
+        ref={buttonRef}
+        aria-label={`${items.length} more breadcrumb items`}
+        aria-haspopup="true"
+        aria-expanded={open}
+        onClick={() => setOpen(value => !value)}
+        variant="invisible"
+        size="small"
+        icon={KebabHorizontalIcon}
+        tooltipDirection="e"
+      />
+      {open ? <OverflowMenuOverlay items={items} close={close} buttonRef={buttonRef} /> : null}
+    </div>
+  )
+}
+
+// Mounted only while the menu is open, so closed menus register no document listeners
+// and render no menu items.
+function OverflowMenuOverlay({
+  items,
+  close,
+  buttonRef,
+}: OverflowMenuProps & {close: () => void; buttonRef: React.RefObject<HTMLButtonElement | null>}) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  useOnEscapePress(
+    (event: KeyboardEvent) => {
       event.preventDefault()
-      // Manually toggle the details element
-      if (detailsRef.current) {
-        const newOpenState = !detailsRef.current.open
-        detailsRef.current.open = newOpenState
-        setIsOpen(newOpenState)
-      }
-    }, [])
-
-    const closeOverlay = useCallback(() => {
-      if (detailsRef.current) {
-        detailsRef.current.open = false
-        setIsOpen(false)
-      }
-    }, [])
-
-    const focusOnMenuButton = useCallback(() => {
-      menuButtonRef.current?.focus()
-    }, [])
-
-    useOnEscapePress(
-      (event: KeyboardEvent) => {
-        if (isOpen) {
-          event.preventDefault()
-          closeOverlay()
-          focusOnMenuButton()
-        }
-      },
-      [isOpen],
-    )
-
-    useOnOutsideClick({
-      onClickOutside: closeOverlay,
-      containerRef: menuContainerRef,
-      ignoreClickRefs: [menuButtonRef],
-    })
-
-    return (
-      <Details ref={detailsRefCallback} className={classes.MenuDetails}>
-        <IconButton
-          as="summary"
-          role="button"
-          ref={menuButtonRef}
-          aria-label={ariaLabel || `${items.length} more breadcrumb items`}
-          aria-expanded={isOpen ? 'true' : 'false'}
-          onClick={handleSummaryClick}
-          variant="invisible"
-          size="small"
-          icon={KebabHorizontalIcon}
-          tooltipDirection="e"
-          {...rest}
-        />
-        <div ref={menuContainerRef} className={classes.MenuOverlay}>
-          <ActionList>
-            {items.map((item, index) => {
-              const href = item.props.href
-              const children = item.props.children
-              const selected = item.props.selected
-              return (
-                <ActionList.LinkItem
-                  key={index}
-                  href={href}
-                  aria-current={selected ? 'page' : undefined}
-                  className={classes.MenuItem}
-                >
-                  {children}
-                </ActionList.LinkItem>
-              )
-            })}
-          </ActionList>
-        </div>
-      </Details>
-    )
-  },
-)
-
-BreadcrumbsMenuItem.displayName = 'Breadcrumbs.MenuItem'
-
-const getValidChildren = (children: React.ReactNode) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
+      close()
+      buttonRef.current?.focus()
+    },
+    [close, buttonRef],
+  )
+  useOnOutsideClick({onClickOutside: close, containerRef, ignoreClickRefs: [buttonRef]})
+  return (
+    <div ref={containerRef} className={classes.MenuOverlay}>
+      <ActionList>
+        {items.map(item => {
+          const {children, selected, as: Component, ...itemProps} = item.props
+          return (
+            <ActionList.LinkItem
+              key={item.key}
+              as={Component}
+              {...itemProps}
+              aria-current={selected ? 'page' : undefined}
+            >
+              {children}
+            </ActionList.LinkItem>
+          )
+        })}
+      </ActionList>
+    </div>
+  )
 }
 
 function Breadcrumbs({className, children, style, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
-  const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
-  const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
-  const containerRef = useRef<HTMLElement>(null)
+  const navRef = useRef<HTMLElement>(null)
+  // Last measured width of each crumb, by key. Crumbs keep their width while they are
+  // collapsed, so resizing never needs to render them.
+  const widthsRef = useRef(new Map<React.Key, number>())
+  const [fit, setFit] = useState<Fit>(INITIAL_FIT)
+  // Mirrors `fit` so unchanged results never schedule a render.
+  const fitRef = useRef<Fit>(INITIAL_FIT)
+  // Last measured separator widths. Like the crumb widths they don't depend on the fit.
+  const separatorsRef = useRef(INITIAL_SEPARATORS)
+  const [menuOpen, setMenuOpen] = useState(false)
 
-  const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
-    if (element) {
-      const iconButtonElement = element.querySelector('button[data-component="IconButton"]')
-      if (iconButtonElement) {
-        const measuredWidth = (iconButtonElement as HTMLElement).offsetWidth
-        // eslint-disable-next-line react-hooks/immutability
-        setMenuButtonWidth(measuredWidth)
-      }
-    }
-  }, [])
+  const collapsible = overflow !== 'wrap'
+  const withRoot = overflow === 'menu-with-root'
+  const items = useMemo(() => getValidChildren(children), [children])
+  const itemCount = items.length
 
-  const hideRoot = !(overflow === 'menu-with-root')
-  const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
-  const childArray = useMemo(() => getValidChildren(children), [children])
-
-  const rootItem = childArray[0]
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [visibleItems, setVisibleItems] = useState<React.ReactElement<any>[]>(() => childArray)
-  const [childArrayWidths, setChildArrayWidths] = useState<number[]>(() => [])
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [menuItems, setMenuItems] = useState<React.ReactElement<any>[]>([])
-  const [rootItemWidth, setRootItemWidth] = useState<number>(0)
-
-  const MENU_BUTTON_FALLBACK_WIDTH = 32 // Design system small IconButton
-  const [menuButtonWidth, setMenuButtonWidth] = useState(MENU_BUTTON_FALLBACK_WIDTH)
-
-  useEffect(() => {
-    const listElement = containerRef.current?.querySelector('ol')
-    if (
-      overflowMenuEnabled &&
-      listElement &&
-      listElement.children.length > 0 &&
-      listElement.children.length === childArray.length
-    ) {
-      const listElementArray = Array.from(listElement.children) as HTMLElement[]
-      const widths = listElementArray.map(child => child.offsetWidth)
-      setChildArrayWidths(widths)
-      setRootItemWidth(listElementArray[0].offsetWidth)
-    }
-  }, [childArray, overflowMenuEnabled])
-
-  const calculateOverflow = useCallback(
-    (availableWidth: number) => {
-      let eHideRoot = effectiveHideRoot
-      const MENU_BUTTON_WIDTH = menuButtonWidth
-      const MIN_VISIBLE_ITEMS = !eHideRoot ? 3 : 4
-
-      const calculateVisibleItemsWidth = (w: number[]) => {
-        const widths = w.reduce((sum, width) => sum + width + 16, 0)
-        return !eHideRoot ? rootItemWidth + widths : widths
-      }
-
-      let currentVisibleItems = [...childArray]
-      let currentVisibleItemWidths = [...childArrayWidths]
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let currentMenuItems: React.ReactElement<any>[] = []
-      let currentMenuItemsWidths: number[] = []
-
-      if (availableWidth > 0 && currentVisibleItemWidths.length > 0) {
-        let visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
-
-        if (currentMenuItems.length > 0) {
-          visibleItemsWidthTotal += MENU_BUTTON_WIDTH
-        }
-        while (
-          (overflow === 'menu' || overflow === 'menu-with-root') &&
-          (visibleItemsWidthTotal > availableWidth || currentVisibleItems.length > MIN_VISIBLE_ITEMS)
-        ) {
-          const itemToHide = currentVisibleItems[0]
-          const itemToHideWidth = currentVisibleItemWidths[0]
-          currentMenuItems = [...currentMenuItems, itemToHide]
-          currentMenuItemsWidths = [...currentMenuItemsWidths, itemToHideWidth]
-          currentVisibleItems = currentVisibleItems.slice(1)
-          currentVisibleItemWidths = currentVisibleItemWidths.slice(1)
-
-          visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
-
-          if (currentMenuItems.length > 0) {
-            visibleItemsWidthTotal += MENU_BUTTON_WIDTH
-          }
-
-          if (currentVisibleItems.length === 1 && visibleItemsWidthTotal > availableWidth) {
-            eHideRoot = true
-            break
-          } else {
-            eHideRoot = hideRoot
-          }
-        }
-      }
-      return {
-        visibleItems: currentVisibleItems,
-        menuItems: currentMenuItems,
-        effectiveHideRoot: eHideRoot,
-      }
+  const updateFit = useCallback(
+    (available: number) => {
+      const widths = items.map(item => widthsRef.current.get(item.key ?? '') ?? 0)
+      const next = computeFit(widths, separatorsRef.current, available, withRoot)
+      if (sameFit(fitRef.current, next)) return
+      fitRef.current = next
+      setFit(next)
     },
-    [childArray, childArrayWidths, effectiveHideRoot, hideRoot, overflow, rootItemWidth, menuButtonWidth],
+    [items, withRoot],
   )
 
-  const handleResize = useCallback(
-    (entries: ResizeObserverEntry[]) => {
-      if (overflowMenuEnabled && entries[0]) {
-        const containerWidth = entries[0].contentRect.width
-        const result = calculateOverflow(containerWidth)
-        if (
-          (visibleItems.length !== result.visibleItems.length && menuItems.length !== result.menuItems.length) ||
-          result.effectiveHideRoot !== effectiveHideRoot
-        ) {
-          setVisibleItems(result.visibleItems)
-          setMenuItems(result.menuItems)
-          setEffectiveHideRoot(result.effectiveHideRoot)
+  // Measure the crumbs that are rendered. This only reads layout. Collapsed crumbs that can
+  // reappear stay mounted as zero-size items whose grid track is `max-content` (see the CSS), so
+  // they measure at their natural width whatever their `min-width` is. The
+  // crumb is measured without its separator, and each styling's separator is kept on its own
+  // (taken from any rendered crumb that has one), so measurements don't change when the fit does.
+  const measure = useCallback(
+    (nav: HTMLElement, available: number) => {
+      const previous = widthsRef.current
+      const widths = new Map<React.Key, number>()
+      let separators = separatorsRef.current
+      const range = nav.ownerDocument.createRange()
+      for (const item of items) {
+        const width = previous.get(item.key ?? '')
+        if (width !== undefined) widths.set(item.key ?? '', width)
+      }
+      for (const li of nav.querySelectorAll<HTMLElement>(':scope > ol > li[data-index]')) {
+        const key = items[Number(li.getAttribute('data-index'))]?.key
+        if (key == null) continue
+        const crumbWidth = getCrumbWidth(li, range)
+        widths.set(key, crumbWidth)
+        if (li.nextElementSibling && !li.hasAttribute('data-collapsed')) {
+          const separator = li.getBoundingClientRect().width - crumbWidth
+          const kind = li.classList.contains(classes.ItemWrapper) ? 'plain' : 'collapsed'
+          if (separators[kind] !== separator) separators = {...separators, [kind]: separator}
         }
       }
+      separatorsRef.current = separators
+      widthsRef.current = widths
+      updateFit(available)
     },
-    [calculateOverflow, effectiveHideRoot, menuItems.length, overflowMenuEnabled, visibleItems.length],
+    [items, updateFit],
   )
 
-  useResizeObserver(handleResize, containerRef)
+  // True while the nav had no width (e.g. `display: none`). Its crumbs can't be measured then,
+  // so the previous widths and fit are kept and layout is measured again once it is shown.
+  const hiddenRef = useRef(false)
 
-  useEffect(() => {
-    if (
-      overflowMenuEnabled &&
-      (overflow === 'menu' || overflow === 'menu-with-root') &&
-      childArray.length > 5 &&
-      menuItems.length === 0
-    ) {
-      const containerWidth = containerRef.current?.offsetWidth || 800
-      const result = calculateOverflow(containerWidth)
-      setVisibleItems(result.visibleItems)
-      setMenuItems(result.menuItems)
-      setEffectiveHideRoot(result.effectiveHideRoot)
+  useIsomorphicLayoutEffect(() => {
+    const nav = navRef.current
+    if (!collapsible || !nav) return
+    // Hands layout over from the pre-hydration CSS rules. JS-owned: React never renders it.
+    if (!nav.hasAttribute('data-hydrated')) nav.setAttribute('data-hydrated', '')
+    const available = getContentWidth(nav)
+    hiddenRef.current = available <= 0
+    if (!hiddenRef.current) measure(nav, available)
+  }, [collapsible, fit, menuOpen, measure])
+
+  // Container resizes reuse the cached widths; React only re-renders when the split changes.
+  // The width is read from the element rather than the observer entry because the hook's
+  // fallback reports the border box.
+  useResizeObserver(
+    () => {
+      const nav = navRef.current
+      if (!nav) return
+      const available = getContentWidth(nav)
+      if (available <= 0) {
+        hiddenRef.current = true
+      } else if (hiddenRef.current) {
+        hiddenRef.current = false
+        measure(nav, available)
+      } else {
+        updateFit(available)
+      }
+    },
+    navRef,
+    [],
+    collapsible,
+  )
+
+  let content: React.ReactNode
+  if (!collapsible) {
+    if (menuOpen) setMenuOpen(false)
+    content = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
+  } else {
+    const collapsed = Math.min(Math.max(itemCount - 1, 0), countRule(withRoot, fit.narrow, itemCount) + fit.extra)
+    const rootVisible = withRoot && !(collapsed > 0 && fit.rootCollapsed)
+    const menuItems = items.slice(rootVisible ? 1 : 0, collapsed)
+    if (menuOpen && menuItems.length === 0) setMenuOpen(false)
+
+    // Until something collapses, crumbs use the `wrap` styling. Only the `li` class and the
+    // trailing separator change between the two, so crumbs are never remounted.
+    const plain = menuItems.length === 0
+    // Crumbs below the count rule at full width can never reappear, so they are not rendered.
+    const alwaysCollapsed = countRule(withRoot, false, itemCount)
+    const listItems: React.ReactNode[] = []
+    for (const [index, item] of items.entries()) {
+      const isRoot = withRoot && index === 0
+      const isCollapsed = index < collapsed && !(isRoot && rootVisible)
+      if (isCollapsed && index < alwaysCollapsed && !isRoot) continue
+      // While the menu is open it shows the collapsed crumbs, so they are not also rendered here.
+      const rendered = !isCollapsed || !menuOpen
+      listItems.push(
+        <li
+          key={item.key}
+          className={plain ? classes.ItemWrapper : classes.BreadcrumbsItem}
+          data-index={rendered ? index : undefined}
+          data-collapsed={isCollapsed ? '' : undefined}
+        >
+          {rendered ? item : null}
+          {plain ? null : <ItemSeparator />}
+        </li>,
+      )
     }
-  }, [overflow, childArray, calculateOverflow, menuItems.length, overflowMenuEnabled])
-
-  const finalChildren = React.useMemo(() => {
-    if (overflowMenuEnabled) {
-      if (overflow === 'wrap' || menuItems.length === 0) {
-        return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
-      }
-
-      let effectiveMenuItems = [...menuItems]
-      // In 'menu-with-root' mode, include the root item inside the menu even if it's visible in the breadcrumbs
-      if (!effectiveHideRoot) {
-        effectiveMenuItems = [...menuItems.slice(1)]
-      }
-      const menuElement = (
-        <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
-          <BreadcrumbsMenuItem
-            ref={measureMenuButton}
-            items={effectiveMenuItems}
-            aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
+    // Before hydration, CSS approximates the narrow rule and needs the menu to be present.
+    // It stays hidden otherwise.
+    const narrowCollapse = !withRoot && itemCount > 2
+    if (!plain || narrowCollapse) {
+      listItems.splice(
+        withRoot && rootVisible ? 1 : 0,
+        0,
+        <li className={classes.BreadcrumbsItem} data-overflow-menu="" hidden={plain} key="breadcrumbs-menu">
+          <OverflowMenu
+            items={plain ? items.slice(0, itemCount - 1) : menuItems}
+            open={menuOpen}
+            setOpen={setMenuOpen}
           />
           <ItemSeparator />
-        </li>
+        </li>,
       )
-
-      const visibleElements = visibleItems.map((child, index) => (
-        <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
-          {child}
-          <ItemSeparator />
-        </li>
-      ))
-
-      const rootElement = (
-        <li className={classes.BreadcrumbsItem} key={`rootElement`}>
-          {rootItem}
-          <ItemSeparator />
-        </li>
-      )
-
-      if (effectiveHideRoot) {
-        // Show: [overflow menu, leaf breadcrumb]
-        return [menuElement, ...visibleElements]
-      } else {
-        // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
-        return [rootElement, menuElement, ...visibleElements]
-      }
     }
-  }, [overflowMenuEnabled, overflow, menuItems, effectiveHideRoot, measureMenuButton, visibleItems, rootItem, children])
+    content = listItems
+  }
 
-  return overflowMenuEnabled ? (
+  return (
     <nav
       className={clsx(className, classes.BreadcrumbsBase)}
       aria-label="Breadcrumbs"
       style={style}
-      ref={containerRef}
+      ref={navRef}
       data-overflow={overflow}
       data-variant={variant}
+      data-component="Breadcrumbs"
     >
-      <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
-    </nav>
-  ) : (
-    <nav
-      className={clsx(className, classes.BreadcrumbsBase)}
-      aria-label="Breadcrumbs"
-      style={style}
-      data-variant={variant}
-    >
-      <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
+      <ol
+        className={classes.BreadcrumbsList}
+        data-narrow-collapse={collapsible && overflow === 'menu' && itemCount > 2 ? '' : undefined}
+      >
+        {content}
+      </ol>
     </nav>
   )
 }
@@ -365,41 +365,40 @@ const ItemSeparator = () => {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any ? Omit<T, TOmitted> : never
+type StyledBreadcrumbsItemProps<As extends React.ElementType = 'a'> = PolymorphicProps<
+  As,
+  'a',
+  {
+    to?: To
+    selected?: boolean
+  }
+>
 
-type StyledBreadcrumbsItemProps<As extends React.ElementType> = {
-  as?: As
-  to?: To
-  selected?: boolean
-  className?: string
-  style?: React.CSSProperties
-} & DistributiveOmit<React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>, 'as'>
-
-function BreadcrumbsItemComponent<As extends React.ElementType>(
-  props: StyledBreadcrumbsItemProps<As>,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ref: ForwardedRef<any>,
-) {
-  const {as: Component = 'a', selected, className, ...rest} = props
-  return (
-    <Component
-      className={clsx(className, classes.Item, selected && 'selected')}
-      aria-current={selected ? 'page' : undefined}
-      ref={ref}
-      {...rest}
-    />
-  )
-}
-
-BreadcrumbsItemComponent.displayName = 'Breadcrumbs.Item'
-
-const BreadcrumbsItem = React.forwardRef(BreadcrumbsItemComponent)
+const BreadcrumbsItem = fixedForwardRef(
+  <As extends React.ElementType = 'a'>(
+    props: StyledBreadcrumbsItemProps<As>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ref: ForwardedRef<any>,
+  ) => {
+    const {as: Component = 'a', selected, className, ...rest} = props
+    return (
+      <Component
+        className={clsx(className, classes.Item, selected && 'selected')}
+        aria-current={selected ? 'page' : undefined}
+        ref={ref}
+        data-component="Breadcrumbs.Item"
+        {...rest}
+      />
+    )
+  },
+)
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
 export type BreadcrumbsItemProps<As extends React.ElementType = 'a'> = StyledBreadcrumbsItemProps<As>
-export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
+
+const BreadcrumbsItemWithDisplayName = Object.assign(BreadcrumbsItem, {displayName: 'Breadcrumbs.Item'})
+export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItemWithDisplayName})
 
 /**
  * @deprecated Use the `Breadcrumbs` component instead (i.e. `<Breadcrumb>` → `<Breadcrumbs>`)

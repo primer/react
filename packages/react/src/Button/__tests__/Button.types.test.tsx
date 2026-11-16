@@ -41,6 +41,20 @@ export function iconButtonRequiredProps() {
   )
 }
 
+export function iconButtonSupportsIconElement() {
+  return (
+    <>
+      <IconButton icon={<StopIcon />} aria-label="Stop icon" />
+      <IconButton icon={<StopIcon />} aria-labelledby="stop-label" />
+      <IconButton as="a" href="/" icon={<StopIcon />} aria-label="Stop icon" />
+    </>
+  )
+}
+
+export function iconButtonSupportsReactNode() {
+  return <IconButton icon="icon" aria-label="Stop icon" />
+}
+
 export function iconButtonShouldNotHaveLabelAndLabelledBy() {
   // @ts-expect-error aria-label and aria-labelledby should not be allowed together
   return <IconButton icon={StopIcon} aria-label="Stop icon" aria-labelledby="Stop icon" />

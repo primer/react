@@ -1,9 +1,12 @@
 'use client'
 
 export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
+export {AriaStatus, AriaAlert} from './live-region'
+export type {AriaStatusProps, AriaAlertProps} from './live-region'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
-export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProvider'
+export {default as ThemeProvider} from './ThemeProvider'
+export {useTheme, useColorSchemeVar} from './useTheme'
 export type {ThemeProviderProps} from './ThemeProvider'
 
 // Layout
@@ -15,6 +18,15 @@ export type {
   PageLayoutContentProps,
   PageLayoutPaneProps,
   PageLayoutFooterProps,
+} from './PageLayout'
+export {usePaneWidth, defaultPaneWidth, DragHandle} from './PageLayout'
+export type {
+  DragHandleProps,
+  UsePaneWidthOptions,
+  UsePaneWidthResult,
+  PaneWidth,
+  PaneWidthValue,
+  CustomWidthOptions,
 } from './PageLayout'
 export {SplitPageLayout} from './SplitPageLayout'
 export type {
@@ -33,12 +45,13 @@ export type {TouchOrMouseEvent} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
-export {useConfirm} from './ConfirmationDialog/ConfirmationDialog'
+export {useConfirm} from './ConfirmationDialog/useConfirm'
 export {useFocusTrap} from './hooks/useFocusTrap'
 export type {FocusTrapHookSettings} from './hooks/useFocusTrap'
-export {useFocusZone} from './hooks/useFocusZone'
+export {FocusKeys, useFocusZone} from './hooks/useFocusZone'
 export type {FocusZoneHookSettings} from './hooks/useFocusZone'
 export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
+export {useMergedRefs} from './hooks/useMergedRefs'
 export {useResizeObserver} from './hooks/useResizeObserver'
 export {useResponsiveValue, type ResponsiveValue} from './hooks/useResponsiveValue'
 export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutEffect'
@@ -49,7 +62,10 @@ export {useAnchoredPosition, type AnchoredPositionHookSettings} from './hooks/us
 
 // Utils
 export {createComponent} from './utils/create-component'
-export type {SlotMarker} from './utils/types'
+export type {SlotMarker, WithSlotMarker, FCWithSlotMarker} from './utils/types'
+export {asSlot} from './utils/as-slot'
+export {isSlot} from './utils/is-slot'
+export {useSlots} from './hooks/useSlots'
 
 // Components
 export {default as Radio} from './Radio'
@@ -58,11 +74,14 @@ export {ActionList} from './ActionList'
 export type {
   ActionListProps,
   ActionListGroupProps,
+  ActionListGroupHeadingProps,
+  ActionListGroupHeadingTrailingActionProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
   ActionListDescriptionProps,
   ActionListLeadingVisualProps,
+  ActionListTrailingActionProps,
   ActionListTrailingVisualProps,
 } from './ActionList'
 export {ActionMenu} from './ActionMenu'
@@ -92,8 +111,8 @@ export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
 export {default as Details} from './Details'
 export type {DetailsProps} from './Details'
-export {Dialog} from './Dialog/Dialog'
-export type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from './Dialog/Dialog'
+export {Dialog} from './Dialog'
+export type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from './Dialog'
 export type {ConfirmationDialogProps} from './ConfirmationDialog/ConfirmationDialog'
 export {ConfirmationDialog} from './ConfirmationDialog/ConfirmationDialog'
 export {default as Flash} from './Flash'
@@ -146,6 +165,8 @@ export type {
   SegmentedControlProps,
   SegmentedControlButtonProps,
   SegmentedControlIconButtonProps,
+  SegmentedControlActionProps,
+  SegmentedControlDividerProps,
 } from './SegmentedControl'
 // Currently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
 export {default as Select} from './Select'
@@ -176,6 +197,9 @@ export type {TextProps} from './Text'
 export {default as Timeline} from './Timeline'
 export type {
   TimelineProps,
+  TimelineActionsProps,
+  TimelineAvatarProps,
+  TimelineBadgeVariant,
   TimelineBadgeProps,
   TimelineBodyProps,
   TimelineBreakProps,
@@ -196,6 +220,7 @@ export {default as Textarea} from './Textarea'
 export type {TextareaProps} from './Textarea'
 
 export {TreeView} from './TreeView'
+export {useRovingTabIndex} from './TreeView/useRovingTabIndex'
 export type {
   TreeViewProps,
   TreeViewItemProps,

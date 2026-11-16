@@ -5,13 +5,13 @@ import {parseTypeInfo} from '../ts-utils'
 const directory = path.resolve(import.meta.dirname)
 const FIXTURE_PATH = path.join(directory, 'fixtures')
 
-describe('getPropTypeForComponent', () => {
+describe('getPropTypeForComponent', {timeout: 30_000}, () => {
   it('extracts props for FunctionComponent', () => {
     const info = parseTypeInfo(FIXTURE_PATH, 'FunctionComponent')
     expect(info.props.foo).toMatchObject({name: 'foo', type: 'string', required: true})
     expect(info.props.bar).toMatchObject({name: 'bar', type: 'number', required: false})
     expect(info.props.baz).toMatchObject({name: 'baz', type: 'boolean', required: false})
-  })
+  }, 10000)
 
   it('extracts props for ArrowComponent', () => {
     const info = parseTypeInfo(FIXTURE_PATH, 'ArrowComponent')

@@ -1,16 +1,36 @@
-import type React from 'react'
+import {useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
-import type {UniqueRow} from './row'
-import type {ObjectPaths} from './utils'
-import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
+import type {DataTableData, DataTableRowGroup, DataTableRowId, UniqueRow} from './row'
+import type {IsAny, ObjectPaths} from './utils'
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableSortHeader,
+  TableSelectionHeader,
+  TableCell,
+  TableRowSelection,
+} from './Table'
+import {TableGroup} from './TableGroup'
+import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
+import classes from './TableBulkActions.module.css'
+import VisuallyHidden from '../_VisuallyHidden'
+
+export interface DataTableBulkActionsContext {
+  selectedRows: ReadonlySet<DataTableRowId>
+  selectedCount: number
+  clearSelection: () => void
+}
 
 // ----------------------------------------------------------------------------
 // DataTable
 // ----------------------------------------------------------------------------
 
-export type DataTableProps<Data extends UniqueRow> = {
+type DataTableBaseProps<Data extends UniqueRow> = {
   /**
    * Provide an id to an element which uniquely describes this table
    */
@@ -26,11 +46,6 @@ export type DataTableProps<Data extends UniqueRow> = {
    * a cell
    */
   cellPadding?: 'condensed' | 'normal' | 'spacious'
-
-  /**
-   * Provide a collection of the rows which will be rendered inside of the table
-   */
-  data: Array<Data>
 
   /**
    * Provide the columns for the table and the fields in `data` to which they
@@ -52,13 +67,20 @@ export type DataTableProps<Data extends UniqueRow> = {
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
 
   /**
+   * When true, disables client-side sorting for all sortable columns in the
+   * table. Use this when sorting is handled server-side. The `onToggleSort`
+   * callback will still be fired when a sortable column header is clicked.
+   */
+  externalSorting?: boolean
+
+  /**
    * Provide a function to determine the unique identifier for each row.
    * This function allows you to customize the key used for the row.
    * By default, the table uses the `id` field from the data.
    * @param rowData The row data object for which the ID is being retrieved.
    * @returns The unique identifier for the row, which can be a string or number.
    */
-  getRowId?: (rowData: Data) => string | number
+  getRowId?: (rowData: Data) => DataTableRowId
 
   /**
    * Fires every time the user clicks a sortable column header. It reports
@@ -66,13 +88,86 @@ export type DataTableProps<Data extends UniqueRow> = {
    * (never `"NONE"`).
    */
   onToggleSort?: (columnId: ObjectPaths<Data> | string | number, direction: Exclude<SortDirection, 'NONE'>) => void
+
+  /**
+   * Whether to render controls for selecting rows.
+   */
+  rowSelection?: boolean
+
+  /**
+   * Controls the selected row IDs.
+   */
+  selectedRows?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Provides the initially selected row IDs for an uncontrolled table.
+   * Uncontrolled selection is intended for static, single-page data.
+   */
+  defaultSelectedRows?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Handles changes to the selected row IDs.
+   */
+  onSelectionChange?: ({selectedRows}: {selectedRows: Set<DataTableRowId>}) => void
+
+  /**
+   * Determines whether a row can be selected.
+   */
+  isRowSelectable?: (row: Data) => boolean
+
+  /**
+   * Whether groups have disclosure controls. Groups are expanded by default.
+   */
+  collapsibleGroups?: boolean
+
+  getGroupRowCountLabel?: (rowCount: number) => string
+
+  /**
+   * Controls the expanded group IDs.
+   */
+  expandedGroups?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Initially expanded group IDs. Defaults to all groups in the initial data.
+   */
+  defaultExpandedGroups?: ReadonlySet<DataTableRowId>
+
+  /**
+   * Handles requests to change the expanded group IDs.
+   */
+  onExpandedGroupsChange?: ({expandedGroups}: {expandedGroups: Set<DataTableRowId>}) => void
+
+  renderBulkActions?: (context: DataTableBulkActionsContext) => ReactNode
+  bulkActionsProps?: Pick<TableBulkActionsProps, 'aria-label' | 'getSelectedCountLabel'>
+  bulkActionsReturnFocusRef?: RefObject<HTMLElement | null>
+}
+
+export type DataTableProps<Data extends UniqueRow> = DataTableBaseProps<Data> & {
+  /**
+   * Provide a collection of rows, row groups, or a mixture of both.
+   */
+  data: DataTableData<Data>
 }
 
 function defaultGetRowId<D extends UniqueRow>(row: D) {
   return row.id
 }
 
-function DataTable<Data extends UniqueRow>({
+type DataFromItem<Item> = Item extends DataTableRowGroup<infer Data> ? Data : Item extends UniqueRow ? Item : never
+
+type DataFromInput<Input extends DataTableData<UniqueRow>> =
+  IsAny<Input> extends true ? UniqueRow : DataFromItem<Input[number]>
+
+type InferredDataTableProps<Input extends DataTableData<UniqueRow>> = DataTableBaseProps<DataFromInput<Input>> & {
+  data: Input & DataTableData<DataFromInput<Input>>
+}
+
+interface DataTableComponent {
+  <Data extends UniqueRow>(props: DataTableProps<Data>): ReactElement
+  <Input extends DataTableData<UniqueRow>>(props: InferredDataTableProps<Input>): ReactElement
+}
+
+function DataTableImplementation<Data extends UniqueRow>({
   'aria-labelledby': labelledby,
   'aria-describedby': describedby,
   cellPadding,
@@ -80,31 +175,137 @@ function DataTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
+  externalSorting,
   getRowId = defaultGetRowId,
   onToggleSort,
+  rowSelection = false,
+  selectedRows,
+  defaultSelectedRows,
+  onSelectionChange,
+  isRowSelectable,
+  collapsibleGroups = false,
+  getGroupRowCountLabel,
+  expandedGroups,
+  defaultExpandedGroups,
+  onExpandedGroupsChange,
+  renderBulkActions,
+  bulkActionsProps,
+  bulkActionsReturnFocusRef,
 }: DataTableProps<Data>) {
-  const {headers, rows, actions, gridTemplateColumns} = useTable({
+  const selectionCheckboxRef = useRef<HTMLInputElement>(null)
+  const tableRef = useRef<HTMLTableElement>(null)
+  const bulkActionsId = useId()
+  const table = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
     getRowId,
+    externalSorting,
+    rowSelection,
+    selectedRows,
+    defaultSelectedRows,
+    onSelectionChange,
+    isRowSelectable,
+    collapsibleGroups,
+    expandedGroups,
+    defaultExpandedGroups,
+    onExpandedGroupsChange,
   })
+  const {headers, bodies, actions, selection, gridTemplateColumns} = table
+  const hasBulkActions = Boolean(rowSelection && renderBulkActions)
+  const bulkActionsActive = hasBulkActions && selection.selectedCount > 0
+
+  const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
+    <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
+      {rowSelection ? (
+        <TableRowSelection
+          selected={row.selected}
+          disabled={!row.selectable}
+          headers={selection.headerId}
+          aria-label={row.selectionLabelledBy ? undefined : `Select row ${row.selectionId}`}
+          aria-labelledby={row.selectionLabelledBy}
+          onToggleSelect={() => {
+            actions.toggleRowSelection(row)
+          }}
+        />
+      ) : null}
+      {row.getCells().map(cell => (
+        <TableCell
+          key={cell.id}
+          id={cell.domId}
+          scope={cell.rowHeader ? 'row' : undefined}
+          align={cell.column.align}
+          headers={cell.headers}
+        >
+          {cell.column.renderCell ? cell.column.renderCell(row.getValue()) : (cell.getValue() as ReactNode)}
+        </TableCell>
+      ))}
+    </TableRow>
+  )
 
   return (
     <Table
+      ref={tableRef}
+      tabIndex={hasBulkActions ? -1 : undefined}
       aria-labelledby={labelledby}
       aria-describedby={describedby}
       cellPadding={cellPadding}
       gridTemplateColumns={gridTemplateColumns}
     >
       <TableHead>
-        <TableRow>
-          {headers.map(header => {
+        <TableRow className={hasBulkActions ? classes.HeaderRow : undefined}>
+          {rowSelection ? (
+            <TableSelectionHeader
+              checkboxRef={selectionCheckboxRef}
+              id={selection.headerId}
+              selection={selection.allSelected ? 'all' : selection.someSelected ? 'some' : 'none'}
+              disabled={selection.selectableCount === 0}
+              aria-label="Select rows"
+              aria-description={
+                selection.selectableCount > 0
+                  ? `Select all ${selection.selectableCount} ${selection.selectableCount === 1 ? 'row' : 'rows'}`
+                  : undefined
+              }
+              onToggleSelect={() => {
+                actions.toggleAllRows()
+              }}
+            />
+          ) : null}
+          {headers.map((header, index) => {
+            if (bulkActionsActive) {
+              const labelId = typeof header.column.header === 'string' ? undefined : `${bulkActionsId}-column-${index}`
+              return (
+                <TableHeader
+                  key={header.id}
+                  id={header.domId}
+                  aria-labelledby={labelId}
+                  align={header.column.align}
+                  aria-sort={
+                    header.getSortDirection() === 'ASC'
+                      ? 'ascending'
+                      : header.getSortDirection() === 'DESC'
+                        ? 'descending'
+                        : undefined
+                  }
+                >
+                  <span className={classes.ColumnLabel}>
+                    {typeof header.column.header === 'string' ? (
+                      <VisuallyHidden>{header.column.header}</VisuallyHidden>
+                    ) : (
+                      <span id={labelId} hidden>
+                        {header.column.header()}
+                      </span>
+                    )}
+                  </span>
+                </TableHeader>
+              )
+            }
             if (header.isSortable()) {
               return (
                 <TableSortHeader
                   key={header.id}
+                  id={header.domId}
                   align={header.column.align}
                   direction={header.getSortDirection()}
                   onToggleSort={() => {
@@ -119,32 +320,78 @@ function DataTable<Data extends UniqueRow>({
               )
             }
             return (
-              <TableHeader key={header.id} align={header.column.align}>
+              <TableHeader key={header.id} id={header.domId} align={header.column.align}>
                 {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
               </TableHeader>
             )
           })}
         </TableRow>
+        {hasBulkActions ? (
+          <TableRow className={classes.HeaderRow}>
+            <VisuallyHidden
+              as="td"
+              isVisible={bulkActionsActive}
+              colSpan={headers.length + 1}
+              role="cell"
+              className={bulkActionsActive ? classes.BulkActionsCell : undefined}
+            >
+              <TableBulkActions
+                {...bulkActionsProps}
+                selectedCount={selection.selectedCount}
+                onFocusReturn={() => {
+                  const target = bulkActionsReturnFocusRef?.current
+                  if (target?.isConnected) {
+                    target.focus()
+                  } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
+                    selectionCheckboxRef.current.focus()
+                  } else {
+                    tableRef.current?.focus()
+                  }
+                }}
+              >
+                {bulkActionsActive
+                  ? renderBulkActions?.({
+                      selectedRows: new Set(selection.selectedRows),
+                      selectedCount: selection.selectedCount,
+                      clearSelection: actions.clearSelection,
+                    })
+                  : null}
+              </TableBulkActions>
+            </VisuallyHidden>
+          </TableRow>
+        ) : null}
       </TableHead>
-      <TableBody>
-        {rows.map(row => {
-          return (
-            <TableRow key={row.id}>
-              {row.getCells().map(cell => {
-                return (
-                  <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
-                    {cell.column.renderCell
-                      ? cell.column.renderCell(row.getValue())
-                      : (cell.getValue() as React.ReactNode)}
-                  </TableCell>
-                )
-              })}
-            </TableRow>
-          )
-        })}
-      </TableBody>
+      {bodies.map(body =>
+        body.type === 'row-group' ? (
+          <TableGroup
+            key={body.key}
+            id={body.id}
+            label={body.label}
+            rowCount={body.rows.length}
+            getRowCountLabel={getGroupRowCountLabel}
+            colSpan={headers.length + (rowSelection ? 1 : 0)}
+            aria-label={body['aria-label']}
+            collapsible={collapsibleGroups}
+            expanded={body.expanded}
+            selection={rowSelection && collapsibleGroups ? body.selection : undefined}
+            selectionDisabled={!body.selectable}
+            onToggleSelect={() => {
+              actions.toggleGroupSelection(body)
+            }}
+            onExpandedChange={() => {
+              actions.toggleGroupExpansion(body)
+            }}
+          >
+            {body.rows.map(renderRow)}
+          </TableGroup>
+        ) : (
+          <TableBody key={body.key}>{body.rows.map(renderRow)}</TableBody>
+        ),
+      )}
     </Table>
   )
 }
+
+const DataTable = DataTableImplementation as DataTableComponent
 
 export {DataTable}

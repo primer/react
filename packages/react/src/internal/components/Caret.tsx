@@ -95,7 +95,7 @@ function Caret(props: CaretProps) {
       }}
       role="presentation"
     >
-      <g className={classes.CaretGroup} transform={transform}>
+      <g transform={transform}>
         <path d={triangle} className={classes.CaretTriangle} />
         <path d={line} className={classes.CaretBorder} />
       </g>

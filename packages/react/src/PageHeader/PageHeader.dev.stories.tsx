@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {Button, IconButton} from '..'
+import {Button, IconButton} from '../Button'
 import Label from '../Label'
 import {GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
 import classes from './PageHeader.dev.stories.module.css'

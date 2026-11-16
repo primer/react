@@ -146,7 +146,7 @@
       "name": "textInputProps",
       "type": "Partial<Omit<TextInputProps, 'onChange'>>",
       "defaultValue": "",
-      "description": "See [TextInput props](/react/TextInput#props)."
+      "description": "See [TextInput props](/react/TextInput#props). The filter input uses the normal TextInput background by default. Enable `primer_react_select_panel_legacy_contrast` to restore the previous contrast background. An explicit `textInputProps.contrast` value takes precedence over the flag: `true` enables contrast, while `false` or explicitly passing `undefined` disables it. The `contrast` prop remains deprecated."
     },
     {
       "name": "variant",
@@ -219,12 +219,30 @@
       "type": "Partial<ActionListProps>",
       "defaultValue": "undefined",
       "description": "See [ActionList props](/react/ActionList#props)."
-    },  
+    },
     {
       "name": "focusOutBehavior",
-       "type": "'start' | 'wrap'",
+      "type": "'start' | 'wrap'",
       "defaultValue": "'wrap'",
       "description": "Determines how keyboard focus behaves when navigating beyond the first or last item in the list."
+    },
+    {
+      "name": "onActiveDescendantChanged",
+      "type": "(newActiveDescendant: HTMLElement | undefined, previousActiveDescendant: HTMLElement | undefined, directlyActivated: boolean) => void | undefined",
+      "defaultValue": "undefined",
+      "description": "Callback function that is called when the active descendant changes."
+    },
+    {
+      "name": "virtualized",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If true, enables client-side list virtualization. Only the visible items plus a small overscan buffer are rendered in the DOM, dramatically improving performance for large lists. Recommended for lists with more than 100 items. Has no effect when `groupMetadata` is provided."
+    },
+    {
+      "name": "displayInViewport",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If true, the panel will attempt to fit entirely into the visible viewport, without having to scroll."
     }
   ],
   "subcomponents": []

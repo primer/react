@@ -25,6 +25,7 @@ const FormControlValidation: FCWithSlotMarker<React.PropsWithChildren<FormContro
       validationStatus={variant}
       id={id || validationMessageId || ''}
       style={style}
+      data-component="FormControl.Validation"
     >
       {children}
     </InputValidation>

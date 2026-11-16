@@ -1,13 +1,7 @@
 import type React from 'react'
 import {useCallback} from 'react'
-import {createRoot} from 'react-dom/client'
-import {FocusKeys} from '@primer/behaviors'
-import type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
-import {Dialog} from '../Dialog/Dialog'
-import {useFocusZone} from '../hooks/useFocusZone'
-import BaseStyles from '../BaseStyles'
-import classes from './ConfirmationDialog.module.css'
-import Heading from '../Heading'
+import type {DialogButtonProps, DialogWidth, DialogHeight} from '../Dialog'
+import {Dialog} from '../Dialog'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -81,39 +75,6 @@ export interface ConfirmationDialogProps {
   height?: DialogHeight
 }
 
-const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({title, onClose, dialogLabelId}) => {
-  const onCloseClick = useCallback(() => {
-    onClose('close-button')
-  }, [onClose])
-
-  return (
-    <div className={classes.ConfirmationHeader}>
-      <Heading id={dialogLabelId} as="h1" variant="small">
-        {title}
-      </Heading>
-      <Dialog.CloseButton onClose={onCloseClick} />
-    </div>
-  )
-}
-
-const ConfirmationBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
-  return <div className={classes.ConfirmationBody}>{children}</div>
-}
-
-const ConfirmationFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
-  const {containerRef: footerRef} = useFocusZone({
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
-    focusInStrategy: 'closest',
-  })
-
-  // Must have exactly 2 buttons!
-  return (
-    <div ref={footerRef as React.RefObject<HTMLDivElement>} className={classes.ConfirmationFooter}>
-      <Dialog.Buttons buttons={footerButtons ?? []} />
-    </div>
-  )
-}
-
 /**
  * A ConfirmationDialog is a special kind of dialog with more rigid behavior. It
  * is used to confirm a user action. ConfirmationDialogs always have exactly
@@ -161,6 +122,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   const footerButtons = [cancelButton, confirmButton]
   return (
     <Dialog
+      data-component="ConfirmationDialog"
       onClose={onClose}
       title={title}
       footerButtons={footerButtons}
@@ -168,49 +130,8 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
       width={width}
       height={height}
       className={className}
-      renderHeader={ConfirmationHeader}
-      renderBody={ConfirmationBody}
-      renderFooter={ConfirmationFooter}
     >
       {children}
     </Dialog>
   )
-}
-
-let hostElement: Element | null = null
-export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content: React.ReactNode}
-async function confirm(options: ConfirmOptions): Promise<boolean> {
-  const {content, ...confirmationDialogProps} = options
-  return new Promise(resolve => {
-    hostElement ||= document.createElement('div')
-    if (!hostElement.isConnected) document.body.append(hostElement)
-    const root = createRoot(hostElement)
-    const onClose: ConfirmationDialogProps['onClose'] = gesture => {
-      root.unmount()
-      if (gesture === 'confirm') {
-        resolve(true)
-      } else {
-        resolve(false)
-      }
-    }
-    root.render(
-      <BaseStyles>
-        <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
-          {content}
-        </ConfirmationDialog>
-      </BaseStyles>,
-    )
-  })
-}
-
-/**
- * This hook takes no parameters and returns an `async` function, `confirm`. When `confirm`
- * is called, it shows the confirmation dialog. When the dialog is dismissed, a promise is
- * resolved with `true` or `false` depending on whether or not the confirm button was used.
- */
-export function useConfirm() {
-  const result = useCallback((options: ConfirmOptions) => {
-    return confirm(options)
-  }, [])
-  return result
 }

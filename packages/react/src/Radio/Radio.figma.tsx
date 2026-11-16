@@ -1,4 +1,5 @@
-import {FormControl, Radio} from '../'
+import FormControl from '../FormControl'
+import Radio from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(Radio, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15341-46367&m=dev', {

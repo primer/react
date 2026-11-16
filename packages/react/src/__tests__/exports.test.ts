@@ -57,6 +57,20 @@ describe('@primer/react/deprecated', () => {
   })
 })
 
+describe('@primer/react/next', () => {
+  it('should not update exports without a semver change', async () => {
+    const exports = project.getEntrypointExports(path.join(ROOT_DIR, 'src', 'next', 'index.ts'))
+    expect(
+      exports.map(exportInfo => {
+        if (exportInfo.type === 'type') {
+          return `type ${exportInfo.identifier}`
+        }
+        return exportInfo.identifier
+      }),
+    ).toMatchSnapshot()
+  })
+})
+
 interface Project {
   getEntrypointExports(filepath: string): Array<EntrypointExport>
 }
@@ -123,6 +137,9 @@ async function setup(): Promise<Project> {
 
     // experimental
     path.join(ROOT_DIR, 'src', 'experimental', 'index.ts'),
+
+    // next
+    path.join(ROOT_DIR, 'src', 'next', 'index.ts'),
   ]
   const BareModule = {
     create(specifier: string): BareModule {
@@ -272,21 +289,8 @@ async function setup(): Promise<Project> {
         'typescript',
         // Language
         'jsx',
-        // Proposal
-        'classProperties',
-        'classPrivateProperties',
-        'classPrivateMethods',
         'decorators-legacy',
-        'dynamicImport',
         'exportDefaultFrom',
-        'exportNamespaceFrom',
-        'importMeta',
-        'nullishCoalescingOperator',
-        'numericSeparator',
-        'objectRestSpread',
-        'optionalCatchBinding',
-        'optionalChaining',
-        'topLevelAwait',
       ],
     })
 
@@ -342,21 +346,8 @@ async function setup(): Promise<Project> {
         'typescript',
         // Language
         'jsx',
-        // Proposal
-        'classProperties',
-        'classPrivateProperties',
-        'classPrivateMethods',
         'decorators-legacy',
-        'dynamicImport',
         'exportDefaultFrom',
-        'exportNamespaceFrom',
-        'importMeta',
-        'nullishCoalescingOperator',
-        'numericSeparator',
-        'objectRestSpread',
-        'optionalCatchBinding',
-        'optionalChaining',
-        'topLevelAwait',
       ],
     })
 

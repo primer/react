@@ -10,6 +10,9 @@ import githubPlugin from 'eslint-plugin-github'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefreshPlugin from 'eslint-plugin-react-refresh'
+import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
+import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import primerReact from 'eslint-plugin-primer-react'
@@ -32,10 +35,10 @@ const github = githubPlugin.getFlatConfigs()
  */
 const config = defineConfig([
   globalIgnores([
+    '.agents/**/*',
     '**/.cache',
     'coverage/**/*',
     'docs/public/**/*',
-    'lib/**/*',
     'types/**/*',
     'consumer-test/**/*',
     'contributor-docs/adrs/*',
@@ -48,8 +51,6 @@ const config = defineConfig([
     '**/storybook-static/**/*',
     '**/.next/**/*',
     'dist/**/*',
-    '**/lib/**/*',
-    '**/lib-esm/**/*',
     '**/dist/**/*',
     'script/**/*.ts',
     '**/*.module.css.d.ts',
@@ -58,15 +59,36 @@ const config = defineConfig([
 
   js.configs.recommended,
 
-  react.configs.flat.recommended,
-  react.configs.flat['jsx-runtime'],
+  ...fixupConfigRules([react.configs.flat.recommended, react.configs.flat['jsx-runtime']]),
   reactHooks.configs.flat['recommended-latest'],
+  {
+    files: ['**/*.{jsx,tsx}'],
+    ignores: ['packages/styled-react/src/index.tsx'],
+    plugins: {
+      'react-refresh': reactRefreshPlugin,
+    },
+    rules: {
+      'react-refresh/only-export-components': [
+        'error',
+        {
+          allowConstantExport: true,
+          allowExportNames: ['metadata'],
+          extraHOCs: ['assign', 'fixedForwardRef'],
+        },
+      ],
+    },
+  },
+  // Disable react-compiler rule for files not yet migrated
+  {
+    files: reactCompilerUnsupported.map(p => `packages/react/${p}`),
+    rules: {
+      'react-compiler/react-compiler': 'off',
+    },
+  },
 
-  github.browser,
-  github.recommended,
-  github.react,
+  ...fixupConfigRules([github.browser, github.recommended, github.react]),
 
-  prettierRecommended,
+  ...fixupConfigRules([prettierRecommended]),
 
   tseslint.configs.recommended,
   // @eslint-react/eslint-plugin
@@ -95,6 +117,9 @@ const config = defineConfig([
     },
   },
 
+  // eslint-plugin-react-you-might-not-need-an-effect
+  reactYouMightNotNeedAnEffect.configs.recommended,
+
   {
     extends: fixupConfigRules(compat.extends('plugin:clsx/recommended', 'plugin:ssr-friendly/recommended')),
   },
@@ -106,14 +131,11 @@ const config = defineConfig([
     },
     rules: {
       'primer-react/direct-slot-children': 'error',
-      'primer-react/no-system-props': 'error',
       'primer-react/a11y-tooltip-interactive-trigger': 'error',
       'primer-react/new-color-css-vars': 'error',
       'primer-react/a11y-explicit-heading': 'error',
       'primer-react/no-deprecated-props': 'error',
       'primer-react/a11y-remove-disable-tooltip': 'error',
-      'primer-react/a11y-use-next-tooltip': 'error',
-      'primer-react/no-unnecessary-components': 'error',
       'primer-react/prefer-action-list-item-onselect': 'error',
     },
   },
@@ -137,6 +159,9 @@ const config = defineConfig([
     settings: {
       react: {
         version: 'detect',
+      },
+      'react-hooks': {
+        additionalEffectHooks: '(useDevOnlyEffect)',
       },
     },
     rules: {
@@ -168,8 +193,13 @@ const config = defineConfig([
       'github/filenames-match-regex': 'off',
       'github/no-inner-html': 'off',
       'github/role-supports-aria-props': 'off',
-      'no-restricted-syntax': 'off',
-      'primer-react/a11y-use-next-tooltip': 'off',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExpressionStatement[directive="use no memo"]',
+          message: 'The "use no memo" directive is not allowed.',
+        },
+      ],
     },
   },
 
@@ -273,6 +303,7 @@ const config = defineConfig([
     },
     rules: {
       ...vitest.configs.recommended.rules,
+      'vitest/no-conditional-expect': 'off',
     },
     settings: {
       vitest: {
@@ -332,7 +363,8 @@ const config = defineConfig([
   {
     files: [
       'packages/postcss-preset-primer/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
-      'packages/rollup-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/rolldown-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/rolldown-plugin-preserve-directives/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
     ],
     rules: {
       'import/no-nodejs-modules': 'off',
@@ -342,7 +374,7 @@ const config = defineConfig([
   {
     files: ['**/playwright.config.ts', 'e2e/**/*.{ts,tsx}'],
     plugins: {
-      playwright: playwright,
+      playwright,
     },
     ...playwright.configs['flat/recommended'],
     rules: {
@@ -356,7 +388,7 @@ const config = defineConfig([
   },
 
   // Storybook stories
-  ...storybook.configs['flat/recommended'],
+  ...fixupConfigRules(storybook.configs['flat/recommended']),
 
   // packages/mcp
   {
@@ -379,9 +411,7 @@ const config = defineConfig([
   // packages/styled-react overrides
   {
     files: ['packages/styled-react/**/*.{ts,tsx}'],
-    rules: {
-      'primer-react/no-unnecessary-components': 'off',
-    },
+    rules: {},
   },
   {
     files: ['packages/styled-react/**/*.test.{ts,tsx}'],

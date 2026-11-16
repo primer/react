@@ -1,4 +1,5 @@
-import {FormControl, Heading} from '..'
+import FormControl from '../FormControl'
+import Heading from '../Heading'
 import Select from './Select'
 import classes from './Select.features.stories.module.css'
 

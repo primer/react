@@ -1,9 +1,13 @@
 import {describe, expect, it, beforeEach, afterEach} from 'vitest'
-import {render, screen} from '@testing-library/react'
+import {render, act, waitFor} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {Announce} from '../Announce'
 import {getLiveRegion} from './test-helpers'
+import {implementsClassName} from '../../utils/testing'
+import {createRenderCounter} from '../../utils/testing/profiler'
 
 describe('Announce', () => {
+  implementsClassName(Announce)
   beforeEach(() => {
     const liveRegion = document.createElement('live-region')
     document.body.appendChild(liveRegion)
@@ -43,7 +47,7 @@ describe('Announce', () => {
         test
       </Announce>,
     )
-    expect(screen.getByTestId('container').tagName).toBe('SPAN')
+    expect(page.getByTestId('container').element().tagName).toBe('SPAN')
   })
 
   it('should not announce the contents of the container if `hidden={false}`', () => {
@@ -81,5 +85,42 @@ describe('Announce', () => {
 
     const liveRegion = getLiveRegion()
     expect(liveRegion.getMessage('polite')).not.toBe('test')
+  })
+
+  it('does not commit an extra render when its content changes', async () => {
+    // Regression guard: the previous announcement text is tracked in a ref, so
+    // the MutationObserver-driven announcement must not trigger an additional
+    // React commit on every content change (which would cascade one render per
+    // keystroke when tied to an input). Each content change should produce
+    // exactly one render — the prop update — and no follow-up commit.
+    const [Wrap, counter] = createRenderCounter()
+    const {rerender} = render(
+      <Wrap>
+        <Announce>message 0</Announce>
+      </Wrap>,
+    )
+    // Flush the initial mount announcement before measuring.
+    await act(async () => {})
+    counter.reset()
+
+    const changes = 5
+    for (let i = 1; i <= changes; i += 1) {
+      rerender(
+        <Wrap>
+          <Announce>message {i}</Announce>
+        </Wrap>,
+      )
+      // Flush the MutationObserver callback so a regressed setState would commit.
+      await act(async () => {})
+    }
+
+    // The announcement path actually ran (so the render-count assertion is not
+    // vacuous): wait for the live region's throttle queue to drain and surface
+    // the latest content...
+    await waitFor(() => {
+      expect(getLiveRegion().getMessage('polite')).toBe('message 5')
+    })
+    // ...and it did so without any extra commit beyond the prop updates.
+    expect(counter.updateCount).toBe(changes)
   })
 })

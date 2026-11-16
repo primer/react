@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import Checkbox from '../Checkbox'
 import FormControl from '../FormControl'
 import {MarkGithubIcon} from '@primer/octicons-react'
@@ -43,11 +44,21 @@ export const WithCaption = () => {
   )
 }
 
-export const Indeterminate = () => (
-  <form>
-    <FormControl>
-      <Checkbox value="default" indeterminate />
-      <FormControl.Label>Default label</FormControl.Label>
-    </FormControl>
-  </form>
-)
+export const Indeterminate = () => {
+  const [isIndeterminate, setIsIndeterminate] = useState(true)
+  return (
+    <form>
+      <FormControl>
+        <Checkbox
+          value="default"
+          indeterminate={isIndeterminate}
+          onChange={() => {
+            setIsIndeterminate(!isIndeterminate)
+          }}
+          checked={false}
+        />
+        <FormControl.Label>Default label</FormControl.Label>
+      </FormControl>
+    </form>
+  )
+}

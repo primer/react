@@ -49,7 +49,7 @@ As this is a public repo, please be careful not to include details or screenshot
 
 We primarily use [Storybook](https://storybook.js.org/) as a workspace to develop new components or make changes to existing components.
 
-Before running storybook locally, make sure to install [Node.js](https://nodejs.org/en/) v20 (we recommend using [nvm](https://github.com/nvm-sh/nvm)). Next, run the following command to setup your environment:
+Before running storybook locally, make sure to install the [Node.js](https://nodejs.org/en/) version specified in `.nvmrc` (we recommend using [nvm](https://github.com/nvm-sh/nvm)). Next, run the following command to setup your environment:
 
 ```sh
 npm run setup
@@ -273,7 +273,7 @@ If everything looks great, the reviewer will approve the pull request and feel f
 
 ### Previewing your changes
 
-We have a GitHub Action that creates a preview of the docs site and the storybook everytime you commit code to a branch. To view the preview site and the preview storybook, navigate to the PR and find the comment from the `github-actions` bot for storybook and `primer` bot for the docs preview. This will include a link to the preview site and the storybook for your branch.
+We have a GitHub Action that creates a preview of the docs site and the storybook every time you commit code to a branch. To view the preview site and the preview storybook, navigate to the PR and find the comment from the `github-actions` bot for storybook and `primer` bot for the docs preview. This will include a link to the preview site and the storybook for your branch.
 
 ## Deploying
 

@@ -1,25 +1,37 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
-import {Header} from '..'
+import Header from '.'
+import {implementsClassName} from '../utils/testing'
+import classes from './Header.module.css'
 
 describe('Header', () => {
-  describe('Header.Item', () => {
-    it('accepts and applies className', () => {
-      const {container} = render(<Header.Item className="primer" />)
-      expect(container.firstChild).toHaveClass('primer')
-    })
+  implementsClassName(Header, classes.Header)
+  it('renders data-component attributes', async () => {
+    const {container: headerContainer} = render(<Header />)
+    await expect
+      .element(headerContainer.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('data-component', 'Header')
 
-    it('should support `className` on the outermost element', () => {
-      const Element = () => <Header.Item className={'test-class-name'} />
-      expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    const {container: itemContainer} = render(<Header.Item />)
+    await expect
+      .element(itemContainer.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('data-component', 'Header.Item')
+
+    const {container: linkContainer} = render(<Header.Link />)
+    await expect
+      .element(linkContainer.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('data-component', 'Header.Link')
+  })
+  describe('Header.Item', () => {
+    implementsClassName(Header.Item, classes.HeaderItem)
+    it('accepts and applies className', async () => {
+      const {container} = render(<Header.Item className="primer" />)
+      await expect.element(container.querySelector<HTMLElement>(':scope > :first-child')).toHaveClass('primer')
     })
   })
 
   describe('Header.Link', () => {
-    it('should support `className` on the outermost element', () => {
-      const Element = () => <Header.Link className={'test-class-name'} />
-      expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    })
+    implementsClassName(Header.Link, classes.HeaderLink)
   })
 
   it('renders a <header> and <a>', () => {
@@ -29,13 +41,10 @@ describe('Header', () => {
     expect((linkContainer.firstChild as Element).tagName).toEqual('A')
   })
 
-  it('sets aria-label appropriately', () => {
+  it('sets aria-label appropriately', async () => {
     const {container} = render(<Header aria-label="Test label" />)
-    expect(container.firstChild).toHaveAttribute('aria-label', 'Test label')
-  })
-
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Header className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    await expect
+      .element(container.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('aria-label', 'Test label')
   })
 })

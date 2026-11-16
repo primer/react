@@ -1,8 +1,9 @@
-import React, {type PropsWithChildren} from 'react'
+import React, {useRef, type PropsWithChildren} from 'react'
 import classes from './ButtonGroup.module.css'
 import {clsx} from 'clsx'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type ButtonGroupProps = PropsWithChildren<{
@@ -16,18 +17,36 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
   {as: BaseComponent = 'div', children, className, role, ...rest},
   forwardRef,
 ) {
-  const buttons = React.Children.map(children, (child, index) => <div key={index}>{child}</div>)
-  const buttonRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement>)
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+  const buttonRef = useRef<HTMLDivElement>(null)
+  const mergedRef = useMergedRefs(buttonRef, forwardRef)
+  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `buttonRef` and `appliedRef` with `mergedRef`.
+  const providedOrCreatedRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement | null>)
+  const readRef = mergedRefEnabled ? buttonRef : providedOrCreatedRef
+  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
+  const buttons = React.Children.map(children, (child, index) => (
+    <div key={index} className={classes.Item}>
+      {child}
+    </div>
+  ))
 
   useFocusZone({
-    containerRef: buttonRef,
+    containerRef: readRef,
     disabled: role !== 'toolbar',
     bindKeys: FocusKeys.ArrowHorizontal,
     focusOutBehavior: 'wrap',
   })
 
   return (
-    <BaseComponent ref={buttonRef} className={clsx(className, classes.ButtonGroup)} role={role} {...rest}>
+    <BaseComponent
+      // @ts-expect-error it needs a non nullable ref
+      ref={appliedRef}
+      className={clsx(className, classes.ButtonGroup)}
+      role={role}
+      {...rest}
+      data-component="ButtonGroup"
+    >
       {buttons}
     </BaseComponent>
   )

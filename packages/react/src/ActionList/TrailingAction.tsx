@@ -1,6 +1,7 @@
 import type React from 'react'
 import {forwardRef, useContext} from 'react'
 import {Button, IconButton} from '../Button'
+import type {IconButtonProps} from '../Button/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -27,10 +28,13 @@ export type ActionListTrailingActionProps = ElementProps & {
   label: string
   className?: string
   style?: React.CSSProperties
-}
+} & Pick<IconButtonProps, 'tooltipDirection'>
 
 export const TrailingAction = forwardRef(
-  ({as = 'button', icon, label, href = null, className, style, loading, ...props}, forwardedRef) => {
+  (
+    {as = 'button', icon, label, href = null, className, style, loading, tooltipDirection = 'w', ...props},
+    forwardedRef,
+  ) => {
     // Use context from ActionList
     const {selectionVariant} = useContext(ActionListContainerContext)
     // TODO: Rename
@@ -43,14 +47,18 @@ export const TrailingAction = forwardRef(
     }
 
     return (
-      <span className={clsx(className, classes.TrailingAction)} style={style}>
+      <span
+        className={clsx(className, classes.TrailingAction)}
+        data-component="ActionList.TrailingAction"
+        style={style}
+      >
         {icon ? (
           <IconButton
             as={as}
             aria-label={label}
             icon={icon}
             variant="invisible"
-            tooltipDirection="e"
+            tooltipDirection={tooltipDirection}
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
@@ -69,6 +77,7 @@ export const TrailingAction = forwardRef(
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
+            data-has-label="true"
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             aria-hidden={withinMenu ? 'true' : undefined}

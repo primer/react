@@ -43,6 +43,10 @@ const stories: Array<{title: string; id: string}> = [
     title: 'With Link Wrappers',
     id: 'components-avatarstack-dev--with-link-wrappers',
   },
+  {
+    title: 'With Square Avatars',
+    id: 'components-avatarstack-features--with-square-avatars',
+  },
 ]
 
 test.describe('AvatarStack', () => {

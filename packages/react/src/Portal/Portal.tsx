@@ -1,55 +1,32 @@
-import React, {useContext} from 'react'
+import React, {useContext, useSyncExternalStore} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {PortalContext} from './PortalContext'
+import {DEFAULT_PORTAL_CONTAINER_NAME, ensureDefaultPortal, getPortalRoot} from './portalRoot'
 
-const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
-const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
-
-const portalRootRegistry: Partial<Record<string, Element>> = {}
-
-/**
- * Register a container to serve as a portal root.
- * @param root The element that will be the root for portals created in this container
- * @param name The name of the container, to be used with the `containerName` prop on the Portal Component.
- * If name is not specified, registers the default portal root.
- */
-export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINER_NAME): void {
-  portalRootRegistry[name] = root
-}
-
-// Ensures that a default portal root exists and is registered. If a DOM element exists
-// with id __primerPortalRoot__, allow that element to serve as the default portal root.
-// Otherwise, create that element and attach it to the end of document.body.
-function ensureDefaultPortal() {
-  const existingDefaultPortalContainer = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
-  if (!existingDefaultPortalContainer || !document.body.contains(existingDefaultPortalContainer)) {
-    let defaultPortalContainer = document.getElementById(PRIMER_PORTAL_ROOT_ID)
-    if (!(defaultPortalContainer instanceof Element)) {
-      defaultPortalContainer = document.createElement('div')
-      defaultPortalContainer.setAttribute('id', PRIMER_PORTAL_ROOT_ID)
-      defaultPortalContainer.style.position = 'absolute'
-      defaultPortalContainer.style.top = '0'
-      defaultPortalContainer.style.left = '0'
-      defaultPortalContainer.style.width = '100%'
-      const suitablePortalRoot = document.querySelector('[data-portal-root]')
-      if (suitablePortalRoot) {
-        suitablePortalRoot.appendChild(defaultPortalContainer)
-      } else {
-        document.body.appendChild(defaultPortalContainer)
-      }
-    }
-
-    registerPortalRoot(defaultPortalContainer)
-  }
-}
+const subscribe = () => () => {}
+const getSnapshot = () => true
+const getServerSnapshot = () => false
 
 /**
- * Provides the ability for component trees to override the portal root container for a sub-set of the experience.
- * The portal will prioritize the context value unless overridden by their own `containerName` prop, and fallback to the default root if neither are specified
+ * Returns `true` only when React is rendering on the client, and not as part of
+ * hydrating server-rendered markup.
+ *
+ * `Portal` needs this because React's server renderer throws when it encounters a
+ * portal, and portaled content is never part of the server-rendered markup.
+ *
+ * `useSyncExternalStore` is used rather than a `useEffect`/`useState` "is mounted"
+ * flag because it only defers the portal for the renders that need it: it returns
+ * `false` while server rendering and for the hydration pass (keeping hydration
+ * consistent with the server markup), but `true` from the very first render of a
+ * client-only render. That way client-rendered portals — the overwhelmingly common
+ * case for overlays, dialogs and menus — still mount their children in the same
+ * commit as the `Portal` itself, so refs into portaled content are populated by the
+ * time the parent's layout effects run.
  */
-export const PortalContext = React.createContext<{
-  portalContainerName?: string
-}>({})
+function useIsClientRender() {
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+}
 
 export interface PortalProps {
   /**
@@ -75,26 +52,43 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
-  const elementRef = React.useRef<HTMLDivElement | null>(null)
-  if (!elementRef.current) {
+  const isClientRender = useIsClientRender()
+
+  // `onMount` is read from a ref so that it is not part of the effect below's
+  // dependencies. Depending on it directly would detach and re-attach the portal
+  // — unmounting and remounting every portaled DOM node — whenever a consumer
+  // passes an inline callback.
+  const onMountRef = React.useRef(onMount)
+  useLayoutEffect(() => {
+    onMountRef.current = onMount
+  })
+
+  // The host element is created once per `Portal` instance. A lazy state initializer
+  // is used instead of an effect so that the portal, and its children, mount in the
+  // same commit as the `Portal` itself. `document` is not available while server
+  // rendering, where the element is never needed because nothing is rendered.
+  const [element] = React.useState<HTMLDivElement | null>(() => {
+    if (typeof document === 'undefined') return null
+
     const div = document.createElement('div')
+    div.setAttribute('data-component', 'Portal')
     // Portaled content should get their own stacking context so they don't interfere
     // with each other in unexpected ways. One should never find themselves tempted
     // to change the zIndex to a value other than "1".
     div.style.position = 'relative'
     div.style.zIndex = '1'
-    elementRef.current = div
-  }
-
-  const element = elementRef.current
+    return div
+  })
 
   useLayoutEffect(() => {
+    if (!element || !isClientRender) return
+
     let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
       ensureDefaultPortal()
     }
-    const parentElement = portalRootRegistry[containerName]
+    const parentElement = getPortalRoot(containerName)
 
     if (!parentElement) {
       throw new Error(
@@ -102,13 +96,12 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
       )
     }
     parentElement.appendChild(element)
-    onMount?.()
+    onMountRef.current?.()
 
     return () => {
       parentElement.removeChild(element)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, _containerName, portalContainerName])
+  }, [element, isClientRender, _containerName, portalContainerName])
 
-  return createPortal(children, element)
+  return element && isClientRender ? createPortal(children, element) : null
 }

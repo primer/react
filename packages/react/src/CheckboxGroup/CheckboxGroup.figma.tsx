@@ -1,4 +1,4 @@
-import {CheckboxGroup} from '../'
+import CheckboxGroup from '.'
 import figma from '@figma/code-connect'
 
 const props = {

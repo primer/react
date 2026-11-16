@@ -1,4 +1,6 @@
-import {Radio, RadioGroup, FormControl} from '..'
+import Radio from '../Radio'
+import RadioGroup from '.'
+import FormControl from '../FormControl'
 import classes from './RadioGroup.features.stories.module.css'
 
 export default {

@@ -1,6 +1,6 @@
 import type React from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {FormControl} from '..'
+import FormControl from '../FormControl'
 import TextInput from '.'
 import {textInputExcludedControlKeys} from '../utils/story-helpers'
 

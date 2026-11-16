@@ -1,6 +1,6 @@
 import React, {useCallback, useRef, useState, type JSX} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Flash} from '..'
+import Flash from '../Flash'
 import {Button} from '../Button'
 import Link from '../Link'
 import {FocusKeys} from '@primer/behaviors'

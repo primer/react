@@ -13,13 +13,13 @@ function focusable(el: Element) {
 }
 
 type UseDialogParameters = {
-  modalRef: React.RefObject<HTMLElement>
-  overlayRef: React.RefObject<HTMLElement>
+  modalRef: React.RefObject<HTMLElement | null>
+  overlayRef: React.RefObject<HTMLElement | null>
   isOpen?: boolean
   onDismiss?: () => void
-  initialFocusRef?: React.RefObject<HTMLElement>
-  closeButtonRef?: React.RefObject<HTMLElement>
-  returnFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
+  closeButtonRef?: React.RefObject<HTMLElement | null>
+  returnFocusRef?: React.RefObject<HTMLElement | null>
 }
 
 function useDialog({
@@ -46,6 +46,7 @@ function useDialog({
   )
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (isOpen) {
       document.addEventListener('click', onClickOutside)
       return () => {
@@ -55,9 +56,11 @@ function useDialog({
   }, [isOpen, onClickOutside])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (isOpen) {
       if (initialFocusRef && initialFocusRef.current) {
         initialFocusRef.current.focus()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       } else if (closeButtonRef && closeButtonRef.current) {
         closeButtonRef.current.focus()
       }

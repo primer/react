@@ -53,6 +53,18 @@
       "description": "Do not spread the avatars on hover"
     },
     {
+      "name": "variant",
+      "type": "'cascade' | 'stack'",
+      "defaultValue": "'cascade'",
+      "description": "The style of overlapping avatars. 'cascade' increases the overlap for 3rd+ avatars, while 'stack' uses a uniform overlap."
+    },
+    {
+      "name": "shape",
+      "type": "'circle' | 'square'",
+      "defaultValue": "'circle'",
+      "description": "The shape of the avatars."
+    },
+    {
       "name": "size",
       "type": "number | { narrow?: number; regular?: number; wide?: number; }",
       "defaultValue": "20",

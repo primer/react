@@ -25,6 +25,10 @@
   */
   [data-a11y-link-underlines='true'] &:where([data-inline='true']) {
     text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   &:where([data-muted='true']) {

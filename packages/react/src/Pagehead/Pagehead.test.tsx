@@ -1,12 +1,12 @@
 import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {describe, expect, it} from 'vitest'
 import Pagehead from '../Pagehead'
+import {implementsClassName} from '../utils/testing'
+import classes from './Pagehead.module.css'
 
 describe('Pagehead', () => {
-  it('should support `className` on the outermost element', () => {
-    const {container} = render(<Pagehead className="test-class-name">Pagehead</Pagehead>)
-    expect(container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Pagehead, classes.Pagehead)
 
   it('should support attributes on the outermost element', () => {
     const {container} = render(
@@ -14,6 +14,9 @@ describe('Pagehead', () => {
         Pagehead
       </Pagehead>,
     )
-    expect(container.firstChild).toHaveAttribute('data-testid', 'pagehead')
+    const pagehead = page.getByTestId('pagehead').element()
+    expect(pagehead).toBe(container.firstChild)
+    expect(pagehead).toHaveAttribute('data-testid', 'pagehead')
+    expect(pagehead).toHaveAttribute('data-component', 'Pagehead')
   })
 })

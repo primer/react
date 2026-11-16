@@ -1,5 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
-import {ProgressBar, Stack} from '..'
+import {ProgressBar} from '.'
+import {Stack} from '../Stack'
 import {DotFillIcon} from '@primer/octicons-react'
 
 export default {

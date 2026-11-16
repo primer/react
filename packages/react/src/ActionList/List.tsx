@@ -1,14 +1,16 @@
-import React, {type JSX} from 'react'
+import React, {useRef, type JSX} from 'react'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const UnwrappedList = <As extends React.ElementType = 'ul'>(
   props: ActionListProps<As>,
@@ -21,6 +23,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     showDividers = false,
     role,
     disableFocusZone = false,
+    disableItemGap = false,
     className,
     ...restProps
   } = props
@@ -41,7 +44,16 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
-  const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
+  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
+  const listRef = useRef<HTMLElement>(null)
+  const mergedRef = useMergedRefs(listRef, forwardedRef)
+  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
+  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `listRef` and `appliedRef` with `mergedRef`.
+  const providedOrCreatedRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+  const readRef = mergedRefEnabled ? listRef : providedOrCreatedRef
+  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
+  const itemGapFlag = useFeatureFlag('primer_react_action_list_item_gap')
+  const itemGapEnabled = itemGapFlag && !disableItemGap && container === 'NavList'
 
   let enableFocusZone = false
   if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
@@ -49,30 +61,63 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   useFocusZone({
     disabled: !enableFocusZone,
-    containerRef: listRef,
+    containerRef: readRef,
     bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
     focusOutBehavior:
       listRole === 'menu' || container === 'SelectPanel' || container === 'FilteredActionList' ? 'wrap' : undefined,
   })
 
+  const listContextValue = React.useMemo(
+    () => ({
+      variant,
+      selectionVariant: selectionVariant || containerSelectionVariant,
+      showDividers,
+      role: listRole,
+      headingId,
+    }),
+    [variant, selectionVariant, containerSelectionVariant, showDividers, listRole, headingId],
+  )
+
+  // Replaces a CSS `:has([data-has-description])` selector that caused full-subtree
+  // style recalculation on every DOM mutation (~674ms on 100 items, 10-20s freezes on Safari).
+  //
+  // Ideally we'd derive this from children during render, but each Item's description is
+  // detected via `useSlots` at render time, so the List can't know which Items have
+  // descriptions without duplicating slot detection or deeply inspecting children trees
+  // (fragile with Groups, conditional rendering, wrapper components, etc.).
+  //
+  // A context-based approach (Items registering their description state with the List) would
+  // work but adds registration/unregistration callbacks, a new provider, and re-renders when
+  // the count changes. Not worth the complexity for a derived boolean.
+  //
+  // Two querySelector calls after render is trivially cheap compared to what the browser
+  // was doing on every DOM mutation with `:has()`.
+  useIsomorphicLayoutEffect(() => {
+    const list = readRef.current
+    if (!list) return
+    const hasMixed =
+      list.querySelector('[data-has-description="true"]') !== null &&
+      list.querySelector('[data-has-description="false"]') !== null
+    const current = list.getAttribute('data-mixed-descriptions')
+    if (hasMixed && current !== 'true') {
+      list.setAttribute('data-mixed-descriptions', 'true')
+    } else if (!hasMixed && current !== null) {
+      list.removeAttribute('data-mixed-descriptions')
+    }
+  })
+
   return (
-    <ListContext.Provider
-      value={{
-        variant,
-        selectionVariant: selectionVariant || containerSelectionVariant,
-        showDividers,
-        role: listRole,
-        headingId,
-      }}
-    >
+    <ListContext.Provider value={listContextValue}>
       {slots.heading}
       <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
-        ref={listRef}
+        ref={appliedRef}
+        data-component="ActionList"
         data-dividers={showDividers}
         data-variant={variant}
+        data-item-gap={itemGapEnabled ? '' : undefined}
         {...restProps}
       >
         {childrenWithoutSlots}

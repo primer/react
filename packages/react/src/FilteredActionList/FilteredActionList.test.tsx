@@ -1,0 +1,233 @@
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
+import {describe, expect, it, vi} from 'vitest'
+import React from 'react'
+import {FilteredActionList} from '../FilteredActionList'
+import {FeatureFlags} from '../FeatureFlags'
+import {FilteredActionListBodyLoader, FilteredActionListLoadingTypes} from './FilteredActionListLoaders'
+import {implementsClassName} from '../utils/testing'
+import classes from './FilteredActionList.module.css'
+
+const items = [
+  {text: 'Item 1', id: 1},
+  {text: 'Item 2', id: 2},
+  {text: 'Item 3', id: 3},
+]
+
+describe('FilteredActionList', () => {
+  implementsClassName(props => <FilteredActionList items={items} onFilterChange={vi.fn()} {...props} />, classes.Root)
+
+  it('calls the provided input focus handler', async () => {
+    const onFocus = vi.fn()
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} textInputProps={{onFocus}} />)
+
+    await userEvent.click(page.getByRole('combobox'))
+
+    expect(onFocus).toHaveBeenCalledOnce()
+  })
+
+  describe('combobox list reference', () => {
+    it('references the rendered list when items are shown', async () => {
+      render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      const combobox = page.getByRole('combobox')
+      const listId = combobox.element().getAttribute('aria-controls')
+
+      await expect.element(combobox).toHaveAttribute('aria-expanded', 'true')
+      expect(listId).toBeTruthy()
+      expect(document.getElementById(listId!)).toBeInTheDocument()
+    })
+
+    it('does not reference a list while a message is shown', async () => {
+      render(<FilteredActionList items={[]} onFilterChange={vi.fn()} message={<div>No matching items</div>} />)
+
+      const combobox = page.getByRole('combobox')
+
+      await expect.element(combobox).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(combobox).not.toHaveAttribute('aria-controls')
+    })
+
+    it('does not reference a list while the body shows a loader', async () => {
+      const props = {
+        items,
+        onFilterChange: vi.fn(),
+        loading: true,
+        loadingType: FilteredActionListLoadingTypes.bodySpinner,
+      }
+      const {rerender, container} = render(<FilteredActionList {...props} />)
+      // The body loader needs the mounted scroll container, so it appears on the next render
+      rerender(<FilteredActionList {...props} />)
+
+      const combobox = page.getByRole('combobox')
+
+      expect(container.querySelector('[data-component="FilteredActionList.Spinner"]')).toBeInTheDocument()
+      await expect.element(combobox).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(combobox).not.toHaveAttribute('aria-controls')
+    })
+  })
+
+  describe('data-component attributes', () => {
+    it('renders FilteredActionList with data-component attribute', () => {
+      const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      expect(container.querySelector('[data-component="FilteredActionList"]')).toBeInTheDocument()
+    })
+
+    it('renders FilteredActionList.Header with data-component attribute', () => {
+      const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      expect(container.querySelector('[data-component="FilteredActionList.Header"]')).toBeInTheDocument()
+    })
+
+    it('renders FilteredActionList.SelectAll with data-component attribute when onSelectAllChange is provided', () => {
+      const {container} = render(
+        <FilteredActionList items={items} onFilterChange={vi.fn()} onSelectAllChange={vi.fn()} />,
+      )
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAll"]')).toBeInTheDocument()
+    })
+
+    it('renders FilteredActionList.SelectAllCheckbox with data-component attribute when onSelectAllChange is provided', () => {
+      const {container} = render(
+        <FilteredActionList items={items} onFilterChange={vi.fn()} onSelectAllChange={vi.fn()} />,
+      )
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAllCheckbox"]')).toBeInTheDocument()
+    })
+
+    it('renders FilteredActionList.SelectAllLabel with data-component attribute when onSelectAllChange is provided', () => {
+      const {container} = render(
+        <FilteredActionList items={items} onFilterChange={vi.fn()} onSelectAllChange={vi.fn()} />,
+      )
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAllLabel"]')).toBeInTheDocument()
+    })
+
+    it('does not render FilteredActionList.SelectAll when onSelectAllChange is not provided', () => {
+      const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAll"]')).not.toBeInTheDocument()
+    })
+
+    it('does not render FilteredActionList.SelectAllCheckbox when onSelectAllChange is not provided', () => {
+      const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAllCheckbox"]')).not.toBeInTheDocument()
+    })
+
+    it('does not render FilteredActionList.SelectAllLabel when onSelectAllChange is not provided', () => {
+      const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAllLabel"]')).not.toBeInTheDocument()
+    })
+
+    it('allows accessing nested ActionList data-component attributes from FilteredActionList', () => {
+      const itemsWithLeadingVisual = [
+        {text: 'Item 1', id: 1, leadingVisual: () => <span>Icon</span>},
+        {text: 'Item 2', id: 2, leadingVisual: () => <span>Icon</span>},
+      ]
+
+      const {container} = render(<FilteredActionList items={itemsWithLeadingVisual} onFilterChange={vi.fn()} />)
+
+      // Test that you can query for ActionList primitives nested within FilteredActionList
+      expect(
+        container.querySelector('[data-component="FilteredActionList"] [data-component="ActionList.Item"]'),
+      ).toBeInTheDocument()
+
+      expect(
+        container.querySelector('[data-component="FilteredActionList"] [data-component="ActionList.LeadingVisual"]'),
+      ).toBeInTheDocument()
+
+      expect(
+        container.querySelector('[data-component="FilteredActionList"] [data-component="ActionList.Item.Label"]'),
+      ).toBeInTheDocument()
+
+      // Test that you can query for the TextInput nested within FilteredActionList
+      expect(
+        container.querySelector(
+          '[data-component="FilteredActionList"] [data-component="TextInput"] [data-component="input"]',
+        ),
+      ).toBeInTheDocument()
+    })
+  })
+})
+
+describe('FilteredActionListBodyLoader', () => {
+  describe('data-component attributes', () => {
+    it('renders FilteredActionList.Spinner with data-component attribute for bodySpinner loading type', () => {
+      const {container} = render(
+        <FilteredActionListBodyLoader loadingType={FilteredActionListLoadingTypes.bodySpinner} height={200} />,
+      )
+
+      expect(container.querySelector('[data-component="FilteredActionList.Spinner"]')).toBeInTheDocument()
+    })
+
+    it('renders FilteredActionList.Skeleton with data-component attribute for bodySkeleton loading type', () => {
+      const {container} = render(
+        <FilteredActionListBodyLoader loadingType={FilteredActionListLoadingTypes.bodySkeleton} height={200} />,
+      )
+
+      expect(container.querySelector('[data-component="FilteredActionList.Skeleton"]')).toBeInTheDocument()
+    })
+  })
+})
+
+describe('FilteredActionList forwarded refs (primer_react_merged_forwarded_refs)', () => {
+  for (const enabled of [true, false]) {
+    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
+      it('forwards the input ref object', () => {
+        const ref = React.createRef<HTMLInputElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList items={items} onFilterChange={vi.fn()} inputRef={ref} />
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLInputElement)
+      })
+
+      it('forwards the scroll container ref object', () => {
+        const ref = React.createRef<HTMLDivElement>()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={ref} />
+          </FeatureFlags>,
+        )
+        expect(ref.current).toBeInstanceOf(HTMLDivElement)
+      })
+
+      it('calls a scroll container callback ref', () => {
+        const refCallback = vi.fn()
+        render(
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={refCallback} />
+          </FeatureFlags>,
+        )
+        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+      })
+
+      it('handles a scroll container callback ref while loading', async () => {
+        const ui = (
+          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
+            <FilteredActionList
+              items={items}
+              onFilterChange={vi.fn()}
+              scrollContainerRef={() => {}}
+              loading
+              loadingType={FilteredActionListLoadingTypes.bodySpinner}
+            />
+          </FeatureFlags>
+        )
+        const {rerender, container} = render(ui)
+
+        expect(() => rerender(ui)).not.toThrow()
+        // With the flag off, a callback ref leaves no readable scroll container, so the loader stays hidden as before
+        expect(container.querySelector('[data-component="FilteredActionList.Spinner"]') !== null).toBe(enabled)
+
+        const listId = page.getByRole('combobox').element().getAttribute('aria-controls')
+        if (listId) {
+          expect(document.getElementById(listId)).not.toBeNull()
+        }
+      })
+    })
+  }
+})

@@ -64,3 +64,33 @@ export const SemiboldWeight = () => (
     Stylized text
   </Text>
 )
+
+export const PreWhiteSpace = () => (
+  <Text as="span" whiteSpace="pre">
+    Stylized text
+  </Text>
+)
+
+export const NormalWhiteSpace = () => (
+  <Text as="span" whiteSpace="normal">
+    Stylized text
+  </Text>
+)
+
+export const NowrapWhiteSpace = () => (
+  <Text as="span" whiteSpace="nowrap">
+    Stylized text
+  </Text>
+)
+
+export const PreWrapWhiteSpace = () => (
+  <Text as="span" whiteSpace="pre-wrap">
+    Stylized text
+  </Text>
+)
+
+export const PreLineWhiteSpace = () => (
+  <Text as="span" whiteSpace="pre-line">
+    Stylized text
+  </Text>
+)

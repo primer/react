@@ -1,6 +1,9 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {KeybindingHint, type KeybindingHintProps} from '.'
-import {Button, ActionList, FormControl, TextInput} from '..'
+import {Button} from '../Button'
+import {ActionList} from '../ActionList'
+import FormControl from '../FormControl'
+import TextInput from '../TextInput'
 import classes from './KeybindingHint.examples.stories.module.css'
 
 export default {
@@ -9,18 +12,99 @@ export default {
 } satisfies Meta<typeof KeybindingHint>
 
 export const ButtonExample: StoryObj<KeybindingHintProps> = {
-  render: args => <Button trailingVisual={() => <KeybindingHint {...args} />}>Pull requests</Button>,
-  args: {keys: 'g p'},
-  name: 'Button',
-}
-
-export const PrimaryButton: StoryObj<KeybindingHintProps> = {
   render: args => (
-    <Button variant="primary" trailingVisual={() => <KeybindingHint {...args} />}>
-      Submit
-    </Button>
+    <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+      <div style={{display: 'flex', gap: '8px'}}>
+        <Button trailingVisual={() => <KeybindingHint {...args} />}>Default button</Button>
+        <Button size="small" trailingVisual={() => <KeybindingHint {...args} size="small" />}>
+          Small button
+        </Button>
+        <Button size="large" trailingVisual={() => <KeybindingHint {...args} />}>
+          Large button
+        </Button>
+        <Button disabled trailingVisual={() => <KeybindingHint {...args} />}>
+          Disabled button
+        </Button>
+        <Button inactive trailingVisual={() => <KeybindingHint {...args} />}>
+          Inactive button
+        </Button>
+      </div>
+      <div style={{display: 'flex', gap: '8px'}}>
+        <Button variant="primary" trailingVisual={() => <KeybindingHint {...args} />}>
+          Default button
+        </Button>
+        <Button variant="primary" size="small" trailingVisual={() => <KeybindingHint {...args} size="small" />}>
+          Small button
+        </Button>
+        <Button variant="primary" size="large" trailingVisual={() => <KeybindingHint {...args} />}>
+          Large button
+        </Button>
+        <Button variant="primary" disabled trailingVisual={() => <KeybindingHint {...args} />}>
+          Disabled button
+        </Button>
+        <Button variant="primary" inactive trailingVisual={() => <KeybindingHint {...args} />}>
+          Inactive button
+        </Button>
+      </div>
+      <div style={{display: 'flex', gap: '8px'}}>
+        <Button variant="danger" trailingVisual={() => <KeybindingHint {...args} />}>
+          Default button
+        </Button>
+        <Button variant="danger" size="small" trailingVisual={() => <KeybindingHint {...args} size="small" />}>
+          Small button
+        </Button>
+        <Button variant="danger" size="large" trailingVisual={() => <KeybindingHint {...args} />}>
+          Large button
+        </Button>
+        <Button variant="danger" disabled trailingVisual={() => <KeybindingHint {...args} />}>
+          Disabled button
+        </Button>
+        <Button variant="danger" inactive trailingVisual={() => <KeybindingHint {...args} />}>
+          Inactive button
+        </Button>
+      </div>
+      <div style={{display: 'flex', gap: '8px'}}>
+        <Button variant="invisible" trailingVisual={() => <KeybindingHint {...args} />}>
+          Default button
+        </Button>
+        <Button variant="invisible" size="small" trailingVisual={() => <KeybindingHint {...args} size="small" />}>
+          Small button
+        </Button>
+        <Button variant="invisible" size="large" trailingVisual={() => <KeybindingHint {...args} />}>
+          Large button
+        </Button>
+        <Button variant="invisible" disabled trailingVisual={() => <KeybindingHint {...args} />}>
+          Disabled button
+        </Button>
+        <Button variant="invisible" inactive trailingVisual={() => <KeybindingHint {...args} />}>
+          Inactive button
+        </Button>
+      </div>
+    </div>
   ),
-  args: {keys: 'Mod+Enter', variant: 'onPrimary'},
+  args: {keys: 'g p'},
+  argTypes: {
+    keys: {
+      control: 'text',
+    },
+    format: {
+      control: 'radio',
+      options: ['condensed', 'full'],
+    },
+    size: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    variant: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+  },
+  name: 'Button',
 }
 
 export const ActionListExample: StoryObj<KeybindingHintProps> = {

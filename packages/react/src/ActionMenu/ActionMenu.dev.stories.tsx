@@ -1,7 +1,10 @@
 import type {Meta} from '@storybook/react-vite'
+import {useRef, useState} from 'react'
 import type {ComponentProps} from '../utils/types'
 import {ActionMenu} from './ActionMenu'
 import {ActionList} from '../ActionList'
+import {Button} from '../Button'
+import {Dialog} from '../Dialog'
 
 export default {
   title: 'Components/ActionMenu/Dev',
@@ -34,3 +37,134 @@ export const WithCss = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+/**
+ * Reproduces a bug where switching the anchor DOM element (via unmount/remount)
+ * causes the CSS anchor positioning to break because `anchor-name` is never
+ * re-applied to the new element.
+ *
+ * https://github.com/github/primer/issues/6616
+ */
+export const AnchorElementReplacement = () => {
+  const anchorRef = useRef<HTMLButtonElement>(null)
+  const [open, setOpen] = useState(false)
+  const [anchorKey, setAnchorKey] = useState(0)
+
+  return (
+    <div style={{padding: 40}}>
+      <p style={{marginBottom: 8, fontSize: 14, color: '#656d76'}}>
+        1. Open the menu below. 2. Click &quot;Switch anchor (remount)&quot; inside the menu. 3. The overlay should
+        remain anchored to the button — not jump to the top-left corner.
+      </p>
+
+      <Button key={anchorKey} ref={anchorRef} onClick={() => setOpen(o => !o)}>
+        Open menu (anchor v{anchorKey})
+      </Button>
+
+      <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={setOpen}>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item
+              onSelect={event => {
+                // Prevent the menu from closing when clicking this item
+                event.preventDefault()
+                setAnchorKey(k => k + 1)
+              }}
+            >
+              Switch anchor (remount)
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item>Item one</ActionList.Item>
+            <ActionList.Item>Item two</ActionList.Item>
+            <ActionList.Item>Item three</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
+  )
+}
+
+export const RightAlignedWithLargeSubmenus = () => {
+  const submenuItems = Array.from({length: 30}, (_, i) => `Item ${i + 1}`)
+
+  return (
+    <div style={{position: 'fixed', top: '15px', right: '15px'}}>
+      <ActionMenu>
+        <ActionMenu.Button>Open menu</ActionMenu.Button>
+        <ActionMenu.Overlay align="end">
+          <ActionList>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <ActionList.Item>First submenu (outside bottom)</ActionList.Item>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay side="outside-bottom">
+                <ActionList>
+                  {submenuItems.map(item => (
+                    <ActionList.Item key={item} onSelect={() => alert(`${item} clicked`)}>
+                      {item}
+                    </ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <ActionList.Item>Second submenu (outside left)</ActionList.Item>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay side="outside-left">
+                <ActionList>
+                  {submenuItems.map(item => (
+                    <ActionList.Item key={item} onSelect={() => alert(`${item} clicked`)}>
+                      {item}
+                    </ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <ActionList.Item>Third submenu</ActionList.Item>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  {submenuItems.map(item => (
+                    <ActionList.Item key={item} onSelect={() => alert(`${item} clicked`)}>
+                      {item}
+                    </ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
+  )
+}
+
+export const WithinDialog = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  return (
+    <div>
+      <Button onClick={() => setIsDialogOpen(true)}>Open Dialog</Button>
+      {isDialogOpen && (
+        <Dialog title="Dialog with ActionMenu" onClose={() => setIsDialogOpen(false)} width="large">
+          <div>
+            <p>The ActionMenu below uses CSS anchor positioning within a dialog.</p>
+            <ActionMenu>
+              <ActionMenu.Button>Open ActionMenu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  {Array.from({length: 20}, (_, i) => (
+                    <ActionList.Item key={i}>Menu Item {i + 1}</ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </div>
+        </Dialog>
+      )}
+    </div>
+  )
+}

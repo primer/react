@@ -8,6 +8,9 @@ export type TextInputSizes = 'small' | 'medium' | 'large'
 
 type StyledTextInputBaseWrapperProps = {
   block?: boolean
+  /**
+   * @deprecated Omit this prop to use the default background.
+   */
   contrast?: boolean
   disabled?: boolean
   hasTrailingAction?: boolean
@@ -75,9 +78,11 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-monospace={monospace || undefined}
         data-size={size || undefined}
         data-trailing-action={hasTrailingAction || undefined}
+        data-no-trailing-action={hasTrailingAction ? undefined : true}
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
         style={memoizedStyle}
+        data-component="TextInput"
         {...restProps}
       />
     )
@@ -94,7 +99,9 @@ export const TextInputWrapper = React.forwardRef<HTMLElement, StyledBaseWrapperP
       ref={forwardRef}
       className={clsx(className, styles.TextInputWrapper)}
       data-leading-visual={hasLeadingVisual || undefined}
+      data-no-leading-visual={hasLeadingVisual ? undefined : true}
       data-trailing-visual={hasTrailingVisual || undefined}
+      data-no-trailing-visual={hasTrailingVisual ? undefined : true}
       {...restProps}
     />
   )

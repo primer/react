@@ -1,6 +1,7 @@
 import React from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {ProgressBar, type ProgressBarProps} from '..'
+import {ProgressBar} from '.'
+import type {ProgressBarProps} from '.'
 
 const sectionColorsDefault = [
   'success.emphasis',

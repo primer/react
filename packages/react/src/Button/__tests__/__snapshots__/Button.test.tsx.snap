@@ -2,9 +2,9 @@
 
 exports[`Button > respects block prop 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
   data-block="block"
+  data-component="Button"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"
@@ -29,8 +29,8 @@ exports[`Button > respects block prop 1`] = `
 
 exports[`Button > respects the alignContent prop 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
+  data-component="Button"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"
@@ -55,8 +55,8 @@ exports[`Button > respects the alignContent prop 1`] = `
 
 exports[`Button > respects the large size prop 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
+  data-component="Button"
   data-loading="false"
   data-no-visuals="true"
   data-size="large"
@@ -81,8 +81,8 @@ exports[`Button > respects the large size prop 1`] = `
 
 exports[`Button > respects the small size prop 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
+  data-component="Button"
   data-loading="false"
   data-no-visuals="true"
   data-size="small"
@@ -107,8 +107,8 @@ exports[`Button > respects the small size prop 1`] = `
 
 exports[`Button > styles danger button appropriately 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
+  data-component="Button"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"
@@ -133,8 +133,8 @@ exports[`Button > styles danger button appropriately 1`] = `
 
 exports[`Button > styles invisible button appropriately 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
+  data-component="Button"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"
@@ -159,8 +159,8 @@ exports[`Button > styles invisible button appropriately 1`] = `
 
 exports[`Button > styles primary button appropriately 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
+  data-component="Button"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"

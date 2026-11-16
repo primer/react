@@ -8,11 +8,12 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
  * typically appearing in a menu title, menu item, or the text of a button.
  */
 
-export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLElement>) => {
+export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLElement | null>) => {
   const containerRef = useProvidedRefOrCreate(providedRef)
 
   React.useEffect(
     function addAriaKeyshortcuts() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (!open || !containerRef.current) return
       const container = containerRef.current
 

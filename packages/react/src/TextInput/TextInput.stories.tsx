@@ -1,7 +1,7 @@
 import type React from 'react'
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {FormControl} from '..'
+import FormControl from '../FormControl'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import type {FormControlArgs} from '../utils/story-helpers'

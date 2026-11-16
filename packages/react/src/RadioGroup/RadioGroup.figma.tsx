@@ -1,4 +1,4 @@
-import {RadioGroup} from '../'
+import RadioGroup from '.'
 import figma from '@figma/code-connect'
 
 const props = {

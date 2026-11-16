@@ -1,6 +1,5 @@
 docs/public/**/*.css
-**/lib-esm/**/*.css
-**/lib/**/*.css
+.agents/**/*.css
 **/dist/**/*.css
 **/.next/**/*.css
 **/storybook-static/**

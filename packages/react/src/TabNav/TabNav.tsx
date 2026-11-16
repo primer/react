@@ -51,7 +51,7 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 
   return (
-    <div {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
+    <div {...rest} ref={navRef as React.RefObject<HTMLDivElement>} data-component="TabNav">
       <nav aria-label={ariaLabel} className={styles.TabNavNav}>
         <div role="tablist" className={styles.TabNavTabList}>
           {children}
@@ -88,6 +88,7 @@ const TabNavLink = React.forwardRef(function TabNavLink(
       aria-selected={selected ? true : undefined}
       className={clsx('TabNav-item', styles.TabNavLink, selected && 'selected', selected && styles.Selected, className)}
       {...rest}
+      data-component="TabNav.Link"
     />
   )
 }) as PolymorphicForwardRefComponent<'a', TabNavLinkProps>

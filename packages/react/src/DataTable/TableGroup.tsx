@@ -1,0 +1,198 @@
+import {clsx} from 'clsx'
+import type React from 'react'
+import {useCallback, useId, useMemo, useRef} from 'react'
+import {ChevronRightIcon} from '@primer/octicons-react'
+import Checkbox from '../Checkbox'
+import {VisuallyHidden} from '../VisuallyHidden'
+import {Button} from '../internal/components/ButtonReset'
+import {useControllableState} from '../hooks/useControllableState'
+import {TableRow} from './Table'
+import {TableGroupContext} from './TableGroupContext'
+import classes from './Table.module.css'
+
+export type TableGroupProps = {
+  /**
+   * Provide a custom class name for the group header section
+   */
+  className?: string
+
+  /**
+   * Provide a stable identifier exposed on both group sections as `data-group-id`
+   */
+  id: string | number
+
+  /**
+   * Provide a label for the group header
+   */
+  label: string
+
+  /**
+   * Specify the number of member rows in the group
+   */
+  rowCount: number
+
+  getRowCountLabel?: (rowCount: number) => string
+
+  /**
+   * Provide an accessible name for the group header
+   */
+  'aria-label'?: string
+
+  /**
+   * Specify the number of columns spanned by the group header
+   */
+  colSpan: number
+
+  children?: React.ReactNode
+
+  /**
+   * Whether the group has a disclosure control. Defaults to false.
+   */
+  collapsible?: boolean
+
+  /**
+   * Controls whether member rows are displayed.
+   */
+  expanded?: boolean
+
+  /**
+   * Initial expanded state. Defaults to true.
+   */
+  defaultExpanded?: boolean
+
+  /**
+   * Handles requests to change the expanded state.
+   */
+  onExpandedChange?: ({expanded}: {expanded: boolean}) => void
+  selection?: 'all' | 'some' | 'none'
+  selectionDisabled?: boolean
+  onToggleSelect?: () => void
+}
+
+function defaultRowCountLabel(rowCount: number) {
+  return `${rowCount} ${rowCount === 1 ? 'row' : 'rows'}`
+}
+
+function TableGroup({
+  className,
+  id,
+  label,
+  rowCount,
+  getRowCountLabel = defaultRowCountLabel,
+  colSpan,
+  children,
+  'aria-label': ariaLabel,
+  collapsible = false,
+  expanded: controlledExpanded,
+  defaultExpanded = true,
+  onExpandedChange,
+  selection,
+  selectionDisabled,
+  onToggleSelect,
+}: TableGroupProps) {
+  const headerId = useId()
+  const bodyId = useId()
+  const countId = useId()
+  const headerRef = useRef<HTMLTableCellElement>(null)
+  const [expanded, setExpanded] = useControllableState({
+    name: 'Table.Group expanded',
+    value: controlledExpanded,
+    defaultValue: defaultExpanded,
+    onChange: value => onExpandedChange?.({expanded: value}),
+  })
+  const isExpanded = !collapsible || expanded
+  const contextValue = useMemo(() => ({headerId}), [headerId])
+
+  // Restore focus during the collapse commit, including externally controlled changes.
+  const bodyRef = useCallback(
+    (body: HTMLTableSectionElement | null) => {
+      if (!isExpanded && body?.contains(body.ownerDocument.activeElement)) {
+        headerRef.current?.querySelector('button')?.focus()
+      }
+    },
+    [isExpanded],
+  )
+
+  return (
+    <>
+      <tbody
+        className={clsx('TableGroupHeaderBody', classes.TableGroupHeaderBody, className)}
+        role="rowgroup"
+        data-component="Table.Group"
+        data-group-id={id}
+      >
+        <TableRow>
+          <th
+            id={headerId}
+            ref={headerRef}
+            className={clsx('TableGroupHeaderCell', classes.TableGroupHeaderCell)}
+            scope="colgroup"
+            colSpan={colSpan}
+            role="columnheader"
+            aria-label={collapsible || selection !== undefined ? (ariaLabel ?? label) : ariaLabel}
+            data-component="Table.Group.Header"
+          >
+            {selection !== undefined ? (
+              <Checkbox
+                className={classes.TableGroupSelection}
+                checked={selection === 'all'}
+                indeterminate={selection === 'some'}
+                disabled={selectionDisabled || !onToggleSelect}
+                aria-label={`Select ${ariaLabel ?? label}`}
+                aria-describedby={countId}
+                onChange={() => onToggleSelect?.()}
+              />
+            ) : null}
+            <span className={classes.TableGroupHeaderTitle} data-selection={selection}>
+              {collapsible ? (
+                <Button
+                  className={classes.TableGroupToggle}
+                  data-component="Table.Group.Toggle"
+                  aria-label={ariaLabel ?? label}
+                  aria-describedby={countId}
+                  aria-expanded={isExpanded}
+                  aria-controls={bodyId}
+                  onClick={() => {
+                    setExpanded(!expanded)
+                  }}
+                >
+                  <ChevronRightIcon aria-hidden="true" />
+                </Button>
+              ) : null}
+              <span
+                className={clsx('TableGroupHeaderContent', classes.TableGroupHeaderContent)}
+                aria-hidden={collapsible || undefined}
+              >
+                <span className={clsx('TableGroupHeaderLabel', classes.TableGroupHeaderLabel)}>
+                  {label}
+                  <VisuallyHidden>,</VisuallyHidden>
+                </span>
+                <span className={clsx('TableGroupHeaderCount', classes.TableGroupHeaderCount)}>
+                  {rowCount}
+                  <VisuallyHidden>{rowCount === 1 ? ' row' : ' rows'}</VisuallyHidden>
+                </span>
+              </span>
+            </span>
+            {collapsible || selection !== undefined ? (
+              <VisuallyHidden id={countId}>{getRowCountLabel(rowCount)}</VisuallyHidden>
+            ) : null}
+          </th>
+        </TableRow>
+      </tbody>
+      <tbody
+        id={bodyId}
+        ref={bodyRef}
+        hidden={!isExpanded}
+        className={clsx('TableBody', classes.TableBody)}
+        role="rowgroup"
+        data-component="Table.Group.Body"
+        data-group-id={id}
+        data-selection={collapsible ? selection : undefined}
+      >
+        <TableGroupContext.Provider value={contextValue}>{children}</TableGroupContext.Provider>
+      </tbody>
+    </>
+  )
+}
+
+export {TableGroup}

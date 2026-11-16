@@ -1,4 +1,5 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useMemo, useState} from 'react'
+import {clsx} from 'clsx'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -17,6 +18,8 @@ import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
+import {DialogContext} from '../Dialog/DialogContext'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -71,6 +74,10 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
     mergedAnchorProps.onKeyDown = mergedOnAnchorKeyDown
   }
 
+  if (buttonProps.className) {
+    mergedAnchorProps.className = clsx(anchorProps.className, buttonProps.className)
+  }
+
   return mergedAnchorProps
 }
 
@@ -110,7 +117,9 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const anchorId = useId(menuButtonChildId)
-  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
+  const anchor: Pick<AnchoredOverlayProps, 'renderAnchor'> = {
+    renderAnchor: null,
+  }
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
   // with additional props for accessibility
@@ -121,8 +130,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       // tooltip trigger
       const anchorChildren = child.props.children
       if (anchorChildren.type === MenuButton || isSlot(anchorChildren, MenuButton)) {
-        // eslint-disable-next-line react-hooks/immutability
-        renderAnchor = anchorProps => {
+        anchor.renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
           const triggerButton = React.cloneElement(
             anchorChildren,
@@ -138,7 +146,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
         anchorChildren !== undefined ? anchorChildren.type === Tooltip || isSlot(anchorChildren, Tooltip) : false
       if (isWrappedWithTooltip) {
         if (anchorChildren.props.children !== null) {
-          renderAnchor = anchorProps => {
+          anchor.renderAnchor = anchorProps => {
             // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
             const tooltipTrigger = anchorChildren.props.children
             // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
@@ -151,33 +159,40 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
           }
         }
       } else {
-        renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+        anchor.renderAnchor = anchorProps => {
+          return React.cloneElement(child, {
+            ...anchorProps,
+            className: clsx(anchorProps.className, child.props.className),
+          })
+        }
       }
       return null
     } else if (child.type === MenuButton || isSlot(child, MenuButton)) {
-      renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
+      anchor.renderAnchor = anchorProps => {
+        return React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
+      }
       return null
     } else {
       return child
     }
   })
 
-  return (
-    <MenuContext.Provider
-      value={{
-        anchorRef,
-        renderAnchor,
-        anchorId,
-        open: combinedOpenState,
-        onOpen,
-        onClose,
-        // will be undefined for the outermost level, then false for the top menu, then true inside that
-        isSubmenu: parentMenuContext.isSubmenu !== undefined,
-      }}
-    >
-      {contents}
-    </MenuContext.Provider>
+  const isSubmenu = parentMenuContext.isSubmenu !== undefined
+
+  const menuContextValue = useMemo(
+    () => ({
+      anchorRef,
+      renderAnchor: anchor.renderAnchor,
+      anchorId,
+      open: combinedOpenState,
+      onOpen,
+      onClose,
+      isSubmenu,
+    }),
+    [anchorRef, anchor.renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu],
   )
+
+  return <MenuContext.Provider value={menuContextValue}>{contents}</MenuContext.Provider>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -232,6 +247,7 @@ const Anchor: WithSlotMarker<
       {React.cloneElement(child, {
         ...anchorProps,
         ref: anchorRef,
+        className: clsx(anchorProps.className, child.props.className),
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
       })}
@@ -245,7 +261,7 @@ export type ActionMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
+      <Button data-component="ActionMenu.Button" type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
@@ -256,7 +272,7 @@ const defaultVariant: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'> = {
 }
 
 type MenuOverlayProps = Partial<OverlayProps> &
-  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant'> & {
+  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant' | 'displayInViewport'> & {
     /**
      * Recommended: `ActionList`
      */
@@ -268,6 +284,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   align = 'start',
   side,
   onPositionChange,
+  displayInViewport,
   'aria-labelledby': ariaLabelledby,
   variant = defaultVariant,
   ...overlayProps
@@ -285,39 +302,73 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
-  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
   const isNarrow = useResponsiveValue({narrow: true}, false)
-  const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
 
   const isNarrowFullscreen = !!isNarrow && variant.narrow === 'fullscreen'
 
+  const handleClose: MenuCloseHandler = React.useCallback(
+    gesture => {
+      // In narrow fullscreen mode, don't close on tab, let focus stay in the menu
+      if (isNarrowFullscreen && gesture === 'tab') {
+        return
+      }
+      onClose?.(gesture)
+    },
+    [isNarrowFullscreen, onClose],
+  )
+
+  // Wait for the anchor label before mounting or focusing the menu.
+  const [anchorLabelReady, setAnchorLabelReady] = useState(false)
+  if (!open && anchorLabelReady) {
+    setAnchorLabelReady(false)
+  }
+  useMenuKeyboardNavigation(open && anchorLabelReady, handleClose, containerRef, anchorRef, isSubmenu)
+
+  const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
+
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
-  useEffect(() => {
-    // Necessary for HMR reloads
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (anchorRef?.current) {
-      const ariaLabelledby = anchorRef.current.getAttribute('aria-labelledby')
-      if (ariaLabelledby) {
-        setAnchorAriaLabelledby(ariaLabelledby)
-      }
+  useLayoutEffect(() => {
+    if (open) {
+      setAnchorAriaLabelledby(anchorRef.current?.getAttribute('aria-labelledby') ?? null)
+      setAnchorLabelReady(true)
     }
-  }, [anchorRef])
+  }, [anchorRef, open])
+
+  const afterSelect = useCallback(() => onClose?.('item-select'), [onClose])
+
+  const overlayContextValue = useMemo(
+    () => ({
+      container: 'ActionMenu' as const,
+      listRole: 'menu' as const,
+      listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
+      selectionAttribute: 'aria-checked' as const,
+      afterSelect,
+      enableFocusZone: isNarrowFullscreen,
+    }),
+    [ariaLabelledby, anchorAriaLabelledby, anchorId, afterSelect, isNarrowFullscreen],
+  )
+
+  const isInsideDialog = useContext(DialogContext) !== undefined
 
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
-      open={open}
+      open={open && anchorLabelReady}
       onOpen={onOpen}
-      onClose={onClose}
+      onClose={handleClose}
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
-      overlayProps={overlayProps}
+      overlayProps={{
+        ...overlayProps,
+        'data-component': 'ActionMenu.Overlay',
+      }}
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
+      displayInViewport={displayInViewport !== undefined ? displayInViewport : isInsideDialog}
     >
       <div
         ref={containerRef}
@@ -326,17 +377,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
         {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
         {...(overlayProps.maxHeight ? {[`data-max-height-${overlayProps.maxHeight}`]: ''} : {})}
       >
-        <ActionListContainerContext.Provider
-          value={{
-            container: 'ActionMenu',
-            listRole: 'menu',
-            // If there is a custom aria-labelledby, use that. Otherwise, if exists, use the id that labels the anchor such as tooltip. If none of them exist, use anchor id.
-            listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
-            selectionAttribute: 'aria-checked', // Should this be here?
-            afterSelect: () => onClose?.('item-select'),
-            enableFocusZone: isNarrowFullscreen, // AnchoredOverlay takes care of focus zone. We only want to enable this if menu is narrow fullscreen.
-          }}
-        >
+        <ActionListContainerContext.Provider value={overlayContextValue}>
           {children}
         </ActionListContainerContext.Provider>
       </div>
@@ -346,7 +387,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
 
 Menu.displayName = 'ActionMenu'
 
-Menu.__SLOT__ = Symbol('ActionMenu')
 MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
 Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
 Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')

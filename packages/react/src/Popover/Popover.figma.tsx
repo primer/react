@@ -1,4 +1,6 @@
-import {Heading, Popover, Text} from '../../src'
+import Heading from '../Heading'
+import Popover from '.'
+import Text from '../Text'
 import figma from '@figma/code-connect'
 
 figma.connect(Popover, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=19015-63778&m=dev', {

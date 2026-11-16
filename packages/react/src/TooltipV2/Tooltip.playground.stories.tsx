@@ -1,4 +1,4 @@
-import {Button} from '..'
+import {Button} from '../Button'
 import {Tooltip} from './Tooltip'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import classes from './Tooltip.playground.stories.module.css'

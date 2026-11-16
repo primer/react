@@ -1,6 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import {Hidden} from './Hidden'
-import {Button} from '..'
+import {Button} from '../Button'
 
 export default {
   title: 'Experimental/Components/Hidden/Features',

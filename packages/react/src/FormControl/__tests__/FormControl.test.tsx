@@ -1,4 +1,5 @@
 import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import {describe, expect, it, vi} from 'vitest'
 import Autocomplete from '../../Autocomplete'
 import Checkbox from '../../Checkbox'
@@ -9,8 +10,13 @@ import Select from '../../Select'
 import Textarea from '../../Textarea'
 import TextInput from '../../TextInput'
 import TextInputWithTokens from '../../TextInputWithTokens'
+import {SelectPanel} from '../../SelectPanel'
 import {MarkGithubIcon} from '@primer/octicons-react'
 import type {FCWithSlotMarker} from '../../utils/types'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../FormControl.module.css'
+import captionClasses from '../FormControlCaption.module.css'
+import inputClasses from '../../internal/components/InputLabel.module.css'
 
 const LABEL_TEXT = 'Form control'
 const CAPTION_TEXT = 'Hint text'
@@ -54,64 +60,131 @@ const WrappedValidationComponent: FCWithSlotMarker<object> = () => (
 WrappedValidationComponent.__SLOT__ = FormControl.Validation.__SLOT__
 
 describe('FormControl', () => {
+  implementsClassName(
+    props => (
+      <FormControl {...props}>
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+      </FormControl>
+    ),
+    classes.ControlVerticalLayout,
+  )
+  implementsClassName(
+    props => (
+      <FormControl {...props} layout="horizontal">
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+      </FormControl>
+    ),
+    classes.ControlHorizontalLayout,
+  )
+  implementsClassName(FormControl.Caption, captionClasses.Caption)
+  implementsClassName(FormControl.Label, inputClasses.Label)
+
+  it('renders data-component attributes (vertical, non-choice input)', async () => {
+    const {container} = render(
+      <FormControl id="test-id">
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+        <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+        <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
+      </FormControl>,
+    )
+
+    await expect
+      .element(container.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('data-component', 'FormControl')
+    await expect
+      .element(page.getByText(LABEL_TEXT, {exact: true}))
+      .toHaveAttribute('data-component', 'FormControl.Label')
+    await expect
+      .element(page.getByText(CAPTION_TEXT, {exact: true}))
+      .toHaveAttribute('data-component', 'FormControl.Caption')
+
+    const validation = container.querySelector<HTMLElement>('[data-component="FormControl.Validation"]')
+    await expect.element(validation).toHaveTextContent(ERROR_TEXT)
+  })
+
+  it('renders data-component attributes (choice input)', async () => {
+    const {container} = render(
+      <FormControl id="test-id-choice">
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <Checkbox />
+        <FormControl.LeadingVisual>
+          <MarkGithubIcon aria-label="Icon label" />
+        </FormControl.LeadingVisual>
+      </FormControl>,
+    )
+
+    await expect
+      .element(container.querySelector<HTMLElement>(':scope > :first-child'))
+      .toHaveAttribute('data-component', 'FormControl')
+    await expect
+      .element(page.getByText(LABEL_TEXT, {exact: true}))
+      .toHaveAttribute('data-component', 'FormControl.Label')
+
+    const leadingVisual = container.querySelector<HTMLElement>('[data-component="FormControl.LeadingVisual"]')
+    await expect.element(leadingVisual).toBeInTheDocument()
+  })
+
   describe('vertically stacked layout (default)', () => {
     describe('rendering', () => {
-      it('renders with a hidden label', () => {
-        const {getByLabelText, getByText} = render(
+      it('renders with a hidden label', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
           </FormControl>,
         )
 
-        const input = getByLabelText(LABEL_TEXT)
-        const label = getByText(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
+        const label = page.getByText(LABEL_TEXT, {exact: true})
 
-        expect(input).toBeDefined()
-        expect(label).toBeDefined()
+        await expect.element(input).toBeInTheDocument()
+        await expect.element(label).toBeInTheDocument()
       })
 
-      it('renders with a custom ID', () => {
-        const {getByLabelText} = render(
+      it('renders with a custom ID', async () => {
+        render(
           <FormControl id="customId">
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
           </FormControl>,
         )
 
-        const input = getByLabelText(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
 
-        expect(input.getAttribute('id')).toBe('customId')
+        await expect.element(input).toHaveAttribute('id', 'customId')
       })
 
-      it('renders as disabled', () => {
-        const {getByLabelText} = render(
+      it('renders as disabled', async () => {
+        render(
           <FormControl disabled>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
           </FormControl>,
         )
 
-        const input = getByLabelText(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
 
-        expect(input.getAttribute('disabled')).not.toBeNull()
+        await expect.element(input).toHaveAttribute('disabled')
       })
 
-      it('renders as required', () => {
-        const {getByRole} = render(
+      it('renders as required', async () => {
+        render(
           <FormControl required>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
           </FormControl>,
         )
 
-        const input = getByRole('textbox')
+        const input = page.getByRole('textbox')
 
-        expect(input).toHaveAttribute('aria-required', 'true')
+        await expect.element(input).toHaveAttribute('aria-required', 'true')
       })
 
-      it('renders with a caption', () => {
-        const {getByText} = render(
+      it('renders with a caption', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
@@ -119,13 +192,13 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        const caption = getByText(CAPTION_TEXT)
+        const caption = page.getByText(CAPTION_TEXT, {exact: true})
 
-        expect(caption).toBeDefined()
+        await expect.element(caption).toBeInTheDocument()
       })
 
-      it('renders with a successful validation message', () => {
-        const {getByText} = render(
+      it('renders with a successful validation message', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
@@ -133,13 +206,13 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        const validationMessage = getByText(ERROR_TEXT)
+        const validationMessage = page.getByText(ERROR_TEXT, {exact: true})
 
-        expect(validationMessage).toBeDefined()
+        await expect.element(validationMessage).toBeInTheDocument()
       })
 
-      it('renders with an error validation message', () => {
-        const {getByText} = render(
+      it('renders with an error validation message', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
@@ -147,14 +220,14 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        const validationMessage = getByText(ERROR_TEXT)
+        const validationMessage = page.getByText(ERROR_TEXT, {exact: true})
 
-        expect(validationMessage).toBeDefined()
+        await expect.element(validationMessage).toBeInTheDocument()
       })
 
-      it('renders with the input as a TextInputWithTokens', () => {
+      it('renders with the input as a TextInputWithTokens', async () => {
         const onRemoveMock = vi.fn()
-        const {getByLabelText} = render(
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInputWithTokens
@@ -168,13 +241,13 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        const input = getByLabelText(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
 
-        expect(input).toBeDefined()
+        await expect.element(input).toBeInTheDocument()
       })
 
-      it('renders with the input as an Autocomplete', () => {
-        const {getByLabelText} = render(
+      it('renders with the input as an Autocomplete', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <Autocomplete>
@@ -183,13 +256,13 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        const input = getByLabelText(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
 
-        expect(input).toBeDefined()
+        await expect.element(input).toBeInTheDocument()
       })
 
-      it('renders with the input as a Select', () => {
-        const {getByLabelText, getByText} = render(
+      it('renders with the input as a Select', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <Select>
@@ -200,61 +273,61 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        const input = getByLabelText(LABEL_TEXT)
-        const label = getByText(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
+        const label = page.getByText(LABEL_TEXT, {exact: true})
 
-        expect(input).toBeDefined()
-        expect(label).toBeDefined()
+        await expect.element(input).toBeInTheDocument()
+        await expect.element(label).toBeInTheDocument()
       })
 
-      it('renders with the input as a Textarea', () => {
-        const {getByLabelText, getByText} = render(
+      it('renders with the input as a Textarea', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <Textarea />
           </FormControl>,
         )
 
-        const input = getByLabelText(LABEL_TEXT)
-        const label = getByText(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
+        const label = page.getByText(LABEL_TEXT, {exact: true})
 
-        expect(input).toBeDefined()
-        expect(label).toBeDefined()
+        await expect.element(input).toBeInTheDocument()
+        await expect.element(label).toBeInTheDocument()
       })
 
-      it('passes through props on the label element', () => {
-        const {getByLabelText, getByText} = render(
+      it('passes through props on the label element', async () => {
+        render(
           <FormControl>
             <FormControl.Label data-testid="some-test-id">{LABEL_TEXT}</FormControl.Label>
             <Textarea />
           </FormControl>,
         )
 
-        const input = getByLabelText(LABEL_TEXT)
-        const label = getByText(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
+        const label = page.getByText(LABEL_TEXT, {exact: true})
 
-        expect(input).toBeDefined()
-        expect(label).toBeDefined()
-        expect(label).toHaveAttribute('data-testid', 'some-test-id')
+        await expect.element(input).toBeInTheDocument()
+        await expect.element(label).toBeInTheDocument()
+        await expect.element(label).toHaveAttribute('data-testid', 'some-test-id')
       })
     })
 
     describe('ARIA attributes', () => {
-      it('associates the label with the input', () => {
-        const {getByLabelText} = render(
+      it('associates the label with the input', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
           </FormControl>,
         )
 
-        const inputNode = getByLabelText(LABEL_TEXT)
-        expect(inputNode).toBeDefined()
+        const inputNode = page.getByLabelText(LABEL_TEXT, {exact: true})
+        await expect.element(inputNode).toBeInTheDocument()
       })
 
-      it('associates caption text with the input', () => {
+      it('associates caption text with the input', async () => {
         const fieldId = 'captionedInput'
-        const {getByLabelText, getByText} = render(
+        render(
           <FormControl id={fieldId}>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
@@ -262,16 +335,16 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        const inputNode = getByLabelText(LABEL_TEXT)
-        const captionNode = getByText(CAPTION_TEXT)
+        const inputNode = page.getByLabelText(LABEL_TEXT, {exact: true})
+        const captionNode = page.getByText(CAPTION_TEXT, {exact: true})
 
-        expect(captionNode.getAttribute('id')).toBe(`${fieldId}-caption`)
-        expect(inputNode.getAttribute('aria-describedby')).toBe(`${fieldId}-caption`)
+        await expect.element(captionNode).toHaveAttribute('id', `${fieldId}-caption`)
+        await expect.element(inputNode).toHaveAttribute('aria-describedby', `${fieldId}-caption`)
       })
 
-      it('associates validation text with the input', () => {
+      it('associates validation text with the input', async () => {
         const fieldId = 'validatedInput'
-        const {getByLabelText, getByText} = render(
+        render(
           <FormControl id={fieldId}>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <TextInput />
@@ -279,11 +352,72 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        const inputNode = getByLabelText(LABEL_TEXT)
-        const validationNode = getByText(ERROR_TEXT)
+        const inputNode = page.getByLabelText(LABEL_TEXT, {exact: true})
+        const validationNode = page.getByText(ERROR_TEXT, {exact: true})
 
-        expect(validationNode.getAttribute('id')).toBe(`${fieldId}-validationMessage`)
-        expect(inputNode.getAttribute('aria-describedby')).toBe(`${fieldId}-validationMessage`)
+        await expect.element(validationNode).toHaveAttribute('id', `${fieldId}-validationMessage`)
+        await expect.element(inputNode).toHaveAttribute('aria-describedby', `${fieldId}-validationMessage`)
+      })
+
+      it('does not wire htmlFor for SelectPanel, and composes aria-labelledby from label + selected value', async () => {
+        const fieldId = 'select-panel-field'
+
+        const {container} = render(
+          <FormControl id={fieldId}>
+            <FormControl.Label>Labels</FormControl.Label>
+            <SelectPanel
+              open={false}
+              onOpenChange={() => {}}
+              items={[]}
+              selected={[{id: 1, text: 'bug'}]}
+              onSelectedChange={() => {}}
+              onFilterChange={() => {}}
+            />
+          </FormControl>,
+        )
+
+        const labelEl = container.querySelector('label')
+        await expect.element(labelEl).toBeInTheDocument()
+        await expect.element(labelEl).not.toHaveAttribute('for')
+
+        const button = page.getByRole('button')
+        await expect.element(button).toHaveAttribute('aria-labelledby')
+        const labelledBy = button.element().getAttribute('aria-labelledby') ?? ''
+
+        expect(labelledBy.split(' ')).toEqual(expect.arrayContaining([`${fieldId}-label`, `${fieldId}-selected-value`]))
+
+        await expect.element(container.querySelector<HTMLElement>(`#${fieldId}-selected-value`)).toBeInTheDocument()
+
+        await expect.element(page.getByText('bug', {exact: true})).toBeInTheDocument()
+      })
+
+      it('uses a custom FormControl.Label id in SelectPanel aria-labelledby', async () => {
+        const fieldId = 'select-panel-field'
+        const customLabelId = 'my-custom-label-id'
+
+        const {container} = render(
+          <FormControl id={fieldId}>
+            <FormControl.Label id={customLabelId}>Labels</FormControl.Label>
+            <SelectPanel
+              open={false}
+              onOpenChange={() => {}}
+              items={[]}
+              selected={[{id: 1, text: 'bug'}]}
+              onSelectedChange={() => {}}
+              onFilterChange={() => {}}
+            />
+          </FormControl>,
+        )
+
+        const labelEl = container.querySelector('label')
+        await expect.element(labelEl).toBeInTheDocument()
+        await expect.element(labelEl).toHaveAttribute('id', customLabelId)
+        await expect.element(labelEl).not.toHaveAttribute('for')
+
+        const button = page.getByRole('button')
+        const labelledBy = button.element().getAttribute('aria-labelledby') ?? ''
+
+        expect(labelledBy.split(' ')).toEqual(expect.arrayContaining([customLabelId, `${fieldId}-selected-value`]))
       })
     })
 
@@ -366,10 +500,10 @@ describe('FormControl', () => {
     })
 
     describe('slot identification', () => {
-      it('should correctly identify a label wrapped in a div using __SLOT__ property', () => {
+      it('should correctly identify a label wrapped in a div using __SLOT__ property', async () => {
         const spy = vi.spyOn(console, 'error').mockImplementationOnce(() => {})
 
-        const {container, getByLabelText} = render(
+        const {container} = render(
           <FormControl>
             <WrappedLabelComponent />
             <TextInput />
@@ -381,14 +515,14 @@ describe('FormControl', () => {
         expect(spy).toHaveBeenCalledTimes(0)
 
         // The label should function properly - input should be labeled correctly
-        const input = getByLabelText(LABEL_TEXT)
-        expect(input).toBeDefined()
-        expect(container.textContent).toContain(LABEL_TEXT)
+        const input = page.getByLabelText(LABEL_TEXT, {exact: true})
+        await expect.element(input).toBeInTheDocument()
+        await expect.element(container).toHaveTextContent(LABEL_TEXT)
 
         spy.mockRestore()
       })
 
-      it('should correctly identify a caption wrapped in a div using __SLOT__ property', () => {
+      it('should correctly identify a caption wrapped in a div using __SLOT__ property', async () => {
         const {container} = render(
           <FormControl id="test-caption">
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
@@ -399,15 +533,14 @@ describe('FormControl', () => {
 
         // The caption should be found as a slot because of the __SLOT__ property
         // We can verify this by checking that aria-describedby includes the caption ID
-        const input = container.querySelector('input')
-        const ariaDescribedBy = input?.getAttribute('aria-describedby') || ''
-        expect(ariaDescribedBy).toContain('test-caption-caption')
+        const input = page.getByRole('textbox')
+        await expect.element(input).toHaveAttribute('aria-describedby', expect.stringContaining('test-caption-caption'))
 
         // The caption text should be rendered and functional
-        expect(container.textContent).toContain(CAPTION_TEXT)
+        await expect.element(container).toHaveTextContent(CAPTION_TEXT)
       })
 
-      it('should correctly identify a validation wrapped in a div using __SLOT__ property', () => {
+      it('should correctly identify a validation wrapped in a div using __SLOT__ property', async () => {
         const {container} = render(
           <FormControl id="test-validation">
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
@@ -418,12 +551,13 @@ describe('FormControl', () => {
 
         // The validation should be found as a slot because of the __SLOT__ property
         // We can verify this by checking that aria-describedby includes the validation ID
-        const input = container.querySelector('input')
-        const ariaDescribedBy = input?.getAttribute('aria-describedby') || ''
-        expect(ariaDescribedBy).toContain('test-validation-validationMessage')
+        const input = page.getByRole('textbox')
+        await expect
+          .element(input)
+          .toHaveAttribute('aria-describedby', expect.stringContaining('test-validation-validationMessage'))
 
         // The validation text should be rendered and functional
-        expect(container.textContent).toContain(ERROR_TEXT)
+        await expect.element(container).toHaveTextContent(ERROR_TEXT)
       })
 
       it('should correctly identify a leading visual wrapped in a div using __SLOT__ property for non-choice inputs', () => {
@@ -446,8 +580,8 @@ describe('FormControl', () => {
 
         spy.mockRestore()
       })
-      it('should correctly identify a leading visual wrapped in a div using __SLOT__ property for choice inputs', () => {
-        const {container, getByLabelText} = render(
+      it('should correctly identify a leading visual wrapped in a div using __SLOT__ property for choice inputs', async () => {
+        const {container} = render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <Checkbox />
@@ -457,20 +591,20 @@ describe('FormControl', () => {
 
         // The leading visual should be found as a slot because of the __SLOT__ property
         // We can verify this by checking that the leading visual container is present
-        const leadingVisualContainer = container.querySelector('[data-has-leading-visual]')
-        expect(leadingVisualContainer).toBeDefined()
+        const leadingVisualContainer = container.querySelector<HTMLElement>('[data-has-leading-visual]')
+        await expect.element(leadingVisualContainer).toBeInTheDocument()
 
         // The icon should be rendered and functional
-        expect(getByLabelText('Icon label')).toBeDefined()
-        expect(container.querySelector('svg')).toBeDefined()
+        await expect.element(page.getByLabelText('Icon label', {exact: true})).toBeInTheDocument()
+        await expect.element(container.querySelector('svg')).toBeInTheDocument()
       })
     })
   })
 
   describe('checkbox and radio layout', () => {
     describe('rendering', () => {
-      it('renders with a LeadingVisual', () => {
-        const {getByLabelText} = render(
+      it('renders with a LeadingVisual', async () => {
+        render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <Checkbox />
@@ -480,7 +614,7 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        expect(getByLabelText('Icon label')).toBeDefined()
+        await expect.element(page.getByLabelText('Icon label', {exact: true})).toBeInTheDocument()
       })
     })
 
@@ -516,7 +650,7 @@ describe('FormControl', () => {
       })
 
       it('should allow required prop to individual checkbox', async () => {
-        const {getByRole} = render(
+        render(
           <FormControl required>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <Checkbox />
@@ -524,11 +658,11 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        expect(getByRole('checkbox')).toBeRequired()
+        await expect.element(page.getByRole('checkbox')).toBeRequired()
       })
 
       it('should not add required prop to individual radio', async () => {
-        const {getByRole} = render(
+        render(
           <FormControl required>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <Radio value="radio" name="radio" />
@@ -536,11 +670,11 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        expect(getByRole('radio')).not.toBeRequired()
+        await expect.element(page.getByRole('radio')).not.toBeRequired()
       })
 
       it('should allow required prop on checkbox if part of CheckboxGroup', async () => {
-        const {getByTestId} = render(
+        render(
           <CheckboxGroup>
             <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
             <FormControl required>
@@ -558,9 +692,22 @@ describe('FormControl', () => {
           </CheckboxGroup>,
         )
 
-        expect(getByTestId('checkbox-1')).toBeRequired()
-        expect(getByTestId('checkbox-2')).not.toBeRequired()
+        await expect.element(page.getByTestId('checkbox-1')).toBeRequired()
+        await expect.element(page.getByTestId('checkbox-2')).not.toBeRequired()
       })
+    })
+  })
+
+  describe('horizontal layout', () => {
+    it('renders only one input when layout is horizontal with a non-choice input', () => {
+      const {getAllByRole} = render(
+        <FormControl layout="horizontal">
+          <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+          <TextInput />
+        </FormControl>,
+      )
+
+      expect(getAllByRole('textbox')).toHaveLength(1)
     })
   })
 })

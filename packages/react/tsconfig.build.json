@@ -1,8 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "rootDir": "./src"
   },
+  // TypeScript 6 requires declaration emit inputs to be contained by rootDir,
+  // so keep the package declaration build scoped to source files.
+  "include": ["src/**/*"],
   // NOTE: We exclude Storybook stories and test utilities which import
   // Storybook and its dependencies, because:
   //   a) we don't want Storybook types in our build output, and

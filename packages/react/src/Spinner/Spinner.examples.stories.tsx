@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import Spinner from './Spinner'
-import {Button} from '..'
+import {Button} from '../Button'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {AriaStatus} from '../live-region'
 import classes from './Spinner.stories.module.css'
@@ -94,4 +94,33 @@ export const FullLifecycleVisibleLoadingText = () => {
       </VisuallyHidden>
     </div>
   )
+}
+
+export const SynchronizedSpinners = () => (
+  <>
+    <Spinner />
+    <Delay ms={250}>
+      <Spinner />
+    </Delay>
+    <Delay ms={750}>
+      <Spinner />
+    </Delay>
+    <Delay ms={1500}>
+      <Spinner />
+    </Delay>
+    <Delay ms={2350}>
+      <Spinner />
+    </Delay>
+  </>
+)
+
+function Delay({children, ms}: {children: React.ReactNode; ms: number}) {
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setShow(true), ms)
+    return () => clearTimeout(timeout)
+  }, [ms])
+
+  return show ? <>{children}</> : null
 }

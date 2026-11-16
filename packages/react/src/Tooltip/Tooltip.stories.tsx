@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {Button} from '..'
+import {Button} from '../Button'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import Tooltip from './Tooltip'

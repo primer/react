@@ -1,7 +1,12 @@
 #!/bin/bash
 
+set -e
+
+# Generate color schemes
+npm run build:precompile-color-schemes
+
 # Build the package
-npx rollup -c
+npx rolldown -c
 
 # Generate components.json
 ./script/generate-components-json

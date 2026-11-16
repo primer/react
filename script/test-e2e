@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-set -x
 
 PLAYWRIGHT_VERSION=$(npm --json list @playwright/test | jq --raw-output '.dependencies["@playwright/test"].version')
 
@@ -18,9 +17,15 @@ fi
 
 echo "Using Storybook at: $STORYBOOK_URL"
 
+if [ -z "$STYLED_REACT_STORYBOOK_URL" ]; then
+  STYLED_REACT_STORYBOOK_URL="http://host.docker.internal:6007"
+fi
+
+echo "Using styled-react Storybook at: $STYLED_REACT_STORYBOOK_URL"
+
 docker run --rm \
   --network host \
   -v $(pwd):/workspace \
   -w /workspace \
   -it "mcr.microsoft.com/playwright:v$PLAYWRIGHT_VERSION-jammy" \
-  /bin/bash -c "npm install && STORYBOOK_URL=$STORYBOOK_URL npx playwright test $@"
+  /bin/bash -c "npm install && STORYBOOK_URL=$STORYBOOK_URL STYLED_REACT_STORYBOOK_URL=$STYLED_REACT_STORYBOOK_URL npx playwright test $@"

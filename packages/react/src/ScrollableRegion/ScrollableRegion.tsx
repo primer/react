@@ -34,7 +34,13 @@ function ScrollableRegion({
     : {}
 
   return (
-    <div {...rest} {...regionProps} ref={ref} className={clsx(classes.ScrollableRegion, className)}>
+    <div
+      {...rest}
+      {...regionProps}
+      ref={ref}
+      className={clsx(classes.ScrollableRegion, className)}
+      data-component="ScrollableRegion"
+    >
       {children}
     </div>
   )

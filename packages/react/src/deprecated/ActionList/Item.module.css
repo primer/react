@@ -65,6 +65,7 @@
   }
 }
 
+/* stylelint-disable-next-line selector-max-compound-selectors */
 .Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *)
   .DividedContent::before {
   content: ' ';
@@ -238,6 +239,7 @@
   opacity: 1;
 }
 
+/* stylelint-disable-next-line selector-max-compound-selectors */
 .Item[data-divider]:not(:first-of-type):not([data-component='ActionList.Divider'] + .Item):not(
     [data-component='ActionList.Header'] + .Item
   )

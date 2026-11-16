@@ -2,6 +2,7 @@ import {create} from 'storybook/theming'
 import packageJson from '../package.json'
 
 export default create({
+  // eslint-disable-next-line github/unescaped-html-literal
   brandTitle: `
     <div style="display: flex; gap: 4px; align-items: center;">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">

@@ -1,7 +1,9 @@
 import type {Meta} from '@storybook/react-vite'
 import {action} from 'storybook/actions'
 import React from 'react'
-import {Tabs, TabPanel, useTabList, useTab} from './Tabs'
+import {Tabs, TabPanel} from './Tabs'
+import {useTab} from './useTab'
+import {useTabList} from './useTabList'
 import {ActionList} from '../../ActionList'
 import Flash from '../../Flash'
 
@@ -17,7 +19,7 @@ const CustomTabList = (props: React.PropsWithChildren) => {
 
   return (
     <div style={{width: '200px'}}>
-      <ActionList {...tabListProps}>{props.children}</ActionList>
+      <ActionList {...(tabListProps as React.ComponentProps<typeof ActionList>)}>{props.children}</ActionList>
     </div>
   )
 }

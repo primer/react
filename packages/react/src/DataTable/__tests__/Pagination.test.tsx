@@ -1,21 +1,23 @@
-import {page} from 'vitest/browser'
+import {page, userEvent} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
-import {render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {act, fireEvent, render} from '@testing-library/react'
 
 describe('Table.Pagination', () => {
   beforeEach(async () => {
     await page.viewport(1400, 728)
   })
 
-  it('should render a navigation landmark with an accessible name provided by `aria-label`', () => {
+  it('should render a navigation landmark with an accessible name provided by `aria-label`', async () => {
     render(<Pagination aria-label="Pagination" totalCount={100} />)
-    expect(
-      screen.getByRole('navigation', {
-        name: 'Pagination',
-      }),
-    ).toBeInTheDocument()
+    await expect
+      .element(
+        page.getByRole('navigation', {
+          name: 'Pagination',
+          exact: true,
+        }),
+      )
+      .toBeInTheDocument()
   })
 
   it('should set the initial selected page to the first page', () => {
@@ -52,13 +54,16 @@ describe('Table.Pagination', () => {
     )
   })
 
-  it('should set the `id` prop on the rendered navigation landmark', () => {
+  it('should set the `id` prop on the rendered navigation landmark', async () => {
     render(<Pagination aria-label="Test label" id="test-id" totalCount={100} />)
-    expect(
-      screen.getByRole('navigation', {
-        name: 'Test label',
-      }),
-    ).toHaveAttribute('id', 'test-id')
+    await expect
+      .element(
+        page.getByRole('navigation', {
+          name: 'Test label',
+          exact: true,
+        }),
+      )
+      .toHaveAttribute('id', 'test-id')
   })
 
   describe('with one page', () => {
@@ -71,7 +76,6 @@ describe('Table.Pagination', () => {
     })
 
     it('should not call `onChange` when a page or action is interacted with', async () => {
-      const user = userEvent.setup()
       const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={25} />)
@@ -80,13 +84,14 @@ describe('Table.Pagination', () => {
       expect(getCurrentPage()).toEqual(getPage(0))
       expect(getPageRange()).toEqual('1 through 25 of 25')
 
-      await user.click(getPage(0))
+      await userEvent.click(getPage(0))
       expect(onChange).not.toHaveBeenCalled()
 
-      await user.click(getNextPage())
+      // Browser clicks wait for aria-disabled buttons to become enabled.
+      fireEvent.click(getNextPage())
       expect(onChange).not.toHaveBeenCalled()
 
-      await user.click(getPreviousPage())
+      fireEvent.click(getPreviousPage())
       expect(onChange).not.toHaveBeenCalled()
     })
 
@@ -100,9 +105,12 @@ describe('Table.Pagination', () => {
       expect(getCurrentPage()).toEqual(getPage(0))
       expect(getPageRange()).toEqual('1 through 25 of 25')
 
-      rerender(
-        <Pagination onChange={onChange} aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />,
-      )
+      await act(async () => {
+        rerender(
+          <Pagination onChange={onChange} aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />,
+        )
+        await Promise.resolve()
+      })
       expect(getPageRange()).toEqual('11 through 15 of 300')
       expect(getCurrentPage()).toEqual(getPage(2))
       expect(getInvalidPages()).toHaveLength(0)
@@ -130,18 +138,17 @@ describe('Table.Pagination', () => {
     })
 
     it('should call `onChange` when clicking on pages', async () => {
-      const user = userEvent.setup()
       const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
-      await user.click(getPage(1))
+      await userEvent.click(getPage(1))
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 1,
       })
       expect(getPageRange()).toEqual('26 through 50 of 50')
 
-      await user.click(getPage(0))
+      await userEvent.click(getPage(0))
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
@@ -149,7 +156,6 @@ describe('Table.Pagination', () => {
     })
 
     it('should rerender pager with correct page highlighted when clicking on pages and defaultPageIndex set', async () => {
-      const user = userEvent.setup()
       const onChange = vi.fn()
 
       render(
@@ -159,14 +165,14 @@ describe('Table.Pagination', () => {
       expect(getPageRange()).toEqual('76 through 100 of 200')
       expect(getCurrentPage()).toEqual(getPage(3))
 
-      await user.click(getPage(1))
+      await userEvent.click(getPage(1))
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 1,
       })
       expect(getPageRange()).toEqual('26 through 50 of 200')
       expect(getCurrentPage()).toEqual(getPage(1))
 
-      await user.click(getPage(0))
+      await userEvent.click(getPage(0))
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
@@ -175,30 +181,29 @@ describe('Table.Pagination', () => {
     })
 
     it('should call `onChange` when using the keyboard to interact with pages', async () => {
-      const user = userEvent.setup()
       const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
-      await user.tab()
+      await userEvent.tab()
       expect(getPreviousPage()).toHaveFocus()
 
-      await user.tab()
+      await userEvent.tab()
       expect(getFirstPage()).toHaveFocus()
 
-      await user.tab()
+      await userEvent.tab()
       expect(getPage(1)).toHaveFocus()
 
-      await user.keyboard('{Enter}')
+      await userEvent.keyboard('{Enter}')
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 1,
       })
       expect(getPageRange()).toEqual('26 through 50 of 50')
 
-      await user.tab({shift: true})
+      await userEvent.tab({shift: true})
       expect(getPage(0)).toHaveFocus()
 
-      await user.keyboard('{Enter}')
+      await userEvent.keyboard('{Enter}')
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
@@ -206,27 +211,25 @@ describe('Table.Pagination', () => {
     })
 
     it('should call `onChange` when clicking on previous or next', async () => {
-      const user = userEvent.setup()
       const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
-      await user.click(getPreviousPage())
+      fireEvent.click(getPreviousPage())
       expect(onChange).not.toHaveBeenCalled()
 
-      await user.click(getNextPage())
+      await userEvent.click(getNextPage())
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 1,
       })
 
-      await user.click(getPreviousPage())
+      await userEvent.click(getPreviousPage())
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
     })
 
     it('should rerender pager with correct page highlighted when clicking on previous or next and defaultPageIndex set', async () => {
-      const user = userEvent.setup()
       const onChange = vi.fn()
 
       render(
@@ -235,14 +238,14 @@ describe('Table.Pagination', () => {
 
       expect(getPageRange()).toEqual('76 through 100 of 200')
 
-      await user.click(getNextPage())
+      await userEvent.click(getNextPage())
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 4,
       })
       expect(getPageRange()).toEqual('101 through 125 of 200')
       expect(getCurrentPage()).toEqual(getPage(4))
 
-      await user.click(getPreviousPage())
+      await userEvent.click(getPreviousPage())
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 3,
       })
@@ -251,33 +254,32 @@ describe('Table.Pagination', () => {
     })
 
     it('should call `onChange` when using the keyboard to interact with previous or next', async () => {
-      const user = userEvent.setup()
       const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
-      await user.tab()
+      await userEvent.tab()
       expect(getPreviousPage()).toHaveFocus()
 
-      await user.keyboard('{Enter}')
+      await userEvent.keyboard('{Enter}')
       expect(onChange).not.toHaveBeenCalled()
 
-      await user.tab()
-      await user.tab()
-      await user.tab()
+      await userEvent.tab()
+      await userEvent.tab()
+      await userEvent.tab()
       expect(getNextPage()).toHaveFocus()
 
-      await user.keyboard('{Enter}')
+      await userEvent.keyboard('{Enter}')
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 1,
       })
 
-      await user.tab({shift: true})
-      await user.tab({shift: true})
-      await user.tab({shift: true})
+      await userEvent.tab({shift: true})
+      await userEvent.tab({shift: true})
+      await userEvent.tab({shift: true})
       expect(getPreviousPage()).toHaveFocus()
 
-      await user.keyboard('{Enter}')
+      await userEvent.keyboard('{Enter}')
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
@@ -293,9 +295,12 @@ describe('Table.Pagination', () => {
       expect(getCurrentPage()).toEqual(getPage(1))
       expect(getPageRange()).toEqual('26 through 50 of 50')
 
-      rerender(
-        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
-      )
+      await act(async () => {
+        rerender(
+          <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
+        )
+        await Promise.resolve()
+      })
       expect(getPageRange()).toEqual('1 through 5 of 300')
       expect(getCurrentPage()).toEqual(getPage(0))
       expect(getInvalidPages()).toHaveLength(0)
@@ -358,9 +363,12 @@ describe('Table.Pagination', () => {
     expect(getCurrentPage()).toEqual(getPage(1))
     expect(getPageRange()).toEqual('11 through 20 of 1000')
 
-    rerender(
-      <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
-    )
+    await act(async () => {
+      rerender(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
+      )
+      await Promise.resolve()
+    })
     expect(getPageRange()).toEqual('1 through 5 of 300')
     expect(getFirstPage()).toEqual(getCurrentPage())
     expect(getInvalidPages()).toHaveLength(0)
@@ -379,7 +387,6 @@ describe('Table.Pagination', () => {
 
   it('should display correct page range when navigating to page 4 with 100 items and page size of 15', async () => {
     // When we have 100 items spread across pages of 15 items, and we go to page 4, we should get the proper page range
-    const user = userEvent.setup()
     const onChange = vi.fn()
 
     render(<Pagination aria-label="Test label" onChange={onChange} pageSize={15} totalCount={100} />)
@@ -389,7 +396,7 @@ describe('Table.Pagination', () => {
     expect(pages).toHaveLength(7)
 
     // Navigate to page 4 (index 3)
-    await user.click(getPage(3))
+    await userEvent.click(getPage(3))
 
     expect(onChange).toHaveBeenCalledWith({
       pageIndex: 3,
@@ -403,12 +410,53 @@ describe('Table.Pagination', () => {
     const pageNumbers = getPages().map(p => p.textContent.replace(/\D/g, ''))
     expect(pageNumbers).toEqual(['1', '2', '3', '4', '5', '6', '7'])
   })
+
+  describe('data-component attributes', () => {
+    it('should have data-component="Table.Pagination" on the nav element', () => {
+      const {container} = render(<Pagination aria-label="Pagination" totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.Range" on the range element', () => {
+      const {container} = render(<Pagination aria-label="Pagination" totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.Range"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.PreviousPageButton" on the previous button', () => {
+      const {container} = render(<Pagination aria-label="Pagination" totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.PreviousPageButton"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.NextPageButton" on the next button', () => {
+      const {container} = render(<Pagination aria-label="Pagination" totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.NextPageButton"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.Page" on page buttons', () => {
+      const {container} = render(<Pagination aria-label="Pagination" showPages={true} totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.Page"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.Step" on step elements', () => {
+      const {container} = render(<Pagination aria-label="Pagination" showPages={true} totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.Step"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.TruncationStep" on truncation elements', () => {
+      // Need enough pages to show truncation (more than 7 pages)
+      const {container} = render(<Pagination aria-label="Pagination" showPages={true} pageSize={10} totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.TruncationStep"]')).toBeInTheDocument()
+    })
+  })
 })
 
 function getPages() {
-  return screen.getAllByRole('button').filter(button => {
-    return button.textContent.includes('Page')
-  })
+  return page
+    .getByRole('button')
+    .elements()
+    .filter(button => {
+      return button.textContent.includes('Page')
+    })
 }
 
 function getPage(index: number) {
@@ -428,15 +476,21 @@ function getCurrentPage() {
 }
 
 function getPreviousPage() {
-  return screen.getByRole('button', {
-    name: 'Previous page',
-  })
+  return page
+    .getByRole('button', {
+      name: 'Previous page',
+      exact: true,
+    })
+    .element()
 }
 
 function getNextPage() {
-  return screen.getByRole('button', {
-    name: 'Next page',
-  })
+  return page
+    .getByRole('button', {
+      name: 'Next page',
+      exact: true,
+    })
+    .element()
 }
 
 function getFirstPage() {
@@ -461,7 +515,7 @@ function getPageRange() {
   throw new Error('Unable to find the text for the page range component')
 }
 
-function getPreviousStep(element: HTMLElement) {
+function getPreviousStep(element: Element) {
   const step = element.closest('li')
   if (step) {
     return step.previousElementSibling
@@ -469,7 +523,7 @@ function getPreviousStep(element: HTMLElement) {
   throw new Error(`Unable to find previous step`)
 }
 
-function getNextStep(element: HTMLElement) {
+function getNextStep(element: Element) {
   const step = element.closest('li')
   if (step) {
     return step.nextElementSibling

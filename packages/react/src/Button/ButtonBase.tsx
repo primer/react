@@ -1,7 +1,7 @@
 import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import type {ButtonProps} from './types'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import type {ButtonProps, NotificationIndicatorPlacement} from './types'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
@@ -10,7 +10,10 @@ import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
-import {isElement} from 'react-is'
+import {isElement, isValidElementType} from 'react-is'
+import {useFeatureFlag} from '../FeatureFlags'
+
+const BUTTON_LOADING_DISABLED_STYLES_FEATURE_FLAG = 'primer_react_button_loading_disabled_styles'
 
 const renderModuleVisual = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,11 +24,22 @@ const renderModuleVisual = (
 ) => (
   <span
     data-component={visualName}
-    className={clsx(!counterLabel && classes.Visual, loading ? classes.LoadingSpinner : classes.VisualWrap)}
+    className={clsx(
+      !counterLabel && classes.Visual,
+      visualName === 'leadingVisual' && classes.LeadingVisual,
+      loading ? classes.LoadingSpinner : classes.VisualWrap,
+    )}
   >
     {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
   </span>
 )
+
+const renderIcon = (icon: ButtonProps['icon']): React.ReactNode =>
+  isValidElementType(icon) && typeof icon !== 'string' ? React.createElement(icon) : (icon as React.ReactNode)
+
+type ButtonBaseComponentProps = Omit<ButtonProps, 'notificationIndicator'> & {
+  notificationIndicator?: NotificationIndicatorPlacement
+}
 
 const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, forwardedRef): JSX.Element => {
   const {
@@ -46,35 +60,40 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
     inactive,
     onClick,
     labelWrap,
+    notificationIndicator,
     className,
     ...rest
   } = props
 
   const innerRef = React.useRef<HTMLButtonElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+  const mergedRef = useMergedRefs(forwardedRef, innerRef)
+  const loadingDisabledStylesEnabled = useFeatureFlag(BUTTON_LOADING_DISABLED_STYLES_FEATURE_FLAG)
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
 
+  // Only include the loading aria-describedby if there is a loading state
+  const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
+
   if (__DEV__) {
-    /**
-     * The Linter yells because it thinks this conditionally calls an effect,
-     * but since this is a compile-time flag and not a runtime conditional
-     * this is safe, and ensures the entire effect is kept out of prod builds
-     * shaving precious bytes from the output, and avoiding mounting a noop effect
-     */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useEffect(() => {
-      if (
-        innerRef.current &&
-        !(innerRef.current instanceof HTMLButtonElement) &&
-        !((innerRef.current as unknown) instanceof HTMLAnchorElement) &&
-        !((innerRef.current as HTMLElement).tagName === 'SUMMARY')
-      ) {
-        // eslint-disable-next-line no-console
-        console.warn('This component should be an instanceof a semantic button or anchor')
-      }
-    }, [innerRef])
+    if (notificationIndicator === 'leadingVisual' && !LeadingVisual) {
+      // eslint-disable-next-line no-console
+      console.warn('Button: `notificationIndicator="leadingVisual"` requires a `leadingVisual` prop.')
+    }
+
+    // Validate that the element is a semantic button/anchor.
+    // This runs during render (not in an effect) to avoid a conditional hook call
+    // that prevents React Compiler from optimizing this component.
+    const el = innerRef.current
+    if (
+      el &&
+      !(el instanceof HTMLButtonElement) &&
+      !((el as unknown) instanceof HTMLAnchorElement) &&
+      !((el as HTMLElement).tagName === 'SUMMARY')
+    ) {
+      // eslint-disable-next-line no-console
+      console.warn('This component should be an instanceof a semantic button or anchor')
+    }
   }
   return (
     <ConditionalWrapper
@@ -83,26 +102,28 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       // when `loading` is `false`.
       // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
       if={typeof loading !== 'undefined'}
-      className={block ? classes.ConditionalWrapper : undefined}
+      className={block ? classes.ConditionalWrapper : variant === 'link' ? classes.ConditionalWrapperLink : undefined}
       data-loading-wrapper
     >
       <Component
         aria-disabled={loading ? true : undefined}
+        data-component="Button"
         {...rest}
         // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
-        ref={innerRef}
+        ref={mergedRef}
         className={clsx(classes.ButtonBase, className)}
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
         data-loading={Boolean(loading)}
+        data-loading-disabled-styles={loadingDisabledStylesEnabled ? true : undefined}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
         data-size={size}
         data-variant={variant}
         data-label-wrap={labelWrap}
+        data-notification-indicator={notificationIndicator}
         data-has-count={count !== undefined ? true : undefined}
-        aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
-          .filter(descriptionID => Boolean(descriptionID))
-          .join(' ')}
+        data-icon-only-counter={count !== undefined && LeadingVisual && !children ? true : undefined}
+        aria-describedby={ariaDescribedByIds.filter(descriptionID => Boolean(descriptionID)).join(' ') || undefined}
         // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
         // We only set it when the button is in a loading state because it will supersede the aria-label when the screen
         // reader announces the button name.
@@ -113,13 +134,11 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
         onClick={loading ? undefined : onClick}
       >
-        {Icon ? (
+        {Icon !== undefined && Icon !== null ? (
           loading ? (
             <Spinner size="small" />
-          ) : isElement(Icon) ? (
-            Icon
           ) : (
-            <Icon />
+            renderIcon(Icon)
           )
         ) : (
           <>
@@ -153,11 +172,9 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
                   */
                 count !== undefined && !TrailingVisual
                   ? renderModuleVisual(
-                      () => (
-                        <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
-                          {count}
-                        </CounterLabel>
-                      ),
+                      <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
+                        {count}
+                      </CounterLabel>,
                       Boolean(loading) && !LeadingVisual,
                       'trailingVisual',
                       true,
@@ -188,6 +205,6 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       )}
     </ConditionalWrapper>
   )
-}) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
+}) as PolymorphicForwardRefComponent<'button' | 'a', ButtonBaseComponentProps>
 
 export {ButtonBase}

@@ -78,6 +78,11 @@
       "type": "string",
       "description": "The name of the hook."
     },
+    "status": {
+      "type": "string",
+      "enum": ["ready", "deprecated"],
+      "description": "The status of the hook."
+    },
     "importPath": {
       "type": "string",
       "description": "The path to import the hook from. i.e. '@primer/react/experimental'"

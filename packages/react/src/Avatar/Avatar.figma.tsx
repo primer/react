@@ -1,4 +1,4 @@
-import {Avatar} from '../../src'
+import Avatar from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(

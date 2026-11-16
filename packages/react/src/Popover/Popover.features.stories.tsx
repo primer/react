@@ -36,3 +36,25 @@ export const CloseOnClickOutside = () => {
     </>
   )
 }
+
+export const CloseOnEscape = () => {
+  const [open, setOpen] = React.useState(true)
+
+  return (
+    <>
+      <Button
+        style={{marginLeft: 'auto', marginRight: 'auto', marginBottom: 'var(--base-size-4)'}}
+        onClick={() => setOpen(prev => !prev)}
+      >
+        Toggle Popover
+      </Button>
+      <Popover relative open={open} caret="top">
+        <Popover.Content style={{marginTop: 'var(--base-size-8)'}} onEscape={() => setOpen(false)}>
+          <Heading style={{fontSize: 'var(--text-title-size-small)'}}>Popover heading</Heading>
+          <Text as="p">Press Escape to dismiss this popover.</Text>
+          <Button>Got it!</Button>
+        </Popover.Content>
+      </Popover>
+    </>
+  )
+}

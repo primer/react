@@ -1,9 +1,9 @@
 import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {AutocompleteContext} from './AutocompleteContext'
+import {AutocompleteContext, AutocompleteInputContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import type {ComponentProps} from '../utils/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 
@@ -28,6 +28,7 @@ const AutocompleteInput = React.forwardRef(
       onBlur,
       onChange,
       onKeyDown,
+      onKeyDownCapture,
       onKeyUp,
       onKeyPress,
       value,
@@ -37,21 +38,13 @@ const AutocompleteInput = React.forwardRef(
     forwardedRef,
   ) => {
     const autocompleteContext = useContext(AutocompleteContext)
-    if (autocompleteContext === null) {
+    const inputContext = useContext(AutocompleteInputContext)
+    if (autocompleteContext === null || inputContext === null) {
       throw new Error('AutocompleteContext returned null values')
     }
-    const {
-      activeDescendantRef,
-      autocompleteSuggestion = '',
-      id,
-      inputRef,
-      inputValue = '',
-      isMenuDirectlyActivated,
-      setInputValue,
-      setShowMenu,
-      showMenu,
-    } = autocompleteContext
-    useRefObjectAsForwardedRef(forwardedRef, inputRef)
+    const {activeDescendantRef, id, inputRef, setInputValue, setShowMenu, showMenu} = autocompleteContext
+    const {autocompleteSuggestion = '', inputValue = '', isMenuDirectlyActivated} = inputContext
+    const mergedRef = useMergedRefs(forwardedRef, inputRef)
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
     const {safeSetTimeout} = useSafeTimeout()
 
@@ -64,22 +57,36 @@ const AutocompleteInput = React.forwardRef(
 
     const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
       event => {
-        onBlur && onBlur(event)
+        onBlur?.(event)
 
-        // HACK: wait a tick and check the focused element before hiding the autocomplete menu
-        // this prevents the menu from hiding when the user is clicking an option in the Autoselect.Menu,
-        // but still hides the menu when the user blurs the input by tabbing out or clicking somewhere else on the page
+        // HACK: wait a tick before hiding the menu so click interactions can complete.
+        // Use the blur event's relatedTarget to determine whether focus is moving into the
+        // autocomplete menu; if not, hide the menu when focus leaves the input.
         safeSetTimeout(() => {
-          if (document.activeElement !== inputRef.current) {
+          const nextFocusedElement = event.relatedTarget as Node | null
+          const menuElement = document.getElementById(`${id}-listbox`)
+
+          if (
+            !nextFocusedElement ||
+            (nextFocusedElement !== menuElement && !menuElement?.contains(nextFocusedElement))
+          ) {
             setShowMenu(false)
+
+            // Reset the input's value to the text the user actually typed rather than leaving the
+            // inline autocomplete suggestion in place. This keeps the blur behavior consistent with
+            // pressing Escape, so deleting characters off a selection and then clicking away does not
+            // silently restore the full suggestion. See https://github.com/primer/react/issues/4275
+            if (inputRef.current && autocompleteSuggestion && inputRef.current.value !== inputValue) {
+              inputRef.current.value = inputValue
+            }
           }
         }, 0)
       },
-      [onBlur, setShowMenu, inputRef, safeSetTimeout],
+      [onBlur, setShowMenu, inputRef, safeSetTimeout, autocompleteSuggestion, inputValue, id],
     )
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
-      onChange && onChange(event)
+      onChange?.(event)
       setInputValue(event.currentTarget.value)
       if (!showMenu) {
         setShowMenu(true)
@@ -88,7 +95,7 @@ const AutocompleteInput = React.forwardRef(
 
     const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
-        onKeyDown && onKeyDown(event)
+        onKeyDown?.(event)
 
         if (event.key === 'Backspace') {
           setHighlightRemainingText(false)
@@ -105,9 +112,17 @@ const AutocompleteInput = React.forwardRef(
       [inputRef, setInputValue, setHighlightRemainingText, onKeyDown, showMenu, setShowMenu],
     )
 
+    const handleInputKeyDownCapture: KeyboardEventHandler<HTMLInputElement> = event => {
+      onKeyDownCapture?.(event)
+
+      if (!showMenu && ARROW_KEYS_NAV.has(event.key) && !event.altKey) {
+        event.preventDefault()
+      }
+    }
+
     const handleInputKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
-        onKeyUp && onKeyUp(event)
+        onKeyUp?.(event)
 
         if (event.key === 'Backspace') {
           setHighlightRemainingText(true)
@@ -118,12 +133,11 @@ const AutocompleteInput = React.forwardRef(
 
     const onInputKeyPress: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
-        onKeyPress && onKeyPress(event)
+        onKeyPress?.(event)
         if (showMenu && event.key === 'Enter' && activeDescendantRef.current) {
           event.preventDefault()
           event.nativeEvent.stopImmediatePropagation()
 
-          // Forward Enter key press to active descendant so that item gets activated
           const activeDescendantEvent = new KeyboardEvent(event.type, event.nativeEvent)
           activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
         }
@@ -136,15 +150,19 @@ const AutocompleteInput = React.forwardRef(
         return
       }
 
-      // resets input value to being empty after a selection has been made
       if (!autocompleteSuggestion) {
         inputRef.current.value = inputValue
       }
 
-      // TODO: fix bug where this function prevents `onChange` from being triggered if the highlighted item text
-      //       is the same as what I'm typing
-      //       e.g.: typing 'tw' highlights 'two', but when I 'two', the text input change does not get triggered
-      if (highlightRemainingText && autocompleteSuggestion && (inputValue || isMenuDirectlyActivated)) {
+      const isInputFocused = document.activeElement === inputRef.current
+
+      if (
+        isInputFocused &&
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+        highlightRemainingText &&
+        autocompleteSuggestion &&
+        (inputValue || isMenuDirectlyActivated)
+      ) {
         inputRef.current.value = autocompleteSuggestion
 
         if (autocompleteSuggestion.toLowerCase().indexOf(inputValue.toLowerCase()) === 0) {
@@ -152,7 +170,6 @@ const AutocompleteInput = React.forwardRef(
         }
       }
 
-      // calling this useEffect when `highlightRemainingText` changes breaks backspace functionality
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated])
 
@@ -166,9 +183,10 @@ const AutocompleteInput = React.forwardRef(
         onBlur={handleInputBlur}
         onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
+        onKeyDownCapture={handleInputKeyDownCapture}
         onKeyPress={onInputKeyPress}
         onKeyUp={handleInputKeyUp}
-        ref={inputRef}
+        ref={mergedRef}
         aria-controls={`${id}-listbox`}
         aria-autocomplete="both"
         role="combobox"
@@ -178,6 +196,7 @@ const AutocompleteInput = React.forwardRef(
         autoComplete="off"
         id={id}
         {...props}
+        data-component="Autocomplete.Input"
       />
     )
   },

@@ -6,11 +6,12 @@ import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import classes from './InputValidation.module.css'
 import {clsx} from 'clsx'
 
-type Props = {
+type Props = React.HTMLAttributes<HTMLElement> & {
   className?: string
   id: string
   validationStatus?: FormValidationStatus
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 const validationIconMap: Record<
@@ -27,6 +28,8 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
   id,
   validationStatus,
   style,
+  'data-component': dataComponent,
+  ...rest
 }) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
 
@@ -37,7 +40,13 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
   const iconBoxMinHeight = iconSize * captionLineHeight
 
   return (
-    <Text className={clsx(className, classes.InputValidation)} data-validation-status={validationStatus} style={style}>
+    <Text
+      {...rest}
+      className={clsx(className, classes.InputValidation)}
+      data-validation-status={validationStatus}
+      style={style}
+      data-component={dataComponent}
+    >
       {IconComponent ? (
         <span
           aria-hidden="true"

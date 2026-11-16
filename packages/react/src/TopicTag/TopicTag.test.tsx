@@ -1,13 +1,17 @@
-import {render, screen} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
+import {render} from '@testing-library/react'
 import {describe, test, expect, vi} from 'vitest'
-import {userEvent} from 'vitest/browser'
 import {TopicTag} from '../TopicTag'
+import {implementsClassName} from '../utils/testing'
+import classes from './TopicTag.module.css'
 
 describe('TopicTag', () => {
+  implementsClassName(TopicTag, classes.TopicTag)
+
   test('defaults to <a> semantics', async () => {
     render(<TopicTag href="#">test</TopicTag>)
 
-    expect(screen.getByRole('link', {name: 'test'})).toBeInTheDocument()
+    await expect.element(page.getByRole('link', {name: 'test'})).toBeInTheDocument()
   })
 
   test('support <button> semantics through `as` prop', async () => {
@@ -18,22 +22,26 @@ describe('TopicTag', () => {
       </TopicTag>,
     )
 
-    await userEvent.click(screen.getByRole('button', {name: 'test'}))
+    await userEvent.click(page.getByRole('button', {name: 'test'}))
     expect(onClick).toHaveBeenCalled()
   })
 
-  test('supports `className` merging', () => {
+  test('supports `className` merging', async () => {
     const {container} = render(<TopicTag className="custom-class">test</TopicTag>)
-    expect(container.firstChild).toHaveClass('custom-class')
+    const topicTag = page.getByText('test', {exact: true})
+    expect(topicTag.element()).toBe(container.firstElementChild)
+    await expect.element(topicTag).toHaveClass('custom-class')
   })
 
-  test('additional props are applied to outermost element', () => {
+  test('additional props are applied to outermost element', async () => {
     const {container} = render(
       <TopicTag data-testid="test" id="test-id">
         test
       </TopicTag>,
     )
-    expect(container.firstChild).toHaveAttribute('data-testid', 'test')
-    expect(container.firstChild).toHaveAttribute('id', 'test-id')
+    const topicTag = page.getByTestId('test')
+    expect(topicTag.element()).toBe(container.firstElementChild)
+    await expect.element(topicTag).toHaveAttribute('data-testid', 'test')
+    await expect.element(topicTag).toHaveAttribute('id', 'test-id')
   })
 })

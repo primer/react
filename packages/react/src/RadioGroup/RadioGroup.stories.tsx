@@ -1,5 +1,7 @@
 import type {Meta} from '@storybook/react-vite'
-import {Radio, RadioGroup, FormControl} from '..'
+import Radio from '../Radio'
+import RadioGroup from '.'
+import FormControl from '../FormControl'
 import type {CheckboxOrRadioGroupArgs} from '../utils/form-story-helpers'
 
 export default {

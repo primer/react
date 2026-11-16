@@ -1,6 +1,6 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import React, {type JSX} from 'react'
+import React, {type JSX, useContext} from 'react'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {Column, CellAlignment} from './column'
@@ -10,6 +10,8 @@ import {useTableLayout} from './useTable'
 import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
+import Checkbox from '../Checkbox'
+import {TableGroupContext} from './TableGroupContext'
 import classes from './Table.module.css'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
@@ -44,7 +46,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
-  return (
+  const inheritedGroup = useContext(TableGroupContext)
+  const table = (
     // TODO update type to be non-optional in next major release
     // @ts-expect-error this type should be required in the next major version
     <ScrollableRegion
@@ -59,9 +62,12 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
         role="table"
         ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
+        data-component="Table"
       />
     </ScrollableRegion>
   )
+
+  return inheritedGroup ? <TableGroupContext.Provider value={undefined}>{table}</TableGroupContext.Provider> : table
 })
 
 // ----------------------------------------------------------------------------
@@ -74,7 +80,7 @@ function TableHead({children}: TableHeadProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    <thead className={clsx('TableHead', classes.TableHead)} role="rowgroup">
+    <thead className={clsx('TableHead', classes.TableHead)} role="rowgroup" data-component="Table.Head">
       {children}
     </thead>
   )
@@ -90,7 +96,7 @@ function TableBody({children}: TableBodyProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    <tbody className={clsx('TableBody', classes.TableBody)} role="rowgroup">
+    <tbody className={clsx('TableBody', classes.TableBody)} role="rowgroup" data-component="Table.Body">
       {children}
     </tbody>
   )
@@ -107,11 +113,12 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
   align?: CellAlignment
 }
 
-function TableHeader({align, children, ...rest}: TableHeaderProps) {
+function TableHeader({align, className, children, ...rest}: TableHeaderProps) {
   return (
     <th
+      data-component="Table.Header"
       {...rest}
-      className={clsx('TableHeader', classes.TableHeader)}
+      className={clsx('TableHeader', className, classes.TableHeader)}
       role="columnheader"
       scope="col"
       data-cell-align={align}
@@ -136,12 +143,15 @@ type TableSortHeaderProps = TableHeaderProps & {
 
 function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
+  const sortAction = direction === SortDirection.ASC ? 'Sort descending' : 'Sort ascending'
 
   return (
-    <TableHeader {...rest} aria-sort={ariaSort} align={align}>
+    <TableHeader {...rest} aria-sort={ariaSort} align={align} data-component="Table.SortHeader">
       <Button
         type="button"
         className={clsx('TableSortButton', classes.TableSortButton)}
+        data-component="Table.SortHeader.Button"
+        aria-description={sortAction}
         onClick={() => {
           onToggleSort()
         }}
@@ -157,7 +167,6 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
                 classes['TableSortIcon--ascending'],
               )}
             />
-            {direction === SortDirection.NONE ? <VisuallyHidden>sort ascending</VisuallyHidden> : null}
           </>
         ) : null}
         {direction === SortDirection.DESC ? (
@@ -176,14 +185,85 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
 }
 
 // ----------------------------------------------------------------------------
+// TableSelectionHeader
+// ----------------------------------------------------------------------------
+
+export type TableSelectionHeaderProps = Omit<
+  React.ComponentPropsWithoutRef<'th'>,
+  'align' | 'children' | 'onChange'
+> & {
+  /**
+   * Whether all, some, or none of the selectable rows are selected.
+   */
+  selection: 'all' | 'some' | 'none'
+
+  /**
+   * Whether row selection is unavailable.
+   */
+  disabled?: boolean
+
+  /**
+   * Requests toggling selection for all selectable rows.
+   */
+  onToggleSelect?: () => void
+
+  /**
+   * Forwards a ref to the selection checkbox.
+   */
+  checkboxRef?: React.Ref<HTMLInputElement>
+
+  /**
+   * Provides an accessible name for the selection checkbox.
+   */
+  'aria-label'?: string
+
+  /**
+   * Provides an accessible description for the selection checkbox.
+   */
+  'aria-description'?: string
+}
+
+function TableSelectionHeader({
+  selection,
+  checkboxRef,
+  className,
+  disabled,
+  onToggleSelect,
+  'aria-label': ariaLabel = 'Select rows',
+  'aria-description': ariaDescription,
+  ...rest
+}: TableSelectionHeaderProps) {
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  React.useImperativeHandle<HTMLInputElement | null, HTMLInputElement | null>(checkboxRef, () => inputRef.current, [])
+
+  return (
+    <TableHeader
+      {...rest}
+      className={clsx(className, classes.TableSelectionHeader)}
+      data-component="Table.SelectionHeader"
+    >
+      <Checkbox
+        ref={inputRef}
+        checked={selection === 'all'}
+        indeterminate={selection === 'some'}
+        disabled={disabled}
+        onChange={() => onToggleSelect?.()}
+        aria-label={ariaLabel}
+        aria-description={ariaDescription}
+      />
+    </TableHeader>
+  )
+}
+
+// ----------------------------------------------------------------------------
 // TableRow
 // ----------------------------------------------------------------------------
 
 export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
-function TableRow({children, ...rest}: TableRowProps) {
+function TableRow({children, className, ...rest}: TableRowProps) {
   return (
-    <tr {...rest} className={clsx('TableRow', classes.TableRow)} role="row">
+    <tr {...rest} className={clsx('TableRow', classes.TableRow, className)} role="row" data-component="Table.Row">
       {children}
     </tr>
   )
@@ -206,9 +286,12 @@ export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'>
   scope?: 'row'
 }
 
-function TableCell({align, className, children, scope, ...rest}: TableCellProps) {
+function TableCell({align, className, children, scope, headers, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
+
+  const group = useContext(TableGroupContext)
+  const resolvedHeaders = [group?.headerId, headers].filter(Boolean).join(' ') || undefined
 
   return (
     <BaseComponent
@@ -217,16 +300,95 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
       scope={scope}
       role={role}
       data-cell-align={align}
+      data-component="Table.Cell"
+      headers={resolvedHeaders}
     >
       {children}
     </BaseComponent>
   )
 }
 
+// ----------------------------------------------------------------------------
+// TableRowSelection
+// ----------------------------------------------------------------------------
+
+export type TableRowSelectionProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align' | 'children' | 'onChange'> & {
+  /**
+   * Whether the row is selected.
+   */
+  selected: boolean
+
+  /**
+   * Whether the row cannot be selected.
+   */
+  disabled?: boolean
+
+  /**
+   * Requests toggling selection for the row.
+   */
+  onToggleSelect?: () => void
+
+  /**
+   * Forwards a ref to the row selection checkbox.
+   */
+  checkboxRef?: React.Ref<HTMLInputElement>
+
+  /**
+   * Provides an accessible name when no row header labels the checkbox.
+   */
+  'aria-label'?: string
+
+  /**
+   * References the row header or headers that label the checkbox. The
+   * selection action is automatically prepended to the referenced labels.
+   */
+  'aria-labelledby'?: string
+}
+
+function TableRowSelection({
+  selected,
+  checkboxRef,
+  className,
+  disabled,
+  headers,
+  onToggleSelect,
+  'aria-label': ariaLabel = 'Select row',
+  'aria-labelledby': ariaLabelledBy,
+  ...rest
+}: TableRowSelectionProps) {
+  const actionLabelId = React.useId()
+  const group = useContext(TableGroupContext)
+  const resolvedHeaders = [group?.headerId, headers].filter(Boolean).join(' ') || undefined
+
+  return (
+    <td
+      {...rest}
+      className={clsx(className, classes.TableCell, classes.TableRowSelection)}
+      role="cell"
+      headers={resolvedHeaders}
+      data-component="Table.RowSelection"
+    >
+      {ariaLabelledBy ? <VisuallyHidden id={actionLabelId}>Select</VisuallyHidden> : null}
+      <Checkbox
+        ref={checkboxRef}
+        checked={selected}
+        disabled={disabled}
+        onChange={() => onToggleSelect?.()}
+        aria-label={ariaLabelledBy ? undefined : ariaLabel}
+        aria-labelledby={ariaLabelledBy ? `${actionLabelId} ${ariaLabelledBy}` : undefined}
+      />
+    </td>
+  )
+}
+
 type TableCellPlaceholderProps = React.PropsWithChildren
 
 function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
-  return <Text className={classes.PlaceholderText}>{children}</Text>
+  return (
+    <Text className={classes.PlaceholderText} data-component="Table.CellPlaceholder">
+      {children}
+    </Text>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -243,7 +405,7 @@ function TableContainer<As extends React.ElementType = 'div'>({
 }: TableContainerProps<As>) {
   const Component = as || 'div'
   return (
-    <Component {...rest} className={clsx(className, classes.TableContainer)}>
+    <Component {...rest} className={clsx(className, classes.TableContainer)} data-component="Table.Container">
       {children}
     </Component>
   )
@@ -273,7 +435,7 @@ const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function Table
 ) {
   const BaseComponent = Component as React.ElementType
   return (
-    <BaseComponent className={clsx('TableTitle', classes.TableTitle)} id={id} ref={ref}>
+    <BaseComponent className={clsx('TableTitle', classes.TableTitle)} id={id} ref={ref} data-component="Table.Title">
       {children}
     </BaseComponent>
   )
@@ -298,20 +460,26 @@ export type TableSubtitleProps = React.PropsWithChildren<
 
 function TableSubtitle({as: BaseComponent = 'div', children, id}: TableSubtitleProps) {
   return (
-    <BaseComponent className={clsx('TableSubtitle', classes.TableSubtitle)} id={id}>
+    <BaseComponent className={clsx('TableSubtitle', classes.TableSubtitle)} id={id} data-component="Table.Subtitle">
       {children}
     </BaseComponent>
   )
 }
 
 function TableDivider() {
-  return <div className={clsx('TableDivider', classes.TableDivider)} role="presentation" />
+  return (
+    <div className={clsx('TableDivider', classes.TableDivider)} role="presentation" data-component="Table.Divider" />
+  )
 }
 
 export type TableActionsProps = React.PropsWithChildren
 
 function TableActions({children}: TableActionsProps) {
-  return <div className={clsx('TableActions', classes.TableActions)}>{children}</div>
+  return (
+    <div className={clsx('TableActions', classes.TableActions)} data-component="Table.Actions">
+      {children}
+    </div>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -390,7 +558,9 @@ export {
   TableRow,
   TableHeader,
   TableSortHeader,
+  TableSelectionHeader,
   TableCell,
+  TableRowSelection,
   TableCellPlaceholder,
   TableSkeleton,
 }

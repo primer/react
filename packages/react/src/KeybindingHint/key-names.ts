@@ -1,3 +1,5 @@
+import type {Platform} from './platform'
+
 /** Converts the first character of the string to upper case and the remaining to lower case. */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const capitalize = ([first, ...rest]: string) => (first?.toUpperCase() ?? '') + rest.join('').toLowerCase()
@@ -9,13 +11,13 @@ const capitalize = ([first, ...rest]: string) => (first?.toUpperCase() ?? '') + 
 /**
  * Short-form iconic versions of keys. These should be intuitive (not archaic) and match icons on keyboards.
  */
-export const condensedKeyName = (key: string, isMacOS: boolean) =>
+export const condensedKeyName = (key: string, platform: Platform) =>
   ({
-    alt: isMacOS ? '⌥' : 'Alt', // the alt key _is_ the option key on MacOS - in the browser there is no "option" key
+    alt: platform === 'apple' ? '⌥' : 'Alt', // the alt key _is_ the option key on MacOS - in the browser there is no "option" key
     control: '⌃',
     shift: '⇧',
-    meta: isMacOS ? '⌘' : 'Win',
-    mod: isMacOS ? '⌘' : '⌃',
+    meta: platform === 'apple' ? '⌘' : platform === 'windows' ? 'Win' : 'Meta',
+    mod: platform === 'apple' ? '⌘' : '⌃',
     pageup: 'PgUp',
     pagedown: 'PgDn',
     arrowup: '↑',
@@ -39,10 +41,11 @@ export const condensedKeyName = (key: string, isMacOS: boolean) =>
  * Specific key displays for 'full' format. We still do show some icons (ie punctuation)
  * because that's more intuitive, but for the rest of keys we show the standard key name.
  */
-export const fullKeyName = (key: string, isMacOS: boolean) =>
+export const fullKeyName = (key: string, platform: Platform) =>
   ({
-    alt: isMacOS ? 'Option' : 'Alt',
-    mod: isMacOS ? 'Command' : 'Control',
+    alt: platform === 'apple' ? 'Option' : 'Alt',
+    meta: platform === 'apple' ? 'Command' : platform === 'windows' ? 'Windows' : 'Meta',
+    mod: platform === 'apple' ? 'Command' : 'Control',
     '+': 'Plus',
     pageup: 'Page Up',
     pagedown: 'Page Down',
@@ -59,11 +62,11 @@ export const fullKeyName = (key: string, isMacOS: boolean) =>
  * readers from expressing punctuation in speech, ie, reading a long pause instead of the
  * word "period".
  */
-export const accessibleKeyName = (key: string, isMacOS: boolean) =>
+export const accessibleKeyName = (key: string, platform: Platform) =>
   ({
-    alt: isMacOS ? 'option' : 'alt',
-    meta: isMacOS ? 'command' : 'Windows',
-    mod: isMacOS ? 'command' : 'control',
+    alt: platform === 'apple' ? 'option' : 'alt',
+    meta: platform === 'apple' ? 'command' : platform === 'windows' ? 'Windows' : 'meta',
+    mod: platform === 'apple' ? 'command' : 'control',
     // Screen readers may not be able to pronounce concatenated words - this provides a better experience
     pageup: 'page up',
     pagedown: 'page down',

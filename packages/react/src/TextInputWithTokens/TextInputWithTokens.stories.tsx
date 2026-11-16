@@ -1,7 +1,7 @@
 import type React from 'react'
 import {useCallback, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {FormControl} from '..'
+import FormControl from '../FormControl'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
 import type {FormControlArgs} from '../utils/story-helpers'

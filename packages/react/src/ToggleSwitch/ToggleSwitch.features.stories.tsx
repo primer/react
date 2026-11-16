@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useSafeTimeout} from '..'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 import ToggleSwitch from './ToggleSwitch'
 import {action} from 'storybook/actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'

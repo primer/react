@@ -1,7 +1,7 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {getColorsFromHex} from './getColorFromHex'
 import classes from './IssueLabel.module.css'
+import {readableColor} from 'color2k'
 
 type Hex = `#${string}`
 
@@ -73,7 +73,13 @@ function IssueLabel<As extends React.ElementType>({
   const sharedProps = {
     className: clsx(className, classes.IssueLabel),
     'data-variant': fillColor ? undefined : variant,
-    style: fillColor ? {...style, ...getColorsFromHex(fillColor)} : style,
+    style: fillColor
+      ? {
+          ...style,
+          backgroundColor: fillColor,
+          color: readableColor(fillColor),
+        }
+      : style,
   }
 
   if ('as' in props && props.as) {

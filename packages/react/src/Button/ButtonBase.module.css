@@ -24,6 +24,7 @@
   justify-content: space-between;
   gap: var(--base-size-8);
 
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has([data-kbd-chord]) {
     padding-inline-end: var(--base-size-6);
   }
@@ -40,8 +41,47 @@
     transition: none;
   }
 
+  &:where([data-notification-indicator='button'], [data-notification-indicator='icon'].IconButton) {
+    position: relative;
+  }
+
+  &:where([data-notification-indicator='leadingVisual']) .LeadingVisual {
+    position: relative;
+  }
+
+  &:where([data-notification-indicator='button'])::before,
+  &:where([data-notification-indicator='icon'].IconButton)::before,
+  &:where([data-notification-indicator='leadingVisual']) .LeadingVisual::before {
+    position: absolute;
+    display: block;
+    width: var(--base-size-8);
+    height: var(--base-size-8);
+    content: '';
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--fgColor-accent);
+    border-radius: var(--borderRadius-full);
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 0 0 calc(var(--base-size-4) / 2) var(--bgColor-inset);
+  }
+
+  &:where([data-notification-indicator='button'])::before {
+    top: calc(var(--base-size-4) / -2);
+    right: calc(var(--base-size-4) / -2);
+  }
+
+  &:where([data-notification-indicator='icon'].IconButton)::before {
+    top: calc(50% - var(--base-size-12));
+    right: calc(50% - var(--base-size-12));
+  }
+
+  &:where([data-notification-indicator='leadingVisual']) .LeadingVisual::before {
+    top: calc(var(--base-size-4) * -1);
+    right: calc(var(--base-size-4) * -1);
+  }
+
   &:disabled,
-  &[aria-disabled='true']:not([data-loading='true']) {
+  &[aria-disabled='true']:not([data-loading='true']),
+  &[aria-disabled='true'][data-loading-disabled-styles='true'] {
     cursor: not-allowed;
     box-shadow: none;
 
@@ -173,6 +213,7 @@
       margin-right: var(--control-large-gap);
     }
 
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has([data-kbd-chord]) {
       padding-inline-end: var(--base-size-8);
     }
@@ -281,7 +322,8 @@
     }
 
     &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
+    &[aria-disabled='true']:not([data-loading='true']),
+    &[aria-disabled='true'][data-loading-disabled-styles='true'] {
       color: var(--control-fgColor-disabled);
       background-color: var(--button-default-bgColor-disabled);
       border-color: var(--button-default-borderColor-disabled);
@@ -337,7 +379,8 @@
     }
 
     &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
+    &[aria-disabled='true']:not([data-loading='true']),
+    &[aria-disabled='true'][data-loading-disabled-styles='true'] {
       color: var(--button-primary-fgColor-disabled);
       background-color: var(--button-primary-bgColor-disabled);
       border-color: var(--button-primary-borderColor-disabled);
@@ -432,7 +475,8 @@
     }
 
     &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
+    &[aria-disabled='true']:not([data-loading='true']),
+    &[aria-disabled='true'][data-loading-disabled-styles='true'] {
       color: var(--button-danger-fgColor-disabled);
       background-color: var(--button-danger-bgColor-disabled);
       border-color: var(--button-default-borderColor-disabled);
@@ -505,7 +549,8 @@
     }
 
     &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
+    &[aria-disabled='true']:not([data-loading='true']),
+    &[aria-disabled='true'][data-loading-disabled-styles='true'] {
       color: var(--button-invisible-fgColor-disabled);
       background-color: var(--button-invisible-bgColor-disabled);
       border-color: var(--button-invisible-borderColor-disabled);
@@ -550,7 +595,11 @@
     border: unset;
     border-radius: 0;
 
-    &:hover:not(:disabled, [data-inactive]) {
+    &:where([data-no-visuals]:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) {
+      text-decoration: underline;
+    }
+
+    &:where(:not([data-no-visuals]):hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
       text-decoration: underline;
     }
 
@@ -560,7 +609,8 @@
     }
 
     &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
+    &[aria-disabled='true']:not([data-loading='true']),
+    &[aria-disabled='true'][data-loading-disabled-styles='true'] {
       color: var(--control-fgColor-disabled);
       background-color: transparent;
       border-color: transparent;
@@ -568,6 +618,10 @@
 
     & .Label {
       white-space: unset;
+    }
+
+    &:not([data-no-visuals]) .Label {
+      text-underline-offset: 0.125rem;
     }
 
     &:where([data-inactive]) {
@@ -581,30 +635,45 @@
   }
 
   [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
-    &:not(:has(.Visual)) {
+    &[data-no-visuals] {
       text-decoration: underline;
+
+      &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) {
+        text-decoration: none;
+      }
     }
 
-    &:has(.Visual) {
-      background-image: linear-gradient(to right, currentColor, currentColor);
-      background-size: 100% 1.5px;
-      background-position: 0 calc(100% - 2px);
-      background-repeat: no-repeat;
+    &:not([data-no-visuals]) {
+      & .Label {
+        text-decoration: underline;
+      }
 
-      &:hover {
+      &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
         text-decoration: none;
       }
     }
   }
 
   [data-a11y-link-underlines='false'] &:where([data-variant='link']) {
-    &:not(:has(.Visual)) {
+    &[data-no-visuals] {
       text-decoration: none;
       background-image: none;
+
+      &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) {
+        text-decoration: underline;
+      }
     }
 
-    &:has(.Visual) {
+    &:not([data-no-visuals]) {
       background-image: none;
+
+      & .Label {
+        text-decoration: none;
+      }
+
+      &:where(:hover:not(:disabled, [aria-disabled='true'], [data-inactive])) .Label {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -634,7 +703,7 @@
 
   /* Icon-only + Counter */
 
-  &:where([data-has-count]):has([data-component='leadingVisual']):not(:has([data-component='text'])) {
+  &:where([data-icon-only-counter]) {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: var(--control-medium-paddingInline-condensed);
 
@@ -652,6 +721,10 @@
 
 .ConditionalWrapper {
   display: block;
+}
+
+.ConditionalWrapperLink {
+  display: inline-flex;
 }
 
 [data-kbd-chord] {

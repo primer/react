@@ -1,6 +1,6 @@
 import {useCallback, useRef, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Button} from '..'
+import {Button} from '../Button'
 import {ConfirmationDialog} from './ConfirmationDialog'
 
 export default {

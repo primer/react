@@ -6,7 +6,7 @@ import type {ComponentPropsWithRef, ElementType} from 'react'
 /**
  * Distributive Omit utility type that works correctly with union types
  */
-type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends unknown ? Omit<T, TOmitted> : never
+export type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends unknown ? Omit<T, TOmitted> : never
 
 /**
  * Fixed version of forwardRef that provides better type inference for polymorphic components
@@ -25,11 +25,13 @@ export const fixedForwardRef = forwardRef as FixedForwardRef
 /**
  * Simplified polymorphic props type that handles the common pattern of
  * `DistributiveOmit<ComponentPropsWithRef<ElementType extends As ? DefaultElement : As>, 'as'>`
+ * Keep own props separate so their types remain available in generic components.
  */
 export type PolymorphicProps<
   TAs extends ElementType,
   TDefaultElement extends ElementType = 'div',
   Props = object,
-> = DistributiveOmit<ComponentPropsWithRef<ElementType extends TAs ? TDefaultElement : TAs> & Props, 'as'> & {
-  as?: TAs
-}
+> = DistributiveOmit<ComponentPropsWithRef<ElementType extends TAs ? TDefaultElement : TAs>, 'as'> &
+  DistributiveOmit<Props, 'as'> & {
+    as?: TAs
+  }

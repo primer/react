@@ -19,6 +19,7 @@
     padding-inline: var(--base-size-8);
     padding-block: 0;
 
+    /* stylelint-disable-next-line selector-max-type */
     &:where(button, a) {
       text-decoration: none;
 

@@ -1,5 +1,7 @@
 import type {Meta} from '@storybook/react-vite'
-import {Checkbox, CheckboxGroup, FormControl} from '..'
+import Checkbox from '../Checkbox'
+import CheckboxGroup from '.'
+import FormControl from '../FormControl'
 import type {CheckboxOrRadioGroupArgs} from '../utils/form-story-helpers'
 
 export default {

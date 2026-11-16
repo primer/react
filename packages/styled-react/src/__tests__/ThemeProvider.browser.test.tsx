@@ -2,7 +2,12 @@ import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
-import {ThemeProvider, useColorSchemeVar, useTheme, Box} from '../'
+import styled from 'styled-components'
+import {color, space} from 'styled-system'
+import type {ColorProps, SpaceProps} from 'styled-system'
+import {ThemeProvider, useColorSchemeVar, useTheme} from '../'
+
+const Box = styled.div<ColorProps & SpaceProps>(color, space)
 
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
 // https://vijs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom

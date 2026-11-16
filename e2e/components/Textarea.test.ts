@@ -44,6 +44,18 @@ const stories = [
     title: 'Custom Width',
   },
   {
+    id: 'components-textarea-features--with-character-limit',
+    title: 'With Character Limit',
+  },
+  {
+    id: 'components-textarea-features--with-character-limit-and-caption',
+    title: 'With Character Limit and Caption',
+  },
+  {
+    id: 'components-textarea-features--with-character-limit-exceeded',
+    title: 'With Character Limit Exceeded',
+  },
+  {
     id: 'components-textarea-dev--dev-default',
     title: 'Dev Default',
   },

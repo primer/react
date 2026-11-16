@@ -61,8 +61,14 @@ row before the </tbody></table> line.
   - [Server-side rendering](#server-side-rendering)
   - [Prefer managing focus through event handlers instead of effects](#prefer-managing-focus-through-event-handlers-instead-of-effects)
   - [Prefer the `useControllableState` hook when authoring components that can be controlled or uncontrolled](#prefer-the-usecontrollablestate-hook-when-authoring-components-that-can-be-controlled-or-uncontrolled)
+  - [Prefer building components across a spectrum of abstraction](#prefer-building-components-across-a-spectrum-of-abstraction)
+    - [Config components](#config-components)
+    - [Presentational components](#presentational-components)
+    - [Base components](#base-components)
+    - [Utilities](#utilities)
   - [Props](#props)
     - [Prefer applying component rest parameters to the root element rendered by a component](#prefer-applying-component-rest-parameters-to-the-root-element-rendered-by-a-component)
+    - [Merge shared props intentionally](#merge-shared-props-intentionally)
     - [Prefer authoring callback prop types with arguments that can be extended](#prefer-authoring-callback-prop-types-with-arguments-that-can-be-extended)
   - [Hooks](#hooks)
     - [Prefer authoring hooks that accept a `ref` instead of returning a `ref` to apply](#prefer-authoring-hooks-that-accept-a-ref-instead-of-returning-a-ref-to-apply)
@@ -152,6 +158,94 @@ function Example({defaultValue, onChange, value: controlledValue}: ExampleProps)
 }
 ```
 
+### Prefer building components across a spectrum of abstraction
+
+When authoring Primer components, prefer starting with flexible presentational
+components and companion behavior hooks. As opinions or defaults become
+established, create config components that compose those presentational
+components and hooks instead of duplicating their behavior. This keeps common
+patterns easy to adopt while still giving consumers a clear path when they need
+to customize appearance, content, semantics, or behavior.
+
+Use the following API types when designing component APIs:
+
+| API type                  | Use for                                                                             |
+| ------------------------- | ----------------------------------------------------------------------------------- |
+| Config components         | Ready-made, props-based components for stable product patterns and common use-cases |
+| Presentational components | Styled pieces that consumers compose directly, often with companion behavior hooks  |
+| Base components           | Unstyled primitives, often for accessibility structure or low-level behavior        |
+| Utilities                 | Hooks, state management, behaviors, and functions used to build components          |
+
+Not every component needs every API type. Some components will never warrant
+their own config API, and not all components need their own hooks. Start with
+presentational components — markup and styles first, then behavior and state.
+For some components that behavior can stay inside the component; for others it
+should be extracted into a hook.
+
+There is no mechanical test for when to extract yet, but one signal that works
+is whether the state has a component that clearly owns it. For a `List` that
+needs to manage selection, there are two reasonable options:
+
+- Bake selection into the `List` component, which is the config approach
+- Provide a `useSelection` hook, or bake selection into a `useList` hook, that
+  composes with `List` components
+
+#### Config components
+
+Config components are "all-in-one" APIs that let consumers describe intent
+through props or data rather than composing markup directly. They should provide
+opinionated defaults for structure, behavior, accessibility, styling, and
+interactions so teams can implement established patterns quickly and correctly.
+
+Use config components when Primer understands the pattern well and expects many
+teams to reuse it. Keep the supported customization surface explicit through
+props, slots, render props, or configuration. Do not make config components
+support every variation; if consumers need to change structure, semantics, or
+behavior beyond the config API, they should be able to drop down to
+presentational components and behavior hooks.
+
+#### Presentational components
+
+Presentational components are styled pieces that consumers compose directly.
+They should let consumers control layout, ordering, conditional rendering, and
+content while Primer still owns the styling, accessibility expectations, data
+attributes, and component contracts for each piece.
+
+Prefer presentational components and behavior hooks for emerging patterns or
+flexible APIs where a single high-level config API has not stabilized. Build
+config components over time by composing those components and hooks after common
+use-cases and defaults become clear.
+
+Do not add slots by default. Prefer normal React composition first, and only
+introduce slots when a parent component must identify a specific child part or
+the requested API explicitly needs child extraction. Do not reorder
+consumer-authored children in flexible presentational components just to enforce
+a preferred structure; document the recommended structure or add a dev warning
+instead.
+
+#### Base components
+
+Base components are unstyled primitives used to build higher-level components.
+Use them for accessibility primitives and low-level behaviors that need full
+markup and style control. Accessibility primitives for established patterns,
+such as ARIA Authoring Practices Guide patterns, should be consolidated and
+reused rather than reimplemented across components. Before adding custom
+behavior to a component, look for an existing base component, hook, utility, or
+behavior that can provide the foundation.
+
+Prefer existing base primitives over recreating native elements and their reset
+styles. For example, use shared button primitives such as `ButtonBase` when a
+new component needs Primer-owned button semantics, interaction behavior, and
+reset styling instead of hand-rolling a button with custom reset CSS.
+
+#### Utilities
+
+Utilities include hooks, functions, behaviors, and other reusable logic. Provide
+utilities for established patterns so teams can build accessible experiences on
+solid foundations. Examples include hooks such as `useMergedRefs`,
+`useOnEscapePress`, and `useTimeout`, or lower-level packages such as
+`@primer/behaviors`.
+
 ### Props
 
 #### Prefer applying component rest parameters to the root element rendered by a component
@@ -205,6 +299,66 @@ function Example({children, ...rest}: Props) {
 
 </td></tr>
 </tbody></table>
+
+#### Merge shared props intentionally
+
+When a component and a consumer can both provide a prop, define how those values
+are merged instead of allowing the order of prop spreads to decide accidentally.
+Use the following conventions:
+
+- Event handlers run the component's handler first, then the consumer's handler
+  if the event has not been prevented.
+- Class names are merged inline by the component with `clsx`.
+- Style objects apply the component's styles first and the consumer's styles
+  second so that the consumer can override them.
+- Other attributes use the consumer's value. If an attribute must be controlled
+  by the component, do not expose it as a prop, or use types that only offer it
+  in the scenarios where the consumer can control it.
+
+Use the `mergeProps` utility with component props first and consumer props
+second:
+
+```tsx
+type Props = React.ComponentPropsWithoutRef<'button'>
+
+function Example({className, ...props}: Props) {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    performInternalAction(event)
+  }
+
+  return (
+    <button
+      {...mergeProps(
+        {
+          'data-component': 'Example',
+          className: clsx(classes.Example, className),
+          onClick: handleClick,
+          style: defaultStyle,
+        },
+        props,
+      )}
+    />
+  )
+}
+```
+
+Destructure the consumer's `className` and keep the `clsx` call at the component
+call site. Do not rely on `mergeProps` to add the consumer class name later.
+
+When a component requires an attribute for correct behavior, remove it from the
+consumer-facing type instead of silently overriding a value the API accepts:
+
+```tsx
+type Props = Omit<React.ComponentPropsWithoutRef<'button'>, 'type'>
+
+function Example(props: Props) {
+  return <button {...props} type="button" />
+}
+```
+
+Only move an attribute after the merged spread when the component already owns
+that attribute. Preserve existing consumer precedence when the attribute has
+historically been overridable.
 
 #### Prefer authoring callback prop types with arguments that can be extended
 

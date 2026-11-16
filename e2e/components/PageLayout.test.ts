@@ -47,6 +47,30 @@ const stories = [
     id: 'components-pagelayout-features--scroll-container-within-page-layout-pane',
     title: 'Scroll Container Within Page Layout Pane',
   },
+  {
+    id: 'components-pagelayout-features--sidebar-start',
+    title: 'Sidebar Start',
+  },
+  {
+    id: 'components-pagelayout-features--sidebar-end',
+    title: 'Sidebar End',
+  },
+  {
+    id: 'components-pagelayout-features--resizable-sidebar',
+    title: 'Resizable Sidebar',
+  },
+  {
+    id: 'components-pagelayout-features--sidebar-with-pane-resizable',
+    title: 'Sidebar With Pane Resizable',
+  },
+  {
+    id: 'components-pagelayout-features--sticky-sidebar',
+    title: 'Sticky Sidebar',
+  },
+  {
+    id: 'components-pagelayout-features--sidebar-fullscreen-responsive-variant',
+    title: 'Sidebar Fullscreen Responsive Variant',
+  },
 ] as const
 
 test.describe('PageLayout', () => {
@@ -75,7 +99,7 @@ test.describe('PageLayout', () => {
 
 const stickyPaneId = 'components-pagelayout-features--sticky-pane'
 
-test.describe('PageLayout', () => {
+test.describe('PageLayout sticky panes', () => {
   test.describe('Sticky Pane', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

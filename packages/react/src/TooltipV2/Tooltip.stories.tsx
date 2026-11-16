@@ -1,4 +1,4 @@
-import {Button} from '..'
+import {Button} from '../Button'
 import {Tooltip} from './Tooltip'
 import classes from './Tooltip.stories.module.css'
 

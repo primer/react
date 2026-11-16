@@ -1,6 +1,27 @@
 .LoadingSkeleton {
+  width: var(--loading-skeleton-width);
   /* stylelint-disable-next-line primer/borders */
   border-radius: 4px;
+}
+
+.LoadingSkeletonRow {
+  --loading-skeleton-width: 80%;
+
+  &:nth-of-type(5n + 2) {
+    --loading-skeleton-width: 52.5%;
+  }
+
+  &:nth-of-type(5n + 3) {
+    --loading-skeleton-width: 67.5%;
+  }
+
+  &:nth-of-type(5n + 4) {
+    --loading-skeleton-width: 40%;
+  }
+
+  &:nth-of-type(5n + 5) {
+    --loading-skeleton-width: 72.5%;
+  }
 }
 
 .LoadingSpinner {

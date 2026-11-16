@@ -14,6 +14,7 @@ const FormControlLeadingVisual: FCWithSlotMarker<React.PropsWithChildren<{style?
       data-control-disabled={disabled ? '' : undefined}
       style={style}
       data-has-caption={captionId ? '' : undefined}
+      data-component="FormControl.LeadingVisual"
     >
       {children}
     </div>

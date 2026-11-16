@@ -41,6 +41,8 @@ export function isResponsiveValue(value: any): value is ResponsiveValue<any> {
  * Resolves responsive values based on the current viewport width.
  * For example, if the current viewport width is narrow (less than 768px), the value of `{regular: 'foo', narrow: 'bar'}` will resolve to `'bar'`.
  *
+ * @deprecated Prefer responsive data attributes with `getResponsiveAttributes` and CSS media queries instead.
+ *
  * @example
  * const value = useResponsiveValue({regular: 'foo', narrow: 'bar'})
  * console.log(value) // 'bar'
