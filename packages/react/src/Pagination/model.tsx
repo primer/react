@@ -7,12 +7,12 @@ export function buildPaginationModel(
 ) {
   const prev: PageType = {type: 'PREV', num: currentPage - 1, disabled: currentPage === 1}
   const next: PageType = {type: 'NEXT', num: currentPage + 1, disabled: currentPage === pageCount}
-  if (!showPages) {
-    return [prev, next]
-  }
-
   if (pageCount <= 0) {
     return [prev, {...next, disabled: true}]
+  }
+
+  if (!showPages) {
+    return [prev, next]
   }
 
   const pages: PageType[] = []
