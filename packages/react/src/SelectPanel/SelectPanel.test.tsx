@@ -1,6 +1,6 @@
 import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
-import {page} from 'vitest/browser'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import React from 'react'
 import {flushSync} from 'react-dom'
 import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
@@ -1577,17 +1577,40 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     })
 
     describe('As Modal', () => {
-      it('selections render as radios when variant modal and single select', async () => {
-        const user = userEvent.setup()
+      it('preserves single-select modal semantics with tick indicators', async () => {
+        const user = browserUserEvent
 
         renderWithProp(
-          <BasicSelectPanel variant="modal" onCancel={() => {}} selected={undefined} />,
+          <BasicSelectPanel
+            variant="modal"
+            onCancel={() => {}}
+            selected={undefined}
+            items={items.map((item, index) => ({...item, id: `item-${index}`}))}
+          />,
           usingRemoveActiveDescendant,
         )
 
         await user.click(screen.getByText('Select items'))
 
-        expect(screen.getAllByRole('radio', {hidden: true}).length).toBe(items.length)
+        const radios = screen.getAllByRole('radio', {hidden: true})
+        const getRadio = (index: number) => screen.getAllByRole('radio', {hidden: true})[index]
+        expect(radios).toHaveLength(items.length)
+        for (const radio of radios) {
+          expect(radio).not.toBeChecked()
+          expect(radio).toHaveStyle({width: '14px', height: '14px', borderWidth: '0px'})
+          expect(getComputedStyle(radio).backgroundColor).toBe('rgba(0, 0, 0, 0)')
+          expect(getComputedStyle(radio).maskImage).not.toBe('none')
+        }
+
+        await user.click(screen.getByRole('option', {name: 'item one'}))
+        await expect.poll(() => getRadio(0).getAttribute('aria-checked')).toBe('true')
+        await expect.poll(() => getComputedStyle(getRadio(0)).backgroundColor).toBe(getComputedStyle(getRadio(0)).color)
+
+        await user.click(screen.getByRole('option', {name: 'item two'}))
+        await expect.poll(() => getRadio(0).getAttribute('aria-checked')).toBe('false')
+        await expect.poll(() => getComputedStyle(getRadio(0)).backgroundColor).toBe('rgba(0, 0, 0, 0)')
+        await expect.poll(() => getRadio(1).getAttribute('aria-checked')).toBe('true')
+        await expect.poll(() => getComputedStyle(getRadio(1)).backgroundColor).toBe(getComputedStyle(getRadio(1)).color)
 
         expect(screen.getByRole('button', {name: 'Save'})).toBeInTheDocument()
         expect(screen.getByRole('button', {name: 'Cancel'})).toBeInTheDocument()
