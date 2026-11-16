@@ -4,15 +4,15 @@ import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import {page} from 'vitest/browser'
 
-it('accepts non-responsive values', () => {
+it('accepts non-responsive values', async () => {
   const Component = () => {
     const value = useResponsiveValue('test', 'fallback')
     return <div>{value}</div>
   }
 
-  const {getByText} = render(<Component />)
+  render(<Component />)
 
-  expect(getByText('test')).toBeInTheDocument()
+  await expect.element(page.getByText('test', {exact: true})).toBeInTheDocument()
 })
 
 it('returns narrow value when viewport is narrow', async () => {
@@ -26,9 +26,9 @@ it('returns narrow value when viewport is narrow', async () => {
     await page.viewport(600, 600)
   })
 
-  const {getByText} = render(<Component />)
+  render(<Component />)
 
-  expect(getByText('false')).toBeInTheDocument()
+  await expect.element(page.getByText('false', {exact: true})).toBeInTheDocument()
 })
 
 it('returns wide value when viewport is wide', async () => {
@@ -45,9 +45,9 @@ it('returns wide value when viewport is wide', async () => {
     await page.viewport(1400, 600)
   })
 
-  const {getByText} = render(<Component />)
+  render(<Component />)
 
-  expect(getByText('wideValue')).toBeInTheDocument()
+  await expect.element(page.getByText('wideValue', {exact: true})).toBeInTheDocument()
 })
 
 it('returns regular value when viewport is regular', async () => {
@@ -64,9 +64,9 @@ it('returns regular value when viewport is regular', async () => {
     await page.viewport(1000, 600)
   })
 
-  const {getByText} = render(<Component />)
+  render(<Component />)
 
-  expect(getByText('regularValue')).toBeInTheDocument()
+  await expect.element(page.getByText('regularValue', {exact: true})).toBeInTheDocument()
 })
 
 it('returns fallback when no value is defined for current viewport', async () => {
@@ -84,7 +84,7 @@ it('returns fallback when no value is defined for current viewport', async () =>
     await page.viewport(1000, 600)
   })
 
-  const {getByText} = render(<Component />)
+  render(<Component />)
 
-  expect(getByText('fallbackValue')).toBeInTheDocument()
+  await expect.element(page.getByText('fallbackValue', {exact: true})).toBeInTheDocument()
 })
