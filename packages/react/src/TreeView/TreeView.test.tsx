@@ -1891,6 +1891,8 @@ describe('Keyboard interactions', () => {
     })
 
     it('supports multiple typed characters', async () => {
+      vi.useFakeTimers()
+
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">Apple</TreeView.Item>
@@ -1909,6 +1911,10 @@ describe('Keyboard interactions', () => {
         name: 'Cantalope 1',
         exact: true,
       })
+      const cherry = page.getByRole('treeitem', {
+        name: 'Cherry',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
@@ -1917,11 +1923,55 @@ describe('Keyboard interactions', () => {
 
       // Press C + A + N
       await userEvent.keyboard('c')
+      expect(cherry.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(299)
+      })
       await userEvent.keyboard('a')
+      expect(cantalope.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(299)
+      })
       await userEvent.keyboard('n')
 
       // Cantalope should be focused
-      await expect.element(cantalope).toHaveFocus()
+      expect(cantalope.element()).toHaveFocus()
+    })
+
+    it('starts a new search after the typeahead timeout', async () => {
+      vi.useFakeTimers()
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="apple">Apple</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+          <TreeView.Item id="cantalope">Cantalope</TreeView.Item>
+        </TreeView>,
+      )
+
+      const apple = page.getByRole('treeitem', {
+        name: 'Apple',
+        exact: true,
+      })
+      const cherry = page.getByRole('treeitem', {
+        name: 'Cherry',
+        exact: true,
+      })
+
+      act(() => {
+        apple.element().focus()
+      })
+
+      await userEvent.keyboard('c')
+      expect(cherry.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(300)
+      })
+      await userEvent.keyboard('a')
+
+      expect(apple.element()).toHaveFocus()
     })
 
     it('prioritizes items following the current aria-activedescendant', async () => {
