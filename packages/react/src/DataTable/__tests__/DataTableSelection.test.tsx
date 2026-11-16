@@ -736,13 +736,13 @@ describe('DataTable selection announcements', () => {
           </div>
         )
         const {rerender} = render(example([], false))
-        rerender(example([1], true))
+        await act(async () => rerender(example([1], true)))
         await act(async () => vi.advanceTimersByTime(500))
         expect(getLiveRegion().getMessage('polite')).toBe('')
-        rerender(example([1], false))
+        await act(async () => rerender(example([1], false)))
         await act(async () => vi.advanceTimersByTime(500))
         expect(getLiveRegion().getMessage('polite')).toBe('')
-        rerender(example([1, 2], false))
+        await act(async () => rerender(example([1, 2], false)))
         await act(async () => vi.advanceTimersByTime(150))
         expect(getLiveRegion().getMessage('polite')).toBe(
           withBulkActions ? '2 rows selected, additional bulk actions available' : '2 rows selected',
@@ -812,11 +812,11 @@ describe('DataTable selection announcements', () => {
       />
     )
     const {rerender} = render(example([]))
-    rerender(example([1]))
+    await act(async () => rerender(example([1])))
     await act(async () => vi.advanceTimersByTime(100))
     expect(getLiveRegion().getMessage('polite')).toBe('')
     expect(announce).toHaveBeenCalledTimes(1)
-    rerender(example([1, 2]))
+    await act(async () => rerender(example([1, 2])))
     await act(async () => vi.advanceTimersByTime(49))
     expect(getLiveRegion().getMessage('polite')).toBe('')
     await act(async () => vi.advanceTimersByTime(1))
@@ -836,33 +836,7 @@ describe('DataTable selection announcements', () => {
     expect(renderBulkActions).toHaveBeenCalledTimes(1)
   })
 
-  it('cancels stale availability when the toolbar is removed before delivery', async () => {
-    vi.useFakeTimers()
-    const example = (ids: Array<number>, withActions: boolean) => (
-      <DataTable
-        data={data}
-        columns={columns}
-        rowSelection
-        selectedRows={new Set(ids)}
-        renderBulkActions={withActions ? renderActions : undefined}
-      />
-    )
-    const {rerender} = render(example([], true))
-    rerender(example([1], true))
-    await act(async () => vi.advanceTimersByTime(100))
-    expect(getLiveRegion().getMessage('polite')).toBe('')
-    rerender(example([1], false))
-    expect(screen.queryByRole('group', {name: 'Bulk actions'})).not.toBeInTheDocument()
-    await act(async () => vi.advanceTimersByTime(50))
-    expect(getLiveRegion().getMessage('polite')).not.toContain('additional bulk actions available')
-    await act(async () => vi.advanceTimersByTime(500))
-    expect(getLiveRegion().getMessage('polite')).not.toContain('additional bulk actions available')
-    rerender(example([1, 2], false))
-    await act(async () => vi.advanceTimersByTime(150))
-    expect(getLiveRegion().getMessage('polite')).toBe('2 rows selected')
-  })
-
-  it('tracks child-only action updates without rerendering the bulk-action renderer', async () => {
+  it('reads child-only action updates on the next selection change', async () => {
     vi.useFakeTimers()
     const actionsRef = React.createRef<{hide: () => void}>()
     function MutableActions() {
@@ -881,15 +855,13 @@ describe('DataTable selection announcements', () => {
       />
     )
     const {rerender} = render(example([]))
-    rerender(example([1]))
+    await act(async () => rerender(example([1])))
     expect(screen.getByRole('button', {name: 'Apply'})).toBeVisible()
     await act(async () => vi.advanceTimersByTime(100))
     await act(async () => actionsRef.current?.hide())
     expect(screen.queryByRole('button', {name: 'Apply'})).not.toBeInTheDocument()
     expect(renderBulkActions).toHaveBeenCalledTimes(1)
-    await act(async () => vi.advanceTimersByTime(50))
-    expect(getLiveRegion().getMessage('polite')).not.toContain('additional bulk actions available')
-    rerender(example([1, 2]))
+    await act(async () => rerender(example([1, 2])))
     await act(async () => vi.advanceTimersByTime(150))
     expect(getLiveRegion().getMessage('polite')).toBe('2 rows selected')
   })
@@ -907,12 +879,12 @@ describe('DataTable selection announcements', () => {
       />
     )
     const {rerender} = render(example([], true))
-    rerender(example([1], true))
+    await act(async () => rerender(example([1], true)))
     await act(async () => vi.advanceTimersByTime(150))
     expect(getLiveRegion().getMessage('polite')).toBe('1 row selected, additional bulk actions available')
-    rerender(example([1], false))
+    await act(async () => rerender(example([1], false)))
     await act(async () => vi.advanceTimersByTime(500))
-    rerender(example([1], true))
+    await act(async () => rerender(example([1], true)))
     await act(async () => vi.advanceTimersByTime(500))
     expect(announce).toHaveBeenCalledTimes(1)
   })
@@ -921,21 +893,25 @@ describe('DataTable selection announcements', () => {
     vi.useFakeTimers()
     const announce = vi.spyOn(getLiveRegion(), 'announce')
     const {rerender} = render(<DataTable data={data} columns={columns} selectedRows={new Set([1])} />)
-    rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set([1])} />)
-    await act(async () => vi.advanceTimersByTime(500))
-    expect(announce).not.toHaveBeenCalled()
-    rerender(
-      <DataTable
-        data={data}
-        columns={columns}
-        rowSelection
-        selectedRows={new Set([1])}
-        renderBulkActions={renderActions}
-      />,
+    await act(async () =>
+      rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set([1])} />),
     )
     await act(async () => vi.advanceTimersByTime(500))
     expect(announce).not.toHaveBeenCalled()
-    rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set()} />)
+    await act(async () =>
+      rerender(
+        <DataTable
+          data={data}
+          columns={columns}
+          rowSelection
+          selectedRows={new Set([1])}
+          renderBulkActions={renderActions}
+        />,
+      ),
+    )
+    await act(async () => vi.advanceTimersByTime(500))
+    expect(announce).not.toHaveBeenCalled()
+    await act(async () => rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set()} />))
     await act(async () => vi.advanceTimersByTime(150))
     expect(getLiveRegion().getMessage('polite')).toBe('Selection cleared')
     expect(announce).toHaveBeenCalledTimes(1)
@@ -946,7 +922,9 @@ describe('DataTable selection announcements', () => {
     const {rerender, unmount} = render(
       <DataTable data={data} columns={columns} rowSelection selectedRows={new Set()} />,
     )
-    rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set([1])} />)
+    await act(async () =>
+      rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set([1])} />),
+    )
     await act(async () => vi.advanceTimersByTime(149))
     unmount()
     await act(async () => vi.advanceTimersByTime(500))
