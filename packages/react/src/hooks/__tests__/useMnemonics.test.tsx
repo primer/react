@@ -1,4 +1,5 @@
-import {render, fireEvent} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {useMnemonics} from '../../hooks'
@@ -47,142 +48,149 @@ const Fixture = ({
 }
 
 describe('useTypeaheadFocus', () => {
-  it('First element: when b is pressed, it should move focus the "b"utton 1', () => {
-    const {getByTestId, getByText} = render(<Fixture />)
-    const container = getByTestId('container')
+  it('First element: when b is pressed, it should move focus the "b"utton 1', async () => {
+    render(<Fixture />)
+    act(() => page.getByRole('button', {name: 'button 6', exact: true}).element().focus())
 
-    fireEvent.keyDown(container, {key: 'b', code: 'b'})
-    expect(getByText('button 1')).toEqual(document.activeElement)
+    await userEvent.keyboard('b')
+    await expect.element(page.getByRole('button', {name: 'button 1', exact: true})).toHaveFocus()
   })
 
-  it('Not first element: when t is pressed, it should move focus the "t"hird button', () => {
-    const {getByTestId, getByText} = render(<Fixture />)
-    const container = getByTestId('container')
+  it('Not first element: when t is pressed, it should move focus the "t"hird button', async () => {
+    render(<Fixture />)
+    act(() => page.getByRole('button', {name: 'button 6', exact: true}).element().focus())
 
-    fireEvent.keyDown(container, {key: 't', code: 't'})
-    expect(getByText('third button')).toEqual(document.activeElement)
+    await userEvent.keyboard('t')
+    await expect.element(page.getByRole('button', {name: 'third button'})).toHaveFocus()
   })
 
-  it('Case insensitive: when B is pressed, it should move focus the "b"utton 1', () => {
-    const {getByTestId, getByText} = render(<Fixture />)
-    const container = getByTestId('container')
+  it('Case insensitive: when B is pressed, it should move focus the "b"utton 1', async () => {
+    render(<Fixture />)
+    act(() => page.getByRole('button', {name: 'button 6', exact: true}).element().focus())
 
-    fireEvent.keyDown(container, {key: 'B', code: 'B'})
-    expect(getByText('button 1')).toEqual(document.activeElement)
+    await userEvent.keyboard('B')
+    await expect.element(page.getByRole('button', {name: 'button 1', exact: true})).toHaveFocus()
   })
 
-  it('Repeating letter: when b is pressed repeatedly, it should wrap through the buttons starting with "b", skipping the disabled button', () => {
-    const {getByTestId, getByText} = render(<Fixture />)
-    const container = getByTestId('container')
+  it('Repeating letter: when b is pressed repeatedly, it should wrap through the buttons starting with "b", skipping the disabled button', async () => {
+    render(<Fixture />)
+    act(() => page.getByRole('button', {name: 'button 6', exact: true}).element().focus())
 
-    fireEvent.keyDown(container, {key: 'b', code: 'b'})
-    expect(getByText('button 1')).toEqual(document.activeElement)
+    await userEvent.keyboard('b')
+    await expect.element(page.getByRole('button', {name: 'button 1', exact: true})).toHaveFocus()
 
-    fireEvent.keyDown(container, {key: 'b', code: 'b'})
-    expect(getByText('Button 2')).toEqual(document.activeElement)
+    await userEvent.keyboard('b')
+    await expect.element(page.getByRole('button', {name: 'Button 2', exact: true})).toHaveFocus()
 
-    fireEvent.keyDown(container, {key: 'b', code: 'b'})
-    expect(getByText('button 5')).toEqual(document.activeElement)
+    await userEvent.keyboard('b')
+    await expect.element(page.getByRole('button', {name: 'button 5', exact: true})).toHaveFocus()
 
     // should cycle back to start of the list
-    fireEvent.keyDown(container, {key: 'b', code: 'b'})
-    expect(getByText('button 1')).toEqual(document.activeElement)
+    await userEvent.keyboard('b')
+    await expect.element(page.getByRole('button', {name: 'button 1', exact: true})).toHaveFocus()
   })
 
-  it('User defined aria-keyshortcuts: Should catch all shortcuts defined by user', () => {
-    const {getByTestId, getByText} = render(<Fixture />)
-    const container = getByTestId('container')
+  it('User defined aria-keyshortcuts: Should catch all shortcuts defined by user', async () => {
+    render(<Fixture />)
+    act(() => page.getByRole('button', {name: 'button 1', exact: true}).element().focus())
 
-    fireEvent.keyDown(container, {key: '6', code: '6'})
-    expect(getByText('button 6')).toEqual(document.activeElement)
+    await userEvent.keyboard('6')
+    await expect.element(page.getByRole('button', {name: 'button 6', exact: true})).toHaveFocus()
 
     // send focus elsewhere
-    fireEvent.keyDown(container, {key: 't', code: 't'})
-    expect(getByText('third button')).toEqual(document.activeElement)
+    await userEvent.keyboard('t')
+    await expect.element(page.getByRole('button', {name: 'third button'})).toHaveFocus()
 
-    fireEvent.keyDown(container, {key: 'e', code: 'e'})
-    expect(getByText('button 6')).toEqual(document.activeElement)
+    await userEvent.keyboard('e')
+    await expect.element(page.getByRole('button', {name: 'button 6', exact: true})).toHaveFocus()
   })
 
-  it('aria-keyshortcuts: it should add aria-keyshortcuts to focusable items', () => {
-    const {getByText} = render(<Fixture />)
+  it('aria-keyshortcuts: it should add aria-keyshortcuts to focusable items', async () => {
+    render(<Fixture />)
 
-    expect(getByText('button 1')).toHaveAttribute('aria-keyshortcuts', 'b')
-    expect(getByText('Button 2')).toHaveAttribute('aria-keyshortcuts', 'b')
-    expect(getByText('third button')).toHaveAttribute('aria-keyshortcuts', 't')
-    expect(getByText('button 5')).toHaveAttribute('aria-keyshortcuts', 'b')
+    await expect
+      .element(page.getByRole('button', {name: 'button 1', exact: true}))
+      .toHaveAttribute('aria-keyshortcuts', 'b')
+    await expect
+      .element(page.getByRole('button', {name: 'Button 2', exact: true}))
+      .toHaveAttribute('aria-keyshortcuts', 'b')
+    await expect.element(page.getByRole('button', {name: 'third button'})).toHaveAttribute('aria-keyshortcuts', 't')
+    await expect
+      .element(page.getByRole('button', {name: 'button 5', exact: true}))
+      .toHaveAttribute('aria-keyshortcuts', 'b')
 
     // don't overwrite aria-keyshortcuts if it's already defined
-    expect(getByText('button 6')).toHaveAttribute('aria-keyshortcuts', '6 E')
+    await expect
+      .element(page.getByRole('button', {name: 'button 6', exact: true}))
+      .toHaveAttribute('aria-keyshortcuts', '6 E')
 
     // not focusable items should not have aria-keyshortcuts
-    expect(getByText('fourth button is disabled')).not.toHaveAttribute('aria-keyshortcuts')
-    expect(getByText('not focusable')).not.toHaveAttribute('aria-keyshortcuts')
+    await expect
+      .element(page.getByRole('button', {name: 'fourth button is disabled'}))
+      .not.toHaveAttribute('aria-keyshortcuts')
+    await expect.element(page.getByText('not focusable')).not.toHaveAttribute('aria-keyshortcuts')
   })
 
-  it('Space: when user presses Space, it should select the option', () => {
+  it('Space: when user presses Space, it should select the option', async () => {
     const mockFunction = vi.fn()
-    const {getByTestId, getByText} = render(<Fixture onSelect={mockFunction} />)
+    render(<Fixture onSelect={mockFunction} />)
 
-    const container = getByTestId('container')
-    fireEvent.keyDown(container, {key: 't', code: 't'})
+    act(() => page.getByRole('button', {name: 'button 6', exact: true}).element().focus())
+    await userEvent.keyboard('t')
 
-    const thirdButton = getByText('third button')
-    expect(thirdButton).toEqual(document.activeElement)
-    fireEvent.keyDown(thirdButton, {key: ' ', code: 'Space'})
+    const thirdButton = page.getByRole('button', {name: 'third button'})
+    await expect.element(thirdButton).toHaveFocus()
+    await userEvent.keyboard(' ')
     expect(mockFunction).toHaveBeenCalled()
   })
 
-  it('Enter: when user is presses Enter, it should select the option', () => {
-    vi.useFakeTimers()
+  it('Enter: when user is presses Enter, it should select the option', async () => {
     const mockFunction = vi.fn()
-    const {getByTestId, getByText} = render(<Fixture onSelect={mockFunction} />)
+    render(<Fixture onSelect={mockFunction} />)
 
-    const container = getByTestId('container')
-    fireEvent.keyDown(container, {key: 't', code: 't'})
+    act(() => page.getByRole('button', {name: 'button 6', exact: true}).element().focus())
+    await userEvent.keyboard('t')
 
-    const thirdButton = getByText('third button')
-    expect(thirdButton).toEqual(document.activeElement)
+    const thirdButton = page.getByRole('button', {name: 'third button'})
+    await expect.element(thirdButton).toHaveFocus()
 
-    fireEvent.keyDown(thirdButton, {key: 'Enter', code: 'Enter'})
+    await userEvent.keyboard('{Enter}')
     expect(mockFunction).toHaveBeenCalled()
   })
 
-  it('Shortcuts: when a modifier is used, typeahead should not do anything', () => {
-    const {getByTestId, getByText} = render(<Fixture />)
-    const container = getByTestId('container')
+  it('Shortcuts: when a modifier is used, typeahead should not do anything', async () => {
+    render(<Fixture />)
+    act(() => page.getByRole('button', {name: 'button 6', exact: true}).element().focus())
 
-    fireEvent.keyDown(container, {metaKey: true, key: 'b', code: 'b'})
-    expect(getByText('button 1')).not.toEqual(document.activeElement)
+    await userEvent.keyboard('{Meta>}b{/Meta}')
+    await expect.element(page.getByRole('button', {name: 'button 1', exact: true})).not.toHaveFocus()
   })
 
   it('TextInput: when an textinput has focus, typeahead should not do anything', async () => {
-    const {getByTestId, getByPlaceholderText} = render(<Fixture hasInput={true} />)
-    const container = getByTestId('container')
+    render(<Fixture hasInput={true} />)
 
-    const input = getByPlaceholderText('Filter options')
-    expect(input).toEqual(document.activeElement)
+    const input = page.getByPlaceholder('Filter options')
+    await expect.element(input).toHaveFocus()
 
-    fireEvent.keyDown(container, {key: 'b', code: 'b'})
-    expect(input).toEqual(document.activeElement)
+    await userEvent.keyboard('b')
+    await expect.element(input).toHaveFocus()
   })
 
   it('Text area: when a textarea has focus, typeahead should not do anything', async () => {
-    const {getByTestId, getByPlaceholderText} = render(<Fixture hasTextarea={true} />)
-    const container = getByTestId('container')
+    render(<Fixture hasTextarea={true} />)
 
-    const textArea = getByPlaceholderText('Filter options')
-    expect(textArea).toEqual(document.activeElement)
+    const textArea = page.getByPlaceholder('Filter options')
+    await expect.element(textArea).toHaveFocus()
 
-    fireEvent.keyDown(container, {key: 'b', code: 'b'})
-    expect(textArea).toEqual(document.activeElement)
+    await userEvent.keyboard('b')
+    await expect.element(textArea).toHaveFocus()
   })
 
   it('Missing ref: when a ref is not attached, typeahead should break the component', async () => {
-    const {getByTestId, getByText} = render(<Fixture refNotAttached={true} />)
-    const container = getByTestId('container')
+    render(<Fixture refNotAttached={true} />)
+    act(() => page.getByRole('button', {name: 'button 6', exact: true}).element().focus())
 
-    fireEvent.keyDown(container, {key: 'b', code: 'b'})
-    expect(getByText('button 1')).not.toEqual(document.activeElement)
+    await userEvent.keyboard('b')
+    await expect.element(page.getByRole('button', {name: 'button 1', exact: true})).not.toHaveFocus()
   })
 })
