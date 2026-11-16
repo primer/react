@@ -80,6 +80,23 @@ describe('SegmentedControl', () => {
     await expect.element(page.getByRole('listitem')).toHaveAttribute('data-component', 'SegmentedControl.Button')
   })
 
+  it.each(['title', 'aria-description'] as const)(
+    'preserves %s descriptions when a segment label fits',
+    async attribute => {
+      const descriptionProps = {[attribute]: 'Switch views'}
+      render(
+        <SegmentedControl aria-label="File view">
+          <SegmentedControl.Button {...descriptionProps}>Code</SegmentedControl.Button>
+        </SegmentedControl>,
+      )
+
+      const button = page.getByRole('button')
+      // An empty description reference masks title/aria-description in the native accessibility tree.
+      await expect.element(button).not.toHaveAttribute('aria-describedby')
+      await expect.element(button).toHaveAccessibleDescription('Switch views')
+    },
+  )
+
   it('renders dividers without including them in selection indices', async () => {
     const onChange = vi.fn()
     const {container} = render(
@@ -247,6 +264,35 @@ describe('SegmentedControl', () => {
       const labelledButton = page.getByLabelText(datum.label)
       await expect.element(labelledButton).toBeInTheDocument()
     }
+  })
+
+  it.each(['small', 'medium'] as const)('keeps icon buttons inside a shrinking flex row (%s)', async size => {
+    render(
+      <div style={{display: 'flex', width: 100}}>
+        <div style={{flex: '1 1 100px', minWidth: 0}}>Filters</div>
+        <SegmentedControl aria-label="File view" size={size}>
+          <SegmentedControl.IconButton aria-label="Preview" icon={EyeIcon} />
+          <SegmentedControl.IconButton aria-label="Code" icon={FileCodeIcon} />
+        </SegmentedControl>
+      </div>,
+    )
+    const control = page.getByRole('list').element()
+    const row = control.parentElement!
+    const bounds = control.getBoundingClientRect()
+
+    expect(row.scrollWidth).toBeLessThanOrEqual(row.clientWidth)
+    for (const button of control.querySelectorAll('button')) {
+      const rect = button.getBoundingClientRect()
+      expect(rect.width).toBe(32)
+      expect(rect.left).toBeGreaterThanOrEqual(bounds.left)
+      expect(rect.right).toBeLessThanOrEqual(bounds.right)
+    }
+
+    const code = page.getByRole('button', {name: 'Code', exact: true})
+    await userEvent.click(code)
+    await expect.element(code).toHaveAttribute('aria-pressed', 'true')
+    expect(control.getBoundingClientRect().toJSON()).toEqual(bounds.toJSON())
+    expect(control.getBoundingClientRect().height).toBe(size === 'small' ? 28 : 32)
   })
 
   it('renders IconButton with aria-pressed when selected', async () => {
@@ -473,6 +519,7 @@ describe('SegmentedControl', () => {
       </BaseStyles>,
     )
 
+    await expect.element(page.getByRole('button', {pressed: true})).toHaveAccessibleName('All (5)')
     const iconActionButton = page.getByRole('button', {name: 'Add view'})
 
     await expect
