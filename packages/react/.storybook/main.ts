@@ -15,9 +15,19 @@ const STORYBOOK_ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
 const config: StorybookConfig = {
   stories:
     DEPLOY_ENV === 'development'
-      ? ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)']
+      ? [
+          '../src/**/*.mdx',
+          '../src/**/*.stories.@(js|jsx|ts|tsx)',
+          '../../react-tailwind/src/**/*.mdx',
+          '../../react-tailwind/src/**/*.stories.@(js|jsx|ts|tsx)',
+        ]
       : // Don't include dev stories in production
-        ['../src/**/*.mdx', '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)'],
+        [
+          '../src/**/*.mdx',
+          '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)',
+          '../../react-tailwind/src/**/*.mdx',
+          '../../react-tailwind/src/**/!(*.dev).stories.@(js|jsx|ts|tsx)',
+        ],
 
   staticDirs: ['../static'],
 
@@ -44,6 +54,10 @@ const config: StorybookConfig = {
     config.define = {
       ...config.define,
       __DEV__: JSON.stringify(true),
+    }
+    config.resolve = {
+      ...config.resolve,
+      dedupe: [...new Set([...(config.resolve?.dedupe ?? []), 'react', 'react-dom'])],
     }
 
     if (!config.css) {

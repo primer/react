@@ -1,0 +1,338 @@
+'use client'
+
+import {Dialog as AlertDialog} from '@base-ui/react/dialog'
+import React from 'react'
+import {cn} from '../../internal/cn'
+import {DialogModalContext} from '../../internal/dialogModalContext'
+import {DialogModalRoot} from '../../internal/DialogModalRoot'
+import {mergeClassName} from '../../internal/mergeClassName'
+import {mergeStyle} from '../../internal/mergeStyle'
+import {Button, type ButtonProps} from '../Button'
+import {getDialogSize, type DialogHeight, type DialogWidth} from '../Dialog/dialogLayout'
+import {
+  FloatingPortalParentContext,
+  NestedModalLayerContext,
+  useFloatingPortalContainer,
+} from '../../internal/portalRoot'
+import {useFocusZone} from '../../internal/useFocusZone'
+
+const popupClassName =
+  'primer:flex primer:flex-col primer:overflow-x-hidden primer:overflow-y-auto primer:rounded-lg primer:bg-[var(--overlay-bgColor)] primer:text-default primer:shadow-floating-sm primer:outline-none primer:contrast-more:border-current primer:data-[closed]:hidden primer:data-[starting-style]:opacity-0 primer:data-[ending-style]:opacity-0 primer:motion-safe:transition primer:motion-safe:duration-200 primer:motion-reduce:transition-none'
+
+function Root<Payload>(props: AlertDialog.Root.Props<Payload>) {
+  return <DialogModalRoot {...props} />
+}
+
+function Portal({children, container, ...rest}: AlertDialog.Portal.Props) {
+  const nested = React.useContext(FloatingPortalParentContext)
+  const portalContainer = useFloatingPortalContainer(container)
+  return (
+    <AlertDialog.Portal {...rest} container={portalContainer}>
+      <NestedModalLayerContext.Provider value={nested}>
+        <FloatingPortalParentContext.Provider value>{children}</FloatingPortalParentContext.Provider>
+      </NestedModalLayerContext.Provider>
+    </AlertDialog.Portal>
+  )
+}
+
+const Trigger = React.forwardRef<HTMLElement, Omit<AlertDialog.Trigger.Props, 'data-component'>>(
+  function ConfirmationDialogTrigger({className, ...rest}, ref) {
+    return (
+      <AlertDialog.Trigger
+        {...rest}
+        ref={ref as React.Ref<HTMLButtonElement>}
+        className={mergeClassName('', className)}
+        data-component="ConfirmationDialog.Trigger"
+      />
+    )
+  },
+)
+
+const Backdrop = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Backdrop.Props, 'data-component'>>(
+  function ConfirmationDialogBackdrop({className, ...rest}, ref) {
+    const nested = React.useContext(NestedModalLayerContext)
+    const modal = React.useContext(DialogModalContext)
+    return (
+      <AlertDialog.Backdrop
+        {...rest}
+        ref={ref}
+        className={mergeClassName(
+          cn(
+            'primer:fixed primer:inset-0 primer:bg-[var(--overlay-backdrop-bgColor)] primer:contrast-more:bg-neutral-emphasis primer:data-[starting-style]:opacity-0 primer:data-[ending-style]:opacity-0 primer:motion-safe:transition-opacity primer:motion-safe:duration-200 primer:motion-reduce:transition-none',
+            nested ? 'primer:z-popover' : 'primer:z-modal',
+            modal !== undefined && modal !== true && 'primer:pointer-events-none',
+          ),
+          className,
+        )}
+        data-component="ConfirmationDialog.Backdrop"
+      />
+    )
+  },
+)
+
+const Viewport = React.forwardRef<HTMLDivElement, Omit<AlertDialog.Viewport.Props, 'data-component'>>(
+  function ConfirmationDialogViewport({className, ...rest}, ref) {
+    const nested = React.useContext(NestedModalLayerContext)
+    const modal = React.useContext(DialogModalContext)
+    return (
+      <AlertDialog.Viewport
+        {...rest}
+        ref={ref}
+        className={mergeClassName(
+          cn(
+            'primer:fixed primer:inset-0 primer:flex primer:items-center primer:justify-center primer:overflow-y-auto primer:p-8',
+            nested ? 'primer:z-popover' : 'primer:z-modal',
+            modal !== undefined && modal !== true && 'primer:pointer-events-none',
+          ),
+          className,
+        )}
+        data-component="ConfirmationDialog.Viewport"
+      />
+    )
+  },
+)
+
+export interface ConfirmationDialogContentProps extends Omit<AlertDialog.Popup.Props, 'data-component'> {
+  /**
+   * Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content.
+   * @default 'auto'
+   */
+  height?: DialogHeight
+  /**
+   * Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width.
+   * @default 'medium'
+   */
+  width?: DialogWidth
+}
+
+const Content = React.forwardRef<HTMLDivElement, ConfirmationDialogContentProps>(function ConfirmationDialogContent(
+  {className, height = 'auto', role = 'alertdialog', style, width = 'medium', ...rest},
+  ref,
+) {
+  const modal = React.useContext(DialogModalContext)
+  const size = getDialogSize({height, width})
+  return (
+    <AlertDialog.Popup
+      {...(modal === true && (role === 'alertdialog' || role === 'dialog') ? {'aria-modal': true} : {})}
+      {...rest}
+      {...size.dataAttributes}
+      ref={ref}
+      role={role}
+      className={mergeClassName(
+        cn(popupClassName, size.className, modal !== undefined && modal !== true && 'primer:pointer-events-auto'),
+        className,
+      )}
+      style={mergeStyle(style, size.style)}
+      data-component="ConfirmationDialog.Content"
+    />
+  )
+})
+
+const Title = React.forwardRef<HTMLHeadingElement, Omit<AlertDialog.Title.Props, 'data-component'>>(
+  function ConfirmationDialogTitle({className, ...rest}, ref) {
+    return (
+      <AlertDialog.Title
+        {...rest}
+        ref={ref}
+        className={mergeClassName(
+          'primer:break-words primer:text-sm primer:font-semibold primer:text-default',
+          className,
+        )}
+        data-component="ConfirmationDialog.Title"
+      />
+    )
+  },
+)
+
+const Description = React.forwardRef<HTMLParagraphElement, Omit<AlertDialog.Description.Props, 'data-component'>>(
+  function ConfirmationDialogDescription({className, ...rest}, ref) {
+    return (
+      <AlertDialog.Description
+        {...rest}
+        ref={ref}
+        className={mergeClassName('primer:mt-1 primer:text-sm primer:text-muted', className)}
+        data-component="ConfirmationDialog.Description"
+      />
+    )
+  },
+)
+
+const Close = React.forwardRef<HTMLElement, Omit<AlertDialog.Close.Props, 'data-component'>>(
+  function ConfirmationDialogClose({className, ...rest}, ref) {
+    return (
+      <AlertDialog.Close
+        {...rest}
+        ref={ref as React.Ref<HTMLButtonElement>}
+        className={mergeClassName('', className)}
+        data-component="ConfirmationDialog.Close"
+      />
+    )
+  },
+)
+
+export interface ConfirmationDialogProps extends Omit<AlertDialog.Root.Props, 'children'> {
+  /** Label for the cancel button. */
+  cancelButtonContent?: React.ReactNode
+  /** Prevents cancelling. */
+  cancelButtonDisabled?: boolean
+  /** Shows a spinner on the cancel button. */
+  cancelButtonLoading?: boolean
+  children?: React.ReactNode
+  /** Label for the confirm button. Name the action rather than saying `OK`. */
+  confirmButtonContent?: React.ReactNode
+  /** Prevents confirming, for when a precondition is not yet met. */
+  confirmButtonDisabled?: boolean
+  /** Shows a spinner on the confirm button while the action is in flight. */
+  confirmButtonLoading?: boolean
+  /** Styles confirmation as destructive and makes cancel the default focus. */
+  dangerous?: boolean
+  /** Supporting detail about what confirming will do. */
+  description?: React.ReactNode
+  /** What receives focus when the dialog closes. */
+  finalFocus?: React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['finalFocus']
+  /**
+   * Height of the dialog: `small` (480px), `large` (640px), or `auto` to fit its content.
+   * @default 'auto'
+   */
+  height?: DialogHeight
+  /** What receives focus when the dialog opens. */
+  initialFocus?: 'cancel' | 'confirm' | React.ComponentPropsWithoutRef<typeof AlertDialog.Popup>['initialFocus']
+  /** Called when the dialog is dismissed or the cancel button is activated. */
+  onCancel?: () => void
+  /** Called when the confirm button is activated. */
+  onConfirm?: () => void
+  /** Question or statement the reader is confirming. */
+  title: React.ReactNode
+  /** Element that opens the dialog. */
+  trigger?: React.ReactElement
+  /**
+   * Width of the dialog: `small` (296px), `medium` (320px), `large` (480px), `xlarge` (640px), or any CSS width.
+   * @default 'medium'
+   */
+  width?: DialogWidth
+}
+
+/**
+ * A configuration component for the established destructive-action pattern.
+ * Compose its presentational parts directly when the content or action layout
+ * differs from this common pattern.
+ */
+const ConfirmationDialogConfig = React.forwardRef<HTMLDivElement, ConfirmationDialogProps>(function ConfirmationDialog(
+  {
+    cancelButtonContent = 'Cancel',
+    cancelButtonDisabled = false,
+    cancelButtonLoading = false,
+    children,
+    confirmButtonContent = 'Confirm',
+    confirmButtonDisabled = false,
+    confirmButtonLoading = false,
+    dangerous = false,
+    description,
+    finalFocus,
+    height,
+    initialFocus,
+    modal = true,
+    onCancel,
+    onConfirm,
+    onOpenChange,
+    title,
+    trigger,
+    width,
+    ...rootProps
+  },
+  ref,
+) {
+  const cancelRef = React.useRef<HTMLElement>(null)
+  const confirmRef = React.useRef<HTMLElement>(null)
+  const footerRef = useFocusZone<HTMLDivElement>({bindKeys: ['ArrowHorizontal', 'Tab'], focusInStrategy: 'closest'})
+  const defaultInitialFocus = dangerous ? cancelRef : confirmRef
+  const popupInitialFocus =
+    initialFocus === 'cancel'
+      ? cancelRef
+      : initialFocus === 'confirm' || initialFocus === undefined
+        ? defaultInitialFocus
+        : initialFocus
+
+  // The footer buttons call their own handlers, so only dismissals that bypass them map to `onCancel`.
+  const handleOpenChange: NonNullable<ConfirmationDialogProps['onOpenChange']> = (open, eventDetails) => {
+    onOpenChange?.(open, eventDetails)
+    if (open || eventDetails.isCanceled) return
+    if (
+      eventDetails.reason === 'escape-key' ||
+      eventDetails.reason === 'outside-press' ||
+      eventDetails.reason === 'focus-out'
+    ) {
+      onCancel?.()
+    }
+  }
+
+  return (
+    <Root {...rootProps} modal={modal} onOpenChange={handleOpenChange}>
+      {trigger && <Trigger render={trigger} />}
+      <Portal>
+        <Backdrop />
+        <Viewport>
+          <Content ref={ref} initialFocus={popupInitialFocus} finalFocus={finalFocus} height={height} width={width}>
+            <div className="primer:p-4" data-component="ConfirmationDialog.Body">
+              <Title>{title}</Title>
+              {description && <Description>{description}</Description>}
+              {children && <div className="primer:mt-4">{children}</div>}
+            </div>
+            <div
+              ref={footerRef}
+              className="primer:flex primer:flex-wrap primer:justify-end primer:gap-2 primer:p-4"
+              data-component="ConfirmationDialog.Footer"
+            >
+              <Close
+                render={
+                  <Button
+                    ref={cancelRef}
+                    disabled={cancelButtonDisabled}
+                    labelWrap
+                    loading={cancelButtonLoading}
+                    onClick={onCancel}
+                    data-component="ConfirmationDialog.Cancel"
+                  >
+                    {cancelButtonContent}
+                  </Button>
+                }
+              />
+              <Close
+                render={
+                  <Button
+                    ref={confirmRef}
+                    disabled={confirmButtonDisabled}
+                    labelWrap
+                    loading={confirmButtonLoading}
+                    onClick={onConfirm}
+                    variant={dangerous ? 'danger' : 'primary'}
+                    data-component="ConfirmationDialog.Confirm"
+                  >
+                    {confirmButtonContent}
+                  </Button>
+                }
+              />
+            </div>
+          </Content>
+        </Viewport>
+      </Portal>
+    </Root>
+  )
+})
+
+ConfirmationDialogConfig.displayName = 'ConfirmationDialog'
+
+export type ConfirmationDialogButtonProps = Omit<ButtonProps, 'data-component'>
+
+export const ConfirmationDialog = Object.assign(ConfirmationDialogConfig, {
+  Root,
+  Trigger,
+  Portal,
+  Backdrop,
+  Viewport,
+  Content,
+  Popup: Content,
+  Title,
+  Description,
+  Close,
+})

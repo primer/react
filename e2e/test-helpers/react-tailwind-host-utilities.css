@@ -1,0 +1,90 @@
+/*
+ * Hand-authored stand-in for the host app's own unprefixed Tailwind build. It covers only the caller-owned `className`
+ * utilities that React Tailwind e2e fixtures pass to components. The package stylesheet now emits only its
+ * `primer:`-prefixed utilities, so fixtures must load caller utilities the way a host app would: after the package
+ * stylesheet. This is not generated output. Values follow the package theme (`--spacing: var(--base-size-4)`).
+ */
+/* stylelint-disable selector-class-pattern, primer/spacing, primer/borders -- mirrors host Tailwind utility output */
+@layer utilities {
+  .box-border {
+    box-sizing: border-box;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .h-10 {
+    height: calc(var(--base-size-4, 0.25rem) * 10);
+  }
+
+  .min-h-0 {
+    min-height: calc(var(--base-size-4, 0.25rem) * 0);
+  }
+
+  .min-w-0 {
+    min-width: calc(var(--base-size-4, 0.25rem) * 0);
+  }
+
+  .max-w-none {
+    max-width: none;
+  }
+
+  .w-\[30rem\] {
+    width: 30rem;
+  }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
+
+  .p-0 {
+    padding: calc(var(--base-size-4, 0.25rem) * 0);
+  }
+
+  .px-2 {
+    padding-inline: calc(var(--base-size-4, 0.25rem) * 2);
+  }
+
+  .px-4 {
+    padding-inline: calc(var(--base-size-4, 0.25rem) * 4);
+  }
+
+  .rounded-none {
+    border-radius: 0;
+  }
+
+  .rounded-s-none {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  .border-2 {
+    border-style: solid;
+    border-width: 2px;
+  }
+
+  .bg-muted {
+    background-color: var(--bgColor-muted);
+  }
+
+  .font-mono {
+    font-family: var(--fontStack-monospace);
+  }
+
+  .pointer-events-none {
+    pointer-events: none;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}

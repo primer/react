@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './ButtonBase.docs.json'
+import * as Stories from './ButtonBase.stories'
+import * as Features from './ButtonBase.features.stories'
+import * as Examples from './ButtonBase.examples.stories'
+
+<Meta of={Stories} />
+
+# ButtonBase
+
+`ButtonBase` is the styled lower-level button primitive behind `Button`, `IconButton`, and `LinkButton`. Reach for it only when building a new button-like control that should retain Primer's base styling; prefer `Button` for ordinary actions.
+
+```tsx
+import {ButtonBase} from '@primer/react-tailwind/ButtonBase'
+;<ButtonBase type="button">Do something</ButtonBase>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+`className` accepts a string or a Base UI state callback; base button classes are retained.
+
+## Composition
+
+Use as the foundation for locally composed button controls. `Button` builds on this primitive.
+
+## Accessibility
+
+Supply a clear accessible name and use native `type` and `disabled` semantics.
+
+## Data attributes
+
+The root defaults to `data-component="ButtonBase"`.
+
+## Features and examples
+
+<Canvas of={Features.Disabled} />
+
+<Canvas of={Examples.SubmitForm} />

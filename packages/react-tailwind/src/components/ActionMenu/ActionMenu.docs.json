@@ -1,0 +1,669 @@
+{
+  "id": "actionmenu",
+  "name": "ActionMenu",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ActionMenu",
+  "description": "`ActionMenu` is a composable Base UI menu with button and low-level trigger options.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-actionmenu-examples--groups-and-descriptions"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--custom-overlay-props"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--full-screen"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--controlled-menu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--shortcut-menu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--context-menu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--custom-anchor"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--custom-anchor-id"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--mixed-selection"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--multiple-sections"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--delayed-menu-close"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--on-right-side"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--setting-max-height"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--only-inactive-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--dynamic-anchor-sides"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--inside-dialog"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--centered-on-page"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--two-action-menus"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-examples--prevent-focus-on-close"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--links-and-actions"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--tooltip-trigger"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--custom-triggers"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--single-select"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--multi-select"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--item-descriptions"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--router-link-composition"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--inactive-router-links"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--inside-anchor-placement"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--collision-boundary"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--nested-menu-in-dialog"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--nested-menu-in-dialog-portal"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--current-model-submenu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--fullscreen-current-model-submenu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--inactive-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--disabled-custom-render"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--loading-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--submenus"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--inline-submenu"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu-features--disabled-items"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu--default"
+    },
+    {
+      "id": "react-tailwind-components-actionmenu--playground"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionMenu.Root",
+      "props": [],
+      "passthrough": {
+        "element": "Menu.Root",
+        "url": "https://base-ui.com/react/components/menu#root"
+      }
+    },
+    {
+      "name": "ActionMenu.Trigger",
+      "props": [],
+      "passthrough": {
+        "element": "Menu.Trigger",
+        "url": "https://base-ui.com/react/components/menu#trigger"
+      }
+    },
+    {
+      "name": "ActionMenu.Button",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Prevents activation and removes the button from the keyboard order."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "ButtonVisual",
+          "description": "Icon shown before the label."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Replaces the leading visual with a spinner and suppresses activation."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+        },
+        {
+          "name": "notificationIndicator",
+          "type": "\"button\" | \"leadingVisual\"",
+          "description": "Shows a dot for new activity on the button boundary or on the leading visual. `leadingVisual` requires a\n`leadingVisual`. The dot is not announced, so describe the activity in the accessible name or description."
+        },
+        {
+          "name": "size",
+          "type": "ControlSize",
+          "defaultValue": "'medium'",
+          "description": "Height and text size of the button."
+        },
+        {
+          "name": "trailingAction",
+          "type": "ButtonVisual",
+          "defaultValue": "TriangleDownIcon",
+          "description": "Trailing visual for the trigger; pass `null` to remove it."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        },
+        {
+          "name": "variant",
+          "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+          "defaultValue": "'default'",
+          "description": "Visual weight of the button. Use `primary` for the main action and `danger` for a destructive one."
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "https://base-ui.com/react/components/button#api-reference"
+      }
+    },
+    {
+      "name": "ActionMenu.Content",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'start'",
+          "description": "Alignment of the content along the anchor's edge."
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset",
+          "description": "Shift in pixels along the anchor's edge, or a callback that computes it from the measured sizes."
+        },
+        {
+          "name": "anchor",
+          "type": "FloatingAnchor",
+          "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
+        },
+        {
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance",
+          "description": "How the menu avoids collisions on the side and alignment axes. Horizontal menus fall back to the perpendicular\naxis by default when neither horizontal side fits."
+        },
+        {
+          "name": "collisionBoundary",
+          "type": "Boundary",
+          "description": "Element or rectangle used to constrain the menu's position."
+        },
+        {
+          "name": "collisionPadding",
+          "type": "Padding",
+          "description": "Space to keep between the menu and its collision boundary."
+        },
+        {
+          "name": "container",
+          "type": "HTMLElement | RefObject<HTMLElement | ShadowRoot | null> | ShadowRoot | null",
+          "description": "Portal destination. Pass `null` to wait for a container; ignored when `portal` is false."
+        },
+        {
+          "name": "height",
+          "type": "OverlayHeight",
+          "description": "Height of the surface."
+        },
+        {
+          "name": "maxHeight",
+          "type": "OverlayMaxHeight",
+          "description": "Largest height the surface may grow to before its content scrolls."
+        },
+        {
+          "name": "maxWidth",
+          "type": "OverlayMaxWidth",
+          "description": "Largest width the surface may grow to."
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Where the content is rendered in the DOM. Set `false` to keep it in place."
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string",
+          "description": "Classes applied to the element that positions the content."
+        },
+        {
+          "name": "positionMethod",
+          "type": "\"absolute\" | \"fixed\"",
+          "description": "CSS positioning method for the positioner."
+        },
+        {
+          "name": "preventFocusOnClose",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, focus will not be returned to the trigger or `finalFocus` target when the menu closes."
+        },
+        {
+          "name": "showDividers",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Draws a divider between consecutive items."
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "description": "Side of the trigger the menu opens on. Menus open below their trigger, and submenus beside it."
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "4",
+          "description": "Distance in pixels between the content and its anchor, or a callback that computes it."
+        },
+        {
+          "name": "variant",
+          "type": "AnchoredOverlayVariant",
+          "defaultValue": "'anchored'",
+          "description": "How the menu is presented at each viewport range. `{narrow: 'fullscreen'}` covers narrow viewports and adds a\nclose button."
+        },
+        {
+          "name": "width",
+          "type": "OverlayWidth",
+          "description": "Width of the surface."
+        }
+      ],
+      "passthrough": {
+        "element": "Menu.Popup",
+        "url": "https://base-ui.com/react/components/menu#popup"
+      }
+    },
+    {
+      "name": "ActionMenu.Overlay",
+      "props": [
+        {
+          "name": "align",
+          "type": "FloatingAlignment",
+          "defaultValue": "'start'",
+          "description": "Alignment of the content along the anchor's edge."
+        },
+        {
+          "name": "alignOffset",
+          "type": "FloatingOffset",
+          "description": "Shift in pixels along the anchor's edge, or a callback that computes it from the measured sizes."
+        },
+        {
+          "name": "anchor",
+          "type": "FloatingAnchor",
+          "description": "Positions the content against this anchor instead of the trigger, such as an element rendered elsewhere."
+        },
+        {
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance",
+          "description": "How the menu avoids collisions on the side and alignment axes. Horizontal menus fall back to the perpendicular\naxis by default when neither horizontal side fits."
+        },
+        {
+          "name": "collisionBoundary",
+          "type": "Boundary",
+          "description": "Element or rectangle used to constrain the menu's position."
+        },
+        {
+          "name": "collisionPadding",
+          "type": "Padding",
+          "description": "Space to keep between the menu and its collision boundary."
+        },
+        {
+          "name": "container",
+          "type": "HTMLElement | RefObject<HTMLElement | ShadowRoot | null> | ShadowRoot | null",
+          "description": "Portal destination. Pass `null` to wait for a container; ignored when `portal` is false."
+        },
+        {
+          "name": "height",
+          "type": "OverlayHeight",
+          "description": "Height of the surface."
+        },
+        {
+          "name": "maxHeight",
+          "type": "OverlayMaxHeight",
+          "description": "Largest height the surface may grow to before its content scrolls."
+        },
+        {
+          "name": "maxWidth",
+          "type": "OverlayMaxWidth",
+          "description": "Largest width the surface may grow to."
+        },
+        {
+          "name": "portal",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Where the content is rendered in the DOM. Set `false` to keep it in place."
+        },
+        {
+          "name": "positionerClassName",
+          "type": "string",
+          "description": "Classes applied to the element that positions the content."
+        },
+        {
+          "name": "positionMethod",
+          "type": "\"absolute\" | \"fixed\"",
+          "description": "CSS positioning method for the positioner."
+        },
+        {
+          "name": "preventFocusOnClose",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, focus will not be returned to the trigger or `finalFocus` target when the menu closes."
+        },
+        {
+          "name": "showDividers",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Draws a divider between consecutive items."
+        },
+        {
+          "name": "side",
+          "type": "FloatingSide",
+          "description": "Side of the trigger the menu opens on. Menus open below their trigger, and submenus beside it."
+        },
+        {
+          "name": "sideOffset",
+          "type": "FloatingOffset",
+          "defaultValue": "4",
+          "description": "Distance in pixels between the content and its anchor, or a callback that computes it."
+        },
+        {
+          "name": "variant",
+          "type": "AnchoredOverlayVariant",
+          "defaultValue": "'anchored'",
+          "description": "How the menu is presented at each viewport range. `{narrow: 'fullscreen'}` covers narrow viewports and adds a\nclose button."
+        },
+        {
+          "name": "width",
+          "type": "OverlayWidth",
+          "description": "Width of the surface."
+        }
+      ],
+      "passthrough": {
+        "element": "Menu.Popup",
+        "url": "https://base-ui.com/react/components/menu#popup"
+      }
+    },
+    {
+      "name": "ActionMenu.Item",
+      "props": [
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the item temporarily unavailable and explains why."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation."
+        },
+        {
+          "name": "loadingText",
+          "type": "string",
+          "description": "Text announced to assistive technology while the item is loading."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Marks the item as the current choice."
+        },
+        {
+          "name": "variant",
+          "type": "ActionMenuItemVariant",
+          "defaultValue": "'default'",
+          "description": "Use `danger` for a destructive action."
+        }
+      ],
+      "passthrough": {
+        "element": "Menu.Item",
+        "url": "https://base-ui.com/react/components/menu#item"
+      }
+    },
+    {
+      "name": "ActionMenu.LinkItem",
+      "props": [
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether activating the link closes the menu, as activating any other menu item does."
+        },
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the link temporarily unavailable and explains why. The link renders as an inactive item until it is available."
+        },
+        {
+          "name": "variant",
+          "type": "ActionMenuItemVariant",
+          "defaultValue": "'default'",
+          "description": "Use `danger` for a destructive navigation."
+        }
+      ],
+      "passthrough": {
+        "element": "Menu.LinkItem",
+        "url": "https://base-ui.com/react/components/menu#linkitem"
+      }
+    },
+    {
+      "name": "ActionMenu.CheckboxItem",
+      "props": [
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether toggling the item closes the menu, as activating any other menu item does. Set `false` to keep the menu\nopen while several items are toggled."
+        }
+      ],
+      "passthrough": {
+        "element": "Menu.CheckboxItem",
+        "url": "https://base-ui.com/react/components/menu#checkboxitem"
+      }
+    },
+    {
+      "name": "ActionMenu.RadioGroup",
+      "props": [],
+      "passthrough": {
+        "element": "Menu.RadioGroup",
+        "url": "https://base-ui.com/react/components/menu#radiogroup"
+      }
+    },
+    {
+      "name": "ActionMenu.RadioItem",
+      "props": [
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether choosing the item closes the menu, as activating any other menu item does."
+        }
+      ],
+      "passthrough": {
+        "element": "Menu.RadioItem",
+        "url": "https://base-ui.com/react/components/menu#radioitem"
+      }
+    },
+    {
+      "name": "ActionMenu.Group",
+      "props": [],
+      "passthrough": {
+        "element": "Menu.Group",
+        "url": "https://base-ui.com/react/components/menu#group"
+      }
+    },
+    {
+      "name": "ActionMenu.GroupLabel",
+      "props": [],
+      "passthrough": {
+        "element": "Menu.GroupLabel",
+        "url": "https://base-ui.com/react/components/menu#grouplabel"
+      }
+    },
+    {
+      "name": "ActionMenu.Divider",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "ActionMenu.Submenu",
+      "props": [],
+      "passthrough": {
+        "element": "Menu.SubmenuRoot",
+        "url": "https://base-ui.com/react/components/menu#submenuroot"
+      }
+    },
+    {
+      "name": "ActionMenu.SubmenuTrigger",
+      "props": [
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the item temporarily unavailable and explains why."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Shows a spinner in place of the leading visual, or the trailing visual when there is none, and suppresses activation."
+        },
+        {
+          "name": "loadingText",
+          "type": "string",
+          "description": "Text announced to assistive technology while the item is loading."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Shows the current-choice indicator without changing selection when the submenu opens. Does not set an ARIA checked state."
+        },
+        {
+          "name": "variant",
+          "type": "ActionMenuItemVariant",
+          "defaultValue": "'default'",
+          "description": "Use `danger` for a destructive action."
+        }
+      ],
+      "passthrough": {
+        "element": "Menu.SubmenuTrigger",
+        "url": "https://base-ui.com/react/components/menu#submenutrigger"
+      }
+    },
+    {
+      "name": "ActionMenu.LeadingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "ActionMenu.TrailingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "ActionMenu.Description",
+      "props": [
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "description": "Clips the description to one line instead of wrapping."
+        },
+        {
+          "name": "variant",
+          "type": "\"block\" | \"inline\"",
+          "defaultValue": "'inline'",
+          "description": "Whether the description sits beside the label or on its own line."
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Menu.Root",
+    "url": "https://base-ui.com/react/components/menu#root"
+  }
+}

@@ -19,6 +19,7 @@ public/
 
 # Storybook
 storybook-static
+packages/react-tailwind/.storybook/styles.css
 
 # Next.js
 .next
@@ -28,6 +29,7 @@ storybook-static
 coverage/
 
 # Playwright
+.playwright-mcp/
 stats.html
 blob-report
 results.json

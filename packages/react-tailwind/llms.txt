@@ -1,0 +1,212 @@
+# @primer/react-tailwind 0.0.0
+
+> Primer design system components implemented with Tailwind CSS and Base UI. This file is generated; do not edit it by hand.
+
+Guidance for coding agents and LLMs generating code that uses this package.
+
+`@primer/react-tailwind` implements the Primer design system with Tailwind CSS and Base UI. It is a separate implementation from `@primer/react`, not a compatibility layer. Guidance written for `@primer/react` is frequently wrong here.
+
+## Setup
+
+Render the app inside `ThemeProvider` and `BaseStyles`, and import the stylesheet once at the entry point.
+
+```tsx
+import '@primer/react-tailwind/styles.css'
+import {BaseStyles, ThemeProvider} from '@primer/react-tailwind'
+;<ThemeProvider colorMode="auto">
+  <BaseStyles>{app}</BaseStyles>
+</ThemeProvider>
+```
+
+Import components from the root or from a component subpath. Both resolve to the same implementation.
+
+```tsx
+import {Button} from '@primer/react-tailwind'
+import {Button} from '@primer/react-tailwind/Button'
+```
+
+Portal routing for host-composed Base UI parts lives in two narrow foundation subpaths with flat exports: `BasePortalProvider` (the same component as `Portal.Provider`) from `@primer/react-tailwind/base`, and `usePortalContainer` and `usePortalRoot` from `@primer/react-tailwind/behaviors`. Pass `usePortalContainer()` to a Base UI `Portal` part's `container`; do not reimplement portal mounting, focus, or dismissal. These subpaths contain nothing else.
+
+The compiled `styles.css` styles package components; it does not generate arbitrary app-owned Tailwind classes. With this setup, use ordinary CSS or package layout components such as `Stack` for application layout. To use Tailwind utilities in app code, run a separate Tailwind v4 build with Primer's config and unprefixed class names that scans only app sources; keep importing `styles.css` for components. See the package README.
+
+Package-owned utilities use the `primer:` prefix (first, before variants); caller `className` stays unprefixed and is merged over both prefixed and unprefixed package utilities. Compiled `styles.css` is the default and emits only package utilities. App utilities are unprefixed in the host's own Tailwind build, which must not scan the package `dist`. The optional `tailwind.css` is a standalone entry for a separate stylesheet and must not be imported into the same Tailwind stylesheet as app utilities (one prefix per build). The prefix is an unvalidated migration candidate: shared `--tw-*` properties may still interact with legacy `@primer/css`, so verify isolation in the host.
+
+## Rules
+
+- Style with CSS classes via `className`; Tailwind utilities work only when your app compiles them. There is no `sx` prop and no styled-system props such as `m`, `p`, `bg`, or `color`. Reaching for `sx` is the most common mistake when adapting `@primer/react` code.
+- When using a host Tailwind build, use Primer semantic utilities such as `text-default`, `bg-muted`, and `border-default` rather than raw palette values such as `text-gray-500`. Colors must resolve through Primer tokens so themes and high-contrast schemes keep working.
+- Not every default Tailwind utility exists. The Primer type scale replaces the default one, so `text-base` and `text-lg` generate nothing; use `text-body-medium`, `text-body-large`, or a title size. There are no `ring-*` or `bg-border-*` color utilities either. When no utility exists, use the token directly, as in `bg-[var(--borderColor-muted)]`.
+- In a host Tailwind build, focus treatment is `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus`.
+- Change the rendered element with `render` on Base UI-backed components such as `Button`, `Dialog`, and `Tooltip`, and with `as` on presentational components such as `Text`, `Stack`, `Card`, and `PageLayout`. Check the component's props before choosing.
+- React 19 is the only supported peer. The package is compiled with React Compiler; do not add manual `memo`, `useMemo`, or `useCallback` wrappers around package components for performance alone.
+- Most components forward their root ref and unrecognized DOM props to their root element; check the component's shipped `llms/` guide for exceptions. `TextInput` applies `className` to its visual wrapper, while its ref, native input props, and `style` apply to the underlying `<input>`. Component-owned style properties, such as geometry custom properties like `--dialog-width`, are layered over a caller's `style`, so do not assume caller `style` always wins. Prefer passing standard DOM props directly instead of wrapping components in extra elements.
+- There is no `Box` component. Use a plain element with `className`, or `Stack` for layout.
+- `Button` defaults to `type="button"`; set `type="submit"` on a form submission action.
+
+## Composition
+
+Compound components expose Base UI-style parts, commonly `Root`, `Trigger`, `Portal`, `Positioner`, `Popup` or `Content`, `Title`, `Description`, and `Close`. Use the documented parts rather than recreating behavior with generic elements, because the parts carry the focus, dismissal, and ARIA wiring.
+
+```tsx
+<Dialog>
+  <Dialog.Trigger render={<Button>Open</Button>} />
+  <Dialog.Content>
+    <Dialog.Title>Title</Dialog.Title>
+  </Dialog.Content>
+</Dialog>
+```
+
+Do not nest interactive elements. To make a component navigate, pass an anchor through `render` instead of placing an `<a>` inside a button.
+
+Compound components that identify a child by role also accept an element prop of the same name. Use the child form by default; use the prop when your own component wraps a part, because the parent cannot recognize a wrapper by type. The prop wins over a matching child, so do not supply both.
+
+```tsx
+// A wrapper the parent cannot recognize, handed to the region directly.
+<PageLayout sidebar={<RepoSidebar />}>
+  <PageLayout.Content>{children}</PageLayout.Content>
+</PageLayout>
+```
+
+The regions are `header`, `sidebar`, and `footer` on `PageLayout`; `icon`, `image`, `heading`, `description`, `metadata`, and `action` on `Card`; `label`, `caption`, `validation`, and `leadingVisual` on `FormControl`; `heading` on `NavList` and `ActionList.Group`; `leadingVisual`, `trailingVisual`, `description`, and `trailingAction` on `NavList.Item`, `ActionList.Item`, and `ActionList.LinkItem`; `trailingAction` on `ActionList.GroupHeading`; and `leadingVisual`, `trailingVisual`, and `subtree` on `TreeView.Item`.
+
+## Choosing a component
+
+- Action in the current view: `Button`. Navigation: `Link`, or `LinkButton` for button styling. Icon-only: `IconButton` with a required `aria-label`.
+- Choosing from a known list: `ActionMenu` for commands, `SelectPanel` for a filterable picker, `Select` for a short native list, `Autocomplete` for free text with suggestions.
+- Status and metadata: `Label` for general metadata, `StateLabel` for issue and pull request state, `CounterLabel` for counts.
+- Messaging: `Banner` for page-level status, `Dialog` when the message must block the task, `FormControl` validation for a single field.
+- Announcing asynchronous changes: `Announce`, or `AriaStatus` and `AriaAlert` for a fixed politeness. There is no component named `LiveRegion`.
+
+## Names that changed from `@primer/react`
+
+Experimental and versioned components are promoted to their stable names. Use `Dialog`, not `DialogV2`. Use `Tooltip`, not `TooltipV2`. Use `SelectPanel`, not `SelectPanel2`. Use `Breadcrumbs`, not `Breadcrumb`.
+
+Deprecated APIs are not included. Use `NavList` instead of `SideNav`, `TextInput` with `Token` composition instead of `TextInputWithTokens`, and Octicons with your own styling instead of `CircleBadge`.
+
+## Accessibility
+
+Every interactive control needs an accessible name. `IconButton` requires `aria-label`. Associate form controls with `FormControl`, or with a native label, rather than placing text beside an input. Announce asynchronous updates with `Announce` or `AriaStatus` instead of moving focus.
+
+## Verifying generated code
+
+If a prop is uncertain, read the shipped TypeScript declarations rather than assuming the `@primer/react` signature. The package ships `dist` (including declarations) and the `llms/` component guides; component `README.mdx` and `ALIGNMENT.md` files live in the repository source and are not shipped, and their guidance is summarized in the `llms/` guides.
+
+Start with `llms.txt`, then load the linked guide for the component you need. The guides include authored usage examples, composition, state and styling guidance where documented, generated prop references, and migration notes. This shared `AGENTS.md` applies to every component; do not create a second independently maintained set of agent instructions.
+
+Read these exports as files, not JavaScript modules. In a Node.js script inside the consuming application:
+
+```js
+import {readFile} from 'node:fs/promises'
+import {createRequire} from 'node:module'
+
+const require = createRequire(import.meta.url)
+const index = await readFile(require.resolve('@primer/react-tailwind/llms.txt'), 'utf8')
+const button = await readFile(require.resolve('@primer/react-tailwind/llms/Button.md'), 'utf8')
+```
+
+`@primer/react-tailwind/AGENTS.md` and `@primer/react-tailwind/api-inventory.schema.json` are also explicit file exports. Read the installed version, rather than assuming the documentation on the repository's default branch matches it. No CLI, raw-text bundler loader, or Tailwind compiler is required to retrieve guidance.
+
+## Customization boundaries
+
+Start with documented variants and semantic tokens, then use `className` on the documented component or part. When structure must change, compose public parts with `render`, `as`, or region props as supported. `ButtonBase` is a styled lower-level button, not an unstyled replacement for Base UI.
+
+Use the component guide's documented data attributes when styling state or parts. Other DOM structure, generated utility names, and internal helpers are not supported extension APIs. A class-merging result does not prove that a CSS declaration wins in the host's cascade; verify the result with the actual stylesheets, states, and viewports.
+
+Use `Portal.Provider` or a floating part's `container` to choose a portal destination. A custom destination outside a themed subtree does not automatically inherit that subtree's CSS custom properties. Retain the required theme styles and verify nested overlays, clipping, focus, dismissal, and return focus in the host.
+
+## Foundations
+
+- [BaseStyles](llms/BaseStyles.md): `BaseStyles` establishes Primer base typography and color variables for a subtree.
+- [ThemeProvider and useTheme](llms/ThemeProvider.md): `ThemeProvider` and `useTheme` configure a subtree's appearance and expose its configured and resolved color modes.
+
+## Components
+
+Each component has a detail file with usage examples, composition and state contracts, props, accessibility guidance, and migration notes. Load only the ones you need.
+
+- [ActionBar](llms/ActionBar.md): `ActionBar` groups related actions with `Button`, `IconButton`, `Group`, `Divider`, and `Menu` parts.
+- [ActionList](llms/ActionList.md): `ActionList` is a semantic action, menu, or listbox list composed from explicit child parts.
+- [ActionMenu](llms/ActionMenu.md): `ActionMenu` is a composable Base UI menu with button and low-level trigger options.
+- [AnchoredOverlay](llms/AnchoredOverlay.md): `AnchoredOverlay` positions a dismissible overlay relative to a trigger.
+- [Autocomplete](llms/Autocomplete.md): `Autocomplete` is a composable Base UI autocomplete for filtering and choosing from a known set of options.
+- [Avatar](llms/Avatar.md): `Avatar` renders a user or organization image at a consistent size and shape. Use `square` for organizations and other non-person entities.
+- [AvatarStack](llms/AvatarStack.md): `AvatarStack` is a presentational component for a compact, expandable group of avatars. Import it from `@primer/react-tailwind/AvatarStack`.
+- [Banner](llms/Banner.md): `Banner` displays a page-level status or message that needs attention but does not interrupt the user. Use `Dialog` instead when the message must block the task, and inline validation for a single field.
+- [Blankslate](llms/Blankslate.md): `Blankslate` provides a structured empty state with optional visual, heading, description, and primary or secondary actions.
+- [BranchName](llms/BranchName.md): `BranchName` renders a Git ref name in Primer's monospace branch treatment. It is presentational; pass `href` to make it navigable.
+- [Breadcrumbs](llms/Breadcrumbs.md): `Breadcrumbs` communicates the current location within a hierarchy.
+- [Button](llms/Button.md): `Button` triggers an action in the current view. Use `LinkButton` when the control navigates to a URL, and `IconButton` when the control has no visible label.
+- [ButtonBase](llms/ButtonBase.md): `ButtonBase` is the styled lower-level button primitive behind `Button`, `IconButton`, and `LinkButton`. Reach for it only when building a new button-like control that should retain Primer's base styling; prefer `Button` for ordinary actions.
+- [ButtonGroup](llms/ButtonGroup.md): `ButtonGroup` joins related buttons into a single segmented control. Use `SegmentedControl` instead when the buttons select between mutually exclusive views.
+- [Card](llms/Card.md): `Card` is a composable content container with heading, description, image, metadata, icon, and action parts.
+- [Checkbox](llms/Checkbox.md): `Checkbox` is a form-associated binary control. Pair it with a native label or `FormControl.Label`.
+- [CheckboxGroup](llms/CheckboxGroup.md): `CheckboxGroup` groups checkbox primitives and supplies their shared controlled or uncontrolled state.
+- [ConfirmationDialog](llms/ConfirmationDialog.md): `ConfirmationDialog` asks a user to confirm or cancel a consequential action.
+- [CounterLabel](llms/CounterLabel.md): `CounterLabel` displays a numeric count alongside a label, such as an open-issue total. It is presentational and does not format or abbreviate the number.
+- [DataTable](llms/DataTable.md): `DataTable` is a presentational, typed table for stable row data. It owns native table structure, sorting state, and column layout while `Table` exposes structural parts for custom composition.
+- [Details](llms/Details.md): `Details` is a native disclosure element with a styled summary.
+- [Dialog](llms/Dialog.md): `Dialog` provides a modal surface with composable trigger and content parts.
+- [FeatureFlags](llms/FeatureFlags.md): `FeatureFlags` scopes boolean flags and `useFeatureFlag` reads one flag.
+- [FilteredActionList](llms/FilteredActionList.md): `FilteredActionList` is a configured, data-driven filterable ActionList for established picker and command-list patterns. It composes shared `TextInput`, ActionList content layers, `Checkbox`, `Spinner`, and `SkeletonBox` with Base UI's combobox behavior. Use `ActionList` directly when consumer-owned markup needs a different structure.
+- [FormControl](llms/FormControl.md): `FormControl` is a composable field wrapper that provides label, caption, validation, and control association.
+- [Header](llms/Header.md): `Header` is a compact horizontal header primitive. Use `Header.Item` for layout participants and `Header.Link` for consistently styled navigation.
+- [Heading](llms/Heading.md): `Heading` renders a section heading. Choose the level with `as` for document structure and `size` for visual size, so heading order stays correct independently of scale.
+- [Hidden](llms/Hidden.md): `Hidden` conditionally hides presentational content at Primer viewport ranges. It is not a permission or authorization mechanism.
+- [IconButton](llms/IconButton.md): `IconButton` is a button whose only content is an icon. It requires an accessible name from either `aria-label` or `aria-labelledby`, because the control has no visible text.
+- [IconLinkButton](llms/IconLinkButton.md): `IconLinkButton` is an icon-only navigation link with the visual treatment and tooltip behavior of `IconButton`. It requires an accessible name from either `aria-label` or `aria-labelledby`.
+- [InlineMessage](llms/InlineMessage.md): `InlineMessage` communicates validation, status, and availability inline with content or a form control.
+- [IssueLabel](llms/IssueLabel.md): `IssueLabel` displays a colored label and can render as a link, button, or custom element for interactive label workflows.
+- [KeybindingHint](llms/KeybindingHint.md): `KeybindingHint` renders a compact, screen-reader-friendly keyboard shortcut using the local key formatting rules.
+- [Label](llms/Label.md): `Label` marks an item with a short piece of metadata, such as a status or category. It is presentational and does not label form fields; use `FormControl.Label` for that.
+- [LabelGroup](llms/LabelGroup.md): `LabelGroup` lays out a collection of `Label` items and collapses overflow behind a toggle when they exceed the available width.
+- [Link](llms/Link.md): `Link` navigates to another location. Use `Button` when the control performs an action, and `LinkButton` when a navigation target needs button styling.
+- [LinkButton](llms/LinkButton.md): `LinkButton` navigates to a URL while looking like a `Button`. Supply `href` for a native anchor destination.
+- [LiveRegion](llms/LiveRegion.md): `Announce`, `AriaStatus`, and `AriaAlert` announce asynchronous changes without moving focus. They share one live-region implementation; `AriaStatus` and `AriaAlert` fix the politeness.
+- [NavList](llms/NavList.md): `NavList` is a vertical navigation primitive for settings and page navigation.
+- [Overlay](llms/Overlay.md): `Overlay` is a low-level surface for positioned content.
+- [PageHeader](llms/PageHeader.md): `PageHeader` composes page context, a title, description, actions, and local navigation while preserving reading and focus order.
+- [PageLayout](llms/PageLayout.md): `PageLayout` composes page headers, navigation panes or sidebars, content, and footers into a responsive layout.
+- [Pagination](llms/Pagination.md): `Pagination` renders previous, next, and page links from a controlled current page and page count.
+- [Popover](llms/Popover.md): `Popover` pairs a trigger with positioned, dismissible content.
+- [Portal](llms/Portal.md): `Portal` renders children outside their React parent's DOM subtree while preserving React context.
+- [ProgressBar](llms/ProgressBar.md): `ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.
+- [Radio](llms/Radio.md): `Radio` is a styled radio primitive for use in a `RadioGroup`.
+- [RadioGroup](llms/RadioGroup.md): `RadioGroup` is a Base UI radio group with roving focus and single-value selection.
+- [RelativeTime](llms/RelativeTime.md): `RelativeTime` renders a semantic `time` element with a human-readable relative value and a stable machine-readable date.
+- [ScrollableRegion](llms/ScrollableRegion.md): `ScrollableRegion` owns horizontal or vertical overflow and becomes a labelled, focusable region when its content overflows.
+- [SegmentedControl](llms/SegmentedControl.md): `SegmentedControl` is a single-choice Base UI toggle group for related view or mode choices.
+- [Select](llms/Select.md): `Select` is a styled native `<select>` with Primer control tokens. Native browser behavior owns option menus, keyboard operation, focus, form association, and controlled or uncontrolled values.
+- [SelectPanel](llms/SelectPanel.md): `SelectPanel` is a data-driven, filterable picker built with Base UI Combobox and Primer's Popover and Dialog primitives.
+- [SkeletonAvatar](llms/SkeletonAvatar.md): `SkeletonAvatar` reserves circular or square space for an avatar while the profile content is loading.
+- [SkeletonBox](llms/SkeletonBox.md): `SkeletonBox` reserves space for content that is loading, using a shimmer placeholder that can be delayed until a request has taken long enough to show.
+- [SkeletonText](llms/SkeletonText.md): `SkeletonText` creates one or more text-shaped loading lines with typography height presets and an optional maximum width.
+- [Spinner](llms/Spinner.md): `Spinner` communicates that work is in progress with an animated indicator and an optional screen-reader announcement.
+- [SplitPageLayout](llms/SplitPageLayout.md): `SplitPageLayout` is an opinionated full-width `PageLayout` composition for settings and detail pages with a navigation pane and content area.
+- [Stack](llms/Stack.md): `Stack` arranges related content along one axis with token-based spacing, alignment, wrapping, and responsive direction.
+- [StateLabel](llms/StateLabel.md): `StateLabel` shows the lifecycle state of an issue or pull request, such as open, closed, or merged. Use `Label` for general-purpose metadata.
+- [SubNav](llms/SubNav.md): `SubNav` is a horizontal secondary navigation bar composed from `SubNav.Links` and `SubNav.Link`.
+- [Tabs](llms/Tabs.md): `Tabs` provides unstyled tab, tab list, and tab panel behavior that can be composed into an application-specific presentation.
+- [Text](llms/Text.md): `Text` applies Primer typography to inline or block text. Use `Heading` for section headings so that structure is conveyed semantically.
+- [Textarea](llms/Textarea.md): `Textarea` is a styled native multiline text control.
+- [TextInput](llms/TextInput.md): `TextInput` is a styled native single-line input with small, medium, and large visual sizes.
+- [Timeline](llms/Timeline.md): `Timeline` is a presentational compound activity stream built from `Item`, `Badge`, `Body`, `Actions`, `Avatar`, and `Break` parts.
+- [ToggleSwitch](llms/ToggleSwitch.md): `ToggleSwitch` is a form-associated binary switch with small and medium sizes.
+- [Token](llms/Token.md): `Token` displays compact filter or selection content with optional leading visuals, selection state, and removal behavior. `IssueLabelToken` provides the same token interaction model with a custom label color.
+- [Tooltip](llms/Tooltip.md): `Tooltip` provides supplementary text for a trigger.
+- [TopicTag](llms/TopicTag.md): `TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTag.Group` wraps tags into a responsive row.
+- [TreeView](llms/TreeView.md): `TreeView` is a presentational compound component for hierarchical files, folders, and nested resources. Compose its parts in author order to retain control of item content and visuals while TreeView owns tree semantics, expansion, roving focus, and typeahead.
+- [Truncate](llms/Truncate.md): `Truncate` applies single-line overflow truncation while preserving the full value in the native `title` tooltip.
+- [UnderlineNav](llms/UnderlineNav.md): `UnderlineNav` is a presentational navigation composition for sibling destinations. It keeps native link semantics, while consumers own route integration, item order, and selected state.
+- [UnderlinePanels](llms/UnderlinePanels.md): `UnderlinePanels` is a tab-and-panel composition with an underlined tab list.
+- [VisuallyHidden](llms/VisuallyHidden.md): `VisuallyHidden` hides content visually while keeping it available to screen readers. Use it for context that is obvious visually but missing from the accessible name.
+
+## Not included
+
+- `CircleBadge` (deprecated). Use an Octicon from @primer/octicons-react with your own styling.
+- `SideNav` (deprecated). Use NavList.
+- `TextInputWithTokens` (deprecated). Compose TextInput with Token.
+- `Breadcrumb` (deprecated). Use Breadcrumbs.
+- `SelectPanel2` (deprecated). Use SelectPanel, which is the promoted implementation.
+- `useRefObjectAsForwardedRef` (deprecated). Pass ref as a prop; React 19 supports ref forwarding without a hook.
+- `useResponsiveValue` (deprecated). Use responsive class names or CSS media queries.
+- `Flash` (deprecated). Use Banner.
+

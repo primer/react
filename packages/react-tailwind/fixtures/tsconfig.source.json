@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@primer/react-tailwind": ["../src/index.ts"],
+      "@primer/react-tailwind/base": ["../src/base/index.ts"],
+      "@primer/react-tailwind/behaviors": ["../src/behaviors/index.ts"],
+      "@primer/react-tailwind/*": ["../src/components/*/index.ts"],
+      "react": ["../node_modules/@types/react"],
+      "react/*": ["../node_modules/@types/react/*"],
+      "react-dom": ["../node_modules/@types/react-dom"],
+      "react-dom/*": ["../node_modules/@types/react-dom/*"]
+    },
+    "rootDir": ".."
+  }
+}

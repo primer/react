@@ -66,6 +66,7 @@ row before the </tbody></table> line.
     - [Presentational components](#presentational-components)
     - [Base components](#base-components)
     - [Utilities](#utilities)
+  - [Compose components around explicit contracts](#compose-components-around-explicit-contracts)
   - [Props](#props)
     - [Prefer applying component rest parameters to the root element rendered by a component](#prefer-applying-component-rest-parameters-to-the-root-element-rendered-by-a-component)
     - [Merge shared props intentionally](#merge-shared-props-intentionally)
@@ -245,6 +246,35 @@ utilities for established patterns so teams can build accessible experiences on
 solid foundations. Examples include hooks such as `useMergedRefs`,
 `useOnEscapePress`, and `useTimeout`, or lower-level packages such as
 `@primer/behaviors`.
+
+### Compose components around explicit contracts
+
+When designing or changing a component, consider how it composes with the
+rest of Primer, not only how it renders in isolation:
+
+- Start with the consumer's task and the behavior and semantics it needs.
+  Search for existing components, primitives, hooks, and utilities before
+  introducing another implementation. Compose them when their contracts match.
+- Extract a shared layer when consumers need the same semantic or behavioral
+  contract, not just similar-looking markup. Keep helpers private until there
+  is a demonstrated need for a supported public API, and avoid circular
+  dependencies between component families.
+- Give each piece of state, interaction, and accessibility behavior a clear
+  owner. Reuse an existing primitive's behavior instead of maintaining a
+  competing source of truth. Document what the component provides and what
+  consumers must supply.
+- Use ordinary children when consumers own content and ordering. Use a
+  constrained data or config API when the parent must own those decisions.
+  Introduce named parts or child extraction only when needed; document the
+  supported wrappers, ordering, and precedence when props and children overlap.
+- Treat the boundary between composed pieces as an API. Preserve supported
+  refs, DOM props, event handlers, cancellation, state, IDs, and accessible
+  relationships. Merge shared props intentionally, and do not depend on
+  another component's private DOM structure.
+- Verify the supported composition paths, including wrappers and fragments
+  where promised, optional parts, conflicting inputs, controlled and uncontrolled
+  state, refs, events, keyboard and focus behavior, and server rendering and
+  hydration as applicable. Preserve existing public behavior when refactoring.
 
 ### Props
 

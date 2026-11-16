@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Heading.docs.json'
+import * as Stories from './Heading.stories'
+import * as Features from './Heading.features.stories'
+import * as Examples from './Heading.examples.stories'
+
+<Meta of={Stories} />
+
+# Heading
+
+`Heading` renders a section heading. Choose the level with `as` for document structure and `size` for visual size, so heading order stays correct independently of scale.
+
+```tsx
+import {Heading} from '@primer/react-tailwind/Heading'
+;<Heading as="h2">General</Heading>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+The default size is `large`.
+
+## Composition
+
+Set `as` from the document outline independently from the visual `size`.
+
+## Accessibility
+
+Maintain a logical heading hierarchy; size is visual and does not change heading level.
+
+## Data attributes
+
+The heading has `data-component="Heading"`.
+
+## Features and examples
+
+<Canvas of={Features.Small} />
+
+<Canvas of={Examples.PageOutline} />

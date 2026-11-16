@@ -1,0 +1,43 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as Stories from './Portal.stories'
+import * as Features from './Portal.features.stories'
+import * as Examples from './Portal.examples.stories'
+
+<Meta of={Stories} />
+
+# Portal
+
+`Portal` renders children outside their React parent's DOM subtree while preserving React context.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Usage
+
+```tsx
+import {Portal} from '@primer/react-tailwind'
+;<Portal container={containerRef}>Content rendered outside its parent.</Portal>
+```
+
+Portal changes DOM placement, not reading order or focus behavior. Give its contents an appropriate role, accessible name, focus management, and dismissal behavior.
+
+`container` accepts an element or ref, not a registered name. When migrating from `containerName`, resolve the named target in your application and pass it as `container`; remove `containerName` instead of spreading it onto the portal's div. Without a `container`, the nearest `BaseStyles` portal root is used, followed by the first `[data-portal-root]` in the document and then `document.body`.
+
+## Routing a subtree
+
+`Portal.Provider` sets the default container for `Portal` and every Primer floating part beneath it without rendering an element. An explicit `container` (including `null`) wins, then the nearest provider (including `null`, which waits), then the default root. In a React Server Component, import the same component as the flat `BasePortalProvider` export:
+
+```tsx
+import {BasePortalProvider} from '@primer/react-tailwind/base'
+;<BasePortalProvider container={hostRegionRef}>{children}</BasePortalProvider>
+```
+
+When the app composes a Base UI `Portal` part directly, pass `usePortalContainer()` from `@primer/react-tailwind/behaviors` as its `container` so it follows the same routing and stays inside an enclosing Primer floating layer. Base UI still mounts the portal and owns focus and dismissal.
+
+<Canvas of={Features.CustomPortalRootByRegistration} />
+
+<Canvas of={Examples.WithDialogContent} />

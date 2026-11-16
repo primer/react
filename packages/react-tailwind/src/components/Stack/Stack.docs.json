@@ -1,0 +1,132 @@
+{
+  "id": "stack",
+  "name": "Stack",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Stack",
+  "description": "`Stack` arranges related content along one axis with token-based spacing, alignment, wrapping, and responsive direction.",
+  "stories": [
+    {
+      "id": "react-tailwind-layout-stack-examples--settings-summary"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--gap-scale"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--directional-padding"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--padding-scale"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--shrinking-stack-items"
+    },
+    {
+      "id": "react-tailwind-layout-stack-features--responsive-direction"
+    },
+    {
+      "id": "react-tailwind-layout-stack--default"
+    },
+    {
+      "id": "react-tailwind-layout-stack--playground"
+    },
+    {
+      "id": "react-tailwind-layout-stack--responsive"
+    },
+    {
+      "id": "react-tailwind-layout-stack--stack-item-playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "align",
+      "type": "ResponsiveValue<\"baseline\" | \"center\" | \"end\" | \"start\" | \"stretch\">",
+      "defaultValue": "'stretch'",
+      "description": "Alignment of children across the stack's direction."
+    },
+    {
+      "name": "as",
+      "type": "As",
+      "defaultValue": "'div'",
+      "description": "Element to render. Its props, events, and ref follow the selected element.\nElement or component to render."
+    },
+    {
+      "name": "className",
+      "type": "string"
+    },
+    {
+      "name": "direction",
+      "type": "ResponsiveValue<\"horizontal\" | \"vertical\">",
+      "defaultValue": "'vertical'",
+      "description": "Whether children are laid out in a row or a column."
+    },
+    {
+      "name": "gap",
+      "type": "ResponsiveValue<Gap>",
+      "defaultValue": "'normal'",
+      "description": "Spacing between children. Accepts a responsive object to vary it per viewport."
+    },
+    {
+      "name": "justify",
+      "type": "ResponsiveValue<\"center\" | \"end\" | \"space-between\" | \"space-evenly\" | \"start\">",
+      "defaultValue": "'start'",
+      "description": "Distribution of children along the stack's direction."
+    },
+    {
+      "name": "padding",
+      "type": "ResponsiveValue<Gap>",
+      "defaultValue": "'none'",
+      "description": "Inner spacing on all sides."
+    },
+    {
+      "name": "paddingBlock",
+      "type": "ResponsiveValue<Gap>",
+      "description": "Inner spacing at the top and bottom, overriding `padding`."
+    },
+    {
+      "name": "paddingInline",
+      "type": "ResponsiveValue<Gap>",
+      "description": "Inner spacing at the start and end, overriding `padding`."
+    },
+    {
+      "name": "wrap",
+      "type": "ResponsiveValue<\"nowrap\" | \"wrap\">",
+      "defaultValue": "'nowrap'",
+      "description": "Whether children may wrap onto another line."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Stack.Item",
+      "props": [
+        {
+          "name": "as",
+          "type": "As",
+          "defaultValue": "'div'",
+          "description": "Element to render. Its props, events, and ref follow the selected element.\nElement or component to render."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "grow",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Lets the item take up any remaining space."
+        },
+        {
+          "name": "shrink",
+          "type": "ResponsiveValue<boolean>",
+          "description": "Lets the item shrink below its content size when space is tight."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

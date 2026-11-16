@@ -1,0 +1,85 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+
+import * as Stories from './Tooltip.stories'
+import * as Features from './Tooltip.features.stories'
+import * as Examples from './Tooltip.examples.stories'
+
+<Meta of={Stories} />
+
+# Tooltip
+
+`Tooltip` provides supplementary text for a trigger.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Usage
+
+```tsx
+import {Button, Tooltip} from '@primer/react-tailwind'
+;<Tooltip>
+  <Tooltip.Trigger render={<Button>Copy</Button>} />
+  <Tooltip.Content>Copy repository URL</Tooltip.Content>
+</Tooltip>
+```
+
+By default, description tooltips supplement an existing accessible name. A label tooltip can name an otherwise unnamed trigger from its text, including before hydration; provide a separate name when that text is unavailable to server rendering as described below. Do not put essential interactive controls in tooltip content.
+
+`Tooltip.Trigger` adds tooltip behavior to the element passed to `render`, so the trigger stays a single element. A `description` tooltip (the default) adds its text to the trigger's accessible description. A `label` tooltip names a trigger without visible text, such as an icon-only link, through `aria-labelledby`.
+
+The visual tooltip content is hidden from the accessibility tree; the trigger's label or description references its text instead. Keep tooltip content non-interactive.
+
+<Canvas of={Features.LabelType} />
+
+### Placement and delay
+
+`Tooltip.Content` opens below its trigger, centered, 4px away. Use `side` and `align` to move it; it flips when there isn't room. `delay` on the root sets how long the pointer rests before the tooltip opens: `short` (50ms, the default), `medium` (400ms) or `long` (1200ms). Keyboard focus opens it immediately. `Tooltip.Provider` sets a shared delay for a group of tooltips, and once one is open its neighbors open without a delay.
+
+The visual popup can cover a nearby control and intercept pointer input. Choose a placement with enough room, or adjust the surrounding layout; for an `IconButton`, use `tooltipDirection`. A tooltip can flip at a viewport edge or cover a different control, so verify the actual placement at supported viewport sizes, directions, and zoom levels. If no placement leaves nearby controls usable, show the explanation as persistent inline text associated with the relevant control instead. Avoid disabling popup hoverability or pointer events as a blanket workaround: hover-triggered content must remain available when the pointer moves onto it.
+
+<Canvas of={Features.AllDirections} />
+
+### Composing with other triggers
+
+Render another trigger to give one element both behaviors, such as a menu or dialog trigger with a tooltip.
+
+<Canvas of={Features.OnActionMenuAnchor} />
+
+When a tooltip is opened by hover inside a dialog while focus remains on another control, pressing Escape can dismiss both the tooltip and the dialog. Legacy standalone popovers and overlays with document-level Escape listeners can close on the same key press too. An application that needs the tooltip dismissed first must coordinate dismissal with its other open layers; a blanket Escape guard can incorrectly take precedence over a newer popup. There is no public cross-portal dismissal stack in this package yet.
+
+<Canvas of={Examples.HoveredFileInDialog} />
+
+### Finding the visual popup
+
+For a trigger inside its `Tooltip.Root`, `data-tooltip-trigger` and its `Tooltip.Content` or `Tooltip.Popup` share an opaque token. The same association is available for tooltips created by `IconButton`, `IconLinkButton`, and `SegmentedControl`. Compare the attribute values exactly to find the popup, including when a trigger has its own accessible name or a keyboard shortcut. Do not derive the token from text, treat it as a DOM ID or ARIA reference, or override it in a `render` element. Composed elements must forward the supplied props.
+
+The trigger has the token in server markup and retains it through hydration. The visual popup may not be mounted yet, for example while its portal container is pending or when `keepMounted={false}`. A server-rendered text reference is not the visual popup. A disabled root omits the trigger association. If a root has several triggers, they share the token; Base UI's `data-popup-open` identifies the trigger that opened it.
+
+The token identifies ownership, not visibility: an open popup can still be hidden by CSS or an ancestor. Resolve it in the actual portal container and check its rendered visibility before using it for dismissal decisions. A document-wide selector does not cross shadow roots or documents; use the known portal container or a `Tooltip.Content` ref when available. When independently server-rendering multiple React roots, give each root a distinct `identifierPrefix` and reuse that prefix during hydration. A detached Base UI handle trigger outside the owning Primer root, or a trigger using a different handle than its surrounding root, does not receive this association.
+
+This is not a dismissal stack. A parent coordinating Escape must also account for other, more recently opened layers.
+
+### ARIA references
+
+Pass `aria-labelledby` and the trigger's `id` to `Tooltip.Trigger`; a label takes precedence over the tooltip, and the trigger tracks its open state by its `id`. Descriptions supplied directly to the trigger or its render element or callback result are merged with the tooltip's description. Other props on the rendered element can replace the trigger's, as with any Base UI `render` prop. Set `id` on the root to reference the tooltip text from elsewhere.
+
+For a label tooltip, a non-empty `aria-label` on the trigger or its rendered element is preserved instead of the automatically generated tooltip label. An empty or whitespace-only name does not override the tooltip. When a render callback supplies an `aria-label` and must explicitly reference the tooltip's own ID as well, pass that `aria-labelledby` to `Tooltip.Trigger`: the same ID on the returned element is indistinguishable from the generated reference.
+
+If a custom trigger component sets its own `aria-label` internally, also pass that label to `Tooltip.Trigger`. Otherwise the tooltip reference can replace the component's name after mounting. Similarly, when `keybindingHint` is present and a custom content component sets its own `aria-label` internally, pass that label to `Tooltip.Content` so the trigger receives the intended name or description.
+
+When a label tooltip is visible on a trigger with an existing accessible name, include the tooltip text in that name so speech-input users can activate the trigger by its visible label.
+
+<Canvas of={Features.DescriptionTypeWithExternalDescription} />
+
+<Canvas of={Examples.CustomId} />
+
+A `disabled` root never opens and stops naming or describing its trigger.
+
+The tooltip's text reference target is rendered in server markup and remains available while its visual popup is waiting for a portal container. The target uses text from composed children; for content generated by a component that does not expose its text through `children`, pass `aria-label` directly to `Tooltip.Content`. If a `Tooltip.Content` render callback supplies its own accessible name, also pass that name as a prop so it is available before the callback runs after hydration. The popup itself remains portalled and hidden from the accessibility tree.
+
+Do not rely on `aria-labelledby` on `Tooltip.Content` to supply the trigger's name or description: Chromium's native accessibility tree can ignore that chained reference, including when a keyboard hint is present. Use the tooltip text or an `aria-label` on the content instead, or reference independent text directly from `Tooltip.Trigger`.
+
+An `aria-label` is a fallback while none of the control's `aria-labelledby` references resolves. If another referenced element supplies a name, that name takes precedence; the tooltip text also contributes in ID-reference order. Referencing a description tooltip for both name and description can repeat its text, and a `keybindingHint` becomes part of that name. For an icon-only control that needs a distinct fallback name, provide a meaningful, non-whitespace `aria-label` directly on the control, including when it is nested inside the tooltip trigger.

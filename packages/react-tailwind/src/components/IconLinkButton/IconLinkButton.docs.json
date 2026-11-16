@@ -1,0 +1,105 @@
+{
+  "id": "iconlinkbutton",
+  "name": "IconLinkButton",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/IconLinkButton",
+  "description": "`IconLinkButton` is an icon-only navigation link with the visual treatment and tooltip behavior of `IconButton`. It requires an accessible name from either `aria-label` or `aria-labelledby`.",
+  "stories": [
+    {
+      "id": "react-tailwind-components-iconlinkbutton-features--with-description"
+    },
+    {
+      "id": "react-tailwind-components-iconlinkbutton-features--external-tooltip"
+    },
+    {
+      "id": "react-tailwind-components-iconlinkbutton-features--native-navigation"
+    },
+    {
+      "id": "react-tailwind-components-iconlinkbutton-features--button-comparison"
+    },
+    {
+      "id": "react-tailwind-components-iconlinkbutton-features--size-variants"
+    },
+    {
+      "id": "react-tailwind-components-iconlinkbutton-features--router-navigation"
+    },
+    {
+      "id": "react-tailwind-components-iconlinkbutton-features--rendered-descriptions"
+    },
+    {
+      "id": "react-tailwind-components-iconlinkbutton--default"
+    },
+    {
+      "id": "react-tailwind-components-iconlinkbutton--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string"
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Supplementary tooltip text, exposed as the link's accessible description."
+    },
+    {
+      "name": "icon",
+      "type": "IconSource",
+      "required": true,
+      "description": "Icon component or rendered element."
+    },
+    {
+      "name": "keybindingHint",
+      "type": "string | string[]",
+      "description": "Keyboard shortcut or alternatives shown in the tooltip; consumers still register the shortcut."
+    },
+    {
+      "name": "notificationIndicator",
+      "type": "\"button\" | \"icon\"",
+      "description": "Shows a visual activity dot on the link boundary or icon. Describe its meaning in the name or description."
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLAnchorElement>",
+      "description": "Called when the link is activated."
+    },
+    {
+      "name": "render",
+      "type": "RenderProp<LinkButtonState>",
+      "description": "Renders the link as your own element, for a router link that still needs button styling."
+    },
+    {
+      "name": "size",
+      "type": "ControlSize",
+      "defaultValue": "'medium'",
+      "description": "Height and text size of the link."
+    },
+    {
+      "name": "tooltipDirection",
+      "type": "TooltipDirection",
+      "defaultValue": "'s'",
+      "description": "Side and alignment of the tooltip relative to the link."
+    },
+    {
+      "name": "unsafeDisableTooltip",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Skips the default tooltip. The tooltip is also skipped inside an existing Tooltip."
+    },
+    {
+      "name": "variant",
+      "type": "\"danger\" | \"default\" | \"invisible\" | \"link\" | \"primary\"",
+      "defaultValue": "'default'",
+      "description": "Visual weight of the link. Use `primary` for the main action and `danger` for a destructive one."
+    }
+  ],
+  "passthrough": {
+    "element": "a",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+  }
+}

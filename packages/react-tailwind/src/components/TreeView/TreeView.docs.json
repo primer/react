@@ -1,0 +1,344 @@
+{
+  "id": "treeview",
+  "name": "TreeView",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/TreeView",
+  "description": "`TreeView` is a presentational compound component for hierarchical files, folders, and nested resources. Compose its parts in author order to retain control of item content and visuals while TreeView owns tree semantics, expansion, roving focus, and typeahead.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-treeview-examples--draggable-list-item"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-examples--trailing-actions"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--files"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--without-guides"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--label-clipping"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--linked-files"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--link-tree-visual-parity"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--files-changed"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--controlled"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--async-success"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--async-with-count"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--async-error"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--empty-directories"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--nested-trees"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--nested-scroll-container"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--stress-test"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--contain-intrinsic-size"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--current-item-with-contain-intrinsic-size"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--initial-focus"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--focus-management"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--without-indentation"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--multiline-items"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview-features--as-prop"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview--default"
+    },
+    {
+      "id": "react-tailwind-navigation-treeview--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "flat",
+      "type": "boolean",
+      "description": "Removes indentation and expansion toggles, for a tree that is only one level deep."
+    },
+    {
+      "name": "showGuides",
+      "type": "boolean",
+      "description": "Shows indentation guides without changing the nesting or expansion controls."
+    },
+    {
+      "name": "truncate",
+      "type": "boolean",
+      "description": "Clips long item labels to one line instead of wrapping them."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TreeView.DirectoryIcon",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "TreeView.ErrorDialog",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Description of the error."
+        },
+        {
+          "name": "onDismiss",
+          "type": "(() => void)",
+          "description": "Called when the user dismisses the error, after the item collapses."
+        },
+        {
+          "name": "onRetry",
+          "type": "(() => void)",
+          "description": "Called when the user chooses to retry loading the subtree."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "defaultValue": "'Error'",
+          "description": "Title of the dialog."
+        }
+      ]
+    },
+    {
+      "name": "TreeView.Item",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "description": "Element to render. Use `as=\"a\"` with `href` for a native link."
+        },
+        {
+          "name": "containIntrinsicSize",
+          "type": "string",
+          "description": "Reserves a size for off-screen items so a long tree can skip rendering them."
+        },
+        {
+          "name": "current",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Marks the item as the one currently being viewed."
+        },
+        {
+          "name": "defaultExpanded",
+          "type": "boolean",
+          "description": "Whether the item starts expanded when it owns its own expansion state."
+        },
+        {
+          "name": "expanded",
+          "type": "boolean | null",
+          "description": "Controls whether the item is expanded. Supply it with `onExpandedChange` to own the state. `null` keeps the item\ncollapsed and leaves its expanded state unannounced."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Makes the item a link to the given URL."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Stable identity for the item, used to track focus and expansion."
+        },
+        {
+          "name": "leadingAction",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "description": "Action shown before the toggle, such as a drag handle. Accepts a callback to vary it with the expanded state."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "description": "Visual shown before the label. Accepts a callback to vary it with the item's expanded state."
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "((expanded: boolean) => void)",
+          "description": "Called with the new state when the item is expanded or collapsed."
+        },
+        {
+          "name": "onSelect",
+          "type": "((event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void)",
+          "description": "Called when the item is activated by click or keyboard."
+        },
+        {
+          "name": "secondaryActions",
+          "type": "TreeViewSecondaryActions[]",
+          "description": "Actions shown at the end of the row for pointer users. Keyboard users reach them with Shift+Meta+U on Apple\nplatforms or Shift+Control+U elsewhere: one action runs directly, several open a dialog to choose from."
+        },
+        {
+          "name": "subtree",
+          "type": "React.ReactNode",
+          "description": "Nested items, as an alternative to supplying a subtree child. Takes precedence over a `TreeView.SubTree` child."
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "description": "Route the item links to, for integration with a router."
+        },
+        {
+          "name": "trailingVisual",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "description": "Visual shown after the label. Accepts a callback to vary it with the item's expanded state."
+        }
+      ]
+    },
+    {
+      "name": "TreeView.LeadingAction",
+      "props": [
+        {
+          "name": "children",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "required": true,
+          "description": "The action, such as a drag handle button. Accepts a callback to vary it with the item's expanded state."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Text describing the action. Like the action itself, it is hidden from assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "TreeView.LeadingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Accessible name for the visual, which is announced as part of the item's description."
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "TreeView.LinkTree",
+      "props": [
+        {
+          "name": "flat",
+          "type": "boolean",
+          "description": "Removes indentation and expansion toggles, for a tree that is only one level deep."
+        },
+        {
+          "name": "showGuides",
+          "type": "boolean",
+          "description": "Shows indentation guides without changing the nesting or expansion controls."
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "description": "Clips long item labels to one line instead of wrapping them."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "TreeView.LinkTree.SubTree",
+      "props": [
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number of placeholder rows to show while the subtree loads. Without it, a spinner row is shown."
+        },
+        {
+          "name": "state",
+          "type": "SubTreeState",
+          "description": "Loading state of the subtree. `loading` shows placeholders and announces the load; moving from `loading` to\n`done` announces the result and moves focus from a focused placeholder to the first loaded item."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "TreeView.SubTree",
+      "props": [
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number of placeholder rows to show while the subtree loads. Without it, a spinner row is shown."
+        },
+        {
+          "name": "state",
+          "type": "SubTreeState",
+          "description": "Loading state of the subtree. `loading` shows placeholders and announces the load; moving from `loading` to\n`done` announces the result and moves focus from a focused placeholder to the first loaded item."
+        }
+      ],
+      "passthrough": {
+        "element": "ul",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+      }
+    },
+    {
+      "name": "TreeView.TrailingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "((state: TreeViewVisualState) => React.ReactNode) | React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Accessible name for the visual, which is announced as part of the item's description."
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "ul",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+  }
+}

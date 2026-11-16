@@ -1,0 +1,143 @@
+{
+  "id": "blankslate",
+  "name": "Blankslate",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Blankslate",
+  "description": "`Blankslate` provides a structured empty state with optional visual, heading, description, and primary or secondary actions.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-blankslate-examples--empty-repository"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-examples--no-search-results"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-examples--custom-empty-state"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-visual"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-primary-action-as-link"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-primary-action-as-button"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-primary-action-as-button-open"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-secondary-action"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--with-border"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--narrow"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--spacious"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--size-small"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--size-large"
+    },
+    {
+      "id": "react-tailwind-content-blankslate-features--custom-content"
+    },
+    {
+      "id": "react-tailwind-content-blankslate--default"
+    },
+    {
+      "id": "react-tailwind-content-blankslate--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "border",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Draws a border around the blankslate."
+    },
+    {
+      "name": "narrow",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Constrains the content to a narrower column."
+    },
+    {
+      "name": "size",
+      "type": "\"large\" | \"medium\" | \"small\"",
+      "defaultValue": "'medium'",
+      "description": "Overall scale of the visual, heading, and spacing."
+    },
+    {
+      "name": "spacious",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Increases the vertical padding, for a blankslate that fills a large empty region."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Blankslate.Description",
+      "props": [],
+      "passthrough": {
+        "element": "p",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes"
+      }
+    },
+    {
+      "name": "Blankslate.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+          "defaultValue": "'h2'",
+          "description": "Heading element to render, so the heading fits the surrounding document outline."
+        }
+      ],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
+    },
+    {
+      "name": "Blankslate.PrimaryAction",
+      "props": [
+        {
+          "name": "href",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Blankslate.SecondaryAction",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Blankslate.Visual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

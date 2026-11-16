@@ -1,0 +1,46 @@
+{
+  "id": "radio",
+  "name": "Radio",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Radio",
+  "description": "`Radio` is a styled radio primitive for use in a `RadioGroup`.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-radio-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-radio-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-radio-features--with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-forms-radio-features--disabled"
+    },
+    {
+      "id": "react-tailwind-forms-radio-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-radio-features--checked"
+    },
+    {
+      "id": "react-tailwind-forms-radio-features--focus-visible"
+    },
+    {
+      "id": "react-tailwind-forms-radio--default"
+    },
+    {
+      "id": "react-tailwind-forms-radio--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "string | ((state: RadioRootState) => string | undefined)"
+    }
+  ],
+  "passthrough": {
+    "element": "Radio.Root",
+    "url": "https://base-ui.com/react/components/radio#root"
+  }
+}

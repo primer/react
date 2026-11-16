@@ -1,0 +1,110 @@
+{
+  "id": "select",
+  "name": "Select",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Select",
+  "description": "`Select` is a styled native `<select>` with Primer control tokens. Native browser behavior owns option menus, keyboard operation, focus, form association, and controlled or uncontrolled values.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-select-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-select-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--with-option-groups"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--disabled"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--visually-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--error"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--success"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--block"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--small"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--large"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--with-custom-styling"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--with-placeholder-option"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--multiple"
+    },
+    {
+      "id": "react-tailwind-forms-select-features--keyboard-selection"
+    },
+    {
+      "id": "react-tailwind-forms-select--default"
+    },
+    {
+      "id": "react-tailwind-forms-select--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "block",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Makes the visible control fill its container."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Classes applied to the visible control wrapper."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "description": "Text rendered as an initially selected empty-value option."
+    },
+    {
+      "name": "size",
+      "type": "ControlSize",
+      "description": "Primer control height and typography."
+    },
+    {
+      "name": "validationStatus",
+      "type": "ValidationStatus",
+      "description": "Applies error or success control styling."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Select.Option",
+      "props": [],
+      "passthrough": {
+        "element": "option",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attributes"
+      }
+    },
+    {
+      "name": "Select.OptGroup",
+      "props": [],
+      "passthrough": {
+        "element": "optgroup",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "select",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attributes"
+  }
+}

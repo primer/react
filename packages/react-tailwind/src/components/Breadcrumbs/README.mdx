@@ -1,0 +1,43 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Breadcrumbs.stories'
+import * as Features from './Breadcrumbs.features.stories'
+import * as Examples from './Breadcrumbs.examples.stories'
+
+<Meta of={Stories} />
+
+# Breadcrumbs
+
+`Breadcrumbs` communicates the current location within a hierarchy.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {Breadcrumbs} from '@primer/react-tailwind/Breadcrumbs'
+;<Breadcrumbs>
+  <Breadcrumbs.Item href="/projects">Projects</Breadcrumbs.Item>
+  <Breadcrumbs.Item href="#" selected>
+    Components
+  </Breadcrumbs.Item>
+</Breadcrumbs>
+```
+
+Use one final selected item for the current location. `overflow="menu"` lets the component own collapsed ancestors while preserving native link behavior.
+
+By default, breadcrumb items and the overflow button have a minimum size of 28 CSS pixels. Custom sizing and adjacent controls should also preserve adequately sized or spaced pointer targets, including when the root font size is reduced. Overflow responds when the button's size changes.
+
+`Breadcrumbs.Item` infers the props and ref of the element selected by `as`, so router-specific props can be passed directly. The router component must forward the supplied props and ref to its interactive element, including when an item appears in the overflow menu.
+
+For a typed wrapper, use `BreadcrumbsItemProps<typeof RouterLink>` to include the router's props. Unparameterized `BreadcrumbsItemProps` and `React.ComponentProps<typeof Breadcrumbs.Item>` retain the legacy anchor-shaped props and broadly typed `as`.
+
+The menu overflow modes render hidden, inert copies of ancestor items to measure their widths. Those children mount separately, so components with mount effects will run them for both copies. Inert does not prevent effects from registering global shortcuts or opening portaled content. The copies do not share local component state; if their content differs from the visible items, the measured widths may not match. The final item mounts only once. Use `overflow="wrap"` when a copied item has global shortcuts or other mount side effects.
+
+Wrapped items can break long unbroken names to fit their container. When a retained final item cannot fit alongside the overflow control, it can wrap onto multiple lines without remounting. Containers narrower than their interactive controls may still overflow, and long unbroken labels may produce a tall layout; allocate sufficient space or provide an appropriate responsive navigation layout. The overflow control currently exposes navigation as an ARIA menu and adds `aria-controls` when open. GitHub's internal accessibility guidance prohibits menu and menuitem roles for navigation and prohibits `aria-controls`; this component does not expose a trigger prop to suppress it. Use `overflow="wrap"` where that policy applies while the menu behavior is under specialist review.
+
+<Canvas of={Features.OverflowMenu} />
+<Canvas of={Examples.ProjectLocation} />

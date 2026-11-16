@@ -1,0 +1,98 @@
+{
+  "id": "checkboxgroup",
+  "name": "CheckboxGroup",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/CheckboxGroup",
+  "description": "`CheckboxGroup` groups checkbox primitives and supplies their shared controlled or uncontrolled state.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-checkboxgroup-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--visually-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--with-external-label"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--error"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--success"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--caption"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup-features--checked"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup--default"
+    },
+    {
+      "id": "react-tailwind-forms-checkboxgroup--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "string | ((state: CheckboxGroupState) => string | undefined)"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Marks a choice as required: the label shows a required marker and the group is described as required."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "CheckboxGroup.Label",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | ((state: FieldsetLegendState) => string | undefined)"
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "description": "Hides the label visually while keeping it available to assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "Fieldset.Legend",
+        "url": "https://base-ui.com/react/components/fieldset#legend"
+      }
+    },
+    {
+      "name": "CheckboxGroup.Caption",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "CheckboxGroup.Validation",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"error\" | \"success\"",
+          "required": true,
+          "description": "Whether the message reports a problem or confirms success."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "CheckboxGroup",
+    "url": "https://base-ui.com/react/components/checkbox-group#api-reference"
+  }
+}

@@ -1,0 +1,16 @@
+@layer base {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  table {
+    /* stylelint-disable-next-line primer/borders -- border-collapse is not a border width */
+    border-collapse: collapse;
+  }
+}

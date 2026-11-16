@@ -419,7 +419,7 @@ describe('Breadcrumbs', () => {
   })
 
   describe('BreadcrumbsMenuItem interactions', () => {
-    it('closes menu on Escape key press', async () => {
+    it.each([false, true])('closes menu on Escape key press with merged refs %s', async mergedRefs => {
       renderWithTheme(
         <Breadcrumbs overflow="menu">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
@@ -431,12 +431,21 @@ describe('Breadcrumbs', () => {
             Advanced
           </Breadcrumbs.Item>
         </Breadcrumbs>,
+        {primer_react_merged_forwarded_refs: mergedRefs},
       )
 
       // Open the overflow menu
       const menuButton = page.getByRole('button', {name: /more breadcrumb items/i})
-      // Initially collapsed
       await expect.element(menuButton).toHaveAttribute('aria-expanded', 'false')
+      await userEvent.hover(menuButton)
+      await expect
+        .poll(() =>
+          page
+            .getByText(/\d+ more breadcrumb items/i)
+            .element()
+            .matches(':popover-open'),
+        )
+        .toBe(true)
       await userEvent.click(menuButton)
 
       // Verify menu is open
@@ -444,13 +453,43 @@ describe('Breadcrumbs', () => {
       await expect.element(menuButton).toHaveAttribute('aria-haspopup', 'true')
 
       // Press Escape key
-      await act(async () => {
-        await userEvent.keyboard('{Escape}')
-      })
+      await userEvent.keyboard('{Escape}')
 
       // Verify menu is closed
       await expect.element(menuButton).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(menuButton).toHaveFocus()
     })
+
+    it.each([false, true])(
+      'closes a keyboard-opened menu when its tooltip was open with merged refs %s',
+      async mergedRefs => {
+        renderWithTheme(
+          <Breadcrumbs overflow="menu">
+            <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/components">Components</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/breadcrumbs">Breadcrumbs</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/examples">Examples</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/advanced" selected>
+              Advanced
+            </Breadcrumbs.Item>
+          </Breadcrumbs>,
+          {primer_react_merged_forwarded_refs: mergedRefs},
+        )
+
+        const menuButton = page.getByRole('button', {name: /more breadcrumb items/i})
+        const tooltip = page.getByText(/\d+ more breadcrumb items/i)
+        await userEvent.tab()
+        await expect.element(menuButton).toHaveFocus()
+        await expect.poll(() => tooltip.element().matches(':popover-open')).toBe(true)
+        await userEvent.keyboard('{Enter}')
+        await expect.element(menuButton).toHaveAttribute('aria-expanded', 'true')
+        await expect.poll(() => tooltip.element().matches(':popover-open')).toBe(false)
+        await userEvent.keyboard('{Escape}')
+        await expect.element(menuButton).toHaveAttribute('aria-expanded', 'false')
+        await expect.element(menuButton).toHaveFocus()
+      },
+    )
 
     it('closes menu when clicking outside', async () => {
       renderWithTheme(

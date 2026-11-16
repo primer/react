@@ -1,0 +1,60 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './InlineMessage.docs.json'
+import * as Stories from './InlineMessage.stories'
+import * as Features from './InlineMessage.features.stories'
+import * as Examples from './InlineMessage.examples.stories'
+
+<Meta of={Stories} />
+
+# InlineMessage
+
+`InlineMessage` communicates validation, status, and availability inline with content or a form control.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {InlineMessage} from '@primer/react-tailwind/InlineMessage'
+;<InlineMessage variant="success">Your changes were saved.</InlineMessage>
+```
+
+## Props
+
+<ApiReference {...api} />
+
+`variant` accepts `critical`, `success`, `unavailable`, or `warning`. When omitted, the message uses neutral text and an information icon.
+
+<Controls of={Stories.Playground} />
+
+## Composition
+
+Place an inline message next to the field or content it describes. Use `leadingVisual` for a custom visual only when it reinforces the message; links and other inline content can be passed as children.
+
+`leadingVisual` accepts component types, including forwardRef Octicons and memo components, or already-rendered React nodes. Component visuals are decorative; rendered nodes retain their own props and accessibility attributes. Pass `null` to omit the visual.
+
+`size` controls the message typography and the built-in icon, but it does not pass a size to a custom `leadingVisual`. Component types receive `aria-hidden` and a layout class; rendered nodes are passed through unchanged. Size a custom visual yourself, for example `leadingVisual={<BookIcon size={12} aria-hidden="true" />}` for a small message. Keep custom decorative visuals hidden from assistive technology.
+
+## Accessibility
+
+The default icon is decorative. Give the message clear text and connect it to a form control with the consumer's `aria-describedby` when appropriate. `InlineMessage` does not add a live-region or alert role.
+
+## Animation and reduced motion
+
+`InlineMessage` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Variants use Primer semantic text tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` for spacing or typography extensions.
+
+### Data attributes
+
+The root exposes `data-component="InlineMessage"`, `data-size`, and `data-variant` when provided.
+
+## Features and examples
+
+<Canvas of={Features.Multiline} />
+<Canvas of={Features.CustomLeadingVisual} />
+<Canvas of={Features.ComponentLeadingVisuals} />
+<Canvas of={Examples.FormValidation} />

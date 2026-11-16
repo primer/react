@@ -1,0 +1,187 @@
+{
+  "id": "card",
+  "name": "Card",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/Card",
+  "description": "`Card` is a composable content container with heading, description, image, metadata, icon, and action parts.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-card-examples--repository-summary"
+    },
+    {
+      "id": "react-tailwind-content-card-examples--settings-card"
+    },
+    {
+      "id": "react-tailwind-content-card-examples--empty-card"
+    },
+    {
+      "id": "react-tailwind-content-card-features--with-image"
+    },
+    {
+      "id": "react-tailwind-content-card-features--compact"
+    },
+    {
+      "id": "react-tailwind-content-card-features--with-metadata"
+    },
+    {
+      "id": "react-tailwind-content-card-features--with-menu"
+    },
+    {
+      "id": "react-tailwind-content-card-features--custom-content"
+    },
+    {
+      "id": "react-tailwind-content-card-features--standalone-section"
+    },
+    {
+      "id": "react-tailwind-content-card-features--in-list"
+    },
+    {
+      "id": "react-tailwind-content-card-features--interactive-content"
+    },
+    {
+      "id": "react-tailwind-content-card-features--border-radius"
+    },
+    {
+      "id": "react-tailwind-content-card--default"
+    },
+    {
+      "id": "react-tailwind-content-card--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "action",
+      "type": "React.ReactNode",
+      "description": "Supplies the action region. Takes precedence over a matching `Card.Action` child."
+    },
+    {
+      "name": "as",
+      "type": "\"div\" | \"section\"",
+      "defaultValue": "'div'",
+      "description": "Element to render. Use `section` when the card is a labelled region of the page."
+    },
+    {
+      "name": "borderRadius",
+      "type": "\"large\" | \"medium\"",
+      "defaultValue": "'large'",
+      "description": "Corner radius of the card."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "description",
+      "type": "React.ReactNode",
+      "description": "Supplies the description region. Takes precedence over a matching `Card.Description` child."
+    },
+    {
+      "name": "heading",
+      "type": "React.ReactNode",
+      "description": "Supplies the heading region. Takes precedence over a matching `Card.Heading` child."
+    },
+    {
+      "name": "icon",
+      "type": "React.ReactNode",
+      "description": "Supplies the icon region. Takes precedence over a matching `Card.Icon` child."
+    },
+    {
+      "name": "image",
+      "type": "React.ReactNode",
+      "description": "Supplies the image region. Takes precedence over a matching `Card.Image` child."
+    },
+    {
+      "name": "layout",
+      "type": "\"compact\" | \"default\"",
+      "defaultValue": "'default'",
+      "description": "Use `compact` to lay the card out in a row rather than stacked."
+    },
+    {
+      "name": "metadata",
+      "type": "React.ReactNode",
+      "description": "Supplies the metadata region. Takes precedence over a matching `Card.Metadata` child."
+    },
+    {
+      "name": "padding",
+      "type": "\"condensed\" | \"none\" | \"normal\"",
+      "defaultValue": "'normal'",
+      "description": "Inner spacing of the card."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Card.Action",
+      "props": []
+    },
+    {
+      "name": "Card.Description",
+      "props": [],
+      "passthrough": {
+        "element": "p",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes"
+      }
+    },
+    {
+      "name": "Card.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+          "defaultValue": "'h3'",
+          "description": "Heading element to render, so the card heading fits the surrounding document outline."
+        }
+      ],
+      "passthrough": {
+        "element": "h3",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#attributes"
+      }
+    },
+    {
+      "name": "Card.Icon",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Accessible name for the icon. Leave unset when the icon is decorative."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "required": true,
+          "description": "Icon component to render."
+        }
+      ]
+    },
+    {
+      "name": "Card.Image",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "description": "Source of the image."
+        }
+      ],
+      "passthrough": {
+        "element": "img",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes"
+      }
+    },
+    {
+      "name": "Card.Metadata",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

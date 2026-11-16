@@ -1,0 +1,45 @@
+{
+  "id": "counterlabel",
+  "name": "CounterLabel",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/CounterLabel",
+  "description": "`CounterLabel` displays a numeric count alongside a label, such as an open-issue total. It is presentational and does not format or abbreviate the number.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-counterlabel-examples--notification-count"
+    },
+    {
+      "id": "react-tailwind-display-counterlabel-features--primary-theme"
+    },
+    {
+      "id": "react-tailwind-display-counterlabel-features--secondary-theme"
+    },
+    {
+      "id": "react-tailwind-display-counterlabel--default"
+    },
+    {
+      "id": "react-tailwind-display-counterlabel--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Accessible name giving the count meaning, since the number alone rarely explains itself."
+    },
+    {
+      "name": "data-component",
+      "type": "string",
+      "defaultValue": "'CounterLabel'",
+      "description": "Overrides the marker used to identify this element in tests and styling."
+    },
+    {
+      "name": "variant",
+      "type": "\"primary\" | \"secondary\" | null"
+    }
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
+}

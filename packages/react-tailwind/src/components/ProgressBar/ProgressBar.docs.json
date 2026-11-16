@@ -1,0 +1,123 @@
+{
+  "id": "progressbar",
+  "name": "ProgressBar",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ProgressBar",
+  "description": "`ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-progressbar-examples--with-visible-text-value"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-examples--multiple-segments"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-examples--empty-and-complete"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--progress-zero"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--progress-half"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--progress-done"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--size-small"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--size-large"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--inline"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--all-colors"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--multiple-items"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--animated"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--clamped-values"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--custom-fill-with-empty-value"
+    },
+    {
+      "id": "react-tailwind-display-progressbar-features--conditional-segments"
+    },
+    {
+      "id": "react-tailwind-display-progressbar--default"
+    },
+    {
+      "id": "react-tailwind-display-progressbar--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "animated",
+      "type": "boolean",
+      "description": "Animates the bar to suggest indeterminate progress."
+    },
+    {
+      "name": "fillColor",
+      "type": "BackgroundColor",
+      "description": "Custom fill color for the single segment, such as a CSS color or `var(--my-progress-color)`."
+    },
+    {
+      "name": "inline",
+      "type": "boolean | null"
+    },
+    {
+      "name": "progress",
+      "type": "number",
+      "description": "Percentage complete, from 0 to 100."
+    },
+    {
+      "name": "size",
+      "type": "\"large\" | \"medium\" | \"small\" | null"
+    },
+    {
+      "name": "variant",
+      "type": "\"accent\" | \"attention\" | \"danger\" | \"done\" | \"neutral\" | \"severe\" | \"sponsors\" | \"success\" | null",
+      "description": "Color of the single segment."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ProgressBar.Item",
+      "props": [
+        {
+          "name": "animated",
+          "type": "boolean | null"
+        },
+        {
+          "name": "fillColor",
+          "type": "BackgroundColor",
+          "description": "Custom fill color, such as a CSS color or `var(--my-progress-color)`. Overrides the variant color."
+        },
+        {
+          "name": "progress",
+          "type": "number",
+          "description": "Percentage of the bar this segment fills, from 0 to 100."
+        },
+        {
+          "name": "variant",
+          "type": "\"accent\" | \"attention\" | \"danger\" | \"done\" | \"neutral\" | \"severe\" | \"sponsors\" | \"success\" | null"
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
+}

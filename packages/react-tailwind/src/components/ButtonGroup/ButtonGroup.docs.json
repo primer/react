@@ -1,0 +1,66 @@
+{
+  "id": "buttongroup",
+  "name": "ButtonGroup",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/ButtonGroup",
+  "description": "`ButtonGroup` joins related buttons into a single segmented control. Use `SegmentedControl` instead when the buttons select between mutually exclusive views.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-buttongroup-examples--formatting-toolbar"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--icon-buttons"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--loading-buttons"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--icon-buttons-with-tooltip"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--button-and-link"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--links-with-tooltip"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--inactive-buttons-group"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--dropdown-split"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup-features--as-toolbar"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup--default"
+    },
+    {
+      "id": "react-tailwind-display-buttongroup--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'",
+      "description": "Element to render as the group root."
+    },
+    {
+      "name": "orientation",
+      "type": "\"horizontal\" | \"vertical\"",
+      "defaultValue": "'horizontal'",
+      "description": "Direction the buttons are joined in."
+    },
+    {
+      "name": "role",
+      "type": "AriaRole",
+      "defaultValue": "'group'",
+      "description": "Role of the group. A `toolbar` keeps one button in the tab order and moves focus between buttons with the arrow\nkeys in its orientation, Home, and End."
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

@@ -1,0 +1,55 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './SkeletonAvatar.docs.json'
+import * as Stories from './SkeletonAvatar.stories'
+import * as Features from './SkeletonAvatar.features.stories'
+import * as Examples from './SkeletonAvatar.examples.stories'
+
+<Meta of={Stories} />
+
+# SkeletonAvatar
+
+`SkeletonAvatar` reserves circular or square space for an avatar while the profile content is loading.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {SkeletonAvatar} from '@primer/react-tailwind/SkeletonAvatar'
+;<SkeletonAvatar size="medium" />
+```
+
+## Props
+
+<ApiReference {...api} />
+
+Named sizes are `small`, `medium`, `large`, and `xlarge`; numeric values specify pixels and may be responsive.
+
+<Controls of={Stories.Playground} />
+
+## Composition
+
+Use the same size as the eventual avatar and place it in the same flex or grid slot. Set `square` for repository or file thumbnails. Numeric sizes are useful when matching a custom avatar dimension.
+
+## Accessibility
+
+The placeholder is decorative, sets no `aria-busy`, and is not a replacement for the accessible name of the profile or content it represents. Keep the loading context available elsewhere in the page.
+
+## Animation and reduced motion
+
+The placeholder uses a pulse animation with `motion-reduce:animate-none`. Reduced-motion users retain the geometry without animation.
+
+## Theming and Tailwind
+
+The background uses the `neutral-muted` token. Import package styles or compile with Tailwind v4 and include the package `dist` path in `@source`. Extend shape or spacing with `className`.
+
+### Data attributes
+
+The root exposes `data-component="SkeletonAvatar"`. Preset and numeric dimensions are represented by classes and inline styles.
+
+## Features and examples
+
+<Canvas of={Features.Size} />
+<Canvas of={Features.Square} />
+<Canvas of={Examples.ProfileLoading} />

@@ -1,0 +1,68 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './ProgressBar.docs.json'
+import * as Stories from './ProgressBar.stories'
+import * as Features from './ProgressBar.features.stories'
+import * as Examples from './ProgressBar.examples.stories'
+
+<Meta of={Stories} />
+
+# ProgressBar
+
+`ProgressBar` displays determinate progress as a single segment or as a composed set of `ProgressBar.Item` segments.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {ProgressBar} from '@primer/react-tailwind/ProgressBar'
+;<ProgressBar progress={66} aria-label="Upload test.png" />
+```
+
+For multiple segments, pass items as children:
+
+```tsx
+<ProgressBar aria-label="Project completion">
+  <ProgressBar.Item progress={40} variant="accent" />
+  <ProgressBar.Item progress={26} variant="success" />
+</ProgressBar>
+```
+
+## Props
+
+<ApiReference {...api} />
+
+The track defaults to `size="medium"`, and a single segment defaults to `variant="success"`. Pass either `progress` or `ProgressBar.Item` children, not both.
+
+<Controls of={Stories.Playground} />
+
+`ProgressBar.Item` accepts `progress`, `variant`, `fillColor`, and `animated`, plus standard `span` attributes. Its progress is also clamped to 0–100.
+
+## Composition
+
+Use one `ProgressBar` for a single task. Use `ProgressBar.Item` children when the track needs to communicate distinct categories or phases. Give the root an accessible name with `aria-label` or `aria-labelledby`.
+
+## Accessibility
+
+Each item is a `progressbar` with `aria-valuemin="0"`, `aria-valuemax="100"`, and `aria-valuenow` derived from `progress`. The root forwards its accessible name, description, and value attributes to a single item; provide those attributes on each item for composed segments. Root value attributes are ignored when items are present. If conditional children contain only `false`, `null`, or `undefined` values (including in arrays or fragments), the root renders a single segment at 0% unless `progress` or an accessible value is supplied. An explicit `aria-valuenow` or `aria-valuetext` can describe a value that differs from the visual fill, such as an empty state drawn at full width.
+
+## Animation and reduced motion
+
+`animated` applies Primer's one-second progress shimmer when the user has not requested reduced motion. The item remains static under `prefers-reduced-motion: reduce`.
+
+## Theming and Tailwind
+
+Use the package compiled CSS or Tailwind v4 with the package `dist` path in `@source`. `className` can extend the track and item, while the component's semantic color utilities use Primer theme tokens. For a custom fill, pass a CSS color or variable such as `fillColor="var(--my-progress-color)"` to the root's single segment or to `ProgressBar.Item`; it overrides `variant`. Do not load compiled and host-generated package utilities together.
+
+### Data attributes
+
+The track exposes `data-component="ProgressBar"` and each segment exposes `data-component="ProgressBar.Item"`. Size, inline state, variant, and progress are represented through classes and ARIA values rather than extra state attributes.
+
+## Features and examples
+
+<Canvas of={Features.MultipleItems} />
+<Canvas of={Features.Animated} />
+<Canvas of={Features.CustomFillWithEmptyValue} />
+<Canvas of={Features.ConditionalSegments} />
+<Canvas of={Examples.WithVisibleTextValue} />

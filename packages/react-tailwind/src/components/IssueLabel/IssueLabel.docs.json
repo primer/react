@@ -1,0 +1,119 @@
+{
+  "id": "issuelabel",
+  "name": "IssueLabel",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/IssueLabel",
+  "description": "`IssueLabel` displays a colored label and can render as a link, button, or custom element for interactive label workflows.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-issuelabel-examples--label-list"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-examples--interactive-labels"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-examples--custom-colors"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-pink"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-plum"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-purple"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-indigo"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-blue"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-cyan"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-teal"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-pine"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-green"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-lime"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-olive"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-lemon"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-yellow"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-orange"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-red"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-coral"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-gray"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-brown"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--variant-auburn"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--hex-color"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--as-link"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--as-button"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--group-of-labels"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel-features--long-label"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel--default"
+    },
+    {
+      "id": "react-tailwind-content-issuelabel--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "description": "Element to render."
+    },
+    {
+      "name": "fillColor",
+      "type": "`#${string}`",
+      "description": "Custom hex colour, for a label whose colour is chosen by the user rather than from `variant`."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "description": "Makes the label a link to the given URL."
+    },
+    {
+      "name": "variant",
+      "type": "IssueLabelVariant",
+      "defaultValue": "'gray'",
+      "description": "Named colour for the label."
+    }
+  ]
+}

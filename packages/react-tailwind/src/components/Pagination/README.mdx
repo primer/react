@@ -1,0 +1,40 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import * as Stories from './Pagination.stories'
+import * as Features from './Pagination.features.stories'
+import * as Examples from './Pagination.examples.stories'
+
+<Meta of={Stories} />
+
+# Pagination
+
+`Pagination` renders previous, next, and page links from a controlled current page and page count.
+
+<Canvas of={Stories.Default} />
+
+## Props
+
+<Controls of={Stories.Playground} />
+
+## Import and usage
+
+```tsx
+import {Pagination} from '@primer/react-tailwind/Pagination'
+;<Pagination pageCount={15} currentPage={3} />
+```
+
+Use `onPageChange` to coordinate a route or data view. `showPages` accepts a boolean or responsive map for compact narrow layouts.
+
+## Custom router links
+
+The [complete router migration examples](./ALIGNMENT.md#migration-notes) cover both legacy and Tailwind `renderPage` callbacks. Strip `number`, `pageType`, and `onPageSelect` before spreading link props. The callback no longer receives a React `key` or `data-component`; Pagination keys its enclosing Fragment, and the renderer can supply its own marker.
+
+Disabled previous/next controls have no `href`. Render a non-link instead of inventing a fallback router destination. Preserve the provided class, children, accessible name, current-page state, and disabled state.
+
+Previous and next controls keep their identity as their destination changes when the rendered element type and key stay the same. Consumers own pending-request behavior and must prevent repeated activation themselves; `aria-disabled` alone does not prevent navigation. Replacing a link with a disabled element can still change focus.
+
+Forward the supplied `onClick` to your router link, not both `onClick` and `onPageSelect`. If `onPageChange` performs application navigation, guard modified/non-primary clicks, prevented events, and download/external-target behavior before calling `preventDefault()`. Both legacy and Tailwind callbacks receive modified clicks; unconditional cancellation breaks Cmd/Ctrl-click. Alternatively, let the router link own navigation and omit the navigation callback.
+
+Accessible labels use `Next page` and `Previous page` instead of the legacy `Next Page` and `Previous Page`. Update exact-name queries or explicitly restore legacy labels in a custom renderer when required.
+
+<Canvas of={Features.LargerPageCountMargin} />
+<Canvas of={Examples.SearchResults} />

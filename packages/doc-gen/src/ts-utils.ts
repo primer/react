@@ -157,14 +157,10 @@ function getPropTypesForNode(log: Logger, checker: ts.TypeChecker, componentNode
       }
 
       const isRequired = !(prop.getFlags() & ts.SymbolFlags.Optional)
-      let typeString = checker.typeToString(propType)
+      let typeString = checker.typeToString(propType, undefined, ts.TypeFormatFlags.NoTruncation)
 
       if (!isRequired && typeString.endsWith('| undefined')) {
         typeString = typeString.slice(0, -'| undefined'.length).trim()
-      }
-
-      if (prop.getName() === 'children') {
-        typeString = 'React.ReactElement[]'
       }
 
       props[prop.getName()] = {
@@ -358,4 +354,199 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
     updatedText = await prettier.format(updatedText, {...prettierConfig, filepath: sourceFile.fileName})
     fs.writeFileSync(sourceFile.fileName, updatedText, 'utf-8')
   }
+}
+
+/** Splits a union at depth zero so nested generics keep their own `|` separators. */
+function splitUnion(type: string): string[] {
+  const source = ts.createSourceFile('prop-type.ts', `type Prop = ${type};`, ts.ScriptTarget.Latest)
+  const declaration = source.statements[0]
+  if (!ts.isTypeAliasDeclaration(declaration)) {
+    throw new Error(`Unable to parse prop type: ${type}`)
+  }
+  return ts.isUnionTypeNode(declaration.type)
+    ? declaration.type.types.map(member => member.getText(source))
+    : [type.trim()]
+}
+
+/** Constituents TypeScript produces when it expands `React.ReactNode`. */
+const REACT_NODE_MEMBER =
+  /^(string|number|bigint|boolean|null|undefined|ReactPortal|ReactNode|Iterable<ReactNode>|Promise<AwaitedReactNode>|ReactElement<\s*unknown\s*,.*>)$/
+
+/** Constituents TypeScript produces when it expands `React.ElementType`. */
+const REACT_ELEMENT_TYPE_MEMBER =
+  /^(ComponentClass<.*>|FunctionComponent<.*>|ComponentType<.*>|JSXElementConstructor<.*>|keyof IntrinsicElements)$/
+
+/**
+ * A token that only appears once TypeScript has walked into React's own types. Matched
+ * anywhere in a member, so a boundary nested in a callback return type is still found.
+ */
+const REACT_BOUNDARY = /\b(ReactPortal|ReactNode|ReactElement<|JSXElementConstructor<)/
+
+/** `ReactElement<unknown, ...>` carries no useful element information. */
+const OPAQUE_REACT_ELEMENT = /^ReactElement<\s*unknown\s*,\s*string\s*\|\s*JSXElementConstructor<any>\s*>$/
+
+/** `ReactElement<Props, ...>` carries props a reader wants, unlike the opaque form. */
+const TYPED_REACT_ELEMENT =
+  /^ReactElement<(?!\s*unknown\s*,)(?!\.\.\.>).*,\s*string\s*\|\s*JSXElementConstructor<any>\s*>$/
+
+/** Removes the element-constructor argument TypeScript appends to every `ReactElement`. */
+function dropElementConstructorArgument(member: string): string {
+  return member.replace(/,\s*string \| JSXElementConstructor<any>\s*>$/, '>')
+}
+
+/**
+ * Stops type expansion at React's own node types.
+ *
+ * TypeScript resolves `React.ReactNode` into a fifteen-member union and `React.ReactElement`
+ * into `ReactElement<unknown, string | JSXElementConstructor<any>>`. Neither tells a reader
+ * anything they did not already know, and both crowd out the part of a signature that does
+ * carry meaning. This collapses those expansions back to the names an author writes, and
+ * leaves every other union member untouched.
+ */
+export function simplifyReactType(type: string, {optional = false}: {optional?: boolean} = {}): string {
+  const members = splitUnion(type)
+  if (!members.some(member => REACT_BOUNDARY.test(member))) return qualifyReactNames(type)
+
+  // A lone element type keeps its own name; only a full node expansion becomes ReactNode.
+  if (members.length === 1 && OPAQUE_REACT_ELEMENT.test(members[0])) return 'React.ReactElement'
+  if (members.length === 1 && TYPED_REACT_ELEMENT.test(members[0])) {
+    return `React.${dropElementConstructorArgument(members[0])}`
+  }
+
+  const expandedNode =
+    ['string', 'number', 'bigint', 'boolean', 'null', 'ReactPortal'].every(member => members.includes(member)) &&
+    (optional || members.includes('undefined')) &&
+    members.includes('Iterable<ReactNode>') &&
+    members.includes('Promise<AwaitedReactNode>') &&
+    members.some(member => OPAQUE_REACT_ELEMENT.test(member))
+  const expandedElementType =
+    members.some(member => /^ComponentClass<any,\s*any>$/.test(member)) &&
+    members.some(member => /^FunctionComponent<any>$/.test(member)) &&
+    (members.includes('keyof IntrinsicElements') || members.includes('string'))
+
+  const simplified: string[] = []
+  for (const member of members) {
+    let replacement = member
+    if (expandedNode && REACT_NODE_MEMBER.test(member)) replacement = 'React.ReactNode'
+    else if (expandedElementType && REACT_ELEMENT_TYPE_MEMBER.test(member)) replacement = 'React.ElementType'
+    else if (OPAQUE_REACT_ELEMENT.test(member)) replacement = 'React.ReactElement'
+    else if (TYPED_REACT_ELEMENT.test(member)) replacement = `React.${dropElementConstructorArgument(member)}`
+    else if (member.includes('ReactElement<') || member.includes('ReactNode')) {
+      replacement = simplifyNested(member)
+    }
+    if (!simplified.includes(replacement)) simplified.push(replacement)
+  }
+
+  return qualifyReactNames(simplified.join(' | '))
+}
+
+/**
+ * React types arrive from the checker without their namespace, so `ElementType` reads as a
+ * local type a consumer could import. Qualifying them keeps their origin obvious.
+ */
+const BARE_REACT_NAMES = /(?<!\.)\b(ElementType|ComponentType|ReactNode|ReactElement|ReactPortal|CSSProperties)\b/g
+
+/** Default type arguments the checker spells out but an author never writes. */
+const DEFAULTED_TYPE_ARGUMENTS = /\bElementType<\s*any\s*,\s*keyof IntrinsicElements\s*>/g
+
+function mapOutsideTypeLiterals(type: string, transform: (text: string) => string): string {
+  let result = ''
+  let segmentStart = 0
+  let index = 0
+
+  while (index < type.length) {
+    const quote = type[index]
+    if (quote !== "'" && quote !== '"' && quote !== '`') {
+      index++
+      continue
+    }
+
+    result += transform(type.slice(segmentStart, index))
+    const literalStart = index++
+    while (index < type.length) {
+      if (type[index] === '\\') {
+        index += 2
+      } else if (type[index++] === quote) {
+        break
+      }
+    }
+    result += type.slice(literalStart, index)
+    segmentStart = index
+  }
+
+  return result + transform(type.slice(segmentStart))
+}
+
+function qualifyReactNames(type: string): string {
+  return mapOutsideTypeLiterals(type, text =>
+    text.replace(DEFAULTED_TYPE_ARGUMENTS, 'ElementType').replace(BARE_REACT_NAMES, 'React.$1'),
+  )
+}
+
+/** Applies the same boundary inside a wrapper such as a callback return type. */
+function simplifyNested(member: string): string {
+  return mapOutsideTypeLiterals(member, text =>
+    text
+      .replace(/ReactElement<\s*unknown\s*,\s*string\s*\|\s*JSXElementConstructor<any>\s*>/g, 'React.ReactElement')
+      .replace(/(?<!React\.)\bReactNode\b/g, 'React.ReactNode'),
+  )
+}
+
+/**
+ * DOM interfaces that name exactly one tag. Interfaces shared by several tags — `HTMLElement`,
+ * `HTMLHeadingElement`, `HTMLTableCellElement`, `HTMLTableSectionElement` — are deliberately
+ * absent, because reporting one of their tags would be a guess.
+ */
+const ELEMENT_INTERFACE_TAGS: Record<string, string> = {
+  HTMLAnchorElement: 'a',
+  HTMLAudioElement: 'audio',
+  HTMLBRElement: 'br',
+  HTMLButtonElement: 'button',
+  HTMLCanvasElement: 'canvas',
+  HTMLDListElement: 'dl',
+  HTMLDataElement: 'data',
+  HTMLDetailsElement: 'details',
+  HTMLDialogElement: 'dialog',
+  HTMLDivElement: 'div',
+  HTMLFieldSetElement: 'fieldset',
+  HTMLFormElement: 'form',
+  HTMLHRElement: 'hr',
+  HTMLIFrameElement: 'iframe',
+  HTMLImageElement: 'img',
+  HTMLInputElement: 'input',
+  HTMLLIElement: 'li',
+  HTMLLabelElement: 'label',
+  HTMLLegendElement: 'legend',
+  HTMLMenuElement: 'menu',
+  HTMLMeterElement: 'meter',
+  HTMLOListElement: 'ol',
+  HTMLOptGroupElement: 'optgroup',
+  HTMLOptionElement: 'option',
+  HTMLOutputElement: 'output',
+  HTMLParagraphElement: 'p',
+  HTMLPictureElement: 'picture',
+  HTMLPreElement: 'pre',
+  HTMLProgressElement: 'progress',
+  HTMLSelectElement: 'select',
+  HTMLSpanElement: 'span',
+  HTMLTableCaptionElement: 'caption',
+  HTMLTableElement: 'table',
+  HTMLTableRowElement: 'tr',
+  HTMLTextAreaElement: 'textarea',
+  HTMLTimeElement: 'time',
+  HTMLUListElement: 'ul',
+  HTMLVideoElement: 'video',
+  SVGSVGElement: 'svg',
+}
+
+/**
+ * Reads the one tag a DOM interface names, such as `p` for `HTMLParagraphElement`, so
+ * documentation can say which element a component renders and which native attributes it
+ * therefore accepts.
+ *
+ * Returns nothing for an interface shared by several tags, because the element is genuinely
+ * not determined by the type.
+ */
+export function readElementTag(interfaceName: string): string | undefined {
+  return Object.hasOwn(ELEMENT_INTERFACE_TAGS, interfaceName) ? ELEMENT_INTERFACE_TAGS[interfaceName] : undefined
 }

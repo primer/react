@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+npm run build:css:storybook -w @primer/react-tailwind
+
 cd packages/react
 
 # Add base url to be able to serve static files

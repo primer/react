@@ -1,1 +1,15 @@
 .github/workflows/*.lock.yml linguist-generated=true
+
+# Generated files are collapsed by default in diffs and excluded from language
+# statistics. They stay committed and reviewable — `linguist-generated` only
+# changes the default presentation, so a reviewer can still expand them.
+#
+# Only mark a path here when a check proves it is generated. In this package
+# `check:llms` and `check:docs-json` fail when a committed file differs from
+# what the generator produces, so these cannot drift from their sources.
+#
+# `@primer/react`'s own `*.docs.json` are authored by hand and validated against
+# TypeScript by `doc-gen`, so they are deliberately not matched here.
+packages/react-tailwind/llms.txt linguist-generated=true
+packages/react-tailwind/llms/** linguist-generated=true
+packages/react-tailwind/src/components/*/*.docs.json linguist-generated=true

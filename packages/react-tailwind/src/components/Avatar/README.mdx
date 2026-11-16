@@ -1,0 +1,51 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './Avatar.docs.json'
+import * as Stories from './Avatar.stories'
+import * as Features from './Avatar.features.stories'
+import * as Examples from './Avatar.examples.stories'
+
+<Meta of={Stories} />
+
+# Avatar
+
+`Avatar` renders a user or organization image at a consistent size and shape. Use `square` for organizations and other non-person entities.
+
+```tsx
+import {Avatar} from '@primer/react-tailwind/Avatar'
+;<Avatar alt="GitHub" src="https://avatars.githubusercontent.com/github" />
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+The default size is `small`; named sizes also include `medium`, `large`, and `xlarge`. The default shape is `circle`.
+
+## Composition
+
+Use as an image primitive, including as a child of an avatar stack.
+
+## Accessibility
+
+Provide meaningful `alt` text for informative avatars; leave it empty only for decorative images.
+
+## Data attributes
+
+The image exposes `data-component="Avatar"` and `data-shape`.
+
+## Alignment
+
+[Avatar alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/Avatar/ALIGNMENT.md) document differences from the upstream component.
+
+## Features and examples
+
+<Canvas of={Features.Square} />
+
+<Canvas of={Examples.RepositoryOwner} />

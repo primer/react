@@ -1,0 +1,192 @@
+{
+  "id": "formcontrol",
+  "name": "FormControl",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/FormControl",
+  "description": "`FormControl` is a composable field wrapper that provides label, caption, validation, and control association.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-formcontrol-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-nonnative-label"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--standalone-validation"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-complex-inputs"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-custom-input"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-checkbox-and-radio-inputs"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--single-input"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--validation-example"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-select-panel"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-leading-visual"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--disabled-inputs"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--custom-required"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-caption"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-caption-and-disabled"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-required-indicator"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-success-validation"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol-features--with-error-validation"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol--default"
+    },
+    {
+      "id": "react-tailwind-forms-formcontrol--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "caption",
+      "type": "React.ReactNode",
+      "description": "Supplies the caption region. Takes precedence over a matching `FormControl.Caption` child."
+    },
+    {
+      "name": "className",
+      "type": "string | ((state: FieldRootState) => string | undefined)"
+    },
+    {
+      "name": "label",
+      "type": "React.ReactNode",
+      "description": "Supplies the label region. Takes precedence over a matching `FormControl.Label` child."
+    },
+    {
+      "name": "layout",
+      "type": "\"horizontal\" | \"vertical\"",
+      "description": "Whether the label sits above the control or beside it. Defaults to `horizontal` when a direct child is a\n`Checkbox` or `Radio`, and `vertical` otherwise."
+    },
+    {
+      "name": "leadingVisual",
+      "type": "React.ReactNode",
+      "description": "Supplies the leadingVisual region. Takes precedence over a matching `FormControl.LeadingVisual` child."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Marks the field required, which is reflected on the control and shown on the label."
+    },
+    {
+      "name": "validation",
+      "type": "React.ReactNode",
+      "description": "Supplies the validation region. Takes precedence over a matching `FormControl.Validation` child."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "FormControl.Label",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | ((state: FieldLabelState) => string | undefined)"
+        },
+        {
+          "name": "requiredIndicator",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Shows the required marker. Set `false` to keep the field required without marking it."
+        },
+        {
+          "name": "requiredText",
+          "type": "string",
+          "description": "Text used for the required marker in place of the default."
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "description": "Hides the label visually while keeping it available to assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "Field.Label",
+        "url": "https://base-ui.com/react/components/field#label"
+      }
+    },
+    {
+      "name": "FormControl.Caption",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | ((state: FieldDescriptionState) => string | undefined)"
+        }
+      ],
+      "passthrough": {
+        "element": "Field.Description",
+        "url": "https://base-ui.com/react/components/field#description"
+      }
+    },
+    {
+      "name": "FormControl.Validation",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "variant",
+          "type": "\"error\" | \"success\"",
+          "required": true,
+          "description": "Whether the message reports a problem or confirms success."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "FormControl.LeadingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "FormControl.Control",
+      "props": [],
+      "passthrough": {
+        "element": "Field.Control",
+        "url": "https://base-ui.com/react/components/field#control"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "Field.Root",
+    "url": "https://base-ui.com/react/components/field#root"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "skeletonavatar",
+  "name": "SkeletonAvatar",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SkeletonAvatar",
+  "description": "`SkeletonAvatar` reserves circular or square space for an avatar while the profile content is loading.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-skeletonavatar-examples--profile-loading"
+    },
+    {
+      "id": "react-tailwind-display-skeletonavatar-examples--avatar-grid"
+    },
+    {
+      "id": "react-tailwind-display-skeletonavatar-features--square"
+    },
+    {
+      "id": "react-tailwind-display-skeletonavatar-features--size"
+    },
+    {
+      "id": "react-tailwind-display-skeletonavatar-features--size-responsive"
+    },
+    {
+      "id": "react-tailwind-display-skeletonavatar-features--in-a-stack"
+    },
+    {
+      "id": "react-tailwind-display-skeletonavatar-features--numeric-size"
+    },
+    {
+      "id": "react-tailwind-display-skeletonavatar--default"
+    },
+    {
+      "id": "react-tailwind-display-skeletonavatar--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "size",
+      "type": "AvatarSize | ResponsiveValue<number>",
+      "defaultValue": "'small'",
+      "description": "Width and height in pixels, matching the avatar it stands in for."
+    },
+    {
+      "name": "square",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Renders square corners, matching a square avatar."
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

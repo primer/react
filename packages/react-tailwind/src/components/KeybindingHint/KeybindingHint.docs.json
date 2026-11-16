@@ -1,0 +1,84 @@
+{
+  "id": "keybindinghint",
+  "name": "KeybindingHint",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/KeybindingHint",
+  "description": "`KeybindingHint` renders a compact, screen-reader-friendly keyboard shortcut using the local key formatting rules.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-keybindinghint-examples--button-example"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-examples--action-list-example"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-examples--prose"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-examples--text-input-example"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--condensed"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--full"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--sequence-condensed"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--sequence-full"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--on-emphasis"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--on-primary"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--small"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--platforms"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint-features--modifier-keys"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint--default"
+    },
+    {
+      "id": "react-tailwind-content-keybindinghint--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "string"
+    },
+    {
+      "name": "format",
+      "type": "\"condensed\" | \"full\"",
+      "defaultValue": "'condensed'",
+      "description": "Whether modifiers render as symbols or as full words."
+    },
+    {
+      "name": "keys",
+      "type": "string",
+      "required": true,
+      "description": "Shortcut to render, written in the platform-independent chord syntax such as `Mod+s`."
+    },
+    {
+      "name": "size",
+      "type": "\"medium\" | \"small\"",
+      "defaultValue": "'medium'",
+      "description": "Text size of the hint."
+    },
+    {
+      "name": "variant",
+      "type": "\"default\" | \"onEmphasis\" | \"onPrimary\"",
+      "defaultValue": "'default'",
+      "description": "Colour treatment, for hints shown on an emphasized or primary background."
+    }
+  ]
+}

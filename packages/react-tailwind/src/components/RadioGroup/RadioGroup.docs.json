@@ -1,0 +1,92 @@
+{
+  "id": "radiogroup",
+  "name": "RadioGroup",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/RadioGroup",
+  "description": "`RadioGroup` is a Base UI radio group with roving focus and single-value selection.",
+  "stories": [
+    {
+      "id": "react-tailwind-forms-radiogroup-examples--controlled"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-examples--uncontrolled"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--visually-hidden-label"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--with-external-label"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--error"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--success"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--caption"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup-features--keyboard-selection"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup--default"
+    },
+    {
+      "id": "react-tailwind-forms-radiogroup--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "string | ((state: RadioGroupState) => string | undefined)"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "RadioGroup.Label",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | ((state: FieldsetLegendState) => string | undefined)"
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "description": "Hides the label visually while keeping it available to assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "Fieldset.Legend",
+        "url": "https://base-ui.com/react/components/fieldset#legend"
+      }
+    },
+    {
+      "name": "RadioGroup.Caption",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    },
+    {
+      "name": "RadioGroup.Validation",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"error\" | \"success\"",
+          "required": true,
+          "description": "Whether the message reports a problem or confirms success."
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "RadioGroup",
+    "url": "https://base-ui.com/react/components/radio-group#api-reference"
+  }
+}

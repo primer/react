@@ -1,0 +1,90 @@
+{
+  "id": "avatarstack",
+  "name": "AvatarStack",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/AvatarStack",
+  "description": "`AvatarStack` is a presentational component for a compact, expandable group of avatars. Import it from `@primer/react-tailwind/AvatarStack`.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-avatarstack-dev--with-link-wrappers"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--align-left"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--align-right"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--disable-expand-on-hover"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--custom-size-on-parent"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--custom-size-on-parent-responsive"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--custom-size-on-children"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--with-square-avatars"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--mixed-avatar-shapes"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--with-link-wrappers"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--custom-size-on-children-responsive"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack-features--with-single-avatar"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack--default"
+    },
+    {
+      "id": "react-tailwind-display-avatarstack--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "alignRight",
+      "type": "boolean",
+      "description": "Align the avatars to the right."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "A set of Avatar components to stack."
+    },
+    {
+      "name": "disableExpand",
+      "type": "boolean",
+      "description": "Do not spread the avatars on hover or focus."
+    },
+    {
+      "name": "shape",
+      "type": "\"circle\" | \"square\"",
+      "defaultValue": "'circle'",
+      "description": "The shape of the avatars."
+    },
+    {
+      "name": "size",
+      "type": "number | Partial<Record<\"narrow\" | \"regular\" | \"wide\", number>>",
+      "description": "The size of the avatar children in pixels."
+    },
+    {
+      "name": "variant",
+      "type": "\"cascade\" | \"stack\"",
+      "defaultValue": "'cascade'",
+      "description": "The style of overlapping avatars."
+    }
+  ],
+  "passthrough": {
+    "element": "span",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+  }
+}

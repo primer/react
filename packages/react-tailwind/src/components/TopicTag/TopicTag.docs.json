@@ -1,0 +1,63 @@
+{
+  "id": "topictag",
+  "name": "TopicTag",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/TopicTag",
+  "description": "`TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTag.Group` wraps tags into a responsive row.",
+  "stories": [
+    {
+      "id": "react-tailwind-content-topictag-examples--repository-topics"
+    },
+    {
+      "id": "react-tailwind-content-topictag-examples--selectable-topics"
+    },
+    {
+      "id": "react-tailwind-content-topictag-examples--wrapped-topics"
+    },
+    {
+      "id": "react-tailwind-content-topictag-features--as-button"
+    },
+    {
+      "id": "react-tailwind-content-topictag-features--as-group"
+    },
+    {
+      "id": "react-tailwind-content-topictag-features--as-link"
+    },
+    {
+      "id": "react-tailwind-content-topictag-features--long-topic"
+    },
+    {
+      "id": "react-tailwind-content-topictag--default"
+    },
+    {
+      "id": "react-tailwind-content-topictag--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'a'",
+      "description": "Element to render. Use a non-anchor element when the tag does not link anywhere."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "description": "URL the tag navigates to."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TopicTag.Group",
+      "props": [],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "a",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+  }
+}

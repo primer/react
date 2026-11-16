@@ -1,0 +1,51 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './ButtonGroup.docs.json'
+import * as Stories from './ButtonGroup.stories'
+import * as Features from './ButtonGroup.features.stories'
+import * as Examples from './ButtonGroup.examples.stories'
+
+<Meta of={Stories} />
+
+# ButtonGroup
+
+`ButtonGroup` joins related buttons into a single segmented control. Use `SegmentedControl` instead when the buttons select between mutually exclusive views.
+
+```tsx
+import {ButtonGroup} from '@primer/react-tailwind/ButtonGroup'
+;<ButtonGroup>
+  <button type="button">One</button>
+</ButtonGroup>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+## Composition
+
+Compose adjacent controls as children; the group does not clone or modify them.
+
+## Accessibility
+
+Label groups of controls with `aria-label`, and use `role="toolbar"` when appropriate. A toolbar keeps one button in the tab order. The arrow keys in its orientation, Home, and End move focus between buttons, wrapping at either end.
+
+## Data attributes
+
+The root exposes `data-component="ButtonGroup"` and `data-orientation`.
+
+## Alignment
+
+[ButtonGroup alignment notes](https://github.com/primer/react/blob/main/packages/react-tailwind/src/components/ButtonGroup/ALIGNMENT.md) document intentional differences from the upstream component. Overlay behavior belongs to local tooltip and menu primitives rather than ButtonGroup.
+
+## Features and examples
+
+<Canvas of={Features.IconButtons} />
+
+<Canvas of={Examples.FormattingToolbar} />

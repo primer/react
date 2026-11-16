@@ -1,0 +1,80 @@
+{
+  "id": "skeletontext",
+  "name": "SkeletonText",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/SkeletonText",
+  "description": "`SkeletonText` creates one or more text-shaped loading lines with typography height presets and an optional maximum width.",
+  "stories": [
+    {
+      "id": "react-tailwind-display-skeletontext-examples--article-loading"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-examples--custom-width-lines"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-examples--empty-line-count"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--with-max-width"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--with-multiple-lines"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--display"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--subtitle"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--title-large"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--title-medium"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--title-small"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--body-large"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--body-medium"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--body-small"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext-features--fractional-lines"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext--default"
+    },
+    {
+      "id": "react-tailwind-display-skeletontext--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "lines",
+      "type": "number",
+      "defaultValue": "1",
+      "description": "Number of placeholder lines to render."
+    },
+    {
+      "name": "maxWidth",
+      "type": "MaxWidth<string | number>",
+      "description": "Largest width the placeholder lines may reach."
+    },
+    {
+      "name": "size",
+      "type": "\"bodyLarge\" | \"bodyMedium\" | \"bodySmall\" | \"display\" | \"subtitle\" | \"titleLarge\" | \"titleMedium\" | \"titleSmall\"",
+      "defaultValue": "'bodyMedium'",
+      "description": "Typography size whose font height and line spacing the placeholder matches."
+    }
+  ],
+  "passthrough": {
+    "element": "div",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+  }
+}

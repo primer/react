@@ -1,0 +1,47 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './CounterLabel.docs.json'
+import * as Stories from './CounterLabel.stories'
+import * as Features from './CounterLabel.features.stories'
+import * as Examples from './CounterLabel.examples.stories'
+
+<Meta of={Stories} />
+
+# CounterLabel
+
+`CounterLabel` displays a numeric count alongside a label, such as an open-issue total. It is presentational and does not format or abbreviate the number.
+
+```tsx
+import {CounterLabel} from '@primer/react-tailwind/CounterLabel'
+;<CounterLabel aria-label="12 unread notifications">12</CounterLabel>
+```
+
+## Default
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Playground} />
+
+## Props
+
+<ApiReference {...api} />
+
+The default variant is `secondary`. The visible count is hidden from assistive technology; without an `aria-label`, the screen-reader text is the count in parentheses.
+
+## Composition
+
+Use next to the control or label whose count it qualifies.
+
+## Accessibility
+
+Provide `aria-label` when the generated parenthesized count is not sufficient context.
+
+## Data attributes
+
+The visible count has `data-component="CounterLabel"`.
+
+## Features and examples
+
+<Canvas of={Features.PrimaryTheme} />
+
+<Canvas of={Examples.NotificationCount} />

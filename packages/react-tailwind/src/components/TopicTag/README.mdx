@@ -1,0 +1,60 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './TopicTag.docs.json'
+import * as Stories from './TopicTag.stories'
+import * as Features from './TopicTag.features.stories'
+import * as Examples from './TopicTag.examples.stories'
+
+<Meta of={Stories} />
+
+# TopicTag
+
+`TopicTag` presents a repository topic as a compact accent-colored tag. `TopicTag.Group` wraps tags into a responsive row.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {TopicTag} from '@primer/react-tailwind/TopicTag'
+;<TopicTag.Group aria-label="Repository topics">
+  <TopicTag href="/topics/react">react</TopicTag>
+  <TopicTag href="/topics/typescript">typescript</TopicTag>
+</TopicTag.Group>
+```
+
+`TopicTag.Group` is also exported as `TopicTagGroup`.
+
+## Props
+
+<ApiReference {...api} />
+
+<Controls of={Stories.Playground} />
+
+`TopicTag.Group` accepts standard `div` props and lays out children with wrapping and a two-unit gap.
+
+## Composition
+
+Use `TopicTag.Group` for a collection of topics and provide a group label when the surrounding heading does not already name them. Use `as="button"` for selection, with the selected state owned by the consumer.
+
+## Accessibility
+
+Links and buttons need meaningful topic text and appropriate destinations or actions. Add an accessible group label when topics are not otherwise named. The visual color is not the sole source of meaning.
+
+## Animation and reduced motion
+
+Interactive tags change background and text color on hover without animation. No reduced-motion override is required.
+
+## Theming and Tailwind
+
+Topic tags use Primer accent tokens. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; use `className` for local spacing, wrapping, or color extensions.
+
+### Data attributes
+
+`TopicTag` exposes `data-component="TopicTag"` and `TopicTag.Group` exposes `data-component="TopicTagGroup"`.
+
+## Features and examples
+
+<Canvas of={Features.AsGroup} />
+<Canvas of={Features.AsButton} />
+<Canvas of={Examples.RepositoryTopics} />

@@ -1,0 +1,529 @@
+{
+  "id": "navlist",
+  "name": "NavList",
+  "status": "alpha",
+  "importPath": "@primer/react-tailwind/NavList",
+  "description": "`NavList` is a vertical navigation primitive for settings and page navigation.",
+  "stories": [
+    {
+      "id": "react-tailwind-navigation-navlist-examples--settings-navigation"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--item-descriptions"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-sub-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-wrapped-groups"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-nested-sub-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-react-router-link"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-next-js-link"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-reloads"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-inactive-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-group"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-group-heading-links"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-trailing-action"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-trailing-action-in-sub-item"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-expand"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-expand-and-icons"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--expand-with-custom-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--expand-with-pages"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-group-expand"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--group-with-expand-and-custom-items"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-description"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-item-gap"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--without-item-gap"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--without-divider"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-heading"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--with-visually-hidden-heading"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist-features--current-item"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist--default"
+    },
+    {
+      "id": "react-tailwind-navigation-navlist--playground"
+    }
+  ],
+  "props": [
+    {
+      "name": "disableItemGap",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Disable the gap between items when the item gap feature is enabled."
+    },
+    {
+      "name": "heading",
+      "type": "React.ReactNode",
+      "description": "Supplies the heading region. Takes precedence over a matching `NavList.Heading` child."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "NavList.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+          "description": "Heading element to render, so the level fits the surrounding document outline independently of its size."
+        },
+        {
+          "name": "size",
+          "type": "\"display\" | \"large\" | \"medium\" | \"small\" | null",
+          "defaultValue": "'small'"
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "description": "Hides the heading visually while keeping it available to assistive technology."
+        }
+      ],
+      "passthrough": {
+        "element": "h2",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h2#attributes"
+      }
+    },
+    {
+      "name": "NavList.Group",
+      "props": [
+        {
+          "name": "heading",
+          "type": "React.ReactNode",
+          "description": "Supplies the heading region. Takes precedence over a matching `NavList.GroupHeading` child."
+        },
+        {
+          "name": "hideDivider",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Removes the divider drawn above the group."
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "description": "Heading text for the group. A `NavList.GroupHeading` child takes precedence."
+        }
+      ],
+      "passthrough": {
+        "element": "section",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section#attributes"
+      }
+    },
+    {
+      "name": "NavList.GroupExpand",
+      "props": [
+        {
+          "name": "items",
+          "type": "NavListGroupExpandItem[]",
+          "required": true,
+          "description": "Items revealed by the button."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "defaultValue": "'Show more'",
+          "description": "Text of the button that reveals more items."
+        },
+        {
+          "name": "pages",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "Number of reveals needed to show every item. `0` reveals them all at once."
+        },
+        {
+          "name": "renderItem",
+          "type": "((item: NavListGroupExpandItem) => React.ReactNode)",
+          "defaultValue": "item => <NavList.Item {...item}>{item.text}</NavList.Item>",
+          "description": "Renders a revealed item, in place of the default `NavList.Item`. Spread the item's props to keep focus management."
+        }
+      ]
+    },
+    {
+      "name": "NavList.GroupHeading",
+      "props": [
+        {
+          "name": "as",
+          "type": "HeadingLevel",
+          "description": "Heading element to render, so the level fits the surrounding document outline."
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode",
+          "description": "Supplies the trailingAction region. Takes precedence over a matching `NavList.GroupHeading.TrailingAction` child."
+        }
+      ],
+      "passthrough": {
+        "element": "h3",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h3#attributes"
+      }
+    },
+    {
+      "name": "NavList.GroupHeading.TrailingAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\"",
+          "defaultValue": "'button'",
+          "description": "Renders the action as a button.\nRenders the action as a link."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container.\nStretches the link to fill the width of its container."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity.\nNumber shown in a trailing counter."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents activation and removes the button from the keyboard order.\nRemoves the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Not available on a button action. Use `as=\"a\"` to make the action navigate."
+        },
+        {
+          "name": "icon",
+          "type": "(React.ElementType | undefined) & React.ElementType",
+          "required": true,
+          "description": "Icon component to render.\nIcon rendered inside the heading's trailing action."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.\nMarks the link temporarily unavailable while keeping it focusable."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the action, since the icon alone conveys nothing."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "defaultValue": "'Loading'",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'w'",
+          "description": "Side and alignment of the tooltip that shows `label` for an icon action."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
+    },
+    {
+      "name": "NavList.List",
+      "props": [],
+      "passthrough": {
+        "element": "ul",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes"
+      }
+    },
+    {
+      "name": "NavList.Divider",
+      "props": [],
+      "passthrough": {
+        "element": "li",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes"
+      }
+    },
+    {
+      "name": "NavList.Item",
+      "props": [
+        {
+          "name": "as",
+          "type": "As",
+          "defaultValue": "'a'",
+          "description": "Element or component supplied by the wrapper."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "inactiveText",
+          "type": "React.ReactNode",
+          "description": "Marks the item temporarily unavailable and explains why. The item stays reachable."
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "ref",
+          "type": "Ref<HTMLAnchorElement>"
+        },
+        {
+          "name": "to",
+          "type": "string"
+        },
+        {
+          "name": "tooltipText",
+          "type": "string",
+          "description": "Supplementary text shown in a tooltip when the item is hovered or focused."
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "React.ReactNode"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    },
+    {
+      "name": "NavList.LeadingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "NavList.TrailingVisual",
+      "props": [],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "NavList.TrailingAction",
+      "props": [
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "defaultValue": "'center'",
+          "description": "Whether the label sits centred or hugs the start edge when visuals are present."
+        },
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\"",
+          "defaultValue": "'button'",
+          "description": "Renders the action as a button.\nRenders the action as a link."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Stretches the button to fill the width of its container.\nStretches the link to fill the width of its container."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "type": "string | number",
+          "description": "Number shown in a trailing counter, for a button that acts on a known quantity.\nNumber shown in a trailing counter."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents activation and removes the button from the keyboard order.\nRemoves the link from the keyboard order and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Not available on a button action. Use `as=\"a\"` to make the action navigate."
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "description": "Icon component to render."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Marks the button temporarily unavailable while keeping it focusable, so its reason can be announced.\nMarks the link temporarily unavailable while keeping it focusable."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name for the action, since the icon alone conveys nothing."
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "description": "Lets a long label wrap onto more than one line. Defaults to wrapping within `Dialog.Footer`."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Replaces the leading visual with a spinner and suppresses activation.\nReplaces the leading visual with a spinner and suppresses ordinary click activation. Its `href` remains available\nto browser actions such as opening the link from a context menu."
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "defaultValue": "'Loading'",
+          "description": "Loading status text. Set to an empty string when an external announcer communicates loading."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties"
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "TooltipDirection",
+          "defaultValue": "'w'",
+          "description": "Side and alignment of the tooltip that shows `label` for an icon action."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "defaultValue": "'button'",
+          "description": "Native button behavior. Use `submit` to submit a form."
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
+    },
+    {
+      "name": "NavList.Description",
+      "props": [
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "description": "Clips the description to one line instead of wrapping."
+        },
+        {
+          "name": "variant",
+          "type": "\"block\" | \"inline\"",
+          "defaultValue": "'inline'",
+          "description": "Whether the description sits beside the label or on its own line."
+        }
+      ],
+      "passthrough": {
+        "element": "span",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes"
+      }
+    },
+    {
+      "name": "NavList.SubNav",
+      "props": [],
+      "passthrough": {
+        "element": "Collapsible.Root",
+        "url": "https://base-ui.com/react/components/collapsible#root"
+      }
+    },
+    {
+      "name": "NavList.SubNav.Trigger",
+      "props": [],
+      "passthrough": {
+        "element": "Collapsible.Trigger",
+        "url": "https://base-ui.com/react/components/collapsible#trigger"
+      }
+    },
+    {
+      "name": "NavList.SubNav.Panel",
+      "props": [],
+      "passthrough": {
+        "element": "Collapsible.Panel",
+        "url": "https://base-ui.com/react/components/collapsible#panel"
+      }
+    }
+  ],
+  "passthrough": {
+    "element": "nav",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#attributes"
+  }
+}

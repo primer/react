@@ -1,11 +1,11 @@
 ---
 name: modular-ds-spectrum-model
-description: "Use when: deciding how to structure a new Primer React component, evaluating whether an existing component's API is at the right level of abstraction, or orienting on the modular design system approach before using a more specific modular-ds-* skill. Covers how the four API types (config, presentational, base, utilities) relate and compose, and how to decide which ones a component needs. The model itself is defined in contributor-docs/style.md."
+description: 'Use when designing, composing, refactoring, or reviewing Primer React component APIs or choosing their abstraction level. Covers how config, presentational, base, and utility APIs relate and compose. Do not use for styling-only changes without a composition or API decision. The model itself is defined in contributor-docs/style.md.'
 ---
 
 # Modular DS — Spectrum of Abstraction Model
 
-`contributor-docs/style.md` is the source of truth for this model. Read "Prefer building components across a spectrum of abstraction" first — it defines the four API types (config, presentational, base, utilities), when each one is appropriate, and, importantly, that this is not a mandatory stack every component must populate. This skill and its siblings carry the operational detail for applying that model, not a second definition of it.
+`contributor-docs/style.md` is the source of truth for this model. Read "Prefer building components across a spectrum of abstraction" first — it defines the four API types (config, presentational, base, utilities), when each one is appropriate, and, importantly, that this is not a mandatory stack every component must populate. Apply "Compose components around explicit contracts" for the shared composition and verification checklist. This skill and its siblings carry the operational detail for applying that model, not a second definition of it.
 
 See the dedicated skill for each API type for detailed rules:
 

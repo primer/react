@@ -1,0 +1,59 @@
+import {Canvas, Controls, Meta} from '@storybook/addon-docs/blocks'
+import {ApiReference} from '../../docs/ApiReference'
+import api from './KeybindingHint.docs.json'
+import * as Stories from './KeybindingHint.stories'
+import * as Features from './KeybindingHint.features.stories'
+import * as Examples from './KeybindingHint.examples.stories'
+
+<Meta of={Stories} />
+
+# KeybindingHint
+
+`KeybindingHint` renders a compact, screen-reader-friendly keyboard shortcut using the local key formatting rules.
+
+<Canvas of={Stories.Default} />
+
+## Import and usage
+
+```tsx
+import {KeybindingHint} from '@primer/react-tailwind/KeybindingHint'
+;<KeybindingHint keys="Mod+k g" format="full" />
+```
+
+Separate chords with spaces. Use `+` inside a chord for simultaneous keys.
+
+## Props
+
+<ApiReference {...api} />
+
+<Controls of={Stories.Playground} />
+
+## Composition
+
+Place the hint beside the action it describes, such as a button or action-list item. Use `format="full"` when the shortcut needs maximum clarity; use `condensed` in dense controls.
+
+## Accessibility
+
+The component renders a `kbd` element. Sequence separators include visually hidden “then” text, while the visible plus signs are hidden from assistive technology. Keep the action's visible label separate so the shortcut is not its only accessible name.
+
+## Animation and reduced motion
+
+`KeybindingHint` has no animation and does not need reduced-motion handling.
+
+## Theming and Tailwind
+
+Use `variant` for the intended text context and `className` for local alignment. Import package styles or compile Tailwind v4 with the package `dist` path in `@source`; the component does not provide a theme-extension prop.
+
+### Data attributes
+
+The root exposes `data-component="KeybindingHint"` and the stable `data-testid="keybinding-hint"`.
+
+## Alignment
+
+Stories cover the local `keys`, `format`, `variant`, and `size` props with explicit shortcut strings. The local component has no platform override prop, so platform examples show representational strings rather than inventing one.
+
+## Features and examples
+
+<Canvas of={Features.SequenceFull} />
+<Canvas of={Features.Platforms} />
+<Canvas of={Examples.ButtonExample} />
