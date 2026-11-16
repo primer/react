@@ -1,4 +1,4 @@
-import {Children, useEffect, useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
+import {useEffect, useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -31,6 +31,9 @@ export interface DataTableBulkActionsContext {
 
 export interface DataTableSelectionAnnouncementContext {
   selectedCount: number
+  /**
+   * Whether the active bulk-action toolbar contains rendered content.
+   */
   bulkActionsAvailable: boolean
 }
 
@@ -216,6 +219,7 @@ function DataTableImplementation<Data extends UniqueRow>({
 }: DataTableProps<Data>) {
   const selectionCheckboxRef = useRef<HTMLInputElement>(null)
   const tableRef = useRef<HTMLTableElement>(null)
+  const bulkActionsRef = useRef<HTMLDivElement>(null)
   const bulkActionsId = useId()
   const table = useTable({
     data,
@@ -244,7 +248,6 @@ function DataTableImplementation<Data extends UniqueRow>({
         clearSelection: actions.clearSelection,
       })
     : null
-  const bulkActionsAvailable = Children.toArray(renderedBulkActions).length > 0
 
   const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
     <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
@@ -274,12 +277,6 @@ function DataTableImplementation<Data extends UniqueRow>({
     </TableRow>
   )
 
-  const selectionAnnouncement = rowSelection
-    ? getSelectionAnnouncement({
-        selectedCount: selection.selectedCount,
-        bulkActionsAvailable,
-      })
-    : null
   const selectedCountForAnnouncement = rowSelection ? selection.selectedCount : null
   const previousSelectedCount = useRef(selectedCountForAnnouncement)
   const previousSelectionAnnouncement = useRef<string | null>(null)
@@ -287,40 +284,51 @@ function DataTableImplementation<Data extends UniqueRow>({
   useEffect(() => {
     const previous = previousSelectedCount.current
     previousSelectedCount.current = selectedCountForAnnouncement
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (selectedCountForAnnouncement === null) {
+    function updateAnnouncement(selectionChanged: boolean) {
+      const table = tableRef.current
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (selectedCountForAnnouncement === null || !table || !isVisible(table)) {
+        pendingSelectionAnnouncement.current?.cancel()
+        pendingSelectionAnnouncement.current = null
+        previousSelectionAnnouncement.current = null
+        return
+      }
+
+      // React elements can render nothing or update without rerendering the table.
+      const actions = bulkActionsRef.current?.querySelector(`.${classes.Actions}`)
+      const selectionAnnouncement = getSelectionAnnouncement({
+        selectedCount: selectedCountForAnnouncement,
+        bulkActionsAvailable: Boolean(actions && (actions.children.length > 0 || actions.textContent.trim())),
+      })
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (previousSelectionAnnouncement.current === selectionAnnouncement) {
+        return
+      }
+
       pendingSelectionAnnouncement.current?.cancel()
       pendingSelectionAnnouncement.current = null
       previousSelectionAnnouncement.current = null
-      return
-    }
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (previous === null || previous === selectedCountForAnnouncement || selectionAnnouncement === null) {
-      return
-    }
+      if (!selectionChanged) {
+        return
+      }
 
-    const table = tableRef.current
-    if (!table || !isVisible(table)) {
-      pendingSelectionAnnouncement.current?.cancel()
-      pendingSelectionAnnouncement.current = null
-      previousSelectionAnnouncement.current = null
-      return
+      previousSelectionAnnouncement.current = selectionAnnouncement
+      pendingSelectionAnnouncement.current = announce(selectionAnnouncement, {
+        politeness: 'polite',
+        delayMs: 150,
+        from: table,
+      })
     }
 
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (previousSelectionAnnouncement.current === selectionAnnouncement) {
-      return
+    updateAnnouncement(previous !== null && previous !== selectedCountForAnnouncement)
+
+    const bulkActions = bulkActionsRef.current
+    if (bulkActions) {
+      const observer = new MutationObserver(() => updateAnnouncement(false))
+      observer.observe(bulkActions, {childList: true, subtree: true, characterData: true})
+      return () => observer.disconnect()
     }
-
-    pendingSelectionAnnouncement.current?.cancel()
-    previousSelectionAnnouncement.current = selectionAnnouncement
-
-    pendingSelectionAnnouncement.current = announce(selectionAnnouncement, {
-      politeness: 'polite',
-      delayMs: 150,
-      from: table,
-    })
-  }, [selectedCountForAnnouncement, selectionAnnouncement])
+  })
   useEffect(
     () => () => {
       pendingSelectionAnnouncement.current?.cancel()
@@ -422,6 +430,7 @@ function DataTableImplementation<Data extends UniqueRow>({
               <TableSelectionAnnouncementContext.Provider value={true}>
                 <TableBulkActions
                   {...bulkActionsProps}
+                  ref={bulkActionsRef}
                   selectedCount={selection.selectedCount}
                   onFocusReturn={() => {
                     const target = bulkActionsReturnFocusRef?.current
