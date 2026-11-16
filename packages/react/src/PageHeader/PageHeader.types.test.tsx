@@ -1,5 +1,23 @@
 import {PageHeader} from '../PageHeader'
 
+export function titleAcceptsHeadingProps() {
+  return (
+    <PageHeader.Title
+      id="project-title"
+      aria-describedby="description"
+      tabIndex={-1}
+      onClick={event => event.currentTarget.focus()}
+    >
+      Project
+    </PageHeader.Title>
+  )
+}
+
+export function titleOnlyAcceptsHeadingElements() {
+  // @ts-expect-error titles must render a heading
+  return <PageHeader.Title as="div">Project</PageHeader.Title>
+}
+
 // PageHeader
 export function acceptsAsProp() {
   return <PageHeader role="banner" as="header"></PageHeader>
