@@ -250,11 +250,15 @@ describe('DataTable bulk actions', () => {
     checkbox.focus()
     await user.keyboard(' ')
     expect(checkbox).toHaveFocus()
-    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('1 selected'))
+    await waitFor(() =>
+      expect(getLiveRegion().getMessage('polite')).toBe('1 row selected, additional bulk actions available'),
+    )
     await user.click(screen.getByRole('checkbox', {name: 'Select Alpha'}))
-    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('2 selected'))
+    await waitFor(() =>
+      expect(getLiveRegion().getMessage('polite')).toBe('2 rows selected, additional bulk actions available'),
+    )
     await user.click(screen.getByRole('button', {name: 'Apply to 2'}))
-    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('0 selected'))
+    await waitFor(() => expect(getLiveRegion().getMessage('polite')).toBe('Selection cleared'))
     expect(screen.getByRole('checkbox', {name: 'Select rows'})).toHaveFocus()
     expect(screen.queryByRole('group', {name: 'Bulk actions'})).not.toBeInTheDocument()
   })

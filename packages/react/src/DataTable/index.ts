@@ -64,7 +64,7 @@ const Table: typeof TableImpl &
 })
 
 export {DataTable, Table}
-export type {DataTableProps, DataTableBulkActionsContext} from './DataTable'
+export type {DataTableProps, DataTableBulkActionsContext, DataTableSelectionAnnouncementContext} from './DataTable'
 export type {TableBulkActionsProps} from './TableBulkActions'
 export type {
   TableProps,
