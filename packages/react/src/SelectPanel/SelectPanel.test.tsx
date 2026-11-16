@@ -122,29 +122,46 @@ describe('SelectPanel hidden title', () => {
     await expect.element(page.getByRole('listbox')).toHaveClass('consumer-list')
   })
 
-  it('keeps the accessible name and search focus when the visible title is hidden', async () => {
-    render(
-      <SelectPanel
-        open
-        title="Choose an option"
-        titleVisuallyHidden
-        items={items}
-        selected={undefined}
-        onSelectedChange={() => {}}
-        onOpenChange={() => {}}
-        onFilterChange={() => {}}
-      />,
-    )
-    await expect.element(page.getByRole('dialog', {name: 'Choose an option', exact: true})).toBeVisible()
-    const title = page.getByRole('heading', {name: 'Choose an option', exact: true}).element()
-    expect(title.getBoundingClientRect().width).toBe(1)
-    expect(title.getBoundingClientRect().height).toBe(1)
-    await expect.element(page.getByRole('combobox', {name: 'Filter items', exact: true})).toHaveFocus()
-    const input = page.getByRole('combobox', {name: 'Filter items', exact: true}).element()
-    const control = input.closest('[data-component="TextInput"]')
-    expect(control).not.toBeNull()
-    expect(getComputedStyle(control!).outlineWidth).toBe('2px')
-  })
+  it.each(['anchored', 'modal'] as const)(
+    'keeps the accessible name and search focus with a hidden title in the %s panel',
+    async variant => {
+      const variantProps =
+        variant === 'modal' ? {variant: 'modal' as const, onCancel: () => {}} : {variant: 'anchored' as const}
+      render(
+        <SelectPanel
+          open
+          title="Choose an option"
+          titleVisuallyHidden
+          {...variantProps}
+          items={items}
+          selected={undefined}
+          onSelectedChange={() => {}}
+          onOpenChange={() => {}}
+          onFilterChange={() => {}}
+        />,
+      )
+      await expect.element(page.getByRole('dialog', {name: 'Choose an option', exact: true})).toBeVisible()
+      const title = page.getByRole('heading', {name: 'Choose an option', exact: true}).element()
+      expect(title.getBoundingClientRect().width).toBe(1)
+      expect(title.getBoundingClientRect().height).toBe(1)
+      await expect.element(page.getByRole('combobox', {name: 'Filter items', exact: true})).toHaveFocus()
+      const input = page.getByRole('combobox', {name: 'Filter items', exact: true}).element()
+      const control = input.closest('[data-component="TextInput"]')
+      if (!control) throw new Error('Expected the search input to have a TextInput wrapper')
+      const style = getComputedStyle(control)
+      expect(style.outlineStyle).toBe('solid')
+      expect(style.outlineWidth).toBe('2px')
+      const radius =
+        variant === 'modal'
+          ? '6px'
+          : getComputedStyle(page.getByRole('dialog', {name: 'Choose an option', exact: true}).element())
+              .borderTopLeftRadius
+      expect(style.borderTopLeftRadius).toBe(radius)
+      expect(style.borderTopRightRadius).toBe(radius)
+      expect(style.borderBottomLeftRadius).toBe(variant === 'modal' ? radius : '0px')
+      expect(style.borderBottomRightRadius).toBe(variant === 'modal' ? radius : '0px')
+    },
+  )
 
   it('retains the subtitle as the description when the title is visually hidden', async () => {
     render(

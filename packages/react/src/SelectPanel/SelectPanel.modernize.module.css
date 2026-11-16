@@ -77,6 +77,11 @@
     }
   }
 
+  &:where([data-title-visually-hidden]) .TextInput {
+    border-start-start-radius: var(--borderRadius-large);
+    border-start-end-radius: var(--borderRadius-large);
+  }
+
   &:where([data-variant='modal']) {
     & .Header {
       padding-block: var(--base-size-8) 0;
