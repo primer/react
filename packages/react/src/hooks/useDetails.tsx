@@ -15,9 +15,8 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: Use
   const onClickOutsideInternal = useCallback(
     (event: MouseEvent) => {
       const {current} = customRef
-      const eventTarget = event.target as HTMLElement
-      const closest = eventTarget.closest('details')
-      if (closest !== current) {
+      const eventTarget = event.target as Node | null
+      if (!current?.contains(eventTarget)) {
         onClickOutside && onClickOutside(event)
         if (!event.defaultPrevented) {
           setOpen(false)
