@@ -40,35 +40,35 @@ export const WithGroups = () => (
   <ActionBar aria-label="Toolbar">
     <ActionBar.Group>
       <>
-        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
-        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-        <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
-        <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={<BoldIcon />} aria-label="Bold"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={<ItalicIcon />} aria-label="Italic"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={<CodeIcon />} aria-label="Code"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={<LinkIcon />} aria-label="Link"></ActionBar.IconButton>
       </>
     </ActionBar.Group>
     <ActionBar.Divider />
     <ActionBar.Group>
-      <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-      <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={<FileAddedIcon />} aria-label="File Added"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={<SearchIcon />} aria-label="Search"></ActionBar.IconButton>
     </ActionBar.Group>
     <ActionBar.Group>
-      <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
-      <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={<ListUnorderedIcon />} aria-label="Unordered List"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={<ListOrderedIcon />} aria-label="Ordered List"></ActionBar.IconButton>
     </ActionBar.Group>
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ReplyIcon} aria-label="Saved Replies"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<TasklistIcon />} aria-label="Task List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<ReplyIcon />} aria-label="Saved Replies"></ActionBar.IconButton>
   </ActionBar>
 )
 
 export const SmallActionBar = () => (
   <ActionBar size="small" aria-label="Toolbar">
-    <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<BoldIcon />} aria-label="Bold"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<ItalicIcon />} aria-label="Italic"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<CodeIcon />} aria-label="Code"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<LinkIcon />} aria-label="Link"></ActionBar.IconButton>
     <ActionBar.Divider />
-    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<FileAddedIcon />} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<SearchIcon />} aria-label="Search"></ActionBar.IconButton>
   </ActionBar>
 )
 
@@ -90,9 +90,9 @@ export const GapScale = () => (
         gap=&quot;none&quot;
       </Text>
       <ActionBar aria-label="Toolbar gap none" gap="none">
-        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
-        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
-        <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+        <ActionBar.IconButton icon={<BoldIcon />} aria-label="Bold" />
+        <ActionBar.IconButton icon={<ItalicIcon />} aria-label="Italic" />
+        <ActionBar.IconButton icon={<CodeIcon />} aria-label="Code" />
       </ActionBar>
     </div>
     <div>
@@ -100,9 +100,9 @@ export const GapScale = () => (
         gap=&quot;condensed&quot; (default)
       </Text>
       <ActionBar aria-label="Toolbar gap condensed" gap="condensed">
-        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
-        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
-        <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+        <ActionBar.IconButton icon={<BoldIcon />} aria-label="Bold" />
+        <ActionBar.IconButton icon={<ItalicIcon />} aria-label="Italic" />
+        <ActionBar.IconButton icon={<CodeIcon />} aria-label="Code" />
       </ActionBar>
     </div>
   </div>
@@ -110,17 +110,17 @@ export const GapScale = () => (
 
 export const WithDisabledItems = () => (
   <ActionBar aria-label="Toolbar">
-    <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<BoldIcon />} aria-label="Bold"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<ItalicIcon />} aria-label="Italic"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<CodeIcon />} aria-label="Code"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<LinkIcon />} aria-label="Link"></ActionBar.IconButton>
     <ActionBar.Divider />
-    <ActionBar.IconButton disabled icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-    <ActionBar.IconButton disabled icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.IconButton disabled icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={<FileAddedIcon />} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={<SearchIcon />} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={<QuoteIcon />} aria-label="Insert Quote"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<ListUnorderedIcon />} aria-label="Unordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<ListOrderedIcon />} aria-label="Ordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<TasklistIcon />} aria-label="Task List"></ActionBar.IconButton>
   </ActionBar>
 )
 
@@ -142,20 +142,20 @@ export const CommentBox = (props: CommentBoxProps) => {
 
         <div className={classes.CommentBoxHeaderToolbar}>
           <ActionBar aria-label={toolBarLabel} className={classes.CommentBoxHeaderActionBar} gap="none">
-            <ActionBar.IconButton icon={HeadingIcon} aria-label="Heading"></ActionBar.IconButton>
-            <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
-            <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-            <ActionBar.IconButton icon={CodeIcon} aria-label="Insert Code"></ActionBar.IconButton>
-            <ActionBar.IconButton icon={LinkIcon} aria-label="Insert Link"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<HeadingIcon />} aria-label="Heading"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<BoldIcon />} aria-label="Bold"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<ItalicIcon />} aria-label="Italic"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<CodeIcon />} aria-label="Insert Code"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<LinkIcon />} aria-label="Insert Link"></ActionBar.IconButton>
             <ActionBar.Divider />
-            <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
-            <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
-            <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
-            <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<QuoteIcon />} aria-label="Insert Quote"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<ListUnorderedIcon />} aria-label="Unordered List"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<ListOrderedIcon />} aria-label="Ordered List"></ActionBar.IconButton>
+            <ActionBar.IconButton icon={<TasklistIcon />} aria-label="Task List"></ActionBar.IconButton>
             <ActionBar.IconButton
               ref={buttonRef}
               onClick={() => setIsOpen(true)}
-              icon={ReplyIcon}
+              icon={<ReplyIcon />}
               aria-label="Saved Replies"
             ></ActionBar.IconButton>
           </ActionBar>
@@ -179,13 +179,13 @@ export const ActionBarWithMenuTrigger = () => {
   return (
     <div>
       <ActionBar aria-label="Toolbar">
-        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
-        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-        <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={<BoldIcon />} aria-label="Bold"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={<ItalicIcon />} aria-label="Italic"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={<CodeIcon />} aria-label="Code"></ActionBar.IconButton>
         <ActionBar.IconButton
           ref={buttonRef}
           onClick={() => setIsOpen(true)}
-          icon={ReplyIcon}
+          icon={<ReplyIcon />}
           aria-label="Saved Replies"
         ></ActionBar.IconButton>
       </ActionBar>
@@ -218,7 +218,7 @@ export const ActionbarToggle = () => {
         <div>
           <ActionMenu>
             <ActionMenu.Anchor ref={anchorRef}>
-              <IconButton icon={ThreeBarsIcon} aria-label="Open Menu" />
+              <IconButton icon={<ThreeBarsIcon />} aria-label="Open Menu" />
             </ActionMenu.Anchor>
             <ActionMenu.Overlay>
               <ActionList>
@@ -329,7 +329,7 @@ const ActionMenuExample = () => {
   return (
     <ActionBar.Menu
       aria-label="File options"
-      icon={NoteIcon}
+      icon={<NoteIcon />}
       items={[
         {label: 'Download', onClick: () => alert('Download clicked')},
         {label: 'Jump to line', onClick: () => alert('Jump to line clicked')},
@@ -340,7 +340,7 @@ const ActionMenuExample = () => {
         {
           label: 'Delete file',
           onClick: () => alert('Delete file clicked'),
-          leadingVisual: TrashIcon,
+          leadingVisual: <TrashIcon />,
           variant: 'danger',
         },
       ]}
@@ -364,23 +364,23 @@ const menuHeadings: ActionBarMenuItemProps = {
 
 export const WithMenus = () => (
   <ActionBar aria-label="Toolbar">
-    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<ItalicIcon />} aria-label="Italic"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<CodeIcon />} aria-label="Code"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<LinkIcon />} aria-label="Link"></ActionBar.IconButton>
     <ActionBar.Divider />
-    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<FileAddedIcon />} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<SearchIcon />} aria-label="Search"></ActionBar.IconButton>
 
-    <ActionBar.IconButton disabled icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-    <ActionBar.IconButton disabled icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.IconButton disabled icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={<FileAddedIcon />} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={<SearchIcon />} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={<QuoteIcon />} aria-label="Insert Quote"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<ListUnorderedIcon />} aria-label="Unordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<ListOrderedIcon />} aria-label="Ordered List"></ActionBar.IconButton>
     <ActionMenuExample />
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={<TasklistIcon />} aria-label="Task List"></ActionBar.IconButton>
     <ActionBar.Menu
       aria-label="Formatting"
-      icon={KebabHorizontalIcon}
+      icon={<KebabHorizontalIcon />}
       overflowIcon="none"
       items={[
         {label: 'Bold', onClick: () => alert('Bold clicked')},

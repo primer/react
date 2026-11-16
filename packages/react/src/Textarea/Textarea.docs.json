@@ -82,7 +82,8 @@
       "name": "contrast",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Changes background color to a higher contrast color"
+      "deprecated": true,
+      "description": "Deprecated. Omit this prop to use the default background."
     },
     {
       "name": "validationStatus",

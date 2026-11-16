@@ -1,4 +1,4 @@
-import {act, renderHook, waitFor} from '@testing-library/react'
+import {act, renderHook} from '@testing-library/react'
 import {announce} from '@primer/live-region-element'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {useAnnouncements} from './useAnnouncements'
@@ -34,12 +34,12 @@ describe('useAnnouncements', () => {
       listRef.current = list
     })
 
-    await waitFor(() =>
-      expect(announce).toHaveBeenCalledWith(
+    await expect
+      .poll(() => announce)
+      .toHaveBeenCalledWith(
         'Filter fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
         {delayMs: 500, from: undefined},
-      ),
-    )
+      )
   })
 
   it('uses aria-labelledby before aria-label in the initial focus announcement', async () => {
@@ -74,12 +74,12 @@ describe('useAnnouncements', () => {
 
     act(() => result.current())
 
-    await waitFor(() =>
-      expect(announce).toHaveBeenCalledWith(
+    await expect
+      .poll(() => announce)
+      .toHaveBeenCalledWith(
         'Issue fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
         {delayMs: 500, from: undefined},
-      ),
-    )
+      )
 
     label.remove()
   })
@@ -115,12 +115,12 @@ describe('useAnnouncements', () => {
 
     act(() => result.current())
 
-    await waitFor(() =>
-      expect(announce).toHaveBeenCalledWith(
+    await expect
+      .poll(() => announce)
+      .toHaveBeenCalledWith(
         'Filter fields, filter text box and list of items, Focused item: Start date, not selected, 1 of 1',
         {delayMs: 500, from: undefined},
-      ),
-    )
+      )
 
     label.remove()
     input.remove()
@@ -154,6 +154,6 @@ describe('useAnnouncements', () => {
 
     rerender({filterValue: 'zero'})
 
-    await waitFor(() => expect(announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {delayMs: 500}))
+    await expect.poll(() => announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {delayMs: 500})
   })
 })

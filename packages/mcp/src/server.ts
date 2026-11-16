@@ -253,7 +253,7 @@ Use \`get_component\` for exactly one component and \`get_component_batch\` for 
         }
       }
 
-      const url = new URL(`/product/components/${match.id}`, 'https://primer.style')
+      const url = new URL(`/product/components/${match.slug}`, 'https://primer.style')
       const response = await fetch(url)
       if (!response.ok) {
         throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
@@ -314,7 +314,7 @@ ${text}`,
         }
       }
 
-      const url = new URL(`/product/components/${match.id}/guidelines`, 'https://primer.style')
+      const url = new URL(`/product/components/${match.slug}/guidelines`, 'https://primer.style')
       const response = await fetch(url)
       if (!response.ok) {
         if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
@@ -387,7 +387,7 @@ ${text}`,
         }
       }
 
-      const url = new URL(`/product/components/${match.id}/accessibility`, 'https://primer.style')
+      const url = new URL(`/product/components/${match.slug}/accessibility`, 'https://primer.style')
       const response = await fetch(url)
       if (!response.ok) {
         if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {

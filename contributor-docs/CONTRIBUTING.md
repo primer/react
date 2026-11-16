@@ -273,7 +273,7 @@ If everything looks great, the reviewer will approve the pull request and feel f
 
 ### Previewing your changes
 
-We have a GitHub Action that creates a preview of the docs site and the storybook everytime you commit code to a branch. To view the preview site and the preview storybook, navigate to the PR and find the comment from the `github-actions` bot for storybook and `primer` bot for the docs preview. This will include a link to the preview site and the storybook for your branch.
+We have a GitHub Action that creates a preview of the docs site and the storybook every time you commit code to a branch. To view the preview site and the preview storybook, navigate to the PR and find the comment from the `github-actions` bot for storybook and `primer` bot for the docs preview. This will include a link to the preview site and the storybook for your branch.
 
 ## Deploying
 

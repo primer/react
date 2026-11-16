@@ -11,7 +11,7 @@
 
 [Snapshot testing](https://jestjs.io/docs/snapshot-testing) is a strategy that allows a developer to "snapshot" a given value within a test suite. This value could be a primitive within JavaScript, an Array, an object, or the resulting HTML of rendering a component in React. The snapshot of the value is stored within the repo and is then compared against future test runs.
 
-When a change is detected to a snapshot, the test will fail with a diff between the currently stored snapshot and the new snapshot. Within the space of React components, this may happen when a class name changes or the markup of a component changes. Is is then up to the developer to decide if the change is intentional and whether or not to accept this new snapshot as the baseline for future test runs.
+When a change is detected to a snapshot, the test will fail with a diff between the currently stored snapshot and the new snapshot. Within the space of React components, this may happen when a class name changes or the markup of a component changes. It is then up to the developer to decide if the change is intentional and whether or not to accept this new snapshot as the baseline for future test runs.
 
 A common practice is to snapshot a React component which will capture the HTML output of rendering a component. For example:
 

@@ -265,7 +265,7 @@ For Example, [legacy ActionMenu](https://primer.style/react/deprecated/ActionMen
 
 <br/>
 
-When we see a a prop which resembles “childProps" or `renderChild` on the container/parent, it's a sign that we should surface this detail in the API by creating a composite component:
+When we see a prop which resembles “childProps" or `renderChild` on the container/parent, it's a sign that we should surface this detail in the API by creating a composite component:
 
 ```jsx
 // we created an additional layer so that

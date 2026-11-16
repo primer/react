@@ -2,6 +2,7 @@ import {clsx} from 'clsx'
 import {useMemo} from 'react'
 import type React from 'react'
 import {Button} from '../Button'
+import {useFeatureFlag} from '../FeatureFlags'
 import Link from '../Link'
 import {Provider, useBlankslate} from './BlankslateContext'
 import classes from './Blankslate.module.css'
@@ -34,11 +35,13 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
 }
 
 function Blankslate({border, children, narrow, spacious, className, size = 'medium', ...rest}: BlankslateProps) {
+  const compactDefault = useFeatureFlag('primer_react_blankslate_compact_default')
   const value = useMemo(() => {
     return {
       size,
+      compactDefault,
     }
-  }, [size])
+  }, [size, compactDefault])
 
   return (
     <Provider value={value}>
@@ -49,7 +52,8 @@ function Blankslate({border, children, narrow, spacious, className, size = 'medi
           data-border={border ? '' : undefined}
           data-narrow={narrow ? '' : undefined}
           data-spacious={spacious ? '' : undefined}
-          data-size={size}
+          data-compact-default={compactDefault ? '' : undefined}
+          data-size={compactDefault && size === 'small' ? 'medium' : size}
         >
           {children}
         </div>
@@ -108,7 +112,7 @@ type BlankslatePrimaryActionProps =
     }>
 
 function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps) {
-  const {size} = useBlankslate()
+  const {size, compactDefault} = useBlankslate()
   return (
     <div className={clsx('Blankslate-Action', classes.Action)} data-component="Blankslate.PrimaryAction">
       <Button
@@ -116,7 +120,7 @@ function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps)
         as={href ? 'a' : 'button'}
         href={href}
         variant="primary"
-        size={size === 'small' ? 'small' : undefined}
+        size={!compactDefault && size === 'small' ? 'small' : undefined}
       >
         {children}
       </Button>

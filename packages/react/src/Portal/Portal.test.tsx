@@ -1,9 +1,9 @@
 import {describe, expect, it, vi} from 'vitest'
 import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
 
-import {render} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
-import React, {act} from 'react'
+import React from 'react'
 import {hydrateRoot, type Root} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
 

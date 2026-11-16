@@ -132,7 +132,7 @@ ItemPlayground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['medium', 'large'],
+    options: ['small', 'medium', 'large'],
   },
   role: {
     type: 'string',
@@ -247,7 +247,7 @@ LinkItemPlayground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['medium', 'large'],
+    options: ['small', 'medium', 'large'],
   },
   role: {
     type: 'string',

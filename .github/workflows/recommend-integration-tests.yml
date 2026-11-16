@@ -13,14 +13,14 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version-file: '.nvmrc'
 
       - name: Get source files changes
         id: source-files
         run: |
-          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -Ev '.stories.tsx|.stories.module.css|.docs.json' || true)
+          DIFF=$(git diff --name-only origin/main -- packages/react/ | grep -Ev '(^|/)(__tests__|__snapshots__)(/|$)|(^|/)[^/]+\.(test|spec)\.[cm]?[jt]sx?$|\.stories\.tsx$|\.stories\.module\.css$|\.docs\.json$' || true)
           if [ -z "$DIFF" ]; then
             echo "diff=" >> $GITHUB_OUTPUT
           else

@@ -146,7 +146,7 @@
       "name": "textInputProps",
       "type": "Partial<Omit<TextInputProps, 'onChange'>>",
       "defaultValue": "",
-      "description": "See [TextInput props](/react/TextInput#props)."
+      "description": "See [TextInput props](/react/TextInput#props). The filter input uses the normal TextInput background by default. Enable `primer_react_select_panel_legacy_contrast` to restore the previous contrast background. An explicit `textInputProps.contrast` value takes precedence over the flag: `true` enables contrast, while `false` or explicitly passing `undefined` disables it. The `contrast` prop remains deprecated."
     },
     {
       "name": "variant",

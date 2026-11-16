@@ -63,6 +63,9 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
     const container = containerRef.current
 
     function onKeyDown(event: KeyboardEvent) {
+      // Leave keyboard interaction on nested controls to the controls themselves.
+      if (!(event.target instanceof HTMLElement) || event.target.getAttribute('role') !== 'treeitem') return
+
       // Ignore key presses that don't produce a character value
       if (!event.key || event.key.length > 1 || event.key === ' ') return
 

@@ -1,0 +1,57 @@
+.TableBulkActions {
+  &:where([data-active]) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--base-size-8);
+  }
+}
+
+.Count {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+}
+
+.ColumnLabel {
+  min-block-size: 1lh;
+}
+
+.Actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--base-size-8);
+  margin-inline-start: auto;
+
+  :focus {
+    scroll-margin: var(--base-size-4);
+  }
+}
+
+.HeaderRow,
+.HeaderRow > * {
+  grid-row: 1;
+}
+
+.BulkActionsCell {
+  grid-row: 1;
+  grid-column: 2 / -1;
+  z-index: 1;
+  min-width: 0;
+  align-content: center;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--table-cell-padding);
+  padding-block: 0;
+  background-color: var(--bgColor-muted);
+  border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  /* stylelint-disable-next-line primer/borders */
+  border-start-end-radius: var(--table-border-radius);
+}
+
+.HeaderRow > .BulkActionsCell:first-child:last-child {
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline-start: var(--cell-padding-inline, var(--base-size-12));
+  padding-inline-end: var(--base-size-8);
+}

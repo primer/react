@@ -38,7 +38,7 @@ export type TextareaProps = {
    */
   autoSize?: boolean
   /**
-   * apply a high contrast color to background
+   * @deprecated Omit this prop to use the default background.
    */
   contrast?: boolean
   /**

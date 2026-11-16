@@ -1,8 +1,8 @@
 import {render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {it, expect} from 'vitest'
-import {useRef, useState} from 'react'
-import {useOpenAndCloseFocus} from '../../hooks/useOpenAndCloseFocus'
+import {describe, it, expect} from 'vitest'
+import {createRef, useRef, useState} from 'react'
+import {useOpenAndCloseFocus, type UseOpenAndCloseFocusSettings} from '../../hooks/useOpenAndCloseFocus'
 
 const Component = () => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -66,6 +66,21 @@ const ComponentThree = () => {
   )
 }
 
+function FocusContainer({
+  returnFocusRef,
+  preventFocusOnClose,
+}: Pick<UseOpenAndCloseFocusSettings, 'returnFocusRef' | 'preventFocusOnClose'>) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  useOpenAndCloseFocus({containerRef, returnFocusRef, preventFocusOnClose})
+
+  return (
+    <div ref={containerRef}>
+      <button type="button">first item</button>
+      <button type="button">second item</button>
+    </div>
+  )
+}
+
 it('should focus initialFocusRef element passed into function', async () => {
   const {getByText} = render(<Component />)
   await waitFor(() => getByText('no'))
@@ -96,4 +111,62 @@ it('should focus returnFocusRef element when rendered', async () => {
   await user.click(toggleButton)
 
   expect(document.activeElement).toEqual(toggleButton)
+})
+
+describe('preventFocusOnClose', () => {
+  it.each([undefined, false, true])('controls restoration when set to %s', preventFocusOnClose => {
+    const returnFocusRef = createRef<HTMLButtonElement>()
+    const component = render(
+      <>
+        <button type="button" ref={returnFocusRef}>
+          trigger
+        </button>
+        <FocusContainer returnFocusRef={returnFocusRef} preventFocusOnClose={preventFocusOnClose} />
+      </>,
+    )
+
+    expect(component.getByRole('button', {name: 'first item'})).toHaveFocus()
+
+    component.rerender(
+      <button type="button" ref={returnFocusRef}>
+        trigger
+      </button>,
+    )
+
+    if (preventFocusOnClose) {
+      expect(component.getByRole('button', {name: 'trigger'})).not.toHaveFocus()
+    } else {
+      expect(component.getByRole('button', {name: 'trigger'})).toHaveFocus()
+    }
+  })
+
+  it.each([false, true])('uses the updated setting %s without moving focus while open', async preventFocusOnClose => {
+    const returnFocusRef = createRef<HTMLButtonElement>()
+    const example = (preventFocus: boolean) => (
+      <>
+        <button type="button" ref={returnFocusRef}>
+          trigger
+        </button>
+        <FocusContainer returnFocusRef={returnFocusRef} preventFocusOnClose={preventFocus} />
+      </>
+    )
+    const component = render(example(!preventFocusOnClose))
+    const user = userEvent.setup()
+
+    await user.click(component.getByRole('button', {name: 'second item'}))
+    component.rerender(example(preventFocusOnClose))
+    expect(component.getByRole('button', {name: 'second item'})).toHaveFocus()
+
+    component.rerender(
+      <button type="button" ref={returnFocusRef}>
+        trigger
+      </button>,
+    )
+
+    if (preventFocusOnClose) {
+      expect(component.getByRole('button', {name: 'trigger'})).not.toHaveFocus()
+    } else {
+      expect(component.getByRole('button', {name: 'trigger'})).toHaveFocus()
+    }
+  })
 })

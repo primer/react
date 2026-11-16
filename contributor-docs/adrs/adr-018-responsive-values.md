@@ -31,7 +31,7 @@ when the component hydrates and the viewport size is different than the fallback
 size on the server.
 
 As a result, we would like to offer a paved path for providing responsive props
-in a way tha twill not lead to layout shift during server-side rendering.
+in a way that will not lead to layout shift during server-side rendering.
 
 ## Decision
 

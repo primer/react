@@ -126,16 +126,49 @@ describe('checkFile', () => {
     if (!result.ok) {
       expect(result.errors).toHaveLength(1)
       expect(result.errors[0]).toMatchObject({
-        description: expect.stringContaining(
-          'React Compiler only works when your components follow all the rules of React',
-        ),
-        reason: expect.stringContaining('one or more React ESLint rules were disabled'),
+        description: 'Found React rule suppression',
+        reason: 'React rule suppression prevents optimization',
         suggestions: [
           {
-            description: 'Remove the ESLint suppression and address the React error',
+            description: 'Remove the suppression and address the reported React rule violation',
           },
         ],
       })
+    }
+  })
+
+  test('reports UTF-16 columns for native diagnostics after non-ASCII text', () => {
+    const contents = `import {useState} from 'react'
+function ConditionalHook({enabled}: {enabled: boolean}) {
+  if (enabled) { const label = 'caf\u00e9 \u{1f680}'; useState(0) }
+  return null
+}`
+    const result = checkFile('ConditionalHook.tsx', contents)
+
+    expect(result.ok).toBe(false)
+
+    if (!result.ok) {
+      expect(result.errors[0].location?.start).toEqual({
+        line: 3,
+        column: contents.split('\n')[2].indexOf('useState'),
+      })
+    }
+  })
+
+  test('reports opt-out locations after non-ASCII text', () => {
+    const result = checkFile(
+      'NoMemo.tsx',
+      `// caf\u00e9 \u{1f680}
+function NoMemo() {
+  'use no memo'
+  return <span />
+}`,
+    )
+
+    expect(result.ok).toBe(false)
+
+    if (!result.ok) {
+      expect(result.errors[0].location?.start).toEqual({line: 3, column: 2})
     }
   })
 

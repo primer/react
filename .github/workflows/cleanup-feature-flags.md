@@ -62,7 +62,7 @@ merge a pull request, or change rollout behavior.
 
 ## Determine which flags are unused
 
-1. Read `.github/skills/feature-flags/SKILL.md`, the repository contribution
+1. Read `.agent/skills/feature-flags/SKILL.md`, the repository contribution
    instructions, and `packages/react/src/FeatureFlags/DefaultFeatureFlags.ts`.
    Also inventory flag-specific registrations in `packages/*/.storybook/`,
    including `featureFlagEnvList`, defaults, toolbar options, and decorators.
@@ -102,7 +102,7 @@ merge a pull request, or change rollout behavior.
   do not delete tests or snapshots merely to get a passing run. Remove a
   now-empty provider wrapper or unused import only when directly caused by
   this cleanup. Do not modify unrelated files, dependencies, or workflow files.
-- Follow `.github/skills/changesets/SKILL.md`: include a terse patch changeset
+- Follow `.agent/skills/changesets/SKILL.md`: include a terse patch changeset
   for `@primer/react` when changing its published default flag registry.
   Do not add a changeset for Storybook/test-only cleanup; request the
   `skip changeset` label in the PR description in that case.

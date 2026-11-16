@@ -147,19 +147,21 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 
   const [tabs, tabPanels, tabsHaveIcons, selectedFromProps, tabValues, panelValues] = useMemo(() => {
     // Derived in render (not an effect) to avoid an empty-tablist frame.
-    let tabIndex = 0
-    let panelIndex = 0
+    const indices = {
+      tab: 0,
+      panel: 0,
+    }
 
     const childrenWithProps = Children.map(children, child => {
       if (isValidElement<TabProps & WithValue>(child) && (child.type === Tab || isSlot(child, Tab))) {
-        const value = child.props.value ?? `${tabIndex}`
-        tabIndex++
+        const value = child.props.value ?? `${indices.tab}`
+        indices.tab++
         return cloneElement(child, {value})
       }
 
       if (isValidElement<PanelProps & WithValue>(child) && (child.type === Panel || isSlot(child, Panel))) {
-        const value = child.props.value ?? `${panelIndex}`
-        panelIndex++
+        const value = child.props.value ?? `${indices.panel}`
+        indices.panel++
         return cloneElement(child, {value})
       }
       return child
