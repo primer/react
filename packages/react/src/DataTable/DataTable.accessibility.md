@@ -263,8 +263,10 @@ and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.sto
 
 With `collapsibleGroups` (`Table.Group`'s `collapsible`), the group header contains
 a native disclosure button. The header and button use the group label, or its
-`aria-label` override, as their name; the button's `aria-description` supplies the
-row count. The generated count description is currently English.
+`aria-label` override, as their name. The checkbox and disclosure reference the same
+total-member count through `aria-describedby`, including non-selectable rows.
+It defaults to `1 row` or `N rows`; localize it with `DataTable.getGroupRowCountLabel`
+or `Table.Group.getRowCountLabel`.
 
 - Enter or Space toggles `aria-expanded`; `aria-controls` references the member body.
 - Collapsed members stay mounted but are hidden from table navigation and Tab order.
