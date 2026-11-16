@@ -359,7 +359,7 @@ describe('PageLayout', async () => {
       )
 
       try {
-        expect(screen.getByText('Sidebar')).toHaveStyle({padding: expected})
+        await expect.element(page.getByText('Sidebar', {exact: true})).toHaveStyle({padding: expected})
 
         rerender(
           <PageLayout padding="normal">
@@ -370,7 +370,7 @@ describe('PageLayout', async () => {
           </PageLayout>,
         )
 
-        expect(screen.getByText('Sidebar')).toHaveStyle({padding: expected})
+        await expect.element(page.getByText('Sidebar', {exact: true})).toHaveStyle({padding: expected})
       } finally {
         unmount()
         await page.viewport(1280, 800)
