@@ -87,10 +87,8 @@
     "deepmerge": "^4.3.1",
     "focus-visible": "^5.2.1",
     "history": "^5.0.0",
-    "hsluv": "1.0.1",
     "lodash.isempty": "^4.4.0",
-    "lodash.isobject": "^3.0.2",
-    "react-intersection-observer": "^10.0.3"
+    "lodash.isobject": "^3.0.2"
   },
   "devDependencies": {
     "@actions/core": "1.11.1",
@@ -156,12 +154,13 @@
     "mdast-util-to-string": "4.0.0",
     "micromark-extension-frontmatter": "2.0.0",
     "micromark-extension-mdxjs": "3.0.0",
-    "oxc-transform-react": "^0.155.0",
+    "oxc-transform-react": "^0.157.0",
     "postcss-preset-primer": "^0.0.0",
     "publint": "^0.3.15",
     "react": "18.3.1",
     "react-compiler-runtime": "^1.0.0",
     "react-dom": "18.3.1",
+    "react-intersection-observer": "^10.0.3",
     "react-is": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
