@@ -14,6 +14,17 @@
   border-radius: var(--borderRadius-full);
   outline: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest);
   outline-offset: -1px;
+  background-image: linear-gradient(
+    to right,
+    var(--control-checked-bgColor-rest) 35%,
+    var(--control-bgColor-active) 65%
+  );
+  background-size: 160px 100%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  transition-property: background-position;
+  transition-duration: 125ms;
+  transition-timing-function: cubic-bezier(0.26, 0.75, 0.38, 0.45);
 
   &:where([data-size='small']) {
     width: var(--base-size-40);
@@ -27,10 +38,26 @@
 
   &:where([data-checked='true']) {
     outline-color: var(--control-checked-borderColor-rest);
+    background-position: 0 0;
   }
 
   &:where([data-disabled='true']) {
     opacity: 0.6;
+  }
+
+  &:where([data-disabled='true'][data-checked='false']) {
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: var(--borderWidth-thin) solid var(--borderColor-emphasis);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 
   &:focus-visible {
@@ -42,11 +69,13 @@
 .ToggleKnob[data-size] {
   top: var(--base-size-2);
   bottom: var(--base-size-2);
-  left: auto;
-  right: auto;
   inset-inline-start: var(--base-size-2);
   width: var(--base-size-32);
   border-radius: var(--borderRadius-full);
+  background-color: var(--controlKnob-bgColor-checked);
+  border-color: color-mix(in srgb, var(--controlKnob-borderColor-rest) 50%, transparent);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
   &:where([data-size='small']) {
     width: var(--base-size-24);
@@ -57,7 +86,8 @@
   }
 
   &:where([data-checked='true']) {
-    border-color: transparent;
+    /* stylelint-disable-next-line primer/colors -- match the checked thumb border to its fill */
+    border-color: var(--controlKnob-bgColor-checked);
     transform: translateX(var(--base-size-12));
   }
 
@@ -69,7 +99,58 @@
     transform: translateX(calc(-1 * var(--base-size-12)));
   }
 
+  &:dir(rtl) {
+    left: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   &:dir(rtl):where([data-size='compact'][data-checked='true']) {
     transform: translateX(calc(var(--base-size-2) - var(--base-size-12)));
+  }
+}
+
+:where(
+    :global([data-color-mode='light'][data-light-theme='light_high_contrast']),
+    :global([data-color-mode='dark'][data-dark-theme='dark_high_contrast'])
+  )
+  .SwitchButton[data-size] {
+  &:where([data-checked='false']) {
+    outline-color: var(--borderColor-emphasis);
+  }
+
+  & .ToggleKnob:where([data-checked='false']) {
+    border-color: var(--controlKnob-borderColor-rest);
+  }
+}
+
+.LineIconContainer[data-checked] {
+  position: absolute;
+  inset-inline-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+  width: var(--base-size-2);
+  flex-basis: auto;
+  color: var(--control-checked-fgColor-rest);
+
+  &:where([data-size='compact']) {
+    inset-inline-start: var(--base-size-6);
+  }
+
+  &:where([data-checked='false']) {
+    visibility: hidden;
+  }
+}
+
+.CircleIconContainer[data-checked] {
+  position: absolute;
+  inset-inline-end: var(--base-size-4);
+  width: auto;
+  flex-basis: auto;
+  /* stylelint-disable-next-line primer/colors -- the filled glyph represents the off indicator's border */
+  color: var(--control-borderColor-emphasis);
+
+  &:where([data-checked='true']) {
+    visibility: hidden;
   }
 }

@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-ToggleSwitch: Refine sizing, typography, and rounded controls, and add a compact size.
+ToggleSwitch: Refine sizing, thumb alignment, and disabled appearance, and add a compact size.

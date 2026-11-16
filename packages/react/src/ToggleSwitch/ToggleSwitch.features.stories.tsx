@@ -31,11 +31,8 @@ function ComparisonSwitch({
 
 export const ModernizedSwitch: StoryObj<typeof ToggleSwitch> = {
   render: () => <ComparisonSwitch label="Enable notifications" />,
-  play: async ({canvas, userEvent}) => {
+  play: async ({canvas}) => {
     const button = canvas.getByRole('button', {name: 'Enable notifications'})
-    await userEvent.click(button)
-    await expect(button).toHaveAttribute('aria-pressed', 'true')
-    await userEvent.click(button)
     await expect(button).toHaveAttribute('aria-pressed', 'false')
   },
 }

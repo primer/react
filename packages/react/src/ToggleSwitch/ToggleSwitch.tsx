@@ -52,13 +52,14 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
 type InnerIconProps = {size?: ToggleSwitchProps['size']}
 
 const iconSizes = {compact: 8, small: 10, medium: 12}
+const circleIconSizes = {compact: 6, small: 8, medium: 10}
 
 const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
     aria-hidden="true"
-    width={iconSizes[size ?? 'medium']}
-    height={iconSizes[size ?? 'medium']}
-    viewBox="0 0 16 16"
+    width={circleIconSizes[size ?? 'medium']}
+    height={circleIconSizes[size ?? 'medium']}
+    viewBox="2 2 12 12"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -69,9 +70,10 @@ const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) =
 const LineIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
     aria-hidden="true"
-    width={iconSizes[size ?? 'medium']}
+    width={2}
     height={iconSizes[size ?? 'medium']}
-    viewBox="0 0 16 16"
+    viewBox="7.25 2 1.5 12"
+    preserveAspectRatio="none"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -187,14 +189,15 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
       >
         <div className={classes.SwitchButtonContent} aria-hidden="true">
           <div
-            className={`${classes.IconContainer} ${classes.LineIconContainer}`}
+            className={clsx(classes.IconContainer, classes.LineIconContainer, modernizeClasses.LineIconContainer)}
+            data-size={size}
             data-checked={isOn}
             data-disabled={!acceptsInteraction}
           >
             <LineIcon size={size} />
           </div>
           <div
-            className={`${classes.IconContainer} ${classes.CircleIconContainer}`}
+            className={clsx(classes.IconContainer, classes.CircleIconContainer, modernizeClasses.CircleIconContainer)}
             data-checked={isOn}
             data-disabled={!acceptsInteraction}
           >

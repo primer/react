@@ -37,11 +37,53 @@ describe('ToggleSwitch', () => {
           .poll(() => {
             const track = button.element().getBoundingClientRect()
             const thumb = button.element().lastElementChild?.getBoundingClientRect()
-            return thumb && thumb.left >= track.left && thumb.right <= track.right
+            if (!thumb) return false
+            const checked = button.element().getAttribute('aria-pressed') === 'true'
+            const inset = direction === 'ltr' ? thumb.left - track.left : track.right - thumb.right
+            const indicator = button.element().querySelectorAll('svg')[checked ? 0 : 1].getBoundingClientRect()
+            const indicatorInset = checked
+              ? direction === 'ltr'
+                ? indicator.left - track.left
+                : track.right - indicator.right
+              : direction === 'ltr'
+                ? track.right - indicator.right
+                : indicator.left - track.left
+            return (
+              Math.abs(inset - (checked ? (size === 'compact' ? 12 : 14) : 2)) < 0.1 &&
+              Math.abs(indicatorInset - (checked ? (size === 'compact' ? 6 : 7) : 4)) < 0.1 &&
+              indicator.width === (checked ? 2 : size === 'compact' ? 6 : size === 'small' ? 8 : 10)
+            )
           })
           .toBe(true)
       }
     }
+  })
+
+  it.each([false, true])('keeps the %s state colors when the switch is disabled', async checked => {
+    const renderSwitch = (disabled: boolean) => (
+      <>
+        <span id="disabled-colors-label">Preference</span>
+        <ToggleSwitch checked={checked} disabled={disabled} aria-labelledby="disabled-colors-label" />
+      </>
+    )
+    const {rerender} = render(renderSwitch(false))
+    const button = page.getByRole('button', {name: 'Preference', exact: true})
+    const trackStyles = getComputedStyle(button.element())
+    const thumb = button.element().lastElementChild
+    if (!(thumb instanceof HTMLElement)) throw new Error('Missing switch thumb')
+    const enabled = {
+      backgroundImage: trackStyles.backgroundImage,
+      backgroundPosition: trackStyles.backgroundPosition,
+      thumbColor: getComputedStyle(thumb).backgroundColor,
+    }
+    rerender(renderSwitch(true))
+    await expect.element(button).toHaveAttribute('aria-disabled', 'true')
+    await expect.element(button).toHaveStyle({
+      opacity: '0.6',
+      backgroundImage: enabled.backgroundImage,
+      backgroundPosition: enabled.backgroundPosition,
+    })
+    expect(getComputedStyle(thumb).backgroundColor).toBe(enabled.thumbColor)
   })
 
   it('toggles a compact control with the keyboard and keeps custom state labels', async () => {

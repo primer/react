@@ -37,7 +37,7 @@ function ComparisonDialog({small = false, tall = false}: {small?: boolean; tall?
           returnFocusRef={triggerRef}
           footerButtons={[
             {content: tall ? 'Decline' : 'Cancel', onClick: () => setOpen(false)},
-            {content: tall ? 'Accept' : 'Confirm', variant: 'primary', onClick: () => setOpen(false)},
+            {content: tall ? 'Accept' : 'Confirm', buttonType: 'primary', onClick: () => setOpen(false)},
           ]}
         >
           {tall
