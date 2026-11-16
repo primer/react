@@ -11,9 +11,6 @@ import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
 import {isElement, isValidElementType} from 'react-is'
-import {useFeatureFlag} from '../FeatureFlags'
-
-const BUTTON_LOADING_DISABLED_STYLES_FEATURE_FLAG = 'primer_react_button_loading_disabled_styles'
 
 const renderModuleVisual = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,7 +64,6 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
 
   const innerRef = React.useRef<HTMLButtonElement>(null)
   const mergedRef = useMergedRefs(forwardedRef, innerRef)
-  const loadingDisabledStylesEnabled = useFeatureFlag(BUTTON_LOADING_DISABLED_STYLES_FEATURE_FLAG)
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
@@ -115,7 +111,6 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
         data-loading={Boolean(loading)}
-        data-loading-disabled-styles={loadingDisabledStylesEnabled ? true : undefined}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
         data-size={size}
         data-variant={variant}
