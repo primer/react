@@ -156,4 +156,44 @@ describe('useAnnouncements', () => {
 
     await expect.poll(() => announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {delayMs: 500})
   })
+
+  it('debounces list update announcements while the filter value changes rapidly', async () => {
+    const list = document.createElement('ul')
+    list.setAttribute('role', 'listbox')
+    const activeOption = document.createElement('li')
+    activeOption.setAttribute('role', 'option')
+    activeOption.setAttribute('data-is-active-descendant', 'true')
+    activeOption.textContent = 'Start date'
+    list.append(activeOption)
+
+    const items = [
+      {id: 'start-date', text: 'Start date', selected: false},
+      {id: 'end-date', text: 'End date', selected: false},
+    ]
+
+    const {rerender} = renderHook(
+      ({filterValue}) =>
+        useAnnouncements(
+          items,
+          {current: list},
+          {current: null},
+          true,
+          false,
+          undefined,
+          'active-descendant',
+          filterValue,
+        ),
+      {initialProps: {filterValue: ''}},
+    )
+
+    rerender({filterValue: 's'})
+    rerender({filterValue: 'st'})
+    rerender({filterValue: 'sta'})
+
+    await expect.poll(() => vi.mocked(announce).mock.calls.length).toBe(1)
+    expect(announce).toHaveBeenCalledWith('List updated, Focused item: Start date, not selected, 1 of 2', {
+      delayMs: 500,
+      from: undefined,
+    })
+  })
 })

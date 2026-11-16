@@ -1,8 +1,9 @@
 // Announcements for FilteredActionList (and SelectPanel) based
 // on https://github.com/github/multi-select-user-testing
 
+import {debounce} from '@github/mini-throttle'
 import {announce as liveRegionAnnounce} from '@primer/live-region-element'
-import {useCallback, useEffect, useRef} from 'react'
+import {useCallback, useEffect, useMemo, useRef} from 'react'
 import type {FilteredActionListProps} from './index'
 import type {ItemInput} from '../SelectPanel'
 
@@ -93,6 +94,21 @@ export const useAnnouncements = (
     [enabled],
   )
 
+  // Debounce list-update announcements so rapid keystrokes while filtering
+  // don't queue up a burst of duplicate screen reader messages.
+  // (Same pattern as AutocompleteMenu's debounceAnnouncement.)
+  const debouncedAnnounce = useMemo(
+    () =>
+      debounce((text: string, options?: Parameters<typeof liveRegionAnnounce>[1]) => {
+        announce(text, options)
+      }, 250),
+    [announce],
+  )
+
+  // Cancel any pending announcement on unmount so nothing is announced
+  // after the component is gone
+  useEffect(() => () => debouncedAnnounce.cancel(), [debouncedAnnounce])
+
   const onInputFocus = useCallback(() => {
     if (usingRovingTabindex) {
       const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
@@ -133,14 +149,14 @@ export const useAnnouncements = (
 
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !loading) {
-        announce(`${message?.title}. ${message?.description}`, {delayMs})
+        debouncedAnnounce(`${message?.title}. ${message?.description}`, {delayMs})
         return
       }
 
       if (usingRovingTabindex) {
         const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
 
-        announce(announcementText, {
+        debouncedAnnounce(announcementText, {
           delayMs,
           from: liveRegion ? liveRegion : undefined,
         })
@@ -158,7 +174,7 @@ export const useAnnouncements = (
             `${index + 1} of ${items.length}`,
           ].join(', ')
 
-          announce(announcementText, {
+          debouncedAnnounce(announcementText, {
             delayMs,
             from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
           })
@@ -167,6 +183,7 @@ export const useAnnouncements = (
     },
     [
       announce,
+      debouncedAnnounce,
       announcementState,
       items,
       listContainerRef,
