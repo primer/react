@@ -38,6 +38,13 @@ describe('PageHeader', () => {
     expect(title).toHaveAttribute('title', 'Project title')
   })
 
+  it('forwards a ref to the rendered title', () => {
+    const ref = React.createRef<HTMLHeadingElement>()
+    const {getByRole} = render(<PageHeader.Title ref={ref}>Project</PageHeader.Title>)
+
+    expect(ref.current).toBe(getByRole('heading', {name: 'Project'}))
+  })
+
   it('renders data-component attributes for PageHeader and exported subcomponents', () => {
     const {container} = render(
       <PageHeader aria-label="Title" role="banner">

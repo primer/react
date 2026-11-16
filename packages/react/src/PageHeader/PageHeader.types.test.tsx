@@ -1,4 +1,9 @@
+import type {Ref} from 'react'
 import {PageHeader} from '../PageHeader'
+
+export function titleAcceptsHeadingRef(ref: Ref<HTMLHeadingElement>) {
+  return <PageHeader.Title ref={ref}>Project</PageHeader.Title>
+}
 
 export function titleAcceptsHeadingProps() {
   return (

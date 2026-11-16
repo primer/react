@@ -14,6 +14,7 @@ import {warning} from '../utils/warning'
 import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
 import {useFeatureFlag} from '../FeatureFlags'
 import type {AriaRole, FCWithSlotMarker} from '../utils/types'
+import {mergeProps} from '../utils/mergeProps'
 import {clsx} from 'clsx'
 
 import classes from './PageHeader.module.css'
@@ -350,30 +351,32 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
 }
 
 // TitleArea owns responsive sizing, so callers cannot override it with Heading's static variant.
-export type TitleProps = Omit<HeadingProps, 'as' | 'variant' | 'hidden' | 'children' | 'className'> & {
+export type TitleProps = Omit<HeadingProps, 'as' | 'variant' | 'hidden' | 'children' | 'className' | 'ref'> & {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
-  children,
-  className,
-  hidden = false,
-  as = 'h2',
-  ...rest
-}) => {
-  return (
-    <Heading
-      {...rest}
-      className={clsx(classes.Title, className)}
-      data-component="PH_Title"
-      data-hidden={hidden}
-      as={as}
-      {...getHiddenDataAttributes(hidden)}
-    >
-      {children}
-    </Heading>
-  )
-}
+const Title = React.forwardRef<HTMLHeadingElement, React.PropsWithChildren<TitleProps>>(
+  ({children, className, hidden = false, as = 'h2', ...rest}, forwardedRef) => {
+    return (
+      <Heading
+        ref={forwardedRef}
+        {...mergeProps(
+          {
+            className: clsx(classes.Title, className),
+            as,
+          },
+          rest,
+        )}
+        data-component="PH_Title"
+        data-hidden={hidden}
+        {...getHiddenDataAttributes(hidden)}
+      >
+        {children}
+      </Heading>
+    )
+  },
+)
+Title.displayName = 'Title'
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
