@@ -23,6 +23,27 @@ describe('PageHeader', () => {
   implementsClassName(PageHeader.Description, classes.Description)
   implementsClassName(PageHeader.Navigation, classes.Navigation)
 
+  it('forwards heading props to the rendered title', () => {
+    const {getByRole} = render(
+      <PageHeader.Title id="project-title" aria-describedby="description" tabIndex={-1} title="Project title">
+        Project
+      </PageHeader.Title>,
+    )
+
+    const title = getByRole('heading', {name: 'Project'})
+    expect(title).toHaveAttribute('id', 'project-title')
+    expect(title).toHaveAttribute('aria-describedby', 'description')
+    expect(title).toHaveAttribute('tabindex', '-1')
+    expect(title).toHaveAttribute('title', 'Project title')
+  })
+
+  it('forwards a ref to the rendered title', () => {
+    const ref = React.createRef<HTMLHeadingElement>()
+    const {getByRole} = render(<PageHeader.Title ref={ref}>Project</PageHeader.Title>)
+
+    expect(ref.current).toBe(getByRole('heading', {name: 'Project'}))
+  })
+
   it('renders data-component attributes for PageHeader and exported subcomponents', () => {
     const {container} = render(
       <PageHeader aria-label="Title" role="banner">
