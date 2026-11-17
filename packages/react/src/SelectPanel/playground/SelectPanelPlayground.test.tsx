@@ -328,7 +328,7 @@ describe('SelectPanel playground demo', () => {
     ] as const) {
       expect(getComputedStyle(input)[property]).toBe(getComputedStyle(nativeInput)[property])
     }
-    const item = screen.getByRole('option', {name: /copilot-tauri-app/})
+    const item = screen.getByRole('option', {name: /copilot-app/})
     const nativeItem = screen.getByRole('option', {name: 'Native item'})
     for (const property of ['backgroundColor', 'color', 'borderRadius', 'fontSize'] as const) {
       expect(getComputedStyle(item)[property]).toBe(getComputedStyle(nativeItem)[property])
@@ -393,12 +393,12 @@ describe('SelectPanel playground demo', () => {
     const option = screen.getByRole('option', {name: /reforge/})
     await user.click(option)
     expect(option).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByText('copilot-tauri-app', {selector: 'p'})).toBeInTheDocument()
+    expect(screen.getByText('copilot-app', {selector: 'p'})).toBeInTheDocument()
     await user.click(screen.getByRole('button', {name: 'Cancel'}))
     expect(option).toHaveAttribute('aria-selected', 'false')
     await user.click(option)
     await user.click(screen.getByRole('button', {name: 'Save'}))
-    expect(screen.getByText('copilot-tauri-app, reforge', {selector: 'p'})).toBeInTheDocument()
+    expect(screen.getByText('copilot-app, reforge', {selector: 'p'})).toBeInTheDocument()
   })
 
   it('omits the input for the quick-pick composition and resets only on request', async () => {
@@ -408,7 +408,7 @@ describe('SelectPanel playground demo', () => {
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument()
     await user.click(screen.getByRole('option', {name: /reforge/}))
     rerender(<SelectPanelDemo config={config} resetKey={1} />)
-    expect(screen.getByRole('option', {name: /copilot-tauri-app/})).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('option', {name: /copilot-app/})).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByRole('option', {name: /reforge/})).toHaveAttribute('aria-selected', 'false')
   })
 })

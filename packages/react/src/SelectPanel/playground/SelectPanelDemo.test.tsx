@@ -64,12 +64,12 @@ describe('SelectPanel demo footer and actions', () => {
     async gesture => {
       const user = userEvent.setup()
       render(<SelectPanelDemo config={{...defaultConfig, actions: true, multiple: true}} resetKey={0} />)
-      await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
-      const option = screen.getByRole('option', {name: /copilot-tauri-app/})
+      await user.click(screen.getByRole('button', {name: 'copilot-app'}))
+      const option = screen.getByRole('option', {name: /copilot-app/})
       await user.click(option)
       expect(option).toHaveAttribute('aria-selected', 'false')
       await user.click(getSecondaryAction(option))
-      const details = screen.getByRole('dialog', {name: 'copilot-tauri-app'})
+      const details = screen.getByRole('dialog', {name: 'copilot-app'})
       await user.click(within(details).getByText('Inspecting this repository does not select it.'))
       expect(screen.getByRole('dialog', {name: 'Choose repositories'})).toBeInTheDocument()
       if (gesture === 'Escape') await user.keyboard('{Escape}')
@@ -92,14 +92,14 @@ describe('SelectPanel demo footer and actions', () => {
     expect(getComputedStyle(rows[0]).backgroundColor).not.toBe(getComputedStyle(rows[1]).backgroundColor)
   })
 
-  it.each([0, 1, 2, 3, 4, 5])('only gives copilot-tauri-app a trailing action at appearance %s', async appearance => {
+  it.each([0, 1, 2, 3, 4, 5])('only gives copilot-app a trailing action at appearance %s', async appearance => {
     const user = userEvent.setup()
     render(
       <SelectPanelDemo config={{...defaultConfig, appearance, actions: true, presentation: 'inline'}} resetKey={0} />,
     )
     const list = screen.getByRole('listbox')
     expect(list.querySelectorAll(secondaryActionSelector)).toHaveLength(1)
-    expect(getSecondaryAction(screen.getByRole('option', {name: /copilot-tauri-app/}))).toBeInTheDocument()
+    expect(getSecondaryAction(screen.getByRole('option', {name: /copilot-app/}))).toBeInTheDocument()
     const selection = screen.getByRole('option', {name: /reforge/})
     expect(selection.querySelector(secondaryActionSelector)).not.toBeInTheDocument()
     await user.click(selection)
@@ -117,7 +117,7 @@ describe('SelectPanel demo footer and actions', () => {
     expect(screen.getByRole('option', {name: /copilot-agent-runtime/})).toBeInTheDocument()
     await user.clear(input)
     expect(list.querySelectorAll(secondaryActionSelector)).toHaveLength(1)
-    expect(getSecondaryAction(screen.getByRole('option', {name: /copilot-tauri-app/}))).toBeInTheDocument()
+    expect(getSecondaryAction(screen.getByRole('option', {name: /copilot-app/}))).toBeInTheDocument()
   })
 
   it.each([0, 1, 2, 3, 4, 5])(
@@ -138,7 +138,7 @@ describe('SelectPanel demo footer and actions', () => {
           resetKey={0}
         />,
       )
-      const first = screen.getByRole('option', {name: /copilot-tauri-app/})
+      const first = screen.getByRole('option', {name: /copilot-app/})
       const second = screen.getByRole('option', {name: /reforge/})
       const last = screen.getByRole('option', {name: /copilot-agent-runtime/})
       expect(screen.queryByRole('grid')).not.toBeInTheDocument()
@@ -178,11 +178,11 @@ describe('SelectPanel demo footer and actions', () => {
           resetKey={0}
         />,
       )
-      const first = screen.getByRole('option', {name: /copilot-tauri-app/})
+      const first = screen.getByRole('option', {name: /copilot-app/})
       await user.click(first)
       expect(first).toHaveAttribute('aria-selected', 'false')
       await user.click(getSecondaryAction(first))
-      expect(screen.getByRole('dialog', {name: 'copilot-tauri-app'})).toBeInTheDocument()
+      expect(screen.getByRole('dialog', {name: 'copilot-app'})).toBeInTheDocument()
       await user.click(screen.getByRole('button', {name: 'Back to repositories'}))
       expect(screen.getByRole('combobox', {name: 'Search repositories'})).toHaveFocus()
       expect(first).toHaveAttribute('aria-selected', 'false')
@@ -265,7 +265,7 @@ describe('SelectPanel demo footer and actions', () => {
     )
     const option = screen.getByRole('option', {name: /reforge/})
     const indicator = option.querySelector('[data-component="ActionList.Selection"] > div')!
-    const selected = screen.getByRole('option', {name: /copilot-tauri-app/})
+    const selected = screen.getByRole('option', {name: /copilot-app/})
     const selectedIndicator = selected.querySelector('[data-component="ActionList.Selection"] > div')!
     expect(option).toHaveAttribute('aria-selected', 'false')
     expect(getComputedStyle(indicator).backgroundColor).toBe('rgb(255, 255, 255)')
@@ -290,7 +290,7 @@ describe('SelectPanel demo footer and actions', () => {
       <SelectPanelDemo config={{...defaultConfig, appearance, multiple: true, presentation: 'inline'}} resetKey={0} />,
     )
     const indicator = screen
-      .getByRole('option', {name: /copilot-tauri-app/})
+      .getByRole('option', {name: /copilot-app/})
       .querySelector('[data-component="ActionList.Selection"] > div')!
     expect(getComputedStyle(indicator).backgroundColor).toBe(background)
     expect(getComputedStyle(indicator, '::before').backgroundColor).toBe(foreground)
@@ -299,16 +299,16 @@ describe('SelectPanel demo footer and actions', () => {
   it.each([0, 2, 4])('keeps list and action-row typography and density aligned at appearance %s', appearance => {
     const config = {...defaultConfig, appearance, presentation: 'inline' as const}
     const {rerender} = render(<SelectPanelDemo config={config} resetKey={0} />)
-    const option = screen.getByRole('option', {name: /copilot-tauri-app/})
-    const label = within(option).getByText('copilot-tauri-app')
+    const option = screen.getByRole('option', {name: /copilot-app/})
+    const label = within(option).getByText('copilot-app')
     const fontSize = getComputedStyle(label).fontSize
     const height = option.getBoundingClientRect().height
     expect(fontSize).toBe(appearance === 2 ? '13px' : '14px')
     expect(getComputedStyle(screen.getByRole('combobox')).fontSize).toBe(fontSize)
 
     rerender(<SelectPanelDemo config={{...config, actions: true}} resetKey={0} />)
-    const selection = screen.getByRole('option', {name: /copilot-tauri-app/})
-    expect(getComputedStyle(within(selection).getByText('copilot-tauri-app')).fontSize).toBe(fontSize)
+    const selection = screen.getByRole('option', {name: /copilot-app/})
+    expect(getComputedStyle(within(selection).getByText('copilot-app')).fontSize).toBe(fontSize)
     expect(selection.getBoundingClientRect().height).toBeCloseTo(height)
     expect(height).toBe(appearance === 2 ? 28 : 32)
     expect(getComputedStyle(screen.getByRole('combobox')).fontSize).toBe(fontSize)
@@ -321,8 +321,8 @@ describe('SelectPanel demo footer and actions', () => {
         resetKey={0}
       />,
     )
-    const option = screen.getByRole('option', {name: /copilot-tauri-app/})
-    expect(getComputedStyle(within(option).getByText('copilot-tauri-app')).fontSize).toBe('14px')
+    const option = screen.getByRole('option', {name: /copilot-app/})
+    expect(getComputedStyle(within(option).getByText('copilot-app')).fontSize).toBe('14px')
     expect(getComputedStyle(screen.getByText('A desktop home for your coding companion.')).fontSize).toBe('12px')
     expect(getComputedStyle(screen.getByText('Choose the code you want to work with.')).fontSize).toBe('12px')
   })
@@ -349,7 +349,7 @@ describe('SelectPanel demo footer and actions', () => {
     expect(title.getBoundingClientRect().top).toBeGreaterThanOrEqual(search.getBoundingClientRect().bottom)
     expect(getComputedStyle(panel).boxShadow).toContain('6px 12px -3px')
     expect(getComputedStyle(panel).boxShadow).toContain('6px 18px 0px')
-    const action = getSecondaryAction(screen.getByRole('option', {name: /copilot-tauri-app/}))
+    const action = getSecondaryAction(screen.getByRole('option', {name: /copilot-app/}))
     expect(action.getBoundingClientRect().height).toBe(24)
     expect(action.getBoundingClientRect().width).toBe(24)
 
@@ -376,7 +376,7 @@ describe('SelectPanel demo footer and actions', () => {
       await page.viewport(width, 800)
       const user = userEvent.setup()
       render(<SelectPanelDemo config={{...defaultConfig, appearance: 2, presentation}} resetKey={0} />)
-      if (presentation !== 'inline') await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+      if (presentation !== 'inline') await user.click(screen.getByRole('button', {name: 'copilot-app'}))
       const input = screen.getByRole('combobox', {name: 'Search repositories'})
       await user.click(input)
       expect(input).toHaveFocus()
@@ -403,7 +403,7 @@ describe('SelectPanel demo footer and actions', () => {
       const user = userEvent.setup()
       const config = {...defaultConfig, appearance}
       const {rerender} = render(<SelectPanelDemo config={config} resetKey={0} />)
-      await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+      await user.click(screen.getByRole('button', {name: 'copilot-app'}))
       expect(getComputedStyle(screen.getByRole('dialog')).width).toBe('320px')
       rerender(<SelectPanelDemo config={{...config, actions: true}} resetKey={0} />)
       expect(getComputedStyle(screen.getByRole('dialog')).width).toBe('320px')
@@ -415,9 +415,9 @@ describe('SelectPanel demo footer and actions', () => {
     async appearance => {
       const user = userEvent.setup()
       render(<SelectPanelDemo config={{...defaultConfig, appearance, actions: true}} resetKey={0} />)
-      await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+      await user.click(screen.getByRole('button', {name: 'copilot-app'}))
       await user.keyboard('{ArrowDown}{ArrowUp}')
-      const row = screen.getByRole('option', {name: /copilot-tauri-app/})
+      const row = screen.getByRole('option', {name: /copilot-app/})
       const action = getSecondaryAction(row)
       const input = screen.getByRole('combobox', {name: 'Search repositories'})
       expect(input).toHaveFocus()
@@ -429,7 +429,7 @@ describe('SelectPanel demo footer and actions', () => {
       expect(action.getBoundingClientRect().left).toBeGreaterThanOrEqual(row.getBoundingClientRect().left)
 
       await user.keyboard('{Control>}{Shift>}u{/Shift}{/Control}')
-      expect(screen.getByRole('dialog', {name: 'copilot-tauri-app'})).toBeInTheDocument()
+      expect(screen.getByRole('dialog', {name: 'copilot-app'})).toBeInTheDocument()
       expect(action).not.toHaveFocus()
 
       await user.keyboard('{Escape}')
@@ -462,8 +462,8 @@ describe('SelectPanel demo footer and actions', () => {
     async ({appearance, modifier}) => {
       const user = userEvent.setup()
       render(<SelectPanelDemo config={{...defaultConfig, appearance, actions: true, multiple: true}} resetKey={0} />)
-      await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
-      const selection = screen.getByRole('option', {name: /copilot-tauri-app/})
+      await user.click(screen.getByRole('button', {name: 'copilot-app'}))
+      const selection = screen.getByRole('option', {name: /copilot-app/})
       const action = getSecondaryAction(selection)
       const input = screen.getByRole('combobox', {name: 'Search repositories'})
       expect(input).toHaveFocus()
@@ -474,21 +474,21 @@ describe('SelectPanel demo footer and actions', () => {
       expect(action.tagName).toBe('SPAN')
       expect(action).not.toHaveAttribute('role')
       expect(action).not.toHaveAttribute('aria-label')
-      expect(action).toHaveAttribute('title', 'Details for copilot-tauri-app')
+      expect(action).toHaveAttribute('title', 'Details for copilot-app')
       expect(action.querySelector('svg')).not.toBeNull()
       expect(action.textContent).toBe('')
       await user.keyboard('{ArrowRight}')
       expect(input).toHaveFocus()
 
       await user.keyboard(`{${modifier}>}{Shift>}u{/Shift}{/${modifier}}`)
-      const details = screen.getByRole('dialog', {name: 'copilot-tauri-app'})
+      const details = screen.getByRole('dialog', {name: 'copilot-app'})
       expect(details).not.toHaveAttribute('data-select-panel-part')
       expect(within(details).getByRole('button', {name: 'Close'})).toBeInTheDocument()
       expect(getComputedStyle(details).getPropertyValue('--playground-font-family')).toBe('')
       await user.click(screen.getByRole('button', {name: 'Back to repositories'}))
       expect(input).toHaveFocus()
       expect(screen.getByRole('dialog', {name: 'Choose repositories'})).toBeInTheDocument()
-      expect(screen.getByText('Saved selection').parentElement).toHaveTextContent('copilot-tauri-app')
+      expect(screen.getByText('Saved selection').parentElement).toHaveTextContent('copilot-app')
       await user.keyboard('{Escape}')
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     },
