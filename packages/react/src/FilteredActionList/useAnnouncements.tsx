@@ -3,7 +3,7 @@
 
 import {debounce} from '@github/mini-throttle'
 import {announce as liveRegionAnnounce} from '@primer/live-region-element'
-import {useCallback, useEffect, useMemo, useRef} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './index'
 import type {ItemInput} from '../SelectPanel'
 
@@ -97,17 +97,41 @@ export const useAnnouncements = (
   // Debounce list-update announcements so rapid keystrokes while filtering
   // don't queue up a burst of duplicate screen reader messages.
   // (Same pattern as AutocompleteMenu's debounceAnnouncement.)
-  const debouncedAnnounce = useMemo(
-    () =>
-      debounce((text: string, options?: Parameters<typeof liveRegionAnnounce>[1]) => {
+  //
+  // The debouncer lives in a ref and is (re)created lazily: `cancel()` in
+  // `@github/mini-throttle` permanently disables the instance it is called
+  // on, so a cancelled instance must be discarded and never reused. A
+  // memoized instance shared across effect runs would be disabled by
+  // StrictMode's cleanup replay on mount (and by any later cleanup), which
+  // silently drops every subsequent list-update announcement.
+  type DebouncedAnnounce = {
+    (text: string, options?: Parameters<typeof liveRegionAnnounce>[1]): void
+    cancel(): void
+  }
+  const debouncedAnnounceRef = useRef<DebouncedAnnounce | null>(null)
+
+  // Drop the current debouncer, cancelling any pending announcement.
+  const cancelPendingAnnouncement = useCallback(() => {
+    debouncedAnnounceRef.current?.cancel()
+    debouncedAnnounceRef.current = null
+  }, [])
+
+  const getDebouncedAnnounce = useCallback((): DebouncedAnnounce => {
+    let debounced = debouncedAnnounceRef.current
+    if (!debounced) {
+      debounced = debounce((text: string, options?: Parameters<typeof liveRegionAnnounce>[1]) => {
         announce(text, options)
-      }, 250),
-    [announce],
-  )
+      }, 250)
+      debouncedAnnounceRef.current = debounced
+    }
+    return debounced
+  }, [announce])
 
   // Cancel any pending announcement on unmount so nothing is announced
-  // after the component is gone
-  useEffect(() => () => debouncedAnnounce.cancel(), [debouncedAnnounce])
+  // after the component is gone. This effect's cleanup only runs on
+  // unmount (and on StrictMode's mount replay, where nothing is pending
+  // yet), so it never cancels announcements for a live component.
+  useEffect(() => cancelPendingAnnouncement, [cancelPendingAnnouncement])
 
   const onInputFocus = useCallback(() => {
     if (usingRovingTabindex) {
@@ -147,6 +171,15 @@ export const useAnnouncements = (
 
       liveRegion?.clear() // clear previous announcements
 
+      // A state change supersedes any pending announcement from the
+      // previous state, so cancel it even when this transition schedules
+      // no replacement — e.g. an empty-result message queued just before
+      // a new query starts loading must not be announced afterwards.
+      // The cancelled instance is discarded (see above) and the next
+      // schedule gets a fresh one.
+      cancelPendingAnnouncement()
+      const debouncedAnnounce = getDebouncedAnnounce()
+
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !loading) {
         debouncedAnnounce(`${message?.title}. ${message?.description}`, {delayMs})
@@ -183,8 +216,9 @@ export const useAnnouncements = (
     },
     [
       announce,
-      debouncedAnnounce,
       announcementState,
+      cancelPendingAnnouncement,
+      getDebouncedAnnounce,
       items,
       listContainerRef,
       liveRegion,

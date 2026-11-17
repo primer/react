@@ -1,6 +1,7 @@
 import {act, renderHook} from '@testing-library/react'
 import {announce} from '@primer/live-region-element'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {StrictMode} from 'react'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {useAnnouncements} from './useAnnouncements'
 
 vi.mock('@primer/live-region-element', () => ({
@@ -10,6 +11,12 @@ vi.mock('@primer/live-region-element', () => ({
 describe('useAnnouncements', () => {
   beforeEach(() => {
     vi.mocked(announce).mockClear()
+  })
+
+  afterEach(() => {
+    // Tests using fake timers restore real timers themselves, but make sure
+    // a failure can never leak fake timers into the next test.
+    vi.useRealTimers()
   })
 
   it('includes the input label in the initial focus announcement', async () => {
@@ -157,43 +164,142 @@ describe('useAnnouncements', () => {
     await expect.poll(() => announce).toHaveBeenCalledWith("Nothing found. There's nothing here.", {delayMs: 500})
   })
 
-  it('debounces list update announcements while the filter value changes rapidly', async () => {
-    const list = document.createElement('ul')
-    list.setAttribute('role', 'listbox')
-    const activeOption = document.createElement('li')
-    activeOption.setAttribute('role', 'option')
-    activeOption.setAttribute('data-is-active-descendant', 'true')
-    activeOption.textContent = 'Start date'
-    list.append(activeOption)
-
-    const items = [
-      {id: 'start-date', text: 'Start date', selected: false},
-      {id: 'end-date', text: 'End date', selected: false},
-    ]
-
+  it('debounces list update announcements while the filter value changes rapidly', () => {
     const {rerender} = renderHook(
-      ({filterValue}) =>
+      ({filterValue, items}) =>
         useAnnouncements(
           items,
-          {current: list},
+          {current: null},
           {current: null},
           true,
           false,
           undefined,
+          'roving-tabindex',
+          filterValue,
+        ),
+      {
+        initialProps: {
+          filterValue: '',
+          items: [{id: 'start-date', text: 'Start date', selected: false}],
+        },
+      },
+    )
+
+    vi.useFakeTimers()
+
+    // First update schedules an announcement for one item; it must not
+    // fire before the 250ms debounce window elapses.
+    rerender({
+      filterValue: 's',
+      items: [{id: 'start-date', text: 'Start date', selected: false}],
+    })
+    act(() => {
+      vi.advanceTimersByTime(100)
+    })
+    expect(announce).not.toHaveBeenCalled()
+
+    // A second update inside the window replaces the pending
+    // announcement; the first text must never be announced.
+    rerender({
+      filterValue: 'st',
+      items: [
+        {id: 'start-date', text: 'Start date', selected: false},
+        {id: 'end-date', text: 'End date', selected: false},
+      ],
+    })
+    act(() => {
+      vi.advanceTimersByTime(100)
+    })
+    expect(announce).not.toHaveBeenCalled()
+
+    // A third update replaces it again; advancing past the deadline from
+    // the last update fires exactly once, with the latest text.
+    rerender({
+      filterValue: 'sta',
+      items: [
+        {id: 'start-date', text: 'Start date', selected: false},
+        {id: 'end-date', text: 'End date', selected: false},
+        {id: 'due-date', text: 'Due date', selected: false},
+      ],
+    })
+    act(() => {
+      vi.advanceTimersByTime(200)
+    })
+    expect(announce).not.toHaveBeenCalled()
+    act(() => {
+      vi.advanceTimersByTime(100)
+    })
+    expect(announce).toHaveBeenCalledTimes(1)
+    expect(announce).toHaveBeenCalledWith('3 items available, 0 selected.', {delayMs: 500, from: undefined})
+
+    vi.useRealTimers()
+  })
+
+  it('still announces list updates after StrictMode replays effects on mount', () => {
+    vi.useFakeTimers()
+    const {rerender} = renderHook(
+      ({filterValue}) =>
+        useAnnouncements(
+          [{id: 'start-date', text: 'Start date', selected: false}],
+          {current: null},
+          {current: null},
+          true,
+          false,
+          undefined,
+          'roving-tabindex',
+          filterValue,
+        ),
+      {
+        initialProps: {filterValue: ''},
+        wrapper: ({children}: {children: React.ReactNode}) => <StrictMode>{children}</StrictMode>,
+      },
+    )
+
+    // With the previous memoized debouncer, StrictMode's mount cleanup
+    // permanently disabled it, so this update was never announced.
+    rerender({filterValue: 's'})
+    act(() => {
+      vi.advanceTimersByTime(300)
+    })
+    expect(announce).toHaveBeenCalledTimes(1)
+    expect(announce).toHaveBeenCalledWith('1 item available, 0 selected.', {delayMs: 500, from: undefined})
+
+    vi.useRealTimers()
+  })
+
+  it('cancels a queued empty-result announcement when a new query starts loading', () => {
+    vi.useFakeTimers()
+    const message = {title: 'Nothing found', description: "There's nothing here."}
+    const {rerender} = renderHook(
+      ({loading, filterValue}) =>
+        useAnnouncements(
+          [],
+          {current: null},
+          {current: null},
+          true,
+          loading,
+          message,
           'active-descendant',
           filterValue,
         ),
-      {initialProps: {filterValue: ''}},
+      {initialProps: {loading: false, filterValue: ''}},
     )
 
-    rerender({filterValue: 's'})
-    rerender({filterValue: 'st'})
-    rerender({filterValue: 'sta'})
-
-    await expect.poll(() => vi.mocked(announce).mock.calls.length).toBe(1)
-    expect(announce).toHaveBeenCalledWith('List updated, Focused item: Start date, not selected, 1 of 2', {
-      delayMs: 500,
-      from: undefined,
+    // Queue the empty-result announcement.
+    rerender({loading: false, filterValue: 'zero'})
+    act(() => {
+      vi.advanceTimersByTime(100)
     })
+    expect(announce).not.toHaveBeenCalled()
+
+    // A new query starts loading before the window elapses; the stale
+    // "Nothing found" message must not be announced.
+    rerender({loading: true, filterValue: 'zero'})
+    act(() => {
+      vi.advanceTimersByTime(300)
+    })
+    expect(announce).not.toHaveBeenCalled()
+
+    vi.useRealTimers()
   })
 })
