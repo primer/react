@@ -16,7 +16,6 @@ export interface PlaygroundConfig {
 export interface PlaygroundPreset {
   id: string
   name: string
-  description: string
   config: PlaygroundConfig
 }
 
@@ -37,31 +36,26 @@ export const presets: readonly PlaygroundPreset[] = [
   {
     id: 'repositories',
     name: 'Repositories',
-    description: 'A familiar picker. Search, select, and get back to work.',
     config: initialConfig,
   },
   {
     id: 'quick-pick',
     name: 'Quick pick',
-    description: 'No search input. Just a short list and a decision.',
     config: {...initialConfig, search: false},
   },
   {
     id: 'review',
     name: 'Review & save',
-    description: 'Try a draft selection. Nothing is committed until you save.',
     config: {...initialConfig, multiple: true, grouped: true, commitMode: 'submit'},
   },
   {
     id: 'actions',
     name: 'With actions',
-    description: 'Select a repository, or inspect it without changing the selection.',
     config: {...initialConfig, multiple: true, actions: true},
   },
   {
     id: 'inline',
     name: 'Inline',
-    description: 'The same collection, embedded in a page. No overlay required.',
     config: {...initialConfig, presentation: 'inline'},
   },
 ]

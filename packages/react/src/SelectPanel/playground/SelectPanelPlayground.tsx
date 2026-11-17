@@ -54,7 +54,6 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
   const [copyStatus, setCopyStatus] = useState('')
   const appearance = getAppearance(config.appearance)
   const source = sourceTab === 'css' && skinSource !== undefined ? skinSource : getExample(config)
-  const preset = presets.find(candidate => candidate.id === presetId)
 
   function customize(changes: Partial<PlaygroundConfig>) {
     setConfig(current => ({...current, ...changes}))
@@ -168,14 +167,7 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
                         </Select.Option>
                       ))}
                     </Select>
-                    <FormControl.Caption>
-                      Same Primer components, {appearanceStops.length} styles. Native Primer follows the page theme; the
-                      other styles keep their own palettes. Base UI-inspired is not powered by Base UI.
-                    </FormControl.Caption>
                   </FormControl>
-                  <Text as="p" className={classes.Summary}>
-                    {preset?.description ?? 'Your custom composition. Choose a recipe above to start again.'}
-                  </Text>
                   <CheckboxGroup>
                     <CheckboxGroup.Label>Structure</CheckboxGroup.Label>
                     {(
@@ -264,9 +256,6 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
                       </SegmentedControl>
                     </div>
                   </section>
-                  <Text as="p" size="small" className={classes.Muted}>
-                    Structural changes reset the demo. Appearance and workspace changes preserve your selection.
-                  </Text>
                 </div>
               ) : null}
 
@@ -364,7 +353,6 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
               </div>
               <Text as="p" size="small" className={classes.PreviewHint}>
                 {config.anatomy ? 'Anatomy is on. Hover or focus a piece to see its API name and composition. ' : ''}
-                Open the picker to try it. Down enters the list, arrows explore, Enter selects, and Escape dismisses.
                 {config.actions
                   ? ' Cmd/Ctrl+Shift+U opens repository details directly; closing details returns to the item.'
                   : ' List navigation wraps.'}

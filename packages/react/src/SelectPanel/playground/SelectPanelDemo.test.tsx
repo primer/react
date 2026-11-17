@@ -13,6 +13,18 @@ function getSecondaryAction(option: HTMLElement) {
 }
 
 describe('SelectPanel demo footer and actions', () => {
+  it.each([false, true])('shows trailing language text only without actions, actions=%s', async actions => {
+    render(<SelectPanelDemo config={{...defaultConfig, actions, presentation: 'inline'}} resetKey={0} />)
+    const list = page.getByRole('listbox', {name: 'Repositories'})
+    if (actions) {
+      await expect.element(list.getByText('TypeScript', {exact: true})).not.toBeInTheDocument()
+      await expect.element(list.getByText('Rust', {exact: true})).not.toBeInTheDocument()
+    } else {
+      await expect.poll(() => list.getByText('TypeScript', {exact: true}).all().length).toBe(2)
+      await expect.element(list.getByText('Rust', {exact: true})).toBeVisible()
+    }
+  })
+
   it.each([0, 1, 2, 3, 4, 5].flatMap(appearance => [false, true].map(actions => ({appearance, actions}))))(
     'uses checkmarks without persistent multi-selection fills at $appearance, actions=$actions',
     async config => {
@@ -109,7 +121,7 @@ describe('SelectPanel demo footer and actions', () => {
   })
 
   it.each([0, 1, 2, 3, 4, 5])(
-    'preserves grouped descriptions, metadata and active-result navigation with actions at appearance %s',
+    'preserves grouped descriptions and active-result navigation without trailing metadata with actions at appearance %s',
     async appearance => {
       const user = userEvent.setup()
       render(
@@ -133,7 +145,7 @@ describe('SelectPanel demo footer and actions', () => {
       expect(screen.getByRole('group', {name: 'Applications'})).toContainElement(first)
       expect(screen.getByRole('group', {name: 'Infrastructure'})).toContainElement(last)
       expect(within(first).getByText('A desktop home for your coding companion.')).toBeInTheDocument()
-      expect(within(first).getByText('TypeScript')).toBeInTheDocument()
+      expect(within(first).queryByText('TypeScript')).not.toBeInTheDocument()
       expect(getSecondaryAction(first)).toHaveAttribute('aria-hidden', 'true')
 
       const input = screen.getByRole('combobox', {name: 'Search repositories'})

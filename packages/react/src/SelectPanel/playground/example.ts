@@ -132,9 +132,6 @@ function RepositoryOption({repo}: {repo: (typeof repositories)[number]}) {
               '<ActionList.Description variant="block">{repo.description}</ActionList.Description>'
             : ''
         }
-        <ActionList.TrailingVisual>
-          <span className={styles.Metadata}>{repo.language}</span>
-        </ActionList.TrailingVisual>
       </SelectPanel.Item>
       {detailsOpen ? (
         <RepositoryDetails repo={repo} itemRef={itemRef} onClose={() => setDetailsOpen(false)} />

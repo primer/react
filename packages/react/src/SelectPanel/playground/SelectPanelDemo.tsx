@@ -62,10 +62,12 @@ function RepositoryOption({
             <span {...mark('Item.description')}>{repository.description}</span>
           </ActionList.Description>
         ) : null}
-        {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item forwards slots to ActionList.Item. */}
-        <ActionList.TrailingVisual {...mark('Item.trailingVisual')}>
-          <span className={classes.Metadata}>{repository.language}</span>
-        </ActionList.TrailingVisual>
+        {!config.actions ? (
+          // eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item forwards slots to ActionList.Item.
+          <ActionList.TrailingVisual {...mark('Item.trailingVisual')}>
+            <span className={classes.Metadata}>{repository.language}</span>
+          </ActionList.TrailingVisual>
+        ) : null}
       </SelectPanel.Item>
       {detailsOpen ? (
         <RepositoryDetails

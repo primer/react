@@ -68,17 +68,17 @@ describe('playground examples', () => {
     expect(source.match(/<SelectPanel.Trigger/g)).toHaveLength(1)
   })
 
-  it('keeps grouping, descriptions and metadata when actions are enabled', () => {
-    const source = getExample({...defaultConfig, actions: true, grouped: true, descriptions: true})
-    // eslint-disable-next-line github/unescaped-html-literal -- Matches generated TSX text.
-    expect(source).toContain('<SelectPanel.Group')
-    // eslint-disable-next-line github/unescaped-html-literal -- Matches generated TSX text.
-    expect(source).toContain('<RepositoryOption key={repo.id} repo={repo} />')
-    // eslint-disable-next-line github/unescaped-html-literal -- Matches generated TSX text.
-    expect(source).toContain('<ActionList.Description variant="block">{repo.description}</ActionList.Description>')
-    // eslint-disable-next-line github/unescaped-html-literal -- Matches generated TSX text.
-    expect(source).toContain('<span className={styles.Metadata}>{repo.language}</span>')
-  })
+  it.each([false, true])(
+    'keeps grouping and descriptions, with trailing metadata only without actions, actions=%s',
+    actions => {
+      const source = getExample({...defaultConfig, actions, grouped: true, descriptions: true})
+      // eslint-disable-next-line github/unescaped-html-literal -- Matches generated TSX text.
+      expect(source).toContain('<SelectPanel.Group')
+      // eslint-disable-next-line github/unescaped-html-literal -- Matches generated TSX text.
+      expect(source).toContain('<ActionList.Description variant="block">{repo.description}</ActionList.Description>')
+      expect(source.includes('ActionList.TrailingVisual')).toBe(!actions)
+    },
+  )
 
   it.each([0, 1, 2, 3, 4, 5])('exports a medium picker with and without actions at appearance %s', appearance => {
     for (const actions of [false, true]) {
