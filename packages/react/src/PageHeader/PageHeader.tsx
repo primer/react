@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import Heading from '../Heading'
+import type {HeadingProps} from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import type {LinkProps as BaseLinkProps} from '../Link'
 import Link from '../Link'
@@ -12,6 +13,7 @@ import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBrea
 import {warning} from '../utils/warning'
 import {useMergedRefs} from '../hooks'
 import type {AriaRole, FCWithSlotMarker} from '../utils/types'
+import {mergeProps} from '../utils/mergeProps'
 import {clsx} from 'clsx'
 
 import classes from './PageHeader.module.css'
@@ -335,23 +337,33 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
   )
 }
 
-export type TitleProps = {
+// TitleArea owns responsive sizing, so callers cannot override it with Heading's static variant.
+export type TitleProps = Omit<HeadingProps, 'as' | 'variant' | 'hidden' | 'children' | 'className' | 'ref'> & {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2'}) => {
-  return (
-    <Heading
-      className={clsx(classes.Title, className)}
-      data-component="PH_Title"
-      data-hidden={hidden}
-      as={as}
-      {...getHiddenDataAttributes(hidden)}
-    >
-      {children}
-    </Heading>
-  )
-}
+const Title = React.forwardRef<HTMLHeadingElement, React.PropsWithChildren<TitleProps>>(
+  ({children, className, hidden = false, as = 'h2', ...rest}, forwardedRef) => {
+    return (
+      <Heading
+        ref={forwardedRef}
+        {...mergeProps(
+          {
+            className: clsx(classes.Title, className),
+            as,
+          },
+          rest,
+        )}
+        data-component="PH_Title"
+        data-hidden={hidden}
+        {...getHiddenDataAttributes(hidden)}
+      >
+        {children}
+      </Heading>
+    )
+  },
+)
+Title.displayName = 'Title'
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
