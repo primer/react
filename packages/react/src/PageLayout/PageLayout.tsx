@@ -250,7 +250,7 @@ const SidebarDivider = memo<SidebarDividerProps>(function SidebarDivider({
         } as React.CSSProperties
       }
     >
-      {resizable ? (
+      {resizable && maxPaneWidth > minPaneWidth ? (
         <DragHandle
           handleRef={handleRef}
           dragTargetRef={sidebarRef}

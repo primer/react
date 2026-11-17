@@ -342,6 +342,76 @@ describe('PageLayout', async () => {
   })
 
   describe('PageLayout.Sidebar', () => {
+    it.each(['start', 'end'] as const)('updates resize availability with width constraints at %s', async position => {
+      const layout = (max: '240px' | '256px' | '300px') => (
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable position={position} width={{min: '256px', default: '256px', max}}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>
+      )
+      const {container, rerender} = render(layout('256px'))
+      const divider = container.querySelector('[data-component="PageLayout.VerticalDivider"]')
+
+      expect(container.querySelector('[data-component="PageLayout.DragHandle"]')).not.toBeInTheDocument()
+      expect(divider).toHaveAttribute('data-variant', 'line')
+      expect(getComputedStyle(divider!).cursor).not.toBe('col-resize')
+
+      rerender(layout('300px'))
+      await expect.element(page.getByRole('slider')).toBeVisible()
+      rerender(layout('256px'))
+      await expect.poll(() => container.querySelector('[data-component="PageLayout.DragHandle"]')).toBeNull()
+      expect(divider).toBeInTheDocument()
+      rerender(layout('240px'))
+      await expect.poll(() => container.querySelector('[data-component="PageLayout.DragHandle"]')).toBeNull()
+    })
+
+    it.each([
+      {currentWidth: 256, key: '{ArrowRight}', expectedWidth: 259},
+      {currentWidth: 300, key: '{ArrowLeft}', expectedWidth: 297},
+    ])('keeps resizing available at width $currentWidth', async ({currentWidth, key, expectedWidth}) => {
+      const onResizeEnd = vi.fn()
+      render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar
+            resizable
+            width={{min: '256px', default: '256px', max: '300px'}}
+            currentWidth={currentWidth}
+            onResizeEnd={onResizeEnd}
+          >
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+      const handle = page.getByRole('slider')
+      act(() => handle.element().focus())
+      await userEvent.keyboard(key)
+      expect(onResizeEnd).toHaveBeenLastCalledWith(expectedWidth)
+    })
+
+    it('updates resize availability when the viewport changes the effective maximum', async () => {
+      const {container, unmount} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable minWidth={400}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+      try {
+        await expect.poll(() => container.querySelector('[data-component="PageLayout.DragHandle"]')).toBeNull()
+        await page.viewport(1600, 800)
+        await expect.element(page.getByRole('slider')).toBeVisible()
+        await page.viewport(1280, 800)
+        await expect.poll(() => container.querySelector('[data-component="PageLayout.DragHandle"]')).toBeNull()
+      } finally {
+        unmount()
+        await page.viewport(1280, 800)
+      }
+    })
+
     it('SidebarWrapper should prevent shrinking', () => {
       const {container} = render(
         <PageLayout>
