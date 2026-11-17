@@ -1,0 +1,603 @@
+.Theme {
+  --playground-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --playground-font-size: 14px;
+  --playground-title-size: 14px;
+  --playground-meta-size: 12px;
+  --playground-line-height: 1.43;
+  --playground-font-weight: 400;
+  --playground-panel-radius: 8px;
+  --playground-control-radius: 8px;
+  --playground-row-radius: 6px;
+  --playground-border-width: 1px;
+  --playground-panel-padding: 8px;
+  --playground-header-padding: 8px;
+  --playground-row-padding-x: 8px;
+  --playground-row-padding-y: 6px;
+  --playground-row-min-height: 32px;
+  --playground-control-height: 32px;
+  --playground-gap: 8px;
+  --playground-bevel-width: 0px;
+  --playground-shadow-x: 0px;
+  --playground-shadow-y: 8px;
+  --playground-shadow-blur: 24px;
+  --playground-shadow-spread: -4px;
+  --playground-stage-bg: #f6f8fa;
+  --playground-stage-text: #1f2328;
+  --playground-panel-bg: #fff;
+  --playground-text: #1f2328;
+  --playground-muted: #59636e;
+  --playground-disabled: #818b98;
+  --playground-border: #d1d9e0;
+  --playground-control-bg: #f6f8fa;
+  --playground-search-bg: #fff;
+  --playground-hover-bg: #eaeef2;
+  --playground-selected-bg: #ddf4ff;
+  --playground-selected-text: #1f2328;
+  --playground-focus: #0969da;
+  --playground-header-bg: #fff;
+  --playground-header-text: #1f2328;
+  --playground-action-bg: #1f883d;
+  --playground-action-text: #fff;
+  --playground-bevel-light: #fff;
+  --playground-bevel-dark: #808080;
+  --playground-shadow-color: rgb(31 35 40 / 0.2);
+  --fgColor-default: var(--playground-text);
+  --fgColor-muted: var(--playground-muted);
+
+  /* stylelint-disable primer/typography -- Typography interpolates between original modern and historical skins. */
+  font-family: var(--playground-font-family);
+  font-size: var(--playground-font-size);
+  font-weight: var(--playground-font-weight);
+  line-height: var(--playground-line-height);
+  /* stylelint-enable primer/typography */
+  /* stylelint-disable-next-line primer/colors -- Original skin colors are interpolated in appearance.ts. */
+  color: var(--playground-text);
+  color-scheme: light;
+}
+
+.Theme,
+.Theme :where(*) {
+  box-sizing: border-box;
+}
+
+.Stage {
+  display: flex;
+  min-width: 0;
+  min-height: 100vh;
+  padding: var(--base-size-24);
+  color: var(--fgColor-default);
+  background: var(--bgColor-muted);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--base-size-24);
+}
+
+.Theme.Stage {
+  /* stylelint-disable-next-line primer/colors -- Stage text is contrast-corrected against the interpolated desktop. */
+  color: var(--playground-stage-text);
+  background: var(--playground-stage-bg);
+}
+
+.InlinePanel {
+  width: 100%;
+  max-width: var(--overlay-width-medium, 320px);
+  background: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.RepositoryContext {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--playground-gap, var(--base-size-8));
+  overflow-wrap: anywhere;
+}
+
+.Theme.Overlay {
+  padding: 0;
+  overflow: visible;
+  /* stylelint-disable-next-line primer/colors -- Portal text inherits the independently applied skin. */
+  color: var(--playground-text);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  animation: none;
+}
+
+.Theme .Panel {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  /* stylelint-disable-next-line primer/spacing -- Skin density is continuously interpolated. */
+  padding: var(--playground-panel-padding);
+  overflow: hidden;
+  /* stylelint-disable primer/colors -- Original panel colors interpolate into historical chrome. */
+  color: var(--playground-text);
+  background: var(--playground-panel-bg);
+  /* stylelint-enable primer/colors */
+  /* stylelint-disable primer/borders -- Corners and borders interpolate into square historical bevels. */
+  border: var(--playground-border-width) solid var(--playground-border);
+  border-radius: var(--playground-panel-radius);
+  /* stylelint-enable primer/borders */
+  /* stylelint-disable primer/box-shadow -- Original shadow interpolates into a historical bevel. */
+  box-shadow:
+    inset var(--playground-bevel-width) var(--playground-bevel-width) 0 var(--playground-bevel-light),
+    inset calc(-1 * var(--playground-bevel-width)) calc(-1 * var(--playground-bevel-width)) 0
+      var(--playground-bevel-dark),
+    var(--playground-shadow-x) var(--playground-shadow-y) var(--playground-shadow-blur) var(--playground-shadow-spread)
+      var(--playground-shadow-color);
+  /* stylelint-enable primer/box-shadow */
+  flex-direction: column;
+  gap: var(--playground-gap);
+}
+
+.Theme .Header {
+  display: flex;
+  /* stylelint-disable-next-line primer/spacing -- Skin density is continuously interpolated. */
+  padding: var(--playground-header-padding);
+  /* stylelint-disable primer/colors -- Original header colors interpolate into a navy title bar. */
+  color: var(--playground-header-text);
+  background: var(--playground-header-bg);
+  /* stylelint-enable primer/colors */
+  /* stylelint-disable-next-line primer/borders -- Skin corners interpolate to square. */
+  border-radius: var(--playground-row-radius);
+  flex-direction: column;
+  gap: var(--base-size-4);
+}
+
+.Theme .Header[data-compact='true'] {
+  display: contents;
+  padding: 0;
+  border: 0;
+  gap: 0;
+}
+
+.Theme .Header > button {
+  color: inherit;
+}
+
+.Theme .Header > button:focus-visible {
+  outline-color: currentColor;
+}
+
+.ResponsiveClose {
+  display: none;
+  align-self: flex-end;
+}
+
+@media screen and (--viewportRange-narrow) {
+  .ResponsiveClose {
+    display: inline-flex;
+  }
+
+  .Theme .Header[data-compact='true']:has(> .ResponsiveClose) {
+    display: flex;
+    padding: var(--base-size-4);
+  }
+}
+
+.Theme .Title {
+  margin: 0;
+  font-family: inherit;
+  /* stylelint-disable-next-line primer/typography -- Skin title size is continuously interpolated. */
+  font-size: var(--playground-title-size);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: inherit;
+  color: inherit;
+}
+
+.Theme .Description {
+  margin: 0;
+  /* stylelint-disable-next-line primer/typography -- Skin metadata size is continuously interpolated. */
+  font-size: var(--playground-meta-size);
+  color: inherit;
+}
+
+.Theme .Trigger,
+.Theme .Action {
+  display: inline-flex;
+  min-width: 0;
+  min-height: var(--playground-control-height);
+  height: auto;
+  max-width: 100%;
+  /* stylelint-disable-next-line primer/spacing -- Skin control density is continuously interpolated. */
+  padding: var(--playground-row-padding-y) var(--playground-row-padding-x);
+  font: inherit;
+  line-height: inherit;
+  /* stylelint-disable-next-line primer/colors -- Controls follow the original skin palette. */
+  color: var(--playground-text);
+  white-space: normal;
+  cursor: pointer;
+  background: var(--playground-control-bg);
+  /* stylelint-disable primer/borders -- Corners and borders interpolate into square historical bevels. */
+  border: var(--playground-border-width) solid var(--playground-border);
+  border-radius: var(--playground-control-radius);
+  /* stylelint-enable primer/borders */
+  /* stylelint-disable primer/box-shadow -- The historical skin uses raised control bevels. */
+  box-shadow:
+    inset var(--playground-bevel-width) var(--playground-bevel-width) 0 var(--playground-bevel-light),
+    inset calc(-1 * var(--playground-bevel-width)) calc(-1 * var(--playground-bevel-width)) 0
+      var(--playground-bevel-dark);
+  /* stylelint-enable primer/box-shadow */
+  align-items: center;
+  justify-content: center;
+  gap: var(--playground-gap);
+  overflow-wrap: anywhere;
+}
+
+.Theme .Action[data-variant='primary'] {
+  /* stylelint-disable primer/colors -- The primary action interpolates green, black, and classic grey. */
+  color: var(--playground-action-text);
+  background: var(--playground-action-bg);
+  /* stylelint-enable primer/colors */
+}
+
+.Theme .Trigger:hover:not(:disabled) {
+  background: var(--playground-hover-bg);
+}
+
+.Theme .Search {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: var(--playground-control-height);
+  /* stylelint-disable-next-line primer/spacing -- Skin search density is continuously interpolated. */
+  padding: 0 var(--playground-row-padding-x);
+  margin: 0;
+  font: inherit;
+  /* stylelint-disable primer/colors -- Search remains legible across original skin surfaces. */
+  color: var(--playground-text);
+  background: var(--playground-search-bg);
+  /* stylelint-enable primer/colors */
+  /* stylelint-disable primer/borders -- Search corners and border weight are interpolated. */
+  border: var(--playground-border-width) solid var(--playground-border);
+  border-radius: var(--playground-control-radius);
+  /* stylelint-enable primer/borders */
+  /* stylelint-disable primer/box-shadow -- The historical search field uses a sunken bevel. */
+  box-shadow:
+    inset var(--playground-bevel-width) var(--playground-bevel-width) 0 var(--playground-bevel-dark),
+    inset calc(-1 * var(--playground-bevel-width)) calc(-1 * var(--playground-bevel-width)) 0
+      var(--playground-bevel-light);
+  /* stylelint-enable primer/box-shadow */
+}
+
+.Theme .Search input {
+  min-width: 0;
+  /* stylelint-disable-next-line primer/spacing -- Skin search density is continuously interpolated. */
+  padding-block: var(--playground-row-padding-y);
+  font: inherit;
+  color: inherit;
+}
+
+.Theme .Search input::placeholder {
+  /* stylelint-disable-next-line primer/colors -- Placeholder follows the original skin palette. */
+  color: var(--playground-muted);
+}
+
+.Theme .Search:focus-within {
+  /* stylelint-disable-next-line primer/colors -- Each skin supplies its own visible focus color. */
+  border-color: var(--playground-focus);
+  outline: var(--borderWidth-thick) solid var(--playground-focus);
+  outline-offset: calc(-1 * var(--borderWidth-thin));
+}
+
+.Theme .List {
+  --text-body-size-medium: var(--playground-font-size);
+  --text-body-size-small: var(--playground-meta-size);
+  --bgColor-default: var(--playground-panel-bg);
+  --fgColor-muted: var(--playground-muted);
+
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  background: var(--playground-panel-bg);
+  flex: 1;
+}
+
+.Theme .Option {
+  min-width: 0;
+  margin: 0;
+  /* stylelint-disable-next-line primer/colors -- Rows follow the original skin palette. */
+  color: var(--playground-text);
+  background: transparent;
+  /* stylelint-disable-next-line primer/borders -- Skin row corners interpolate to square. */
+  border-radius: var(--playground-row-radius);
+}
+
+/* ActionList owns its checkmark; only its inspected content wrapper and text inherit the skin. */
+.Theme .Option > [data-size] {
+  min-height: var(--playground-row-min-height);
+  /* stylelint-disable-next-line primer/spacing -- Skin row density is continuously interpolated. */
+  padding: var(--playground-row-padding-y) var(--playground-row-padding-x);
+  font: inherit;
+  color: inherit;
+  border-radius: inherit;
+  align-items: center;
+}
+
+.Theme .Option:hover:not([aria-disabled='true']) {
+  background: var(--playground-hover-bg);
+  box-shadow: none;
+}
+
+.List[data-secondary-actions='true']:where(:not([aria-multiselectable='true'])) .Option[aria-selected='true'] {
+  background: var(--control-transparent-bgColor-selected);
+}
+
+.Theme .List:where(:not([aria-multiselectable='true'])) .Option[aria-selected='true'] {
+  --playground-metadata-color: var(--playground-selected-text);
+  --fgColor-default: var(--playground-selected-text);
+  --fgColor-muted: var(--playground-selected-text);
+
+  /* stylelint-disable primer/colors -- Selection interpolates into classic navy with white text. */
+  color: var(--playground-selected-text);
+  background: var(--playground-selected-bg);
+  /* stylelint-enable primer/colors */
+}
+
+.Theme .Metadata {
+  margin-inline-start: auto;
+  /* stylelint-disable-next-line primer/typography -- Skin metadata size is continuously interpolated. */
+  font-size: var(--playground-meta-size);
+  font-weight: var(--base-text-weight-normal);
+  /* stylelint-disable-next-line primer/colors -- Metadata follows the original skin palette. */
+  color: var(--playground-metadata-color, var(--playground-muted));
+  text-align: end;
+  white-space: nowrap;
+}
+
+.Footer {
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-8);
+  flex-wrap: wrap;
+}
+
+.FooterActions {
+  display: flex;
+  gap: var(--base-size-8);
+}
+
+.SelectionCount {
+  color: var(--fgColor-muted);
+}
+
+.Theme .SelectionCount {
+  /* stylelint-disable-next-line primer/colors -- The count follows the fixed skin palette. */
+  color: var(--playground-muted);
+}
+
+.Theme .Footer .Action {
+  min-height: var(--control-small-size);
+  padding-block: 0;
+  font-size: var(--text-body-size-small);
+}
+
+.Option [data-component='SelectPanel.Item.SecondaryAction'] {
+  width: var(--base-size-24);
+  min-width: var(--base-size-24);
+  height: var(--base-size-24);
+  min-height: var(--base-size-24);
+  padding: 0;
+  margin-block: calc(-1 * var(--base-size-4));
+}
+
+.Theme .Option [data-component='SelectPanel.Item.SecondaryAction'] {
+  color: inherit;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.Theme .Option [data-component='SelectPanel.Item.SecondaryAction']:hover:where(:not([data-disabled='true'])) {
+  /* stylelint-disable-next-line primer/colors -- Hover text must contrast with the skin's hover background. */
+  color: var(--playground-text);
+}
+
+.Theme .Footer {
+  display: flex;
+  /* stylelint-disable-next-line primer/spacing -- Skin footer density is continuously interpolated. */
+  padding: var(--playground-header-padding) 0 0;
+  /* stylelint-disable-next-line primer/borders -- Skin border weight is continuously interpolated. */
+  border-top: var(--playground-border-width) solid var(--playground-border);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--playground-gap);
+}
+
+.Theme .Trigger:focus-visible,
+.Theme .Action:focus-visible,
+.Theme .Option:focus-visible,
+.Theme .Option[data-is-active-descendant='activated-directly'] {
+  outline: var(--borderWidth-thick) solid var(--playground-focus);
+  outline-offset: var(--borderWidth-thick);
+}
+
+.Theme .Option:focus-visible,
+.Theme .Option[data-is-active-descendant='activated-directly'] {
+  outline-color: currentColor;
+  outline-offset: calc(-1 * var(--borderWidth-thick));
+}
+
+.Theme .Option[aria-disabled='true'],
+.Theme .Trigger:disabled,
+.Theme .Action:disabled,
+.Theme .Option [data-component='SelectPanel.Item.SecondaryAction'][data-disabled='true'] {
+  /* stylelint-disable-next-line primer/colors -- Disabled text follows the original skin palette. */
+  color: var(--playground-disabled);
+  cursor: not-allowed;
+}
+
+.Status,
+.Committed {
+  min-width: 0;
+  font-size: var(--playground-meta-size, var(--text-body-size-small));
+  /* stylelint-disable-next-line primer/colors -- Status text follows the original skin palette. */
+  color: var(--playground-muted, var(--fgColor-muted));
+  overflow-wrap: anywhere;
+}
+
+.Committed {
+  /* stylelint-disable-next-line primer/spacing -- Skin status density is continuously interpolated. */
+  padding: var(--playground-header-padding, var(--base-size-8));
+  background: var(--playground-panel-bg, var(--bgColor-default));
+  /* stylelint-disable primer/borders -- Status corners and border weight follow the original skin. */
+  border: var(--playground-border-width, var(--borderWidth-thin)) solid
+    var(--playground-border, var(--borderColor-default));
+  border-radius: var(--playground-control-radius, var(--borderRadius-medium));
+  /* stylelint-enable primer/borders */
+}
+
+.VisuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* stylelint-disable primer/colors, primer/box-shadow, primer/typography -- Showcase skins use original materials and typography rather than Primer's native visual tokens. */
+.Terminal,
+.Paper {
+  --fgColor-default: var(--playground-text);
+  --fgColor-muted: var(--playground-muted);
+  --control-checked-bgColor-rest: var(--playground-action-bg);
+  --control-checked-borderColor-rest: var(--playground-action-bg);
+  --control-checked-fgColor-rest: var(--playground-action-text);
+}
+
+.Terminal {
+  color-scheme: dark;
+}
+
+.Terminal .Title {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.Terminal .Option:hover {
+  box-shadow: inset 0 0 0 1px var(--playground-border);
+}
+
+.Terminal .Option [data-component='SelectPanel.Item.SecondaryAction']:hover:where(:not([data-disabled='true'])) {
+  color: var(--playground-selected-text);
+  background: var(--playground-selected-bg);
+}
+
+.Paper .Title,
+.Paper .Trigger {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+}
+
+.Paper .Title {
+  font-weight: var(--base-text-weight-medium);
+}
+
+.Paper .Search {
+  border-color: transparent transparent var(--playground-border);
+  border-radius: 0;
+}
+
+.Paper .Option:hover {
+  background-image: linear-gradient(
+    color-mix(in srgb, var(--playground-selected-bg) 40%, transparent),
+    color-mix(in srgb, var(--playground-selected-bg) 40%, transparent)
+  );
+}
+/* stylelint-enable primer/colors, primer/box-shadow, primer/typography */
+
+.GitHubApp .Panel {
+  border: 0;
+  /* stylelint-disable primer/box-shadow -- App-inspired floating border ring and two shallow depth layers. */
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--playground-border) 50%, transparent),
+    0 6px 12px -3px color-mix(in srgb, var(--playground-shadow-color) 33.3333%, transparent),
+    0 6px 18px 0 var(--playground-shadow-color);
+  /* stylelint-enable primer/box-shadow */
+  gap: 0;
+}
+
+.GitHubApp .Search {
+  height: var(--base-size-36);
+  min-height: var(--base-size-36);
+  padding-inline: var(--base-size-12);
+  border: 0;
+  border-bottom: var(--borderWidth-thin) solid var(--playground-border);
+  border-radius: 0;
+  box-shadow: none;
+
+  &:focus-within {
+    outline-offset: calc(-1 * var(--borderWidth-thick));
+  }
+}
+
+.GitHubApp .Search input {
+  height: 100%;
+  padding-block: 0;
+}
+
+.GitHubApp .Header {
+  padding: var(--base-size-8);
+  border-radius: 0;
+}
+
+.GitHubApp .Title {
+  /* stylelint-disable-next-line primer/colors -- Optional App headings are muted labels. */
+  color: var(--playground-muted);
+  font-weight: var(--base-text-weight-medium);
+}
+
+/* Keep dialog close controls in DOM focus order; only popups and inline pickers move the label below search. */
+:where(.GitHubApp.Stage, .GitHubApp.Overlay[data-variant='anchored']) .Panel:has(> .Search) {
+  > .Search {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    order: -2;
+  }
+
+  > .Header {
+    order: -1;
+  }
+}
+
+.GitHubApp .List {
+  padding: var(--base-size-4);
+}
+
+.GitHubApp [data-component='ActionList.Selection'] {
+  width: 14px;
+}
+
+.GitHubApp [data-component='ActionList.Selection'] > *,
+.GitHubApp [data-component='SelectPanel.Item.SecondaryAction'] svg {
+  width: 14px;
+  height: 14px;
+}
+
+.GitHubApp .Status {
+  padding: var(--base-size-12);
+}
+
+.GitHubApp .Footer {
+  padding: var(--base-size-8);
+}
+
+/* Apply skins atomically; transitions would undo discrete contrast corrections. */
+.Theme .Trigger,
+.Theme .Action,
+.Theme .Search,
+.Theme .Option,
+.Theme .Option > [data-size],
+.Theme .Header > button,
+.Theme .Option [data-component='SelectPanel.Item.SecondaryAction'] {
+  transition: none;
+}

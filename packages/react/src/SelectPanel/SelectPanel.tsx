@@ -1,19 +1,17 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
-import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import type {FilteredActionListProps} from '../FilteredActionList'
 import {FilteredActionList} from '../FilteredActionList'
-import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './'
-import {SelectPanelMessage} from './SelectPanelMessage'
+import {ComposableSelectPanelMessage, SelectPanelLoading, SelectPanelMessage} from './SelectPanelMessage'
+import Heading from '../Heading'
 
 import {Button, IconButton, LinkButton} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
-import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useSafeTimeout from '../hooks/useSafeTimeout'
@@ -27,10 +25,47 @@ import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
-import {announceLoading} from './utils/utils'
-import type {InitialLoadingType, SelectPanelMultiSelection, SelectPanelSingleSelection} from './types'
-import {isAlphabetKey} from '../hooks/useMnemonics'
 import {useFormControlContext} from '../FormControl/_FormControlContext'
+import {announceLoading, preventBubbling} from './utils/utils'
+import type {InitialLoadingType, SelectPanelMultiSelection, SelectPanelSingleSelection} from './types'
+import {SelectPanelContext} from './SelectPanelContext'
+import {useSelectPanel} from './useSelectPanel'
+import {ConfiguredSelectPanelOverlay} from './SelectPanelOverlay'
+import {ConfiguredSelectPanelCollection} from './ConfiguredSelectPanelAdapter'
+import {supportsConfiguredNativeOverlay} from './platform/configuredNativeCompatibility'
+import {NativeSelectPanelProvider} from './platform/NativeSelectPanelProvider'
+import {useNativeSelectPanel} from './platform/NativeSelectPanelContext'
+import nativeClasses from './platform/PlatformSelectPanel.module.css'
+import {
+  SelectPanelRoot,
+  SelectPanelTrigger,
+  SelectPanelOverlay,
+  SelectPanelContent,
+  SelectPanelHeader,
+  SelectPanelTitle,
+  SelectPanelDescription,
+  SelectPanelSearchInput,
+  SelectPanelList,
+  SelectPanelItem,
+  SelectPanelGroup,
+  SelectPanelFooter,
+} from './SelectPanelParts'
+import {
+  SelectPanelBackButton,
+  SelectPanelCancelButton,
+  SelectPanelClearSearchButton,
+  SelectPanelClearSelectionButton,
+  SelectPanelCloseButton,
+  SelectPanelForm,
+  SelectPanelSubmitButton,
+} from './SelectPanelActions'
+
+export type {InitialLoadingType} from './types'
+
+// eslint-disable-next-line react-refresh/only-export-components -- Internal export for selection regression tests; not part of the package API.
+export function areItemsEqual(first: ItemInput, second: ItemInput) {
+  return first.id !== undefined ? first.id === second.id : first === second
+}
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const LONG_DELAY_MS = 1000
@@ -120,22 +155,7 @@ function isMultiSelectVariant(
   return Array.isArray(selected)
 }
 
-const focusZoneSettings: Partial<FocusZoneHookSettings> = {
-  // Let FilteredActionList handle focus zone
-  disabled: true,
-}
-
 const closeButtonProps = {'aria-label': 'Cancel and close'}
-
-const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
-  // prefer checking equivality by item.id
-  if (typeof itemA.id !== 'undefined') return itemA.id === itemB.id
-  else return itemA === itemB
-}
-
-const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
-  return items.some(i => areItemsEqual(i, item))
-}
 
 const getSelectedItems = (
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -157,6 +177,8 @@ const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props
 }
 
 function Panel({
+  Collection = FilteredActionList,
+  composable = false,
   open,
   onOpenChange,
   renderAnchor = defaultRenderAnchor,
@@ -194,7 +216,8 @@ function Panel({
   displayInViewport,
   cssAnchorPositioningSettings,
   ...listProps
-}: SelectPanelProps): JSX.Element {
+}: SelectPanelProps & {Collection?: React.ComponentType<FilteredActionListProps>; composable?: boolean}): JSX.Element {
+  const native = useNativeSelectPanel()
   const titleId = useId()
   const subtitleId = useId()
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -234,7 +257,7 @@ function Panel({
   }
 
   const {dataLoadedOnce, isLoading} = loadingState
-  const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
+  const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement | null> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
@@ -308,7 +331,7 @@ function Panel({
   )
 
   const onInputRefChanged = useCallback(
-    (ref: React.RefObject<HTMLInputElement>) => {
+    (ref: React.RefObject<HTMLInputElement | null>) => {
       setInputRef(ref)
     },
     [setInputRef],
@@ -421,7 +444,7 @@ function Panel({
   // disable body scroll when the panel is open in modal mode or on narrow screens
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (open && (variant === 'modal' || (isNarrowScreenSize && usingFullScreenOnNarrow))) {
+    if (!native.dialog && open && (variant === 'modal' || (isNarrowScreenSize && usingFullScreenOnNarrow))) {
       const bodyOverflowStyle = document.body.style.overflow || ''
       // If the body is already set to overflow: hidden, it likely means
       // that there is already a modal open. In that case, we should bail
@@ -436,7 +459,7 @@ function Panel({
         document.body.style.overflow = bodyOverflowStyle
       }
     }
-  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
+  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant, native.dialog])
 
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
@@ -660,7 +683,45 @@ function Panel({
     [selected, selectedItemsSet, intermediateSelected, isSingleSelectModal],
   )
 
-  // [Hook]
+  const workingSelection = useMemo(() => {
+    if (isSingleSelectModal) return intermediateSelected ? [intermediateSelected] : []
+    return Array.isArray(selected) ? selected : selected ? [selected] : []
+  }, [selected, intermediateSelected, isSingleSelectModal])
+  const panelState = useSelectPanel({
+    open,
+    onOpenChange: (nextOpen, reason) => {
+      onOpenChange(
+        nextOpen,
+        reason === 'submit' ? 'selection' : reason === 'close' || reason === 'back' ? 'cancel' : reason,
+      )
+    },
+    selected: workingSelection,
+    isItemEqual: areItemsEqual,
+    isItemDisabled: item => Boolean(item.disabled),
+    selectionMode: isMultiSelectVariant(selected) ? 'multiple' : 'single',
+    closeOnSelect: false,
+    filterValue,
+    onFilterChange,
+    onSelectedChange: nextSelected => {
+      if (isMultiSelectVariant(selected)) {
+        const onChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+        onChange(nextSelected)
+      } else if (isSingleSelectModal) {
+        setIntermediateSelectionState({
+          isSingleSelectModal,
+          open,
+          selected,
+          value: nextSelected[0],
+        })
+      } else {
+        const onChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+        onChange(nextSelected[0])
+        onClose('selection')
+      }
+    },
+  })
+
+  const {selectItem} = panelState
   const itemsToRender = useMemo(() => {
     // Pre-compute a Set of selected item IDs/references for O(1) lookups during sorting
     // This avoids O(m * k) work per comparison in the sort function
@@ -694,40 +755,26 @@ function Panel({
               return
             }
 
-            if (isMultiSelectVariant(selected)) {
-              const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
-              const newSelectedItems = doesItemsIncludeItem(selected, item)
-                ? otherSelectedItems
-                : [...otherSelectedItems, item]
-
-              const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
-              multiSelectOnChange(newSelectedItems)
-              return
+            if (composable) {
+              selectItem(item)
+            } else if (isMultiSelectVariant(selected)) {
+              const nextSelected = selected.some(value => areItemsEqual(value, item))
+                ? selected.filter(value => !areItemsEqual(value, item))
+                : [...selected, item]
+              const onChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+              onChange(nextSelected)
+            } else if (isSingleSelectModal) {
+              setIntermediateSelectionState({
+                isSingleSelectModal,
+                open,
+                selected,
+                value: intermediateSelected?.id === item.id ? undefined : item,
+              })
+            } else {
+              const onChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+              onChange(item === selected ? undefined : item)
+              onClose('selection')
             }
-
-            if (isSingleSelectModal) {
-              if (intermediateSelected?.id === item.id) {
-                // if the item is already selected, we need to unselect it
-                setIntermediateSelectionState({
-                  isSingleSelectModal,
-                  open,
-                  selected,
-                  value: undefined,
-                })
-              } else {
-                setIntermediateSelectionState({
-                  isSingleSelectModal,
-                  open,
-                  selected,
-                  value: item,
-                })
-              }
-              return
-            }
-            // single select anchored, direct save on click
-            const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-            singleSelectOnChange(item === selected ? undefined : item)
-            onClose('selection')
           },
         } as ItemProps
       })
@@ -747,21 +794,22 @@ function Panel({
         return 0
       })
   }, [
-    onClose,
-    onSelectedChange,
     items,
-    selected,
     isItemCurrentlySelected,
-    isSingleSelectModal,
-    intermediateSelected,
-    open,
+    selectItem,
     shouldOrderSelectedFirst,
     selectedOnSort,
+    composable,
+    selected,
+    onSelectedChange,
+    isSingleSelectModal,
+    open,
+    intermediateSelected,
+    onClose,
   ])
 
   const focusTrapSettings = useMemo(() => ({initialFocusRef: inputRef || undefined}), [inputRef])
 
-  // [Hook]
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
       className: classes.TextInput,
@@ -772,7 +820,6 @@ function Panel({
     }
   }, [inputLabel, legacyContrast, textInputProps])
 
-  // [Function] returns JSX
   const loadingType = (): FilteredActionListLoadingType => {
     if (dataLoadedOnce) {
       return FilteredActionListLoadingTypes.input
@@ -785,7 +832,6 @@ function Panel({
     }
   }
 
-  // [Function] returns JSX
   function getMessage() {
     if (items.length === 0 && !message) {
       return DefaultEmptyMessage
@@ -800,14 +846,12 @@ function Panel({
 
   // We add permanent save and cancel buttons on:
   // - modals
-  // [Variable]
   const showPermanentCancelSaveButtons = variant === 'modal'
 
   // The next two could be collapsed, left them separate for readability
 
   // We add a responsive save and cancel button on:
   // - anchored panels with multi select if there is onCancel
-  // [Variable]
   const showResponsiveCancelSaveButtons =
     variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel !== undefined
 
@@ -815,12 +859,10 @@ function Panel({
   // - anchored panel with multi select if there is no onCancel.
   // This variant should disappear in the future, once onCancel is required,
   // but for now we need to support it so there is a user friendly way to close the panel.
-  // [Variable]
   const showResponsiveSaveAndCloseButton =
     variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel === undefined
 
   // If there is any element in the footer, we render it.
-  // [Variable]
   const renderFooter =
     secondaryAction !== undefined ||
     showPermanentCancelSaveButtons ||
@@ -829,7 +871,6 @@ function Panel({
 
   // If there's any permanent elements in the footer, we show it always.
   // The save button is only shown on small screens.
-  // [Variable]
   const displayFooter =
     secondaryAction !== undefined || showPermanentCancelSaveButtons
       ? 'always'
@@ -837,7 +878,6 @@ function Panel({
         ? 'only-small'
         : undefined
 
-  // [Variable]
   const stretchSecondaryAction =
     showResponsiveSaveAndCloseButton || showResponsiveCancelSaveButtons
       ? 'only-big'
@@ -845,7 +885,6 @@ function Panel({
         ? 'never'
         : 'always'
 
-  // [Variable]
   const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
   /*
@@ -859,37 +898,14 @@ function Panel({
    * The dual approach handles different responsive behaviors: AnchoredOverlay manages
    * close functionality for narrow fullscreen, while SelectPanel handles modal close on desktop.
    */
-  // [Variable]
   const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
 
-  // [Hook]
   const currentResponsiveVariant = useResponsiveValue(
     usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined,
     'anchored',
   )
 
-  const preventBubbling = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      overlayProps?.onKeyDown?.(event as unknown as React.KeyboardEvent<HTMLDivElement>)
-
-      // skip if a TextInput has focus
-      const activeElement = document.activeElement as HTMLElement
-      if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') return
-
-      // skip if used with modifier to preserve shortcuts like ⌘ + F
-      const hasModifier = event.ctrlKey || event.altKey || event.metaKey
-      if (hasModifier) return
-
-      // skip if it's not the forward slash or an alphabet key
-      if (event.key !== '/' && !isAlphabetKey(event.nativeEvent as KeyboardEvent)) {
-        return
-      }
-
-      // if this is a typeahead event, don't propagate outside of menu
-      event.stopPropagation()
-    },
-    [overlayProps],
-  )
+  const onOverlayKeyDown = useMemo(() => preventBubbling(overlayProps?.onKeyDown), [overlayProps?.onKeyDown])
 
   const mergedOverlayProps = useMemo(
     () => ({
@@ -897,7 +913,7 @@ function Panel({
       'aria-labelledby': titleId,
       'aria-describedby': subtitle ? subtitleId : undefined,
       ...overlayProps,
-      ...(variant === 'modal'
+      ...(variant === 'modal' && !native.dialog
         ? {
             top: '50vh' as const,
             left: '50vw' as const,
@@ -905,30 +921,41 @@ function Panel({
           }
         : {}),
       style: {
-        transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+        transform: variant === 'modal' && !native.dialog ? 'translate(-50%, -50%)' : undefined,
+        ...(native.dialog ? overlayProps?.style : {}),
         ...(isKeyboardVisible
           ? {
               maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
             }
           : {}),
       } as React.CSSProperties,
-      onKeyDown: preventBubbling,
+      onKeyDown: onOverlayKeyDown,
     }),
-    [titleId, subtitle, subtitleId, overlayProps, variant, isKeyboardVisible, availablePanelHeight, preventBubbling],
+    [
+      titleId,
+      subtitle,
+      subtitleId,
+      overlayProps,
+      variant,
+      native.dialog,
+      isKeyboardVisible,
+      availablePanelHeight,
+      onOverlayKeyDown,
+    ],
   )
 
-  return (
+  const content = (
     <>
-      <AnchoredOverlay
+      <ConfiguredSelectPanelOverlay
+        open={open}
+        configuredVariant={variant}
         renderAnchor={renderMenuAnchor}
         anchorRef={anchorRef}
         align={align}
-        open={open}
         onOpen={onOpen}
         onClose={onClose}
         overlayProps={mergedOverlayProps}
         focusTrapSettings={focusTrapSettings}
-        focusZoneSettings={focusZoneSettings}
         height={height}
         width={width}
         anchorId={id}
@@ -945,16 +972,32 @@ function Panel({
           disable: variant === 'modal' || cssAnchorPositioningSettings?.disable,
         }}
       >
-        <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
-          <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
+        <SelectPanelContent
+          data-variant={variant}
+          data-component="SelectPanel"
+          className={native.dialog ? nativeClasses.ConfiguredContent : undefined}
+        >
+          <SelectPanelHeader data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
             <div>
-              <Heading as="h1" id={titleId} className={classes.Title} data-component="SelectPanel.Title">
-                {title}
-              </Heading>
+              {composable ? (
+                <SelectPanelTitle id={titleId} data-component="SelectPanel.Title">
+                  {title}
+                </SelectPanelTitle>
+              ) : (
+                <Heading as="h1" id={titleId} className={classes.Title} data-component="SelectPanel.Title">
+                  {title}
+                </Heading>
+              )}
               {subtitle ? (
-                <div id={subtitleId} className={classes.Subtitle} data-component="SelectPanel.Subtitle">
-                  {subtitle}
-                </div>
+                composable ? (
+                  <SelectPanelDescription id={subtitleId} data-component="SelectPanel.Subtitle">
+                    {subtitle}
+                  </SelectPanelDescription>
+                ) : (
+                  <div id={subtitleId} className={classes.Subtitle} data-component="SelectPanel.Subtitle">
+                    {subtitle}
+                  </div>
+                )
               ) : null}
             </div>
             {/* AnchoredOverlay displays the close button on narrow screens */}
@@ -972,7 +1015,7 @@ function Panel({
                 }}
               />
             ) : null}
-          </div>
+          </SelectPanelHeader>
           {notice && (
             <div ref={noticeRef} data-component="SelectPanel.Notice">
               <Banner
@@ -985,11 +1028,10 @@ function Panel({
               />
             </div>
           )}
-          <FilteredActionList
+          <Collection
             filterValue={filterValue}
             onFilterChange={onFilterChange}
             onListContainerRefChanged={onListContainerRefChanged}
-            // @ts-expect-error it needs a non nullable ref
             onInputRefChanged={onInputRefChanged}
             placeholderText={placeholderText}
             {...listProps}
@@ -1015,20 +1057,18 @@ function Panel({
                   : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
             }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
-            className={clsx(className, classes.FilteredActionList)}
+            className={clsx(className, classes.FilteredActionList, native.dialog && nativeClasses.ConfiguredCollection)}
             focusPrependedElements={focusPrependedElements}
             virtualized={virtualized}
           />
           {footer ? (
-            <div className={classes.Footer} data-component="SelectPanel.Footer">
-              {footer}
-            </div>
+            <SelectPanelFooter data-component="SelectPanel.Footer">{footer}</SelectPanelFooter>
           ) : renderFooter ? (
-            <div
+            <SelectPanelFooter
               data-display-footer={displayFooter}
               data-stretch-secondary-action={stretchSecondaryAction}
               data-stretch-save-button={stretchSaveButton}
-              className={clsx(classes.Footer, classes.ResponsiveFooter)}
+              className={classes.ResponsiveFooter}
               data-component="SelectPanel.Footer"
             >
               <div
@@ -1087,13 +1127,16 @@ function Panel({
                   </Button>
                 </div>
               ) : null}
-            </div>
+            </SelectPanelFooter>
           ) : null}
-        </div>
-      </AnchoredOverlay>
-      {variant === 'modal' && open ? <div className={classes.Backdrop} data-component="SelectPanel.Backdrop" /> : null}
+        </SelectPanelContent>
+      </ConfiguredSelectPanelOverlay>
+      {variant === 'modal' && open && !native.dialog ? (
+        <div className={classes.Backdrop} data-component="SelectPanel.Backdrop" />
+      ) : null}
     </>
   )
+  return composable ? <SelectPanelContext.Provider value={panelState}>{content}</SelectPanelContext.Provider> : content
 }
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
@@ -1112,9 +1155,42 @@ const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
   )
 }
 
-export const SelectPanel = Object.assign(Panel, {
+function ConfiguredSelectPanel(props: SelectPanelProps) {
+  const composable = useFeatureFlag('primer_react_select_panel_composable_adapter')
+  return (
+    <NativeSelectPanelProvider enabled={composable && supportsConfiguredNativeOverlay(props)}>
+      <Panel
+        {...props}
+        composable={composable}
+        Collection={composable ? ConfiguredSelectPanelCollection : FilteredActionList}
+      />
+    </NativeSelectPanelProvider>
+  )
+}
+
+export const SelectPanel = Object.assign(ConfiguredSelectPanel, {
   __SLOT__: Symbol('SelectPanel'),
   SecondaryActionButton: SecondaryButton,
   SecondaryActionLink: SecondaryLink,
-  Message: SelectPanelMessage,
+  Root: SelectPanelRoot,
+  Trigger: SelectPanelTrigger,
+  Overlay: SelectPanelOverlay,
+  Content: SelectPanelContent,
+  Header: SelectPanelHeader,
+  Title: SelectPanelTitle,
+  Description: SelectPanelDescription,
+  SearchInput: SelectPanelSearchInput,
+  List: SelectPanelList,
+  Item: SelectPanelItem,
+  Group: SelectPanelGroup,
+  Footer: SelectPanelFooter,
+  CloseButton: SelectPanelCloseButton,
+  CancelButton: SelectPanelCancelButton,
+  SubmitButton: SelectPanelSubmitButton,
+  ClearSelectionButton: SelectPanelClearSelectionButton,
+  ClearSearchButton: SelectPanelClearSearchButton,
+  BackButton: SelectPanelBackButton,
+  Form: SelectPanelForm,
+  Loading: SelectPanelLoading,
+  Message: ComposableSelectPanelMessage,
 })

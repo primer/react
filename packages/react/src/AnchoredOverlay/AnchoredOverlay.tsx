@@ -294,10 +294,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
 
   const popoverId = useId()
+  const overlayId = overlayProps?.id ?? popoverId
   const popoverTargetProps = shouldRenderAsPopover
     ? reactMajorVersion >= 19
-      ? {popoverTarget: popoverId}
-      : {popovertarget: popoverId}
+      ? {popoverTarget: overlayId}
+      : {popovertarget: overlayId}
     : {}
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
   const anchorName = `--anchored-overlay-anchor-${id}`
@@ -439,7 +440,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           _PrivateDisablePortal={_PrivateDisablePortal}
           {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
-          {...(shouldRenderAsPopover ? {id: popoverId} : {})}
+          {...(shouldRenderAsPopover ? {id: overlayId} : {})}
           ref={
             mergedRefEnabled
               ? mergedOverlayRef

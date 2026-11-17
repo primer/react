@@ -1,7 +1,8 @@
 import type {Key} from 'react'
 import type {Merge} from '../utils/polymorphic'
 import type {Group} from '../ActionList/Group'
-import type {ActionListGroupProps, ActionListProps} from '../deprecated'
+import type {ActionListProps} from '../ActionList'
+import type {ActionListGroupProps} from '../deprecated'
 import type {AriaRole} from '../utils/types'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import type {TextInputProps} from '../TextInput'
@@ -196,13 +197,13 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
-  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement | null>) => void
   /**
    * A ref assigned to the scrollable container wrapping the ActionList
    */
   scrollContainerRef?: React.Ref<HTMLDivElement | null>
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
-  inputRef?: React.RefObject<HTMLInputElement>
+  inputRef?: React.RefObject<HTMLInputElement | null>
   message?: React.ReactNode
   messageText?: {
     title: string
@@ -226,6 +227,18 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    */
   focusOutBehavior?: 'stop' | 'wrap'
   /**
+   * Callback function that is called when the active descendant changes.
+   *
+   * @param newActiveDescendant - The new active descendant element.
+   * @param previousActiveDescendant - The previous active descendant element.
+   * @param directlyActivated - Whether the active descendant was directly activated (e.g., by a keyboard event).
+   */
+  onActiveDescendantChanged?: (
+    newActiveDescendant: HTMLElement | undefined,
+    previousActiveDescendant: HTMLElement | undefined,
+    directlyActivated: boolean,
+  ) => void
+  /**
    * Private API for use internally only. Adds the ability to switch between
    * `active-descendant` and roving tabindex.
    *
@@ -245,4 +258,39 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * @default 'active-descendant'
    */
   _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
+  /**
+   * If true, disables selecting items when hovering over them with the mouse.
+   */
+  disableSelectOnHover?: boolean
+  /**
+   * If true, focus remains where it was and the user must interact to move focus.
+   * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
+   */
+  setInitialFocus?: boolean
+  /**
+   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
+   * Default is false.
+   */
+  focusPrependedElements?: boolean
+  /**
+   * Determines the scroll behavior of the container when an item is focused.
+   *
+   * @default 'auto'
+   */
+  scrollBehavior?: ScrollBehavior
+  /**
+   * If true, enables client-side list virtualization. Only the visible items (plus a small
+   * overscan buffer) are rendered in the DOM, dramatically improving performance for large lists.
+   *
+   * This is a purely client-side optimization — it does not require server-side pagination.
+   * The consumer can still pass all items at once; the component will only render what is visible.
+   *
+   * Recommended for lists with more than 100 items.
+   *
+   * Note: Has no effect when `groupMetadata` is provided, as grouped lists are
+   * typically small enough not to need virtualization.
+   *
+   * @default false
+   */
+  virtualized?: boolean
 }

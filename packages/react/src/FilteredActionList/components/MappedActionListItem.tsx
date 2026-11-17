@@ -1,8 +1,17 @@
-import {isValidElementType} from 'react-is'
+import {forwardRef} from 'react'
 import {ActionList} from '../../ActionList'
+import type {ActionListItemProps} from '../../ActionList'
+import {renderActionListItemContent} from '../../internal/components/ActionListItemContent'
 import type {ItemInput, RenderItemFn} from '../types'
 
-export function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
+interface MappedActionListItemRenderers {
+  ItemComponent?: React.ComponentType<React.PropsWithoutRef<ActionListItemProps> & React.RefAttributes<HTMLLIElement>>
+}
+
+export const MappedActionListItem = forwardRef<
+  HTMLLIElement,
+  ItemInput & {renderItem?: RenderItemFn} & MappedActionListItemRenderers
+>(({ItemComponent = ActionList.Item, ...item}, ref) => {
   // keep backward compatibility for renderItem
   // escape hatch for custom Item rendering
   if (typeof item.renderItem === 'function') return item.renderItem(item)
@@ -12,17 +21,17 @@ export function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemF
     description,
     descriptionVariant,
     text,
-    trailingVisual: TrailingVisual,
-    leadingVisual: LeadingVisual,
+    trailingVisual,
+    leadingVisual,
     trailingText,
-    trailingIcon: TrailingIcon,
+    trailingIcon,
     onAction,
     children,
     ...rest
   } = item
 
   return (
-    <ActionList.Item
+    <ItemComponent
       role="option"
       // @ts-ignore - for now
       onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
@@ -30,30 +39,19 @@ export function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemF
           onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
       }}
       data-id={id}
+      ref={ref}
       {...rest}
     >
-      {LeadingVisual ? (
-        <ActionList.LeadingVisual>
-          <LeadingVisual />
-        </ActionList.LeadingVisual>
-      ) : null}
-      {children}
-      {text}
-      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
-      {TrailingVisual ? (
-        <ActionList.TrailingVisual>
-          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-            <TrailingVisual />
-          ) : (
-            TrailingVisual
-          )}
-        </ActionList.TrailingVisual>
-      ) : TrailingIcon || trailingText ? (
-        <ActionList.TrailingVisual>
-          {trailingText}
-          {TrailingIcon && <TrailingIcon />}
-        </ActionList.TrailingVisual>
-      ) : null}
-    </ActionList.Item>
+      {renderActionListItemContent({
+        text,
+        description,
+        descriptionVariant,
+        leadingVisual,
+        trailingVisual,
+        trailingIcon,
+        trailingText,
+        children,
+      })}
+    </ItemComponent>
   )
-}
+})

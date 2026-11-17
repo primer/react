@@ -11,6 +11,3 @@ export interface SelectPanelMultiSelection {
 }
 
 export type InitialLoadingType = 'spinner' | 'skeleton'
-export type SelectPanelSecondaryAction =
-  | React.ReactElement<typeof SecondaryButton>
-  | React.ReactElement<typeof SecondaryLink>
