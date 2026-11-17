@@ -19,12 +19,12 @@ function mockMatchMedia({defaultMatch = false} = {}) {
       onchange: null,
       addListener: vi.fn(), // deprecated
       removeListener: vi.fn(), // deprecated
-      addEventListener: (_type: string, listener: MediaQueryEventListener) => {
+      addEventListener: vi.fn((_type: string, listener: MediaQueryEventListener) => {
         listeners.add(listener)
-      },
-      removeEventListener: (_type: string, listener: MediaQueryEventListener) => {
+      }),
+      removeEventListener: vi.fn((_type: string, listener: MediaQueryEventListener) => {
         listeners.delete(listener)
-      },
+      }),
       dispatchEvent: vi.fn(),
     })),
   })
@@ -120,6 +120,77 @@ describe('useMedia', () => {
     })
 
     expect(match[1]).toBe(true)
+  })
+
+  it('shares one MediaQueryList and one change listener across subscribers of the same query', () => {
+    const {change} = mockMatchMedia()
+
+    const match: boolean[] = []
+
+    function TestComponent() {
+      const value = useMedia('(pointer: coarse)')
+      match.push(value)
+      return null
+    }
+
+    const {unmount} = render(
+      <>
+        <TestComponent />
+        <TestComponent />
+      </>,
+    )
+
+    const matchMediaMock = window.matchMedia as unknown as ReturnType<typeof vi.fn>
+    // Both subscribers share a single `matchMedia` call for the query.
+    expect(matchMediaMock).toHaveBeenCalledTimes(1)
+    expect(matchMediaMock).toHaveBeenCalledWith('(pointer: coarse)')
+
+    // And a single `change` listener on that shared list.
+    const sharedList = matchMediaMock.mock.results[0].value as {
+      addEventListener: ReturnType<typeof vi.fn>
+      removeEventListener: ReturnType<typeof vi.fn>
+    }
+    expect(sharedList.addEventListener).toHaveBeenCalledTimes(1)
+
+    // A change still reaches every subscriber.
+    act(() => {
+      change({matches: true})
+    })
+    expect(match).toContain(true)
+
+    // Unmounting the last subscriber detaches the listener and drops the entry,
+    // so the next mount allocates a fresh list.
+    unmount()
+    expect(sharedList.removeEventListener).toHaveBeenCalledTimes(1)
+
+    render(<TestComponent />)
+    expect(matchMediaMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('keeps a separate MediaQueryList per distinct query', () => {
+    mockMatchMedia()
+
+    function CoarseComponent() {
+      useMedia('(pointer: coarse)')
+      return null
+    }
+
+    function FineComponent() {
+      useMedia('(pointer: fine)')
+      return null
+    }
+
+    render(
+      <>
+        <CoarseComponent />
+        <FineComponent />
+      </>,
+    )
+
+    const matchMediaMock = window.matchMedia as unknown as ReturnType<typeof vi.fn>
+    expect(matchMediaMock).toHaveBeenCalledTimes(2)
+    expect(matchMediaMock).toHaveBeenCalledWith('(pointer: coarse)')
+    expect(matchMediaMock).toHaveBeenCalledWith('(pointer: fine)')
   })
 
   it('should default to the features value in context if available', () => {
