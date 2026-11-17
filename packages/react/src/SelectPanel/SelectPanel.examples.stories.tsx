@@ -724,7 +724,7 @@ export const VirtualizedConsumerSide = () => {
             [virtualizer],
           )}
           focusOutBehavior="stop"
-          scrollContainerRef={node => setScrollContainer(node)}
+          scrollContainerRef={setScrollContainer}
           actionListProps={{
             style: renderSubset
               ? {

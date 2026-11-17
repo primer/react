@@ -17,8 +17,7 @@ import {ActionListContainerContext} from '../ActionList/ActionListContainerConte
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
-import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
-import {useFeatureFlag} from '../FeatureFlags'
+import {useMergedRefs} from '../hooks'
 import {FilteredActionListInput, type FilteredActionListInputProps} from './FilteredActionListInput'
 
 import {MappedActionListItem} from './components/MappedActionListItem'
@@ -112,25 +111,11 @@ export function FilteredActionListContent({
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement | null>(null)
 
-  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const mergedScrollContainerRef = useMergedRefs(scrollContainerRef, providedScrollContainerRef)
-  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
-  // At graduation: remove the three declarations below, and replace all instances of `readScrollContainerRef` with `scrollContainerRef` and `appliedScrollContainerRef` with `mergedScrollContainerRef`.
-  const providedOrCreatedScrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(
-    providedScrollContainerRef as React.RefObject<HTMLDivElement>,
-  )
-  const readScrollContainerRef = mergedRefEnabled ? scrollContainerRef : providedOrCreatedScrollContainerRef
-  const appliedScrollContainerRef = mergedRefEnabled ? mergedScrollContainerRef : providedOrCreatedScrollContainerRef
 
   const inputRef = useRef<HTMLInputElement>(null)
   const mergedInputRef = useMergedRefs(inputRef, providedInputRef)
-  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
-  // At graduation: remove the three declarations below, and replace all instances of `readInputRef` with `inputRef` and `appliedInputRef` with `mergedInputRef`.
-  const providedOrCreatedInputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
-  const readInputRef = mergedRefEnabled ? inputRef : providedOrCreatedInputRef
-  const appliedInputRef = mergedRefEnabled ? mergedInputRef : providedOrCreatedInputRef
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
@@ -215,8 +200,8 @@ export function FilteredActionListContent({
   )
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
-    onInputRefChanged?.(readInputRef)
-  }, [readInputRef, onInputRefChanged])
+    onInputRefChanged?.(inputRef)
+  }, [onInputRefChanged])
 
   // Matches the most common ActionList.Item height (single-line text + description).
   // Items are measured dynamically via `measureElement`, so this only affects the
@@ -226,7 +211,7 @@ export function FilteredActionListContent({
   // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: items.length,
-    getScrollElement: () => readScrollContainerRef.current,
+    getScrollElement: () => scrollContainerRef.current,
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
     overscan: 10,
     enabled: isVirtualized,
@@ -264,7 +249,7 @@ export function FilteredActionListContent({
           focusableElementFilter: element => {
             return !(element instanceof HTMLInputElement)
           },
-          activeDescendantFocus: readInputRef,
+          activeDescendantFocus: inputRef,
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
 
@@ -276,8 +261,8 @@ export function FilteredActionListContent({
               }
             }
 
-            if (current && readScrollContainerRef.current && (directlyActivated || focusPrependedElements)) {
-              scrollIntoView(current, readScrollContainerRef.current, {
+            if (current && scrollContainerRef.current && (directlyActivated || focusPrependedElements)) {
+              scrollIntoView(current, scrollContainerRef.current, {
                 ...menuScrollMargins,
                 behavior: scrollBehavior,
               })
@@ -294,13 +279,13 @@ export function FilteredActionListContent({
   )
 
   useEffect(() => {
-    if (activeDescendantRef.current && readScrollContainerRef.current) {
-      scrollIntoView(activeDescendantRef.current, readScrollContainerRef.current, {
+    if (activeDescendantRef.current && scrollContainerRef.current) {
+      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
         ...menuScrollMargins,
         behavior: scrollBehavior,
       })
     }
-  }, [items, readInputRef, readScrollContainerRef, scrollBehavior])
+  }, [items, scrollBehavior])
 
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
@@ -312,8 +297,8 @@ export function FilteredActionListContent({
 
       // Listen for focus changes within the container
       const handleFocusIn = (event: FocusEvent) => {
-        if (event.target === readInputRef.current || list.contains(event.target as Node)) {
-          setIsInputFocused(readInputRef.current && readInputRef.current === document.activeElement ? true : false)
+        if (event.target === inputRef.current || list.contains(event.target as Node)) {
+          setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
         }
       }
 
@@ -323,27 +308,27 @@ export function FilteredActionListContent({
         inputAndListContainerElement.removeEventListener('focusin', handleFocusIn)
       }
     }
-  }, [items, readInputRef, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
+  }, [items, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
 
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex && !loading) {
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
-      setIsInputFocused(readInputRef.current && readInputRef.current === document.activeElement ? true : false)
+      setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
     }
-  }, [loading, readInputRef, usingRovingTabindex])
+  }, [loading, usingRovingTabindex])
 
   const onInputFocus = useAnnouncements(
     items,
     listRef,
-    readInputRef,
+    inputRef,
     announcementsEnabled,
     loading,
     messageText,
     _PrivateFocusManagement,
     filterValue,
   )
-  useScrollFlash(readScrollContainerRef)
+  useScrollFlash(scrollContainerRef)
 
   const handleSelectAllChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -354,10 +339,7 @@ export function FilteredActionListContent({
     [onSelectAllChange],
   )
 
-  // `current` is undefined rather than null for a callback ref while the merged refs flag is off,
-  // so the body loader is only shown once the scroll container has been read
-  const bodyLoaderHeight =
-    loading && loadingType.appearsInBody ? readScrollContainerRef.current?.clientHeight : undefined
+  const bodyLoaderHeight = loading && loadingType.appearsInBody ? scrollContainerRef.current?.clientHeight : undefined
   const showBodyLoader = bodyLoaderHeight !== undefined
   // The list is not rendered while the body shows a loader or a message, so the input must not reference it
   const isListRendered = !showBodyLoader && !message
@@ -502,7 +484,7 @@ export function FilteredActionListContent({
       data-component={componentName}
     >
       <Input
-        inputRef={appliedInputRef}
+        inputRef={mergedInputRef}
         onInputFocus={onInputFocus}
         value={filterValue}
         onInputChange={onInputChange}
@@ -535,8 +517,7 @@ export function FilteredActionListContent({
           </label>
         </div>
       )}
-      {/* @ts-expect-error div needs a non nullable ref */}
-      <div ref={appliedScrollContainerRef} className={classes.Container}>
+      <div ref={mergedScrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
     </div>

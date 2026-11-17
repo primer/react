@@ -3,7 +3,6 @@ import {page} from 'vitest/browser'
 import React from 'react'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
-import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 import classes from './PageHeader.module.css'
 
@@ -309,44 +308,34 @@ describe('PageHeader', () => {
   })
 })
 
-describe('PageHeader forwarded ref (primer_react_merged_forwarded_refs)', () => {
-  for (const enabled of [true, false]) {
-    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
-      it('forwards the Root ref object', () => {
-        const ref = React.createRef<HTMLDivElement>()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <PageHeader ref={ref} aria-label="Title">
-              Content
-            </PageHeader>
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLDivElement)
-      })
+describe('PageHeader forwarded ref', () => {
+  it('forwards the Root ref object', () => {
+    const ref = React.createRef<HTMLDivElement>()
+    render(
+      <PageHeader ref={ref} aria-label="Title">
+        Content
+      </PageHeader>,
+    )
+    expect(ref.current).toBeInstanceOf(HTMLDivElement)
+  })
 
-      it('calls a Root callback ref', () => {
-        const refCallback = vi.fn()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <PageHeader ref={refCallback} aria-label="Title">
-              Content
-            </PageHeader>
-          </FeatureFlags>,
-        )
-        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
-      })
+  it('calls a Root callback ref', () => {
+    const refCallback = vi.fn()
+    render(
+      <PageHeader ref={refCallback} aria-label="Title">
+        Content
+      </PageHeader>,
+    )
+    expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+  })
 
-      it('forwards the TitleArea ref object', () => {
-        const ref = React.createRef<HTMLDivElement>()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <PageHeader aria-label="Title">
-              <PageHeader.TitleArea ref={ref}>Heading</PageHeader.TitleArea>
-            </PageHeader>
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLDivElement)
-      })
-    })
-  }
+  it('forwards the TitleArea ref object', () => {
+    const ref = React.createRef<HTMLDivElement>()
+    render(
+      <PageHeader aria-label="Title">
+        <PageHeader.TitleArea ref={ref}>Heading</PageHeader.TitleArea>
+      </PageHeader>,
+    )
+    expect(ref.current).toBeInstanceOf(HTMLDivElement)
+  })
 })
