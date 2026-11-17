@@ -1,3 +1,4 @@
+import {page, userEvent} from 'vitest/browser'
 import {fireEvent, render, act, cleanup as cleanupRTL} from '@testing-library/react'
 import {describe, it, expect, vi, afterEach} from 'vitest'
 import React from 'react'
@@ -540,8 +541,8 @@ function TreeWithRovingTabIndex({
 describe('useRovingTabIndex hook', () => {
   afterEach(cleanupRTL)
 
-  it('moves focus with keyboard navigation', () => {
-    const {getByRole} = render(
+  it('moves focus with keyboard navigation', async () => {
+    render(
       <TreeWithRovingTabIndex>
         {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
         <li role="treeitem" tabIndex={0} id="item-1">
@@ -558,24 +559,24 @@ describe('useRovingTabIndex hook', () => {
       </TreeWithRovingTabIndex>,
     )
 
-    const tree = getByRole('tree')
-    const item1 = tree.querySelector('#item-1') as HTMLElement
-    const item2 = tree.querySelector('#item-2') as HTMLElement
+    const tree = page.getByRole('tree')
+    const item1 = tree.getByRole('treeitem', {name: 'Item 1'})
+    const item2 = tree.getByRole('treeitem', {name: 'Item 2'})
 
-    act(() => item1.focus())
-    expect(item1).toHaveFocus()
+    act(() => item1.element().focus())
+    await expect.element(item1).toHaveFocus()
 
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-    expect(item2).toHaveFocus()
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(item2).toHaveFocus()
 
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
-    expect(item1).toHaveFocus()
+    await userEvent.keyboard('{ArrowUp}')
+    await expect.element(item1).toHaveFocus()
   })
 
   it.each(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown', 'Backspace'])(
     'keeps focus on a nested control when pressing %s',
-    key => {
-      const {getByRole} = render(
+    async key => {
+      render(
         <TreeWithRovingTabIndex>
           <li role="treeitem" aria-selected="false" aria-label="Item 1" tabIndex={0}>
             Item 1
@@ -589,23 +590,23 @@ describe('useRovingTabIndex hook', () => {
         </TreeWithRovingTabIndex>,
       )
 
-      const item = getByRole('treeitem', {name: 'Item 1'})
-      const button = getByRole('button', {name: 'Nested action'})
+      const item = page.getByRole('treeitem', {name: 'Item 1'})
+      const button = page.getByRole('button', {name: 'Nested action'})
 
-      act(() => item.focus())
-      act(() => button.focus())
-      expect(button).toHaveFocus()
+      act(() => item.element().focus())
+      act(() => button.element().focus())
+      await expect.element(button).toHaveFocus()
 
-      expect(fireEvent.keyDown(button, {key})).toBe(false)
-      expect(button).toHaveFocus()
+      expect(fireEvent.keyDown(button.element(), {key})).toBe(false)
+      expect(button.element()).toHaveFocus()
     },
   )
 
   describe('preventScroll', () => {
-    it('defaults to preventScroll=true', () => {
+    it('defaults to preventScroll=true', async () => {
       const focusSpy = vi.spyOn(HTMLElement.prototype, 'focus')
 
-      const {getByRole} = render(
+      render(
         <TreeWithRovingTabIndex>
           {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-1">
@@ -618,13 +619,13 @@ describe('useRovingTabIndex hook', () => {
         </TreeWithRovingTabIndex>,
       )
 
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
+      const tree = page.getByRole('tree')
+      const item1 = tree.getByRole('treeitem', {name: 'Item 1'})
 
-      act(() => item1.focus())
+      act(() => item1.element().focus())
       focusSpy.mockClear()
 
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // When preventScroll is true, the focus zone should call focus with preventScroll: true
       const focusCalls = focusSpy.mock.calls
@@ -637,10 +638,10 @@ describe('useRovingTabIndex hook', () => {
       focusSpy.mockRestore()
     })
 
-    it('allows scrolling when preventScroll is false', () => {
+    it('allows scrolling when preventScroll is false', async () => {
       const focusSpy = vi.spyOn(HTMLElement.prototype, 'focus')
 
-      const {getByRole} = render(
+      render(
         <TreeWithRovingTabIndex preventScroll={false}>
           {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-1">
@@ -653,13 +654,13 @@ describe('useRovingTabIndex hook', () => {
         </TreeWithRovingTabIndex>,
       )
 
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
+      const tree = page.getByRole('tree')
+      const item1 = tree.getByRole('treeitem', {name: 'Item 1'})
 
-      act(() => item1.focus())
+      act(() => item1.element().focus())
       focusSpy.mockClear()
 
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      await userEvent.keyboard('{ArrowDown}')
 
       // When preventScroll is false, focus calls should not include preventScroll: true
       const focusCalls = focusSpy.mock.calls
@@ -674,8 +675,8 @@ describe('useRovingTabIndex hook', () => {
   })
 
   describe('mouse click bypass', () => {
-    it('does not redirect focus when mouseDownRef is true (click scenario)', () => {
-      const {getByRole} = render(
+    it('does not redirect focus when mouseDownRef is true (click scenario)', async () => {
+      render(
         <TreeWithRovingTabIndex>
           {/* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */}
           <li role="treeitem" tabIndex={0} id="item-1">
@@ -688,16 +689,14 @@ describe('useRovingTabIndex hook', () => {
         </TreeWithRovingTabIndex>,
       )
 
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
+      const tree = page.getByRole('tree')
+      const item1 = tree.getByRole('treeitem', {name: 'Item 1'})
 
-      // Simulate a mouse click: mouseDown sets the ref, then focus happens
-      fireEvent.mouseDown(tree)
-      act(() => item1.focus())
+      await userEvent.click(item1)
 
       // Focus should stay on item-1 (not redirected to aria-current item)
       // because mouseDownRef is true during click
-      expect(item1).toHaveFocus()
+      await expect.element(item1).toHaveFocus()
     })
   })
 })

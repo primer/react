@@ -1,23 +1,16 @@
 import type React from 'react'
 import {useRef} from 'react'
-import {useMergedRefs, useProvidedRefOrCreate} from '../../hooks'
-import {useFeatureFlag} from '../../FeatureFlags'
+import {useMergedRefs} from '../../hooks'
 import type {TabListHookProps, TabListHookResult} from './types'
 
 export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): TabListHookResult<T> {
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
-  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const tabListRef = useRef<T>(null)
   const mergedRef = useMergedRefs(tabListRef, props.ref)
-  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
-  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `tabListRef` and `appliedRef` with `mergedRef`.
-  const providedOrCreatedRef = useProvidedRefOrCreate<T>(props.ref as React.RefObject<T | null>)
-  const readRef = mergedRefEnabled ? tabListRef : providedOrCreatedRef
-  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
 
   const onKeyDown = (event: React.KeyboardEvent) => {
-    const {current: tablist} = readRef
+    const {current: tablist} = tabListRef
     if (tablist === null) {
       return
     }
@@ -73,7 +66,7 @@ export function useTabList<T extends HTMLElement>(props: TabListHookProps<T>): T
 
   return {
     tabListProps: {
-      ref: appliedRef,
+      ref: mergedRef,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
       'aria-orientation': ariaOrientation ?? 'horizontal',
