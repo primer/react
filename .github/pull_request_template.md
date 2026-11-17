@@ -29,7 +29,7 @@ Closes #
 - [ ] Needs changes in github/github-ui <!-- if selected, include the commits or link to migration plan -->
 - [ ] Ships with feature flag(s) <!-- if selected, include the names of the feature flag(s) -->
 - [ ] Not sure <!-- select this if you are not sure how to roll out this change or you are an open source contributor (thanks for contributing!) -->
-- [ ] No rollout required (for example, docs-only changes) <!-- if selected, briefly explain why; do not combine with other options -->
+- [ ] No rollout required <!-- if selected, briefly explain why; this is typically used for changes that have no impact on the public API of our packages. Do not combine with other options -->
 
 ### Testing & Reviewing
 
