@@ -3,7 +3,7 @@ name: status-checks
 on:
   issue_comment:
     types: [created]
-  pull_request:
+  pull_request_target:
     types: [labeled, opened, reopened, synchronize]
   merge_group:
     branches:
@@ -17,14 +17,13 @@ permissions:
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null) }}"
+    if: "${{ (github.event_name == 'pull_request_target' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null) }}"
     steps:
       - name: Explain integration skip workaround for fork pull requests
-        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+        if: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository }}
         run: |
-          echo '::error title=Fork PR requires maintainer command::Repository secrets are unavailable to pull_request workflows from forks, so the integration-tests: skipped manually label cannot set github-ui statuses. A maintainer can comment .skip-integration-checks on this PR instead.'
-          echo 'Repository secrets are unavailable to `pull_request` workflows from forks, so the skip label cannot set github-ui statuses. A maintainer can comment `.skip-integration-checks` on this PR instead.' >> "$GITHUB_STEP_SUMMARY"
-          exit 1
+          echo '::warning title=Fork PR integration skip workaround::This pull request is from a fork. If integration skip statuses cannot be updated, a maintainer can comment .skip-integration-checks on this PR instead.'
+          echo 'This pull request is from a fork. If integration skip statuses cannot be updated, a maintainer can comment `.skip-integration-checks` on this PR instead.' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Generate token for primer
         id: generate_primer_token
@@ -38,7 +37,7 @@ jobs:
 
       # Support for reporting on required github-ui status checks on pull requests
       - name: Override status checks for pull request
-        if: "${{ github.event_name == 'pull_request' }}"
+        if: "${{ github.event_name == 'pull_request_target' }}"
         run: |
           # Get the timeline event ID for the label being added
           EVENT_ID=$(gh api "/repos/primer/react/issues/$PR_NUMBER/timeline" \
