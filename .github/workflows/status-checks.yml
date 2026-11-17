@@ -3,7 +3,7 @@ name: status-checks
 on:
   issue_comment:
     types: [created]
-  pull_request:
+  pull_request_target:
     types: [labeled, opened, reopened, synchronize]
   merge_group:
     branches:
@@ -17,7 +17,7 @@ permissions:
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null) }}"
+    if: "${{ (github.event_name == 'pull_request_target' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null) }}"
     steps:
       - name: Generate token for primer
         id: generate_primer_token
@@ -31,7 +31,7 @@ jobs:
 
       # Support for reporting on required github-ui status checks on pull requests
       - name: Override status checks for pull request
-        if: "${{ github.event_name == 'pull_request' }}"
+        if: "${{ github.event_name == 'pull_request_target' }}"
         run: |
           # Get the timeline event ID for the label being added
           EVENT_ID=$(gh api "/repos/primer/react/issues/$PR_NUMBER/timeline" \
