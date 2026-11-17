@@ -464,7 +464,7 @@ function TableSelectionAnnouncement({
   }, [selectedCount, bulkActionsRef, getSelectionAnnouncement])
 
   return (
-    <VisuallyHidden>
+    <VisuallyHidden data-table-selection-announcement="">
       <AriaStatus as="span" delayMs={150}>
         {message}
       </AriaStatus>

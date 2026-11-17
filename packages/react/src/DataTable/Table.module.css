@@ -152,20 +152,29 @@
   border-top-right-radius: var(--table-border-radius);
 }
 
+/* Hidden selection announcements do not change whether the table has a footer. */
 /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
-.TableOverflowWrapper:last-child .Table .TableBody:last-of-type .TableRow:last-of-type .TableCell:first-child {
+.TableOverflowWrapper:nth-last-child(1 of :where(:not([data-table-selection-announcement])))
+  .Table
+  .TableBody:last-of-type
+  .TableRow:last-of-type
+  .TableCell:first-child {
   /* stylelint-disable-next-line primer/borders */
   border-bottom-left-radius: var(--table-border-radius);
 }
 
 /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
-.TableOverflowWrapper:last-child .Table .TableBody:last-of-type .TableRow:last-of-type .TableCell:last-child {
+.TableOverflowWrapper:nth-last-child(1 of :where(:not([data-table-selection-announcement])))
+  .Table
+  .TableBody:last-of-type
+  .TableRow:last-of-type
+  .TableCell:last-child {
   /* stylelint-disable-next-line primer/borders */
   border-bottom-right-radius: var(--table-border-radius);
 }
 
 /* stylelint-disable selector-pseudo-class-disallowed-list, selector-max-compound-selectors -- scoped to a group header and its adjacent member body */
-.TableOverflowWrapper:last-child
+.TableOverflowWrapper:nth-last-child(1 of :where(:not([data-table-selection-announcement])))
   .TableGroupHeaderBody:where(:has(+ .TableBody:where([hidden], :empty):last-child))
   .TableGroupHeaderCell {
   /* stylelint-disable-next-line primer/borders */
