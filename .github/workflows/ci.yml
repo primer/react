@@ -113,7 +113,16 @@ jobs:
       - name: Run tests defined in vitest
         uses: docker://mcr.microsoft.com/playwright:v1.64.1-jammy
         with:
-          args: npm test
+          args: npm test -- --retry=1 --reporter=default --reporter=github-actions --reporter=./packages/vitest-config/src/flaky-test-reporter.ts
+      - name: Upload flaky test evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: vitest-flaky-tests-${{ matrix.react-version }}
+          path: .test/vitest-flaky-tests.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
 
   type-check:
     runs-on: ubuntu-latest

@@ -361,7 +361,7 @@ export function usePaneWidth({
   useIsomorphicLayoutEffect(() => {
     if (!resizable) return
 
-    let lastViewportWidth = window.innerWidth
+    const viewportState = {lastWidth: window.innerWidth}
 
     // Full sync of refs, ARIA, and state (debounced, runs when resize stops)
     const syncAll = () => {
@@ -369,11 +369,11 @@ export function usePaneWidth({
 
       // Only update the cached diff value if we crossed the breakpoint
       const crossedBreakpoint =
-        (lastViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+        (viewportState.lastWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
           currentViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT) ||
-        (lastViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+        (viewportState.lastWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
           currentViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT)
-      lastViewportWidth = currentViewportWidth
+      viewportState.lastWidth = currentViewportWidth
 
       if (crossedBreakpoint) {
         maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
@@ -440,22 +440,24 @@ export function usePaneWidth({
     // while still limiting update frequency
     const THROTTLE_MS = 16 // ~60fps
     const DEBOUNCE_MS = 150 // Delay before removing containment after resize stops
-    let lastUpdateTime = 0
-    let pendingUpdate = false
-    let rafId: number | null = null
-    let debounceId: ReturnType<typeof setTimeout> | null = null
-    let isResizing = false
+    const resizeState = {
+      lastUpdateTime: 0,
+      pendingUpdate: false,
+      rafId: null as number | null,
+      debounceId: null as ReturnType<typeof setTimeout> | null,
+      isResizing: false,
+    }
 
     const startResizeOptimizations = () => {
-      if (isResizing) return
-      isResizing = true
+      if (resizeState.isResizing) return
+      resizeState.isResizing = true
       paneRef.current?.setAttribute('data-dragging', 'true')
       contentWrapperRef?.current?.setAttribute('data-dragging', 'true')
     }
 
     const endResizeOptimizations = () => {
-      if (!isResizing) return
-      isResizing = false
+      if (!resizeState.isResizing) return
+      resizeState.isResizing = false
       paneRef.current?.removeAttribute('data-dragging')
       contentWrapperRef?.current?.removeAttribute('data-dragging')
     }
@@ -465,23 +467,23 @@ export function usePaneWidth({
       startResizeOptimizations()
 
       const now = Date.now()
-      if (now - lastUpdateTime >= THROTTLE_MS) {
-        lastUpdateTime = now
+      if (now - resizeState.lastUpdateTime >= THROTTLE_MS) {
+        resizeState.lastUpdateTime = now
         syncAll()
-      } else if (!pendingUpdate) {
-        pendingUpdate = true
-        rafId = requestAnimationFrame(() => {
-          pendingUpdate = false
-          rafId = null
-          lastUpdateTime = Date.now()
+      } else if (!resizeState.pendingUpdate) {
+        resizeState.pendingUpdate = true
+        resizeState.rafId = requestAnimationFrame(() => {
+          resizeState.pendingUpdate = false
+          resizeState.rafId = null
+          resizeState.lastUpdateTime = Date.now()
           syncAll()
         })
       }
 
       // Debounce the cleanup — remove containment after resize stops
-      if (debounceId !== null) clearTimeout(debounceId)
-      debounceId = setTimeout(() => {
-        debounceId = null
+      if (resizeState.debounceId !== null) clearTimeout(resizeState.debounceId)
+      resizeState.debounceId = setTimeout(() => {
+        resizeState.debounceId = null
         endResizeOptimizations()
       }, DEBOUNCE_MS)
     }
@@ -489,8 +491,8 @@ export function usePaneWidth({
     // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
-      if (rafId !== null) cancelAnimationFrame(rafId)
-      if (debounceId !== null) clearTimeout(debounceId)
+      if (resizeState.rafId !== null) cancelAnimationFrame(resizeState.rafId)
+      if (resizeState.debounceId !== null) clearTimeout(resizeState.debounceId)
       endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
