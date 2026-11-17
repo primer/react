@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useEffect} from 'react'
+import {useEffect, useRef} from 'react'
 import {isEditableElement} from '@primer/behaviors/utils'
 import {getNextFocusableElement} from './useRovingTabIndex'
 
@@ -53,18 +53,19 @@ export function useTreeRovingTabIndex({
   mouseDownRef?: React.RefObject<boolean>
   preventScroll?: boolean
 }) {
+  const tabStopRef = useRef<HTMLElement | null>(null)
+
   useEffect(() => {
+    tabStopRef.current = null
     const root = containerRef.current
     if (!root) return
     const container: HTMLElement = root
 
-    let tabStop: HTMLElement | null = null
-
     function setTabStop(element: HTMLElement | null) {
-      if (element === tabStop) return
-      tabStop?.setAttribute('tabindex', '-1')
+      if (element === tabStopRef.current) return
+      tabStopRef.current?.setAttribute('tabindex', '-1')
       element?.setAttribute('tabindex', '0')
-      tabStop = element
+      tabStopRef.current = element
     }
 
     // Same preference as `useRovingTabIndex`'s focusInStrategy: current item, then candidate, then first item.
@@ -79,7 +80,7 @@ export function useTreeRovingTabIndex({
     // Keep a single tab stop: nested controls and any other treeitem rendered as tabbable
     // (e.g. a `current` item mounted after the tab stop was chosen) leave the tab order.
     function removeElementFromTabOrder(element: Element) {
-      if (element.matches(NESTED_TABBABLE) || (element !== tabStop && element.matches(TABBABLE_TREE_ITEM))) {
+      if (element.matches(NESTED_TABBABLE) || (element !== tabStopRef.current && element.matches(TABBABLE_TREE_ITEM))) {
         element.setAttribute('tabindex', '-1')
       }
     }
@@ -88,7 +89,7 @@ export function useTreeRovingTabIndex({
       removeElementFromTabOrder(root)
       for (const element of root.querySelectorAll(NESTED_TABBABLE)) element.setAttribute('tabindex', '-1')
       for (const element of root.querySelectorAll(TABBABLE_TREE_ITEM)) {
-        if (element !== tabStop) element.setAttribute('tabindex', '-1')
+        if (element !== tabStopRef.current) element.setAttribute('tabindex', '-1')
       }
     }
 
@@ -114,8 +115,8 @@ export function useTreeRovingTabIndex({
         }
       }
       // If the tab stop was removed (e.g. its parent collapsed), the tree must stay reachable by Tab.
-      if (!tabStop || !container.contains(tabStop)) {
-        tabStop = null
+      if (!tabStopRef.current || !container.contains(tabStopRef.current)) {
+        tabStopRef.current = null
         setTabStop(getPreferredItem())
       }
     })
