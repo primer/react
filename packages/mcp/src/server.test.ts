@@ -653,4 +653,49 @@ describe('MCP server', () => {
       text: 'The alt text is descriptive and relevant.',
     })
   })
+
+  it('retrieves component documentation using the public component slug', async () => {
+    const url = 'https://primer.style/product/components/action-bar/llms.txt'
+    const body = '# ActionBar\\n\\nSynthetic component documentation.'
+    const fetchMock = vi.mocked(fetch)
+    fetchMock.mockImplementation(async input => {
+      if (input.toString() === url) {
+        return new Response(body)
+      }
+
+      if (input.toString() === 'https://primer.style/product/components/actionbar/llms.txt') {
+        return new Response(null, {status: 404})
+      }
+
+      throw new Error(`Unexpected fetch request: ${input}`)
+    })
+
+    const result = await client.callTool({name: 'get_component', arguments: {name: 'ActionBar'}})
+
+    expect(result.isError).not.toBe(true)
+    expect(result.content).toEqual([{type: 'text', text: body}])
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock.mock.calls[0]?.[0].toString()).toBe(url)
+  })
+
+  it('retrieves accessibility guidelines using the public component slug', async () => {
+    const url = 'https://primer.style/product/components/action-bar/accessibility'
+    const fetchMock = vi.mocked(fetch)
+    fetchMock.mockResolvedValue(new Response('<main><p>Use a clear accessible name.</p></main>'))
+
+    const result = await client.callTool({
+      name: 'get_component_accessibility_guidelines',
+      arguments: {name: 'ActionBar'},
+    })
+
+    expect(result.isError).not.toBe(true)
+    expect(result.content).toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining('Use a clear accessible name.'),
+      }),
+    )
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock.mock.calls[0]?.[0].toString()).toBe(url)
+  })
 })
