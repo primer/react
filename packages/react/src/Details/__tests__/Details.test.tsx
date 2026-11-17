@@ -93,6 +93,27 @@ describe('Details', () => {
     await expect.element(page.getByTestId('summary')).toHaveTextContent('Open')
   })
 
+  it('does not synchronize the outer open state with a nested toggle', async () => {
+    const Component = () => {
+      const {getDetailsProps} = useDetails({defaultOpen: true})
+      return (
+        <Details {...getDetailsProps()} data-testid="outer-details">
+          <Details.Summary>Outer summary</Details.Summary>
+          <details open data-testid="inner-details">
+            <summary>Inner summary</summary>
+          </details>
+        </Details>
+      )
+    }
+
+    render(<Component />)
+
+    await userEvent.click(page.getByText('Inner summary', {exact: true}))
+
+    await expect.element(page.getByTestId('inner-details')).not.toHaveAttribute('open')
+    await expect.element(page.getByTestId('outer-details')).toHaveAttribute('open')
+  })
+
   describe('Details.Summary', () => {
     it('should support a custom `className` on the container element', async () => {
       render(<Details.Summary className="custom-class">test summary</Details.Summary>)

@@ -39,10 +39,12 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: Use
   }, [open, closeOnOutsideClick, onClickOutsideInternal])
 
   const handleToggle = (e: React.SyntheticEvent<HTMLElement, Event>) => {
-    if (!e.defaultPrevented) {
-      const eventTarget = e.target as HTMLDetailsElement
-      setOpen(eventTarget.open)
+    if (e.target !== e.currentTarget || e.defaultPrevented) {
+      return
     }
+
+    const eventTarget = e.currentTarget as HTMLDetailsElement
+    setOpen(eventTarget.open)
   }
 
   const getDetailsProps = () => {
