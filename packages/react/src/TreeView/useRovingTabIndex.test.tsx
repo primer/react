@@ -504,6 +504,51 @@ describe('getNextFocusableElement', () => {
   })
 })
 
+describe('TreeView page navigation', () => {
+  afterEach(cleanupRTL)
+
+  for (const withCollapsedChildren of [false, true]) {
+    describe(`withCollapsedChildren=${withCollapsedChildren}`, () => {
+      it.each([
+        {height: 64, key: 'PageDown', from: 0, to: 2},
+        {height: 64, key: 'PageUp', from: 2, to: 0},
+        {height: 64, key: 'PageDown', from: 3, to: 3},
+        {height: 64, key: 'PageUp', from: 0, to: 0},
+        {height: 16, key: 'PageDown', from: 0, to: 1},
+        {height: 16, key: 'PageUp', from: 1, to: 0},
+      ])('$key moves from visible item $from to $to in a $height px container', ({height, key, from, to}) => {
+        const {getAllByRole} = render(
+          <div style={{height, overflowY: 'auto'}}>
+            <ul role="tree" aria-label="Paging test" style={{margin: 0, padding: 0, listStyle: 'none'}}>
+              <li role="treeitem" aria-expanded={false} aria-selected={false}>
+                <span style={{display: 'block', height: 32}}>Parent</span>
+                {withCollapsedChildren && (
+                  <ul role="group" hidden>
+                    <li role="treeitem" aria-selected={false}>
+                      <span style={{display: 'block', height: 32}}>Hidden child 1</span>
+                    </li>
+                    <li role="treeitem" aria-selected={false}>
+                      <span style={{display: 'block', height: 32}}>Hidden child 2</span>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              {[1, 2, 3].map(index => (
+                <li key={index} role="treeitem" aria-selected={false}>
+                  <span style={{display: 'block', height: 32}}>Sibling {index}</span>
+                </li>
+              ))}
+            </ul>
+          </div>,
+        )
+        const visibleItems = getAllByRole('treeitem')
+
+        expect(getNextFocusableElement(visibleItems[from], new KeyboardEvent('keydown', {key}))).toBe(visibleItems[to])
+      })
+    })
+  }
+})
+
 // Test component that uses the useRovingTabIndex hook directly
 function TreeWithRovingTabIndex({
   preventScroll = true,
