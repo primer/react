@@ -1,63 +1,132 @@
-import type {RefObject} from 'react'
+import {useRef} from 'react'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export interface UseScrollAnchorSettings {
-  containerRef: RefObject<HTMLElement | null>
-  anchorRef: RefObject<HTMLElement | null>
+  container: HTMLElement | null
+  anchor: HTMLElement | null
+  anchorKey?: string | number
 }
 
 /**
- * Preserves the viewport position of an anchor when content in its container changes.
- * The anchor should be a visible element, and this hook only adjusts the window scroll position.
+ * Preserves an anchor's viewport position when content in its container changes.
+ * The anchor should be visible. Only window scrolling is adjusted.
  *
- * @param containerRef A ref to the container whose DOM changes should be observed.
- * @param anchorRef A ref to the visible element whose viewport position should be preserved.
+ * Pass reactive elements, for example from callback refs backed by state. Provide
+ * the same anchorKey when the same logical anchor may be rendered as a new element.
+ * Without a key, a different element starts a new baseline. Passing a null anchor
+ * also resets the baseline.
  */
-export function useScrollAnchor({containerRef, anchorRef}: UseScrollAnchorSettings): void {
-  useIsomorphicLayoutEffect(() => {
-    const container = containerRef.current
-    const initialAnchor = anchorRef.current
+export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorSettings): void {
+  const selection = useRef({anchor, anchorKey})
+  const updateSelection = useRef<(() => void) | null>(null)
 
-    if (!container || !initialAnchor || !container.contains(initialAnchor)) {
+  useIsomorphicLayoutEffect(() => {
+    selection.current = {anchor, anchorKey}
+  })
+
+  useIsomorphicLayoutEffect(() => {
+    if (!container) {
       return
     }
 
-    let anchorTop = initialAnchor.getBoundingClientRect().top
+    const root = container
+    let trackedAnchor: HTMLElement | null = null
+    let trackedKey: HTMLElement | string | number | null = null
+    let anchorTop: number | null = null
+    const observed = new Set<Element>()
+    const resizeObserver = new ResizeObserver(() => correctPosition())
 
-    const updateAnchorTop = () => {
-      const anchor = anchorRef.current
-      if (anchor && container.contains(anchor)) {
-        anchorTop = anchor.getBoundingClientRect().top
+    function observeLayout() {
+      const elements = new Set<Element>([root])
+      let element: Element | null = trackedAnchor
+      while (element && element !== root) {
+        const parent: Element | null = element.parentElement
+        if (!parent || !root.contains(parent)) break
+        for (const child of parent.children) elements.add(child)
+        element = parent
+      }
+
+      for (const element of observed) {
+        if (!elements.has(element)) {
+          resizeObserver.unobserve(element)
+          observed.delete(element)
+        }
+      }
+      for (const element of elements) {
+        if (!observed.has(element)) {
+          resizeObserver.observe(element)
+          observed.add(element)
+        }
       }
     }
 
-    const observer = new MutationObserver(() => {
-      const anchor = anchorRef.current
-      if (!anchor || !container.contains(anchor)) {
-        return
+    function synchronizeSelection() {
+      const {anchor: nextAnchor, anchorKey: nextKey} = selection.current
+      if (!nextAnchor) {
+        const hadAnchor = trackedAnchor !== null
+        trackedAnchor = null
+        trackedKey = null
+        anchorTop = null
+        if (hadAnchor) observeLayout()
+        return false
+      }
+      if (!root.contains(nextAnchor)) {
+        return false
       }
 
-      const currentTop = anchor.getBoundingClientRect().top
-      const offset = currentTop - anchorTop
+      const key = nextKey ?? nextAnchor
+      if (key !== trackedKey) {
+        anchorTop = nextAnchor.getBoundingClientRect().top
+      }
+      if (nextAnchor !== trackedAnchor || key !== trackedKey) {
+        trackedAnchor = nextAnchor
+        trackedKey = key
+        observeLayout()
+      }
+      return true
+    }
 
+    function correctPosition() {
+      if (!synchronizeSelection() || !trackedAnchor || anchorTop === null) return
+
+      const offset = trackedAnchor.getBoundingClientRect().top - anchorTop
       if (offset !== 0) {
-        window.scrollBy(0, offset)
-        anchorTop = currentTop - offset
+        window.scrollBy({top: offset, behavior: 'instant'})
+        anchorTop = trackedAnchor.getBoundingClientRect().top
       }
-    })
+    }
 
-    observer.observe(container, {
+    function capturePosition() {
+      if (synchronizeSelection() && trackedAnchor) {
+        anchorTop = trackedAnchor.getBoundingClientRect().top
+      }
+    }
+
+    const mutationObserver = new MutationObserver(() => {
+      observeLayout()
+      correctPosition()
+    })
+    mutationObserver.observe(root, {
       attributes: true,
       characterData: true,
       childList: true,
       subtree: true,
     })
+    observeLayout()
+    updateSelection.current = correctPosition
+    correctPosition()
     // eslint-disable-next-line github/prefer-observers -- Track every scroll position to preserve the anchor's current viewport position.
-    window.addEventListener('scroll', updateAnchorTop)
+    window.addEventListener('scroll', capturePosition)
 
     return () => {
-      observer.disconnect()
-      window.removeEventListener('scroll', updateAnchorTop)
+      updateSelection.current = null
+      mutationObserver.disconnect()
+      resizeObserver.disconnect()
+      window.removeEventListener('scroll', capturePosition)
     }
-  }, [anchorRef, containerRef])
+  }, [container])
+
+  useIsomorphicLayoutEffect(() => {
+    updateSelection.current?.()
+  }, [container, anchor, anchorKey])
 }
