@@ -1,8 +1,7 @@
 import React from 'react'
 import {act, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
-import {page, userEvent as browserUserEvent} from 'vitest/browser'
+import {page, userEvent as user} from 'vitest/browser'
 import BaseStyles from '../BaseStyles'
 import FormControl from '../FormControl'
 import TextInput from '../TextInput'
@@ -85,44 +84,52 @@ afterEach(async () => {
 })
 
 describe('SelectPanel.Overlay presentation', () => {
-  it.each([false, true])('preserves popover state and trigger relationships with CSS anchors=%s', async native => {
-    render(
-      <FeatureFlags flags={{primer_react_css_anchor_positioning: native}}>
-        <Picker
-          overlay={{
-            renderAs: 'popover',
-            variant: {narrow: 'anchored'},
-            overlayProps: {id: 'consumer-picker'},
-          }}
-        />
-      </FeatureFlags>,
-    )
-    const trigger = page.getByRole('button', {name: 'Open picker', exact: true})
-    const dialog = page.getByRole('dialog', {name: 'Choose a fruit', exact: true})
-    for (let opening = 0; opening < 2; opening++) {
-      await browserUserEvent.click(trigger)
-      await expect.element(dialog).toBeVisible()
-      expect(dialog.element().id).toBe('consumer-picker')
-      expect(trigger.element()).toHaveAttribute('aria-controls', dialog.element().id)
-      expect(dialog.element().matches(':popover-open')).toBe(native)
-      expect(screen.getByRole('combobox', {name: 'Filter fruit'})).toHaveFocus()
-      await browserUserEvent.keyboard('{Escape}')
-      await expect.element(dialog).not.toBeInTheDocument()
-      await expect.element(trigger).toHaveFocus()
-    }
-  })
+  it.each([false, true])(
+    'uses a native modal independently of the shared CSS anchor flag=%s',
+    async sharedCssAnchors => {
+      render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: sharedCssAnchors}}>
+          <Picker
+            overlay={{
+              variant: {narrow: 'anchored'},
+              overlayProps: {id: 'consumer-picker'},
+            }}
+          />
+        </FeatureFlags>,
+      )
+      const trigger = page.getByRole('button', {name: 'Open picker', exact: true})
+      const dialog = page.getByRole('dialog', {name: 'Choose a fruit', exact: true})
+      for (let opening = 0; opening < 2; opening++) {
+        await user.click(trigger)
+        await expect.element(dialog).toBeVisible()
+        await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
+        expect(dialog.element().id).toBe('consumer-picker')
+        expect(trigger.element()).toHaveAttribute('aria-controls', dialog.element().id)
+        expect(dialog.element()).toBeInstanceOf(HTMLDialogElement)
+        expect(dialog.element().matches(':modal')).toBe(true)
+        expect(dialog.element().matches(':popover-open')).toBe(false)
+        await expect.element(page.getByRole('combobox', {name: 'Filter fruit'})).toHaveFocus()
+        const host = dialog.element()
+        await user.keyboard('{Escape}')
+        await expect.element(dialog).not.toBeInTheDocument()
+        expect(host).toBeInTheDocument()
+        expect(host).not.toBeVisible()
+        await expect.element(trigger).toHaveFocus()
+      }
+    },
+  )
 
   it.each([
-    {native: false, disable: false, customPortal: false},
-    {native: true, disable: false, customPortal: false},
-    {native: true, disable: true, customPortal: false},
-    {native: true, disable: false, customPortal: true},
+    {sharedCssAnchors: false, disable: false, customPortal: false},
+    {sharedCssAnchors: true, disable: false, customPortal: false},
+    {sharedCssAnchors: true, disable: true, customPortal: false},
+    {sharedCssAnchors: true, disable: false, customPortal: true},
   ])(
-    'positions beneath the trigger with native=$native, disable=$disable, customPortal=$customPortal',
-    async ({native, disable, customPortal}) => {
+    'positions beneath the trigger with shared CSS anchors=$sharedCssAnchors, disable=$disable, customPortal=$customPortal',
+    async ({sharedCssAnchors, disable, customPortal}) => {
       const portalName = 'select-panel-positioning-test'
       render(
-        <FeatureFlags flags={{primer_react_css_anchor_positioning: native}}>
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: sharedCssAnchors}}>
           <div
             ref={element => {
               if (element) registerPortalRoot(element, portalName)
@@ -142,11 +149,9 @@ describe('SelectPanel.Overlay presentation', () => {
       const trigger = page.getByRole('button', {name: 'Open picker', exact: true})
       const dialog = page.getByRole('dialog', {name: 'Choose a fruit', exact: true})
       for (let opening = 0; opening < 2; opening++) {
-        await browserUserEvent.click(trigger)
+        await user.click(trigger)
         await expect.element(dialog).toBeVisible()
-        await expect
-          .element(dialog)
-          .toHaveAttribute('data-anchor-position', String(native && !disable && !customPortal))
+        await expect.element(dialog).toHaveAttribute('data-anchor-position', String(!disable))
         await expect
           .poll(() => {
             const anchor = trigger.element().getBoundingClientRect()
@@ -157,7 +162,8 @@ describe('SelectPanel.Overlay presentation', () => {
             }
           })
           .toEqual({left: 0, gap: 4})
-        await browserUserEvent.keyboard('{Escape}')
+        await expect.element(page.getByRole('combobox')).toHaveFocus()
+        await user.keyboard('{Escape}')
         await expect.element(dialog).not.toBeInTheDocument()
       }
     },
@@ -230,7 +236,6 @@ describe('SelectPanel.Overlay presentation', () => {
   })
 
   it('is an anchored modal dialog with a level-one title and custom IDs by default', async () => {
-    const user = userEvent.setup()
     render(<Picker overlay={{overlayProps: {id: 'custom-panel'}}} />)
     const trigger = screen.getByRole('button', {name: 'Open picker'})
     await user.click(trigger)
@@ -239,15 +244,26 @@ describe('SelectPanel.Overlay presentation', () => {
     expect(dialog).toHaveAttribute('aria-modal', 'true')
     expect(dialog).toHaveAttribute('data-variant', 'anchored')
     expect(dialog).toHaveAccessibleDescription('Choose your favorite fruit')
-    expect(trigger).toHaveAttribute('aria-controls', 'custom-panel')
+    await expect.element(trigger).toHaveAttribute('aria-controls', 'custom-panel')
     expect(within(dialog).getByRole('heading', {name: 'Choose a fruit', level: 1})).toBeInTheDocument()
     expect(within(dialog).queryByRole('button', {name: 'Close'})).not.toBeInTheDocument()
     await waitFor(() => expect(screen.getByRole('combobox')).toHaveFocus())
 
+    const input = screen.getByRole('combobox')
     await user.tab({shift: true})
-    expect(screen.getByRole('button', {name: 'Last action'})).toHaveFocus()
+    await expect.poll(() => document.activeElement === input).toBe(false)
+    // The test iframe adds a browser-chrome/body hop at the native wrap boundary.
+    for (let hop = 0; hop < 2 && document.activeElement === document.body; hop++) {
+      await user.tab({shift: true})
+    }
+    const lastAction = page.getByRole('button', {name: 'Last action'})
+    await expect.element(lastAction).toHaveFocus()
     await user.tab()
-    expect(screen.getByRole('combobox')).toHaveFocus()
+    await expect.poll(() => document.activeElement === lastAction.element()).toBe(false)
+    for (let hop = 0; hop < 2 && document.activeElement === document.body; hop++) {
+      await user.tab()
+    }
+    await expect.element(page.getByRole('combobox')).toHaveFocus()
     expect(document.body).toHaveStyle({overflow: 'hidden'})
   })
 
@@ -317,7 +333,7 @@ describe('SelectPanel.Overlay presentation', () => {
 
     rerender(<Picker defaultOpen overlay={{variant: {narrow: 'anchored'}}} />)
     expect(dialog).toHaveAttribute('data-variant', 'anchored')
-    expect(dialog).toHaveStyle({position: 'absolute'})
+    expect(dialog).toHaveStyle({position: 'fixed'})
     expect(dialog).toHaveAttribute('aria-modal', 'true')
   })
 
@@ -357,7 +373,6 @@ describe('SelectPanel.Overlay presentation', () => {
 
 describe('SelectPanel.Overlay lifecycle', () => {
   it('treats the responsive close button as dismissal rather than cancellation', async () => {
-    const user = userEvent.setup()
     const onDismiss = vi.fn()
     const onCancel = vi.fn()
     await act(async () => {
@@ -371,7 +386,6 @@ describe('SelectPanel.Overlay lifecycle', () => {
   })
 
   it('dismisses instead of cancelling and restores focus only after closing', async () => {
-    const user = userEvent.setup()
     const onDismiss = vi.fn()
     const onCancel = vi.fn()
     const onOpenChange = vi.fn()
@@ -388,7 +402,6 @@ describe('SelectPanel.Overlay lifecycle', () => {
   })
 
   it('keeps focus and modality when a controlled owner rejects Escape or outside dismissal', async () => {
-    const user = userEvent.setup()
     const onDismiss = vi.fn()
     const onCancel = vi.fn()
     render(<Picker open onDismiss={onDismiss} onCancel={onCancel} />)
@@ -398,7 +411,11 @@ describe('SelectPanel.Overlay lifecycle', () => {
     expect(onDismiss).toHaveBeenLastCalledWith('escape')
     expect(input).toHaveFocus()
 
-    fireEvent.mouseDown(document.body)
+    const dialog = page.getByRole('dialog')
+    await user.click(dialog, {
+      position: {x: dialog.element().getBoundingClientRect().width + 8, y: 8},
+      force: true,
+    })
     expect(onDismiss).toHaveBeenLastCalledWith('click-outside')
     expect(onCancel).not.toHaveBeenCalled()
     expect(input).toHaveFocus()
@@ -406,19 +423,23 @@ describe('SelectPanel.Overlay lifecycle', () => {
   })
 
   it('honors explicit onClose and overlay event overrides', async () => {
-    const user = userEvent.setup()
     const onClose = vi.fn()
     const onDismiss = vi.fn()
     const onEscape = vi.fn()
     const onClickOutside = vi.fn()
     const {rerender} = render(<Picker open onDismiss={onDismiss} overlay={{onClose}} />)
+    await expect.element(page.getByRole('combobox')).toHaveFocus()
     await user.keyboard('{Escape}')
     expect(onClose).toHaveBeenCalledWith('escape')
     expect(onDismiss).not.toHaveBeenCalled()
 
     rerender(<Picker open onDismiss={onDismiss} overlay={{onClose, overlayProps: {onEscape, onClickOutside}}} />)
     await user.keyboard('{Escape}')
-    fireEvent.mouseDown(document.body)
+    const dialog = page.getByRole('dialog')
+    await user.click(dialog, {
+      position: {x: dialog.element().getBoundingClientRect().width + 8, y: 8},
+      force: true,
+    })
     expect(onEscape).toHaveBeenCalledTimes(1)
     expect(onClickOutside).toHaveBeenCalledTimes(1)
     expect(onClose).toHaveBeenCalledTimes(1)
@@ -437,7 +458,6 @@ describe('SelectPanel.Overlay lifecycle', () => {
   })
 
   it('preserves a supplied legacy renderAnchor, anchor ref, onOpen, and anchor ID', async () => {
-    const user = userEvent.setup()
     const anchorRef = React.createRef<HTMLButtonElement>()
     const onOpen = vi.fn()
     const onClose = vi.fn()
@@ -525,7 +545,6 @@ function NestedPicker({showChild = true, controlledChild, onParentDismiss, onChi
 
 describe('SelectPanel.Overlay nesting', () => {
   it('dismisses only the child for Escape and outside gestures', async () => {
-    const user = userEvent.setup()
     const onParentDismiss = vi.fn()
     const onChildDismiss = vi.fn()
     render(<NestedPicker onParentDismiss={onParentDismiss} onChildDismiss={onChildDismiss} />)
@@ -539,7 +558,12 @@ describe('SelectPanel.Overlay nesting', () => {
     expect(screen.getByRole('dialog', {name: 'Parent panel'})).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', {name: 'Open child'}))
-    fireEvent.mouseDown(document.body)
+    await expect.element(page.getByRole('combobox', {name: 'Child filter'})).toHaveFocus()
+    const child = page.getByRole('dialog', {name: 'Child panel'})
+    await user.click(child, {
+      position: {x: child.element().getBoundingClientRect().width + 8, y: 8},
+      force: true,
+    })
     expect(onChildDismiss).toHaveBeenLastCalledWith('click-outside')
     expect(onParentDismiss).not.toHaveBeenCalled()
     expect(screen.queryByRole('dialog', {name: 'Child panel'})).not.toBeInTheDocument()
@@ -547,7 +571,6 @@ describe('SelectPanel.Overlay nesting', () => {
   })
 
   it('does not dismiss a parent or restore focus when a controlled child rejects dismissal', async () => {
-    const user = userEvent.setup()
     const onParentDismiss = vi.fn()
     const onChildDismiss = vi.fn()
     render(<NestedPicker controlledChild onParentDismiss={onParentDismiss} onChildDismiss={onChildDismiss} />)
@@ -556,16 +579,19 @@ describe('SelectPanel.Overlay nesting', () => {
     const input = screen.getByRole('combobox', {name: 'Child filter'})
     await waitFor(() => expect(input).toHaveFocus())
     await user.keyboard('{Escape}')
-    fireEvent.mouseDown(document.body)
+    const child = page.getByRole('dialog', {name: 'Child panel'})
+    await user.click(child, {
+      position: {x: child.element().getBoundingClientRect().width + 8, y: 8},
+      force: true,
+    })
     expect(onChildDismiss).toHaveBeenCalledWith('escape')
     expect(onChildDismiss).toHaveBeenCalledWith('click-outside')
     expect(onParentDismiss).not.toHaveBeenCalled()
     expect(input).toHaveFocus()
-    expect(screen.getAllByRole('dialog')).toHaveLength(2)
+    expect(document.querySelectorAll('dialog:modal')).toHaveLength(2)
   })
 
   it('falls back to the parent input if the child and its invoking anchor disappear', async () => {
-    const user = userEvent.setup()
     const {rerender} = render(<NestedPicker />)
     await user.click(screen.getByRole('button', {name: 'Open parent'}))
     await user.click(screen.getByRole('button', {name: 'Open child'}))

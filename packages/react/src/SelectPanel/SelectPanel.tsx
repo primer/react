@@ -960,7 +960,7 @@ function Panel({
         width={width}
         anchorId={id}
         variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
-        pinPosition={!height}
+        pinPosition={!height && !native.dialog}
         className={classes.Overlay}
         displayCloseButton={showXCloseIcon}
         closeButtonProps={closeButtonProps}

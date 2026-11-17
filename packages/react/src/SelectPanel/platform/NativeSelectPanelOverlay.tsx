@@ -17,6 +17,14 @@ import {NativeDialogHost} from './NativeDialogHost'
 import {nativeInvokerProps, useNativeSelectPanel} from './NativeSelectPanelContext'
 import classes from './PlatformSelectPanel.module.css'
 
+const subscribe = () => () => {}
+const serverAnchorPositioning = () => false
+const nativeAnchorPositioning = () =>
+  typeof CSS !== 'undefined' &&
+  CSS.supports('anchor-name: --anchor') &&
+  CSS.supports('justify-self: anchor-center') &&
+  CSS.supports('position-try-fallbacks: flip-block')
+
 export function NativeSelectPanelOverlay({
   children,
   renderAnchor,
@@ -30,7 +38,7 @@ export function NativeSelectPanelOverlay({
   className,
   width = 'medium',
   height,
-  align,
+  align = 'start',
   side = overlayProps?.anchorSide ?? 'outside-bottom',
   anchorOffset,
   alignmentOffset,
@@ -39,6 +47,7 @@ export function NativeSelectPanelOverlay({
   onPositionChange,
   displayCloseButton = false,
   closeButtonProps,
+  cssAnchorPositioningSettings,
   configured = false,
 }: SelectPanelOverlayProps & {configured?: boolean}) {
   const state = useSelectPanelContext()
@@ -59,6 +68,16 @@ export function NativeSelectPanelOverlay({
     }
   const currentVariant = useResponsiveValue(responsiveVariant, 'anchored')
   const {setPanelId} = state
+  const supportsAnchors = React.useSyncExternalStore(subscribe, nativeAnchorPositioning, serverAnchorPositioning)
+  const cssAnchors =
+    supportsAnchors &&
+    currentVariant === 'anchored' &&
+    !cssAnchorPositioningSettings?.disable &&
+    !pinPosition &&
+    !onPositionChange &&
+    displayInViewport === undefined &&
+    side.startsWith('outside-') &&
+    !(align === 'center' && (alignmentOffset ?? 0) !== 0)
 
   useLayoutEffect(() => {
     setPanelId(panelId)
@@ -66,11 +85,28 @@ export function NativeSelectPanelOverlay({
     return () => setTargetId(undefined)
   }, [panelId, setPanelId, setTargetId])
 
+  useLayoutEffect(() => {
+    const anchor = anchorRef.current
+    const dialog = dialogRef.current
+    if (!cssAnchors || !anchor || !dialog) return
+    const existing = getComputedStyle(anchor).getPropertyValue('anchor-name')
+    const name =
+      existing && existing !== 'none' ? existing.split(',')[0].trim() : `--select-panel-${CSS.escape(state.id)}`
+    if (!existing || existing === 'none') anchor.style.setProperty('anchor-name', name)
+    dialog.style.setProperty('position-anchor', name)
+    return () => {
+      if ((!existing || existing === 'none') && anchor.style.getPropertyValue('anchor-name') === name) {
+        anchor.style.removeProperty('anchor-name')
+      }
+      dialog.style.removeProperty('position-anchor')
+    }
+  }, [anchorRef, cssAnchors, state.id, portalRevision])
+
   const {position} = useAnchoredPosition(
     {
       anchorElementRef: anchorRef,
       floatingElementRef: dialogRef,
-      enabled: state.open && currentVariant === 'anchored',
+      enabled: state.open && currentVariant === 'anchored' && !cssAnchors,
       align,
       side,
       anchorOffset,
@@ -84,6 +120,7 @@ export function NativeSelectPanelOverlay({
     [
       state.open,
       currentVariant,
+      cssAnchors,
       portalRevision,
       align,
       side,
@@ -144,17 +181,29 @@ export function NativeSelectPanelOverlay({
       dialogProps={{
         id: panelId,
         role: overlayProps?.role,
-        className: classes.NativeHost,
         'aria-label': overlayProps?.['aria-label'],
         'aria-labelledby': overlayProps?.['aria-label']
           ? undefined
           : (overlayProps?.['aria-labelledby'] ?? state.labelledBy),
         'aria-describedby': overlayProps?.['aria-describedby'] ?? state.describedBy,
         'data-variant': currentVariant,
+        'data-anchor-position': cssAnchors,
+        'data-side': side,
+        'data-align': align,
         'data-configured': configured ? '' : undefined,
         style: {
           '--native-top': position ? `${position.top}px` : undefined,
           '--native-left': position ? `${position.left}px` : undefined,
+          '--native-anchor-offset': `${anchorOffset ?? 4}px`,
+          '--native-alignment-offset': `${alignmentOffset ?? 0}px`,
+          positionTryFallbacks:
+            cssAnchorPositioningSettings?.fallbackStrategy === 'none'
+              ? 'none'
+              : cssAnchorPositioningSettings?.fallbackStrategy === 'opposite-side'
+                ? side.endsWith('left') || side.endsWith('right')
+                  ? 'flip-inline'
+                  : 'flip-block'
+                : undefined,
           // The surface inherits the host's viewport cap. Keep an explicit
           // Overlay maxHeight in that same chain rather than overriding it.
           ...(overlayProps?.maxHeight && currentVariant !== 'fullscreen'

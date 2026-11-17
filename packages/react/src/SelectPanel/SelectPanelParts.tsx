@@ -4,10 +4,8 @@ import {SearchIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps, type ActionListGroupProps, type ActionListProps} from '../ActionList'
 import {Button, type ButtonProps} from '../Button'
 import buttonClasses from '../Button/ButtonBase.module.css'
-import {Dialog} from '../Dialog/Dialog'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
-import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useFormControlForwardedProps} from '../FormControl/_FormControlContext'
 import Heading from '../Heading'
@@ -26,6 +24,8 @@ import {
 import {useSelectPanel, type SelectPanelStateOptions, type SelectPanelValue} from './useSelectPanel'
 import {nativeInvokerProps, useNativeSelectPanel} from './platform/NativeSelectPanelContext'
 import {NativeSelectPanelProvider} from './platform/NativeSelectPanelProvider'
+import {SelectPanelCloseButton} from './SelectPanelActions'
+import {SelectPanelOverlay} from './SelectPanelOverlay'
 import classes from './SelectPanel.module.css'
 
 export {SelectPanelOverlay, type SelectPanelOverlayProps} from './SelectPanelOverlay'
@@ -426,6 +426,7 @@ export const SelectPanelItemBase = React.forwardRef<HTMLLIElement, SelectPanelIt
           {hasActions ? (
             <ActionList.TrailingVisual {...slots.trailingVisual?.props}>
               {slots.trailingVisual?.props.children}
+              {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- Pointer-only actions; keyboard access is on the option. */}
               <span
                 className={classes.ItemActions}
                 onClick={event => event.stopPropagation()}
@@ -475,43 +476,37 @@ function SelectPanelItemActionDialog({
   onClose: () => void
   itemRef: React.RefObject<HTMLElement | null>
 }) {
-  const dialogRef = React.useRef<HTMLDivElement>(null)
   const initialFocusRef = React.useRef<HTMLLIElement>(null)
   const firstEnabledIndex = actions.findIndex(action => !action.disabled)
-  useOnOutsideClick({
-    containerRef: dialogRef,
-    onClickOutside: event => {
-      event.preventDefault()
-      onClose()
-    },
-  })
   return (
-    <Dialog
-      ref={dialogRef}
-      title="Supplemental actions"
-      onClose={onClose}
-      initialFocusRef={initialFocusRef}
-      returnFocusRef={itemRef}
-    >
-      <ActionList>
-        {actions.map((action, index) => (
-          <ActionList.Item
-            ref={index === firstEnabledIndex ? initialFocusRef : undefined}
-            key={index}
-            disabled={action.disabled}
-            onSelect={() => {
-              onClose()
-              action.onClick()
-            }}
-          >
-            <ActionList.LeadingVisual>
-              <action.icon />
-            </ActionList.LeadingVisual>
-            {action.label}
-          </ActionList.Item>
-        ))}
-      </ActionList>
-    </Dialog>
+    <SelectPanelRoot open onDismiss={onClose}>
+      <SelectPanelOverlay anchorRef={itemRef} variant={{regular: 'modal'}} focusTrapSettings={{initialFocusRef}}>
+        <SelectPanelContent>
+          <SelectPanelHeader>
+            <SelectPanelTitle>Supplemental actions</SelectPanelTitle>
+            <SelectPanelCloseButton />
+          </SelectPanelHeader>
+          <ActionList>
+            {actions.map((action, index) => (
+              <ActionList.Item
+                ref={index === firstEnabledIndex ? initialFocusRef : undefined}
+                key={index}
+                disabled={action.disabled}
+                onSelect={() => {
+                  onClose()
+                  action.onClick()
+                }}
+              >
+                <ActionList.LeadingVisual>
+                  <action.icon />
+                </ActionList.LeadingVisual>
+                {action.label}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </SelectPanelContent>
+      </SelectPanelOverlay>
+    </SelectPanelRoot>
   )
 }
 

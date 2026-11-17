@@ -1,10 +1,9 @@
 import {InfoIcon, TagIcon, TriangleDownIcon} from '@primer/octicons-react'
-import type {Meta} from '@storybook/react-vite'
+import type {Meta, StoryObj} from '@storybook/react-vite'
+import {expect, userEvent, waitFor, within} from 'storybook/test'
 import {useRef, useState, type RefObject} from 'react'
 import {ActionList} from '../ActionList'
 import {Button} from '../Button'
-import {Dialog} from '../Dialog/Dialog'
-import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import FormControl from '../FormControl'
 import {SelectPanel, type SelectPanelValue} from '../SelectPanel'
 import classes from './SelectPanel.composition.stories.module.css'
@@ -58,10 +57,12 @@ function selectionLabel(selected: SelectPanelValue[]) {
 function LabelItem({option}: {option: LabelOption}) {
   return (
     <SelectPanel.Item value={option.id} disabled={option.disabled}>
+      {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item composes ActionList.Item slots. */}
       <ActionList.LeadingVisual>
         <TagIcon />
       </ActionList.LeadingVisual>
       {option.name}
+      {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item composes ActionList.Item slots. */}
       <ActionList.Description variant="block">{option.description}</ActionList.Description>
     </SelectPanel.Item>
   )
@@ -263,6 +264,7 @@ function LabelDetails({item, returnFocusRef}: {item: LabelOption; returnFocusRef
         secondaryActions={[{label: `Details for ${item.name}`, icon: InfoIcon, onClick: () => setOpen(true)}]}
       >
         {item.name}
+        {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item composes ActionList.Item slots. */}
         <ActionList.Description variant="block">{item.description}</ActionList.Description>
       </SelectPanel.Item>
       {open ? <LabelDetailsDialog item={item} returnFocusRef={returnFocusRef} onClose={() => setOpen(false)} /> : null}
@@ -279,77 +281,99 @@ function LabelDetailsDialog({
   returnFocusRef: RefObject<HTMLInputElement>
   onClose: () => void
 }) {
-  const dialogRef = useRef<HTMLDivElement>(null)
   const backRef = useRef<HTMLButtonElement>(null)
-  // Register this portaled dialog above the parent picker's outside-click handler.
-  useOnOutsideClick({
-    containerRef: dialogRef,
-    onClickOutside: event => {
-      event.preventDefault()
-      onClose()
-    },
-  })
   return (
-    <Dialog
-      ref={dialogRef}
-      title={`About ${item.name}`}
-      subtitle={item.description}
-      width="large"
-      onClose={onClose}
-      returnFocusRef={returnFocusRef}
-      initialFocusRef={backRef}
-    >
-      <p>Inspecting a label does not select it. Close this dialog to return to search with the same active label.</p>
-      <Dialog.Footer>
-        <Button ref={backRef} size="small" onClick={onClose}>
-          Back to labels
-        </Button>
-      </Dialog.Footer>
-    </Dialog>
-  )
-}
-
-export const ListWithNestedDetails = () => {
-  const searchRef = useRef<HTMLInputElement>(null)
-  const [selected, setSelected] = useState<SelectPanelValue[]>([])
-  const [filter, setFilter] = useState('')
-  const filteredItems = filterItems(items, filter)
-
-  return (
-    <SelectPanel.Root
-      selectionMode="multiple"
-      selected={selected}
-      onSelectedChange={setSelected}
-      filterValue={filter}
-      onFilterChange={setFilter}
-    >
-      <SelectPanel.Trigger trailingAction={TriangleDownIcon}>
-        Labels with details ({selected.length})
-      </SelectPanel.Trigger>
-      <SelectPanel.Overlay width="large" displayCloseButton>
+    <SelectPanel.Root open onDismiss={onClose}>
+      <SelectPanel.Overlay
+        width="large"
+        variant={{regular: 'modal'}}
+        focusTrapSettings={{initialFocusRef: backRef}}
+        overlayProps={{returnFocusRef}}
+      >
         <SelectPanel.Content>
           <SelectPanel.Header>
             <div>
-              <SelectPanel.Title>Choose labels</SelectPanel.Title>
-              <SelectPanel.Description>
-                Select a label, or press Cmd/Ctrl+Shift+U to open its details. Escape returns to search.
-              </SelectPanel.Description>
+              <SelectPanel.Title>{`About ${item.name}`}</SelectPanel.Title>
+              <SelectPanel.Description>{item.description}</SelectPanel.Description>
             </div>
+            <SelectPanel.CloseButton />
           </SelectPanel.Header>
-          <SelectPanel.SearchInput ref={searchRef} aria-label="Filter labels with details" placeholder="Find a label" />
-          <SelectPanel.List aria-label="Labels and detail actions">
-            {filteredItems.map(item => (
-              <LabelDetails key={item.id} item={item} returnFocusRef={searchRef} />
-            ))}
-          </SelectPanel.List>
-          {filteredItems.length === 0 && <NoResults />}
-          <SelectPanel.Footer className={classes.Footer}>
-            <span className={classes.Muted}>{selected.length} selected</span>
+          <p className={classes.DetailsBody}>
+            Inspecting a label does not select it. Close this dialog to return to search with the same active label.
+          </p>
+          <SelectPanel.Footer>
+            <Button ref={backRef} size="small" onClick={onClose}>
+              Back to labels
+            </Button>
           </SelectPanel.Footer>
         </SelectPanel.Content>
       </SelectPanel.Overlay>
     </SelectPanel.Root>
   )
+}
+
+export const ListWithNestedDetails: StoryObj<typeof meta> = {
+  render: function ListWithNestedDetails() {
+    const searchRef = useRef<HTMLInputElement>(null)
+    const [selected, setSelected] = useState<SelectPanelValue[]>([])
+    const [filter, setFilter] = useState('')
+    const filteredItems = filterItems(items, filter)
+
+    return (
+      <SelectPanel.Root
+        selectionMode="multiple"
+        selected={selected}
+        onSelectedChange={setSelected}
+        filterValue={filter}
+        onFilterChange={setFilter}
+      >
+        <SelectPanel.Trigger trailingAction={TriangleDownIcon}>
+          Labels with details ({selected.length})
+        </SelectPanel.Trigger>
+        <SelectPanel.Overlay width="large" displayCloseButton>
+          <SelectPanel.Content>
+            <SelectPanel.Header>
+              <div>
+                <SelectPanel.Title>Choose labels</SelectPanel.Title>
+                <SelectPanel.Description>
+                  Select a label, or press Cmd/Ctrl+Shift+U to open its details. Escape returns to search.
+                </SelectPanel.Description>
+              </div>
+            </SelectPanel.Header>
+            <SelectPanel.SearchInput
+              ref={searchRef}
+              aria-label="Filter labels with details"
+              placeholder="Find a label"
+            />
+            <SelectPanel.List aria-label="Labels and detail actions">
+              {filteredItems.map(item => (
+                <LabelDetails key={item.id} item={item} returnFocusRef={searchRef} />
+              ))}
+            </SelectPanel.List>
+            {filteredItems.length === 0 && <NoResults />}
+            <SelectPanel.Footer className={classes.Footer}>
+              <span className={classes.Muted}>{selected.length} selected</span>
+            </SelectPanel.Footer>
+          </SelectPanel.Content>
+        </SelectPanel.Overlay>
+      </SelectPanel.Root>
+    )
+  },
+  play: async ({canvas}) => {
+    await userEvent.click(canvas.getByRole('button', {name: 'Labels with details (0)'}))
+    const search = await canvas.findByRole('combobox', {name: 'Filter labels with details'})
+    await waitFor(() => expect(search).toHaveFocus())
+    await userEvent.type(search, 'bug')
+    await expect(search).toHaveValue('bug')
+    await userEvent.keyboard('{Control>}{Shift>}u{/Shift}{/Control}')
+    const child = await canvas.findByRole('dialog', {name: 'About Bug'})
+    await waitFor(() => expect(within(child).getByRole('button', {name: 'Back to labels'})).toHaveFocus())
+    await userEvent.click(within(child).getByRole('button', {name: 'Back to labels'}))
+    await waitFor(() => expect(child).not.toBeInTheDocument())
+    await expect(search).toHaveFocus()
+    await expect(search).toHaveValue('bug')
+    await expect(canvas.getByRole('dialog', {name: 'Choose labels'})).toBeVisible()
+  },
 }
 
 export const WithoutSearchInput = () => {

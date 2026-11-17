@@ -58,6 +58,7 @@ export function shouldAcceptComposableParts() {
           <SelectPanel.List ref={listRef} aria-label="Items">
             <SelectPanel.Item ref={itemRef} value={item.id}>
               {item.text}
+              {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item composes ActionList.Item. */}
               <ActionList.Description>Item description</ActionList.Description>
             </SelectPanel.Item>
           </SelectPanel.List>
@@ -114,6 +115,11 @@ export function shouldRejectCompetingItemSelection() {
 export function shouldRejectCompetingQueryState() {
   // @ts-expect-error Root is the only query owner.
   return <SelectPanel.SearchInput value="query" />
+}
+
+export function shouldRejectPopoverHosts() {
+  // @ts-expect-error The native dialog already owns top-layer rendering.
+  return <SelectPanel.Overlay renderAs="popover" />
 }
 
 export function shouldRejectTextCloseButtons() {

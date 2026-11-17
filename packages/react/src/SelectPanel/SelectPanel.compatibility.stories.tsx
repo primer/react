@@ -14,24 +14,20 @@ const examples = {
 
 const meta = {
   title: 'Components/SelectPanel/Configured Adapter',
-  args: {composable: true, nativeDialog: false, nativeInvokers: false, example: 'Default'},
+  args: {composable: true, example: 'Default'},
   argTypes: {
     composable: {control: 'boolean'},
-    nativeDialog: {control: 'boolean'},
-    nativeInvokers: {control: 'boolean'},
     example: {control: 'select', options: Object.keys(examples)},
   },
-  render: ({composable, nativeDialog, nativeInvokers, example}) => {
+  render: ({composable, example}) => {
     const Example = examples[example]
     return (
       <FeatureFlags
         flags={{
           primer_react_select_panel_composable_adapter: composable,
-          primer_react_select_panel_native_dialog: nativeDialog,
-          primer_react_select_panel_native_invokers: nativeInvokers,
         }}
       >
-        <Example key={`${composable}-${nativeDialog}-${nativeInvokers}-${example}`} />
+        <Example key={`${composable}-${example}`} />
       </FeatureFlags>
     )
   },
@@ -39,11 +35,11 @@ const meta = {
     docs: {
       description: {
         component:
-          'Reuses the existing configured examples, unchanged. Controls reset the example. Turning composable off restores the original configured selection rules, heading and message markup, collection renderer, and AnchoredOverlay host, even if the native flags are on. Explicit compositions are unaffected. Native dialog requires both composable and nativeDialog plus browser support; invokers additionally require nativeInvokers and command support. Native showModal makes even anchored panels truly modal. Save/Cancel and narrow defaults are retained; unsupported legacy positioning, reflow and focus opt-outs use the legacy host.',
+          'Reuses the existing configured examples, unchanged. Controls reset the example. The default-off composable adapter uses shared primitives and a native dialog for compatible configured pickers. Browser command support is detected automatically; JavaScript activation handles unsupported commands. Turning composable off restores the original configured selection rules, heading and message markup, collection renderer, and AnchoredOverlay host. Explicit compositions always use native dialog. Native showModal makes even anchored panels truly modal. Save/Cancel and narrow defaults are retained; incompatible legacy positioning, reflow and focus opt-outs retain the configured legacy host.',
       },
     },
   },
-} satisfies Meta<{composable: boolean; nativeDialog: boolean; nativeInvokers: boolean; example: keyof typeof examples}>
+} satisfies Meta<{composable: boolean; example: keyof typeof examples}>
 
 export default meta
 
@@ -77,17 +73,7 @@ export const Default: StoryObj<typeof meta> = {
 
 export const Legacy: StoryObj<typeof meta> = {
   ...Default,
-  args: {composable: false, nativeDialog: true, nativeInvokers: true},
-}
-
-export const NativeDialog: StoryObj<typeof meta> = {
-  ...Default,
-  args: {nativeDialog: true},
-}
-
-export const NativeInvokers: StoryObj<typeof meta> = {
-  ...Default,
-  args: {nativeDialog: true, nativeInvokers: true},
+  args: {composable: false},
 }
 
 export const Messages: StoryObj<typeof meta> = {
@@ -95,7 +81,7 @@ export const Messages: StoryObj<typeof meta> = {
 }
 
 export const ModalTransaction: StoryObj<typeof meta> = {
-  args: {example: 'SingleSelectModal', nativeDialog: true, nativeInvokers: true},
+  args: {example: 'SingleSelectModal'},
   play: async ({canvas, canvasElement, userEvent}) => {
     const body = within(canvasElement.ownerDocument.body)
     await userEvent.click(canvas.getByRole('button', {name: 'Select labels'}))

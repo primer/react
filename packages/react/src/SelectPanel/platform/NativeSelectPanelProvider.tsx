@@ -1,20 +1,17 @@
 import React from 'react'
-import {useFeatureFlag} from '../../FeatureFlags'
-import {NativeSelectPanelContext, nativeSelectPanelCapabilities} from './NativeSelectPanelContext'
+import {NativeSelectPanelContext, supportsNativeInvokers} from './NativeSelectPanelContext'
 
 const subscribe = () => () => {}
-const serverCapabilities = () => 'unsupported'
+const serverCapabilities = () => false
 
 export function NativeSelectPanelProvider({children, enabled = true}: {children: React.ReactNode; enabled?: boolean}) {
-  const dialogFlag = useFeatureFlag('primer_react_select_panel_native_dialog')
-  const invokersFlag = useFeatureFlag('primer_react_select_panel_native_invokers')
-  const capabilities = React.useSyncExternalStore(subscribe, nativeSelectPanelCapabilities, serverCapabilities)
+  const invokers = React.useSyncExternalStore(subscribe, supportsNativeInvokers, serverCapabilities)
   const [targetId, setTargetId] = React.useState<string>()
   return (
     <NativeSelectPanelContext.Provider
       value={{
-        dialog: enabled && dialogFlag && capabilities !== 'unsupported',
-        invokers: enabled && dialogFlag && invokersFlag && capabilities === 'invokers',
+        dialog: enabled,
+        invokers: enabled && invokers,
         targetId,
         setTargetId,
       }}

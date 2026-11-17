@@ -14,15 +14,13 @@ export const NativeSelectPanelContext = React.createContext<NativeSelectPanelSta
   setTargetId: (_id: string | undefined) => {},
 })
 
-export function nativeSelectPanelCapabilities() {
-  if (typeof HTMLDialogElement === 'undefined' || typeof HTMLDialogElement.prototype.showModal !== 'function') {
-    return 'unsupported'
-  }
-  return typeof CommandEvent !== 'undefined' &&
+export function supportsNativeInvokers() {
+  return (
+    typeof CommandEvent !== 'undefined' &&
+    typeof HTMLButtonElement !== 'undefined' &&
     'command' in HTMLButtonElement.prototype &&
     'commandForElement' in HTMLButtonElement.prototype
-    ? 'invokers'
-    : 'dialog'
+  )
 }
 
 export function useNativeSelectPanel() {

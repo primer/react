@@ -1,6 +1,6 @@
 import React from 'react'
 import {act, render} from '@testing-library/react'
-import {afterAll, afterEach, describe, expect, it, vi} from 'vitest'
+import {afterAll, afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {page, userEvent} from 'vitest/browser'
 import axe from 'axe-core'
 import BaseStyles from '../BaseStyles'
@@ -51,18 +51,18 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
-const platforms = [
-  {dialog: false, invokers: false},
-  {dialog: true, invokers: false},
-  {dialog: true, invokers: true},
-]
+const platforms = [{invokers: false}, {invokers: true}]
 
-describe.each(platforms)('Configured adapter with $dialog dialog / $invokers invokers', flags => {
+describe.each(platforms)('Configured adapter with command support=$invokers', ({invokers}) => {
+  beforeEach(() => {
+    if (!invokers) vi.stubGlobal('CommandEvent', undefined)
+  })
+
   describe.each([1280, 390])('at %ipx', width => {
     describe.each(storyGroups)('%s stories', (_group, stories) => {
       for (const [name, Story] of Object.entries(stories)) {
         if (name === 'default') continue
-        it(`opens every configured panel in ${name} without falling back`, async () => {
+        it(`opens every configured panel in ${name} with the part-backed collection`, async () => {
           await page.viewport(width, 900)
           const story = isStoryComponent(Story)
             ? React.createElement(Story)
@@ -73,15 +73,7 @@ describe.each(platforms)('Configured adapter with $dialog dialog / $invokers inv
           const {container} = render(
             <ThemeProvider>
               <BaseStyles>
-                <FeatureFlags
-                  flags={{
-                    primer_react_select_panel_composable_adapter: true,
-                    primer_react_select_panel_native_dialog: flags.dialog,
-                    primer_react_select_panel_native_invokers: flags.invokers,
-                  }}
-                >
-                  {story}
-                </FeatureFlags>
+                <FeatureFlags flags={{primer_react_select_panel_composable_adapter: true}}>{story}</FeatureFlags>
               </BaseStyles>
             </ThemeProvider>,
           )
@@ -96,6 +88,10 @@ describe.each(platforms)('Configured adapter with $dialog dialog / $invokers inv
             const collection = page.getByTestId('filtered-action-list')
             await expect.element(collection).toHaveAttribute('data-component', 'SelectPanel.Collection')
             await expect.element(collection.getByRole('combobox')).toBeVisible()
+            await expect.element(collection.getByRole('combobox')).toHaveFocus()
+            if (trigger.hasAttribute('aria-expanded')) {
+              await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
+            }
             expect(document.querySelector('[data-component="FilteredActionList"]')).toBeNull()
             await userEvent.keyboard('{Escape}')
             await expect.element(collection).not.toBeInTheDocument()
@@ -214,15 +210,9 @@ describe('Configured adapter compatibility boundaries', () => {
     await expect.element(page.getByRole('option', {name: 'One', exact: true})).toHaveAttribute('aria-selected', 'false')
   })
 
-  it('keeps native-host experiments off when the configured adapter is disabled', async () => {
+  it('keeps the original host when the configured adapter is disabled', async () => {
     render(
-      <FeatureFlags
-        flags={{
-          primer_react_select_panel_composable_adapter: false,
-          primer_react_select_panel_native_dialog: true,
-          primer_react_select_panel_native_invokers: true,
-        }}
-      >
+      <FeatureFlags flags={{primer_react_select_panel_composable_adapter: false}}>
         <defaultStories.Default />
       </FeatureFlags>,
     )
@@ -233,19 +223,12 @@ describe('Configured adapter compatibility boundaries', () => {
       .toHaveAttribute('data-component', 'FilteredActionList')
   })
 
-  function configured(children: React.ReactNode, {adapter = true, dialog = true, invokers = false} = {}) {
+  function configured(children: React.ReactNode, {adapter = true, invokers = true} = {}) {
+    if (!invokers) vi.stubGlobal('CommandEvent', undefined)
     return (
       <ThemeProvider>
         <BaseStyles>
-          <FeatureFlags
-            flags={{
-              primer_react_select_panel_composable_adapter: adapter,
-              primer_react_select_panel_native_dialog: dialog,
-              primer_react_select_panel_native_invokers: invokers,
-            }}
-          >
-            {children}
-          </FeatureFlags>
+          <FeatureFlags flags={{primer_react_select_panel_composable_adapter: adapter}}>{children}</FeatureFlags>
         </BaseStyles>
       </ThemeProvider>
     )
@@ -255,7 +238,7 @@ describe('Configured adapter compatibility boundaries', () => {
   const configuredTrigger = () => page.getByRole('button', {name: 'Choose', exact: true})
   const configuredSearch = () => page.getByRole('combobox', {name: 'Filter items', exact: true})
 
-  describe.each([false, true])('Configured native compatibility with invokers=%s', invokers => {
+  describe.each([false, true])('Configured native compatibility with command support=%s', invokers => {
     it.each(['anchored', 'modal'] as const)(
       'matches the composable %s backdrop without changing native modality or dismissal',
       async variant => {
@@ -284,6 +267,8 @@ describe('Configured adapter compatibility boundaries', () => {
         if (!(host instanceof HTMLDialogElement)) throw new Error('Expected the configured native dialog')
         expect(host.matches(':modal')).toBe(true)
         expect(getComputedStyle(host, '::backdrop').backgroundColor).toBe(expectedBackdrop)
+        await expect.element(button).toHaveAttribute('aria-expanded', 'true')
+        await expect.element(page.getByRole('combobox')).toHaveFocus()
         await userEvent.keyboard('{Escape}')
         await expect.poll(() => host.open).toBe(false)
         await expect.element(button).toHaveFocus()
@@ -358,6 +343,7 @@ describe('Configured adapter compatibility boundaries', () => {
       await expect.poll(() => host?.open).toBe(false)
       rerender(picker(true))
       await expect.poll(() => host?.matches(':modal')).toBe(true)
+      await expect.element(configuredSearch()).toHaveFocus()
       await userEvent.keyboard('{Escape}')
       expect(host?.matches(':modal')).toBe(true)
       expect(onOpenChange).toHaveBeenLastCalledWith(false, 'escape')
@@ -517,7 +503,7 @@ describe('Configured adapter compatibility boundaries', () => {
     })
   })
 
-  describe('Configured native gates and fallbacks', () => {
+  describe('Configured native support and compatibility fallbacks', () => {
     it('keeps a configured modal centered on narrow screens when fullscreen is disabled', async () => {
       await page.viewport(390, 844)
       render(
@@ -591,25 +577,18 @@ describe('Configured adapter compatibility boundaries', () => {
         .toHaveAttribute('aria-selected', 'true')
     })
 
-    it.each([
-      {dialog: false, invokers: false},
-      {dialog: false, invokers: true},
-    ])('keeps the part-backed legacy host with $dialog dialog / $invokers invokers', async flags => {
-      render(configured(<defaultStories.Default />, flags))
-      await userEvent.click(page.getByRole('button', {name: /bug/}))
-      expect(document.querySelector('dialog')).toBeNull()
-      await expect
-        .element(page.getByTestId('filtered-action-list'))
-        .toHaveAttribute('data-component', 'SelectPanel.Collection')
-    })
-
-    it('falls back to the part-backed host without native dialog support', async () => {
-      vi.stubGlobal('HTMLDialogElement', undefined)
-      render(configured(<defaultStories.Default />, {invokers: true}))
+    it.each([false, true])('uses native dialogs independently of the shared CSS anchor flag=%s', async cssAnchors => {
+      render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: cssAnchors}}>
+          {configured(<defaultStories.Default />)}
+        </FeatureFlags>,
+      )
       const button = page.getByRole('button', {name: /bug/})
-      expect(button.element()).not.toHaveAttribute('command')
+      expect(button.element()).toHaveAttribute('command', 'show-modal')
       await userEvent.click(button)
-      expect(document.querySelector('dialog')).toBeNull()
+      await expect.element(button).toHaveAttribute('aria-expanded', 'true')
+      expect(document.querySelector('dialog')?.matches(':modal')).toBe(true)
+      expect(document.querySelector('dialog')).toHaveAttribute('data-anchor-position', 'true')
       await expect
         .element(page.getByTestId('filtered-action-list'))
         .toHaveAttribute('data-component', 'SelectPanel.Collection')
@@ -733,18 +712,13 @@ describe('Configured adapter compatibility boundaries', () => {
   })
 
   it.each(platforms)(
-    'retains combobox semantics and passes accessibility checks with dialog=$dialog / invokers=$invokers',
-    async flags => {
+    'retains combobox semantics and passes accessibility checks with command support=$invokers',
+    async ({invokers}) => {
+      if (!invokers) vi.stubGlobal('CommandEvent', undefined)
       render(
         <ThemeProvider>
           <BaseStyles>
-            <FeatureFlags
-              flags={{
-                primer_react_select_panel_composable_adapter: true,
-                primer_react_select_panel_native_dialog: flags.dialog,
-                primer_react_select_panel_native_invokers: flags.invokers,
-              }}
-            >
+            <FeatureFlags flags={{primer_react_select_panel_composable_adapter: true}}>
               <featureStories.WithGroups />
             </FeatureFlags>
           </BaseStyles>

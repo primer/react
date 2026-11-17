@@ -3,7 +3,6 @@ import {act, render} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {page, userEvent} from 'vitest/browser'
 import BaseStyles from '../../BaseStyles'
-import {FeatureFlags} from '../../FeatureFlags'
 import {SelectPanel, type SelectPanelRootProps} from '..'
 import {ConfiguredSelectPanelOverlay, type SelectPanelOverlayProps} from '../SelectPanelOverlay'
 import {useSelectPanelContext} from '../SelectPanelContext'
@@ -61,19 +60,9 @@ function Picker({overlay, onTriggerClick, onCloseClick, configured, ...props}: P
   )
 }
 
-function fixture(children: React.ReactNode, dialog = true, invokers = true) {
-  return (
-    <BaseStyles>
-      <FeatureFlags
-        flags={{
-          primer_react_select_panel_native_dialog: dialog,
-          primer_react_select_panel_native_invokers: invokers,
-        }}
-      >
-        {children}
-      </FeatureFlags>
-    </BaseStyles>
-  )
+function fixture(children: React.ReactNode, invokers = true) {
+  if (!invokers) vi.stubGlobal('CommandEvent', undefined)
+  return <BaseStyles>{children}</BaseStyles>
 }
 
 const trigger = () => page.getByRole('button', {name: 'Open picker', exact: true})
@@ -95,25 +84,12 @@ afterEach(async () => {
   await page.viewport(1000, 800)
 })
 
-describe('composable SelectPanel native platform flags', () => {
-  it.each([
-    {dialog: false, invokers: false},
-    {dialog: false, invokers: true},
-  ])('retains the existing overlay with dialog=$dialog, invokers=$invokers', async flags => {
-    const {container} = render(fixture(<Picker />, flags.dialog, flags.invokers))
-    expect(container.querySelector('dialog')).toBeNull()
-    expect(trigger().element()).not.toHaveAttribute('command')
-    await userEvent.click(trigger())
-    await expect.element(page.getByRole('dialog', {name: 'Choose labels'})).toBeVisible()
-    await userEvent.keyboard('{Escape}')
-    await expect.element(trigger()).toHaveFocus()
-  })
-
+describe('composable SelectPanel native platform defaults', () => {
   it.each([false, true])('uses a real modal with invokers=%s and preserves list behavior', async invokers => {
     const onOpenChange = vi.fn()
     const onSelectedChange = vi.fn()
     const {container} = render(
-      fixture(<Picker onOpenChange={onOpenChange} onSelectedChange={onSelectedChange} />, true, invokers),
+      fixture(<Picker onOpenChange={onOpenChange} onSelectedChange={onSelectedChange} />, invokers),
     )
     const dialog = nativeDialog(container)
     expect(dialog.open).toBe(false)
@@ -209,9 +185,9 @@ describe('composable SelectPanel native platform flags', () => {
     ])
   })
 
-  it.each([false, true])('preserves automatic close visibility and placement with native=%s', async native => {
+  it.each([false, true])('preserves automatic close visibility and placement with invokers=%s', async invokers => {
     await page.viewport(1200, 900)
-    render(fixture(<Picker overlay={{displayCloseButton: true}} />, native, native))
+    render(fixture(<Picker overlay={{displayCloseButton: true}} />, invokers))
     await userEvent.click(trigger())
     await expect.element(search()).toHaveFocus()
     const automaticClose = page.getByRole('button', {name: 'Close', exact: true, includeHidden: true})
@@ -301,7 +277,166 @@ describe('composable SelectPanel native platform flags', () => {
     await expect.poll(() => dialog.matches(':modal')).toBe(true)
   })
 
-  it('leaves configured overlays unchanged even when both flags are enabled', async () => {
+  it.each(
+    (['outside-top', 'outside-bottom', 'outside-left', 'outside-right'] as const).flatMap(side =>
+      (['start', 'center', 'end'] as const).map(align => ({side, align})),
+    ),
+  )('uses native CSS anchors for $side / $align without JavaScript coordinates', async ({side, align}) => {
+    await page.viewport(1600, 1400)
+    render(
+      fixture(
+        <div style={{padding: '500px 600px'}}>
+          <Picker defaultOpen overlay={{side, align, anchorOffset: 12}} />
+        </div>,
+      ),
+    )
+    const dialog = page.getByRole('dialog', {name: 'Choose labels'})
+    await expect.element(dialog).toHaveAttribute('data-anchor-position', 'true')
+    expect(dialog.element().style.getPropertyValue('--native-top')).toBe('')
+    expect(dialog.element().style.getPropertyValue('--native-left')).toBe('')
+    await expect
+      .poll(() => {
+        const anchor = trigger().element().getBoundingClientRect()
+        const panel = dialog.element().getBoundingClientRect()
+        const vertical = side === 'outside-top' || side === 'outside-bottom'
+        const gap =
+          side === 'outside-top'
+            ? anchor.top - panel.bottom
+            : side === 'outside-bottom'
+              ? panel.top - anchor.bottom
+              : side === 'outside-left'
+                ? anchor.left - panel.right
+                : panel.left - anchor.right
+        const alignment =
+          align === 'center'
+            ? vertical
+              ? panel.left + panel.width / 2 - (anchor.left + anchor.width / 2)
+              : panel.top + panel.height / 2 - (anchor.top + anchor.height / 2)
+            : align === 'end'
+              ? vertical
+                ? panel.right - anchor.right
+                : panel.bottom - anchor.bottom
+              : vertical
+                ? panel.left - anchor.left
+                : panel.top - anchor.top
+        return {gap: Math.round(gap), alignment: Math.round(alignment)}
+      })
+      .toEqual({gap: 12, alignment: 0})
+  })
+
+  it('lets CSS flip the anchored dialog at the viewport edge', async () => {
+    await page.viewport(1200, 900)
+    render(
+      fixture(
+        <div style={{position: 'fixed', bottom: 20, right: 20}}>
+          <Picker defaultOpen />
+        </div>,
+      ),
+    )
+    const dialog = page.getByRole('dialog', {name: 'Choose labels'})
+    await expect.element(dialog).toHaveAttribute('data-anchor-position', 'true')
+    await expect
+      .poll(() => {
+        const panel = dialog.element().getBoundingClientRect()
+        const anchor = trigger().element().getBoundingClientRect()
+        return {gap: Math.round(anchor.top - panel.bottom), right: Math.round(panel.right - anchor.right)}
+      })
+      .toEqual({gap: 4, right: 0})
+  })
+
+  it('lets CSS follow a scrolling anchor without JavaScript position updates', async () => {
+    await page.viewport(1200, 1000)
+    render(
+      fixture(
+        <div data-testid="scroller" style={{height: 600, overflow: 'auto'}}>
+          <div style={{padding: '200px 100px', height: 1000}}>
+            <Picker defaultOpen />
+          </div>
+        </div>,
+      ),
+    )
+    const dialog = page.getByRole('dialog', {name: 'Choose labels'})
+    const top = dialog.element().getBoundingClientRect().top
+    act(() => {
+      page.getByTestId('scroller').element().scrollTop = 50
+    })
+    await expect.poll(() => Math.round(dialog.element().getBoundingClientRect().top - top)).toBe(-50)
+    expect(dialog.element().style.getPropertyValue('--native-top')).toBe('')
+    expect(dialog.element().style.getPropertyValue('--native-left')).toBe('')
+  })
+
+  it('retains shared JavaScript positioning for explicit opt-outs', async () => {
+    render(fixture(<Picker defaultOpen overlay={{cssAnchorPositioningSettings: {disable: true}}} />))
+    const dialog = page.getByRole('dialog', {name: 'Choose labels'})
+    await expect.element(dialog).toHaveAttribute('data-anchor-position', 'false')
+    await expect.poll(() => dialog.element().style.getPropertyValue('--native-top')).not.toBe('')
+    expect(dialog.element().matches(':modal')).toBe(true)
+  })
+
+  it.each([true, false])('honors explicit displayInViewport=%s using shared positioning', async displayInViewport => {
+    render(fixture(<Picker defaultOpen overlay={{displayInViewport}} />))
+    const dialog = page.getByRole('dialog', {name: 'Choose labels'})
+    await expect.element(dialog).toHaveAttribute('data-anchor-position', 'false')
+    await expect.poll(() => dialog.element().style.getPropertyValue('--native-top')).not.toBe('')
+    expect(dialog.element().matches(':modal')).toBe(true)
+  })
+
+  it('retains native modality with shared positioning when CSS anchors are unsupported', async () => {
+    vi.spyOn(CSS, 'supports').mockReturnValue(false)
+    render(fixture(<Picker defaultOpen />))
+    const dialog = page.getByRole('dialog', {name: 'Choose labels'})
+    await expect.element(dialog).toHaveAttribute('data-anchor-position', 'false')
+    await expect.poll(() => dialog.element().style.getPropertyValue('--native-top')).not.toBe('')
+    expect(dialog.element().matches(':modal')).toBe(true)
+  })
+
+  it.each([
+    ['none', 'none'],
+    ['opposite-side', 'flip-block'],
+  ] as const)('honors the explicit CSS anchor fallback strategy %s', (strategy, expected) => {
+    render(fixture(<Picker defaultOpen overlay={{cssAnchorPositioningSettings: {fallbackStrategy: strategy}}} />))
+    const dialog = page.getByRole('dialog', {name: 'Choose labels'}).element()
+    expect(dialog).toHaveAttribute('data-anchor-position', 'true')
+    expect(dialog.style.getPropertyValue('position-try-fallbacks')).toBe(expected)
+  })
+
+  it('preserves consumer-owned anchor names and cleans up its own name on unmount', () => {
+    const anchorRef = React.createRef<HTMLButtonElement>()
+    const anchorStyle: React.CSSProperties & {anchorName: string} = {anchorName: '--consumer-anchor'}
+    const {unmount} = render(
+      fixture(
+        <SelectPanel.Root>
+          <SelectPanel.Trigger ref={anchorRef} style={anchorStyle}>
+            Choose
+          </SelectPanel.Trigger>
+          <SelectPanel.Overlay>
+            <SelectPanel.Title>Choose labels</SelectPanel.Title>
+          </SelectPanel.Overlay>
+        </SelectPanel.Root>,
+      ),
+    )
+    const anchor = anchorRef.current!
+    expect(anchor.style.getPropertyValue('anchor-name')).toBe('--consumer-anchor')
+    expect(document.querySelector('dialog')?.style.getPropertyValue('position-anchor')).toBe('--consumer-anchor')
+    unmount()
+    expect(anchor.style.getPropertyValue('anchor-name')).toBe('--consumer-anchor')
+    const next = render(
+      fixture(
+        <SelectPanel.Root>
+          <SelectPanel.Trigger ref={anchorRef}>Choose</SelectPanel.Trigger>
+          <SelectPanel.Overlay>
+            <SelectPanel.Title>Choose labels</SelectPanel.Title>
+          </SelectPanel.Overlay>
+        </SelectPanel.Root>,
+      ),
+    )
+    const ownedAnchor = anchorRef.current!
+    expect(ownedAnchor.style.getPropertyValue('anchor-name')).toContain('--select-panel-')
+    next.unmount()
+    expect(ownedAnchor.style.getPropertyValue('anchor-name')).toBe('')
+  })
+
+  it('leaves configured overlays unchanged without the adapter', async () => {
     const {container} = render(fixture(<Picker configured />))
     expect(trigger().element()).not.toHaveAttribute('command')
     await userEvent.click(trigger())
@@ -309,15 +444,7 @@ describe('composable SelectPanel native platform flags', () => {
     await expect.element(page.getByRole('dialog', {name: 'Choose labels'})).toBeVisible()
   })
 
-  it('falls back when native dialog or native commands are unsupported', async () => {
-    vi.stubGlobal('HTMLDialogElement', undefined)
-    const {container, unmount} = render(fixture(<Picker />))
-    expect(container.querySelector('dialog')).toBeNull()
-    expect(trigger().element()).not.toHaveAttribute('command')
-    await userEvent.click(trigger())
-    await expect.element(page.getByRole('dialog', {name: 'Choose labels'})).toBeVisible()
-    unmount()
-    vi.unstubAllGlobals()
+  it('retains native modality without browser command support', async () => {
     vi.stubGlobal('CommandEvent', undefined)
     const next = render(fixture(<Picker />))
     expect(trigger().element()).not.toHaveAttribute('command')
@@ -348,17 +475,20 @@ describe('composable SelectPanel native platform flags', () => {
     await expect.poll(() => dialog.open).toBe(false)
   })
 
-  it('switches implementations when global flags change without resetting selection', async () => {
-    const {container, rerender} = render(fixture(<Picker />, false, false))
+  it('retains the native host and selection when browser command support changes', async () => {
+    const {container, rerender} = render(fixture(<Picker />, false))
+    const original = nativeDialog(container)
     await userEvent.click(trigger())
     await userEvent.click(page.getByRole('option', {name: 'Bug', exact: true}))
+    vi.unstubAllGlobals()
     rerender(fixture(<Picker />))
     const dialog = nativeDialog(container)
+    expect(dialog).toBe(original)
     await expect.poll(() => dialog.matches(':modal')).toBe(true)
     await expect.element(page.getByRole('option', {name: 'Bug', exact: true})).toHaveAttribute('aria-selected', 'true')
     await expect.element(trigger()).toHaveAttribute('command', 'show-modal')
-    rerender(fixture(<Picker />, false, false))
-    expect(container.querySelector('dialog')).toBeNull()
+    rerender(fixture(<Picker />, false))
+    expect(nativeDialog(container)).toBe(original)
     await expect.element(page.getByRole('dialog', {name: 'Choose labels'})).toBeVisible()
     expect(trigger().element()).not.toHaveAttribute('command')
     await expect.element(page.getByRole('option', {name: 'Bug', exact: true})).toHaveAttribute('aria-selected', 'true')
@@ -383,7 +513,7 @@ describe('composable SelectPanel native platform flags', () => {
 
   it.each([false, true])('centers a FormControl modal with invokers=%s', async invokers => {
     await page.viewport(1200, 900)
-    const {container} = render(fixture(<ResponsiveImmediateSelection />, true, invokers))
+    const {container} = render(fixture(<ResponsiveImmediateSelection />, invokers))
     const button = page.getByRole('button', {name: 'Primary label', exact: true})
     await userEvent.click(button)
     const dialog = nativeDialog(container)

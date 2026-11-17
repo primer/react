@@ -24,6 +24,11 @@
   gap: var(--base-size-8);
 }
 
+.DetailsBody {
+  padding: var(--base-size-16);
+  margin: 0;
+}
+
 .ActionHeader {
   align-items: center;
   gap: var(--base-size-8);

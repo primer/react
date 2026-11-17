@@ -69,6 +69,19 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
     return render(React.cloneElement(element, {_PrivateFocusManagement: getFocusManagement(flag)}))
   }
 
+  async function openPanel(name = 'Select items') {
+    const trigger = page.getByRole('button', {name, exact: true})
+    await userEvent.click(trigger)
+    await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(page.getByRole('combobox')).toHaveFocus()
+  }
+
+  async function clickBackdrop() {
+    const dialog = page.getByRole('dialog')
+    const {width} = dialog.element().getBoundingClientRect()
+    await userEvent.click(dialog, {position: {x: width + 8, y: 8}, force: true})
+  }
+
   const items: SelectPanelProps['items'] = [
     {
       text: 'item one',
@@ -175,7 +188,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
       )
     }
 
-    it('does not commit a follow-up update when mounted closed with preloaded items', async () => {
+    it('only registers the native target when mounted closed with preloaded items', async () => {
       const [Wrap, counter] = createRenderCounter()
 
       render(
@@ -186,7 +199,8 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
       await act(async () => {})
 
       expect(counter.mountCount).toBe(1)
-      expect(counter.updateCount).toBe(0)
+      expect(counter.updateCount).toBe(composable ? 1 : 0)
+      expect(counter.nestedUpdateCount).toBe(composable ? 1 : 0)
     })
 
     it('orders the selected item in the opening commit and focuses the filter input', async () => {
@@ -333,7 +347,20 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         render(<LoadingPanel />)
         await userEvent.click(page.getByRole('button', {name: 'item two'}))
         await act(async () => {
-          await vi.runAllTimersAsync()
+          await vi.advanceTimersByTimeAsync(0)
+        })
+        await expect.element(page.getByRole('button', {name: 'item two'})).toHaveAttribute('aria-expanded', 'true')
+        await expect.element(page.getByRole('combobox')).toHaveFocus()
+        await expect.element(page.getByTestId('filtered-action-list-spinner')).toBeInTheDocument()
+        expect(liveRegion.getMessage('polite')).not.toBe('Loading.')
+
+        // Loading waits one second, then the live region delays delivery by 500ms.
+        await act(async () => {
+          await vi.advanceTimersByTimeAsync(1499)
+        })
+        expect(liveRegion.getMessage('polite')).not.toBe('Loading.')
+        await act(async () => {
+          await vi.advanceTimersByTimeAsync(1)
         })
 
         expect(liveRegion.getMessage('polite')).toBe('Loading.')
@@ -354,7 +381,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         const trigger = page.getByRole('button', {
           name: 'Select items',
         })
-        await expect.element(trigger).toHaveAttribute('aria-haspopup', 'true')
+        await expect.element(trigger).toHaveAttribute('aria-haspopup', composable ? 'dialog' : 'true')
         await expect.element(trigger).toHaveAttribute('aria-expanded', 'false')
       })
 
@@ -364,7 +391,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
         render(<BasicSelectPanel onActiveDescendantChanged={onActiveDescendantChanged} />)
 
-        await userEvent.click(page.getByText('Select items', {exact: true}))
+        await openPanel()
 
         await userEvent.keyboard('{ArrowDown}')
         expect(onActiveDescendantChanged).toHaveBeenCalled()
@@ -373,7 +400,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
       it('should open the select panel when activating the trigger', async () => {
         renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-        await userEvent.click(page.getByText('Select items', {exact: true}))
+        await openPanel()
 
         // Verify that the button has `aria-expanded="true"` after opening
         const trigger = page.getByRole('button', {
@@ -392,7 +419,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
       it('should close the select panel when pressing Escape', async () => {
         renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-        await userEvent.click(page.getByText('Select items', {exact: true}))
+        await openPanel()
         await userEvent.keyboard('{Escape}')
 
         await expect.element(page.getByRole('button', {name: 'Select items'})).toHaveFocus()
@@ -407,8 +434,9 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
           </>,
         )
 
-        await userEvent.click(page.getByText('Select items', {exact: true}))
-        await userEvent.click(page.getByText('outer button', {exact: true}))
+        await openPanel()
+        if (composable) await clickBackdrop()
+        else await userEvent.click(page.getByText('outer button', {exact: true}))
 
         await expect.element(page.getByRole('button', {name: 'Select items'})).toHaveAttribute('aria-expanded', 'false')
       })
@@ -416,7 +444,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
       it('should open a dialog that is labelled by `title` and described by `subtitle`', async () => {
         renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-        await userEvent.click(page.getByText('Select items', {exact: true}))
+        await openPanel()
 
         await expect
           .element(
@@ -470,38 +498,42 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         renderWithProp(<SelectPanelOpenChange />, usingRemoveActiveDescendant)
 
         // Open by click
-        await userEvent.click(page.getByText('Select items', {exact: true}))
+        await openPanel()
         expect(onOpenChange).toHaveBeenLastCalledWith(true, 'anchor-click')
 
-        // Close by click on anchor
-        await userEvent.click(page.getByText('Select items', {exact: true}))
-        expect(onOpenChange).toHaveBeenLastCalledWith(false, 'anchor-click')
+        // Native modality makes the anchor inert while the panel is open.
+        if (composable) await clickBackdrop()
+        else await userEvent.click(page.getByText('Select items', {exact: true}))
+        expect(onOpenChange).toHaveBeenLastCalledWith(false, composable ? 'click-outside' : 'anchor-click')
 
         // Open by button activation
-        // RTL's type() clicked the target before typing.
-        await userEvent.click(page.getByText('Select items', {exact: true}))
+        const trigger = page.getByRole('button', {name: 'Select items', exact: true})
+        act(() => trigger.element().focus())
         await userEvent.keyboard('{Space}')
-        expect(onOpenChange).toHaveBeenLastCalledWith(true, 'anchor-click')
+        await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
+        await expect.element(page.getByRole('combobox')).toHaveFocus()
+        expect(onOpenChange).toHaveBeenLastCalledWith(true, 'anchor-key-press')
 
         // Close by Escape key
         await userEvent.keyboard('{Escape}')
         expect(onOpenChange).toHaveBeenLastCalledWith(false, 'escape')
 
         // Close by click outside
-        await userEvent.click(page.getByText('Select items', {exact: true}))
-        await userEvent.click(page.getByText('Outside of select panel', {exact: true}))
+        await openPanel()
+        if (composable) await clickBackdrop()
+        else await userEvent.click(page.getByText('Outside of select panel', {exact: true}))
         expect(onOpenChange).toHaveBeenLastCalledWith(false, 'click-outside')
       })
 
       it('should label the list by title unless a aria-label is explicitly passed', async () => {
         renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
-        await userEvent.click(page.getByText('Select items', {exact: true}))
+        await openPanel()
         await expect.element(page.getByRole('listbox', {name: 'test title'})).toBeInTheDocument()
       })
 
       it('should label the list by aria-label when explicitly passed', async () => {
         renderWithProp(<BasicSelectPanel aria-label="Custom label" />, usingRemoveActiveDescendant)
-        await userEvent.click(page.getByText('Select items', {exact: true}))
+        await openPanel()
         await expect.element(page.getByRole('listbox', {name: 'Custom label'})).toBeInTheDocument()
       })
 
@@ -528,7 +560,6 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
           usingRemoveActiveDescendant,
         )
 
-        await userEvent.click(page.getByText('Select items', {exact: true}))
         await expect.element(page.getByLabelText('Filter items')).toHaveFocus()
       })
 
@@ -536,7 +567,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should select an active option when activated', async () => {
           renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await userEvent.keyboard('{Enter}')
           await expect
@@ -578,7 +609,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should support navigating through items with ArrowUp and ArrowDown', async () => {
           renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           if (usingRemoveActiveDescendant) {
             await expect.element(page.elementLocator(document.activeElement!)).toHaveAttribute('role', 'combobox')
@@ -648,7 +679,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should support navigating through items with PageDown and PageUp', async () => {
           renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           if (usingRemoveActiveDescendant) {
             await userEvent.keyboard('{ArrowDown}')
@@ -712,7 +743,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<Fixture />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await userEvent.click(page.getByText('item one', {exact: true}))
           await expect.element(page.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
@@ -859,7 +890,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should filter the list of items when the user types into the input', async () => {
           renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           expect(page.getByRole('option').elements()).toHaveLength(3)
 
@@ -880,7 +911,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             </FeatureFlags>,
           )
 
-          await userEvent.click(page.getByRole('button', {name: 'Select items'}))
+          await openPanel()
 
           const input = page.getByLabelText('Filter items')
           const wrapper = input.element().closest<HTMLElement>('[data-component="TextInput"]')
@@ -909,7 +940,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             </FeatureFlags>,
           )
 
-          await userEvent.click(page.getByRole('button', {name: 'Select items'}))
+          await openPanel()
 
           const input = page.getByLabelText('Filter items')
           const wrapper = input.element().closest<HTMLElement>('[data-component="TextInput"]')
@@ -933,7 +964,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
           <FeatureFlags flags={{primer_react_select_panel_legacy_contrast: false}}>{panel}</FeatureFlags>,
         )
 
-        await userEvent.click(page.getByRole('button', {name: 'Select items'}))
+        await openPanel()
         const input = page.getByLabelText('Search items')
         const inputElement = input.element()
         const wrapper = inputElement.closest<HTMLElement>('[data-component="TextInput"]')
@@ -998,7 +1029,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('displays a loading spinner on first open', async () => {
           renderWithProp(<LoadingSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect.element(page.getByTestId('filtered-action-list-spinner')).toBeInTheDocument()
         })
@@ -1006,7 +1037,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('displays a loading skeleton on first open', async () => {
           renderWithProp(<LoadingSelectPanel initialLoadingType="skeleton" />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect.element(page.getByTestId('filtered-action-list-skeleton')).toBeInTheDocument()
         })
@@ -1014,7 +1045,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('displays a loading spinner in the text input if items are already loaded', async () => {
           renderWithProp(<LoadingSelectPanel items={items} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           expect(page.getByRole('option').elements()).toHaveLength(3)
 
@@ -1030,7 +1061,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should announce initially focused item', async () => {
           renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           await expect.element(page.getByLabelText('Filter items')).toHaveFocus()
 
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
@@ -1085,7 +1116,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithNotice />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           await expect.element(page.getByLabelText('Filter items')).toHaveFocus()
 
           expect(getLiveRegion().getMessage('polite').trim()).toContain('This is a notice')
@@ -1094,7 +1125,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should announce filtered results', async () => {
           renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           await expect.element(page.getByLabelText('Filter items')).toHaveFocus()
 
           await waitFor(
@@ -1146,7 +1177,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should announce default empty message when no results are available (no custom message is provided)', async () => {
           renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await userEvent.type(page.getByRole('combobox'), 'zero')
           await expect.element(page.getByRole('option')).not.toBeInTheDocument()
@@ -1196,7 +1227,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithCustomEmptyMessage />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await userEvent.type(page.getByRole('combobox'), 'zero')
           await expect.element(page.getByRole('option')).not.toBeInTheDocument()
@@ -1216,7 +1247,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should accept a className to style the component', async () => {
           renderWithProp(<BasicSelectPanel className="test-class" />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect.element(page.getByTestId('filtered-action-list')).toHaveClass('test-class')
         })
@@ -1226,22 +1257,26 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should display the default empty state message when there is no matching item after filtering (No custom message is provided)', async () => {
           renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           expect(page.getByRole('option').elements()).toHaveLength(3)
 
           await userEvent.type(page.getByRole('combobox'), 'something')
-          await expect.element(page.getByText('No items available', {exact: true})).toBeInTheDocument()
+          await expect
+            .element(page.getByTestId('filtered-action-list').getByText('No items available', {exact: true}))
+            .toBeInTheDocument()
         })
 
         it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
           renderWithProp(<NoItemAvailableSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           await expect.element(page.getByTestId('filtered-action-list-spinner')).toBeInTheDocument()
           await userEvent.keyboard('{Escape}')
-          await userEvent.click(page.getByText('Select items', {exact: true}))
-          await expect.element(page.getByText('No items available', {exact: true})).toBeInTheDocument()
+          await openPanel()
+          await expect
+            .element(page.getByTestId('filtered-action-list').getByText('No items available', {exact: true}))
+            .toBeInTheDocument()
         })
         it('should display the custom empty state message when there is no matching item after filtering', async () => {
           renderWithProp(
@@ -1261,7 +1296,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             usingRemoveActiveDescendant,
           )
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           expect(page.getByRole('option').elements()).toHaveLength(3)
 
@@ -1275,7 +1310,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should display the custom empty state message when there is no item after the initial load', async () => {
           renderWithProp(<SelectPanelWithCustomMessages items={[]} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           await expect
             .element(page.getByText("You haven't created any projects yet", {exact: true}))
             .toBeInTheDocument()
@@ -1292,7 +1327,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             usingRemoveActiveDescendant,
           )
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           await expect
             .element(page.getByText("You haven't created any projects yet", {exact: true}))
             .toBeInTheDocument()
@@ -1346,7 +1381,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should render the provided `footer` at the bottom of the dialog', async () => {
           renderWithProp(<SelectPanelWithFooter />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           await expect.element(page.getByText('test footer', {exact: true})).toBeInTheDocument()
         })
       })
@@ -1419,7 +1454,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should render groups with items', async () => {
           renderWithProp(<SelectPanelWithGroups />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           const listbox = page.getByRole('listbox')
           await expect.element(listbox).toBeInTheDocument()
           await expect.element(listbox).toHaveAttribute('aria-multiselectable', 'true')
@@ -1436,7 +1471,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should select items within groups', async () => {
           renderWithProp(<SelectPanelWithGroups />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           // Select the first item
           await userEvent.click(page.getByRole('option', {name: 'Item 1'}))
@@ -1475,7 +1510,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             usingRemoveActiveDescendant,
           )
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           expect(page.getByRole('radio', {includeHidden: true}).elements()).toHaveLength(items.length)
 
@@ -1485,7 +1520,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('save and oncancel buttons are present when variant modal', async () => {
           renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect.element(page.getByRole('button', {name: 'Save'})).toBeInTheDocument()
           await expect.element(page.getByRole('button', {name: 'Cancel', exact: true})).toBeInTheDocument()
@@ -1496,7 +1531,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           expect(document.body.style.overflow).not.toBe('hidden')
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await waitFor(() => {
             expect(document.body.style.overflow).toBe('hidden')
@@ -1506,7 +1541,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('restores body scroll when modal is closed', async () => {
           renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
           await waitFor(() => {
             expect(document.body.style.overflow).toBe('hidden')
           })
@@ -1543,7 +1578,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             usingRemoveActiveDescendant,
           )
 
-          await userEvent.click(page.getByText('item two', {exact: true})) // item two is selected so that's what the anchor text is
+          await openPanel('item two') // item two is selected so that's what the anchor text is
 
           const options = page.getByRole('option').elements()
           await expect.element(options[0]).toHaveTextContent('item two') // item two is selected
@@ -1558,7 +1593,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             usingRemoveActiveDescendant,
           )
 
-          await userEvent.click(page.getByText('item two', {exact: true})) // item two is selected so that's what the anchor text is
+          await openPanel('item two') // item two is selected so that's what the anchor text is
 
           const options = page.getByRole('option').elements()
           await expect.element(options[0]).toHaveTextContent('item one')
@@ -1571,7 +1606,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             usingRemoveActiveDescendant,
           )
 
-          await userEvent.click(page.getByText('item two', {exact: true})) // item two is selected so that's what the anchor text is
+          await openPanel('item two') // item two is selected so that's what the anchor text is
 
           const options = page.getByRole('option').elements()
           await expect.element(options[0]).toHaveTextContent('item one')
@@ -1623,7 +1658,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             {disableFullscreenOnNarrow: true},
           )
 
-          await userEvent.click(page.getByText('Select an item', {exact: true}))
+          await openPanel('Select an item')
 
           // When disableFullscreenOnNarrow=true, the ResponsiveCloseButton should not be present
           // even when the feature flag is enabled, indicating no fullscreen behavior
@@ -1640,7 +1675,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             {disableFullscreenOnNarrow: false},
           )
 
-          await userEvent.click(page.getByText('Select an item', {exact: true}))
+          await openPanel('Select an item')
 
           // When feature flag is true and disableFullscreenOnNarrow is false, the ResponsiveCloseButton should be present
           // indicating fullscreen behavior is active
@@ -1654,7 +1689,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
             primer_react_select_panel_fullscreen_on_narrow: false,
           })
 
-          await userEvent.click(page.getByText('Select an item', {exact: true}))
+          await openPanel('Select an item')
 
           // When feature flag is false and disableFullscreenOnNarrow is undefined,
           // the ResponsiveCloseButton should not be present
@@ -1698,7 +1733,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should render a Select All checkbox when showSelectAll is true', async () => {
           renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect.element(page.getByText('Select all', {exact: true})).toBeInTheDocument()
           await expect.element(page.getByRole('checkbox', {name: 'Select all'})).toBeInTheDocument()
@@ -1708,7 +1743,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should not render a Select All checkbox when showSelectAll is false', async () => {
           renderWithProp(<SelectAllSelectPanel showSelectAll={false} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect.element(page.getByText('Select all', {exact: true})).not.toBeInTheDocument()
           await expect.element(page.getByRole('checkbox', {name: 'Select all'})).not.toBeInTheDocument()
@@ -1717,7 +1752,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should select all items when the Select All checkbox is clicked', async () => {
           renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await userEvent.click(page.getByRole('checkbox', {name: 'Select all'}))
 
@@ -1730,7 +1765,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should deselect all items when the Deselect All checkbox is clicked', async () => {
           renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           // First select all
           await userEvent.click(page.getByRole('checkbox', {name: 'Select all'}))
@@ -1751,7 +1786,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should update Select All checkbox to indeterminate state when some items (but not all) are selected', async () => {
           renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           // Select only one item
           await userEvent.click(page.getByText('item one', {exact: true}))
@@ -1765,7 +1800,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should update Select All checkbox to checked when all items are selected manually', async () => {
           renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           // Select all items individually
           for (const item of items) {
@@ -1781,7 +1816,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should update Select All checkbox label to "Deselect all" when all items are selected', async () => {
           renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           // Select all items
           await userEvent.click(page.getByRole('checkbox', {name: 'Select all'}))
@@ -1825,7 +1860,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<FilterableSelectAllPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           // Filter to only show "item one"
           await userEvent.type(page.getByLabelText('Filter items'), 'one')
@@ -1860,7 +1895,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should not update aria-activedescendant when hovering over items when disableSelectOnHover is true', async () => {
           render(<BasicSelectPanel disableSelectOnHover={true} />)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           const input = page.getByPlaceholder('Filter items')
           const options = page.getByRole('option').elements()
@@ -1884,7 +1919,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should update aria-activedescendant when hovering over items when disableSelectOnHover is false (default)', async () => {
           render(<BasicSelectPanel />)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           const input = page.getByPlaceholder('Filter items')
           const options = page.getByRole('option').elements()
@@ -1907,7 +1942,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should not set aria-activedescendant until user interaction when setInitialFocus is true', async () => {
           render(<BasicSelectPanel setInitialFocus={true} />)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           const input = page.getByPlaceholder('Filter items')
           const options = page.getByRole('option').elements()
@@ -1925,7 +1960,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should set aria-activedescendant to the first item on mount when setInitialFocus is false (default)', async () => {
           render(<BasicSelectPanel />)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           const input = page.getByPlaceholder('Filter items')
           const options = page.getByRole('option').elements()
@@ -1938,7 +1973,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('should not set aria-activedescendant on mouse hover until after first interaction when setInitialFocus is true', async () => {
           render(<BasicSelectPanel setInitialFocus={true} />)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           const input = page.getByPlaceholder('Filter items')
           const options = page.getByRole('option').elements()
@@ -1964,7 +1999,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('renders SelectPanel with data-component attribute', async () => {
           renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(page.getByRole('dialog').element().querySelector<HTMLElement>('[data-component="SelectPanel"]'))
@@ -1974,7 +2009,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('renders SelectPanel.Header with data-component attribute', async () => {
           renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -1986,7 +2021,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('renders SelectPanel.Title with data-component attribute', async () => {
           renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -1998,7 +2033,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('renders SelectPanel.Subtitle with data-component attribute', async () => {
           renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2033,7 +2068,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithFooter />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2045,7 +2080,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('renders SelectPanel.Footer with data-component attribute when using modal variant', async () => {
           renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2057,7 +2092,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('renders SelectPanel.CancelButton with data-component attribute', async () => {
           renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2072,7 +2107,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         it('renders SelectPanel.SaveButton with data-component attribute', async () => {
           renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2087,14 +2122,20 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         // Note: SelectPanel.CloseButton is only rendered on non-narrow screens in modal variant.
         // On narrow screens, AnchoredOverlay handles the close button display.
 
-        it('renders SelectPanel.Backdrop with data-component attribute in modal variant', async () => {
+        it('uses the native modal backdrop or preserves the legacy SelectPanel.Backdrop marker', async () => {
           renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
-          await expect
-            .element(document.querySelector<HTMLElement>('[data-component="SelectPanel.Backdrop"]'))
-            .toBeInTheDocument()
+          const backdrop = document.querySelector<HTMLElement>('[data-component="SelectPanel.Backdrop"]')
+          if (composable) {
+            const dialog = page.getByRole('dialog').element()
+            expect(dialog.matches(':modal')).toBe(true)
+            expect(getComputedStyle(dialog, '::backdrop').backgroundColor).not.toBe('rgba(0, 0, 0, 0)')
+            expect(backdrop).not.toBeInTheDocument()
+          } else {
+            expect(backdrop).toBeInTheDocument()
+          }
         })
 
         it('renders SelectPanel.SecondaryAction with data-component attribute', async () => {
@@ -2125,7 +2166,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithSecondaryAction />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2165,7 +2206,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithSecondaryActionButton />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2205,7 +2246,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithSecondaryActionLink />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2243,7 +2284,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithNotice />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2278,7 +2319,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithMessage />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2342,7 +2383,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithMessageAction />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2384,7 +2425,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<SelectPanelWithLeadingVisuals />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           // Test that you can query for ActionList primitives nested within SelectPanel
           await expect
@@ -2434,7 +2475,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2475,7 +2516,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
           render(<MultiSelectPanelWithoutCancel />)
 
-          await userEvent.click(page.getByText('Select items', {exact: true}))
+          await openPanel()
 
           await expect
             .element(
@@ -2500,6 +2541,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
         }
 
         return (
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- Test keyboard bubbling through a non-interactive ancestor.
           <div
             onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
               const isAlphabetKey = e.key.length === 1 && /[a-z\d]/i.test(e.key)
@@ -2577,10 +2619,10 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
       mockGetAnchoredPosition.mockClear()
     })
 
-    it('should forward displayInViewport={true} to getAnchoredPosition', async () => {
-      render(<BasicSelectPanel displayInViewport={true} />)
+    it.each([false, true])('should forward explicit displayInViewport=%s to JavaScript positioning', async value => {
+      render(<BasicSelectPanel displayInViewport={value} />)
 
-      await userEvent.click(page.getByRole('button', {name: 'Select items'}))
+      await openPanel()
 
       await waitFor(async () => {
         await expect.element(page.getByRole('listbox')).toBeInTheDocument()
@@ -2592,25 +2634,32 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
       const calls = mockGetAnchoredPosition.mock.calls
       const lastCall = calls[calls.length - 1]
-      expect(lastCall[2]?.displayInViewport).toBe(true)
+      expect(lastCall[2]?.displayInViewport).toBe(value)
+      if (composable) {
+        expect(page.getByRole('dialog').element()).toHaveAttribute('data-anchor-position', 'false')
+      }
     })
 
-    it('should not set displayInViewport when prop is not provided', async () => {
+    it('should use the default positioning strategy when displayInViewport is not provided', async () => {
       render(<BasicSelectPanel />)
 
-      await userEvent.click(page.getByRole('button', {name: 'Select items'}))
+      await openPanel()
 
       await waitFor(async () => {
         await expect.element(page.getByRole('listbox')).toBeInTheDocument()
       })
 
-      await waitFor(() => {
-        expect(mockGetAnchoredPosition).toHaveBeenCalled()
-      })
-
-      const calls = mockGetAnchoredPosition.mock.calls
-      const lastCall = calls[calls.length - 1]
-      expect(lastCall[2]?.displayInViewport).not.toBe(true)
+      if (composable) {
+        expect(page.getByRole('dialog').element()).toHaveAttribute('data-anchor-position', 'true')
+        expect(mockGetAnchoredPosition).not.toHaveBeenCalled()
+      } else {
+        await waitFor(() => {
+          expect(mockGetAnchoredPosition).toHaveBeenCalled()
+        })
+        const calls = mockGetAnchoredPosition.mock.calls
+        const lastCall = calls[calls.length - 1]
+        expect(lastCall[2]?.displayInViewport).not.toBe(true)
+      }
     })
   })
 })

@@ -292,8 +292,13 @@ describe('SelectPanel story save policies', () => {
     expect(search.element()).toHaveFocus()
     expect(page.getByText('Saved labels: Bug', {exact: true}).element()).toBeVisible()
     if (gesture === 'escape') await userEvent.keyboard('{Escape}')
-    else if (gesture === 'outside') await userEvent.click(document.body, {position: {x: 1100, y: 800}, force: true})
-    else await userEvent.click(page.getByRole('button', {name: 'Done', exact: true}))
+    else if (gesture === 'outside') {
+      const dialog = page.getByRole('dialog')
+      await userEvent.click(dialog, {
+        position: {x: dialog.element().getBoundingClientRect().width + 8, y: 8},
+        force: true,
+      })
+    } else await userEvent.click(page.getByRole('button', {name: 'Done', exact: true}))
     await expect.element(page.getByText('Saved labels: Bug, Enhancement', {exact: true})).toBeVisible()
     await userEvent.click(page.getByRole('button', {name: 'Labels (2)', exact: true}))
     expect(page.getByRole('option', {name: /Enhancement/}).element()).toHaveAttribute('aria-selected', 'true')

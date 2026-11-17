@@ -1,6 +1,6 @@
 import React from 'react'
 import {act, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {page, userEvent as user} from 'vitest/browser'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import {BookIcon} from '@primer/octicons-react'
@@ -46,7 +46,6 @@ function Picker(props: SelectPanelRootProps) {
 
 describe('SelectPanel composition', () => {
   it('connects the trigger, panel, description, input, and collection', async () => {
-    const user = userEvent.setup()
     render(<Picker />)
     const trigger = screen.getByRole('button', {name: 'Choose fruit'})
     expect(trigger).toHaveAttribute('aria-haspopup', 'dialog')
@@ -54,6 +53,7 @@ describe('SelectPanel composition', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 
     await user.click(trigger)
+    await expect.element(page.getByRole('button', {name: 'Choose fruit'})).toHaveAttribute('aria-expanded', 'true')
     const dialog = screen.getByRole('dialog', {name: 'Fruit picker'})
     const input = screen.getByRole('textbox', {name: 'Filter fruit'})
     const list = screen.getByRole('listbox', {name: 'Fruit'})
@@ -67,11 +67,12 @@ describe('SelectPanel composition', () => {
 
     await user.keyboard('{Escape}')
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(dialog).toBeInTheDocument()
+    expect(dialog).not.toBeVisible()
     await waitFor(() => expect(trigger).toHaveFocus())
   })
 
   it('moves DOM focus into the list and wraps arrow navigation at its boundaries', async () => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     render(<Picker selectionMode="multiple" onSelectedChange={onSelectedChange} />)
     await user.click(screen.getByRole('button', {name: 'Choose fruit'}))
@@ -103,7 +104,6 @@ describe('SelectPanel composition', () => {
   })
 
   it.each([1, 2])('wraps among %i available options without a search input', async count => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     render(
       <SelectPanel.Root focusStrategy="roving" onSelectedChange={onSelectedChange}>
@@ -146,7 +146,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('does not close a single-selection panel unless close-on-select is enabled', async () => {
-    const user = userEvent.setup()
     const onSubmit = vi.fn()
     render(<Picker defaultOpen onSubmit={onSubmit} />)
     await user.click(screen.getByRole('option', {name: 'Apple'}))
@@ -156,7 +155,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('closes after single selection and restores trigger focus', async () => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     const onOpenChange = vi.fn()
     render(<Picker closeOnSelect onSelectedChange={onSelectedChange} onOpenChange={onOpenChange} />)
@@ -170,7 +168,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('treats controlled selection changes as requests', async () => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     const {rerender} = render(
       <Picker defaultOpen selected={[]} onSelectedChange={onSelectedChange} selectionMode="multiple" />,
@@ -184,7 +181,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('does not restore focus when a controlled owner rejects dismissal', async () => {
-    const user = userEvent.setup()
     const onOpenChange = vi.fn()
     render(<Picker open onOpenChange={onOpenChange} />)
     const input = screen.getByRole('textbox')
@@ -196,16 +192,14 @@ describe('SelectPanel composition', () => {
   })
 
   it('does not select disabled items', async () => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     render(<Picker defaultOpen onSelectedChange={onSelectedChange} />)
-    await user.click(screen.getByRole('option', {name: 'Cherry'}))
+    fireEvent.click(screen.getByRole('option', {name: 'Cherry'}))
     expect(onSelectedChange).not.toHaveBeenCalled()
     expect(screen.getByRole('dialog')).toBeInTheDocument()
   })
 
   it('keeps item ARIA state consistent with root selection and disabled behavior', async () => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     render(
       <SelectPanel.Root focusStrategy="roving" defaultSelected={['apple']} onSelectedChange={onSelectedChange}>
@@ -227,13 +221,12 @@ describe('SelectPanel composition', () => {
       const option = screen.getByRole('option', {name})
       expect(option).toHaveAttribute('aria-disabled', 'true')
       expect(option).toHaveAttribute('tabindex', '-1')
-      await user.click(option)
+      fireEvent.click(option)
     }
     expect(onSelectedChange).not.toHaveBeenCalled()
   })
 
   it('does not leave disabled options in the Tab order', async () => {
-    const user = userEvent.setup()
     render(<Picker defaultOpen />)
     const input = screen.getByRole('textbox')
     await waitFor(() => expect(input).toHaveFocus())
@@ -247,7 +240,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('refreshes navigation when an existing option becomes enabled or disabled', async () => {
-    const user = userEvent.setup()
     function DynamicOptions({disabled}: {disabled: boolean}) {
       return (
         <SelectPanel.Root focusStrategy="roving" selectionMode="multiple">
@@ -288,7 +280,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('repairs removed list focus without stealing focus from search or after an explicit blur', async () => {
-    const user = userEvent.setup()
     function DynamicList({values}: {values: string[]}) {
       return (
         <SelectPanel.Root focusStrategy="roving">
@@ -304,7 +295,7 @@ describe('SelectPanel composition', () => {
       )
     }
     const {rerender} = render(<DynamicList values={['Apple', 'Banana']} />)
-    await user.click(screen.getByRole('option', {name: 'Banana'}))
+    act(() => screen.getByRole('option', {name: 'Banana'}).focus())
     rerender(<DynamicList values={['Apple']} />)
     await waitFor(() => expect(screen.getByRole('option', {name: 'Apple'})).toHaveFocus())
     rerender(<DynamicList values={[]} />)
@@ -320,13 +311,13 @@ describe('SelectPanel composition', () => {
     expect(screen.getByRole('textbox')).toHaveFocus()
 
     await user.keyboard('{ArrowDown}')
+    // eslint-disable-next-line github/no-blur -- Verify explicit blur opts out of automatic focus repair.
     act(() => screen.getByRole('option').blur())
     rerender(<DynamicList values={[]} />)
     await waitFor(() => expect(document.body).toHaveFocus())
   })
 
   it('lets input and collection handlers cancel navigation', async () => {
-    const user = userEvent.setup()
     const cancel = (event: React.KeyboardEvent) => event.preventDefault()
     render(
       <SelectPanel.Root focusStrategy="roving">
@@ -352,7 +343,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('supports wrapped parts, custom labels, refs, and inline composition', async () => {
-    const user = userEvent.setup()
     const inputRef = React.createRef<HTMLInputElement>()
     const listRef = React.createRef<HTMLUListElement>()
     const itemRef = React.createRef<HTMLLIElement>()
@@ -382,10 +372,12 @@ describe('SelectPanel composition', () => {
       <SelectPanel.Root focusStrategy="roving">
         <SelectPanel.List aria-label="Books">
           <SelectPanel.Item value="book">
+            {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item composes ActionList.Item slots. */}
             <ActionList.LeadingVisual>
               <BookIcon />
             </ActionList.LeadingVisual>
             Book
+            {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item composes ActionList.Item slots. */}
             <ActionList.Description variant="block">Reference</ActionList.Description>
           </SelectPanel.Item>
         </SelectPanel.List>
@@ -396,7 +388,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('honors canceled item handlers for pointer and keyboard activation', async () => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     const onSelect = vi.fn((event: React.MouseEvent | React.KeyboardEvent) => event.preventDefault())
     render(
@@ -417,7 +408,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('merges a custom trigger ref and honors canceled trigger activation', async () => {
-    const user = userEvent.setup()
     const ref = React.createRef<HTMLButtonElement>()
     const onOpenChange = vi.fn()
     render(
@@ -425,19 +415,22 @@ describe('SelectPanel composition', () => {
         <SelectPanel.Trigger
           ref={ref}
           onClick={event => event.preventDefault()}
-          render={props => <button {...props}>Custom trigger</button>}
+          render={props => (
+            <button type="button" {...props}>
+              Custom trigger
+            </button>
+          )}
         />
       </SelectPanel.Root>,
     )
     const trigger = screen.getByRole('button', {name: 'Custom trigger'})
     expect(ref.current).toBe(trigger)
-    await user.click(trigger)
+    fireEvent.click(trigger)
     expect(onOpenChange).not.toHaveBeenCalled()
     expect(trigger).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('links a trigger to a custom overlay id', async () => {
-    const user = userEvent.setup()
     render(
       <SelectPanel.Root focusStrategy="roving">
         <SelectPanel.Trigger>Open custom panel</SelectPanel.Trigger>
@@ -449,11 +442,10 @@ describe('SelectPanel composition', () => {
     const trigger = screen.getByRole('button', {name: 'Open custom panel'})
     await user.click(trigger)
     expect(screen.getByRole('dialog', {name: 'Custom panel'})).toHaveAttribute('id', 'custom-panel')
-    expect(trigger).toHaveAttribute('aria-controls', 'custom-panel')
+    await expect.element(trigger).toHaveAttribute('aria-controls', 'custom-panel')
   })
 
   it('uses FormControl labeling and descriptions without sharing the filter id or required state', async () => {
-    const user = userEvent.setup()
     render(
       <FormControl id="fruit-field" required>
         <FormControl.Label>Fruit</FormControl.Label>
@@ -482,7 +474,6 @@ describe('SelectPanel composition', () => {
   })
 
   it('inherits FormControl disabled state and keeps inline heading levels configurable', async () => {
-    const user = userEvent.setup()
     const onOpenChange = vi.fn()
     render(
       <FormControl disabled>
@@ -495,7 +486,7 @@ describe('SelectPanel composition', () => {
     )
     const trigger = screen.getByLabelText(/^Fruit/)
     expect(trigger).toBeDisabled()
-    await user.click(trigger)
+    fireEvent.click(trigger)
     expect(onOpenChange).not.toHaveBeenCalled()
     expect(screen.getByRole('heading', {name: 'Inline fruit', level: 3})).toBeInTheDocument()
   })
@@ -554,7 +545,6 @@ function NestedItem() {
 
 describe('SelectPanel nested layers', () => {
   it('opens nested details directly from the item shortcut and restores item focus', async () => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     render(<NestedPicker onSelectedChange={onSelectedChange} />)
     await user.click(screen.getByRole('button', {name: 'Open parent'}))
@@ -570,7 +560,6 @@ describe('SelectPanel nested layers', () => {
   })
 
   it('keeps selection and query intact and dismisses only the child on Escape', async () => {
-    const user = userEvent.setup()
     const onSelectedChange = vi.fn()
     render(<NestedPicker onSelectedChange={onSelectedChange} />)
     await user.click(screen.getByRole('button', {name: 'Open parent'}))
@@ -624,6 +613,7 @@ describe('SelectPanel nested layers', () => {
           <SelectPanel.List aria-label="Repositories">
             <SelectPanel.Item value="primer" secondaryActions={[{label: 'Details', icon: BookIcon, onClick: vi.fn()}]}>
               Primer
+              {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item composes ActionList.Item slots. */}
               <ActionList.TrailingVisual data-anatomy="Item.trailingVisual" className="metadata-slot">
                 TypeScript
               </ActionList.TrailingVisual>
@@ -684,6 +674,7 @@ describe('SelectPanel nested layers', () => {
               <SelectPanel.List aria-label="Fruit">
                 <SelectPanel.Item value="apple" secondaryActions={actions} {...itemProps}>
                   Apple
+                  {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item composes ActionList.Item slots. */}
                   <ActionList.Description variant="block">A tasty fruit</ActionList.Description>
                 </SelectPanel.Item>
                 <SelectPanel.Item value="banana">Banana</SelectPanel.Item>
@@ -698,7 +689,6 @@ describe('SelectPanel nested layers', () => {
     it.each(['metaKey', 'ctrlKey'])(
       'executes a sole action directly with %s and keeps selection intact',
       async modifier => {
-        const user = userEvent.setup()
         const onAction = vi.fn()
         const onSelectedChange = vi.fn()
         render(
@@ -723,7 +713,6 @@ describe('SelectPanel nested layers', () => {
     )
 
     it('keeps hidden pointer actions out of the tab order, name, and list navigation', async () => {
-      const user = userEvent.setup()
       const onAction = vi.fn()
       const onSelectedChange = vi.fn()
       render(
@@ -760,7 +749,6 @@ describe('SelectPanel nested layers', () => {
     })
 
     it('opens supplemental actions for multiple actions and returns focus after activation', async () => {
-      const user = userEvent.setup()
       const inspect = vi.fn()
       const edit = vi.fn()
       const onSelectedChange = vi.fn()
@@ -776,6 +764,8 @@ describe('SelectPanel nested layers', () => {
       await user.click(screen.getByRole('button', {name: 'Open actions'}))
       await user.keyboard('{ArrowDown}{Control>}{Shift>}u{/Shift}{/Control}')
       const dialog = screen.getByRole('dialog', {name: 'Supplemental actions'})
+      expect(dialog).toBeInstanceOf(HTMLDialogElement)
+      expect(dialog.matches(':modal')).toBe(true)
       await waitFor(() => expect(within(dialog).getByRole('button', {name: 'Inspect Apple'})).toHaveFocus())
       const editButton = within(dialog).getByRole('button', {name: 'Edit Apple'})
       await user.click(editButton)
@@ -788,7 +778,6 @@ describe('SelectPanel nested layers', () => {
     })
 
     it('dismisses only supplemental actions on Escape and restores the item', async () => {
-      const user = userEvent.setup()
       render(
         <ActionPicker
           actions={[
@@ -810,7 +799,6 @@ describe('SelectPanel nested layers', () => {
     })
 
     it('focuses an enabled supplemental action and activates it by keyboard without selecting', async () => {
-      const user = userEvent.setup()
       const disabledAction = vi.fn()
       const onAction = vi.fn()
       const onSelectedChange = vi.fn()
@@ -837,7 +825,7 @@ describe('SelectPanel nested layers', () => {
     })
 
     it('dismisses only the supplemental dialog when clicking outside it', async () => {
-      const user = userEvent.setup()
+      await page.viewport(1280, 900)
       render(
         <ActionPicker
           actions={[
@@ -850,14 +838,13 @@ describe('SelectPanel nested layers', () => {
       await user.keyboard('{ArrowDown}{Control>}{Shift>}u{/Shift}{/Control}')
       const dialog = screen.getByRole('dialog', {name: 'Supplemental actions'})
       await waitFor(() => expect(within(dialog).getByRole('button', {name: 'Inspect'})).toHaveFocus())
-      await user.click(screen.getByRole('textbox', {name: 'Filter actions'}))
+      await user.click(dialog, {position: {x: dialog.getBoundingClientRect().width + 8, y: 8}, force: true})
       expect(screen.queryByRole('dialog', {name: 'Supplemental actions'})).not.toBeInTheDocument()
       expect(screen.getByRole('dialog', {name: 'Fruit actions'})).toBeInTheDocument()
       await waitFor(() => expect(screen.getByRole('option', {name: 'Apple'})).toHaveFocus())
     })
 
     it('prevents keys on pointer-only buttons from selecting their item', async () => {
-      const user = userEvent.setup()
       const onSelectedChange = vi.fn()
       render(<ActionPicker onSelectedChange={onSelectedChange} />)
       await user.click(screen.getByRole('button', {name: 'Open actions'}))
@@ -871,7 +858,6 @@ describe('SelectPanel nested layers', () => {
     it.each([{disabled: true}, {'aria-disabled': true}, {loading: true}, {inactiveText: 'Not available'}])(
       'does not activate secondary actions on unavailable items: %j',
       async itemProps => {
-        const user = userEvent.setup()
         const onAction = vi.fn()
         render(
           <ActionPicker
@@ -898,7 +884,6 @@ describe('SelectPanel nested layers', () => {
     )
 
     it('respects disabled actions, consumer cancellation, modifiers, and repeat', async () => {
-      const user = userEvent.setup()
       const onAction = vi.fn()
       const onKeyDown = vi.fn((event: React.KeyboardEvent) => event.preventDefault())
       const {rerender} = render(
@@ -925,17 +910,17 @@ describe('SelectPanel nested layers', () => {
   })
 
   it('does not dismiss a parent when interacting inside its portaled child', async () => {
-    const user = userEvent.setup()
     render(<NestedPicker />)
     await user.click(screen.getByRole('button', {name: 'Open parent'}))
+    const parent = screen.getByRole('dialog', {name: 'Parent picker'})
     await user.click(screen.getByTitle('Apple details'))
     await user.click(screen.getByText('Details are independent of selection.'))
-    expect(screen.getByRole('dialog', {name: 'Parent picker'})).toBeInTheDocument()
+    expect(parent).toBeInTheDocument()
+    expect(parent.matches(':modal')).toBe(true)
     expect(screen.getByRole('dialog', {name: 'Apple information'})).toBeInTheDocument()
   })
 
   it('returns to the parent input if the invoking row is removed', async () => {
-    const user = userEvent.setup()
     const {rerender} = render(<NestedPicker />)
     await user.click(screen.getByRole('button', {name: 'Open parent'}))
     await user.click(screen.getByTitle('Apple details'))

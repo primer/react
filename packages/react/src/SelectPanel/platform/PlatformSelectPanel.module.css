@@ -1,16 +1,3 @@
-.Dialog {
-  width: min(32rem, calc(100vw - 2rem));
-  max-height: calc(100vh - 2rem);
-  padding: 0;
-  color: var(--fgColor-default);
-  background: var(--overlay-bgColor);
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-
-  &::backdrop {
-    background: var(--overlay-backdrop-bgColor);
-  }
-}
-
 .NativeLayer {
   /* Isolate the top-layer host from parent layout rules without adding a layout box. */
   display: contents;
@@ -34,6 +21,62 @@
     top: var(--native-top, 0);
     /* stylelint-disable-next-line primer/spacing */
     left: var(--native-left, 0);
+  }
+
+  &:where([data-anchor-position='true']) {
+    position: fixed;
+    position-try-fallbacks:
+      flip-block,
+      flip-inline,
+      flip-block flip-inline;
+
+    /* stylelint-disable primer/spacing -- Native anchor coordinates include consumer-provided offsets. */
+    &:where([data-side='outside-bottom'], [data-side='outside-top']) {
+      left: calc(anchor(left) + var(--native-alignment-offset));
+
+      &:where([data-align='end']) {
+        left: auto;
+        right: calc(anchor(right) + var(--native-alignment-offset));
+      }
+
+      &:where([data-align='center']) {
+        left: auto;
+        justify-self: anchor-center;
+      }
+    }
+
+    &:where([data-side='outside-bottom']) {
+      top: calc(anchor(bottom) + var(--native-anchor-offset));
+    }
+
+    &:where([data-side='outside-top']) {
+      top: auto;
+      bottom: calc(anchor(top) + var(--native-anchor-offset));
+    }
+
+    &:where([data-side='outside-left'], [data-side='outside-right']) {
+      top: calc(anchor(top) + var(--native-alignment-offset));
+
+      &:where([data-align='end']) {
+        top: auto;
+        bottom: calc(anchor(bottom) + var(--native-alignment-offset));
+      }
+
+      &:where([data-align='center']) {
+        top: auto;
+        align-self: anchor-center;
+      }
+    }
+
+    &:where([data-side='outside-left']) {
+      left: auto;
+      right: calc(anchor(left) + var(--native-anchor-offset));
+    }
+
+    &:where([data-side='outside-right']) {
+      left: calc(anchor(right) + var(--native-anchor-offset));
+    }
+    /* stylelint-enable primer/spacing */
   }
 
   &:where([data-variant='modal']) {

@@ -10,7 +10,13 @@ interface NativeDialogHostProps {
   children: React.ReactNode
   invokers: boolean
   dialogRef?: React.RefObject<HTMLDialogElement | null>
-  dialogProps?: React.ComponentPropsWithoutRef<'dialog'> & {'data-variant'?: string; 'data-configured'?: string}
+  dialogProps?: React.ComponentPropsWithoutRef<'dialog'> & {
+    'data-variant'?: string
+    'data-configured'?: string
+    'data-anchor-position'?: boolean
+    'data-side'?: string
+    'data-align'?: string
+  }
   anchorRef?: React.RefObject<HTMLElement | null>
   returnFocusRef?: React.RefObject<HTMLElement | null>
   initialFocusRef?: React.RefObject<HTMLElement | null>
@@ -41,6 +47,12 @@ function restoreFocus(
 ) {
   if (anchor?.isConnected) anchor.focus()
   else (parentInputRef?.current ?? parentAnchorRef?.current)?.focus()
+}
+
+function isBackdropEvent(event: React.MouseEvent<HTMLDialogElement>) {
+  if (event.target !== event.currentTarget) return false
+  const {left, right, top, bottom} = event.currentTarget.getBoundingClientRect()
+  return event.clientX < left || event.clientX > right || event.clientY < top || event.clientY > bottom
 }
 
 /**
@@ -203,13 +215,14 @@ export function NativeDialogHost({
 
   return (
     <div className={classes.NativeLayer}>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Native dialogs handle backdrop clicks and scoped Escape. */}
       <dialog
         ref={ref}
         id={state.panelId}
         aria-modal="true"
         aria-labelledby={state.labelledBy}
         aria-describedby={state.describedBy}
-        className={classes.Dialog}
+        className={classes.NativeHost}
         data-platform-host="native-dialog"
         {...dialogProps}
         onKeyDown={event => {
@@ -218,11 +231,14 @@ export function NativeDialogHost({
           // legacy Dialog's document Escape registry prevent that action.
           if (event.key === 'Escape') event.stopPropagation()
         }}
+        onPointerDown={event => {
+          dialogProps?.onPointerDown?.(event)
+          // A rejected controlled dismissal must not move focus to the host.
+          if (!event.defaultPrevented && isBackdropEvent(event)) event.preventDefault()
+        }}
         onClick={event => {
           dialogProps?.onClick?.(event)
-          if (event.defaultPrevented || event.target !== event.currentTarget) return
-          const {left, right, top, bottom} = event.currentTarget.getBoundingClientRect()
-          if (event.clientX < left || event.clientX > right || event.clientY < top || event.clientY > bottom) {
+          if (!event.defaultPrevented && isBackdropEvent(event)) {
             if (onDismiss) onDismiss('click-outside', event.nativeEvent)
             else state.dismiss('click-outside')
           }
