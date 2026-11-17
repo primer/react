@@ -1,0 +1,957 @@
+.Showcase {
+  min-height: 100dvh;
+  padding: var(--base-size-32);
+  color: var(--fgColor-default);
+  background: var(--bgColor-default);
+
+  :where(h1),
+  :where(h2),
+  :where(p) {
+    margin: 0;
+  }
+}
+
+.PlaybackTop,
+.Buttons,
+.SceneNote,
+.ClosingPoints > div {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-12);
+}
+
+.PlaybackTop {
+  justify-content: space-between;
+}
+
+.Muted {
+  /* stylelint-disable-next-line primer/colors -- Film surfaces follow the selected showcase skin. */
+  color: var(--playground-muted, var(--fgColor-muted));
+}
+
+.Film {
+  display: grid;
+  max-width: 1440px;
+  min-height: 660px;
+  margin-inline: auto;
+  padding-block: var(--base-size-40);
+  grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.6fr);
+  align-items: center;
+  gap: var(--base-size-40);
+}
+
+.Narrative {
+  min-width: 0;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.Film[data-layout='slideshow'],
+.Film[data-scene='next'],
+.Film[data-scene='closing'] {
+  grid-template-columns: minmax(0, 1fr);
+
+  .SceneCopy {
+    animation: none;
+  }
+
+  .Narrative {
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .Headline {
+    /* stylelint-disable primer/typography -- Full-width editorial title cards for recording. */
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.08;
+    /* stylelint-enable primer/typography */
+  }
+
+  .Description {
+    max-width: 56ch;
+    margin-inline: auto;
+  }
+
+  .Screen {
+    width: 100%;
+    max-width: 1000px;
+    justify-self: center;
+  }
+}
+
+.Typewriter {
+  position: relative;
+}
+
+.Candidates {
+  display: grid;
+  margin: var(--base-size-32) 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--base-size-16);
+}
+
+.Candidate {
+  display: flex;
+  min-width: 0;
+  padding: var(--base-size-24);
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-radius: var(--borderRadius-large);
+  background: transparent;
+  flex-direction: column;
+  grid-column: span 2;
+  gap: var(--base-size-12);
+
+  &:nth-child(-n + 2) {
+    grid-column: span 3;
+  }
+
+  h2 {
+    font-size: var(--text-title-size-medium);
+    line-height: var(--text-title-lineHeight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  p {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-medium);
+    line-height: var(--text-body-lineHeight-medium);
+    text-wrap: pretty;
+  }
+}
+
+.CandidateNumber {
+  color: var(--fgColor-muted);
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+}
+
+.CandidateParts {
+  display: flex;
+  margin-top: auto;
+  padding-top: var(--base-size-8);
+  flex-wrap: wrap;
+  gap: var(--base-size-8);
+}
+
+.PlatformCapabilities {
+  --fgColor-default: #000;
+  --capability-radius: 400px;
+  --capability-width: min(520px, calc(100vw - 80px));
+  --capability-step: calc(var(--showcase-phase-duration) / 5);
+
+  margin-top: var(--base-size-24);
+}
+
+.CapabilityWindow {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+  mask-image: linear-gradient(transparent, #000 20%, #000 80%, transparent);
+}
+
+.CapabilityWheel {
+  position: absolute;
+  top: 50%;
+  /* stylelint-disable-next-line primer/spacing -- Place the rotation origin outside the clipped wheel viewport. */
+  left: calc(50% - var(--capability-radius) - var(--capability-width) / 2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform-origin: 0 0;
+}
+
+.Capability {
+  position: absolute;
+  width: var(--capability-width);
+  color: transparent;
+  /* stylelint-disable primer/typography -- Recording-scale labels on the capability wheel. */
+  font-size: clamp(20px, 3.5vw, 40px);
+  line-height: 1.2;
+  /* stylelint-enable primer/typography */
+  font-weight: var(--base-text-weight-semibold);
+  text-align: left;
+  white-space: nowrap;
+  opacity: 0.6;
+  transform: rotate(var(--capability-angle)) translateX(var(--capability-radius)) translateY(-50%);
+  transform-origin: 0 0;
+  -webkit-text-stroke: 1px var(--fgColor-default);
+
+  &[data-active='true'] {
+    color: var(--fgColor-default);
+    opacity: 1;
+  }
+}
+
+.CapabilityPointer {
+  position: absolute;
+  top: 50%;
+  /* stylelint-disable-next-line primer/spacing -- Keep the pointer beside the centered label at every viewport width. */
+  left: calc(50% - var(--capability-width) / 2 - var(--base-size-24));
+  color: var(--fgColor-default);
+  font-size: var(--text-title-size-large);
+  transform: translateY(-50%);
+}
+
+.PlatformCapabilities[data-reduced-motion='true'] {
+  .CapabilityWindow {
+    height: auto;
+    overflow: visible;
+    mask-image: none;
+  }
+
+  .CapabilityWheel {
+    position: static;
+    display: grid;
+    gap: var(--base-size-16);
+  }
+
+  .Capability {
+    position: static;
+    width: auto;
+    color: var(--fgColor-default);
+    text-align: center;
+    white-space: normal;
+    opacity: 1;
+    transform: none;
+    -webkit-text-stroke: 0;
+  }
+
+  .CapabilityPointer {
+    display: none;
+  }
+}
+
+.Caret {
+  position: absolute;
+  width: 2px;
+  height: 0.85em;
+  margin-inline-start: var(--base-size-4);
+  /* stylelint-disable-next-line primer/spacing -- Align the caret with the responsive headline's cap height. */
+  margin-block-start: 0.12em;
+  background: currentColor;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Film[data-motion='true'] {
+    .Narrative,
+    .Screen {
+      animation:
+        reveal-stage 250ms ease-out both,
+        leave-stage 200ms ease-in calc(var(--showcase-phase-duration) - 200ms) forwards;
+    }
+
+    .TypedCharacter {
+      animation: reveal-character 1ms step-end both;
+    }
+
+    .Caret {
+      animation: show-caret 350ms step-end 750ms forwards;
+    }
+
+    .Description {
+      animation: arrive 300ms ease-out 350ms both;
+    }
+
+    .CapabilityWheel {
+      animation: rotate-capabilities var(--showcase-phase-duration) ease-in-out both;
+    }
+
+    .Capability {
+      /* Overlap entry and exit with the same 40%-of-a-step rotation interval. */
+      animation: emphasize-capability calc(var(--capability-step) * 2) ease-in-out
+        calc(var(--capability-delay) - var(--capability-step) * 0.4) both paused;
+    }
+
+    .Capability:last-child {
+      animation-name: settle-capability;
+    }
+
+    .Candidate {
+      animation-name: assemble-candidate;
+      animation-duration: 450ms;
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      animation-fill-mode: both;
+      animation-play-state: paused;
+    }
+
+    .Principle {
+      animation: arrive 250ms ease-out 800ms both;
+    }
+
+    .Narrative,
+    .Screen,
+    .TypedCharacter,
+    .Caret,
+    .Description,
+    .CapabilityWheel,
+    .Principle {
+      animation-play-state: paused;
+    }
+
+    &[data-scene='closing'] .Narrative {
+      animation: reveal-stage 250ms ease-out both paused;
+    }
+  }
+}
+
+@keyframes assemble-candidate {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes emphasize-capability {
+  0%,
+  70%,
+  100% {
+    color: transparent;
+    opacity: 0.6;
+  }
+
+  20%,
+  50% {
+    color: var(--fgColor-default);
+    opacity: 1;
+  }
+}
+
+@keyframes settle-capability {
+  0% {
+    color: transparent;
+    opacity: 0.6;
+  }
+
+  20%,
+  100% {
+    color: var(--fgColor-default);
+    opacity: 1;
+  }
+}
+
+@keyframes rotate-capabilities {
+  0%,
+  12% {
+    transform: rotate(0deg);
+  }
+
+  20%,
+  32% {
+    transform: rotate(-24deg);
+  }
+
+  40%,
+  52% {
+    transform: rotate(-48deg);
+  }
+
+  60%,
+  72% {
+    transform: rotate(-72deg);
+  }
+
+  80%,
+  100% {
+    transform: rotate(-96deg);
+  }
+}
+
+@keyframes reveal-stage {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes leave-stage {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes reveal-character {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes show-caret {
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.SceneCopy {
+  animation: arrive 300ms ease-out both;
+}
+
+.Eyebrow {
+  margin-bottom: var(--base-size-16) !important;
+  color: var(--fgColor-accent);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.Headline {
+  /* stylelint-disable primer/typography -- Recording-scale editorial heading. */
+  font-size: clamp(32px, 3.6vw, 56px);
+  line-height: 1.08;
+  /* stylelint-enable primer/typography */
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.Description {
+  margin-top: var(--base-size-24) !important;
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-large);
+  line-height: var(--text-body-lineHeight-large);
+  text-wrap: pretty;
+}
+
+.Parts {
+  display: flex;
+  margin-top: var(--base-size-32);
+  gap: var(--base-size-8);
+  flex-wrap: wrap;
+
+  [data-active='true'] {
+    color: var(--fgColor-accent);
+    border-color: var(--borderColor-accent-emphasis);
+    background: var(--bgColor-accent-muted);
+  }
+}
+
+.Principle {
+  margin-top: var(--base-size-24) !important;
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+}
+
+.Screen {
+  display: flex;
+  min-width: 0;
+  padding: var(--base-size-20);
+  overflow: hidden;
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-radius: var(--borderRadius-large);
+  background: var(--bgColor-muted);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--base-size-16);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.PreviewViewport {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.Device {
+  box-sizing: border-box;
+  overflow: hidden;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  background: var(--bgColor-default);
+  transform-origin: top center;
+  flex-shrink: 0;
+}
+
+.SceneNote {
+  min-height: 44px;
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  text-align: center;
+}
+
+.SceneNote[data-key-cue] .KeyCue > span {
+  min-width: var(--base-size-40);
+  padding: var(--base-size-8);
+  color: var(--fgColor-default);
+  font-size: var(--text-body-size-large);
+  line-height: var(--text-body-lineHeight-large);
+}
+
+.Playback {
+  display: flex;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-top: var(--base-size-20);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+  flex-direction: column;
+  gap: var(--base-size-16);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.Chapters {
+  display: flex;
+  gap: var(--base-size-8);
+  flex-wrap: wrap;
+
+  [aria-current='step'] {
+    color: var(--fgColor-accent);
+    background: var(--bgColor-accent-muted);
+  }
+}
+
+.Showcase[data-recording='true'] .Film {
+  min-height: calc(100dvh - 100px);
+}
+
+.Countdown {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  color: var(--fgColor-default);
+  background: var(--bgColor-default);
+  text-align: center;
+  place-content: center;
+  gap: var(--base-size-16);
+}
+
+.CountdownNumber {
+  /* stylelint-disable-next-line primer/typography -- Large countdown for the recording lead-in. */
+  font-size: 96px;
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.SrOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.Product[data-scene] {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  padding: var(--base-size-24);
+  overflow: hidden;
+  align-items: flex-start;
+  gap: 0;
+
+  :where(h2),
+  :where(p) {
+    margin: 0;
+  }
+}
+
+.ThemeCaption {
+  position: absolute;
+  top: var(--base-size-24);
+  right: var(--base-size-24);
+  left: var(--base-size-24);
+}
+
+.ThemeBackdrop {
+  position: absolute;
+  inset: 0;
+  /* stylelint-disable-next-line primer/colors -- Fade each preview skin through the neutral recording stage. */
+  background-color: var(--playground-stage-bg, var(--bgColor-muted));
+  pointer-events: none;
+}
+
+.ThemeSwitcher {
+  --controlTrack-bgColor-rest: transparent;
+  --controlTrack-borderColor-rest: transparent;
+  --controlKnob-bgColor-rest: var(--playground-control-bg, var(--bgColor-muted));
+  --controlKnob-borderColor-rest: var(--playground-border, var(--borderColor-default));
+}
+
+.CenterAnchor {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.CompactHeading {
+  --playground-header-padding: 0 var(--base-size-8);
+}
+
+.Product[data-custom='true'] {
+  --fgColor-default: var(--playground-text);
+  --fgColor-muted: var(--playground-muted);
+  --bgColor-default: var(--playground-panel-bg);
+  --borderColor-default: var(--playground-border);
+  --borderColor-muted: var(--playground-border);
+  --control-fgColor-rest: var(--playground-text);
+  --control-transparent-fgColor-rest: var(--playground-text);
+  --button-default-fgColor-rest: var(--playground-text);
+  --fgColor-accent: var(--playground-text);
+  --bgColor-accent-muted: var(--playground-control-bg);
+  --fontStack-system: var(--playground-font-family);
+}
+
+.Sidebar {
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+  padding-inline: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-radius: var(--borderRadius-medium);
+  /* stylelint-disable primer/colors -- The shell uses the same surface and foreground as the composed picker. */
+  color: var(--playground-text, var(--fgColor-default));
+  background: var(--playground-panel-bg, var(--bgColor-default));
+  /* stylelint-enable primer/colors */
+  flex-shrink: 0;
+}
+
+.SidebarSection {
+  display: grid;
+  padding-block: var(--base-size-12);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+  gap: var(--base-size-8);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.SidebarLabel {
+  justify-self: start;
+}
+
+.SidebarHeading {
+  display: flex;
+  min-height: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ActivityRow {
+  display: grid;
+  min-height: 24px;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--base-size-8);
+}
+
+.Reviewers {
+  display: grid;
+  gap: var(--base-size-8);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.ReviewPending {
+  width: var(--base-size-8);
+  height: var(--base-size-8);
+  border-radius: var(--borderRadius-full);
+  background: var(--bgColor-attention-emphasis);
+}
+
+.Background {
+  filter: blur(3px);
+}
+
+.PickerList {
+  min-height: 0;
+  overflow: auto;
+  flex-shrink: 1;
+}
+
+.PickerList > .PickerRow[data-highlighted='true'] {
+  background: var(--control-transparent-bgColor-hover);
+}
+
+.Product[data-scene='closing'] {
+  padding: 0;
+}
+
+.Product[data-custom='true'] .Sidebar {
+  /* stylelint-disable-next-line primer/borders -- The shell follows each custom picker's geometry. */
+  border-radius: var(--playground-panel-radius);
+}
+
+.Product[data-appearance='1'] .Sidebar {
+  border-radius: var(--borderRadius-small);
+}
+
+.Product[data-appearance='2'] {
+  --text-body-size-small: 12px;
+  --text-body-size-medium: 13px;
+}
+
+.Product[data-appearance='2'] .SidebarSection {
+  padding-block: var(--base-size-8);
+}
+
+.Product[data-appearance='4'] .SidebarHeading {
+  /* stylelint-disable-next-line primer/typography -- Paper shares the skin's editorial serif headings. */
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.Product[data-appearance='5'] .Sidebar {
+  border-radius: 0;
+}
+
+.Product[data-appearance='5'] .SidebarHeading {
+  text-transform: uppercase;
+}
+
+.Product[data-appearance='3'] .SidebarHeading {
+  --playground-muted: var(--playground-header-text);
+  --fgColor-default: var(--playground-header-text);
+
+  /* stylelint-disable primer/colors -- Windows 98 shares the picker's title-bar colors. */
+  color: var(--playground-header-text);
+  background: var(--playground-header-bg);
+  /* stylelint-enable primer/colors */
+}
+
+.Product[data-appearance='3'] .Sidebar {
+  /* stylelint-disable-next-line primer/borders -- Historical chrome intentionally uses raised window bevels. */
+  border: var(--borderWidth-thick) outset var(--playground-bevel-light);
+  border-radius: 0;
+}
+
+.ReviewerDialog[data-position-narrow='bottom'] {
+  height: 160px;
+}
+
+.ReviewerProfile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-16);
+  padding: var(--base-size-16);
+  padding-right: var(--base-size-40);
+}
+
+.DetailCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--base-size-8);
+}
+
+.ReviewerName {
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.DetailCopy p {
+  margin: 0;
+  color: var(--fgColor-muted);
+}
+
+.DetailCopy a {
+  color: var(--fgColor-accent);
+}
+
+.ReviewerClose {
+  position: absolute;
+  top: var(--base-size-8);
+  right: var(--base-size-8);
+}
+
+.Closing {
+  display: flex;
+  min-height: 100vh;
+  padding: var(--base-size-40);
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--base-size-24);
+}
+
+.ClosingTitle {
+  /* stylelint-disable primer/typography -- Recording-scale closing card. */
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+  /* stylelint-enable primer/typography */
+  letter-spacing: -0.03em;
+}
+
+.ClosingPoints {
+  display: grid;
+  margin-top: var(--base-size-16);
+  gap: var(--base-size-16);
+
+  svg {
+    color: var(--fgColor-success);
+    flex-shrink: 0;
+  }
+}
+
+.Platform {
+  display: grid;
+  width: 100%;
+  max-width: 640px;
+  margin: auto;
+  gap: var(--base-size-24);
+}
+
+.PlatformHeading {
+  display: grid;
+  justify-items: start;
+  gap: var(--base-size-12);
+}
+
+.PlatformSteps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--base-size-12);
+}
+
+.PlatformStep {
+  display: grid;
+  padding: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-radius: var(--borderRadius-medium);
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--base-size-8);
+
+  > :last-child {
+    grid-column: 2;
+  }
+
+  &[data-active='true'] {
+    border-color: var(--borderColor-accent-emphasis);
+    background: var(--bgColor-accent-muted);
+  }
+}
+
+.PlatformNumber {
+  color: var(--fgColor-muted);
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+}
+
+.PlatformDetail {
+  display: grid;
+  min-height: 264px;
+  padding: var(--base-size-24);
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-radius: var(--borderRadius-large);
+  background: var(--bgColor-default);
+  align-content: start;
+  gap: var(--base-size-16);
+  animation: arrive 300ms ease-out both;
+
+  h2 {
+    font-size: var(--text-title-size-medium);
+    line-height: var(--text-title-lineHeight-medium);
+  }
+}
+
+.PlatformCode {
+  min-height: 72px;
+  margin: 0;
+  padding: var(--base-size-16);
+  overflow: auto;
+  border-radius: var(--borderRadius-medium);
+  color: var(--fgColor-accent);
+  background: var(--bgColor-muted);
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-medium);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (--viewportRange-narrow) {
+  .Candidates {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .Candidate,
+  .Candidate:nth-child(-n + 2) {
+    grid-column: auto;
+  }
+
+  .Showcase {
+    padding: var(--base-size-16);
+  }
+
+  .Film {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: var(--base-size-32);
+    gap: var(--base-size-24);
+  }
+
+  .PlaybackTop {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--base-size-16);
+  }
+
+  .Product[data-scene] {
+    padding: var(--base-size-16);
+  }
+
+  .Product[data-scene='closing'] {
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .SceneCopy,
+  .PlatformDetail {
+    animation: none;
+  }
+}

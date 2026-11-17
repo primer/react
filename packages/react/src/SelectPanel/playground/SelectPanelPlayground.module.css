@@ -45,6 +45,16 @@
   color: var(--fgColor-muted);
 }
 
+.Page [data-recording-active='true'] {
+  border-radius: var(--borderRadius-small);
+  outline: 2px solid var(--borderColor-accent-emphasis);
+  outline-offset: var(--base-size-8);
+}
+
+.Page[data-recording='true'] .Header {
+  flex-wrap: wrap;
+}
+
 .Workspace {
   display: grid;
   min-height: 0;

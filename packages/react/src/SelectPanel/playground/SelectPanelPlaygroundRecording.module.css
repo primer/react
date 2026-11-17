@@ -1,0 +1,50 @@
+.Recording {
+  position: relative;
+}
+
+.Playback:not([hidden]) {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  flex-wrap: wrap;
+}
+
+.Status {
+  display: flex;
+  min-width: 220px;
+  flex-direction: column;
+  gap: var(--base-size-4);
+}
+
+.Muted {
+  color: var(--fgColor-muted);
+}
+
+.Countdown {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  color: var(--fgColor-default);
+  background: var(--overlay-backdrop-bgColor);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--base-size-16);
+  inset: 0;
+  backdrop-filter: blur(8px);
+}
+
+.CountdownNumber {
+  font-size: var(--text-display-size);
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.SrOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

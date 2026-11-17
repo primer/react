@@ -32,7 +32,7 @@ describe('playground anatomy inspector', () => {
       expect(bubble.getBoundingClientRect().toJSON()).toEqual(bubbleBounds)
     }
 
-    const trigger = page.getByRole('button', {name: 'copilot-tauri-app', exact: true})
+    const trigger = page.getByRole('button', {name: 'copilot-app', exact: true})
     await browserUserEvent.hover(trigger)
     await expect.element(page.getByText('SelectPanel.Trigger', {exact: true})).toBeVisible()
     expectPinned()
@@ -69,7 +69,7 @@ describe('playground anatomy inspector', () => {
         <SelectPanelDemo config={config} resetKey={0} />
       </ThemeProvider>,
     )
-    await browserUserEvent.click(page.getByRole('button', {name: 'copilot-tauri-app', exact: true}))
+    await browserUserEvent.click(page.getByRole('button', {name: 'copilot-app', exact: true}))
     const input = page.getByRole('combobox', {name: 'Search repositories', exact: true})
     await expect.element(input).toHaveFocus()
     await expect.poll(() => document.querySelector<HTMLImageElement>('[data-anatomy-clippy]')?.naturalWidth).toBe(122)
@@ -124,14 +124,14 @@ describe('playground anatomy inspector', () => {
 
   it.each([0, 1, 2, 4, 5])('does not show Clippy for appearance %s', async appearance => {
     render(<SelectPanelDemo config={{...defaultConfig, appearance, anatomy: true}} resetKey={0} />)
-    await browserUserEvent.hover(page.getByRole('button', {name: 'copilot-tauri-app', exact: true}))
+    await browserUserEvent.hover(page.getByRole('button', {name: 'copilot-app', exact: true}))
     await expect.element(page.getByText('SelectPanel.Trigger', {exact: true})).toBeVisible()
     expect(document.querySelector('[data-anatomy-clippy]')).toBeNull()
   })
 
   it('does not show Clippy with Windows 98 anatomy disabled', async () => {
     render(<SelectPanelDemo config={{...defaultConfig, appearance: 3, anatomy: false}} resetKey={0} />)
-    await browserUserEvent.hover(page.getByRole('button', {name: 'copilot-tauri-app', exact: true}))
+    await browserUserEvent.hover(page.getByRole('button', {name: 'copilot-app', exact: true}))
     expect(document.querySelector('[data-anatomy-callout]')).toBeNull()
     expect(document.querySelector('[data-anatomy-clippy]')).toBeNull()
   })
@@ -167,7 +167,7 @@ describe('playground anatomy inspector', () => {
         <SelectPanelDemo config={{...defaultConfig, anatomy: true}} resetKey={0} />
       </ThemeProvider>,
     )
-    await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+    await user.click(screen.getByRole('button', {name: 'copilot-app'}))
     await screen.findByText('SelectPanel.SearchInput', {selector: '[data-anatomy-name]'})
     const callout = document.querySelector('[data-anatomy-callout]')!
     expect(callout.closest('[data-color-mode]')).toHaveAttribute('data-color-mode', 'dark')
@@ -185,14 +185,14 @@ describe('playground anatomy inspector', () => {
   it('is off by default and adds no interactive annotation controls', async () => {
     const user = userEvent.setup()
     render(<SelectPanelDemo config={defaultConfig} resetKey={0} />)
-    await user.hover(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+    await user.hover(screen.getByRole('button', {name: 'copilot-app'}))
     expect(document.querySelector('[data-anatomy-callout]')).toBeNull()
   })
 
   it('inspects hover and keyboard focus through the portaled overlay without disrupting selection', async () => {
     const user = userEvent.setup()
     render(<SelectPanelDemo config={{...defaultConfig, anatomy: true}} resetKey={0} />)
-    const trigger = screen.getByRole('button', {name: 'copilot-tauri-app'})
+    const trigger = screen.getByRole('button', {name: 'copilot-app'})
     await user.hover(trigger)
     expect(await screen.findByText('SelectPanel.Trigger', {selector: '[data-anatomy-name]'})).toHaveAttribute(
       'data-variant',
@@ -219,11 +219,11 @@ describe('playground anatomy inspector', () => {
   it('identifies the picker overlay without mislabelling a standard details Dialog as SelectPanel', async () => {
     const user = userEvent.setup()
     render(<SelectPanelDemo config={{...defaultConfig, anatomy: true, actions: true, multiple: true}} resetKey={0} />)
-    await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+    await user.click(screen.getByRole('button', {name: 'copilot-app'}))
     fireEvent.pointerMove(screen.getByRole('dialog'))
     expect(await screen.findByText('SelectPanel.Overlay', {selector: '[data-anatomy-name]'})).toBeInTheDocument()
     const details = screen
-      .getByRole('option', {name: /copilot-tauri-app/})
+      .getByRole('option', {name: /copilot-app/})
       .querySelector<HTMLElement>('[data-component="SelectPanel.Item.SecondaryAction"]')!
     const iconBounds = details
       .querySelector('[data-select-panel-part="Item.secondaryActions"]')!
@@ -234,7 +234,7 @@ describe('playground anatomy inspector', () => {
     })
     expect(await screen.findByText('InfoIcon', {selector: '[data-anatomy-name]'})).toBeInTheDocument()
     await user.click(details)
-    expect(screen.getByRole('dialog', {name: 'copilot-tauri-app'})).toBeInTheDocument()
+    expect(screen.getByRole('dialog', {name: 'copilot-app'})).toBeInTheDocument()
     await user.hover(screen.getByRole('button', {name: 'Back to repositories'}))
     await waitFor(() => expect(document.querySelector('[data-anatomy-callout]')).toBeNull())
     expect(screen.queryByText('SelectPanel.BackButton', {selector: '[data-anatomy-name]'})).not.toBeInTheDocument()
@@ -245,7 +245,7 @@ describe('playground anatomy inspector', () => {
   it('removes annotations when disabled without closing or resetting the picker', async () => {
     const user = userEvent.setup()
     const {rerender} = render(<SelectPanelDemo config={{...defaultConfig, anatomy: true}} resetKey={0} />)
-    await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+    await user.click(screen.getByRole('button', {name: 'copilot-app'}))
     await user.type(screen.getByRole('combobox'), 'reforge')
     expect(await screen.findByText('SelectPanel.SearchInput', {selector: '[data-anatomy-name]'})).toBeInTheDocument()
     rerender(<SelectPanelDemo config={defaultConfig} resetKey={0} />)
@@ -258,7 +258,7 @@ describe('playground anatomy inspector', () => {
     await page.viewport(375, 700)
     const user = userEvent.setup()
     render(<SelectPanelDemo config={{...defaultConfig, anatomy: true}} resetKey={0} />)
-    await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+    await user.click(screen.getByRole('button', {name: 'copilot-app'}))
     await screen.findByText('SelectPanel.SearchInput', {selector: '[data-anatomy-name]'})
     await waitFor(() => {
       const callout = document.querySelector('[data-anatomy-callout]')!.getBoundingClientRect()
@@ -273,7 +273,7 @@ describe('playground anatomy inspector', () => {
     await page.viewport(1000, 800)
     const user = userEvent.setup()
     const {rerender} = render(<SelectPanelDemo config={{...defaultConfig, anatomy: true}} resetKey={0} />)
-    const trigger = screen.getByRole('button', {name: 'copilot-tauri-app'})
+    const trigger = screen.getByRole('button', {name: 'copilot-app'})
     const chevron = trigger.querySelector('[data-select-panel-part="Trigger.trailingAction"]')!
     const chevronBounds = chevron.getBoundingClientRect()
     fireEvent.pointerMove(trigger, {
@@ -306,7 +306,7 @@ describe('playground anatomy inspector', () => {
     await page.viewport(1000, 800)
     const user = userEvent.setup()
     render(<SelectPanelDemo config={{...defaultConfig, anatomy: true, descriptions: true}} resetKey={0} />)
-    await user.click(screen.getByRole('button', {name: 'copilot-tauri-app'}))
+    await user.click(screen.getByRole('button', {name: 'copilot-app'}))
     await user.hover(screen.getByText('A desktop home for your coding companion.'))
     expect(await screen.findByText('ActionList.Description', {selector: '[data-anatomy-name]'})).toBeInTheDocument()
     const metadata = screen.getAllByText('TypeScript')[0]

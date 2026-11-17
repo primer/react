@@ -1,4 +1,4 @@
-import {useId, useState, type ReactNode} from 'react'
+import {useCallback, useId, useRef, useState, type ReactNode} from 'react'
 import {CodeIcon, CopyIcon, GearIcon, ScreenFullIcon, ScreenNormalIcon, SyncIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../../Button'
 import BaseStyles from '../../BaseStyles'
@@ -12,15 +12,19 @@ import Select from '../../Select'
 import Text from '../../Text'
 import {ThemeProvider} from '../../ThemeProvider'
 import {useTheme} from '../../useTheme'
+import {useMedia} from '../../hooks/useMedia'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {appearanceStops, getAppearance} from './appearance'
 import {getExample} from './example'
 import {defaultConfig, presets, type PlaygroundConfig} from './model'
 import {SelectPanelDemo, type SelectPanelDemoProps} from './SelectPanelDemo'
+import type {PlaygroundRecordingFrame} from './playgroundRecording'
 import classes from './SelectPanelPlayground.module.css'
 
 export interface SelectPanelPlaygroundProps {
   renderPreview?: (props: SelectPanelDemoProps) => ReactNode
   skinSource?: string
+  playback?: {frame: PlaygroundRecordingFrame; controls: ReactNode}
 }
 
 const views = [
@@ -41,20 +45,48 @@ const previewStateOptions = [
   {value: 'error', label: 'Error'},
 ] as const
 
-export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPlaygroundProps) {
+export function SelectPanelPlayground({renderPreview, skinSource, playback}: SelectPanelPlaygroundProps) {
   const id = useId()
   const {colorMode} = useTheme()
-  const [config, setConfig] = useState(defaultConfig)
-  const [presetId, setPresetId] = useState('repositories')
-  const [view, setView] = useState<(typeof views)[number]['id']>('composition')
+  const [manualConfig, setConfig] = useState(defaultConfig)
+  const [manualPresetId, setPresetId] = useState('repositories')
+  const [manualView, setView] = useState<(typeof views)[number]['id']>('composition')
   const [expanded, setExpanded] = useState(false)
   const [resetKey, setResetKey] = useState(0)
-  const [mobile, setMobile] = useState(false)
+  const [manualMobile, setMobile] = useState(false)
   const [sourceTab, setSourceTab] = useState<'react' | 'css'>('react')
   const [copyStatus, setCopyStatus] = useState('')
+  const config = playback?.frame.config ?? manualConfig
+  const presetId = playback?.frame.presetId ?? manualPresetId
+  const view = playback?.frame.view ?? manualView
+  const mobile = playback?.frame.mobile ?? manualMobile
+  const controlsRef = useRef<HTMLDivElement>(null)
+  const reducedMotion = useMedia('(prefers-reduced-motion: reduce)', false)
+  const activeControl = playback?.frame.cue.target
+  const presentationOnly = Boolean(playback)
+  const setPresentationOnly = useCallback(
+    (element: HTMLDivElement | null) => {
+      if (element) element.inert = presentationOnly
+    },
+    [presentationOnly],
+  )
   const appearance = getAppearance(config.appearance)
   const source = sourceTab === 'css' && skinSource !== undefined ? skinSource : getExample(config)
   const preset = presets.find(candidate => candidate.id === presetId)
+
+  useIsomorphicLayoutEffect(() => {
+    const controls = controlsRef.current
+    const target = controls?.querySelector('[data-recording-active="true"]')
+    if (!controls || !target) return
+    const viewport = controls.getBoundingClientRect()
+    const bounds = target.getBoundingClientRect()
+    if (bounds.top < viewport.top + 16 || bounds.bottom > viewport.bottom - 16) {
+      controls.scrollTo({
+        top: controls.scrollTop + bounds.top - viewport.top - 16,
+        behavior: reducedMotion ? 'instant' : 'smooth',
+      })
+    }
+  }, [activeControl, reducedMotion])
 
   function customize(changes: Partial<PlaygroundConfig>) {
     setConfig(current => ({...current, ...changes}))
@@ -77,12 +109,12 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
     }
   }
 
-  const previewProps = {config, resetKey}
+  const previewProps = {config, resetKey, playback: playback?.frame.preview}
 
   return (
     <ThemeProvider colorMode={colorMode ?? 'night'}>
       <BaseStyles>
-        <main className={classes.Page}>
+        <main className={classes.Page} data-recording={presentationOnly}>
           <header className={classes.Header}>
             <div className={classes.Identity}>
               <Heading as="h1" className={classes.PageTitle}>
@@ -91,7 +123,8 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
               <Text className={classes.Muted}>Playground</Text>
               <Label>Primer</Label>
             </div>
-            <div className={classes.RecipePicker}>
+            {playback?.controls}
+            <div className={classes.RecipePicker} ref={setPresentationOnly}>
               <FormControl>
                 <FormControl.Label visuallyHidden>Recipe</FormControl.Label>
                 <Select
@@ -121,7 +154,7 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
             </div>
           </header>
 
-          <div className={classes.Workspace} data-expanded={expanded} data-view={view}>
+          <div className={classes.Workspace} data-expanded={expanded} data-view={view} ref={setPresentationOnly}>
             <div className={classes.ViewSwitcher} role="group" aria-label="Playground views" hidden={expanded}>
               {views.map(candidate => (
                 <IconButton
@@ -132,6 +165,7 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
                   aria-controls={`${id}-inspector`}
                   variant={view === candidate.id ? 'default' : 'invisible'}
                   tooltipDirection="e"
+                  data-recording-active={activeControl === candidate.id}
                   onClick={() => {
                     setView(candidate.id)
                     setCopyStatus('')
@@ -154,52 +188,60 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
               </div>
 
               {view === 'composition' ? (
-                <div className={classes.Controls}>
-                  <FormControl>
-                    <FormControl.Label>Appearance</FormControl.Label>
-                    <Select
-                      block
-                      value={String(config.appearance)}
-                      onChange={event => changeAppearance(Number(event.target.value))}
-                    >
-                      {appearanceStops.map((stop, index) => (
-                        <Select.Option key={stop.name} value={String(index)}>
-                          {stop.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    <FormControl.Caption>
-                      Same Primer components, {appearanceStops.length} styles. Native Primer follows the page theme; the
-                      other styles keep their own palettes. Base UI-inspired is not powered by Base UI.
-                    </FormControl.Caption>
-                  </FormControl>
+                <div className={classes.Controls} ref={controlsRef}>
+                  <div data-recording-active={activeControl === 'appearance'}>
+                    <FormControl>
+                      <FormControl.Label>Appearance</FormControl.Label>
+                      <Select
+                        block
+                        value={String(config.appearance)}
+                        onChange={event => changeAppearance(Number(event.target.value))}
+                      >
+                        {appearanceStops.map((stop, index) => (
+                          <Select.Option key={stop.name} value={String(index)}>
+                            {stop.name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                      <FormControl.Caption>
+                        Same Primer components, {appearanceStops.length} styles. Native Primer follows the page theme;
+                        the other styles keep their own palettes. Base UI-inspired is not powered by Base UI.
+                      </FormControl.Caption>
+                    </FormControl>
+                  </div>
                   <Text as="p" className={classes.Summary}>
                     {preset?.description ?? 'Your custom composition. Choose a recipe above to start again.'}
                   </Text>
-                  <CheckboxGroup>
-                    <CheckboxGroup.Label>Structure</CheckboxGroup.Label>
-                    {(
-                      [
-                        ['search', 'Search input'],
-                        ['descriptions', 'Descriptions'],
-                        ['grouped', 'Grouped options'],
-                        ['actions', 'Item secondary actions'],
-                      ] as const
-                    ).map(([key, label]) => (
-                      <FormControl key={key}>
-                        <Checkbox
-                          value={key}
-                          checked={config[key]}
-                          onChange={event => customize({[key]: event.target.checked})}
-                        />
-                        <FormControl.Label>{label}</FormControl.Label>
-                      </FormControl>
-                    ))}
-                    {config.actions ? (
-                      <CheckboxGroup.Caption>Secondary actions belong to their listbox item.</CheckboxGroup.Caption>
-                    ) : null}
-                  </CheckboxGroup>
-                  <section className={classes.ControlSection} aria-labelledby={`${id}-behavior`}>
+                  <div data-recording-active={activeControl === 'structure'}>
+                    <CheckboxGroup>
+                      <CheckboxGroup.Label>Structure</CheckboxGroup.Label>
+                      {(
+                        [
+                          ['search', 'Search input'],
+                          ['descriptions', 'Descriptions'],
+                          ['grouped', 'Grouped options'],
+                          ['actions', 'Item secondary actions'],
+                        ] as const
+                      ).map(([key, label]) => (
+                        <FormControl key={key}>
+                          <Checkbox
+                            value={key}
+                            checked={config[key]}
+                            onChange={event => customize({[key]: event.target.checked})}
+                          />
+                          <FormControl.Label>{label}</FormControl.Label>
+                        </FormControl>
+                      ))}
+                      {config.actions ? (
+                        <CheckboxGroup.Caption>Secondary actions belong to their listbox item.</CheckboxGroup.Caption>
+                      ) : null}
+                    </CheckboxGroup>
+                  </div>
+                  <section
+                    className={classes.ControlSection}
+                    aria-labelledby={`${id}-behavior`}
+                    data-recording-active={activeControl === 'behavior'}
+                  >
                     <Heading as="h3" id={`${id}-behavior`} className={classes.SectionTitle}>
                       Behavior
                     </Heading>
@@ -225,7 +267,11 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
                       <FormControl.Caption>Filtering and draft selection are application-owned.</FormControl.Caption>
                     </FormControl>
                   </section>
-                  <section className={classes.ControlSection} aria-labelledby={`${id}-presentation`}>
+                  <section
+                    className={classes.ControlSection}
+                    aria-labelledby={`${id}-presentation`}
+                    data-recording-active={activeControl === 'presentation'}
+                  >
                     <Heading as="h3" id={`${id}-presentation`} className={classes.SectionTitle}>
                       Presentation
                     </Heading>
@@ -316,9 +362,10 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
                 <Heading as="h2" id={`${id}-preview`} className={classes.PanelTitle}>
                   Preview
                 </Heading>
-                <div className={classes.ToolbarActions}>
+                <div className={classes.ToolbarActions} data-recording-active={activeControl === 'viewport'}>
                   <Button
                     className={classes.AnatomyToggle}
+                    data-recording-active={activeControl === 'anatomy'}
                     size="small"
                     leadingVisual={CodeIcon}
                     aria-pressed={config.anatomy}

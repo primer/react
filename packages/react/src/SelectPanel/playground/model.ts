@@ -70,8 +70,8 @@ export const defaultConfig = initialConfig
 
 export const repositories = [
   {
-    id: 'copilot-tauri-app',
-    name: 'copilot-tauri-app',
+    id: 'copilot-app',
+    name: 'copilot-app',
     language: 'TypeScript',
     description: 'A desktop home for your coding companion.',
     group: 'Applications',

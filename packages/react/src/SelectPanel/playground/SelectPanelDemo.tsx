@@ -1,4 +1,4 @@
-import {useId, useRef, useState, type ComponentProps, type RefObject} from 'react'
+import {useCallback, useId, useRef, useState, type ComponentProps, type RefObject} from 'react'
 import {ChevronDownIcon, InfoIcon, RepoIcon, SearchIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import {ActionList} from '../../ActionList'
@@ -11,12 +11,14 @@ import {ThemeProvider} from '../../ThemeProvider'
 import {SelectPanel, type SelectPanelValue} from '../index'
 import {getAppearance} from './appearance'
 import {repositories, type PlaygroundConfig} from './model'
+import type {PlaygroundDemoPlayback} from './playgroundRecording'
 import classes from './SelectPanelDemo.module.css'
 import {AnatomyInspector, type AnatomyMarker} from './AnatomyInspector'
 
 export interface SelectPanelDemoProps {
   config: PlaygroundConfig
   resetKey: number
+  playback?: PlaygroundDemoPlayback
 }
 
 type Repository = (typeof repositories)[number]
@@ -119,24 +121,35 @@ function RepositoryDetails({
   )
 }
 
-export function SelectPanelDemo({config, resetKey}: SelectPanelDemoProps) {
+export function SelectPanelDemo({config, resetKey, playback}: SelectPanelDemoProps) {
   return (
     <ThemeProvider>
       <BaseStyles>
-        <RepositoryPicker key={resetKey} config={config} />
+        <RepositoryPicker key={resetKey} config={config} playback={playback} />
       </BaseStyles>
     </ThemeProvider>
   )
 }
 
-function RepositoryPicker({config}: {config: PlaygroundConfig}) {
+function RepositoryPicker({config, playback}: Pick<SelectPanelDemoProps, 'config' | 'playback'>) {
   const searchRef = useRef<HTMLInputElement>(null)
   const anatomyId = useId()
   const mark: AnatomyMarker = part => ({'data-select-panel-part': part, 'data-select-panel-owner': anatomyId})
-  const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState<SelectPanelValue[]>([repositories[0].id])
-  const [committed, setCommitted] = useState<SelectPanelValue[]>([repositories[0].id])
-  const [query, setQuery] = useState('')
+  const [manualOpen, setOpen] = useState(false)
+  const [manualSelected, setSelected] = useState<SelectPanelValue[]>([repositories[0].id])
+  const [manualCommitted, setCommitted] = useState<SelectPanelValue[]>([repositories[0].id])
+  const [manualQuery, setQuery] = useState('')
+  const open = playback?.open ?? manualOpen
+  const selected = playback?.selected ?? manualSelected
+  const committed = playback?.committed ?? manualCommitted
+  const query = playback?.query ?? manualQuery
+  const presentationOnly = Boolean(playback)
+  const setPresentationOnly = useCallback(
+    (element: HTMLDivElement | null) => {
+      if (element) element.inert = presentationOnly
+    },
+    [presentationOnly],
+  )
   const isPrimer = config.appearance === 0
   const skin = getAppearance(config.appearance)
   const skinClass = skin.className && classes[skin.className]
@@ -254,12 +267,13 @@ function RepositoryPicker({config}: {config: PlaygroundConfig}) {
   )
 
   return (
-    <div className={clsx(classes.Stage, !isPrimer && classes.Theme, skinClass)} style={style}>
+    <div ref={setPresentationOnly} className={clsx(classes.Stage, !isPrimer && classes.Theme, skinClass)} style={style}>
       <div className={classes.RepositoryContext}>
         <RepoIcon /> <span>acme / workspace</span>
       </div>
       <SelectPanel.Root
         open={open}
+        focusStrategy={playback ? 'roving' : undefined}
         onOpenChange={nextOpen => {
           if (nextOpen && needsSave) setSelected([...committed])
           setOpen(nextOpen)
@@ -294,12 +308,14 @@ function RepositoryPicker({config}: {config: PlaygroundConfig}) {
             </SelectPanel.Trigger>
             <SelectPanel.Overlay
               width="medium"
+              focusTrapSettings={playback ? {disabled: true} : undefined}
               variant={{
                 regular: config.presentation === 'modal' ? 'modal' : 'anchored',
                 narrow: config.presentation === 'modal' ? 'bottom-sheet' : 'fullscreen',
               }}
               overlayProps={{
                 ...mark('Overlay'),
+                ref: setPresentationOnly,
                 className: isPrimer ? undefined : clsx(classes.Theme, classes.Overlay, skinClass),
                 style,
               }}
@@ -315,8 +331,9 @@ function RepositoryPicker({config}: {config: PlaygroundConfig}) {
         <small>{needsSave ? 'Draft changes only apply when you save.' : 'Selection is applied immediately.'}</small>
       </div>
       <AnatomyInspector
-        enabled={config.anatomy}
+        enabled={config.anatomy && (playback === undefined || playback.anatomyPart !== null)}
         owner={anatomyId}
+        scriptedPart={playback?.anatomyPart}
         variant={config.appearance === 3 ? 'clippy' : 'default'}
       />
     </div>
