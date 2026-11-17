@@ -2,7 +2,7 @@
   min-width: 32px; /* primer.control.medium.size */
   height: 32px; /* primer.control.medium.size */
   padding: var(--base-size-8) calc((var(--base-size-32) - var(--base-size-20)) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
-  margin-right: var(--base-size-4);
+  margin-inline-end: var(--base-size-4);
   font-style: normal;
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
@@ -37,7 +37,7 @@
 }
 
 .Page:last-child {
-  margin-right: 0;
+  margin-inline-end: 0;
 }
 
 .Page:hover,
