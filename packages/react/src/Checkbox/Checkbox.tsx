@@ -1,6 +1,5 @@
 import {clsx} from 'clsx'
-import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
-import {useFeatureFlag} from '../FeatureFlags'
+import {useMergedRefs} from '../hooks'
 import React, {
   useCallback,
   useContext,
@@ -65,22 +64,16 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
     const checkboxRef = useRef<HTMLInputElement>(null)
     const mergedRef = useMergedRefs(checkboxRef, ref)
-    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
-    // At graduation: remove the three declarations below, and replace all instances of `readRef` with `checkboxRef` and `appliedRef` with `mergedRef`.
-    const providedOrCreatedRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
-    const readRef = mergedRefEnabled ? checkboxRef : providedOrCreatedRef
-    const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
 
-      if (indeterminate && readRef.current) {
-        readRef.current.indeterminate = true
-        readRef.current.setAttribute('aria-checked', 'mixed')
+      if (indeterminate && checkboxRef.current) {
+        checkboxRef.current.indeterminate = true
+        checkboxRef.current.setAttribute('aria-checked', 'mixed')
       }
     }
 
@@ -106,7 +99,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [indeterminate, checked],
     )
-    const mergedRefWithIndeterminate = useMergedRefs(appliedRef, setIndeterminate)
+    const mergedRefWithIndeterminate = useMergedRefs(mergedRef, setIndeterminate)
 
     const inputProps = {
       type: 'checkbox',
@@ -124,7 +117,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     }
 
     return (
-      // @ts-expect-error inputProp needs a non nullable ref
       <input
         {...inputProps}
         data-component={dataComponent ?? 'Checkbox'}

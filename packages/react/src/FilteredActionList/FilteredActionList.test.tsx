@@ -3,7 +3,6 @@ import {page, userEvent} from 'vitest/browser'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import {FilteredActionList} from '../FilteredActionList'
-import {FeatureFlags} from '../FeatureFlags'
 import {FilteredActionListBodyLoader, FilteredActionListLoadingTypes} from './FilteredActionListLoaders'
 import {implementsClassName} from '../utils/testing'
 import classes from './FilteredActionList.module.css'
@@ -172,62 +171,43 @@ describe('FilteredActionListBodyLoader', () => {
   })
 })
 
-describe('FilteredActionList forwarded refs (primer_react_merged_forwarded_refs)', () => {
-  for (const enabled of [true, false]) {
-    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
-      it('forwards the input ref object', () => {
-        const ref = React.createRef<HTMLInputElement>()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <FilteredActionList items={items} onFilterChange={vi.fn()} inputRef={ref} />
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLInputElement)
-      })
+describe('FilteredActionList forwarded refs', () => {
+  it('forwards the input ref object', () => {
+    const ref = React.createRef<HTMLInputElement>()
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} inputRef={ref} />)
+    expect(ref.current).toBeInstanceOf(HTMLInputElement)
+  })
 
-      it('forwards the scroll container ref object', () => {
-        const ref = React.createRef<HTMLDivElement>()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={ref} />
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLDivElement)
-      })
+  it('forwards the scroll container ref object', () => {
+    const ref = React.createRef<HTMLDivElement>()
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={ref} />)
+    expect(ref.current).toBeInstanceOf(HTMLDivElement)
+  })
 
-      it('calls a scroll container callback ref', () => {
-        const refCallback = vi.fn()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={refCallback} />
-          </FeatureFlags>,
-        )
-        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
-      })
+  it('calls a scroll container callback ref', () => {
+    const refCallback = vi.fn()
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={refCallback} />)
+    expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+  })
 
-      it('handles a scroll container callback ref while loading', async () => {
-        const ui = (
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <FilteredActionList
-              items={items}
-              onFilterChange={vi.fn()}
-              scrollContainerRef={() => {}}
-              loading
-              loadingType={FilteredActionListLoadingTypes.bodySpinner}
-            />
-          </FeatureFlags>
-        )
-        const {rerender, container} = render(ui)
+  it('handles a scroll container callback ref while loading', () => {
+    const ui = (
+      <FilteredActionList
+        items={items}
+        onFilterChange={vi.fn()}
+        scrollContainerRef={() => {}}
+        loading
+        loadingType={FilteredActionListLoadingTypes.bodySpinner}
+      />
+    )
+    const {rerender, container} = render(ui)
 
-        expect(() => rerender(ui)).not.toThrow()
-        // With the flag off, a callback ref leaves no readable scroll container, so the loader stays hidden as before
-        expect(container.querySelector('[data-component="FilteredActionList.Spinner"]') !== null).toBe(enabled)
+    expect(() => rerender(ui)).not.toThrow()
+    expect(container.querySelector('[data-component="FilteredActionList.Spinner"]')).toBeInTheDocument()
 
-        const listId = page.getByRole('combobox').element().getAttribute('aria-controls')
-        if (listId) {
-          expect(document.getElementById(listId)).not.toBeNull()
-        }
-      })
-    })
-  }
+    const listId = page.getByRole('combobox').element().getAttribute('aria-controls')
+    if (listId) {
+      expect(document.getElementById(listId)).not.toBeNull()
+    }
+  })
 })
