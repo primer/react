@@ -1,7 +1,9 @@
 :where(.Avatar) {
   display: inline-block;
   width: var(--avatarSize-regular);
+  min-width: var(--avatarSize-regular);
   height: var(--avatarSize-regular);
+  flex-shrink: 0;
   overflow: hidden; /* Ensure page layout in Firefox should images fail to load */
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
@@ -18,16 +20,19 @@
   &:where([data-responsive]) {
     @media screen and (--viewportRange-narrow) {
       width: var(--avatarSize-narrow);
+      min-width: var(--avatarSize-narrow);
       height: var(--avatarSize-narrow);
     }
 
     @media screen and (--viewportRange-regular) {
       width: var(--avatarSize-regular);
+      min-width: var(--avatarSize-regular);
       height: var(--avatarSize-regular);
     }
 
     @media screen and (--viewportRange-wide) {
       width: var(--avatarSize-wide);
+      min-width: var(--avatarSize-wide);
       height: var(--avatarSize-wide);
     }
   }
