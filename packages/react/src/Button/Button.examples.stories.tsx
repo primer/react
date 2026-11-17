@@ -43,6 +43,14 @@ export const LoadingStatusAnnouncementSuccessful = () => {
     </>
   )
 }
+LoadingStatusAnnouncementSuccessful.parameters = {
+  docs: {
+    description: {
+      story:
+        'While `loading` is set, the button announces its loading state for you through its built-in live region, so you should not add a separate loading announcement. Announcing the *result* of the action is still your responsibility — here, a polite `AriaStatus` live region announces "Export completed" once the action resolves successfully.',
+    },
+  },
+}
 
 export const LoadingStatusAnnouncementError = () => {
   const [loading, setLoading] = React.useState(false)
@@ -80,4 +88,12 @@ export const LoadingStatusAnnouncementError = () => {
       </Button>
     </>
   )
+}
+LoadingStatusAnnouncementError.parameters = {
+  docs: {
+    description: {
+      story:
+        'The button handles the loading announcement for you, so you only need to announce the outcome. Here, an assertive `AriaAlert` surfaces an error `Banner` when the action fails.',
+    },
+  },
 }
