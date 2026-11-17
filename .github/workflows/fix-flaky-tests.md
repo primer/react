@@ -282,8 +282,9 @@ mutate GitHub resources directly; use the configured safe outputs.
    Give each new issue a unique temporary ID such as `aw_flake1`.
 2. For each independently verified patch, recheck duplicate issues and PRs
    immediately before emitting `create-pull-request`. Use the repository's
-   `.github/pull_request_template.md` without dropping headings, comments,
-   or checklist items. Include the same stable marker and
+   `.github/pull_request_template.md` and the pull-request-description skill:
+   preserve headings, comments, and ordering, but keep only applicable checked
+   rollout options. Include the same stable marker and
    `Closes #aw_flake1` for the newly recorded issue, or `Closes #NUMBER`
    for an existing issue. Temporary issue references must be resolved by
    safe outputs; never guess an issue number.
