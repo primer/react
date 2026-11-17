@@ -367,6 +367,41 @@ describe('PageLayout', async () => {
       await expect.poll(() => container.querySelector('[data-component="PageLayout.DragHandle"]')).toBeNull()
     })
 
+    it('restores interaction when the resize handle disappears before keyup', async () => {
+      const onClick = vi.fn()
+      const layout = (max: '256px' | '300px') => (
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '256px', max}}>
+            <button type="button" onClick={onClick}>
+              Sidebar action
+            </button>
+          </PageLayout.Sidebar>
+        </PageLayout>
+      )
+      const {container, rerender} = render(layout('300px'))
+      const sidebar = container.querySelector('[data-component="PageLayout.Sidebar"]')!
+      const wrapper = container.querySelector(`.${classes.PageLayoutWrapper}`)!
+      const handle = page.getByRole('slider').element()
+
+      act(() => (handle as HTMLElement).focus())
+      await userEvent.keyboard('{ArrowRight>}')
+      try {
+        expect(sidebar).toHaveAttribute('data-dragging', 'true')
+        expect(wrapper).toHaveAttribute('data-dragging', 'true')
+
+        rerender(layout('256px'))
+        await expect.poll(() => handle.isConnected).toBe(false)
+        expect(sidebar).not.toHaveAttribute('data-dragging')
+        expect(wrapper).not.toHaveAttribute('data-dragging')
+      } finally {
+        await userEvent.keyboard('{/ArrowRight}')
+      }
+
+      await page.getByRole('button', {name: 'Sidebar action'}).click()
+      expect(onClick).toHaveBeenCalledOnce()
+    })
+
     it.each([
       {currentWidth: 256, key: '{ArrowRight}', expectedWidth: 259},
       {currentWidth: 300, key: '{ArrowLeft}', expectedWidth: 297},
