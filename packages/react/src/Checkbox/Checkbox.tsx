@@ -2,14 +2,13 @@ import {clsx} from 'clsx'
 import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
 import {useFeatureFlag} from '../FeatureFlags'
 import React, {
+  useCallback,
   useContext,
-  useEffect,
   useRef,
   type ChangeEventHandler,
   type InputHTMLAttributes,
   type ReactElement,
 } from 'react'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import classes from './Checkbox.module.css'
@@ -84,10 +83,35 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         readRef.current.setAttribute('aria-checked', 'mixed')
       }
     }
+
+    // Ref callback that runs synchronously during commit (same timing as
+    // `useLayoutEffect`) to imperatively set the DOM `.indeterminate` property,
+    // which has no HTML attribute equivalent, along with the matching
+    // `aria-checked` value. This avoids a layout effect and an effect per
+    // Checkbox instance.
+    const setIndeterminate = useCallback(
+      (node: HTMLInputElement | null) => {
+        if (node) {
+          node.indeterminate = indeterminate || false
+          if (indeterminate) {
+            node.setAttribute('aria-checked', 'mixed')
+          } else {
+            node.setAttribute('aria-checked', node.checked ? 'true' : 'false')
+          }
+        }
+      },
+      // `checked` is intentionally included: the callback reads `node.checked` (to also
+      // cover uncontrolled inputs), so it must re-run to refresh `aria-checked` when the
+      // controlled `checked` prop changes. eslint can't see this indirect dependency.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [indeterminate, checked],
+    )
+    const mergedRefWithIndeterminate = useMergedRefs(appliedRef, setIndeterminate)
+
     const inputProps = {
       type: 'checkbox',
       disabled,
-      ref: appliedRef,
+      ref: mergedRefWithIndeterminate,
       checked: indeterminate ? false : checked,
       defaultChecked,
       required,
@@ -99,24 +123,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       ...rest,
     }
 
-    useLayoutEffect(() => {
-      if (readRef.current) {
-        readRef.current.indeterminate = indeterminate || false
-      }
-    }, [indeterminate, checked, readRef])
-
-    useEffect(() => {
-      const {current: checkbox} = readRef
-      if (!checkbox) {
-        return
-      }
-
-      if (indeterminate) {
-        checkbox.setAttribute('aria-checked', 'mixed')
-      } else {
-        checkbox.setAttribute('aria-checked', checkbox.checked ? 'true' : 'false')
-      }
-    })
     return (
       // @ts-expect-error inputProp needs a non nullable ref
       <input
