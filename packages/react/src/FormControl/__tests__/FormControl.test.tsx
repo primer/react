@@ -596,7 +596,7 @@ describe('FormControl', () => {
 
         // The icon should be rendered and functional
         await expect.element(page.getByLabelText('Icon label', {exact: true})).toBeInTheDocument()
-        await expect.element(container.querySelector('svg')).toBeInTheDocument()
+        await expect.element(container.querySelector<SVGElement>('svg')).toBeInTheDocument()
       })
     })
   })
