@@ -81,6 +81,7 @@ tool_search_tool_regex pattern: "mcp_primer-storyb"
 
 ## Rules
 
+- When changing prop-driven UI behavior, update an existing story with relevant controls or a focused example so reviewers can reproduce it in the branch preview without editing code. Show default behavior and meaningful prop changes; keep exhaustive edge cases in tests.
 - Do **not** call MCP tools before Storybook is running — they will fail silently.
 - **Always** call `list-all-documentation` before `get-documentation` — never guess or derive an ID from a component name. Only use `id` values returned by this list.
 - **Never invent props or variants** not present in the documentation. Only use properties explicitly documented or shown in example stories — do not assume properties based on naming conventions or patterns from other libraries. If a property isn't documented, report it as not found and check back with the user.
