@@ -656,7 +656,7 @@ describe('MCP server', () => {
 
   it('retrieves component documentation using the public component slug', async () => {
     const url = 'https://primer.style/product/components/action-bar/llms.txt'
-    const body = '# ActionBar\\n\\nSynthetic component documentation.'
+    const body = '# ActionBar\n\\nSynthetic component documentation.'
     const fetchMock = vi.mocked(fetch)
     fetchMock.mockImplementation(async input => {
       if (input.toString() === url) {
