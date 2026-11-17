@@ -29,6 +29,22 @@ describe('Pagination', () => {
     expect(container.querySelectorAll('a').length).toEqual(10)
   })
 
+  it.each(['ltr', 'rtl'] as const)('spaces pages on the inline end in %s layouts', direction => {
+    HTMLRender(
+      <div dir={direction}>
+        <Pagination pageCount={5} currentPage={3} />
+      </div>,
+    )
+
+    const previous = getComputedStyle(page.getByRole('link', {name: 'Previous Page', exact: true}).element())
+    const next = getComputedStyle(page.getByRole('link', {name: 'Next Page', exact: true}).element())
+
+    expect(previous.marginInlineStart).toBe('0px')
+    expect(previous.marginInlineEnd).toBe('4px')
+    expect(next.marginInlineStart).toBe('0px')
+    expect(next.marginInlineEnd).toBe('0px')
+  })
+
   describe('data-component attributes', () => {
     it('renders Pagination with data-component attribute', () => {
       const {container} = HTMLRender(<Pagination pageCount={5} currentPage={1} />)

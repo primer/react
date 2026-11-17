@@ -13,6 +13,12 @@ export const LargerPageCountMargin = () => (
   <Pagination pageCount={15} currentPage={5} marginPageCount={4} onPageChange={e => e.preventDefault()} />
 )
 
+export const RightToLeft = () => (
+  <div dir="rtl">
+    <Pagination pageCount={15} currentPage={5} onPageChange={e => e.preventDefault()} />
+  </div>
+)
+
 export const HidePageNumbers = () => (
   <Pagination pageCount={15} currentPage={5} showPages={false} onPageChange={e => e.preventDefault()} />
 )
