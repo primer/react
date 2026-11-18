@@ -1,0 +1,39 @@
+.Content {
+  min-height: 0;
+  max-height: min(var(--overlay-height-xlarge), calc(100dvh - var(--base-size-64)));
+
+  @media screen and (--viewportRange-narrow) {
+    max-height: 100dvh;
+  }
+}
+
+.Header {
+  align-items: center;
+  padding-bottom: var(--base-size-8);
+}
+
+.Tabs {
+  flex-shrink: 0;
+  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.TabPanel:not([hidden]) {
+  display: flex;
+  min-height: 0;
+  overflow: auto;
+  flex: 1;
+  flex-direction: column;
+}
+
+.List {
+  padding-block: var(--base-size-8);
+}
+
+.Footer {
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.FooterList {
+  width: 100%;
+}
