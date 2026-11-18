@@ -1,5 +1,5 @@
-import {render, waitFor} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {describe, it, expect} from 'vitest'
 import {createRef, useRef, useState} from 'react'
 import {useOpenAndCloseFocus, type UseOpenAndCloseFocusSettings} from '../../hooks/useOpenAndCloseFocus'
@@ -82,17 +82,13 @@ function FocusContainer({
 }
 
 it('should focus initialFocusRef element passed into function', async () => {
-  const {getByText} = render(<Component />)
-  await waitFor(() => getByText('no'))
-  const noButton = getByText('no')
-  expect(document.activeElement).toEqual(noButton)
+  render(<Component />)
+  await expect.element(page.getByRole('button', {name: 'no', exact: true})).toHaveFocus()
 })
 
 it('should focus first element when no initialFocusRef prop is passed', async () => {
-  const {getByText} = render(<ComponentTwo />)
-  await waitFor(() => getByText('yes'))
-  const yesButton = getByText('yes')
-  expect(document.activeElement).toEqual(yesButton)
+  render(<ComponentTwo />)
+  await expect.element(page.getByRole('button', {name: 'yes', exact: true})).toHaveFocus()
 })
 
 it('should not focus any element if preventFocusOnOpen prop is passed', async () => {
@@ -101,22 +97,19 @@ it('should not focus any element if preventFocusOnOpen prop is passed', async ()
 })
 
 it('should focus returnFocusRef element when rendered', async () => {
-  const user = userEvent.setup()
-  const {getByText} = render(<ComponentThree />)
-
-  await waitFor(() => getByText('toggle'))
-  const toggleButton = getByText('toggle')
+  render(<ComponentThree />)
+  const toggleButton = page.getByRole('button', {name: 'toggle', exact: true})
 
   // Close container, so containerRef and initialFocusRef elements are no longer rendered
-  await user.click(toggleButton)
+  await userEvent.click(toggleButton)
 
-  expect(document.activeElement).toEqual(toggleButton)
+  await expect.element(toggleButton).toHaveFocus()
 })
 
 describe('preventFocusOnClose', () => {
-  it.each([undefined, false, true])('controls restoration when set to %s', preventFocusOnClose => {
+  it.each([undefined, false, true])('controls restoration when set to %s', async preventFocusOnClose => {
     const returnFocusRef = createRef<HTMLButtonElement>()
-    const component = render(
+    const {rerender} = render(
       <>
         <button type="button" ref={returnFocusRef}>
           trigger
@@ -125,18 +118,18 @@ describe('preventFocusOnClose', () => {
       </>,
     )
 
-    expect(component.getByRole('button', {name: 'first item'})).toHaveFocus()
+    await expect.element(page.getByRole('button', {name: 'first item', exact: true})).toHaveFocus()
 
-    component.rerender(
+    rerender(
       <button type="button" ref={returnFocusRef}>
         trigger
       </button>,
     )
 
     if (preventFocusOnClose) {
-      expect(component.getByRole('button', {name: 'trigger'})).not.toHaveFocus()
+      await expect.element(page.getByRole('button', {name: 'trigger', exact: true})).not.toHaveFocus()
     } else {
-      expect(component.getByRole('button', {name: 'trigger'})).toHaveFocus()
+      await expect.element(page.getByRole('button', {name: 'trigger', exact: true})).toHaveFocus()
     }
   })
 
@@ -150,23 +143,22 @@ describe('preventFocusOnClose', () => {
         <FocusContainer returnFocusRef={returnFocusRef} preventFocusOnClose={preventFocus} />
       </>
     )
-    const component = render(example(!preventFocusOnClose))
-    const user = userEvent.setup()
+    const {rerender} = render(example(!preventFocusOnClose))
 
-    await user.click(component.getByRole('button', {name: 'second item'}))
-    component.rerender(example(preventFocusOnClose))
-    expect(component.getByRole('button', {name: 'second item'})).toHaveFocus()
+    await userEvent.click(page.getByRole('button', {name: 'second item', exact: true}))
+    rerender(example(preventFocusOnClose))
+    await expect.element(page.getByRole('button', {name: 'second item', exact: true})).toHaveFocus()
 
-    component.rerender(
+    rerender(
       <button type="button" ref={returnFocusRef}>
         trigger
       </button>,
     )
 
     if (preventFocusOnClose) {
-      expect(component.getByRole('button', {name: 'trigger'})).not.toHaveFocus()
+      await expect.element(page.getByRole('button', {name: 'trigger', exact: true})).not.toHaveFocus()
     } else {
-      expect(component.getByRole('button', {name: 'trigger'})).toHaveFocus()
+      await expect.element(page.getByRole('button', {name: 'trigger', exact: true})).toHaveFocus()
     }
   })
 })

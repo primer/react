@@ -42,7 +42,6 @@ import {
   UnlockIcon,
   XCircleIcon,
 } from '@primer/octicons-react'
-import {FeatureFlags} from '../FeatureFlags'
 import Text from '../Text'
 import {Examples} from './internal/timelineStoryHelpers'
 import {
@@ -642,38 +641,36 @@ export const TimelinePlayground: StoryFn<TimelinePlaygroundArgs> = args => {
   )
 
   return (
-    <FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
-      <Examples>
-        {visibleRows.length > 0 ? (
-          <Timeline aria-label={surfaceDef.ariaLabel}>
-            {visibleRows.map(event => {
-              const BadgeIcon = event.badge.icon
-              return (
-                <Timeline.Item
-                  key={`${surface}-${event.type}`}
-                  data-event-scope={surface}
-                  data-event-type={event.type}
-                  data-event-category={event.category}
-                  data-event-visibility={event.visibility}
-                  data-actor-type={event.actorType}
-                >
-                  <Timeline.Badge variant={event.badge.variant}>
-                    {/* Decorative: the summary text in Timeline.Body is the accessible description. */}
-                    <BadgeIcon />
-                  </Timeline.Badge>
-                  <Timeline.Body>{event.body}</Timeline.Body>
-                  {event.actions ? <Timeline.Actions>{event.actions}</Timeline.Actions> : null}
-                </Timeline.Item>
-              )
-            })}
-          </Timeline>
-        ) : (
-          <Text className={classes.PlaygroundEmpty}>
-            No rows match. In the Controls panel, pick a surface then check its categories and event types.
-          </Text>
-        )}
-      </Examples>
-    </FeatureFlags>
+    <Examples>
+      {visibleRows.length > 0 ? (
+        <Timeline aria-label={surfaceDef.ariaLabel}>
+          {visibleRows.map(event => {
+            const BadgeIcon = event.badge.icon
+            return (
+              <Timeline.Item
+                key={`${surface}-${event.type}`}
+                data-event-scope={surface}
+                data-event-type={event.type}
+                data-event-category={event.category}
+                data-event-visibility={event.visibility}
+                data-actor-type={event.actorType}
+              >
+                <Timeline.Badge variant={event.badge.variant}>
+                  {/* Decorative: the summary text in Timeline.Body is the accessible description. */}
+                  <BadgeIcon />
+                </Timeline.Badge>
+                <Timeline.Body>{event.body}</Timeline.Body>
+                {event.actions ? <Timeline.Actions>{event.actions}</Timeline.Actions> : null}
+              </Timeline.Item>
+            )
+          })}
+        </Timeline>
+      ) : (
+        <Text className={classes.PlaygroundEmpty}>
+          No rows match. In the Controls panel, pick a surface then check its categories and event types.
+        </Text>
+      )}
+    </Examples>
   )
 }
 

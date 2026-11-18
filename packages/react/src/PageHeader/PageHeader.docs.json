@@ -235,8 +235,9 @@
         },
         {
           "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"h2\""
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "\"h2\"",
+          "description": "Heading level to render. Standard heading attributes are forwarded to the rendered heading."
         }
       ]
     },
@@ -360,4 +361,3 @@
     }
   ]
 }
-
