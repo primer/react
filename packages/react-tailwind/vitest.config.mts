@@ -40,6 +40,7 @@ export default defineConfig({
     name: '@primer/react-tailwind',
     environment: 'jsdom',
     include: ['src/**/*.test.{ts,tsx}'],
+    exclude: ['**/*.behavior.test.{ts,tsx}', '**/node_modules/**', '**/dist/**'],
     server: {
       deps: {
         inline: [

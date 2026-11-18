@@ -6,6 +6,15 @@ Import: `import {Tooltip} from '@primer/react-tailwind/Tooltip'`
 
 Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
 
+## Related component guidelines
+
+- **[ActionMenu](./ActionMenu.md) [Built-in]:** The menu popup automatically inherits its trigger's accessible name across text buttons, IconButtons, and triggers named by a label Tooltip, without hidden label elements.
+- **[ActionMenu](./ActionMenu.md) [Built-in]:** Opening the menu hides its trigger's tooltip (even if the pointer rests on the trigger again), and closing the menu does not flash the tooltip back open when focus returns.
+- **[ActionMenu](./ActionMenu.md) [Built-in]:** Pressing Escape dismisses one open layer at a time, closing an open submenu, menu, or hovered tooltip without closing an underlying Dialog.
+- **[ActionMenu](./ActionMenu.md) [Do · Review]:** Use ActionMenu.Button inactive (wrapped in Tooltip only while inactive) or ActionMenu.Item inactiveText when users need to know why an action is unavailable.
+- **[ActionMenu](./ActionMenu.md) [Don't · Runtime]:** Wrap a native disabled Button in an active Tooltip; disabled buttons are skipped by keyboard Tab, hiding the explanation from keyboard users.
+- **[Dialog](./Dialog.md) [Built-in]:** Pressing Escape inside an open Dialog closes an open inner menu or hovered tooltip first before dismissing the Dialog itself.
+
 ## Usage
 
 ```tsx

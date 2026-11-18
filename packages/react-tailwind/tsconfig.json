@@ -10,5 +10,5 @@
     },
     "typeRoots": ["../../node_modules/@types", "./node_modules/@types"]
   },
-  "include": ["src", "script", "rolldown.config.ts", "vitest.config.mts"]
+  "include": ["src", "script", "rolldown.config.ts", "vitest.config.mts", "vitest.config.browser.mts"]
 }

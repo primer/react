@@ -133,6 +133,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
       type={nativeButton ? (type ?? 'button') : type}
       disabled={disabled}
       {...ariaProps}
+      aria-disabled={ariaProps['aria-disabled'] ?? (inactive ? true : undefined)}
       render={mergeRenderDescription(render, ariaProps['aria-describedby'], loadingAnnouncementId)}
       data-component={dataComponent}
       data-block={block || undefined}

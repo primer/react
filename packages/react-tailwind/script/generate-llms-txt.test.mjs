@@ -142,3 +142,62 @@ test('check mode rejects missing and stale guides as well as orphaned component 
   )
   assert.equal(await readFile(path.join(root, 'llms/Button.md'), 'utf8'), 'stale')
 })
+
+test('emits built-in behaviors, default behaviors, usage guidelines, and related component guidelines near the top', async t => {
+  const root = await fixture(t)
+  await writeFile(
+    path.join(root, 'src/components/Button/Button.docs.json'),
+    JSON.stringify({
+      exports: ['Button'],
+      props: [{name: 'children', type: 'React.ReactNode'}],
+      builtInBehaviors: [{id: 'focusable-inactive', description: 'Inactive buttons stay keyboard focusable.'}],
+      defaultBehaviors: [
+        {
+          id: 'default-button-type',
+          overriddenBy: ['type'],
+          description: 'Buttons default to type="button".',
+        },
+      ],
+      usageGuidelines: [
+        {
+          id: 'no-disabled-tooltip',
+          guidance: 'dont',
+          check: 'runtime',
+          description: 'Wrap a disabled button in an active Tooltip.',
+        },
+        {id: 'set-submit-type', guidance: 'do', check: 'review', description: 'Pass type="submit" in forms.'},
+      ],
+      relatedGuardrails: [
+        {
+          sourceComponent: 'ActionMenu',
+          builtInBehaviors: [{id: 'inactive-trigger', description: 'Inactive menu triggers block opening.'}],
+          defaultBehaviors: [],
+          usageGuidelines: [
+            {
+              id: 'use-inactive',
+              guidance: 'do',
+              check: 'review',
+              description: 'Use ActionMenu.Button inactive when a reason is needed.',
+            },
+          ],
+        },
+      ],
+    }),
+  )
+  generate(root)
+  const button = await readFile(path.join(root, 'llms/Button.md'), 'utf8')
+  const builtInIndex = button.indexOf('## Built-in behaviors')
+  const defaultIndex = button.indexOf('## Default behaviors')
+  const guidelinesIndex = button.indexOf('## Usage guidelines')
+  const relatedIndex = button.indexOf('## Related component guidelines')
+  const compositionIndex = button.indexOf('## Composition')
+  assert.ok(builtInIndex > 0 && builtInIndex < defaultIndex)
+  assert.ok(defaultIndex < guidelinesIndex && guidelinesIndex < relatedIndex && relatedIndex < compositionIndex)
+  assert.match(button, /- Inactive buttons stay keyboard focusable\./)
+  assert.match(button, /- Buttons default to type="button"\. \(Override: `type`\)/)
+  const doIndex = button.indexOf('- **Do [Review]:** Pass type="submit" in forms.')
+  const dontIndex = button.indexOf("- **Don't [Runtime]:** Wrap a disabled button in an active Tooltip.")
+  assert.ok(doIndex > 0 && doIndex < dontIndex)
+  assert.match(button, /\*\*\[ActionMenu\]\(\.\/ActionMenu\.md\) \[Built-in\]:\*\* Inactive menu triggers/)
+  assert.match(button, /\*\*\[ActionMenu\]\(\.\/ActionMenu\.md\) \[Do · Review\]:\*\* Use ActionMenu\.Button inactive/)
+})

@@ -68,6 +68,7 @@
     "lint:region-props": "node ./script/lint-region-props.mjs",
     "lint:tailwind": "node ./script/lint-tailwind-classes.mjs",
     "test": "vitest --run -c vitest.config.mts",
+    "test:behavior": "vitest run -c vitest.config.browser.mts",
     "type-check": "tsc --noEmit",
     "type-check:fixtures": "tsc -p fixtures/tsconfig.source.json"
   },

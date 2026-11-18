@@ -4,6 +4,7 @@ import {Dialog as BaseDialog} from '@base-ui/react/dialog'
 import React from 'react'
 import {CloseIconButton, type CloseIconButtonProps} from '../../internal/CloseIconButton'
 import {cn} from '../../internal/cn'
+import {devWarning} from '../../internal/devWarning'
 import {DialogModalContext} from '../../internal/dialogModalContext'
 import {DialogModalRoot} from '../../internal/DialogModalRoot'
 import {FloatingPortal} from '../../internal/FloatingPortal'
@@ -50,14 +51,35 @@ const Trigger = React.forwardRef<HTMLElement, DialogTriggerProps>(function Dialo
 
 export type DialogPopupProps = Omit<BaseDialog.Popup.Props, 'data-component'>
 
-const Popup = React.forwardRef<HTMLDivElement, DialogPopupProps>(function DialogPopup({className, ...rest}, ref) {
+const Popup = React.forwardRef<HTMLDivElement, DialogPopupProps>(function DialogPopup(
+  {className, ...rest},
+  forwardedRef,
+) {
   const modal = React.useContext(DialogModalContext) ?? true
   const marker = React.useContext(PopupMarkerContext)
+  const checkPopupNameRef = React.useCallback((popupElement: HTMLDivElement | null) => {
+    if (process.env.NODE_ENV === 'production' || !popupElement) return
+    const verify = () => {
+      if (!popupElement.isConnected || !popupElement.hasAttribute('data-open')) return
+      const hasName =
+        Boolean(popupElement.getAttribute('aria-label')?.trim()) ||
+        Boolean(popupElement.getAttribute('aria-labelledby')?.trim())
+      if (!hasName) {
+        devWarning(
+          'Dialog/missing-accessible-name',
+          'Dialog has no accessible name. Render <Dialog.Title> inside the dialog, or pass aria-label or aria-labelledby to Dialog.Content.',
+        )
+      }
+    }
+    setTimeout(verify, 0)
+  }, [])
+  const mergedRef = React.useMemo(() => mergeRefs(checkPopupNameRef, forwardedRef), [checkPopupNameRef, forwardedRef])
+
   return (
     <BaseDialog.Popup
       {...(modal === true ? {'aria-modal': true} : {})}
       {...rest}
-      ref={ref}
+      ref={mergedRef}
       className={mergeClassName(cn(popupClassName, modal !== true && 'primer:pointer-events-auto'), className)}
       data-component={marker}
     />

@@ -1,0 +1,106 @@
+{
+  "experimental": true,
+  "builtInBehaviors": [
+    {
+      "id": "single-button-trigger",
+      "description": "Composing a trigger with render produces one button element in the DOM and forwards refs from every layer to that button."
+    },
+    {
+      "id": "menu-inherits-trigger-name",
+      "related": ["tooltip", "iconbutton"],
+      "description": "The menu popup automatically inherits its trigger's accessible name across text buttons, IconButtons, and triggers named by a label Tooltip, without hidden label elements."
+    },
+    {
+      "id": "trigger-tooltip-steps-aside",
+      "related": ["tooltip", "iconbutton"],
+      "description": "Opening the menu hides its trigger's tooltip (even if the pointer rests on the trigger again), and closing the menu does not flash the tooltip back open when focus returns."
+    },
+    {
+      "id": "inactive-controls-stay-focusable",
+      "related": ["button"],
+      "description": "Inactive menu triggers and items with inactiveText stay reachable by keyboard, announce aria-disabled to screen readers, and block activation."
+    },
+    {
+      "id": "escape-closes-topmost-layer",
+      "related": ["dialog", "tooltip"],
+      "description": "Pressing Escape dismisses one open layer at a time, closing an open submenu, menu, or hovered tooltip without closing an underlying Dialog."
+    },
+    {
+      "id": "submenu-level-navigation",
+      "description": "Submenus open on click, ArrowRight, or pointer hover, and close back to their parent item on ArrowLeft or Escape while keeping the parent menu open."
+    }
+  ],
+  "defaultBehaviors": [
+    {
+      "id": "multiselect-stays-open",
+      "overriddenBy": ["CheckboxItem.closeOnClick"],
+      "description": "Toggling a CheckboxItem keeps the menu open so users can select multiple options in one pass, while RadioItem and Item close the menu immediately."
+    },
+    {
+      "id": "dialog-returns-focus-to-trigger",
+      "overriddenBy": ["Dialog.Content.finalFocus"],
+      "related": ["dialog"],
+      "description": "When a menu item opens a controlled Dialog, closing that Dialog returns keyboard focus to the menu trigger button automatically."
+    }
+  ],
+  "usageGuidelines": [
+    {
+      "id": "use-render-for-custom-triggers",
+      "guidance": "do",
+      "check": "review",
+      "description": "Attach custom buttons or IconButtons with ActionMenu.Trigger render={<IconButton ... />} (or Tooltip.Trigger render={<ActionMenu.Trigger ... />}) so all behaviors share one button."
+    },
+    {
+      "id": "use-semantic-selection-items",
+      "guidance": "do",
+      "check": "review",
+      "description": "Use RadioGroup and RadioItem for single-choice state, and CheckboxItem for multi-select toggles, so screen readers announce selection state."
+    },
+    {
+      "id": "use-inactive-when-reason-needed",
+      "guidance": "do",
+      "check": "review",
+      "related": ["tooltip", "button"],
+      "description": "Use ActionMenu.Button inactive (wrapped in Tooltip only while inactive) or ActionMenu.Item inactiveText when users need to know why an action is unavailable."
+    },
+    {
+      "id": "render-dialog-outside-menu-content",
+      "guidance": "do",
+      "check": "review",
+      "related": ["dialog"],
+      "description": "Render controlled Dialogs opened from menu items outside ActionMenu.Content so closing the menu does not unmount the open dialog."
+    },
+    {
+      "id": "no-nested-button-in-trigger",
+      "guidance": "dont",
+      "check": "runtime",
+      "description": "Nest a Button or IconButton as children inside ActionMenu.Button; this creates invalid nested buttons."
+    },
+    {
+      "id": "no-item-selected-for-state",
+      "guidance": "dont",
+      "check": "runtime",
+      "description": "Pass selected to plain ActionMenu.Item for stateful choices; it draws a visual checkmark without announcing selection to screen readers."
+    },
+    {
+      "id": "no-tooltip-on-native-disabled",
+      "guidance": "dont",
+      "check": "runtime",
+      "related": ["tooltip", "button"],
+      "description": "Wrap a native disabled Button in an active Tooltip; disabled buttons are skipped by keyboard Tab, hiding the explanation from keyboard users."
+    },
+    {
+      "id": "no-content-inside-submenu-trigger",
+      "guidance": "dont",
+      "check": "runtime",
+      "description": "Nest ActionMenu.Content inside ActionMenu.SubmenuTrigger; render SubmenuTrigger and Content as direct siblings inside ActionMenu.Submenu."
+    },
+    {
+      "id": "confirm-irreversible-danger-actions",
+      "guidance": "dont",
+      "check": "review",
+      "related": ["dialog"],
+      "description": "Trigger an irreversible danger action (such as deleting data) immediately without a confirmation Dialog or undo path."
+    }
+  ]
+}

@@ -23,13 +23,13 @@ test('preserves canonical examples, composition, styling, and API notes', () => 
 
 test('removes single and multiline Storybook blocks, not fenced JSX', () => {
   const {sections, problems} = read(
-    '<Canvas of={Stories.Default} />\n\n<Controls\n  of={Stories.Playground}\n/>\n\n' +
+    '<Canvas of={Stories.Default} />\n\n<Controls\n  of={Stories.Playground}\n/>\n\n<BehaviorGuardrails {...api} />\n\n' +
       '## Usage\n```tsx\n<Button render={<CustomButton />} />\n```\n\n<ApiReference {...api} />',
   )
   assert.deepEqual(problems, [])
   assert.equal(sections.length, 1)
   assert.match(sections[0].text, /render={<CustomButton \/>}/)
-  assert.doesNotMatch(sections[0].text, /Canvas|Controls|ApiReference/)
+  assert.doesNotMatch(sections[0].text, /Canvas|Controls|ApiReference|BehaviorGuardrails/)
 })
 
 test('rejects import-only guidance', () => {

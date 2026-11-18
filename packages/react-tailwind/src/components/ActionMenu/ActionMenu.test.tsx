@@ -6,6 +6,7 @@ import {renderToString} from 'react-dom/server'
 import {act, cleanup, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {afterEach, describe, expect, it, vi} from 'vitest'
+import {resetDevWarningsForTest} from '../../internal/devWarning'
 import {Button} from '../Button'
 import {IconButton} from '../IconButton'
 import {Tooltip} from '../Tooltip'
@@ -402,6 +403,8 @@ describe('ActionMenu', () => {
   })
 
   it('composes shared item content and exposes selection and unavailable states', async () => {
+    resetDevWarningsForTest()
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     render(
       <ActionMenu defaultOpen>
         <ActionMenu.Button>Actions</ActionMenu.Button>
@@ -428,6 +431,9 @@ describe('ActionMenu', () => {
       </ActionMenu>,
     )
 
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('[ActionMenu/no-item-selected-for-state]'))
+    warnSpy.mockRestore()
+    resetDevWarningsForTest()
     expect(screen.getByText('Repository')).toHaveAttribute('data-component', 'ActionMenu.GroupLabel')
     expect(screen.getByRole('menuitem', {name: 'Archive ⌘A'})).toHaveAttribute('data-selected', 'true')
     const inactive = screen.getByRole('menuitem', {name: 'Transfer'})

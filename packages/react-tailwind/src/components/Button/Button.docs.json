@@ -249,5 +249,31 @@
   "passthrough": {
     "element": "Button",
     "url": "https://base-ui.com/react/components/button#api-reference"
-  }
+  },
+  "relatedGuardrails": [
+    {
+      "sourceComponent": "ActionMenu",
+      "builtInBehaviors": [
+        {
+          "id": "inactive-controls-stay-focusable",
+          "description": "Inactive menu triggers and items with inactiveText stay reachable by keyboard, announce aria-disabled to screen readers, and block activation."
+        }
+      ],
+      "defaultBehaviors": [],
+      "usageGuidelines": [
+        {
+          "id": "use-inactive-when-reason-needed",
+          "guidance": "do",
+          "check": "review",
+          "description": "Use ActionMenu.Button inactive (wrapped in Tooltip only while inactive) or ActionMenu.Item inactiveText when users need to know why an action is unavailable."
+        },
+        {
+          "id": "no-tooltip-on-native-disabled",
+          "guidance": "dont",
+          "check": "runtime",
+          "description": "Wrap a native disabled Button in an active Tooltip; disabled buttons are skipped by keyboard Tab, hiding the explanation from keyboard users."
+        }
+      ]
+    }
+  ]
 }

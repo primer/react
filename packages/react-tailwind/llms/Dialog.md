@@ -6,6 +6,29 @@ Import: `import {Dialog} from '@primer/react-tailwind/Dialog'`
 
 Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
 
+## Built-in behaviors
+
+- Modal dialogs move initial focus inside the popup, keep Tab traversal contained while open, and restore focus to the opening trigger when dismissed.
+- Rendering Dialog.Title automatically names the dialog popup via aria-labelledby, and Dialog.Subtitle or Dialog.Description wires its accessible description.
+- Pressing Escape inside an open Dialog closes an open inner menu or hovered tooltip first before dismissing the Dialog itself.
+
+## Default behaviors
+
+- Closing the dialog returns focus to the element that triggered it unless overridden with finalFocus. (Override: `Dialog.Content.finalFocus`)
+
+## Usage guidelines
+
+- **Do [Review]:** Include Dialog.Title inside Dialog.Header or Dialog.Content (or pass aria-label on Dialog.Content) so screen readers announce the dialog's purpose.
+- **Do [Review]:** Wrap Cancel actions with Dialog.Close render={<Button>Cancel</Button>} or include Dialog.CloseButton so keyboard and pointer users have a clear dismissal control.
+- **Don't [Runtime]:** Place plain text directly in Dialog.Header without wrapping the heading in Dialog.Title; Dialog.Header is a layout container and does not name the dialog.
+
+## Related component guidelines
+
+- **[ActionMenu](./ActionMenu.md) [Built-in]:** Pressing Escape dismisses one open layer at a time, closing an open submenu, menu, or hovered tooltip without closing an underlying Dialog.
+- **[ActionMenu](./ActionMenu.md) [Default]:** When a menu item opens a controlled Dialog, closing that Dialog returns keyboard focus to the menu trigger button automatically. (Override: `Dialog.Content.finalFocus`)
+- **[ActionMenu](./ActionMenu.md) [Do · Review]:** Render controlled Dialogs opened from menu items outside ActionMenu.Content so closing the menu does not unmount the open dialog.
+- **[ActionMenu](./ActionMenu.md) [Don't · Review]:** Trigger an irreversible danger action (such as deleting data) immediately without a confirmation Dialog or undo path.
+
 ## Usage
 
 ```tsx

@@ -247,5 +247,50 @@
   "passthrough": {
     "element": "Tooltip.Root",
     "url": "https://base-ui.com/react/components/tooltip#root"
-  }
+  },
+  "relatedGuardrails": [
+    {
+      "sourceComponent": "ActionMenu",
+      "builtInBehaviors": [
+        {
+          "id": "menu-inherits-trigger-name",
+          "description": "The menu popup automatically inherits its trigger's accessible name across text buttons, IconButtons, and triggers named by a label Tooltip, without hidden label elements."
+        },
+        {
+          "id": "trigger-tooltip-steps-aside",
+          "description": "Opening the menu hides its trigger's tooltip (even if the pointer rests on the trigger again), and closing the menu does not flash the tooltip back open when focus returns."
+        },
+        {
+          "id": "escape-closes-topmost-layer",
+          "description": "Pressing Escape dismisses one open layer at a time, closing an open submenu, menu, or hovered tooltip without closing an underlying Dialog."
+        }
+      ],
+      "defaultBehaviors": [],
+      "usageGuidelines": [
+        {
+          "id": "use-inactive-when-reason-needed",
+          "guidance": "do",
+          "check": "review",
+          "description": "Use ActionMenu.Button inactive (wrapped in Tooltip only while inactive) or ActionMenu.Item inactiveText when users need to know why an action is unavailable."
+        },
+        {
+          "id": "no-tooltip-on-native-disabled",
+          "guidance": "dont",
+          "check": "runtime",
+          "description": "Wrap a native disabled Button in an active Tooltip; disabled buttons are skipped by keyboard Tab, hiding the explanation from keyboard users."
+        }
+      ]
+    },
+    {
+      "sourceComponent": "Dialog",
+      "builtInBehaviors": [
+        {
+          "id": "escape-respects-inner-overlays",
+          "description": "Pressing Escape inside an open Dialog closes an open inner menu or hovered tooltip first before dismissing the Dialog itself."
+        }
+      ],
+      "defaultBehaviors": [],
+      "usageGuidelines": []
+    }
+  ]
 }
