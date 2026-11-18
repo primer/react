@@ -37,11 +37,17 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
   ) => {
     const progressAsNumber = typeof progress === 'string' ? parseInt(progress, 10) : progress
 
+    const ariaValueMinValue = ariaValueMin ?? 0
+    const ariaValueMaxValue = ariaValueMax ?? 100
+
     const ariaAttributes = {
       'aria-valuenow':
-        ariaValueNow ?? (progressAsNumber !== undefined && progressAsNumber >= 0 ? Math.round(progressAsNumber) : 0),
-      'aria-valuemin': ariaValueMin ?? 0,
-      'aria-valuemax': ariaValueMax ?? 100,
+        ariaValueNow ??
+        (progressAsNumber !== undefined && progressAsNumber >= 0
+          ? Math.round(ariaValueMinValue + (progressAsNumber / 100) * (ariaValueMaxValue - ariaValueMinValue))
+          : 0),
+      'aria-valuemin': ariaValueMinValue,
+      'aria-valuemax': ariaValueMaxValue,
       'aria-valuetext': ariaValueText,
     }
 

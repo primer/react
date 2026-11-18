@@ -107,6 +107,15 @@ describe('ProgressBar', () => {
     await expect.element(progressbar).toHaveAttribute('aria-valuemax', '12')
   })
 
+  it('scales the derived `aria-valuenow` into a custom range when it is not provided', async () => {
+    render(<ProgressBar progress={25} aria-valuemin={0} aria-valuemax={12} aria-label="Tasks done" />)
+
+    const progressbar = page.getByRole('progressbar')
+    await expect.element(progressbar).toHaveAttribute('aria-valuenow', '3')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemin', '0')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemax', '12')
+  })
+
   it('does not override `aria-valuemin` and `aria-valuemax` provided to ProgressBar.Item', async () => {
     render(
       <ProgressBar>
