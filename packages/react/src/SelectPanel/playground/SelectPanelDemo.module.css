@@ -134,17 +134,21 @@
   gap: var(--playground-gap);
 }
 
+.Panel > .Header {
+  align-items: center;
+}
+
 .Theme .Header {
   display: flex;
   /* stylelint-disable-next-line primer/spacing -- Skin density is continuously interpolated. */
-  padding: var(--playground-header-padding);
+  padding: var(--playground-header-padding) var(--playground-header-padding) 0;
   /* stylelint-disable primer/colors -- Original header colors interpolate into a navy title bar. */
   color: var(--playground-header-text);
   background: var(--playground-header-bg);
   /* stylelint-enable primer/colors */
   /* stylelint-disable-next-line primer/borders -- Skin corners interpolate to square. */
   border-radius: var(--playground-row-radius);
-  flex-direction: column;
+  flex-direction: row;
   gap: var(--base-size-4);
 }
 

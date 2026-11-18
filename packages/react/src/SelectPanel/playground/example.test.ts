@@ -32,6 +32,19 @@ describe('playground examples', () => {
     expect(source).toContain('width="medium"')
   })
 
+  it.each([0, 1, 2, 3, 4, 5])('only exports a trigger caret for anchored presentation at appearance %s', appearance => {
+    for (const actions of [false, true]) {
+      for (const presentation of ['anchored', 'modal', 'inline'] as const) {
+        const source = getExample({...defaultConfig, appearance, presentation, actions})
+        expect(source.includes('trailingAction={ChevronDownIcon}')).toBe(presentation === 'anchored')
+        expect(source.includes('ChevronDownIcon')).toBe(presentation === 'anchored')
+        expect(source.includes("from '@primer/octicons-react'")).toBe(actions || presentation === 'anchored')
+        expect(source.includes('InfoIcon')).toBe(actions)
+        expect(() => parse(source, {sourceType: 'module', plugins: ['typescript', 'jsx']})).not.toThrow()
+      }
+    }
+  })
+
   it('exports grouped small footer actions and an explicitly small selection count', () => {
     const source = getExample({...defaultConfig, commitMode: 'submit'})
     // eslint-disable-next-line github/unescaped-html-literal -- Matches generated TSX text.

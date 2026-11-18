@@ -288,9 +288,13 @@ function RepositoryPicker({config}: {config: PlaygroundConfig}) {
             <SelectPanel.Trigger
               {...mark('Trigger')}
               className={classes.Trigger}
-              trailingAction={(iconProps: ComponentProps<typeof ChevronDownIcon>) => (
-                <ChevronDownIcon {...iconProps} {...mark('Trigger.trailingAction')} />
-              )}
+              trailingAction={
+                config.presentation === 'anchored'
+                  ? (iconProps: ComponentProps<typeof ChevronDownIcon>) => (
+                      <ChevronDownIcon {...iconProps} {...mark('Trigger.trailingAction')} />
+                    )
+                  : undefined
+              }
             >
               {committed.length === 0 ? 'Choose repositories' : summary}
             </SelectPanel.Trigger>

@@ -1,7 +1,7 @@
 import {act, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it} from 'vitest'
-import {page} from 'vitest/browser'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
 import {ThemeProvider} from '../../ThemeProvider'
 import {SelectPanelDemo} from './SelectPanelDemo'
 import {defaultConfig} from './model'
@@ -13,6 +13,76 @@ function getSecondaryAction(option: HTMLElement) {
 }
 
 describe('SelectPanel demo footer and actions', () => {
+  it.each([0, 1, 2, 3, 4, 5].flatMap(appearance => [375, 1000].map(width => ({appearance, width}))))(
+    'keeps the modal close button beside its heading at appearance $appearance and $width px',
+    async ({appearance, width}) => {
+      await page.viewport(width, 800)
+      const config = {...defaultConfig, appearance, presentation: 'modal' as const}
+      const {rerender} = render(<SelectPanelDemo config={config} resetKey={0} />)
+      await browserUserEvent.click(page.getByRole('button', {name: 'copilot-app', exact: true}))
+      const title = page.getByRole('heading', {name: 'Choose repositories', exact: true})
+      const close = page.getByRole('button', {name: 'Close', exact: true})
+      await expect.element(close).toBeVisible()
+      const header = title.element().closest('[data-select-panel-part="Header"]')!
+      expect(getComputedStyle(header).alignItems).toBe('center')
+
+      for (const descriptions of [false, true]) {
+        rerender(<SelectPanelDemo config={{...config, descriptions}} resetKey={0} />)
+        const titleBounds = title.element().getBoundingClientRect()
+        const closeBounds = close.element().getBoundingClientRect()
+        expect(closeBounds.left).toBeGreaterThanOrEqual(titleBounds.right)
+        expect(closeBounds.top).toBeLessThan(titleBounds.bottom)
+        expect(closeBounds.bottom).toBeGreaterThan(titleBounds.top)
+        const headingGroupBounds = title.element().parentElement!.getBoundingClientRect()
+        const headingCenter = headingGroupBounds.top + headingGroupBounds.height / 2
+        const closeCenter = closeBounds.top + closeBounds.height / 2
+        expect(Math.abs(closeCenter - headingCenter)).toBeLessThanOrEqual(1)
+      }
+
+      await browserUserEvent.click(close)
+      await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
+      await expect.element(page.getByRole('button', {name: 'copilot-app', exact: true})).toHaveFocus()
+    },
+  )
+
+  it.each([0, 1, 2, 3, 4, 5])('only shows a trigger caret for anchored presentation at appearance %s', appearance => {
+    const config = {...defaultConfig, appearance}
+    const {rerender} = render(<SelectPanelDemo config={config} resetKey={0} />)
+    const trigger = page.getByRole('button', {name: 'copilot-app', exact: true})
+    const caret = () => trigger.element().querySelector('svg.octicon-chevron-down')
+    expect(caret()).toBeInTheDocument()
+
+    rerender(<SelectPanelDemo config={{...config, presentation: 'modal'}} resetKey={0} />)
+    expect(caret()).not.toBeInTheDocument()
+
+    rerender(<SelectPanelDemo config={config} resetKey={0} />)
+    expect(caret()).toBeInTheDocument()
+  })
+
+  it.each([1, 1.5, 2, 3, 4, 5].flatMap(appearance => [375, 1000].map(width => ({appearance, width}))))(
+    'keeps header-to-search spacing as compact as Primer at appearance $appearance and $width px',
+    async ({appearance, width}) => {
+      await page.viewport(width, 800)
+      const config = {...defaultConfig, presentation: 'modal' as const}
+      const {rerender} = render(<SelectPanelDemo config={config} resetKey={0} />)
+      await browserUserEvent.click(page.getByRole('button', {name: 'copilot-app', exact: true}))
+      const title = page.getByRole('heading', {name: 'Choose repositories', exact: true})
+      const input = page.getByRole('combobox', {name: 'Search repositories', exact: true})
+      await expect.element(input).toBeVisible()
+      const spacing = () =>
+        input.element().parentElement!.getBoundingClientRect().top -
+        title.element().parentElement!.getBoundingClientRect().bottom
+
+      for (const descriptions of [false, true]) {
+        rerender(<SelectPanelDemo config={{...config, descriptions}} resetKey={0} />)
+        const primerSpacing = spacing()
+        rerender(<SelectPanelDemo config={{...config, appearance, descriptions}} resetKey={0} />)
+        expect(spacing()).toBeGreaterThanOrEqual(0)
+        expect(spacing()).toBeLessThanOrEqual(primerSpacing + 2)
+      }
+    },
+  )
+
   it.each([false, true])('shows trailing language text only without actions, actions=%s', async actions => {
     render(<SelectPanelDemo config={{...defaultConfig, actions, presentation: 'inline'}} resetKey={0} />)
     const list = page.getByRole('listbox', {name: 'Repositories'})

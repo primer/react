@@ -7,6 +7,9 @@ export function getExample(config: PlaygroundConfig): string {
   const skinClass = skin.className ? `, styles.${skin.className}` : ''
   const needsSave = config.commitMode === 'submit'
   const inline = config.presentation === 'inline'
+  const icons = [config.presentation === 'anchored' ? 'ChevronDownIcon' : '', config.actions ? 'InfoIcon' : ''].filter(
+    Boolean,
+  )
   const showHeader =
     isPrimer || config.descriptions || config.grouped || needsSave || config.actions || config.presentation === 'modal'
   const item = config.actions
@@ -94,8 +97,7 @@ export function getExample(config: PlaygroundConfig): string {
 
   return `import {useState${config.actions ? ', useRef, type RefObject' : ''}${isPrimer ? '' : ', type CSSProperties'}} from 'react'
 import {ActionList, SelectPanel, type SelectPanelValue${config.actions ? ', Button, Dialog, useOnOutsideClick' : ''}${needsSave ? ', Text' : ''}} from '@primer/react'
-import {ChevronDownIcon${config.actions ? ', InfoIcon' : ''}} from '@primer/octicons-react'
-import styles from './SelectPanelDemo.module.css'
+${icons.length > 0 ? `import {${icons.join(', ')}} from '@primer/octicons-react'\n` : ''}import styles from './SelectPanelDemo.module.css'
 
 const repositories = ${JSON.stringify(repositories, null, 2)}
 ${
@@ -209,7 +211,7 @@ export function RepositoryPicker() {
           inline
             ? content
             : // eslint-disable-next-line github/unescaped-html-literal -- Generated TSX is displayed as text, never inserted as HTML.
-              `<SelectPanel.Trigger className={styles.Trigger} trailingAction={ChevronDownIcon}>
+              `<SelectPanel.Trigger className={styles.Trigger}${config.presentation === 'anchored' ? ' trailingAction={ChevronDownIcon}' : ''}>
           {committed.length === 1 ? committed[0] : \`\${committed.length} repositories\`}
         </SelectPanel.Trigger>
         <SelectPanel.Overlay
