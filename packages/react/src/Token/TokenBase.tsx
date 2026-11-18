@@ -12,7 +12,9 @@ export interface TokenBaseProps
   extends Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'> {
   as?: 'button' | 'a' | 'span'
   /**
-   * The function that gets called when a user clicks the remove button, or keys "Backspace" or "Delete" when focused on the token
+   * Called when the user clicks the remove button or presses Backspace or Delete
+   * on the focused token. Calling event.preventDefault() in onKeyDown cancels
+   * keyboard removal.
    */
   onRemove?: () => void
   /**
@@ -59,6 +61,10 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
       <Component
         onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
           onKeyDown && onKeyDown(event)
+
+          if (event.defaultPrevented) {
+            return
+          }
 
           if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
             onRemove()
