@@ -1,11 +1,14 @@
 ---
-name: write-skill
-description: Use when creating, updating, or reviewing agent skills
+name: skill
+description: Use when creating, updating, reviewing, or installing agent skills. Do not use for code or documentation changes unrelated to skills.
 ---
 
-# Write Skill
+# Skill
 
-- Use this skill when creating, updating, or reviewing skill files
+## Write
+
+These conventions apply only to locally maintained skills, not installed external skills.
+
 - When authoring a skill, include in its description when it should and should not be used
 - Keep agent skills short and concise
 - Keep skill prose under 200 lines, excluding reference tables; move additional guidance into references
@@ -25,9 +28,9 @@ description: Use when creating, updating, or reviewing agent skills
 - Always report contradictions in references and recommend a resolution. Obtain permission before modifying files to resolve them
 - Write descriptions that identify the specific tasks that should trigger the skill. Avoid broad wording that causes it to load for unrelated work
 
-## Examples
+### Examples
 
-### SKILL.md
+#### SKILL.md
 
 ```md
 ---
@@ -41,12 +44,12 @@ description: Information about the skill, when to use it, and how to use it
 
 ## References
 
-| Name | Description |
-| :--- | :---------- |
+| Name                                   | Description                                             |
+| :------------------------------------- | :------------------------------------------------------ |
 | [Reference](./references/reference.md) | A brief description of the reference and when to use it |
 ```
 
-### .agents/skills/<skill>/references/<reference>.md
+#### .agents/skills/<skill>/references/<reference>.md
 
 ```md
 # Reference
@@ -60,4 +63,18 @@ Brief overview of the reference
 <!-- ... -->
 
 ## Example
+```
+
+## Install
+
+- Install external skills with `gh skill install` rather than copying files manually
+- Use project scope and the `github-copilot` agent to install into `.agents/skills`
+- Prefer an exact upstream skill path to avoid unnecessary discovery
+- Use `--pin` with a tag or commit SHA when pinning a specific upstream version
+- Preserve upstream content and the installer's source-tracking metadata
+- Do not reformat or adapt installed external skills to the Write conventions above
+- Use `--force` only when intentionally replacing an existing installation
+
+```sh
+gh skill install OWNER/REPO skills/SKILL_NAME --agent github-copilot --scope project
 ```
