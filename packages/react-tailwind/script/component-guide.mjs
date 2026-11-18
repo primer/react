@@ -63,7 +63,7 @@ export function readComponentGuide(source, name, problems) {
       continue
     }
     if (skipSection) continue
-    if (storybookBlock || /^\s*<(?:Canvas|Controls|ApiReference|Meta)\b/.test(line)) {
+    if (storybookBlock || /^\s*<(?:Canvas|Controls|ApiReference|BehaviorGuardrails|Meta)\b/.test(line)) {
       storybookBlock = !/\/>\s*$/.test(line)
       continue
     }

@@ -16,3 +16,7 @@ export const ActionMenuListContext = React.createContext<ActionMenuListContextVa
 export const ActionMenuActionsContext = React.createContext<React.RefObject<Menu.Root.Actions | null> | null>(null)
 
 export const ActionMenuSubmenuContext = React.createContext<{owner: HTMLElement | null} | null>(null)
+
+export const ActionMenuTriggerRefContext = React.createContext<React.RefObject<HTMLElement | null> | null>(null)
+
+export const ActionMenuInsideSubmenuTriggerContext = React.createContext(false)

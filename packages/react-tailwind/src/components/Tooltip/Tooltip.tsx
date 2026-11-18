@@ -3,8 +3,10 @@
 import {Tooltip as BaseTooltip} from '@base-ui/react/tooltip'
 import React from 'react'
 import {cn} from '../../internal/cn'
+import {devWarning} from '../../internal/devWarning'
 import {FloatingArrowGraphic, floatingArrowClassName} from '../../internal/floatingArrow'
 import {FloatingPortal} from '../../internal/FloatingPortal'
+import {IconControlTooltipEscapeContext} from '../../internal/IconControlTooltipContext'
 import {joinIdRefs} from '../../internal/idRefs'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {mergeRefs} from '../../internal/refs'
@@ -58,24 +60,184 @@ export interface TooltipRootProps extends BaseTooltip.Root.Props {
 const PopupMarkerContext = React.createContext('Tooltip.Popup')
 const PopupNameContext = React.createContext<Pick<React.AriaAttributes, 'aria-label' | 'aria-labelledby'>>({})
 
+const nowMs = () => (typeof performance !== 'undefined' ? performance.now() : Date.now())
+const FOCUS_RETURN_SUPPRESS_WINDOW_MS = 200
+const observedDocuments = new WeakSet<Document>()
+let lastOverlayDismissAt: number | null = null
+
+function isKeyboardNavigationKey(key: string): boolean {
+  return key === 'Tab' || key.startsWith('Arrow') || key === 'Home' || key === 'End'
+}
+
+function ensureOverlayDismissModalityListeners(doc: Document) {
+  if (observedDocuments.has(doc)) return
+  observedDocuments.add(doc)
+  doc.addEventListener(
+    'keydown',
+    event => {
+      if (event.key === 'Escape') {
+        lastOverlayDismissAt = nowMs()
+      } else if (isKeyboardNavigationKey(event.key)) {
+        lastOverlayDismissAt = null
+      }
+    },
+    true,
+  )
+  doc.addEventListener(
+    'pointerdown',
+    event => {
+      const target = event.target instanceof Element ? event.target : null
+      if (target?.closest('[data-component="Dialog.Close"], [data-component="Dialog.CloseButton"]')) {
+        lastOverlayDismissAt = nowMs()
+      } else {
+        lastOverlayDismissAt = null
+      }
+    },
+    true,
+  )
+}
+
+function hasExpandedPopup(element: Element | null | undefined): boolean {
+  if (!element) return false
+  const hasPopup = element.getAttribute('aria-haspopup')
+  return element.getAttribute('aria-expanded') === 'true' && Boolean(hasPopup) && hasPopup !== 'false'
+}
+
+function hasNativeDisabledRenderTarget(renderProp: unknown): boolean {
+  let current = renderProp
+  let depth = 0
+  while (React.isValidElement<Record<string, unknown>>(current) && depth < 4) {
+    const props = current.props
+    if (props['data-component'] === 'SegmentedControl.IconButton') return false
+    if (props.disabled === true && !props.inactive && !props.focusableWhenDisabled) {
+      return true
+    }
+    current = props.render
+    depth += 1
+  }
+  return false
+}
+
 const Root = ({
+  actionsRef,
   children,
+  defaultOpen,
   delay,
   disabled,
   handle,
   id: idProp,
   keybindingHint,
+  onOpenChange,
+  open: openProp,
   type = 'description',
   ...rest
 }: TooltipRootProps) => {
   const generatedId = React.useId()
   const id = idProp ?? generatedId
+  const passEscapeThrough = React.useContext(IconControlTooltipEscapeContext)
+  const ownActionsRef = React.useRef<BaseTooltip.Root.Actions | null>(null)
+  const resolvedActionsRef = actionsRef ?? ownActionsRef
+  const [triggerElement, setTriggerElement] = React.useState<HTMLElement | null>(null)
+  const [internalOpen, setInternalOpen] = React.useState(Boolean(defaultOpen))
+  const suppressFocusOpenUntilRef = React.useRef<number | null>(null)
+  const isOpen = Boolean(!disabled && (openProp ?? internalOpen))
   const hints = (Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]).filter((hint): hint is string =>
     Boolean(hint),
   )
+
+  React.useEffect(() => {
+    const doc = triggerElement?.ownerDocument ?? (typeof document !== 'undefined' ? document : null)
+    if (doc) ensureOverlayDismissModalityListeners(doc)
+    if (!triggerElement) return
+    if (hasExpandedPopup(triggerElement)) {
+      resolvedActionsRef.current?.close()
+    }
+    const clearOnNavigationKey = (event: KeyboardEvent) => {
+      if (isKeyboardNavigationKey(event.key)) {
+        suppressFocusOpenUntilRef.current = null
+      }
+    }
+    doc?.addEventListener('keydown', clearOnNavigationKey, true)
+    const observer =
+      typeof MutationObserver === 'undefined'
+        ? undefined
+        : new MutationObserver(records => {
+            if (hasExpandedPopup(triggerElement)) {
+              resolvedActionsRef.current?.close()
+              return
+            }
+            const collapsedFromExpanded = records.some(
+              record => record.attributeName === 'aria-expanded' && record.oldValue === 'true',
+            )
+            if (collapsedFromExpanded && triggerElement.getAttribute('aria-expanded') !== 'true') {
+              suppressFocusOpenUntilRef.current = nowMs() + FOCUS_RETURN_SUPPRESS_WINDOW_MS
+            }
+          })
+    observer?.observe(triggerElement, {
+      attributes: true,
+      attributeFilter: ['aria-expanded', 'aria-haspopup'],
+      attributeOldValue: true,
+    })
+    return () => {
+      doc?.removeEventListener('keydown', clearOnNavigationKey, true)
+      observer?.disconnect()
+    }
+  }, [resolvedActionsRef, triggerElement])
+
+  React.useEffect(() => {
+    if (!isOpen || passEscapeThrough) return
+    const doc = triggerElement?.ownerDocument ?? (typeof document !== 'undefined' ? document : null)
+    if (!doc) return
+    const handleKeyDownCapture = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || event.isComposing || event.defaultPrevented) return
+      lastOverlayDismissAt = nowMs()
+      resolvedActionsRef.current?.close()
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    doc.addEventListener('keydown', handleKeyDownCapture, true)
+    return () => doc.removeEventListener('keydown', handleKeyDownCapture, true)
+  }, [isOpen, passEscapeThrough, resolvedActionsRef, triggerElement])
+
   return (
-    <TooltipContext.Provider value={{associationId: generatedId, delay, disabled, handle, hints, id, type}}>
-      <BaseTooltip.Root {...rest} disabled={disabled} handle={handle}>
+    <TooltipContext.Provider
+      value={{associationId: generatedId, delay, disabled, handle, hints, id, setTriggerElement, type}}
+    >
+      <BaseTooltip.Root
+        {...rest}
+        actionsRef={resolvedActionsRef}
+        defaultOpen={defaultOpen}
+        disabled={disabled}
+        handle={handle}
+        open={openProp}
+        onOpenChange={(nextOpen, details) => {
+          const activeTrigger = (details.trigger as Element | undefined) ?? triggerElement
+          if (nextOpen && hasExpandedPopup(activeTrigger)) {
+            details.cancel()
+            return
+          }
+          const now = nowMs()
+          const suppressUntil = suppressFocusOpenUntilRef.current
+          const suppressedByTriggerCollapse = suppressUntil !== null && now <= suppressUntil
+          const suppressedByOverlayDismiss =
+            lastOverlayDismissAt !== null &&
+            now >= lastOverlayDismissAt &&
+            now - lastOverlayDismissAt < FOCUS_RETURN_SUPPRESS_WINDOW_MS
+          if (
+            nextOpen &&
+            details.reason === 'trigger-focus' &&
+            (suppressedByTriggerCollapse || suppressedByOverlayDismiss)
+          ) {
+            suppressFocusOpenUntilRef.current = null
+            details.cancel()
+            return
+          }
+          if (openProp === undefined) {
+            setInternalOpen(nextOpen)
+          }
+          onOpenChange?.(nextOpen, details)
+        }}
+      >
         {children}
       </BaseTooltip.Root>
     </TooltipContext.Provider>
@@ -89,6 +251,17 @@ const Trigger = React.forwardRef<HTMLElement, TooltipTriggerProps>(function Tool
   ref,
 ) {
   const tooltip = React.useContext(TooltipContext)
+  if (
+    process.env.NODE_ENV !== 'production' &&
+    !tooltip?.disabled &&
+    !rest.disabled &&
+    hasNativeDisabledRenderTarget(render)
+  ) {
+    devWarning(
+      'ActionMenu/no-tooltip-on-native-disabled',
+      'Do not wrap a native `disabled` Button in an active `Tooltip`; disabled buttons are skipped by keyboard Tab. Use `inactive` when users need an accessible explanation.',
+    )
+  }
   const hasProvider = React.useContext(TooltipProviderContext)
   const namedDelay = tooltip?.delay ?? (hasProvider ? undefined : 'short')
   // A disabled tooltip never shows, so it neither names nor describes the trigger.
@@ -132,10 +305,14 @@ const Trigger = React.forwardRef<HTMLElement, TooltipTriggerProps>(function Tool
   } else if (React.isValidElement(resolvedRender) && fallbackLabel) {
     resolvedRender = resolveRenderedName(resolvedRender, false)
   }
+  const mergedTriggerRef = React.useMemo(
+    () => mergeRefs(ref as React.Ref<HTMLElement>, tooltip?.setTriggerElement),
+    [ref, tooltip?.setTriggerElement],
+  )
   return (
     <BaseTooltip.Trigger
       {...rest}
-      ref={ref as React.Ref<HTMLButtonElement>}
+      ref={mergedTriggerRef as React.Ref<HTMLButtonElement>}
       aria-describedby={description}
       aria-labelledby={suppliedLabel ?? generatedLabel}
       handle={handle}

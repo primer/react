@@ -17,6 +17,7 @@ interface TooltipContextValue {
   handle?: BaseTooltip.Root.Props['handle']
   hints: string[]
   id: string
+  setTriggerElement?: (element: HTMLElement | null) => void
   type: TooltipType
 }
 

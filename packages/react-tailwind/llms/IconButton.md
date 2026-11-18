@@ -6,6 +6,11 @@ Import: `import {IconButton} from '@primer/react-tailwind/IconButton'`
 
 Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
 
+## Related component guidelines
+
+- **[ActionMenu](./ActionMenu.md) [Built-in]:** The menu popup automatically inherits its trigger's accessible name across text buttons, IconButtons, and triggers named by a label Tooltip, without hidden label elements.
+- **[ActionMenu](./ActionMenu.md) [Built-in]:** Opening the menu hides its trigger's tooltip (even if the pointer rests on the trigger again), and closing the menu does not flash the tooltip back open when focus returns.
+
 ## Usage
 
 ```tsx

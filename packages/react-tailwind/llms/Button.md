@@ -6,6 +6,12 @@ Import: `import {Button, ButtonBase} from '@primer/react-tailwind/Button'`
 
 Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.
 
+## Related component guidelines
+
+- **[ActionMenu](./ActionMenu.md) [Built-in]:** Inactive menu triggers and items with inactiveText stay reachable by keyboard, announce aria-disabled to screen readers, and block activation.
+- **[ActionMenu](./ActionMenu.md) [Do · Review]:** Use ActionMenu.Button inactive (wrapped in Tooltip only while inactive) or ActionMenu.Item inactiveText when users need to know why an action is unavailable.
+- **[ActionMenu](./ActionMenu.md) [Don't · Runtime]:** Wrap a native disabled Button in an active Tooltip; disabled buttons are skipped by keyboard Tab, hiding the explanation from keyboard users.
+
 ## Usage
 
 ```tsx

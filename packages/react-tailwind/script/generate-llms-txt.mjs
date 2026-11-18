@@ -168,6 +168,10 @@ function passthroughLine({element, url}) {
   return `Renders ${article} [\`<${element}>\`](${url}) and forwards unrecognized props to it, so it also accepts that element's native attributes.`
 }
 
+function formatCheckLabel(check) {
+  return check === 'runtime' ? 'Runtime' : 'Review'
+}
+
 function renderComponent({name, intent, guide, notes, docs}) {
   const imports = (docs?.exports ?? [name]).join(', ')
   const lines = [
@@ -180,6 +184,64 @@ function renderComponent({name, intent, guide, notes, docs}) {
     'Read [package guidance](../AGENTS.md) for setup, styling, and shared composition contracts.',
     '',
   ]
+
+  if (docs?.builtInBehaviors?.length) {
+    lines.push('## Built-in behaviors', '', ...docs.builtInBehaviors.map(behavior => `- ${behavior.description}`), '')
+  }
+
+  if (docs?.defaultBehaviors?.length) {
+    lines.push(
+      '## Default behaviors',
+      '',
+      ...docs.defaultBehaviors.map(behavior => {
+        const override = behavior.overriddenBy?.length
+          ? ` (Override: ${behavior.overriddenBy.map(codeSpan).join(', ')})`
+          : ''
+        return `- ${behavior.description}${override}`
+      }),
+      '',
+    )
+  }
+
+  if (docs?.usageGuidelines?.length) {
+    const orderedGuidelines = [
+      ...docs.usageGuidelines.filter(item => item.guidance === 'do'),
+      ...docs.usageGuidelines.filter(item => item.guidance !== 'do'),
+    ]
+    lines.push(
+      '## Usage guidelines',
+      '',
+      ...orderedGuidelines.map(
+        item =>
+          `- **${item.guidance === 'dont' ? "Don't" : 'Do'} [${formatCheckLabel(item.check)}]:** ${item.description}`,
+      ),
+      '',
+    )
+  }
+
+  if (docs?.relatedGuardrails?.length) {
+    const relatedLines = []
+    for (const group of docs.relatedGuardrails) {
+      const sourceLink = `[${group.sourceComponent}](./${group.sourceComponent}.md)`
+      for (const behavior of group.builtInBehaviors ?? []) {
+        relatedLines.push(`- **${sourceLink} [Built-in]:** ${behavior.description}`)
+      }
+      for (const behavior of group.defaultBehaviors ?? []) {
+        const override = behavior.overriddenBy?.length
+          ? ` (Override: ${behavior.overriddenBy.map(codeSpan).join(', ')})`
+          : ''
+        relatedLines.push(`- **${sourceLink} [Default]:** ${behavior.description}${override}`)
+      }
+      for (const item of group.usageGuidelines ?? []) {
+        relatedLines.push(
+          `- **${sourceLink} [${item.guidance === 'dont' ? "Don't" : 'Do'} · ${formatCheckLabel(item.check)}]:** ${item.description}`,
+        )
+      }
+    }
+    if (relatedLines.length > 0) {
+      lines.push('## Related component guidelines', '', ...relatedLines, '')
+    }
+  }
 
   for (const section of guide) {
     lines.push(`## ${section.heading}`, '', section.text, '')

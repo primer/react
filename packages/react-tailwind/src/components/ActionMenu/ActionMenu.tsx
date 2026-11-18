@@ -5,6 +5,7 @@ import {Menu} from '@base-ui/react/menu'
 import React from 'react'
 import {createPortal} from 'react-dom'
 import {cn} from '../../internal/cn'
+import {devWarning} from '../../internal/devWarning'
 import {getDisabledActivationHandlers, guardDisabledRender} from '../../internal/disabledActivation'
 import {mergeClassName} from '../../internal/mergeClassName'
 import {NarrowFullscreenCloseButton} from '../../internal/NarrowFullscreenCloseButton'
@@ -17,6 +18,7 @@ import {overlayAvailableWidthClassName, overlaySizeClassName} from '../../intern
 import {FloatingPortal} from '../../internal/FloatingPortal'
 import {FloatingPortalParentContext, useFloatingPortalContainer} from '../../internal/portalRoot'
 import {mergeRefs} from '../../internal/refs'
+import {useIsomorphicLayoutEffect} from '../../internal/useIsomorphicLayoutEffect'
 import type {AnchoredOverlayVariant, FloatingContentProps, FloatingSide, OverlaySizeProps} from '../../utils/types'
 import {ActionItemContent, actionListDividerClassName, ActionList} from '../ActionList/ActionList'
 import {
@@ -27,19 +29,71 @@ import {
 } from '../ActionList/itemState'
 import {Button, type ButtonProps} from '../Button'
 import {Spinner} from '../Spinner'
-import {ActionMenuActionsContext, ActionMenuListContext, ActionMenuSubmenuContext} from './ActionMenuContext'
+import {
+  ActionMenuActionsContext,
+  ActionMenuInsideSubmenuTriggerContext,
+  ActionMenuListContext,
+  ActionMenuSubmenuContext,
+  ActionMenuTriggerRefContext,
+} from './ActionMenuContext'
 const triggerClassName =
   'primer:inline-flex primer:min-h-8 primer:items-center primer:justify-center primer:gap-2 primer:rounded-md primer:border-thin primer:border-default primer:bg-default primer:px-3 primer:text-sm primer:font-semibold primer:text-default primer:hover:bg-muted primer:focus-visible:outline-2 primer:focus-visible:outline-offset-2 primer:focus-visible:outline-focus primer:disabled:cursor-not-allowed primer:disabled:text-disabled'
 
+const SUBMENU_CONTENT_WARNING_ID = 'ActionMenu/no-content-inside-submenu-trigger'
+const SUBMENU_CONTENT_WARNING_MESSAGE =
+  'Do not nest `ActionMenu.Content` inside `ActionMenu.SubmenuTrigger`; render `SubmenuTrigger` and `Content` as direct siblings inside `ActionMenu.Submenu`.'
+
+function isInactiveOrAriaDisabledElement(element: Element | null | undefined): boolean {
+  if (!element) return false
+  return element.getAttribute('aria-disabled') === 'true' || element.hasAttribute('data-inactive')
+}
+
+function getElementTypeName(type: unknown): string | undefined {
+  if (typeof type === 'function') {
+    return (type as {displayName?: string; name?: string}).displayName ?? type.name
+  }
+  if (typeof type === 'object' && type !== null) {
+    const wrapper = type as {displayName?: string; render?: {displayName?: string; name?: string}}
+    return wrapper.displayName ?? wrapper.render?.displayName ?? wrapper.render?.name
+  }
+  return undefined
+}
+
+function hasNestedButtonChild(children: React.ReactNode): boolean {
+  for (const child of React.Children.toArray(children)) {
+    if (!React.isValidElement<Record<string, unknown>>(child)) continue
+    if (child.type === 'button' || child.type === Button) return true
+    const typeName = getElementTypeName(child.type)
+    if (typeName === 'Button' || typeName === 'IconButton' || typeName === 'ButtonBase') return true
+    if (child.props['data-component'] === 'Button' || child.props['data-component'] === 'IconButton') return true
+    if (child.type === React.Fragment && hasNestedButtonChild(child.props.children as React.ReactNode)) return true
+  }
+  return false
+}
+
 export type ActionMenuRootProps = Menu.Root.Props
 
-function Root({actionsRef, ...rest}: ActionMenuRootProps) {
+function Root({actionsRef, onOpenChange, ...rest}: ActionMenuRootProps) {
   const ownActionsRef = React.useRef<Menu.Root.Actions | null>(null)
+  const triggerRef = React.useRef<HTMLElement | null>(null)
   const menuActionsRef = actionsRef ?? ownActionsRef
   return (
     <ActionMenuSubmenuContext.Provider value={null}>
       <ActionMenuActionsContext.Provider value={menuActionsRef}>
-        <Menu.Root {...rest} actionsRef={menuActionsRef} />
+        <ActionMenuTriggerRefContext.Provider value={triggerRef}>
+          <Menu.Root
+            {...rest}
+            actionsRef={menuActionsRef}
+            onOpenChange={(nextOpen, details) => {
+              const triggerEl = (details.trigger as Element | undefined) ?? triggerRef.current
+              if (nextOpen && isInactiveOrAriaDisabledElement(triggerEl)) {
+                details.cancel()
+                return
+              }
+              onOpenChange?.(nextOpen, details)
+            }}
+          />
+        </ActionMenuTriggerRefContext.Provider>
       </ActionMenuActionsContext.Provider>
     </ActionMenuSubmenuContext.Provider>
   )
@@ -51,12 +105,14 @@ const Trigger = React.forwardRef<HTMLButtonElement, ActionMenuTriggerProps>(func
   {className, render, ...rest},
   ref,
 ) {
+  const triggerRef = React.useContext(ActionMenuTriggerRefContext)
+  const mergedRef = React.useMemo(() => mergeRefs(ref, triggerRef), [ref, triggerRef])
   return (
     <Menu.Trigger
       data-component="ActionMenu.Trigger"
       {...rest}
       render={render}
-      ref={ref}
+      ref={mergedRef}
       className={mergeClassName(render ? '' : triggerClassName, className)}
     />
   )
@@ -75,6 +131,14 @@ const ButtonTrigger = React.forwardRef<HTMLButtonElement, ActionMenuButtonProps>
   {children, className, disabled, id, loading, size = 'medium', trailingAction = TriangleDownIcon, ...buttonProps},
   ref,
 ) {
+  const triggerRef = React.useContext(ActionMenuTriggerRefContext)
+  const mergedRef = React.useMemo(() => mergeRefs(ref, triggerRef), [ref, triggerRef])
+  if (process.env.NODE_ENV !== 'production' && hasNestedButtonChild(children)) {
+    devWarning(
+      'ActionMenu/no-nested-button-in-trigger',
+      'Do not nest `Button`, `IconButton`, or `<button>` inside `ActionMenu.Button`. Use `ActionMenu.Trigger` with `render={<IconButton ... />}` so all behaviors share one button.',
+    )
+  }
   return (
     <Menu.Trigger
       // The trigger tracks its open state by `id`, so it must not be overridden on the render element.
@@ -83,7 +147,7 @@ const ButtonTrigger = React.forwardRef<HTMLButtonElement, ActionMenuButtonProps>
       render={
         <Button
           {...buttonProps}
-          ref={ref}
+          ref={mergedRef}
           className={className}
           disabled={disabled}
           loading={loading}
@@ -158,9 +222,12 @@ const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(functio
   ref,
 ) {
   const actionsRef = React.useContext(ActionMenuActionsContext)
+  const insideSubmenuTrigger = React.useContext(ActionMenuInsideSubmenuTriggerContext)
   const submenu = React.useContext(ActionMenuSubmenuContext)
+  const triggerRef = React.useContext(ActionMenuTriggerRefContext)
   const {positioner: parentPositioner} = React.useContext(ActionMenuListContext)
   const [positioner, setPositioner] = React.useState<HTMLDivElement | null>(null)
+  const [inheritedLabelledBy, setInheritedLabelledBy] = React.useState<string | undefined>(undefined)
   const popupRef = React.useRef<HTMLDivElement | null>(null)
   const closeRef = React.useRef<HTMLElement | null>(null)
   const closeWasFocused = React.useRef(false)
@@ -170,6 +237,29 @@ const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(functio
   const resolvedCollisionAvoidance = horizontalSide
     ? {...collisionAvoidance, fallbackAxisSide: collisionAvoidance?.fallbackAxisSide ?? 'end'}
     : collisionAvoidance
+
+  if (process.env.NODE_ENV !== 'production' && insideSubmenuTrigger) {
+    devWarning(SUBMENU_CONTENT_WARNING_ID, SUBMENU_CONTENT_WARNING_MESSAGE)
+  }
+
+  const explicitLabel = rest['aria-label']
+  const explicitLabelledBy = rest['aria-labelledby']
+  useIsomorphicLayoutEffect(() => {
+    if (explicitLabel !== undefined || explicitLabelledBy !== undefined) {
+      setInheritedLabelledBy(prev => (prev === undefined ? prev : undefined))
+      return
+    }
+    const popup = popupRef.current
+    if (!popup) return
+    const trigger =
+      triggerRef?.current ??
+      (() => {
+        const firstId = popup.getAttribute('aria-labelledby')?.trim().split(/\s+/)[0]
+        return firstId ? popup.ownerDocument.getElementById(firstId) : null
+      })()
+    const triggerLabelledBy = trigger?.getAttribute('aria-labelledby')?.trim() || undefined
+    setInheritedLabelledBy(prev => (prev === triggerLabelledBy ? prev : triggerLabelledBy))
+  })
 
   React.useEffect(() => {
     if (!fullscreen || typeof window.matchMedia !== 'function') return
@@ -222,9 +312,13 @@ const Content = React.forwardRef<HTMLDivElement, ActionMenuContentProps>(functio
         <Menu.Popup
           {...rest}
           // An explicit undefined clears Base UI's automatic trigger label; an omitted prop would keep it.
-          {...(rest['aria-label'] !== undefined && rest['aria-labelledby'] === undefined
-            ? {'aria-labelledby': undefined}
-            : {})}
+          {...(rest['aria-labelledby'] !== undefined
+            ? {}
+            : rest['aria-label'] !== undefined
+              ? {'aria-labelledby': undefined}
+              : inheritedLabelledBy !== undefined
+                ? {'aria-labelledby': inheritedLabelledBy}
+                : {})}
           ref={setPopupRef}
           finalFocus={preventFocusOnClose ? false : finalFocus}
           className={mergeClassName(
@@ -365,6 +459,17 @@ const Item = React.forwardRef<HTMLElement, ActionMenuItemProps>(function ActionM
   ref,
 ) {
   const state = {disabled, inactive: Boolean(inactiveText), loading, variant}
+  if (
+    process.env.NODE_ENV !== 'production' &&
+    Boolean(selected) &&
+    rest.role !== 'menuitemradio' &&
+    rest.role !== 'menuitemcheckbox'
+  ) {
+    devWarning(
+      'ActionMenu/no-item-selected-for-state',
+      '`selected` on `ActionMenu.Item` draws a visual checkmark without announcing selection to screen readers. Use `ActionMenu.RadioGroup` + `ActionMenu.RadioItem` or `ActionMenu.CheckboxItem` instead.',
+    )
+  }
   const accessibility = ActionItemContent.useAccessibility({
     describedBy,
     label: ariaLabel,
@@ -507,9 +612,9 @@ const checkedItemIndicator = (
 
 export interface ActionMenuCheckboxItemProps extends Omit<Menu.CheckboxItem.Props, 'data-component'> {
   /**
-   * Whether toggling the item closes the menu, as activating any other menu item does. Set `false` to keep the menu
-   * open while several items are toggled.
-   * @default true
+   * Whether toggling the item closes the menu. Defaults to `false` so several items can be toggled in one pass; set
+   * `true` to close the menu when toggled.
+   * @default false
    */
   closeOnClick?: boolean
 }
@@ -521,7 +626,7 @@ const CheckboxItem = React.forwardRef<HTMLElement, ActionMenuCheckboxItemProps>(
     'aria-labelledby': labelledBy,
     children,
     className,
-    closeOnClick = true,
+    closeOnClick = false,
     disabled,
     onAuxClickCapture,
     onClickCapture,
@@ -620,16 +725,28 @@ const RadioItem = React.forwardRef<HTMLElement, ActionMenuRadioItemProps>(functi
   )
 })
 
+function hasNestedMenuContent(children: React.ReactNode): boolean {
+  for (const child of React.Children.toArray(children)) {
+    if (!React.isValidElement<Record<string, unknown>>(child)) continue
+    if (child.type === Content) return true
+    if (child.type === React.Fragment && hasNestedMenuContent(child.props.children as React.ReactNode)) return true
+  }
+  return false
+}
+
 function Submenu({children, ...props}: Menu.SubmenuRoot.Props) {
   const {positioner} = React.useContext(ActionMenuListContext)
   const [owner, setOwner] = React.useState<HTMLDivElement | null>(null)
+  const triggerRef = React.useRef<HTMLElement | null>(null)
 
   return (
     <ActionMenuSubmenuContext.Provider value={{owner}}>
-      <Menu.SubmenuRoot {...props}>
-        {children}
-        {positioner ? createPortal(<div ref={setOwner} className="primer:contents" />, positioner) : null}
-      </Menu.SubmenuRoot>
+      <ActionMenuTriggerRefContext.Provider value={triggerRef}>
+        <Menu.SubmenuRoot {...props}>
+          {children}
+          {positioner ? createPortal(<div ref={setOwner} className="primer:contents" />, positioner) : null}
+        </Menu.SubmenuRoot>
+      </ActionMenuTriggerRefContext.Provider>
     </ActionMenuSubmenuContext.Provider>
   )
 }
@@ -662,6 +779,11 @@ const SubmenuTrigger = React.forwardRef<HTMLElement, ActionMenuSubmenuTriggerPro
   },
   ref,
 ) {
+  const triggerRef = React.useContext(ActionMenuTriggerRefContext)
+  const mergedRef = React.useMemo(() => mergeRefs(ref, triggerRef), [ref, triggerRef])
+  if (process.env.NODE_ENV !== 'production' && hasNestedMenuContent(children)) {
+    devWarning(SUBMENU_CONTENT_WARNING_ID, SUBMENU_CONTENT_WARNING_MESSAGE)
+  }
   const unavailable = Boolean(disabled || inactiveText || loading)
   const state = {disabled, inactive: Boolean(inactiveText), loading, variant}
   const accessibility = ActionItemContent.useAccessibility({
@@ -690,45 +812,47 @@ const SubmenuTrigger = React.forwardRef<HTMLElement, ActionMenuSubmenuTriggerPro
   })
 
   return (
-    <Menu.SubmenuTrigger
-      {...rest}
-      {...getActionItemStateAttributes(state)}
-      ref={ref}
-      aria-describedby={accessibility.describedBy}
-      aria-label={ariaLabel}
-      aria-labelledby={accessibility.labelledBy}
-      disabled={unavailable}
-      render={guardDisabledRender(unavailable, accessibility.render)}
-      {...getDisabledActivationHandlers(unavailable, {
-        onAuxClickCapture,
-        onClickCapture,
-        onKeyDownCapture,
-        onKeyUpCapture,
-      })}
-      className={mergeClassName(
-        cn(
-          menuItemClassName(state),
-          // The trigger stays filled while its submenu is open, so the path to the submenu is visible.
-          'primer:data-[popup-open]:bg-[var(--control-transparent-bgColor-hover)]',
-        ),
-        className,
-      )}
-      data-component="ActionMenu.SubmenuTrigger"
-      data-selected={selected || undefined}
-    >
-      <MenuItemContent
-        loading={loading}
-        resolvedContent={accessibility.resolvedContent}
-        selected={selected}
-        supportingText={inactiveText}
-        supportingTextId={accessibility.supportingTextId}
-      />
-      {loading && loadingText ? (
-        <span className="primer:sr-only" id={accessibility.loadingTextId}>
-          {loadingText}
-        </span>
-      ) : null}
-    </Menu.SubmenuTrigger>
+    <ActionMenuInsideSubmenuTriggerContext.Provider value>
+      <Menu.SubmenuTrigger
+        {...rest}
+        {...getActionItemStateAttributes(state)}
+        ref={mergedRef}
+        aria-describedby={accessibility.describedBy}
+        aria-label={ariaLabel}
+        aria-labelledby={accessibility.labelledBy}
+        disabled={unavailable}
+        render={guardDisabledRender(unavailable, accessibility.render)}
+        {...getDisabledActivationHandlers(unavailable, {
+          onAuxClickCapture,
+          onClickCapture,
+          onKeyDownCapture,
+          onKeyUpCapture,
+        })}
+        className={mergeClassName(
+          cn(
+            menuItemClassName(state),
+            // The trigger stays filled while its submenu is open, so the path to the submenu is visible.
+            'primer:data-[popup-open]:bg-[var(--control-transparent-bgColor-hover)]',
+          ),
+          className,
+        )}
+        data-component="ActionMenu.SubmenuTrigger"
+        data-selected={selected || undefined}
+      >
+        <MenuItemContent
+          loading={loading}
+          resolvedContent={accessibility.resolvedContent}
+          selected={selected}
+          supportingText={inactiveText}
+          supportingTextId={accessibility.supportingTextId}
+        />
+        {loading && loadingText ? (
+          <span className="primer:sr-only" id={accessibility.loadingTextId}>
+            {loadingText}
+          </span>
+        ) : null}
+      </Menu.SubmenuTrigger>
+    </ActionMenuInsideSubmenuTriggerContext.Provider>
   )
 })
 

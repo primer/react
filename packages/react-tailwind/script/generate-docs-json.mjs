@@ -565,6 +565,274 @@ function readStoryIds(directory) {
 const defaultConflicts = []
 const opaqueDefaults = []
 const elementConflicts = []
+const guardrailErrors = []
+
+const KEBAB_CASE_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+const VALID_GUIDANCE_VALUES = new Set(['do', 'dont'])
+const VALID_CHECK_VALUES = new Set(['runtime', 'review'])
+const ALLOWED_GUARDRAIL_KEYS = new Set(['experimental', 'builtInBehaviors', 'defaultBehaviors', 'usageGuidelines'])
+
+function hasTypedPropOnComponent(checker, componentName, partSegments, propName) {
+  const indexPath = path.join(packageDirectory, 'src/components', componentName, 'index.ts')
+  if (!fs.existsSync(indexPath)) return false
+  const exported = readExportedValues(checker, indexPath)
+  const root = exported.get(componentName)
+  if (!root) return false
+
+  let currentSymbol = root.symbol
+  let currentType = root.type
+  for (const segment of partSegments) {
+    const part = readParts(checker, currentType).find(candidate => candidate.name === segment)
+    if (!part) return false
+    currentSymbol = part.symbol
+    currentType = part.type
+  }
+
+  const node = currentSymbol.valueDeclaration ?? currentSymbol.declarations?.[0]
+  if (!node) return false
+  for (const signature of currentType.getCallSignatures()) {
+    const parameter = signature.getParameters()[0]
+    if (!parameter) continue
+    const propsType = checker.getTypeOfSymbolAtLocation(parameter, parameter.valueDeclaration ?? node)
+    if (checker.getApparentType(propsType).getProperty(propName) !== undefined) return true
+  }
+  return false
+}
+
+function resolveOverrideTarget(ownerComponent, overrideEntry, allComponentNames) {
+  const segments = String(overrideEntry).split('.').filter(Boolean)
+  if (segments.length === 0 || segments.length !== String(overrideEntry).split('.').length) return undefined
+  if (segments.length === 1) {
+    return {targetComponent: ownerComponent, partSegments: [], propName: segments[0]}
+  }
+  if (segments[0] === ownerComponent) {
+    return {targetComponent: ownerComponent, partSegments: segments.slice(1, -1), propName: segments.at(-1)}
+  }
+  if (allComponentNames.has(segments[0])) {
+    return {targetComponent: segments[0], partSegments: segments.slice(1, -1), propName: segments.at(-1)}
+  }
+  return {targetComponent: ownerComponent, partSegments: segments.slice(0, -1), propName: segments.at(-1)}
+}
+
+let cachedGuardrailIndex
+
+function getGuardrailIndex(checker) {
+  if (cachedGuardrailIndex) return cachedGuardrailIndex
+  const allComponentNames = new Set(
+    glob.sync('src/components/*/README.mdx', {cwd: packageDirectory}).map(file => path.basename(path.dirname(file))),
+  )
+  const componentNameById = new Map([...allComponentNames].map(name => [name.toLowerCase(), name]))
+  const ownGuardrails = new Map()
+  const reverseByTargetId = new Map()
+
+  const guardrailFiles = glob.sync('src/components/*/*.guardrails.json', {cwd: packageDirectory, absolute: true}).sort()
+  for (const file of guardrailFiles) {
+    const componentName = path.basename(path.dirname(file))
+    const expectedBase = `${componentName}.guardrails.json`
+    if (path.basename(file) !== expectedBase) {
+      guardrailErrors.push(`${path.relative(packageDirectory, file)}: filename must be ${expectedBase}.`)
+      continue
+    }
+
+    let parsed
+    try {
+      parsed = JSON.parse(fs.readFileSync(file, 'utf8'))
+    } catch (error) {
+      guardrailErrors.push(`${componentName}: invalid JSON in ${expectedBase}: ${error.message}`)
+      continue
+    }
+
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      guardrailErrors.push(`${componentName}: ${expectedBase} must contain a JSON object.`)
+      continue
+    }
+
+    for (const key of Object.keys(parsed)) {
+      if (!ALLOWED_GUARDRAIL_KEYS.has(key)) {
+        guardrailErrors.push(`${componentName}: unknown top-level key "${key}" in ${expectedBase}.`)
+      }
+    }
+
+    if (typeof parsed.experimental !== 'boolean') {
+      guardrailErrors.push(`${componentName}: ${expectedBase} must set boolean "experimental".`)
+    }
+
+    const seenIds = new Set()
+    const builtInBehaviors = Array.isArray(parsed.builtInBehaviors) ? parsed.builtInBehaviors : []
+    const defaultBehaviors = Array.isArray(parsed.defaultBehaviors) ? parsed.defaultBehaviors : []
+    const rawGuidelines = Array.isArray(parsed.usageGuidelines) ? parsed.usageGuidelines : []
+    if (parsed.builtInBehaviors !== undefined && !Array.isArray(parsed.builtInBehaviors)) {
+      guardrailErrors.push(`${componentName}: "builtInBehaviors" in ${expectedBase} must be an array.`)
+    }
+    if (parsed.defaultBehaviors !== undefined && !Array.isArray(parsed.defaultBehaviors)) {
+      guardrailErrors.push(`${componentName}: "defaultBehaviors" in ${expectedBase} must be an array.`)
+    }
+    if (parsed.usageGuidelines !== undefined && !Array.isArray(parsed.usageGuidelines)) {
+      guardrailErrors.push(`${componentName}: "usageGuidelines" in ${expectedBase} must be an array.`)
+    }
+
+    const ensureRelatedBucket = targetId => {
+      if (!reverseByTargetId.has(targetId)) reverseByTargetId.set(targetId, new Map())
+      const bySource = reverseByTargetId.get(targetId)
+      if (!bySource.has(componentName)) {
+        bySource.set(componentName, {
+          sourceComponent: componentName,
+          builtInBehaviors: [],
+          defaultBehaviors: [],
+          usageGuidelines: [],
+        })
+      }
+      return bySource.get(componentName)
+    }
+
+    const validateRelated = (ruleId, related) => {
+      if (related === undefined) return []
+      if (!Array.isArray(related) || related.length === 0) {
+        guardrailErrors.push(`${componentName} (${ruleId}): "related" must be a non-empty array when provided.`)
+        return []
+      }
+      const validTargets = []
+      for (const rel of related) {
+        if (typeof rel !== 'string' || !componentNameById.has(rel)) {
+          guardrailErrors.push(`${componentName} (${ruleId}): unknown related component id "${rel}".`)
+        } else if (rel === componentName.toLowerCase()) {
+          guardrailErrors.push(`${componentName} (${ruleId}): "related" must not reference "${rel}" itself.`)
+        } else {
+          validTargets.push(rel)
+        }
+      }
+      return validTargets
+    }
+
+    for (const behavior of builtInBehaviors) {
+      const id = behavior?.id
+      if (typeof id !== 'string' || !KEBAB_CASE_ID.test(id)) {
+        guardrailErrors.push(`${componentName}: builtInBehavior id "${id}" must be kebab-case.`)
+        continue
+      }
+      if (seenIds.has(id)) {
+        guardrailErrors.push(`${componentName}: duplicate guardrail id "${id}".`)
+      }
+      seenIds.add(id)
+
+      if (typeof behavior.description !== 'string' || behavior.description.trim().length === 0) {
+        guardrailErrors.push(`${componentName} (${id}): builtInBehavior description must be a non-empty string.`)
+      }
+      if (behavior.overriddenBy !== undefined) {
+        guardrailErrors.push(
+          `${componentName} (${id}): builtInBehaviors cannot declare "overriddenBy"; move to "defaultBehaviors".`,
+        )
+      }
+
+      const relatedTargets = validateRelated(id, behavior.related)
+      for (const targetId of relatedTargets) {
+        ensureRelatedBucket(targetId).builtInBehaviors.push({
+          id: behavior.id,
+          description: behavior.description,
+        })
+      }
+    }
+
+    for (const behavior of defaultBehaviors) {
+      const id = behavior?.id
+      if (typeof id !== 'string' || !KEBAB_CASE_ID.test(id)) {
+        guardrailErrors.push(`${componentName}: defaultBehavior id "${id}" must be kebab-case.`)
+        continue
+      }
+      if (seenIds.has(id)) {
+        guardrailErrors.push(`${componentName}: duplicate guardrail id "${id}".`)
+      }
+      seenIds.add(id)
+
+      if (typeof behavior.description !== 'string' || behavior.description.trim().length === 0) {
+        guardrailErrors.push(`${componentName} (${id}): defaultBehavior description must be a non-empty string.`)
+      }
+      if (!Array.isArray(behavior.overriddenBy) || behavior.overriddenBy.length === 0) {
+        guardrailErrors.push(
+          `${componentName} (${id}): defaultBehaviors must declare a non-empty "overriddenBy" array.`,
+        )
+      } else {
+        for (const entry of behavior.overriddenBy) {
+          const resolved = resolveOverrideTarget(componentName, entry, allComponentNames)
+          if (
+            !resolved ||
+            !hasTypedPropOnComponent(checker, resolved.targetComponent, resolved.partSegments, resolved.propName)
+          ) {
+            guardrailErrors.push(
+              `${componentName} (${id}): overriddenBy "${entry}" does not match a documented or typed prop.`,
+            )
+          }
+        }
+      }
+
+      const relatedTargets = validateRelated(id, behavior.related)
+      for (const targetId of relatedTargets) {
+        ensureRelatedBucket(targetId).defaultBehaviors.push({
+          id: behavior.id,
+          overriddenBy: behavior.overriddenBy,
+          description: behavior.description,
+        })
+      }
+    }
+
+    let seenDont = false
+    for (const guideline of rawGuidelines) {
+      const id = guideline?.id
+      if (typeof id !== 'string' || !KEBAB_CASE_ID.test(id)) {
+        guardrailErrors.push(`${componentName}: usageGuideline id "${id}" must be kebab-case.`)
+        continue
+      }
+      if (seenIds.has(id)) {
+        guardrailErrors.push(`${componentName}: duplicate guardrail id "${id}".`)
+      }
+      seenIds.add(id)
+
+      if (!VALID_GUIDANCE_VALUES.has(guideline.guidance)) {
+        guardrailErrors.push(`${componentName} (${id}): invalid guidance "${guideline.guidance}".`)
+      }
+      if (guideline.guidance === 'dont') {
+        seenDont = true
+      } else if (guideline.guidance === 'do' && seenDont) {
+        guardrailErrors.push(
+          `${componentName} (${id}): group all "do" guidelines before "dont" guidelines in ${expectedBase}.`,
+        )
+      }
+      if (!VALID_CHECK_VALUES.has(guideline.check)) {
+        guardrailErrors.push(
+          `${componentName} (${id}): invalid check "${guideline.check}" (expected "runtime" or "review").`,
+        )
+      }
+      if (typeof guideline.description !== 'string' || guideline.description.trim().length === 0) {
+        guardrailErrors.push(`${componentName} (${id}): usageGuideline description must be a non-empty string.`)
+      }
+
+      const relatedTargets = validateRelated(id, guideline.related)
+      for (const targetId of relatedTargets) {
+        ensureRelatedBucket(targetId).usageGuidelines.push({
+          id: guideline.id,
+          guidance: guideline.guidance,
+          check: guideline.check,
+          description: guideline.description,
+        })
+      }
+    }
+
+    const usageGuidelines = [
+      ...rawGuidelines.filter(item => item.guidance === 'do'),
+      ...rawGuidelines.filter(item => item.guidance !== 'do'),
+    ]
+
+    ownGuardrails.set(componentName, {
+      experimental: Boolean(parsed.experimental),
+      builtInBehaviors,
+      defaultBehaviors,
+      usageGuidelines,
+    })
+  }
+
+  cachedGuardrailIndex = {ownGuardrails, reverseByTargetId}
+  return cachedGuardrailIndex
+}
 
 /**
  * The implementation's default is what actually happens; a JSDoc `@default` covers props it only forwards, and
@@ -756,6 +1024,27 @@ export function buildDocs(componentName) {
   if (documented.length > 0) docs.subcomponents = documented
   if (namesake?.passthrough) docs.passthrough = namesake.passthrough
 
+  const {ownGuardrails, reverseByTargetId} = getGuardrailIndex(checker)
+  const own = ownGuardrails.get(componentName)
+  if (own) {
+    if (own.experimental) docs.guardrailsExperimental = true
+    if (own.builtInBehaviors.length > 0) docs.builtInBehaviors = own.builtInBehaviors
+    if (own.defaultBehaviors.length > 0) docs.defaultBehaviors = own.defaultBehaviors
+    if (own.usageGuidelines.length > 0) docs.usageGuidelines = own.usageGuidelines
+  }
+  const relatedMap = reverseByTargetId.get(docs.id)
+  if (relatedMap && relatedMap.size > 0) {
+    docs.relatedGuardrails = [...relatedMap.values()]
+      .map(group => ({
+        ...group,
+        usageGuidelines: [
+          ...group.usageGuidelines.filter(item => item.guidance === 'do'),
+          ...group.usageGuidelines.filter(item => item.guidance !== 'do'),
+        ],
+      }))
+      .sort((a, b) => a.sourceComponent.localeCompare(b.sourceComponent))
+  }
+
   return docs
 }
 
@@ -792,6 +1081,11 @@ if (import.meta.filename === process.argv[1]) {
     console.error(
       `  The props type and the as default name different elements:\n    ${elementConflicts.join('\n    ')}`,
     )
+    process.exitCode = 1
+  }
+  if (guardrailErrors.length > 0) {
+    // eslint-disable-next-line no-console
+    console.error(`  Invalid guardrails configuration:\n    ${guardrailErrors.join('\n    ')}`)
     process.exitCode = 1
   }
   if (unresolved.length > 0) {

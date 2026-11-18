@@ -356,5 +356,87 @@
   "passthrough": {
     "element": "Dialog.Root",
     "url": "https://base-ui.com/react/components/dialog#root"
-  }
+  },
+  "guardrailsExperimental": true,
+  "builtInBehaviors": [
+    {
+      "id": "modal-focus-containment",
+      "description": "Modal dialogs move initial focus inside the popup, keep Tab traversal contained while open, and restore focus to the opening trigger when dismissed."
+    },
+    {
+      "id": "title-wires-accessible-name",
+      "description": "Rendering Dialog.Title automatically names the dialog popup via aria-labelledby, and Dialog.Subtitle or Dialog.Description wires its accessible description."
+    },
+    {
+      "id": "escape-respects-inner-overlays",
+      "related": [
+        "tooltip",
+        "actionmenu"
+      ],
+      "description": "Pressing Escape inside an open Dialog closes an open inner menu or hovered tooltip first before dismissing the Dialog itself."
+    }
+  ],
+  "defaultBehaviors": [
+    {
+      "id": "return-focus-target",
+      "overriddenBy": [
+        "Dialog.Content.finalFocus"
+      ],
+      "description": "Closing the dialog returns focus to the element that triggered it unless overridden with finalFocus."
+    }
+  ],
+  "usageGuidelines": [
+    {
+      "id": "provide-dialog-title",
+      "guidance": "do",
+      "check": "review",
+      "description": "Include Dialog.Title inside Dialog.Header or Dialog.Content (or pass aria-label on Dialog.Content) so screen readers announce the dialog's purpose."
+    },
+    {
+      "id": "use-dialog-close-for-cancel",
+      "guidance": "do",
+      "check": "review",
+      "description": "Wrap Cancel actions with Dialog.Close render={<Button>Cancel</Button>} or include Dialog.CloseButton so keyboard and pointer users have a clear dismissal control."
+    },
+    {
+      "id": "missing-accessible-name",
+      "guidance": "dont",
+      "check": "runtime",
+      "description": "Place plain text directly in Dialog.Header without wrapping the heading in Dialog.Title; Dialog.Header is a layout container and does not name the dialog."
+    }
+  ],
+  "relatedGuardrails": [
+    {
+      "sourceComponent": "ActionMenu",
+      "builtInBehaviors": [
+        {
+          "id": "escape-closes-topmost-layer",
+          "description": "Pressing Escape dismisses one open layer at a time, closing an open submenu, menu, or hovered tooltip without closing an underlying Dialog."
+        }
+      ],
+      "defaultBehaviors": [
+        {
+          "id": "dialog-returns-focus-to-trigger",
+          "overriddenBy": [
+            "Dialog.Content.finalFocus"
+          ],
+          "description": "When a menu item opens a controlled Dialog, closing that Dialog returns keyboard focus to the menu trigger button automatically."
+        }
+      ],
+      "usageGuidelines": [
+        {
+          "id": "render-dialog-outside-menu-content",
+          "guidance": "do",
+          "check": "review",
+          "description": "Render controlled Dialogs opened from menu items outside ActionMenu.Content so closing the menu does not unmount the open dialog."
+        },
+        {
+          "id": "confirm-irreversible-danger-actions",
+          "guidance": "dont",
+          "check": "review",
+          "description": "Trigger an irreversible danger action (such as deleting data) immediately without a confirmation Dialog or undo path."
+        }
+      ]
+    }
+  ]
 }
