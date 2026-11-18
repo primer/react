@@ -22,6 +22,22 @@
       "types": "./dist/next/index.d.ts",
       "default": "./dist/next/index.js"
     },
+    "./docs": {
+      "types": "./dist/docs/index.d.ts",
+      "default": "./dist/docs/index.js"
+    },
+    "./docs/experimental": {
+      "types": "./dist/docs/experimental.d.ts",
+      "default": "./dist/docs/experimental.js"
+    },
+    "./docs/deprecated": {
+      "types": "./dist/docs/deprecated.d.ts",
+      "default": "./dist/docs/deprecated.js"
+    },
+    "./docs/next": {
+      "types": "./dist/docs/next.d.ts",
+      "default": "./dist/docs/next.js"
+    },
     "./test-helpers": {
       "types": "./dist/test-helpers.d.ts",
       "default": "./dist/test-helpers.js"
@@ -62,6 +78,7 @@
     "design-system"
   ],
   "files": [
+    "docs",
     "dist",
     "generated",
     "CHANGELOG.md"
