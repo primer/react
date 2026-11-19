@@ -132,11 +132,18 @@
   height: var(--avatar-stack-size);
   overflow: hidden;
   flex-shrink: 0;
-  transition:
-    margin 0.2s ease-in-out,
-    opacity 0.2s ease-in-out,
-    mask-position 0.2s ease-in-out,
-    mask-size 0.2s ease-in-out;
+
+  /* The hover reveal slides each avatar across the screen, so it is opt-in like
+     the rest of the library (Skeleton, ProgressBar, SegmentedControl). The
+     expanded positions come from the `:hover` rules below, so with motion
+     reduced every avatar is still revealed - it just happens immediately. */
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      margin 0.2s ease-in-out,
+      opacity 0.2s ease-in-out,
+      mask-position 0.2s ease-in-out,
+      mask-size 0.2s ease-in-out;
+  }
 
   /* stylelint-disable-next-line selector-no-qualifying-type */
   .AvatarStack:where([data-shape='circle']) &:is(img) {
