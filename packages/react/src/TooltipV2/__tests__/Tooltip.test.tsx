@@ -273,6 +273,37 @@ describe('Tooltip with empty text', () => {
     expect(getTooltipElement(container).matches(':popover-open')).toBe(false)
   })
 
+  it.each([' ', '\t\n', '\u00a0'])('treats whitespace-only text as empty: %j', async text => {
+    const {container} = HTMLRender(<TooltipComponentWithExistingDescription text={text} />)
+    const trigger = page.getByRole('button', {name: 'Button Text', exact: true})
+    await userEvent.tab()
+    expect(trigger.element()).toHaveFocus()
+    expect(trigger.element()).toHaveAttribute('aria-describedby', 'external-description')
+    expect(getTooltipElement(container).matches(':popover-open')).toBe(false)
+  })
+
+  it('closes and removes the label when text becomes whitespace-only', async () => {
+    const {container, rerender} = HTMLRender(<TooltipComponent type="label" />)
+    const tooltip = getTooltipElement(container)
+    await userEvent.tab()
+    expect(tooltip.matches(':popover-open')).toBe(true)
+
+    rerender(<TooltipComponent type="label" text=" " />)
+    await expect.poll(() => tooltip.matches(':popover-open')).toBe(false)
+    expect(page.getByRole('button', {name: 'Button Text', exact: true}).element()).not.toHaveAttribute(
+      'aria-labelledby',
+    )
+  })
+
+  it('opens and labels the trigger for whitespace-only text with a keybinding hint', async () => {
+    const {container} = HTMLRender(<TooltipComponent type="label" text=" " keybindingHint="Control+K" />)
+    await userEvent.tab()
+    const trigger = page.getByRole('button', {name: '(control k)', exact: true})
+    expect(trigger.element()).toHaveFocus()
+    expect(trigger.element()).toHaveAttribute('aria-labelledby')
+    expect(getTooltipElement(container).matches(':popover-open')).toBe(true)
+  })
+
   it('closes an open tooltip when the text becomes empty', async () => {
     const {container, rerender} = HTMLRender(<TooltipComponent />)
     const tooltip = getTooltipElement(container)
@@ -304,14 +335,14 @@ describe('Tooltip with empty text', () => {
     }
   })
 
-  it('does not open from a pending hover when the text is still empty after the delay elapses', () => {
+  it.each(['', ' \t'])('does not open from a pending hover when the text is still empty: %j', text => {
     vi.useFakeTimers()
     try {
       const {container, rerender, getByRole} = HTMLRender(<TooltipComponent />)
       const tooltip = getTooltipElement(container)
 
       fireEvent.mouseOver(getByRole('button'))
-      rerender(<TooltipComponent text="" />)
+      rerender(<TooltipComponent text={text} />)
       act(() => {
         vi.advanceTimersByTime(100)
       })

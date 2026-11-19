@@ -20,7 +20,7 @@ export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
   direction?: TooltipDirection
   /**
-   * The text to display in the tooltip. When this is an empty string and there is no `keybindingHint`, the tooltip
+   * The text to display in the tooltip. When this is empty or only whitespace and there is no `keybindingHint`, the tooltip
    * does not open and does not label or describe the trigger. Use this to turn a tooltip off conditionally while
    * keeping the trigger mounted, so that it keeps focus.
    */
@@ -147,7 +147,8 @@ export const Tooltip: ForwardRefExoticComponent<
 
     // Normalize keybindingHint to an array for uniform rendering
     const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
-    const hasContent = Boolean(text) || keybindingHints.length > 0
+    const hasText = Boolean(text.trim())
+    const hasContent = hasText || keybindingHints.length > 0
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
@@ -420,7 +421,7 @@ export const Tooltip: ForwardRefExoticComponent<
                 <span
                   className={clsx(
                     classes.KeybindingHintContainer,
-                    text && classes.HasTextBefore,
+                    hasText && classes.HasTextBefore,
                     keybindingHints.length > 1 && classes.HasMultipleHints,
                   )}
                   aria-hidden

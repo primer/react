@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Tooltip: An empty `text` no longer opens an empty tooltip or labels/describes the trigger, so a tooltip can be turned off conditionally without remounting its trigger.
+Tooltip: Empty or whitespace-only text no longer opens a tooltip or labels or describes the trigger when there is no keybinding hint.
