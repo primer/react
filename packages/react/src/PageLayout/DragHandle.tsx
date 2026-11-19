@@ -215,15 +215,19 @@ export const DragHandle = memo<DragHandleProps>(function DragHandle({
     [endDragging],
   )
 
-  // Cleanup rAF on unmount to prevent stale callbacks
   React.useEffect(() => {
     return () => {
       if (rafIdRef.current !== null) {
         cancelAnimationFrame(rafIdRef.current)
         rafIdRef.current = null
+        pendingClientXRef.current = null
+      }
+      if (isDraggingRef.current) {
+        endDragging()
+        stableOnDragEnd.current()
       }
     }
-  }, [])
+  }, [endDragging])
 
   return (
     <div

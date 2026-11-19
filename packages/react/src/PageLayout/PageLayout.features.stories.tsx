@@ -403,7 +403,11 @@ export const SidebarEnd: StoryFn = () => (
   </PageLayout>
 )
 
-export const ResizableSidebar: StoryFn = () => (
+export const ResizableSidebar: StoryFn<{minWidth: number; defaultWidth: number; maxWidth: number}> = ({
+  minWidth,
+  defaultWidth,
+  maxWidth,
+}) => (
   <PageLayout containerWidth="full">
     <PageLayout.Sidebar
       resizable
@@ -411,9 +415,9 @@ export const ResizableSidebar: StoryFn = () => (
       aria-label="Resizable sidebar"
       style={{height: 'auto'}}
       width={{
-        min: '200px',
-        default: '300px',
-        max: '2000px',
+        min: `${minWidth}px`,
+        default: `${defaultWidth}px`,
+        max: `${maxWidth}px`,
       }}
     >
       <Placeholder height="100%" label="Resizable Sidebar" />
@@ -432,6 +436,22 @@ export const ResizableSidebar: StoryFn = () => (
     </PageLayout.Footer>
   </PageLayout>
 )
+
+ResizableSidebar.args = {
+  minWidth: 200,
+  defaultWidth: 300,
+  maxWidth: 2000,
+}
+
+ResizableSidebar.argTypes = {
+  minWidth: {description: 'Minimum sidebar width in pixels.', control: {type: 'number', min: 0, step: 1}},
+  defaultWidth: {description: 'Default sidebar width in pixels.', control: {type: 'number', min: 0, step: 1}},
+  maxWidth: {description: 'Maximum sidebar width in pixels.', control: {type: 'number', min: 0, step: 1}},
+}
+
+ResizableSidebar.parameters = {
+  controls: {include: ['minWidth', 'defaultWidth', 'maxWidth']},
+}
 
 export const SidebarWithPaneResizable: StoryFn = () => (
   <PageLayout containerWidth="full">
