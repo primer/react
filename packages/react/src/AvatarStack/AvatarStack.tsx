@@ -72,7 +72,7 @@ const AvatarStack = ({
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const stackContainer = useRef<HTMLDivElement>(null)
 
-  const count = React.Children.count(children)
+  const count = React.Children.toArray(children).length
 
   const getAvatarChildSizes = () => {
     const avatarSizeMap: Record<WidthOnlyViewportRangeKeys, number[]> = {

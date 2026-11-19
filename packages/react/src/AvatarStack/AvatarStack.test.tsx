@@ -39,6 +39,19 @@ describe('AvatarStack', () => {
     })
   })
 
+  it('counts only rendered avatars when optional children are omitted', async () => {
+    const {container} = render(
+      <AvatarStack>
+        <img src="/avatar.png" alt="" />
+        {null}
+        {false}
+      </AvatarStack>,
+    )
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="AvatarStack"]'))
+      .toHaveAttribute('data-avatar-count', '1')
+  })
+
   it('respects alignRight props', async () => {
     const {container} = render(rightAvatarComp)
     const root = container.querySelector<HTMLElement>('[data-component="AvatarStack"]')
