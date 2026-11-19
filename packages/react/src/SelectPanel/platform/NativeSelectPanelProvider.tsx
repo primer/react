@@ -10,11 +10,14 @@ export function NativeSelectPanelProvider({children, enabled = true}: {children:
   const invokersFlag = useFeatureFlag('primer_react_select_panel_native_invokers')
   const capabilities = React.useSyncExternalStore(subscribe, nativeSelectPanelCapabilities, serverCapabilities)
   const [targetId, setTargetId] = React.useState<string>()
+  const [modal, setModal] = React.useState(false)
   return (
     <NativeSelectPanelContext.Provider
       value={{
         dialog: enabled && dialogFlag && capabilities !== 'unsupported',
         invokers: enabled && dialogFlag && invokersFlag && capabilities === 'invokers',
+        modal,
+        setModal,
         targetId,
         setTargetId,
       }}

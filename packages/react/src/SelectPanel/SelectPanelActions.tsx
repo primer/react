@@ -42,7 +42,7 @@ export const SelectPanelCloseButton = React.forwardRef<HTMLButtonElement, Select
         variant={variant}
         type={props.loading ? 'button' : type}
         ref={ref}
-        {...(invokers ? nativeInvokerProps(state.panelId, 'close') : {})}
+        {...(invokers ? nativeInvokerProps(state.panelId, native.modal ? 'close' : 'hide-popover') : {})}
         onClick={event => {
           onClick?.(event)
           if (!event.defaultPrevented && !props.disabled) {

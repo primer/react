@@ -81,7 +81,9 @@ export const SelectPanelTrigger = React.forwardRef<HTMLButtonElement, SelectPane
       'aria-haspopup': 'dialog',
       'aria-expanded': open,
       'aria-controls': open ? panelId : undefined,
-      ...(invokers ? nativeInvokerProps(panelId, 'show-modal') : {}),
+      ...(invokers
+        ? nativeInvokerProps(panelId, native.modal ? (open ? 'close' : 'show-modal') : 'toggle-popover')
+        : {}),
       onClick: event => {
         if (formControlProps.disabled) {
           event.preventDefault()

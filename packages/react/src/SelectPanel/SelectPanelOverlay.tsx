@@ -23,8 +23,9 @@ export interface SelectPanelOverlayProps
   onOpen?: AnchoredOverlayProps['onOpen']
   onClose?: AnchoredOverlayProps['onClose']
   /**
-   * Presentation is independent of modality: every composed overlay is a modal dialog.
    * Defaults to anchored on regular viewports and fullscreen on narrow viewports.
+   * With the native adapter, anchored overlays are non-modal popovers; modal,
+   * bottom-sheet, and fullscreen variants use a modal dialog.
    */
   variant?: {
     regular?: 'anchored' | 'modal'

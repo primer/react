@@ -60,8 +60,9 @@
     max-width: none;
   }
 
-  &::backdrop {
-    background: transparent;
+  &:where([data-variant='anchored'], [data-variant='fullscreen'])::backdrop {
+    /* Override unlayered application dialog backdrop styles. */
+    background: transparent !important;
   }
 
   &:where([data-variant='modal'], [data-variant='bottom-sheet'])::backdrop {

@@ -42,7 +42,7 @@ export function NativeSelectPanelOverlay({
   configured = false,
 }: SelectPanelOverlayProps & {configured?: boolean}) {
   const state = useSelectPanelContext()
-  const {invokers, setTargetId} = useNativeSelectPanel()
+  const {invokers, setTargetId, setModal} = useNativeSelectPanel()
   const dialogRef = React.useRef<HTMLDialogElement>(null)
   const [portalRevision, onPortalMount] = React.useReducer((revision: number) => revision + 1, 0)
   const anchorRef = suppliedAnchorRef ?? state.anchorRef
@@ -58,6 +58,7 @@ export function NativeSelectPanelOverlay({
       narrow: variant?.narrow ?? (configured ? (variant?.regular ?? 'anchored') : 'fullscreen'),
     }
   const currentVariant = useResponsiveValue(responsiveVariant, 'anchored')
+  const modal = currentVariant !== 'anchored'
   const {setPanelId} = state
 
   useLayoutEffect(() => {
@@ -65,6 +66,8 @@ export function NativeSelectPanelOverlay({
     setTargetId(panelId)
     return () => setTargetId(undefined)
   }, [panelId, setPanelId, setTargetId])
+
+  useLayoutEffect(() => setModal(modal), [modal, setModal])
 
   const {position} = useAnchoredPosition(
     {
@@ -136,9 +139,11 @@ export function NativeSelectPanelOverlay({
     <NativeDialogHost
       dialogRef={dialogRef}
       invokers={invokers}
+      modal={modal}
       anchorRef={anchorRef}
       returnFocusRef={overlayProps?.returnFocusRef}
       initialFocusRef={focusTrapSettings?.initialFocusRef ?? overlayProps?.initialFocusRef ?? state.inputRef}
+      ignoreClickRefs={overlayProps?.ignoreClickRefs}
       onDismiss={handleDismiss}
       onCommandOpen={handleOpen}
       dialogProps={{
@@ -184,7 +189,7 @@ export function NativeSelectPanelOverlay({
                 {...closeButtonProps}
                 as="button"
                 className={clsx(anchoredOverlayClasses.ResponsiveCloseButton, closeButtonProps?.className)}
-                {...(invokers ? nativeInvokerProps(panelId, 'close') : {})}
+                {...(invokers ? nativeInvokerProps(panelId, modal ? 'close' : 'hide-popover') : {})}
                 {...(closeButtonProps?.['aria-labelledby']
                   ? {'aria-labelledby': closeButtonProps['aria-labelledby'], 'aria-label': undefined}
                   : {'aria-label': closeButtonProps?.['aria-label'] ?? 'Close', 'aria-labelledby': undefined})}
@@ -210,7 +215,9 @@ export function NativeSelectPanelOverlay({
         'aria-expanded': state.open,
         'aria-controls': state.open ? panelId : undefined,
         tabIndex: configured ? 0 : undefined,
-        ...(anchorInvokers ? nativeInvokerProps(panelId, 'show-modal') : {}),
+        ...(anchorInvokers
+          ? nativeInvokerProps(panelId, modal ? (state.open ? 'close' : 'show-modal') : 'toggle-popover')
+          : {}),
         onClick: (event: React.MouseEvent<HTMLElement>) => {
           if (event.defaultPrevented || event.button !== 0 || event.currentTarget.matches(':disabled')) return
           if (!anchorInvokers) {

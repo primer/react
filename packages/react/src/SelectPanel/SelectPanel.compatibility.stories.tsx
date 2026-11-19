@@ -39,7 +39,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Reuses the existing configured examples, unchanged. Controls reset the example. Turning composable off restores the original configured selection rules, heading and message markup, collection renderer, and AnchoredOverlay host, even if the native flags are on. Explicit compositions are unaffected. Native dialog requires both composable and nativeDialog plus browser support; invokers additionally require nativeInvokers and command support. Native showModal makes even anchored panels truly modal. Save/Cancel and narrow defaults are retained; unsupported legacy positioning, reflow and focus opt-outs use the legacy host.',
+          'Reuses the existing configured examples, unchanged. Controls reset the example. Turning composable off restores the original configured selection rules, heading and message markup, collection renderer, and AnchoredOverlay host, even if the native flags are on. Explicit compositions are unaffected. Native dialog requires both composable and nativeDialog plus dialog and popover support; invokers additionally require nativeInvokers and command support. Native anchored panels are non-modal top-layer popovers; modal, bottom-sheet, and fullscreen variants retain native modality. Save/Cancel and narrow defaults are retained. Non-default positioning strategies, including opposite-side, and unsupported reflow and focus opt-outs use the legacy host.',
       },
     },
   },
@@ -64,14 +64,18 @@ export const Default: StoryObj<typeof meta> = {
     await userEvent.click(body.getByRole('option', {name: /enhancement/}))
     await expect(body.getByRole('option', {name: /enhancement/})).toHaveAttribute('aria-selected', 'true')
     const dialog = body.getByRole('dialog')
-    if (dialog instanceof HTMLDialogElement) {
+    if (dialog instanceof HTMLDialogElement && dialog.matches(':modal')) {
       // Storybook's synthetic keyboard events cannot invoke the browser's
       // dialog cancel action. Real Escape is covered by the browser tests.
       fireEvent(dialog, new Event('cancel', {cancelable: true}))
     } else {
       await userEvent.keyboard('{Escape}')
     }
-    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument())
+    if (dialog instanceof HTMLDialogElement) {
+      await waitFor(() => expect(dialog).not.toBeVisible())
+    } else {
+      await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument())
+    }
   },
 }
 

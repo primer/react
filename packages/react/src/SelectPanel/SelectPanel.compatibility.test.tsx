@@ -257,7 +257,7 @@ describe('Configured adapter compatibility boundaries', () => {
 
   describe.each([false, true])('Configured native compatibility with invokers=%s', invokers => {
     it.each(['anchored', 'modal'] as const)(
-      'matches the composable %s backdrop without changing native modality or dismissal',
+      'matches the composable %s backdrop, modality and dismissal',
       async variant => {
         await page.viewport(1280, 900)
         const composed = render(
@@ -282,15 +282,16 @@ describe('Configured adapter compatibility boundaries', () => {
         await userEvent.click(button)
         const host = page.getByRole('dialog').element()
         if (!(host instanceof HTMLDialogElement)) throw new Error('Expected the configured native dialog')
-        expect(host.matches(':modal')).toBe(true)
+        expect(host.matches(':modal')).toBe(variant === 'modal')
+        expect(host.matches(':popover-open')).toBe(variant === 'anchored')
         expect(getComputedStyle(host, '::backdrop').backgroundColor).toBe(expectedBackdrop)
         await userEvent.keyboard('{Escape}')
-        await expect.poll(() => host.open).toBe(false)
+        await expect.poll(() => host.matches(':modal, :popover-open')).toBe(false)
         await expect.element(button).toHaveFocus()
       },
     )
 
-    it('uses the shared modal host and preserves object identity and callback order', async () => {
+    it('uses the shared non-modal host and preserves object identity and callback order', async () => {
       await page.viewport(1280, 900)
       const calls: unknown[] = []
       function Example() {
@@ -322,10 +323,10 @@ describe('Configured adapter compatibility boundaries', () => {
       expect(host).toBeInstanceOf(HTMLDialogElement)
       expect(document.querySelector('[data-component="SelectPanel.Collection"]')).toBeNull()
       await userEvent.click(button)
-      await expect.poll(() => host?.matches(':modal')).toBe(true)
+      await expect.poll(() => host?.matches(':popover-open')).toBe(true)
       await expect.element(configuredSearch()).toHaveFocus()
       await userEvent.click(page.getByRole('option', {name: 'No ID', exact: true}))
-      await expect.poll(() => host?.open).toBe(false)
+      await expect.poll(() => host?.matches(':popover-open')).toBe(false)
       expect(calls).toEqual([[true, 'anchor-click'], choices[1], [false, 'selection']])
       expect(calls[1]).toBe(choices[1])
       await expect.element(button).toHaveFocus()
@@ -449,7 +450,7 @@ describe('Configured adapter compatibility boundaries', () => {
       expect(onSelectedChange).toHaveBeenCalledExactlyOnceWith([hidden, choices[0]])
       expect(onSelectedChange.mock.calls[0][0][0]).toBe(hidden)
       expect(onSelectedChange.mock.calls[0][0][1]).toBe(choices[0])
-      expect(document.querySelector('dialog')?.matches(':modal')).toBe(true)
+      expect(document.querySelector('dialog')?.matches(':popover-open')).toBe(true)
     })
 
     it('supports external anchors without injecting invoker behavior', async () => {
@@ -458,7 +459,7 @@ describe('Configured adapter compatibility boundaries', () => {
       expect(button.element()).not.toHaveAttribute('command')
       await userEvent.click(button)
       await expect.element(configuredSearch()).toHaveFocus()
-      expect(document.querySelector('dialog')?.matches(':modal')).toBe(true)
+      expect(document.querySelector('dialog')?.matches(':popover-open')).toBe(true)
       await userEvent.keyboard('{Escape}')
       await expect.element(button).toHaveFocus()
     })
@@ -621,7 +622,7 @@ describe('Configured adapter compatibility boundaries', () => {
       const button = page.getByRole('button', {name: /bug/})
       expect(button.element()).not.toHaveAttribute('command')
       await userEvent.click(button)
-      expect(document.querySelector('dialog')?.matches(':modal')).toBe(true)
+      expect(document.querySelector('dialog')?.matches(':popover-open')).toBe(true)
     })
 
     it.each([
@@ -634,6 +635,7 @@ describe('Configured adapter compatibility boundaries', () => {
       {overlayProps: {preventOverflow: false}},
       {overlayProps: {ignoreClickRefs: [React.createRef<HTMLElement>()]}},
       {cssAnchorPositioningSettings: {fallbackStrategy: 'none' as const}},
+      {cssAnchorPositioningSettings: {fallbackStrategy: 'opposite-side' as const}},
     ])('retains the legacy implementation for unsupported meaningful props: %j', async props => {
       render(
         configured(
@@ -666,13 +668,14 @@ describe('Configured adapter compatibility boundaries', () => {
       )
       await userEvent.click(page.getByRole('button', {name: /bug/}))
       const host = document.querySelector('dialog')
-      expect(host?.matches(':modal')).toBe(true)
+      expect(host?.matches(':modal')).toBe(fullscreen)
+      expect(host?.matches(':popover-open')).toBe(!fullscreen)
       expect(host).toHaveAttribute('data-variant', fullscreen ? 'fullscreen' : 'anchored')
       expect(getComputedStyle(page.getByRole('dialog').element(), '::backdrop').backgroundColor).toBe(
         'rgba(0, 0, 0, 0)',
       )
       if (fullscreen) expect(Math.round(host?.getBoundingClientRect().height ?? 0)).toBe(844)
-      await expect.poll(() => document.body.style.overflow).toBe('hidden')
+      await expect.poll(() => document.body.style.overflow).toBe(fullscreen ? 'hidden' : overflow)
       unmount()
       expect(document.body.style.overflow).toBe(overflow)
     })

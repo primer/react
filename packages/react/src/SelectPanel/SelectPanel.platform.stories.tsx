@@ -1,5 +1,10 @@
+import {useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import {expect, waitFor} from 'storybook/test'
+import {Button} from '../Button'
 import {FeatureFlags} from '../FeatureFlags'
+import {SelectPanel} from './SelectPanel'
+import {nativeSelectPanelCapabilities} from './platform/NativeSelectPanelContext'
 import {PlatformSelectPanel} from './platform/PlatformSelectPanel'
 
 interface PlatformStoryArgs {
@@ -94,6 +99,71 @@ export const NativeDialog: Story = {
       <PlatformSelectPanel />
     </FeatureFlags>
   ),
+}
+
+function NativeAnchoredPicker() {
+  const [filter, setFilter] = useState('')
+  return (
+    <SelectPanel.Root filterValue={filter} onFilterChange={setFilter}>
+      <SelectPanel.Trigger>Choose labels</SelectPanel.Trigger>
+      <SelectPanel.Overlay variant={{regular: 'anchored', narrow: 'anchored'}}>
+        <SelectPanel.Content>
+          <SelectPanel.Header>
+            <SelectPanel.Title>Native labels</SelectPanel.Title>
+            <SelectPanel.CloseButton />
+          </SelectPanel.Header>
+          <SelectPanel.SearchInput aria-label="Filter native labels" />
+          <SelectPanel.List aria-label="Native label choices">
+            {['Bug', 'Enhancement', 'Accessibility']
+              .filter(label => label.toLowerCase().includes(filter.toLowerCase()))
+              .map(label => (
+                <SelectPanel.Item key={label} value={label}>
+                  {label}
+                </SelectPanel.Item>
+              ))}
+          </SelectPanel.List>
+        </SelectPanel.Content>
+      </SelectPanel.Overlay>
+    </SelectPanel.Root>
+  )
+}
+
+export const NativeAnchored: Story = {
+  args: {nativeDialog: true, invokers: true},
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Anchored native panels use a manual top-layer popover with dialog semantics, without making the page inert or locking background scrolling. Tab can leave the panel, Escape dismisses it, and clicking a background control preserves its focus. Native invokers use toggle-popover and hide-popover, not show-modal. Turning nativeDialog off retains the compatibility implementation.',
+      },
+    },
+  },
+  render: ({nativeDialog, invokers}) => (
+    <FeatureFlags
+      flags={{
+        primer_react_select_panel_native_dialog: nativeDialog,
+        primer_react_select_panel_native_invokers: invokers,
+      }}
+    >
+      <div style={{minHeight: '140vh'}}>
+        <Button>Background action</Button>
+        <p>Open the picker, then scroll the page, Tab outside it, or activate the background action.</p>
+        <NativeAnchoredPicker />
+      </div>
+    </FeatureFlags>
+  ),
+  play: async ({canvas, userEvent, args}) => {
+    if (!args.nativeDialog || nativeSelectPanelCapabilities() === 'unsupported') return
+    const trigger = canvas.getByRole('button', {name: 'Choose labels'})
+    await userEvent.click(trigger)
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'))
+    const dialog = canvas.getByRole('dialog', {name: 'Native labels'})
+    await expect(dialog).not.toHaveAttribute('aria-modal')
+    const background = canvas.getByRole('button', {name: 'Background action'})
+    await userEvent.click(background)
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
+    await expect(background).toHaveFocus()
+  },
 }
 
 export const Invokers: Story = {

@@ -2,9 +2,8 @@ import type {SelectPanelProps} from '../SelectPanel'
 
 const positionProps = ['position', 'top', 'left', 'right', 'bottom'] as const
 
-// Native modality cannot honor focus opt-outs or outside-click exceptions: the
-// background is inert. Keep these configurations on the legacy host, as well as
-// legacy positioning/reflow options the native surface does not implement.
+// Keep focus opt-outs, outside-click exceptions, and legacy positioning/reflow
+// options on the compatibility host until their native parity is established.
 // Ordinary DOM props, styles, refs, sizing, names, and dismissal overrides are
 // forwarded by NativeSelectPanelOverlay rather than discarded.
 export function supportsConfiguredNativeOverlay({
