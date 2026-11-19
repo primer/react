@@ -343,6 +343,47 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       await expect.element(trigger).toHaveAttribute('aria-expanded', 'false')
     })
 
+    it('reflects popup state on a detached anchor', async () => {
+      function DetachedSelectPanel() {
+        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+        const [filter, setFilter] = React.useState('')
+        const [open, setOpen] = React.useState(false)
+        const anchorRef = React.useRef<HTMLButtonElement>(null)
+
+        return (
+          <>
+            <button type="button" ref={anchorRef} onClick={() => setOpen(isOpen => !isOpen)}>
+              Detached select anchor
+            </button>
+            <SelectPanel
+              title="test title"
+              items={items}
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+              renderAnchor={null}
+              anchorRef={anchorRef}
+              _PrivateFocusManagement={getFocusManagement(usingRemoveActiveDescendant)}
+            />
+          </>
+        )
+      }
+
+      render(<DetachedSelectPanel />)
+
+      const trigger = page.getByRole('button', {name: 'Detached select anchor'})
+      await expect.element(trigger).toHaveAttribute('aria-haspopup', 'true')
+      await expect.element(trigger).toHaveAttribute('aria-expanded', 'false')
+
+      await userEvent.click(trigger)
+      await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
+      await userEvent.keyboard('{Escape}')
+      await expect.element(trigger).toHaveAttribute('aria-expanded', 'false')
+    })
+
     it('should call onActiveDescendantChanged when using keyboard while focusing on an item', async () => {
       // jest function
       const onActiveDescendantChanged = vi.fn()

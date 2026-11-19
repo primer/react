@@ -7,6 +7,7 @@ import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import {ActionMenu} from '.'
 import {ActionList} from '../ActionList'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
 import {Dialog} from '../Dialog'
 import Tooltip from '../Tooltip'
@@ -1204,6 +1205,62 @@ describe('ActionMenu', () => {
       await userEvent.keyboard('{Enter}')
       await expect.element(page.getByRole('menu')).toBeInTheDocument()
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('detached anchor ARIA', () => {
+    it('reflects popup state on an external anchor', async () => {
+      const component = HTMLRender(<ExampleWithReplaceableAnchor />)
+
+      const initialAnchor = component.getByRole('button', {name: 'Open menu'})
+      expect(initialAnchor).toHaveAttribute('aria-haspopup', 'true')
+      expect(initialAnchor).toHaveAttribute('aria-expanded', 'false')
+
+      await userEvent.click(initialAnchor)
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(initialAnchor).toHaveAttribute('aria-expanded', 'true')
+
+      await userEvent.click(component.getByRole('menuitem', {name: 'Switch anchor'}))
+      const newAnchor = component.getByRole('button', {name: 'Open menu'})
+      expect(newAnchor).not.toBe(initialAnchor)
+      expect(newAnchor).toHaveAttribute('aria-haspopup', 'true')
+      expect(newAnchor).toHaveAttribute('aria-expanded', 'true')
+
+      await userEvent.keyboard('{Escape}')
+      expect(component.queryByRole('menu')).toBeNull()
+      expect(newAnchor).toHaveAttribute('aria-expanded', 'false')
+    })
+
+    it('does not manage a raw overlay anchored to a menu item', async () => {
+      function ExampleWithItemPreview(): JSX.Element {
+        const itemRef = useRef<HTMLLIElement>(null)
+        return (
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button>Model</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList selectionVariant="single">
+                  <ActionList.Item ref={itemRef} selected>
+                    Model one
+                  </ActionList.Item>
+                  <ActionList.Item>Model two</ActionList.Item>
+                </ActionList>
+                <AnchoredOverlay open renderAnchor={null} anchorRef={itemRef}>
+                  <div role="tooltip">Model details</div>
+                </AnchoredOverlay>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        )
+      }
+
+      const component = HTMLRender(<ExampleWithItemPreview />)
+      await userEvent.click(component.getByRole('button', {name: 'Model'}))
+
+      expect(component.getByRole('tooltip')).toBeInTheDocument()
+      const item = component.getByRole('menuitemradio', {name: 'Model one'})
+      expect(item).not.toHaveAttribute('aria-haspopup')
+      expect(item).not.toHaveAttribute('aria-expanded')
     })
   })
 

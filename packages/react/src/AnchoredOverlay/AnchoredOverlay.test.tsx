@@ -1,5 +1,5 @@
 import {page, userEvent} from 'vitest/browser'
-import {createRef, useCallback, useRef, useState} from 'react'
+import {createRef, memo, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {act, render} from '@testing-library/react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -252,6 +252,478 @@ describe.each([true, false])(
     })
   },
 )
+
+describe('AnchoredOverlay anchor ARIA', () => {
+  function DetachedOverlayTestComponent({
+    initiallyOpen = false,
+    consumerHasPopup,
+    consumerExpanded,
+    showOverlay = true,
+    anchorKey = 'initial',
+    withCSSAnchorPositioningFeatureFlag = false,
+  }: {
+    initiallyOpen?: boolean
+    consumerHasPopup?: React.AriaAttributes['aria-haspopup']
+    consumerExpanded?: React.AriaAttributes['aria-expanded']
+    showOverlay?: boolean
+    anchorKey?: string
+    withCSSAnchorPositioningFeatureFlag?: boolean
+  }) {
+    const [open, setOpen] = useState(initiallyOpen)
+    const anchorRef = useRef<HTMLButtonElement>(null)
+
+    return (
+      <FeatureFlags flags={{primer_react_css_anchor_positioning: withCSSAnchorPositioningFeatureFlag}}>
+        <BaseStyles>
+          <button
+            key={anchorKey}
+            id={anchorKey}
+            type="button"
+            ref={anchorRef}
+            data-testid="detached-anchor"
+            onClick={() => setOpen(isOpen => !isOpen)}
+            aria-haspopup={consumerHasPopup}
+            aria-expanded={consumerExpanded}
+          >
+            Detached anchor
+          </button>
+          {showOverlay && (
+            <AnchoredOverlay
+              open={open}
+              onOpen={() => setOpen(true)}
+              onClose={() => setOpen(false)}
+              renderAnchor={null}
+              _PrivateManageDetachedAnchorAria
+              anchorRef={anchorRef}
+              anchorId={anchorKey}
+            >
+              <button type="button">Focusable Child</button>
+            </AnchoredOverlay>
+          )}
+        </BaseStyles>
+      </FeatureFlags>
+    )
+  }
+
+  it('does not manage a raw detached anchor by default', async () => {
+    function HoverPreview() {
+      const [open, setOpen] = useState(false)
+      const anchorRef = useRef<HTMLAnchorElement>(null)
+
+      return (
+        <BaseStyles>
+          <a href="#preview" ref={anchorRef} data-testid="anchor" onFocus={() => setOpen(true)}>
+            Preview link
+          </a>
+          <AnchoredOverlay open={open} onClose={() => setOpen(false)} renderAnchor={null} anchorRef={anchorRef}>
+            <div role="tooltip">Preview</div>
+          </AnchoredOverlay>
+        </BaseStyles>
+      )
+    }
+
+    const {getByTestId, getByRole} = render(<HoverPreview />)
+    const anchor = getByTestId('anchor')
+    await act(async () => {})
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).not.toHaveAttribute('aria-expanded')
+
+    act(() => anchor.focus())
+    expect(getByRole('tooltip')).toBeInTheDocument()
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).not.toHaveAttribute('aria-expanded')
+  })
+
+  it('sets aria-haspopup and aria-expanded on a detached anchor when closed', async () => {
+    const {baseElement} = render(<DetachedOverlayTestComponent />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="detached-anchor"]')
+    expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('reflects aria-expanded on a detached anchor when opened and closed', async () => {
+    const {baseElement} = render(<DetachedOverlayTestComponent />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="detached-anchor"]') as HTMLElement
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+
+    await userEvent.click(anchor)
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    await userEvent.click(anchor)
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it.each(['listbox', 'false'] as const)('preserves consumer aria-haspopup="%s"', async consumerHasPopup => {
+    const {baseElement, rerender} = render(<DetachedOverlayTestComponent consumerHasPopup={consumerHasPopup} />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="detached-anchor"]')
+    expect(anchor).toHaveAttribute('aria-haspopup', consumerHasPopup)
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+
+    rerender(<DetachedOverlayTestComponent consumerHasPopup={consumerHasPopup} showOverlay={false} />)
+    expect(anchor).toHaveAttribute('aria-haspopup', consumerHasPopup)
+  })
+
+  it.each(['true', 'listbox'] as const)(
+    'preserves consumer aria-haspopup="%s" supplied after mount',
+    async consumerHasPopup => {
+      const {getByTestId, rerender} = render(<DetachedOverlayTestComponent />)
+      const anchor = getByTestId('detached-anchor')
+      expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+
+      rerender(<DetachedOverlayTestComponent consumerHasPopup={consumerHasPopup} />)
+      expect(anchor).toHaveAttribute('aria-haspopup', consumerHasPopup)
+
+      rerender(<DetachedOverlayTestComponent consumerHasPopup={consumerHasPopup} showOverlay={false} />)
+      expect(anchor).toHaveAttribute('aria-haspopup', consumerHasPopup)
+    },
+  )
+
+  it.each([false, true])('preserves same-value consumer ownership with batched unmount=%s', async batched => {
+    const {getByTestId, rerender} = render(<DetachedOverlayTestComponent />)
+    const anchor = getByTestId('detached-anchor')
+
+    if (!batched) {
+      rerender(<DetachedOverlayTestComponent consumerHasPopup={true} consumerExpanded={false} />)
+      await act(async () => {})
+    }
+
+    rerender(<DetachedOverlayTestComponent consumerHasPopup={true} consumerExpanded={false} showOverlay={false} />)
+    expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('collapses a detached anchor before focus returns to it on Escape', async () => {
+    const {getByTestId} = render(<DetachedOverlayTestComponent />)
+    const anchor = getByTestId('detached-anchor')
+    await userEvent.click(anchor)
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    const expandedOnFocus: Array<string | null> = []
+    anchor.addEventListener('focus', () => expandedOnFocus.push(anchor.getAttribute('aria-expanded')))
+    await userEvent.keyboard('{Escape}')
+
+    expect(anchor).toHaveFocus()
+    expect(expandedOnFocus).toEqual(['false'])
+  })
+
+  it('restores default popup semantics when a consumer removes its override without an overlay render', async () => {
+    const noop = () => {}
+    const MemoizedOverlay = memo(function MemoizedOverlay({
+      anchorRef,
+    }: {
+      anchorRef: React.RefObject<HTMLButtonElement | null>
+    }) {
+      return (
+        <AnchoredOverlay
+          open={false}
+          onOpen={noop}
+          onClose={noop}
+          renderAnchor={null}
+          _PrivateManageDetachedAnchorAria
+          anchorRef={anchorRef}
+        >
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      )
+    })
+    function Consumer({hasPopup}: {hasPopup?: 'listbox'}) {
+      const anchorRef = useRef<HTMLButtonElement>(null)
+      return (
+        <BaseStyles>
+          <button type="button" ref={anchorRef} data-testid="anchor" aria-haspopup={hasPopup}>
+            Anchor
+          </button>
+          <MemoizedOverlay anchorRef={anchorRef} />
+        </BaseStyles>
+      )
+    }
+
+    const {getByTestId, rerender} = render(<Consumer hasPopup="listbox" />)
+    const anchor = getByTestId('anchor')
+    expect(anchor).toHaveAttribute('aria-haspopup', 'listbox')
+
+    rerender(<Consumer />)
+    await expect.poll(() => anchor.getAttribute('aria-haspopup')).toBe('true')
+  })
+
+  it('keeps a shared detached anchor expanded while any of its overlays is open', async () => {
+    function SharedAnchor({
+      menuOpen,
+      panelOpen,
+      mounted = true,
+    }: {
+      menuOpen: boolean
+      panelOpen: boolean
+      mounted?: boolean
+    }) {
+      const anchorRef = useRef<HTMLButtonElement>(null)
+      return (
+        <BaseStyles>
+          <button type="button" ref={anchorRef} data-testid="anchor">
+            Anchor
+          </button>
+          {mounted ? (
+            <>
+              <AnchoredOverlay
+                open={menuOpen}
+                onClose={() => {}}
+                renderAnchor={null}
+                _PrivateManageDetachedAnchorAria
+                anchorRef={anchorRef}
+              >
+                <button type="button">Menu child</button>
+              </AnchoredOverlay>
+              <AnchoredOverlay
+                open={panelOpen}
+                onClose={() => {}}
+                renderAnchor={null}
+                _PrivateManageDetachedAnchorAria
+                anchorRef={anchorRef}
+              >
+                <button type="button">Panel child</button>
+              </AnchoredOverlay>
+            </>
+          ) : null}
+        </BaseStyles>
+      )
+    }
+
+    const {getByTestId, rerender} = render(<SharedAnchor menuOpen panelOpen={false} />)
+    const anchor = getByTestId('anchor')
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(<SharedAnchor menuOpen={false} panelOpen />)
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+    await new Promise(resolve => setTimeout(resolve, 0))
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(<SharedAnchor menuOpen={false} panelOpen={false} />)
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+
+    rerender(<SharedAnchor menuOpen={false} panelOpen={false} mounted={false} />)
+    expect(anchor).not.toHaveAttribute('aria-expanded')
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+  })
+
+  it('resumes its default after a consumer removes their popup override', async () => {
+    const {getByTestId, rerender} = render(<DetachedOverlayTestComponent consumerHasPopup="listbox" />)
+    const anchor = getByTestId('detached-anchor')
+
+    rerender(<DetachedOverlayTestComponent />)
+    await userEvent.click(page.getByTestId('detached-anchor'))
+    expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(<DetachedOverlayTestComponent showOverlay={false} />)
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).not.toHaveAttribute('aria-expanded')
+  })
+
+  it('removes managed ARIA when the overlay unmounts but the detached anchor remains', async () => {
+    const {baseElement, rerender} = render(<DetachedOverlayTestComponent initiallyOpen={true} />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="detached-anchor"]') as HTMLElement
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(<DetachedOverlayTestComponent initiallyOpen={true} showOverlay={false} />)
+    expect(anchor).toBeInTheDocument()
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).not.toHaveAttribute('aria-expanded')
+  })
+
+  it.each([false, true])(
+    'restores consumer expanded state when releasing the anchor (CSS positioning=%s)',
+    async withCSSAnchorPositioningFeatureFlag => {
+      const {getByTestId, rerender} = render(
+        <DetachedOverlayTestComponent
+          consumerExpanded={false}
+          withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
+        />,
+      )
+      const anchor = getByTestId('detached-anchor')
+      expect(anchor).toHaveAttribute('aria-expanded', 'false')
+      rerender(
+        <DetachedOverlayTestComponent
+          consumerExpanded={false}
+          showOverlay={false}
+          withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
+        />,
+      )
+      expect(anchor).toHaveAttribute('aria-expanded', 'false')
+    },
+  )
+
+  it.each([false, true])(
+    'transfers ARIA to a replaced closed anchor when the overlay re-renders (CSS positioning=%s)',
+    async withCSSAnchorPositioningFeatureFlag => {
+      const {getByTestId, rerender} = render(
+        <DetachedOverlayTestComponent withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag} />,
+      )
+      const previousAnchor = getByTestId('detached-anchor')
+      rerender(
+        <DetachedOverlayTestComponent withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag} />,
+      )
+      rerender(
+        <DetachedOverlayTestComponent
+          anchorKey="replacement"
+          withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
+        />,
+      )
+      const replacement = getByTestId('detached-anchor')
+      expect(replacement).not.toBe(previousAnchor)
+      expect(replacement).toHaveAttribute('aria-haspopup', 'true')
+      expect(replacement).toHaveAttribute('aria-expanded', 'false')
+      expect(previousAnchor).not.toHaveAttribute('aria-haspopup')
+      expect(previousAnchor).not.toHaveAttribute('aria-expanded')
+    },
+  )
+
+  it.each(['button', 'submit', 'reset', 'image'] as const)('supports a native input type="%s" trigger', type => {
+    const anchorRef = createRef<HTMLInputElement>()
+    const {getByRole} = render(
+      <BaseStyles>
+        <input
+          ref={anchorRef}
+          type={type}
+          value="Detached input button"
+          alt={type === 'image' ? 'Detached input button' : undefined}
+        />
+        <AnchoredOverlay open={false} renderAnchor={null} _PrivateManageDetachedAnchorAria anchorRef={anchorRef}>
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>,
+    )
+    const anchor = getByRole('button', {name: 'Detached input button'})
+    expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it.each(['columnheader', 'rowheader'] as const)('supports the "%s" role as a detached trigger', role => {
+    const anchorRef = createRef<HTMLDivElement>()
+    const {getByTestId} = render(
+      <BaseStyles>
+        <div ref={anchorRef} role={role} data-testid="anchor">
+          Detached anchor
+        </div>
+        <AnchoredOverlay open={false} renderAnchor={null} _PrivateManageDetachedAnchorAria anchorRef={anchorRef}>
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>,
+    )
+    const anchor = getByTestId('anchor')
+    expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('does not write ARIA to a non-interactive detached anchor (<div> or plain <input>)', async () => {
+    function NonInteractiveAnchorComponent({tag}: {tag: 'div' | 'input'}) {
+      const [open, setOpen] = useState(false)
+      const anchorRef = useRef<HTMLElement>(null)
+
+      return (
+        <BaseStyles>
+          {tag === 'div' ? (
+            <div ref={anchorRef as React.RefObject<HTMLDivElement>} data-testid="anchor">
+              Detached div anchor
+            </div>
+          ) : (
+            <input
+              ref={anchorRef as React.RefObject<HTMLInputElement>}
+              data-testid="anchor"
+              onClick={() => setOpen(isOpen => !isOpen)}
+              readOnly
+              value="Detached input anchor"
+            />
+          )}
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={null}
+            _PrivateManageDetachedAnchorAria
+            anchorRef={anchorRef}
+          >
+            <button type="button">Focusable Child</button>
+          </AnchoredOverlay>
+        </BaseStyles>
+      )
+    }
+
+    for (const tag of ['div', 'input'] as const) {
+      const {baseElement, unmount} = render(<NonInteractiveAnchorComponent tag={tag} />)
+      await act(async () => {})
+
+      const anchor = baseElement.querySelector('[data-testid="anchor"]')
+      expect(anchor).not.toHaveAttribute('aria-haspopup')
+      expect(anchor).not.toHaveAttribute('aria-expanded')
+      unmount()
+    }
+  })
+
+  it('preserves implicit popup semantics across expanded-state and role changes', async () => {
+    function ComboboxAnchorComponent({role = 'combobox'}: {role?: 'combobox' | 'button'}) {
+      const [open, setOpen] = useState(false)
+      const anchorRef = useRef<HTMLInputElement>(null)
+
+      return (
+        <BaseStyles>
+          <input
+            ref={anchorRef}
+            data-testid="anchor"
+            role={role}
+            aria-controls="overlay"
+            aria-expanded={open}
+            readOnly
+            value="Combobox anchor"
+            onClick={() => setOpen(isOpen => !isOpen)}
+          />
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={null}
+            _PrivateManageDetachedAnchorAria
+            anchorRef={anchorRef}
+          >
+            <button type="button">Focusable Child</button>
+          </AnchoredOverlay>
+        </BaseStyles>
+      )
+    }
+
+    const {baseElement, rerender} = render(<ComboboxAnchorComponent />)
+    await act(async () => {})
+
+    const anchor = baseElement.querySelector('[data-testid="anchor"]') as HTMLElement
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+
+    await userEvent.click(page.getByTestId('anchor'))
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    await userEvent.keyboard('{Escape}')
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+
+    rerender(<ComboboxAnchorComponent role="button" />)
+    await userEvent.click(page.getByTestId('anchor'))
+    expect(anchor).toHaveAttribute('aria-haspopup', 'true')
+    expect(anchor).toHaveAttribute('aria-expanded', 'true')
+
+    rerender(<ComboboxAnchorComponent />)
+    await userEvent.keyboard('{Escape}')
+    expect(anchor).not.toHaveAttribute('aria-haspopup')
+    expect(anchor).toHaveAttribute('aria-expanded', 'false')
+  })
+})
 
 describe('AnchoredOverlay scroll/resize cascade', () => {
   it('does not re-render after close when window scrolls (closed-overlay listeners detached)', async () => {
