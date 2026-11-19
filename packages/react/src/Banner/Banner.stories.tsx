@@ -38,9 +38,19 @@ const iconMap = {
 }
 
 export const Playground: StoryObj<typeof Banner> = {
-  render: ({onDismiss, primaryAction, secondaryAction, leadingVisual, ...rest}) => {
-    // Map the string selection to the actual icon component
-    const leadingVisualElement = leadingVisual && iconMap[leadingVisual as keyof typeof iconMap]
+  render: ({
+    onDismiss,
+    primaryAction,
+    secondaryAction,
+    leadingVisual,
+    variant,
+    icon: _deprecatedIconIgnored,
+    ...rest
+  }) => {
+    const variantAndVisualProps =
+      variant === 'info' || variant === 'upsell'
+        ? {variant, leadingVisual: iconMap[leadingVisual as keyof typeof iconMap]}
+        : {variant}
 
     return (
       <PageLayout>
@@ -52,7 +62,7 @@ export const Playground: StoryObj<typeof Banner> = {
             secondaryAction={
               secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
             }
-            leadingVisual={leadingVisualElement}
+            {...variantAndVisualProps}
             {...rest}
           />
         </PageLayout.Pane>
@@ -65,7 +75,7 @@ export const Playground: StoryObj<typeof Banner> = {
             secondaryAction={
               secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
             }
-            leadingVisual={leadingVisualElement}
+            {...variantAndVisualProps}
             {...rest}
           />
         </PageLayout.Content>
