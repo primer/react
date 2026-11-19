@@ -1,11 +1,11 @@
-import {clsx} from 'clsx'
+import { clsx } from 'clsx'
 import type React from 'react'
-import {useEffect, useState} from 'react'
-import {VisuallyHidden} from '../VisuallyHidden'
-import type {HTMLDataAttributes} from '../internal/internal-types'
-import {useId} from '../hooks'
+import { useEffect, useState } from 'react'
+import { VisuallyHidden } from '../VisuallyHidden'
+import type { HTMLDataAttributes } from '../internal/internal-types'
+import { useId } from '../hooks'
 import classes from './Spinner.module.css'
-import {useMedia} from '../hooks/useMedia'
+import { useMedia } from '../hooks/useMedia'
 
 const ANIMATION_DURATION_MS = 1000
 
@@ -42,7 +42,7 @@ function Spinner({
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
 
-  const [{isVisible, syncDelay}, setVisibleState] = useState(() => ({
+  const [{ isVisible, syncDelay }, setVisibleState] = useState(() => ({
     isVisible: !delay,
     syncDelay: !delay ? computeSyncDelay() : 0,
   }))
@@ -52,7 +52,7 @@ function Spinner({
     if (delay) {
       const delayDuration = typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000
       const timeoutId = setTimeout(() => {
-        setVisibleState({isVisible: true, syncDelay: computeSyncDelay()})
+        setVisibleState({ isVisible: true, syncDelay: computeSyncDelay() })
       }, delayDuration)
 
       return () => clearTimeout(timeoutId)
@@ -63,14 +63,14 @@ function Spinner({
     return null
   }
 
-  const mergedStyle = noMotionPreference ? {...style, animationDelay: `${syncDelay}ms`} : style
+  const mergedStyle = noMotionPreference ? { ...style, animationDelay: `${syncDelay}ms` } : style
 
   return (
     /* inline-flex removes the extra line height */
     <span
       className={classes.Box}
       data-component="Spinner"
-      role="status"
+      role="img"
       aria-label={ariaLabel ?? undefined}
       aria-labelledby={hasHiddenLabel ? labelId : undefined}
     >
