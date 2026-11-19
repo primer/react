@@ -20,6 +20,15 @@ describe('Table.Pagination', () => {
       .toBeInTheDocument()
   })
 
+  it('keeps the current page in bounds when the row count shrinks', () => {
+    const {rerender} = render(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} />)
+    expect(getCurrentPage()).toHaveTextContent('4')
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={40} />)
+    expect(getCurrentPage()).toHaveTextContent('2')
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={0} />)
+    expect(getPages().some(button => button.hasAttribute('aria-current'))).toBe(false)
+  })
+
   it('should set the initial selected page to the first page', () => {
     render(<Pagination aria-label="Pagination" totalCount={100} />)
     expect(getCurrentPage()).toEqual(getFirstPage())
