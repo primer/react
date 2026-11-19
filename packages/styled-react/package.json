@@ -44,7 +44,7 @@
     "@babel/preset-react": "^8.0.1",
     "@babel/preset-typescript": "^8.0.7",
     "@primer/primitives": "10.x || 11.x",
-    "@primer/react": "^38.36.0",
+    "@primer/react": "^39.0.0",
     "@rolldown/plugin-babel": "^0.3.0",
     "@storybook/react-vite": "10.6.2",
     "@types/react": "18.3.11",
