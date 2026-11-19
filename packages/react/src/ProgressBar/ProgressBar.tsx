@@ -25,6 +25,8 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
       progress,
       'aria-label': ariaLabel,
       'aria-valuenow': ariaValueNow,
+      'aria-valuemin': ariaValueMin,
+      'aria-valuemax': ariaValueMax,
       'aria-valuetext': ariaValueText,
       className,
       style,
@@ -35,11 +37,17 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
   ) => {
     const progressAsNumber = typeof progress === 'string' ? parseInt(progress, 10) : progress
 
+    const ariaValueMinValue = ariaValueMin ?? 0
+    const ariaValueMaxValue = ariaValueMax ?? 100
+
     const ariaAttributes = {
       'aria-valuenow':
-        ariaValueNow ?? (progressAsNumber !== undefined && progressAsNumber >= 0 ? Math.round(progressAsNumber) : 0),
-      'aria-valuemin': 0,
-      'aria-valuemax': 100,
+        ariaValueNow ??
+        (progressAsNumber !== undefined && progressAsNumber >= 0
+          ? Math.round(ariaValueMinValue + (progressAsNumber / 100) * (ariaValueMaxValue - ariaValueMinValue))
+          : 0),
+      'aria-valuemin': ariaValueMinValue,
+      'aria-valuemax': ariaValueMaxValue,
       'aria-valuetext': ariaValueText,
     }
 
@@ -85,6 +93,8 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
       children,
       'aria-label': ariaLabel,
       'aria-valuenow': ariaValueNow,
+      'aria-valuemin': ariaValueMin,
+      'aria-valuemax': ariaValueMax,
       'aria-valuetext': ariaValueText,
       className,
       inline,
@@ -117,6 +127,8 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
             progress={progress}
             aria-label={ariaLabel}
             aria-valuenow={ariaValueNow}
+            aria-valuemin={ariaValueMin}
+            aria-valuemax={ariaValueMax}
             aria-valuetext={ariaValueText}
             bg={bg}
           />
