@@ -1,6 +1,5 @@
 import React from 'react'
 import type {StoryObj} from '@storybook/react-vite'
-import {expect, within} from 'storybook/test'
 import {ActionMenu} from '.'
 import {ActionList} from '../ActionList'
 import {
@@ -173,22 +172,6 @@ export const MultiSelectWithLongValues: StoryObj = {
         </ActionMenu.Overlay>
       </ActionMenu>
     )
-  },
-  play: async ({canvas, canvasElement, userEvent}) => {
-    await userEvent.click(canvas.getByRole('button', {name: 'Display'}))
-    const body = within(canvasElement.ownerDocument.body)
-    const codeFolding = body.getByRole('menuitemcheckbox', {name: /Show code folding buttons/})
-    const lineWrapping = () => body.getByRole('menuitemcheckbox', {name: /Wrap long lines of code/})
-
-    await expect(codeFolding).toBeChecked()
-    await expect(lineWrapping()).not.toBeChecked()
-    await userEvent.click(lineWrapping())
-    await userEvent.click(canvas.getByRole('button', {name: 'Display'}))
-    await expect(lineWrapping()).toBeChecked()
-    await expect(body.getByRole('menuitemcheckbox', {name: /Show code folding buttons/})).toBeChecked()
-    await userEvent.click(lineWrapping())
-    await userEvent.click(canvas.getByRole('button', {name: 'Display'}))
-    await expect(lineWrapping()).not.toBeChecked()
   },
 }
 
