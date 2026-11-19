@@ -19,6 +19,7 @@ export interface UseScrollAnchorSettings {
 export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorSettings): void {
   const selection = useRef({anchor, anchorKey})
   const updateSelection = useRef<(() => void) | null>(null)
+  const anchorTop = useRef<number | null>(null)
 
   useIsomorphicLayoutEffect(() => {
     selection.current = {anchor, anchorKey}
@@ -32,7 +33,6 @@ export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorS
     const root = container
     let trackedAnchor: HTMLElement | null = null
     let trackedKey: HTMLElement | string | number | null = null
-    let anchorTop: number | null = null
     const observed = new Set<Element>()
     const resizeObserver = new ResizeObserver(() => correctPosition())
 
@@ -66,7 +66,7 @@ export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorS
         const hadAnchor = trackedAnchor !== null
         trackedAnchor = null
         trackedKey = null
-        anchorTop = null
+        anchorTop.current = null
         if (hadAnchor) observeLayout()
         return false
       }
@@ -76,7 +76,7 @@ export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorS
 
       const key = nextKey ?? nextAnchor
       if (key !== trackedKey) {
-        anchorTop = nextAnchor.getBoundingClientRect().top
+        anchorTop.current = nextAnchor.getBoundingClientRect().top
       }
       if (nextAnchor !== trackedAnchor || key !== trackedKey) {
         trackedAnchor = nextAnchor
@@ -87,18 +87,18 @@ export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorS
     }
 
     function correctPosition() {
-      if (!synchronizeSelection() || !trackedAnchor || anchorTop === null) return
+      if (!synchronizeSelection() || !trackedAnchor || anchorTop.current === null) return
 
-      const offset = trackedAnchor.getBoundingClientRect().top - anchorTop
+      const offset = trackedAnchor.getBoundingClientRect().top - anchorTop.current
       if (offset !== 0) {
         window.scrollBy({top: offset, behavior: 'instant'})
-        anchorTop = trackedAnchor.getBoundingClientRect().top
+        anchorTop.current = trackedAnchor.getBoundingClientRect().top
       }
     }
 
     function capturePosition() {
       if (synchronizeSelection() && trackedAnchor) {
-        anchorTop = trackedAnchor.getBoundingClientRect().top
+        anchorTop.current = trackedAnchor.getBoundingClientRect().top
       }
     }
 
