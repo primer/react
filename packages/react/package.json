@@ -45,6 +45,7 @@
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "tsx script/components-json/build.ts",
     "build:hooks.json": "tsx script/hooks-json/build.ts",
+    "lint:component-docs": "cross-env TSX_DISABLE_CACHE=1 node --import tsx script/lint-component-docs.ts",
     "lint:npm": "publint --types",
     "lint:react-compiler": "node script/lint-react-compiler.ts",
     "storybook": "storybook",

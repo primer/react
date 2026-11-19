@@ -5,6 +5,9 @@ import {getTSProgram, parseTypeInfo, updateJSDocsForProp, type TSParsedComponent
 import yargs from 'yargs'
 import {hideBin} from 'yargs/helpers'
 
+export {getTSProgram}
+export {extractSourceProps} from './ts-utils'
+
 export interface PropCompareError {
   name: string
   missingInTS?: boolean
