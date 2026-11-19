@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Fix ActionMenu anchor keydown listener cleanup.
+ActionMenu: Fix a memory leak when opening and closing menus.

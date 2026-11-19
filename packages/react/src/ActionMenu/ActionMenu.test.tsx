@@ -236,6 +236,7 @@ describe('ActionMenu', () => {
         .slice(addsBeforeOpen)
         .filter(([type]) => type === 'keydown')
         .map(([, listener]) => listener)
+      expect(keydownHandlersAdded.length).toBeGreaterThan(0)
 
       const removalsBeforeClose = removeEventListener.mock.calls.length
       await userEvent.click(button)
