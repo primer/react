@@ -1,5 +1,6 @@
 import {describe, expect, it, vi, afterEach} from 'vitest'
-import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
+import {page} from 'vitest/browser'
 import BaseStyles from '../../BaseStyles'
 import {ActionMenu} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList/Item'
@@ -34,8 +35,7 @@ describe('ActionMenu', () => {
     const menu = HTMLRender(<SimpleActionMenu />)
     let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
-    const anchor = await menu.findByText('Menu')
-    fireEvent.click(anchor)
+    await page.getByText('Menu', {exact: true}).click()
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const itemText = items
@@ -51,40 +51,34 @@ describe('ActionMenu', () => {
 
   it('should dismiss the overlay on menuitem click', async () => {
     const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
+    let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
-    const anchor = await menu.findByText('Menu')
-    fireEvent.click(anchor)
+    await page.getByText('Menu', {exact: true}).click()
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = menu.queryByText(items[0].text!)
-    fireEvent.click(menuItem as Element)
+    await page.getByRole('menuitem', {name: items[0].text!, exact: true}).click()
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
 
   it('should dismiss the overlay on clicking outside overlay', async () => {
     const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
+    let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
-    const anchor = await menu.findByText('Menu')
-    fireEvent.click(anchor)
+    await page.getByText('Menu', {exact: true}).click()
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const somethingElse = (await menu.baseElement.querySelector('#something-else')) as HTMLElement
-    fireEvent.mouseDown(somethingElse)
+    await page.getByText('X', {exact: true}).click()
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
 
   it('should pass correct values to onAction on menu click', async () => {
     const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
+    let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
-    const anchor = await menu.findByText('Menu')
-    fireEvent.click(anchor)
+    await page.getByText('Menu', {exact: true}).click()
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = (await portalRoot?.querySelector("[role='menuitem']")) as HTMLElement
-    fireEvent.click(menuItem)
+    await page.getByRole('menuitem').first().click()
 
     // onAction has been called with correct argument
     expect(mockOnActivate).toHaveBeenCalledTimes(1)

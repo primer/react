@@ -1,6 +1,7 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest'
 import Radio from '.'
-import {render, fireEvent} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {implementsClassName} from '../utils/testing'
 import classes from './Radio.module.css'
 
@@ -15,122 +16,122 @@ describe('Radio', () => {
     vi.resetAllMocks()
   })
 
-  it('renders a valid radio input', () => {
-    const {getByRole} = render(<Radio {...defaultProps} />)
+  it('renders a valid radio input', async () => {
+    render(<Radio {...defaultProps} />)
 
-    const radio = getByRole('radio')
+    const radio = page.getByRole('radio')
 
-    expect(radio).toBeDefined()
+    await expect.element(radio).toBeInTheDocument()
   })
 
-  it('renders data-component attribute', () => {
-    const {getByRole} = render(<Radio {...defaultProps} />)
+  it('renders data-component attribute', async () => {
+    render(<Radio {...defaultProps} />)
 
-    expect(getByRole('radio')).toHaveAttribute('data-component', 'Radio')
+    await expect.element(page.getByRole('radio')).toHaveAttribute('data-component', 'Radio')
   })
 
-  it('renders an unchecked radio by default', () => {
-    const {getByRole} = render(<Radio {...defaultProps} />)
+  it('renders an unchecked radio by default', async () => {
+    render(<Radio {...defaultProps} />)
 
-    const radio = getByRole('radio') as HTMLInputElement
+    const radio = page.getByRole('radio')
 
-    expect(radio.checked).toEqual(false)
+    await expect.element(radio).not.toBeChecked()
   })
 
-  it('accepts and applies value and name attributes', () => {
-    const {getByRole} = render(<Radio {...defaultProps} />)
+  it('accepts and applies value and name attributes', async () => {
+    render(<Radio {...defaultProps} />)
 
-    const radio = getByRole('radio') as HTMLInputElement
+    const radio = page.getByRole('radio')
 
-    expect(radio).toHaveAttribute('name', defaultProps.name)
-    expect(radio).toHaveAttribute('value', defaultProps.value)
+    await expect.element(radio).toHaveAttribute('name', defaultProps.name)
+    await expect.element(radio).toHaveAttribute('value', defaultProps.value)
   })
 
-  it('renders an active radio when checked attribute is passed', () => {
+  it('renders an active radio when checked attribute is passed', async () => {
     const handleChange = vi.fn()
-    const {getByRole} = render(<Radio {...defaultProps} checked onChange={handleChange} />)
+    render(<Radio {...defaultProps} checked onChange={handleChange} />)
 
-    const radio = getByRole('radio') as HTMLInputElement
+    const radio = page.getByRole('radio')
 
-    expect(radio.checked).toEqual(true)
+    await expect.element(radio).toBeChecked()
   })
 
-  it('accepts a change handler that can alter a single radio state', () => {
+  it('accepts a change handler that can alter a single radio state', async () => {
     const handleChange = vi.fn()
-    const {getByRole} = render(<Radio {...defaultProps} onChange={handleChange} />)
+    render(<Radio {...defaultProps} onChange={handleChange} />)
 
-    const radio = getByRole('radio') as HTMLInputElement
+    const radio = page.getByRole('radio')
 
-    expect(radio.checked).toEqual(false)
+    await expect.element(radio).not.toBeChecked()
 
-    fireEvent.click(radio)
+    await userEvent.click(radio)
     expect(handleChange).toHaveBeenCalled()
-    expect(radio.checked).toEqual(true)
+    await expect.element(radio).toBeChecked()
   })
 
-  it('renders correct behavior for multiple radio buttons in a group', () => {
+  it('renders correct behavior for multiple radio buttons in a group', async () => {
     const handleChange = vi.fn()
     const RadioGroup = () => (
       <form>
-        <Radio {...defaultProps} value="radio-one" onChange={handleChange} />
-        <Radio {...defaultProps} value="radio-two" onChange={handleChange} />
+        <Radio {...defaultProps} value="radio-one" aria-label="Radio one" onChange={handleChange} />
+        <Radio {...defaultProps} value="radio-two" aria-label="Radio two" onChange={handleChange} />
       </form>
     )
-    const {getByDisplayValue} = render(<RadioGroup />)
+    render(<RadioGroup />)
 
-    const radioOne = getByDisplayValue('radio-one') as HTMLInputElement
-    const radioTwo = getByDisplayValue('radio-two') as HTMLInputElement
+    const radioOne = page.getByRole('radio', {name: 'Radio one'})
+    const radioTwo = page.getByRole('radio', {name: 'Radio two'})
 
-    expect(radioOne).not.toBeChecked()
-    expect(radioTwo).not.toBeChecked()
+    await expect.element(radioOne).not.toBeChecked()
+    await expect.element(radioTwo).not.toBeChecked()
 
-    fireEvent.click(radioOne)
+    await userEvent.click(radioOne)
 
-    expect(radioOne).toBeChecked()
-    expect(radioTwo).not.toBeChecked()
+    await expect.element(radioOne).toBeChecked()
+    await expect.element(radioTwo).not.toBeChecked()
 
-    fireEvent.click(radioTwo)
+    await userEvent.click(radioTwo)
 
-    expect(radioOne).not.toBeChecked()
-    expect(radioTwo).toBeChecked()
+    await expect.element(radioOne).not.toBeChecked()
+    await expect.element(radioTwo).toBeChecked()
   })
 
-  it('renders an inactive radio state correctly', () => {
+  it('renders an inactive radio state correctly', async () => {
     const handleChange = vi.fn()
-    const {getByRole, rerender} = render(<Radio {...defaultProps} disabled onChange={handleChange} />)
+    const {rerender} = render(<Radio {...defaultProps} disabled onChange={handleChange} />)
 
-    const radio = getByRole('radio') as HTMLInputElement
+    const radio = page.getByRole('radio')
 
-    expect(radio.disabled).toEqual(true)
-    expect(radio).not.toBeChecked()
+    await expect.element(radio).toBeDisabled()
+    await expect.element(radio).not.toBeChecked()
 
-    fireEvent.change(radio)
+    await userEvent.click(radio, {force: true})
 
-    expect(radio.disabled).toEqual(true)
-    expect(radio).not.toBeChecked()
+    await expect.element(radio).toBeDisabled()
+    await expect.element(radio).not.toBeChecked()
 
     // remove disabled attribute and retest
     rerender(<Radio {...defaultProps} onChange={handleChange} />)
   })
 
-  it('renders an uncontrolled component correctly', () => {
-    const {getByRole} = render(<Radio {...defaultProps} defaultChecked />)
+  it('renders an uncontrolled component correctly', async () => {
+    render(<Radio {...defaultProps} defaultChecked />)
 
-    const radio = getByRole('radio') as HTMLInputElement
+    const radio = page.getByRole('radio')
 
-    expect(radio.checked).toEqual(true)
+    await expect.element(radio).toBeChecked()
   })
 
-  it('renders an aria-checked attribute correctly', () => {
+  it('renders an aria-checked attribute correctly', async () => {
     const handleChange = vi.fn()
-    const {getByRole, rerender} = render(<Radio {...defaultProps} checked={false} onChange={handleChange} />)
+    const {rerender} = render(<Radio {...defaultProps} checked={false} onChange={handleChange} />)
 
-    const radio = getByRole('radio') as HTMLInputElement
+    const radio = page.getByRole('radio')
 
-    expect(radio).toHaveAttribute('aria-checked', 'false')
+    await expect.element(radio).toHaveAttribute('aria-checked', 'false')
 
     rerender(<Radio {...defaultProps} checked={true} onChange={handleChange} />)
 
-    expect(radio).toHaveAttribute('aria-checked', 'true')
+    await expect.element(radio).toHaveAttribute('aria-checked', 'true')
   })
 })
