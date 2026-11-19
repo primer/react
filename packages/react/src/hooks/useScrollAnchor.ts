@@ -19,6 +19,8 @@ export interface UseScrollAnchorSettings {
 export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorSettings): void {
   const selection = useRef({anchor, anchorKey})
   const updateSelection = useRef<(() => void) | null>(null)
+  const trackedAnchor = useRef<HTMLElement | null>(null)
+  const trackedKey = useRef<HTMLElement | string | number | null>(null)
   const anchorTop = useRef<number | null>(null)
 
   useIsomorphicLayoutEffect(() => {
@@ -31,14 +33,15 @@ export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorS
     }
 
     const root = container
-    let trackedAnchor: HTMLElement | null = null
-    let trackedKey: HTMLElement | string | number | null = null
+    trackedAnchor.current = null
+    trackedKey.current = null
+    anchorTop.current = null
     const observed = new Set<Element>()
     const resizeObserver = new ResizeObserver(() => correctPosition())
 
     function observeLayout() {
       const elements = new Set<Element>([root])
-      let element: Element | null = trackedAnchor
+      let element: Element | null = trackedAnchor.current
       while (element && element !== root) {
         const parent: Element | null = element.parentElement
         if (!parent || !root.contains(parent)) break
@@ -63,9 +66,9 @@ export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorS
     function synchronizeSelection() {
       const {anchor: nextAnchor, anchorKey: nextKey} = selection.current
       if (!nextAnchor) {
-        const hadAnchor = trackedAnchor !== null
-        trackedAnchor = null
-        trackedKey = null
+        const hadAnchor = trackedAnchor.current !== null
+        trackedAnchor.current = null
+        trackedKey.current = null
         anchorTop.current = null
         if (hadAnchor) observeLayout()
         return false
@@ -75,30 +78,30 @@ export function useScrollAnchor({container, anchor, anchorKey}: UseScrollAnchorS
       }
 
       const key = nextKey ?? nextAnchor
-      if (key !== trackedKey) {
+      if (key !== trackedKey.current) {
         anchorTop.current = nextAnchor.getBoundingClientRect().top
       }
-      if (nextAnchor !== trackedAnchor || key !== trackedKey) {
-        trackedAnchor = nextAnchor
-        trackedKey = key
+      if (nextAnchor !== trackedAnchor.current || key !== trackedKey.current) {
+        trackedAnchor.current = nextAnchor
+        trackedKey.current = key
         observeLayout()
       }
       return true
     }
 
     function correctPosition() {
-      if (!synchronizeSelection() || !trackedAnchor || anchorTop.current === null) return
+      if (!synchronizeSelection() || !trackedAnchor.current || anchorTop.current === null) return
 
-      const offset = trackedAnchor.getBoundingClientRect().top - anchorTop.current
+      const offset = trackedAnchor.current.getBoundingClientRect().top - anchorTop.current
       if (offset !== 0) {
         window.scrollBy({top: offset, behavior: 'instant'})
-        anchorTop.current = trackedAnchor.getBoundingClientRect().top
+        anchorTop.current = trackedAnchor.current.getBoundingClientRect().top
       }
     }
 
     function capturePosition() {
-      if (synchronizeSelection() && trackedAnchor) {
-        anchorTop.current = trackedAnchor.getBoundingClientRect().top
+      if (synchronizeSelection() && trackedAnchor.current) {
+        anchorTop.current = trackedAnchor.current.getBoundingClientRect().top
       }
     }
 
