@@ -1,0 +1,84 @@
+import {defineComponent} from '../docs/component'
+
+export default defineComponent({
+  id: 'breadcrumbs',
+  name: 'Breadcrumbs',
+  status: 'alpha',
+  a11yReviewed: '2025-01-08',
+  stories: ['components-breadcrumbs--default'],
+  importPath: '@primer/react',
+  props: [
+    {
+      name: 'className',
+      type: 'string',
+      required: false,
+      description: 'Additional CSS class names to apply to the breadcrumbs container',
+      defaultValue: '',
+    },
+    {
+      name: 'children',
+      type: 'Breadcrumbs.Item[]',
+      defaultValue: '',
+      description: 'Breadcrumb items to render. Each item should be a Breadcrumbs.Item component.',
+      required: false,
+    },
+    {
+      name: 'overflow',
+      type: "'wrap' | 'menu' | 'menu-with-root'",
+      required: false,
+      description:
+        "How to handle overflow when breadcrumbs don't fit in the container. 'wrap' allows items to wrap to new lines. 'menu' collapses items into an overflow menu. 'menu-with-root' also collapses items into an overflow menu but includes the root (first) breadcrumb in the menu so only the last items remain visible.",
+      defaultValue: "'wrap'",
+    },
+  ],
+  subcomponents: [
+    {
+      name: 'Breadcrumbs.Item',
+      props: [
+        {
+          name: 'selected',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: "Whether this item represents the current page. Sets aria-current='page' for accessibility.",
+          required: false,
+        },
+        {
+          name: 'to',
+          type: 'string | Partial<Path>',
+          required: false,
+          description:
+            "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to.",
+          defaultValue: '',
+        },
+        {
+          name: 'href',
+          type: 'string',
+          required: false,
+          description: 'The URL that the breadcrumb item links to. Used with regular anchor elements.',
+        },
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          required: true,
+          description: 'The content to display inside the breadcrumb item, typically text.',
+        },
+        {
+          name: 'ref',
+          type: 'React.RefObject<HTMLAnchorElement>',
+          required: false,
+          description:
+            'Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).',
+        },
+        {
+          name: 'as',
+          type: 'React.ElementType',
+          defaultValue: '"a"',
+          description: 'HTML element or React component to render instead of the default anchor.',
+          required: false,
+        },
+      ],
+      passthrough: {element: 'a', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes'},
+      displayName: 'Item',
+    },
+  ],
+})
