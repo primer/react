@@ -42,7 +42,7 @@ export const SettingsPage: StoryFn<typeof SplitPageLayout> = () => (
 
 export const WithSidebarStart: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar position="start" aria-label="Inspector sidebar" style={{height: 'auto'}}>
+    <SplitPageLayout.Sidebar padding="none" position="start" aria-label="Inspector sidebar" style={{height: 'auto'}}>
       <div className={classes.SidebarContent}>
         <p className={classes.SidebarHeading}>Sidebar</p>
         <p className={classes.SidebarText}>
