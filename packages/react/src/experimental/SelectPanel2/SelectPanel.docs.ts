@@ -1,0 +1,148 @@
+import {defineComponent} from '../../docs/components'
+
+export default defineComponent({
+  name: 'SelectPanel',
+  displayName: 'SelectPanel',
+  status: 'deprecated',
+  keywords: [],
+  stories: [
+    'deprecated-components-selectpanel-examples--minimal',
+    'deprecated-components-selectpanel-examples--short-select-panel',
+    'deprecated-components-selectpanel-features--instant-selection-variant',
+    'deprecated-components-selectpanel-features--with-warning',
+    'deprecated-components-selectpanel-examples--open-from-menu',
+    'deprecated-components-selectpanel-examples--with-groups',
+    'deprecated-components-selectpanel-examples--async-search-with-use-transition',
+    'deprecated-components-selectpanel-examples--async-with-suspended-list',
+    'deprecated-components-selectpanel-examples--with-filter-buttons',
+  ],
+  importPath: '@primer/react/experimental',
+  props: [
+    {name: 'title', type: 'string', description: 'Panel title.', required: true},
+    {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'Initial open state for an uncontrolled panel.',
+      required: false,
+      defaultValue: 'false',
+    },
+    {name: 'description', type: 'string', description: 'Panel description.', required: false},
+    {
+      name: 'variant',
+      type: "'anchored' | 'modal' | ResponsiveValue<'anchored' | 'modal', 'full-screen' | 'bottom-sheet'>",
+      description: 'Panel presentation, optionally by viewport width.',
+      required: false,
+      defaultValue: "'anchored'",
+    },
+    {
+      name: 'selectionVariant',
+      type: "'single' | 'multiple' | 'instant'",
+      description: 'Selection behavior.',
+      required: false,
+      defaultValue: "'multiple'",
+    },
+    {name: 'onSubmit', type: '(event?: React.FormEvent<HTMLFormElement>) => void', description: '', required: false},
+    {name: 'onCancel', type: '() => void', description: '', required: false},
+    {name: 'onClearSelection', type: '() => void', description: '', required: false},
+    {
+      name: 'anchorRef',
+      type: 'React.RefObject<HTMLButtonElement | null>',
+      description: 'Ref to the anchor button.',
+      required: false,
+    },
+    {name: 'open', type: 'boolean', description: 'Controlled open state.', required: false},
+    {name: 'children', type: 'React.ReactNode', description: 'Panel parts and content.', required: true},
+    {name: 'width', type: "OverlayProps['width']", description: '', required: false, defaultValue: "'medium'"},
+    {name: 'height', type: "'fit-content'", description: 'Accepted for compatibility but ignored.', required: false},
+    {
+      name: 'maxHeight',
+      type: "Exclude<OverlayProps['maxHeight'], 'xsmall'>",
+      description: '',
+      required: false,
+      defaultValue: "'large'",
+    },
+    {name: 'id', type: 'string', description: '', required: false},
+    {name: 'className', type: 'string', description: '', required: false},
+    {name: 'anchoredPositionSettings', type: 'Partial<PositionSettings>', description: '', required: false},
+  ],
+  subcomponents: [
+    {
+      name: 'SelectPanel.Button',
+      displayName: 'SelectPanel.Button',
+      props: [{name: 'children', type: 'React.ReactNode', description: 'Trigger button content.', required: false}],
+    },
+    {
+      name: 'SelectPanel.Header',
+      displayName: 'SelectPanel.Header',
+      props: [
+        {name: 'children', type: 'React.ReactNode', description: '', required: false},
+        {name: 'onBack', type: '() => void', description: '', required: false},
+      ],
+    },
+    {
+      name: 'SelectPanel.SearchInput',
+      displayName: 'SelectPanel.SearchInput',
+      props: [
+        {name: 'onChange', type: 'React.ChangeEventHandler<HTMLInputElement>', description: '', required: false},
+        {name: 'loading', type: 'boolean', description: 'Shows a loading indicator.', required: false},
+      ],
+    },
+    {
+      name: 'SelectPanel.Footer',
+      displayName: 'SelectPanel.Footer',
+      props: [{name: 'children', type: 'React.ReactNode', description: '', required: false}],
+    },
+    {
+      name: 'SelectPanel.SecondaryAction',
+      displayName: 'SelectPanel.SecondaryAction',
+      props: [
+        {
+          name: 'variant',
+          type: "'button' | 'link' | 'checkbox'",
+          description: 'Chooses the control rendered inside SelectPanel.Footer.',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'SelectPanel.Loading',
+      displayName: 'SelectPanel.Loading',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          description: '',
+          required: false,
+          defaultValue: "'Fetching items...'",
+        },
+      ],
+    },
+    {
+      name: 'SelectPanel.Message',
+      displayName: 'SelectPanel.Message',
+      props: [
+        {
+          name: 'variant',
+          type: "'warning' | 'error' | 'empty'",
+          description: 'Use `empty` only with a full message.',
+          required: true,
+          defaultValue: "'warning'",
+        },
+        {
+          name: 'size',
+          type: "'inline' | 'full'",
+          description: 'Defaults to full for empty messages and inline otherwise.',
+          required: false,
+        },
+        {
+          name: 'title',
+          type: 'string',
+          description: 'Required for full messages and not accepted for inline messages.',
+          required: false,
+        },
+        {name: 'children', type: 'React.ReactNode', description: 'Message content.', required: true},
+      ],
+    },
+  ],
+  usage: {description: '', bestPractices: [], anatomy: []},
+})

@@ -1,0 +1,156 @@
+import {defineComponent} from '../docs/components'
+
+export default defineComponent({
+  name: 'FormControl',
+  displayName: 'FormControl',
+  status: 'stable',
+  keywords: [],
+  stories: [
+    'components-formcontrol--default',
+    'components-formcontrol-features--with-complex-inputs',
+    'components-formcontrol-features--with-custom-input',
+    'components-formcontrol-features--with-checkbox-and-radio-inputs',
+    'components-formcontrol-features--single-input',
+    'components-formcontrol-features--validation-example',
+    'components-formcontrol-features--with-select-panel',
+    'components-formcontrol-features--with-leading-visual',
+    'components-formcontrol-features--disabled-inputs',
+    'components-formcontrol-features--custom-required',
+    'components-formcontrol-features--with-caption',
+    'components-formcontrol-features--with-caption-and-disabled',
+    'components-formcontrol-features--with-hidden-label',
+    'components-formcontrol-features--with-required-indicator',
+    'components-formcontrol-features--with-success-validation',
+    'components-formcontrol-features--with-error-validation',
+  ],
+  importPath: '@primer/react',
+  props: [
+    {
+      name: 'children',
+      type: 'React.ReactNode',
+      description: 'Label, input, and optional supporting content. Always include a FormControl.Label.',
+      required: false,
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'Disables the input. A disabled choice group also disables its inputs.',
+      required: false,
+    },
+    {
+      name: 'id',
+      type: 'string',
+      description:
+        'Associates the input with its label, caption, and validation message. An ID is generated when omitted.',
+      required: false,
+    },
+    {
+      name: 'required',
+      type: 'boolean',
+      description: 'Marks the input as required. Set required on the group instead for radio inputs.',
+      required: false,
+    },
+    {
+      name: 'layout',
+      type: "'horizontal' | 'vertical'",
+      description: 'Direction of the content. Use horizontal layout for checkboxes and radios.',
+      required: false,
+      defaultValue: "'vertical'",
+    },
+    {name: 'className', type: 'string', description: '', required: false},
+    {name: 'ref', type: 'React.Ref<HTMLDivElement>', description: 'Ref to the wrapper.', required: false},
+    {name: 'style', type: 'React.CSSProperties', description: '', required: false},
+  ],
+  subcomponents: [
+    {
+      name: 'FormControl.Label',
+      displayName: 'FormControl.Label',
+      props: [
+        {name: 'visuallyHidden', type: 'boolean', description: 'Hides the label visually.', required: false},
+        {
+          name: 'as',
+          type: "'label' | 'legend' | 'span'",
+          description: 'Element used for the label.',
+          required: false,
+          defaultValue: "'label'",
+        },
+        {
+          name: 'requiredText',
+          type: 'string',
+          description: 'Text displayed instead of the asterisk for a required field.',
+          required: false,
+          defaultValue: "'*'",
+        },
+        {
+          name: 'requiredIndicator',
+          type: 'boolean',
+          description: 'Controls whether assistive technology announces the required indicator.',
+          required: false,
+          defaultValue: 'true',
+        },
+        {
+          name: 'htmlFor',
+          type: 'string',
+          description: 'Overrides the associated input ID when rendered as a label.',
+          required: false,
+        },
+        {name: 'id', type: 'string', description: 'Overrides the generated label ID.', required: false},
+        {name: 'className', type: 'string', description: '', required: false},
+        {name: 'style', type: 'React.CSSProperties', description: '', required: false},
+        {name: 'children', type: 'React.ReactNode', description: 'Label content.', required: false},
+        {
+          name: 'disabled',
+          type: 'boolean',
+          description: 'Overrides the disabled presentation inherited from the control.',
+          required: false,
+        },
+        {
+          name: 'required',
+          type: 'boolean',
+          description: 'Overrides the required presentation inherited from the control.',
+          required: false,
+        },
+      ],
+    },
+    {
+      name: 'FormControl.Caption',
+      displayName: 'FormControl.Caption',
+      props: [
+        {name: 'id', type: 'string', description: 'Overrides the caption ID.', required: false},
+        {name: 'children', type: 'React.ReactNode', description: 'Caption content.', required: false},
+        {name: 'className', type: 'string', description: '', required: false},
+        {name: 'style', type: 'React.CSSProperties', description: '', required: false},
+      ],
+    },
+    {
+      name: 'FormControl.Validation',
+      displayName: 'FormControl.Validation',
+      props: [
+        {name: 'children', type: 'React.ReactNode', description: 'Validation message.', required: false},
+        {name: 'variant', type: "'error' | 'success'", description: 'Validation status.', required: true},
+        {name: 'id', type: 'string', description: 'Overrides the validation message ID.', required: false},
+        {name: 'className', type: 'string', description: '', required: false},
+        {name: 'style', type: 'React.CSSProperties', description: '', required: false},
+      ],
+    },
+    {
+      name: 'FormControl.LeadingVisual',
+      displayName: 'FormControl.LeadingVisual',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          description: 'Visual for a checkbox or radio control.',
+          required: false,
+        },
+        {name: 'style', type: 'React.CSSProperties', description: '', required: false},
+      ],
+    },
+  ],
+  usage: {
+    // Source: https://primer.style/product/components/form-control/
+    description: 'Pair a form input with its label and optional help or validation text.',
+    bestPractices: [],
+    anatomy: [],
+  },
+})

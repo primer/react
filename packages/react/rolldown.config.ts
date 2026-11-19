@@ -6,6 +6,7 @@ import {preserveDirectives} from 'rolldown-plugin-preserve-directives'
 import {dts} from 'rolldown-plugin-dts'
 import {importCSS} from 'rolldown-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
+import {componentDocs} from './script/component-docs'
 import {files, isSupported} from './script/react-compiler.mjs'
 import packageJson from './package.json' with {type: 'json'}
 
@@ -30,6 +31,12 @@ const entrypoints = new Set([
 
   // "./next"
   'src/next/index.ts',
+
+  // "./docs", "./docs/experimental", "./docs/deprecated", "./docs/next"
+  'src/docs/index.ts',
+  'src/docs/experimental.ts',
+  'src/docs/deprecated.ts',
+  'src/docs/next.ts',
 ])
 
 function getEntrypointsFromInput(input: ReadonlySet<string>) {
@@ -138,6 +145,7 @@ export default defineConfig([
         },
       }),
       preserveDirectives(),
+      componentDocs(),
     ],
     onwarn(warning, defaultHandler) {
       // Dependencies or modules may use "use client" as an indicator for React
