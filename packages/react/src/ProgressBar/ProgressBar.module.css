@@ -1,10 +1,11 @@
+/* See Skeleton/skeleton.module.css: a masked layer moved with `transform` so the compositor can run the shimmer */
 @keyframes shimmer {
   from {
-    mask-position: 200%;
+    transform: translateX(0);
   }
 
   to {
-    mask-position: 0%;
+    transform: translateX(calc(200% / 3));
   }
 }
 
@@ -19,11 +20,28 @@
 
   @media (prefers-reduced-motion: no-preference) {
     &[data-animated='true'] {
-      mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
-      mask-size: 200%;
-      animation-name: shimmer;
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
+      position: relative;
+      overflow: hidden;
+      /* The shimmer layer paints the background so the mask can move with it */
+      background-color: transparent;
+      isolation: isolate;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -200%;
+        z-index: -1;
+        width: 300%;
+        content: '';
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--progress-bg);
+        mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
+        mask-size: calc(200% / 3) 100%;
+        animation-name: shimmer;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+      }
     }
   }
 }

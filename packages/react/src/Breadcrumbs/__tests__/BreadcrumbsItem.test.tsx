@@ -12,12 +12,14 @@ describe('Breadcrumbs.Item', () => {
     expect(container.firstChild?.nodeName).toEqual('A')
   })
 
-  it('renders data-component attribute', () => {
+  it('renders data-component attribute', async () => {
     const {container} = HTMLRender(<Breadcrumbs.Item />)
-    expect(container.querySelector('[data-component="Breadcrumbs.Item"]')).toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Breadcrumbs.Item"]'))
+      .toBeInTheDocument()
   })
 
-  it('renders Breadcrumbs.MenuItem data-component when overflow="menu"', () => {
+  it('renders Breadcrumbs.MenuItem data-component when overflow="menu"', async () => {
     const {container} = HTMLRender(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="#">1</Breadcrumbs.Item>
@@ -29,7 +31,9 @@ describe('Breadcrumbs.Item', () => {
       </Breadcrumbs>,
     )
 
-    expect(container.querySelector('[data-component="Breadcrumbs.MenuItem"]')).toBeInTheDocument()
+    await expect
+      .element(container.querySelector<HTMLElement>('[data-component="Breadcrumbs.MenuItem"]'))
+      .toBeInTheDocument()
   })
 
   it('respects the "selected" prop', () => {

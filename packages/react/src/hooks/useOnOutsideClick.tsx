@@ -1,5 +1,6 @@
 import type React from 'react'
-import {useEffect, useCallback, useState} from 'react'
+import {useEffect, useState} from 'react'
+import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 
 export type TouchOrMouseEvent = MouseEvent | TouchEvent
 type TouchOrMouseEventCallback = (event: TouchOrMouseEvent) => boolean | undefined
@@ -48,27 +49,24 @@ export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside
     return id
   })
 
-  const handler = useCallback<TouchOrMouseEventCallback>(
-    event => {
-      // don't call click handler if the mouse event was triggered by an auxiliary button (right click/wheel button/etc)
-      if (event instanceof MouseEvent && event.button > 0) {
-        return stopPropagation
-      }
+  const handler = useEffectCallback<TouchOrMouseEventCallback>(event => {
+    // don't call click handler if the mouse event was triggered by an auxiliary button (right click/wheel button/etc)
+    if (event instanceof MouseEvent && event.button > 0) {
+      return stopPropagation
+    }
 
-      // don't call handler if the click happened inside of the container
-      if (containerRef.current?.contains(event.target as Node)) {
-        return stopPropagation
-      }
+    // don't call handler if the click happened inside of the container
+    if (containerRef.current?.contains(event.target as Node)) {
+      return stopPropagation
+    }
 
-      // don't call handler if click happened on an ignored ref
-      if (ignoreClickRefs && ignoreClickRefs.some(({current}) => current?.contains(event.target as Node))) {
-        return stopPropagation
-      }
+    // don't call handler if click happened on an ignored ref
+    if (ignoreClickRefs && ignoreClickRefs.some(({current}) => current?.contains(event.target as Node))) {
+      return stopPropagation
+    }
 
-      onClickOutside(event)
-    },
-    [containerRef, ignoreClickRefs, onClickOutside],
-  )
+    onClickOutside(event)
+  })
 
   useEffect(() => {
     if (Object.keys(registry).length === 0) {

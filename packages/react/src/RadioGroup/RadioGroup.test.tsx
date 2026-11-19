@@ -3,7 +3,7 @@ import {render} from '@testing-library/react'
 import RadioGroup from '.'
 import FormControl from '../FormControl'
 import Radio from '../Radio'
-import userEvent from '@testing-library/user-event'
+import {page, userEvent} from 'vitest/browser'
 import {implementsClassName} from '../utils/testing'
 import classes from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.module.css'
 
@@ -28,8 +28,8 @@ describe('RadioGroup', () => {
     vi.clearAllMocks()
   })
 
-  it('renders data-component attributes', () => {
-    const {getByRole, getByText} = render(
+  it('renders data-component attributes', async () => {
+    render(
       <RadioGroup name="choices">
         <RadioGroup.Label>Choices</RadioGroup.Label>
         <RadioGroup.Caption>Pick one</RadioGroup.Caption>
@@ -41,14 +41,18 @@ describe('RadioGroup', () => {
       </RadioGroup>,
     )
 
-    expect(getByRole('group')).toHaveAttribute('data-component', 'RadioGroup')
-    expect(getByText('Choices')).toHaveAttribute('data-component', 'RadioGroup.Label')
-    expect(getByText('Pick one')).toHaveAttribute('data-component', 'RadioGroup.Caption')
-    expect(document.querySelector('[data-component="RadioGroup.Validation"]')).toHaveTextContent('Selection required')
+    await expect.element(page.getByRole('group')).toHaveAttribute('data-component', 'RadioGroup')
+    await expect.element(page.getByText('Choices', {exact: true})).toHaveAttribute('data-component', 'RadioGroup.Label')
+    await expect
+      .element(page.getByText('Pick one', {exact: true}))
+      .toHaveAttribute('data-component', 'RadioGroup.Caption')
+    await expect
+      .element(document.querySelector<HTMLElement>('[data-component="RadioGroup.Validation"]'))
+      .toHaveTextContent('Selection required')
   })
 
-  it('renders a disabled group of inputs', () => {
-    const {getAllByRole, getByRole} = render(
+  it('renders a disabled group of inputs', async () => {
+    render(
       <RadioGroup name="choices" disabled>
         <RadioGroup.Label>Choices</RadioGroup.Label>
         <FormControl>
@@ -65,18 +69,18 @@ describe('RadioGroup', () => {
         </FormControl>
       </RadioGroup>,
     )
-    const radioInputs = getAllByRole('radio') as HTMLInputElement[]
-    const fieldset = getByRole('group') as HTMLFieldSetElement
+    const radioInputs = page.getByRole('radio').elements()
+    const fieldset = page.getByRole('group')
 
     for (const radioInput of radioInputs) {
-      expect(radioInput.disabled).toBe(true)
+      await expect.element(radioInput).toBeDisabled()
     }
 
-    expect(fieldset.disabled).toBe(true)
+    await expect.element(fieldset).toBeDisabled()
   })
 
-  it('renders a required group of inputs', () => {
-    const {getByTitle} = render(
+  it('renders a required group of inputs', async () => {
+    render(
       <RadioGroup name="choices" required>
         <RadioGroup.Label>Choices</RadioGroup.Label>
         <FormControl>
@@ -93,16 +97,15 @@ describe('RadioGroup', () => {
         </FormControl>
       </RadioGroup>,
     )
-    const requiredIndicator = getByTitle('required field')
+    const requiredIndicator = page.getByTitle('required field')
 
-    expect(requiredIndicator).toBeInTheDocument()
+    await expect.element(requiredIndicator).toBeInTheDocument()
   })
 
   it('calls onChange handlers passed to RadioGroup and Radio', async () => {
-    const user = userEvent.setup()
     const handleParentChange = vi.fn()
     const handleRadioChange = vi.fn()
-    const {getByLabelText} = render(
+    render(
       <RadioGroup name="choices" onChange={handleParentChange}>
         <RadioGroup.Label>Choices</RadioGroup.Label>
         <FormControl>
@@ -119,19 +122,18 @@ describe('RadioGroup', () => {
         </FormControl>
       </RadioGroup>,
     )
-    const checkbox = getByLabelText('Choice one') as HTMLInputElement
+    const checkbox = page.getByLabelText('Choice one')
 
     expect(handleParentChange).not.toHaveBeenCalled()
     expect(handleRadioChange).not.toHaveBeenCalled()
-    await user.click(checkbox)
+    await userEvent.click(checkbox)
     expect(handleParentChange).toHaveBeenCalled()
     expect(handleRadioChange).toHaveBeenCalled()
   })
 
   it('calls onChange handler on RadioGroup with selected value', async () => {
-    const user = userEvent.setup()
     const handleParentChange = vi.fn()
-    const {getByLabelText} = render(
+    render(
       <RadioGroup name="choices" onChange={handleParentChange}>
         <RadioGroup.Label>Choices</RadioGroup.Label>
         <FormControl>
@@ -149,10 +151,10 @@ describe('RadioGroup', () => {
       </RadioGroup>,
     )
 
-    const checkbox = getByLabelText('Choice one') as HTMLInputElement
+    const checkbox = page.getByLabelText('Choice one')
 
     expect(handleParentChange).not.toHaveBeenCalled()
-    await user.click(checkbox)
+    await userEvent.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
       'one',
       expect.objectContaining({

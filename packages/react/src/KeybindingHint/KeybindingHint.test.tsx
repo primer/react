@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vitest'
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page} from 'vitest/browser'
 
 import {KeybindingHint, getAccessibleKeybindingHintString} from '../KeybindingHint'
 import {implementsClassName} from '../utils/testing'
@@ -7,85 +8,88 @@ import {implementsClassName} from '../utils/testing'
 describe('KeybindingHint', () => {
   implementsClassName(props => <KeybindingHint keys="Control" {...props} />)
 
-  it('renders data-component="KeybindingHint" on the root element', () => {
+  it('renders data-component="KeybindingHint" on the root element', async () => {
     render(<KeybindingHint keys="Control" />)
-    expect(screen.getByTestId('keybinding-hint')).toHaveAttribute('data-component', 'KeybindingHint')
+    await expect.element(page.getByTestId('keybinding-hint')).toHaveAttribute('data-component', 'KeybindingHint')
   })
 
-  it('renders condensed keys by default', () => {
+  it('renders condensed keys by default', async () => {
     render(<KeybindingHint keys="Shift+Control+Function+PageUp" />)
     for (const icon of ['⇧', '⌃', 'Fn', 'PgUp']) {
-      const el = screen.getByText(icon)
-      expect(el).toBeVisible()
-      expect(el).toHaveAttribute('aria-hidden')
+      const el = page.getByText(icon, {exact: true})
+      await expect.element(el).toBeVisible()
+      await expect.element(el).toHaveAttribute('aria-hidden')
     }
   })
 
-  it('renders accessible key descriptions', () => {
+  it('renders accessible key descriptions', async () => {
     render(<KeybindingHint format="condensed" keys="Control+Shift+{" />)
     for (const name of ['control', 'shift', 'left curly brace']) {
-      const el = screen.getByText(name)
-      expect(el).toBeInTheDocument()
-      expect(el).not.toHaveAttribute('aria-hidden')
+      const el = page.getByText(name, {exact: true})
+      await expect.element(el).toBeInTheDocument()
+      await expect.element(el).not.toHaveAttribute('aria-hidden')
     }
   })
 
-  it('renders key names in full format', () => {
+  it('renders key names in full format', async () => {
     render(<KeybindingHint format="full" keys="Shift+Control+Function+ArrowUp" />)
     for (const name of ['Shift', 'Control', 'Function', 'Up Arrow']) {
-      const el = screen.getByText(name)
-      expect(el).toBeVisible()
-      expect(el).toHaveAttribute('aria-hidden')
+      const el = page.getByText(name, {exact: true})
+      await expect.element(el).toBeVisible()
+      await expect.element(el).toHaveAttribute('aria-hidden')
     }
   })
 
   it('sorts modifier keys', () => {
     render(<KeybindingHint format="full" keys="Shift+Control+PageUp+Function" />)
     const namesInOrder = ['Control', 'Shift', 'Function', 'Page Up']
-    const names = screen.getAllByText(text => namesInOrder.includes(text)).map(el => el.textContent)
+    const names = page
+      .getByText(/^(Control|Shift|Function|Page Up)$/)
+      .elements()
+      .map(el => el.textContent)
     expect(names).toEqual(namesInOrder)
   })
 
-  it('capitalizes other keys', () => {
+  it('capitalizes other keys', async () => {
     render(<KeybindingHint format="condensed" keys="control+a" />)
-    for (const key of ['⌃', 'A']) expect(screen.getByText(key)).toBeInTheDocument()
+    for (const key of ['⌃', 'A']) await expect.element(page.getByText(key, {exact: true})).toBeInTheDocument()
   })
 
   it.each([
     ['Plus', '+'],
     ['Space', '␣'],
-  ])('renders %s as symbol in condensed mode', (name, symbol) => {
+  ])('renders %s as symbol in condensed mode', async (name, symbol) => {
     render(<KeybindingHint format="condensed" keys={name} />)
-    expect(screen.getByText(symbol)).toBeInTheDocument()
+    await expect.element(page.getByText(symbol, {exact: true})).toBeInTheDocument()
   })
 
-  it.each(['Plus', 'Space'])('renders %s as name in full format', name => {
+  it.each(['Plus', 'Space'])('renders %s as name in full format', async name => {
     render(<KeybindingHint format="full" keys={name} />)
-    expect(screen.getByText(name)).toBeInTheDocument()
+    await expect.element(page.getByText(name, {exact: true})).toBeInTheDocument()
   })
 
-  it('does not render plus signs in condensed mode', () => {
+  it('does not render plus signs in condensed mode', async () => {
     render(<KeybindingHint format="condensed" keys="control+b" />)
-    expect(screen.queryByText('+')).not.toBeInTheDocument()
+    await expect.element(page.getByText('+', {exact: true})).not.toBeInTheDocument()
   })
 
-  it('renders plus signs between keys in full format', () => {
+  it('renders plus signs between keys in full format', async () => {
     render(<KeybindingHint format="full" keys="control+b" />)
-    const plus = screen.getByText('+')
-    expect(plus).toBeVisible()
-    expect(plus).toHaveAttribute('aria-hidden')
+    const plus = page.getByText('+', {exact: true})
+    await expect.element(plus).toBeVisible()
+    await expect.element(plus).toHaveAttribute('aria-hidden')
   })
 
-  it('renders sequences separated by hidden "then"', () => {
+  it('renders sequences separated by hidden "then"', async () => {
     render(<KeybindingHint keys="Mod+A F" format="full" />)
-    const el = screen.getByText('then')
-    expect(el).toBeInTheDocument()
-    expect(el).not.toHaveAttribute('aria-hidden')
+    const el = page.getByText('then', {exact: true})
+    await expect.element(el).toBeInTheDocument()
+    await expect.element(el).not.toHaveAttribute('aria-hidden')
   })
 
-  it('accepts className prop', () => {
+  it('accepts className prop', async () => {
     render(<KeybindingHint keys="Control" className="test-class" />)
-    expect(screen.getByTestId('keybinding-hint')).toHaveClass('test-class')
+    await expect.element(page.getByTestId('keybinding-hint')).toHaveClass('test-class')
   })
 })
 

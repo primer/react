@@ -236,7 +236,13 @@ function getPageSize(root: Element, item: HTMLElement | null) {
   const scrollContainer = getScrollContainer(root)
   const {height: itemHeight} = item?.getBoundingClientRect() ?? defaultSize
   const availableHeight = scrollContainer?.clientHeight ?? window.innerHeight
-  return Math.floor(availableHeight / itemHeight)
+  return Math.max(1, Math.floor(availableHeight / itemHeight))
+}
+
+function getVisibleTreeItems(root: Element): HTMLElement[] {
+  return Array.from(root.querySelectorAll<HTMLElement>('[role="treeitem"]')).filter(
+    item => !item.parentElement?.closest('[role="treeitem"][aria-expanded="false"]'),
+  )
 }
 
 function getNextPageElement(element: HTMLElement): HTMLElement | undefined {
@@ -245,7 +251,7 @@ function getNextPageElement(element: HTMLElement): HTMLElement | undefined {
     return
   }
 
-  const items = Array.from(root.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
+  const items = getVisibleTreeItems(root)
   if (items.length === 0) {
     return
   }
@@ -264,7 +270,7 @@ function getPreviousPageElement(element: HTMLElement): HTMLElement | undefined {
     return
   }
 
-  const items = Array.from(root.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
+  const items = getVisibleTreeItems(root)
   if (items.length === 0) {
     return
   }

@@ -320,10 +320,29 @@
   border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
 }
 
+.TableGroupHeaderTitle {
+  display: flex;
+  align-items: center;
+  column-gap: inherit;
+
+  &:where([data-selection]) {
+    column-gap: var(--base-size-8);
+  }
+}
+
 .TableGroupHeaderContent {
   display: flex;
   align-items: baseline;
   column-gap: var(--base-size-8);
+}
+
+.TableGroupSelection {
+  flex-shrink: 0;
+}
+
+:where(.TableBody[data-selection] > .TableRow) > .TableCell:nth-child(2)::before {
+  content: '';
+  flex: 0 0 var(--base-size-24);
 }
 
 .TableGroupHeaderLabel {
@@ -345,6 +364,7 @@
   height: var(--base-size-24);
   /* Center the hit target over the same 16px slot as a selection checkbox. */
   margin-inline: calc((var(--base-size-16) - var(--base-size-24)) / 2);
+  margin-block: calc(-1 * var(--base-size-2));
   color: var(--fgColor-default);
   align-items: center;
   justify-content: center;

@@ -1,0 +1,1 @@
+perl -pi -e 's#https://ms-feed-\d+\.pkgs\.visualstudio\.com/1es-public/_packaging/npm-public/npm/registry/#https://registry.npmjs.org/#g' package-lock.json

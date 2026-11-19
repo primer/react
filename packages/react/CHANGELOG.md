@@ -1,5 +1,55 @@
 # @primer/react
 
+## 38.46.0
+
+### Minor Changes
+
+- [#8592](https://github.com/primer/react/pull/8592) [`0ae18d3`](https://github.com/primer/react/commit/0ae18d38f09044c40c1a181288c2783e93629b4e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Card: Add optional shadows, regular (16px) and spacious (24px) padding in either layout, and heading links and buttons with opt-in full-card hit areas using fullCardHitArea. Existing normal padding and defaults are unchanged.
+
+- [#8692](https://github.com/primer/react/pull/8692) [`918d7cf`](https://github.com/primer/react/commit/918d7cf82d3884ab134e9b074e0a595198a1c033) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Stack: Add `balance` as a value for the `wrap` prop.
+
+### Patch Changes
+
+- [#8748](https://github.com/primer/react/pull/8748) [`324b0aa`](https://github.com/primer/react/commit/324b0aa0f1e4cc12c61a8a36b5790357e428dccc) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Breadcrumbs: Collapse crumbs that render more than one element (such as a link with a sibling button) when they no longer fit, instead of overflowing the container.
+
+- [#8683](https://github.com/primer/react/pull/8683) [`32d5061`](https://github.com/primer/react/commit/32d50618c58cceddf66d83716ac9742c2134b790) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Breadcrumbs: Improve the performance of `overflow="menu"` and `"menu-with-root"` on mount, resize and navigation. Server-rendered markup now applies the collapse rules before hydration, and the overflow menu trigger is a `<button>`.
+
+- [#8592](https://github.com/primer/react/pull/8592) [`0ae18d3`](https://github.com/primer/react/commit/0ae18d38f09044c40c1a181288c2783e93629b4e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Card: Improve shrinking and equal-height layouts, keep secondary controls accessible in custom whole-card compositions, and keep images edge-to-edge across padding options.
+
+- [#8679](https://github.com/primer/react/pull/8679) [`dbf2ac1`](https://github.com/primer/react/commit/dbf2ac1d758a0aae69f37ad1bd789480ce58ff4c) Thanks [@llastflowers](https://github.com/llastflowers)! - Breadcrumbs: Close the overflow menu when Escape is pressed while its tooltip is open.
+
+- [#8628](https://github.com/primer/react/pull/8628) [`41f29c8`](https://github.com/primer/react/commit/41f29c845663936043618af29dcb71de4c9384b2) Thanks [@joshblack](https://github.com/joshblack)! - SkeletonAvatar, SkeletonText: Preserve the requested size and shape regardless of stylesheet load order
+
+- [#8681](https://github.com/primer/react/pull/8681) [`8a9013e`](https://github.com/primer/react/commit/8a9013ea48359ad60a60e194783c865c08d3b7db) Thanks [@mattcosta7](https://github.com/mattcosta7)! - SkeletonBox, SkeletonText, SkeletonAvatar, ProgressBar: Run the loading shimmer animation on the compositor to reduce main-thread work while skeletons are visible
+
+- [#8562](https://github.com/primer/react/pull/8562) [`ee46232`](https://github.com/primer/react/commit/ee46232fafa24701415b21eed60cca68e589cf1c) Thanks [@joshblack](https://github.com/joshblack)! - useOnEscapePress, useOnOutsideClick: Improve performance when callbacks change between renders.
+
+- [#8609](https://github.com/primer/react/pull/8609) [`da90227`](https://github.com/primer/react/commit/da9022741a8109195480d7e6ccdf80cd723d6199) Thanks [@tay1orjones](https://github.com/tay1orjones)! - ActionList.LinkItem, NavList.Item: Preserve keyboard focus and running child animations when links rerender.
+
+- [#8684](https://github.com/primer/react/pull/8684) [`35ff497`](https://github.com/primer/react/commit/35ff4972b1d62810df69f606c6785bc7f123d5d5) Thanks [@mattcosta7](https://github.com/mattcosta7)! - TreeView: Reduce mount and hydration cost for large trees. Server-rendered trees now have a single tab stop and named subtrees before hydration.
+
+## 38.45.0
+
+### Minor Changes
+
+- [#8034](https://github.com/primer/react/pull/8034) [`f80b27c`](https://github.com/primer/react/commit/f80b27cc531b4f12f3384a68a6c0259639d07d99) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Blankslate: Add compact-default sizing and default-sized primary actions behind the default-off `primer_react_blankslate_compact_default` feature flag. The `small` size remains supported.
+
+- [#8534](https://github.com/primer/react/pull/8534) [`57c2ac5`](https://github.com/primer/react/commit/57c2ac594efb8ee9b3e59ed2b9abb66fc15a36d9) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add bulk actions in the table header with selection counts and focus recovery.
+
+- [#8640](https://github.com/primer/react/pull/8640) [`8088a06`](https://github.com/primer/react/commit/8088a06e5b5380d81736179fee71d698b650d110) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Add selection checkboxes to collapsible groups, aligned with row checkboxes. Table.Group supports controlled group selection.
+
+### Patch Changes
+
+- [#8612](https://github.com/primer/react/pull/8612) [`9cd1f8a`](https://github.com/primer/react/commit/9cd1f8ae897b8db44434474b937fda39f57f15f9) Thanks [@alexus37](https://github.com/alexus37)! - ActionBar, UnderlineNav: Batch descendant registry updates to reduce cascading renders during rapid item changes
+
+- [#8634](https://github.com/primer/react/pull/8634) [`62d32c9`](https://github.com/primer/react/commit/62d32c94ac730847a4557441b65a6a48334201a3) Thanks [@HadrielWonda](https://github.com/HadrielWonda)! - FilteredActionList: Only reference the list from the filter input while the list is rendered, so `aria-controls` never points at a missing element during body loading or when a message is shown
+
+- [#8638](https://github.com/primer/react/pull/8638) [`4b1cc1d`](https://github.com/primer/react/commit/4b1cc1d863209aa9aaf9f6ab47ae25b86de5c1e1) Thanks [@joshblack](https://github.com/joshblack)! - Polymorphic components: Fix TypeScript inference for component-specific props while preserving `as` support.
+
+- [#8611](https://github.com/primer/react/pull/8611) [`68a5c0b`](https://github.com/primer/react/commit/68a5c0b18c800b8f6f6555f9d4d327c48389ae06) Thanks [@alexus37](https://github.com/alexus37)! - ActionMenu: Avoid an extra render when closed menus mount while preserving accessible trigger labeling
+
+- [#8534](https://github.com/primer/react/pull/8534) [`57c2ac5`](https://github.com/primer/react/commit/57c2ac594efb8ee9b3e59ed2b9abb66fc15a36d9) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - Table: Preserve bottom corners when the final row group is empty.
+
 ## 38.44.0
 
 ### Minor Changes

@@ -94,7 +94,6 @@
   --segmented-control-outer-radius: var(--borderRadius-medium);
 
   display: inline-flex;
-  max-width: 100%;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
   height: 32px;
@@ -444,7 +443,6 @@
   }
 
   .Counter {
-    grid-column: 3;
     margin-inline-start: var(--base-size-8);
     display: flex;
     align-items: center;
@@ -542,8 +540,7 @@
 }
 
 .Content {
-  display: grid;
-  grid-template-columns: auto minmax(0, max-content) auto;
+  display: flex;
   height: 100%;
   /* stylelint-disable-next-line primer/spacing */
   padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
@@ -596,14 +593,6 @@
   }
 }
 
-.Text {
-  grid-column: 2;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .Text::after {
   display: block;
   height: 0;
@@ -616,6 +605,5 @@
 }
 
 .LeadingIcon {
-  grid-column: 1;
   margin-right: var(--base-size-4);
 }
