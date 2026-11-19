@@ -19,6 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null) }}"
     steps:
+      - name: Explain integration skip workaround for fork pull requests
+        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+        run: |
+          echo '::warning title=Fork PR integration skip workaround::This pull request is from a fork. If integration skip statuses cannot be updated, a maintainer can comment .skip-integration-checks on this PR instead.'
+          echo 'This pull request is from a fork. If integration skip statuses cannot be updated, a maintainer can comment `.skip-integration-checks` on this PR instead.' >> "$GITHUB_STEP_SUMMARY"
+
       - name: Generate token for primer
         id: generate_primer_token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0

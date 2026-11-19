@@ -395,6 +395,79 @@ describe('Breadcrumbs overflow regressions (real layout)', () => {
     expect(linksWithinNav()).toBe(true)
   })
 
+  it('measures every element a crumb renders, so it collapses instead of spilling out', async () => {
+    // Mirrors a header crumb that renders a link and a sibling button (a repository picker) in a
+    // region that aligns to the end, so an under-measured crumb would spill out of its start edge.
+    function CrumbWithPicker() {
+      return (
+        <>
+          <Breadcrumbs.Item href="#repository" selected>
+            repository
+          </Breadcrumbs.Item>
+          <button type="button" style={{width: 24}}>
+            Switch
+          </button>
+        </>
+      )
+    }
+    const ui = (width: number) => (
+      <div data-testid="region" style={{display: 'flex', justifyContent: 'flex-end', width}}>
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item key="owner" href="#owner">
+            organization-with-a-long-name
+          </Breadcrumbs.Item>
+          <CrumbWithPicker key="repository" />
+        </Breadcrumbs>
+      </div>
+    )
+    const {rerender} = render(ui(800))
+    await nextFrame()
+    expect(menuButton()).toBeNull()
+
+    // Narrower than the crumbs, but wider than they measure without the picker button.
+    rerender(ui(screen.getByRole('list').getBoundingClientRect().width - 8))
+    await nextFrame()
+    expect(visibleLinks()).toEqual(['repository'])
+    const region = screen.getByTestId('region').getBoundingClientRect()
+    for (const element of [
+      menuButton()!,
+      ...screen.getAllByRole('link'),
+      screen.getByRole('button', {name: 'Switch'}),
+    ]) {
+      const rect = element.getBoundingClientRect()
+      if (rect.width === 0) continue
+      expect(rect.left).toBeGreaterThanOrEqual(region.left - 1)
+      expect(rect.right).toBeLessThanOrEqual(region.right + 1)
+    }
+  })
+
+  it('collapses when it shares a flex row with a sibling that can shrink', async () => {
+    // Mirrors a header region where the crumbs sit beside a search field. If the nav kept its
+    // crumbs' width, the sibling would absorb the squeeze and the crumbs would always measure as
+    // fitting, so nothing would collapse until the row was narrower than the crumbs alone.
+    // Whole-pixel widths, so rounding can't decide whether the crumbs fit.
+    const ui = (width: number) => (
+      <div style={{display: 'flex', width, ['--text-body-size-medium' as string]: '20px'}}>
+        <Breadcrumbs overflow="menu">
+          {['owner', 'repository'].map((label, index) => (
+            <Breadcrumbs.Item key={label} href={`#${label}`} selected={index === 1} style={{width: 150}}>
+              {label}
+            </Breadcrumbs.Item>
+          ))}
+        </Breadcrumbs>
+        <div style={{flex: '0 1 400px', minWidth: 100}} />
+      </div>
+    )
+    const {rerender} = render(ui(1600))
+    await nextFrame()
+    expect(menuButton()).toBeNull()
+
+    // The crumbs only fit if the sibling gives up everything above its minimum width.
+    rerender(ui(screen.getByRole('list').getBoundingClientRect().width + 100))
+    await nextFrame()
+    expect(visibleLinks()).toEqual(['repository'])
+  })
+
   it('starts with the overflow menu closed after switching to wrap and back', async () => {
     const user = userEvent.setup()
     const ui = (overflow: 'wrap' | 'menu') => <div style={{width: 300}}>{crumbs(overflow, labels)}</div>

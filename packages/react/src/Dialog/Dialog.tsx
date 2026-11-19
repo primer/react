@@ -1,8 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState, type CSSProperties, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
-import {useMergedRefs, useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
-import {useFeatureFlag} from '../FeatureFlags'
+import {useMergedRefs, useOnEscapePress} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -488,26 +487,20 @@ const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Foot
 Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
-  const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
   const providedButtonRef = buttons.find(button => button.autoFocus)?.ref
   const autoFocusRef = useRef<HTMLButtonElement>(null)
   const mergedRef = useMergedRefs(autoFocusRef, providedButtonRef)
-  // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
-  // At graduation: remove the three declarations below, and replace all instances of `readRef` with `autoFocusRef` and `appliedRef` with `mergedRef`.
-  const providedOrCreatedRef = useProvidedRefOrCreate<HTMLButtonElement>(providedButtonRef)
-  const readRef = mergedRefEnabled ? autoFocusRef : providedOrCreatedRef
-  const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
     // hack to work around dialogs originating from other focus traps.
     if (hasRendered === 1) {
-      readRef.current?.focus()
+      autoFocusRef.current?.focus()
     } else {
       // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
       setHasRendered(hasRendered + 1)
     }
-  }, [readRef, hasRendered])
+  }, [hasRendered])
 
   return (
     <>
@@ -520,8 +513,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
-            // @ts-expect-error it needs a non nullable ref
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, appliedRef) : null}
+            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, mergedRef) : null}
           >
             {content}
           </Button>

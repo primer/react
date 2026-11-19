@@ -167,7 +167,10 @@
   border-color: var(--borderColor-default);
   /* stylelint-disable-next-line primer/borders */
   border-radius: 20px;
-  animation: loadingCounterKeyFrames 1.2s ease-in-out infinite alternate;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: loadingCounterKeyFrames 1.2s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes loadingCounterKeyFrames {
