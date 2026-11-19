@@ -497,22 +497,42 @@ const ItemImpl = fixedForwardRef(
       </ItemElement>
     )
 
+    // Memoize the context value so focusing or blurring this item (which only
+    // changes its own `isFocused` state) does not re-render the whole expanded
+    // subtree: every descendant reads `ItemContext`, and a fresh object on each
+    // render would force them all to re-render.
+    const itemContextValue = React.useMemo(
+      () => ({
+        itemId,
+        level: level + 1,
+        isSubTreeEmpty,
+        setIsSubTreeEmpty,
+        isExpanded,
+        setIsExpanded: setIsExpandedWithCache,
+        leadingVisualId,
+        trailingVisualId,
+        trailingActionId,
+        subTreeAriaLabel: ariaLabel,
+        subTreeAriaLabelledBy: ariaLabel ? undefined : ariaLabelledby || labelId,
+      }),
+      [
+        ariaLabel,
+        ariaLabelledby,
+        isExpanded,
+        isSubTreeEmpty,
+        itemId,
+        labelId,
+        leadingVisualId,
+        level,
+        setIsExpandedWithCache,
+        setIsSubTreeEmpty,
+        trailingActionId,
+        trailingVisualId,
+      ],
+    )
+
     return (
-      <ItemContext.Provider
-        value={{
-          itemId,
-          level: level + 1,
-          isSubTreeEmpty,
-          setIsSubTreeEmpty,
-          isExpanded,
-          setIsExpanded: setIsExpandedWithCache,
-          leadingVisualId,
-          trailingVisualId,
-          trailingActionId,
-          subTreeAriaLabel: ariaLabel,
-          subTreeAriaLabelledBy: ariaLabel ? undefined : ariaLabelledby || labelId,
-        }}
-      >
+      <ItemContext.Provider value={itemContextValue}>
         {isPolymorphic ? <li role="none">{itemElement}</li> : itemElement}
       </ItemContext.Provider>
     )

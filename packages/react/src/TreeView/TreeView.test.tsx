@@ -2651,3 +2651,47 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
 
   await expect.element(page.getByRole('dialog')).toBeInTheDocument()
 })
+
+describe('Focus re-renders', () => {
+  it('does not re-render expanded children when the parent item gains or loses focus', async () => {
+    const childUpdates: Array<string> = []
+    const onRender = (id: string, phase: 'mount' | 'update') => {
+      if (phase === 'update') {
+        childUpdates.push(id)
+      }
+    }
+
+    render(
+      <>
+        <button type="button">Before</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="parent" defaultExpanded>
+            Parent
+            <TreeView.SubTree>
+              <React.Profiler id="child-1" onRender={onRender}>
+                <TreeView.Item id="child-1">Child 1</TreeView.Item>
+              </React.Profiler>
+              <TreeView.Item id="child-2">Child 2</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </>,
+    )
+
+    // Ignore any updates from the initial mount.
+    childUpdates.length = 0
+
+    // Focusing the parent only changes the parent's own focused state, so the
+    // expanded children must not re-render.
+    const parent = page.getByRole('treeitem', {name: 'Parent', exact: true})
+    act(() => parent.element().focus())
+    await expect.element(parent).toHaveFocus()
+    expect(childUpdates).toEqual([])
+
+    // Blurring the parent re-renders the parent again; the children still
+    // must not re-render.
+    act(() => page.getByRole('button', {name: 'Before'}).element().focus())
+    await expect.element(page.getByRole('button', {name: 'Before'})).toHaveFocus()
+    expect(childUpdates).toEqual([])
+  })
+})
