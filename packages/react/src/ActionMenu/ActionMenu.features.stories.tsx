@@ -1,4 +1,6 @@
 import React from 'react'
+import type {StoryObj} from '@storybook/react-vite'
+import {expect, within} from 'storybook/test'
 import {ActionMenu} from '.'
 import {ActionList} from '../ActionList'
 import {
@@ -135,6 +137,59 @@ export const MultiSelect = () => {
       </ActionMenu.Overlay>
     </ActionMenu>
   )
+}
+
+export const MultiSelectWithLongValues: StoryObj = {
+  render: function MultiSelectWithLongValues() {
+    const [options, setOptions] = React.useState([
+      {name: 'Show code folding buttons next to all collapsible blocks of code in the editor', selected: true},
+      {name: 'Wrap long lines of code to fit within the available width of the editor', selected: false},
+      {name: 'Center the editor content to keep code readable on wide screens', selected: false},
+    ])
+
+    return (
+      <ActionMenu>
+        <ActionMenu.Button>Display</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="multiple">
+            {options.map(option => (
+              <ActionList.Item
+                key={option.name}
+                selected={option.selected}
+                onSelect={() => {
+                  setOptions(previousOptions =>
+                    previousOptions.map(previousOption =>
+                      previousOption.name === option.name
+                        ? {...previousOption, selected: !previousOption.selected}
+                        : previousOption,
+                    ),
+                  )
+                }}
+              >
+                {option.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    )
+  },
+  play: async ({canvas, canvasElement, userEvent}) => {
+    await userEvent.click(canvas.getByRole('button', {name: 'Display'}))
+    const body = within(canvasElement.ownerDocument.body)
+    const codeFolding = body.getByRole('menuitemcheckbox', {name: /Show code folding buttons/})
+    const lineWrapping = () => body.getByRole('menuitemcheckbox', {name: /Wrap long lines of code/})
+
+    await expect(codeFolding).toBeChecked()
+    await expect(lineWrapping()).not.toBeChecked()
+    await userEvent.click(lineWrapping())
+    await userEvent.click(canvas.getByRole('button', {name: 'Display'}))
+    await expect(lineWrapping()).toBeChecked()
+    await expect(body.getByRole('menuitemcheckbox', {name: /Show code folding buttons/})).toBeChecked()
+    await userEvent.click(lineWrapping())
+    await userEvent.click(canvas.getByRole('button', {name: 'Display'}))
+    await expect(lineWrapping()).not.toBeChecked()
+  },
 }
 
 export const InactiveItems = () => (
