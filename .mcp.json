@@ -1,22 +1,27 @@
 {
   "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--memoryDebugging",
+        "--no-usage-statistics",
+        "--no-performance-crux"
+      ]
+    },
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp"
     },
     "playwright": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@microsoft/mcp-server-playwright"
-      ]
+      "args": ["-y", "@microsoft/mcp-server-playwright"]
     },
     "primer": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "@primer/mcp@latest"
-      ]
+      "args": ["@primer/mcp@latest"]
     },
     "primer-storybook": {
       "type": "http",

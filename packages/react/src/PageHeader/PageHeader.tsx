@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import Heading from '../Heading'
+import type {HeadingProps} from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import type {LinkProps as BaseLinkProps} from '../Link'
 import Link from '../Link'
@@ -10,9 +11,9 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
-import {useMergedRefs, useProvidedRefOrCreate} from '../hooks'
-import {useFeatureFlag} from '../FeatureFlags'
+import {useMergedRefs} from '../hooks'
 import type {AriaRole, FCWithSlotMarker} from '../utils/types'
+import {mergeProps} from '../utils/mergeProps'
 import {clsx} from 'clsx'
 
 import classes from './PageHeader.module.css'
@@ -50,14 +51,8 @@ export type PageHeaderProps = {
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
-    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
     const rootRef = useRef<HTMLDivElement>(null)
     const mergedRef = useMergedRefs(rootRef, forwardedRef)
-    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
-    // At graduation: remove the three declarations below, and replace all instances of `readRef` with `rootRef` and `appliedRef` with `mergedRef`.
-    const providedOrCreatedRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
-    const readRef = mergedRefEnabled ? rootRef : providedOrCreatedRef
-    const appliedRef = mergedRefEnabled ? mergedRef : providedOrCreatedRef
 
     // Hoist title size + navigation visibility off children onto the root so
     // styling can use plain attribute selectors instead of `:has()`. We descend
@@ -125,8 +120,8 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         let hasContextArea = false
         let hasLeadingAction = false
 
-        if (!readRef.current || readRef.current.children.length <= 0) return
-        const titleArea = Array.from(readRef.current.children as HTMLCollection).find(child => {
+        if (!rootRef.current || rootRef.current.children.length <= 0) return
+        const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
           return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
         })
 
@@ -158,12 +153,12 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
           'When PageHeader.ContextArea or PageHeader.LeadingAction is present, we recommended not to include any interactive items in the PageHeader.TitleArea to make sure the focus order is logical.',
         )
       },
-      [children, readRef],
+      [children],
     )
 
     return (
       <BaseComponent
-        ref={appliedRef}
+        ref={mergedRef}
         className={clsx(classes.PageHeader, className)}
         data-component="PageHeader"
         data-has-border={hasBorder ? 'true' : undefined}
@@ -281,16 +276,10 @@ export type TitleAreaProps = {
 
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, hidden = false, variant = 'medium'}, forwardedRef) => {
-    const mergedRefEnabled = useFeatureFlag('primer_react_merged_forwarded_refs')
-    // Feature-flag scaffolding for `primer_react_merged_forwarded_refs`.
-    // At graduation: remove the two declarations below, and replace all instances of `appliedRef` with `forwardedRef`.
-    const providedOrCreatedRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
-    const appliedRef = mergedRefEnabled ? forwardedRef : providedOrCreatedRef
     return (
       <div
         className={clsx(classes.TitleArea, className)}
-        // @ts-expect-error it needs a non nullable ref
-        ref={appliedRef}
+        ref={forwardedRef}
         data-component="TitleArea"
         {...getResponsiveAttributes('size-variant', variant)}
         {...getHiddenDataAttributes(hidden)}
@@ -348,23 +337,33 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
   )
 }
 
-export type TitleProps = {
+// TitleArea owns responsive sizing, so callers cannot override it with Heading's static variant.
+export type TitleProps = Omit<HeadingProps, 'as' | 'variant' | 'hidden' | 'children' | 'className' | 'ref'> & {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2'}) => {
-  return (
-    <Heading
-      className={clsx(classes.Title, className)}
-      data-component="PH_Title"
-      data-hidden={hidden}
-      as={as}
-      {...getHiddenDataAttributes(hidden)}
-    >
-      {children}
-    </Heading>
-  )
-}
+const Title = React.forwardRef<HTMLHeadingElement, React.PropsWithChildren<TitleProps>>(
+  ({children, className, hidden = false, as = 'h2', ...rest}, forwardedRef) => {
+    return (
+      <Heading
+        ref={forwardedRef}
+        {...mergeProps(
+          {
+            className: clsx(classes.Title, className),
+            as,
+          },
+          rest,
+        )}
+        data-component="PH_Title"
+        data-hidden={hidden}
+        {...getHiddenDataAttributes(hidden)}
+      >
+        {children}
+      </Heading>
+    )
+  },
+)
+Title.displayName = 'Title'
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
