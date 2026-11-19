@@ -59,6 +59,24 @@ describe('AvatarStack', () => {
     await expect.element(container.querySelector<HTMLElement>('[tabindex="0"]')).not.toBeInTheDocument()
   })
 
+  it('updates its tab stop when a nested action is added', async () => {
+    const {container, rerender} = render(
+      <AvatarStack>
+        <span />
+      </AvatarStack>,
+    )
+    const body = container.querySelector<HTMLElement>('[data-component="AvatarStack.Body"]')
+    await expect.element(body).toHaveAttribute('tabindex', '0')
+    rerender(
+      <AvatarStack>
+        <span>
+          <button type="button">Open</button>
+        </span>
+      </AvatarStack>,
+    )
+    await expect.element(body).not.toHaveAttribute('tabindex')
+  })
+
   it('should not have a tabindex if disableExpand is true', async () => {
     const {container} = render(
       <AvatarStack disableExpand>
