@@ -1,9 +1,7 @@
-import {announceFromElement} from '@primer/live-region-element'
-import {isVisible} from '../internal/utils/isVisible'
 import type React from 'react'
 import {useEffect, useRef, type ElementRef} from 'react'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
-import {useEffectCallback} from '../internal/hooks/useEffectCallback'
+import {useAnnounce} from '../internal/hooks/useAnnounce'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
 export type AnnounceProps<As extends React.ElementType> = PolymorphicProps<
@@ -53,51 +51,10 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     ...rest
   } = props
   const ref = useRef<ElementRef<'div'>>(null)
-  // Tracked in a ref rather than state because it is only used to dedupe
-  // announcements and is never rendered. Using state here would trigger a React
-  // commit on every content change (e.g. one per keystroke when tied to an input).
-  const previousAnnouncementText = useRef<string | null>(null)
-  const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
-  const announce = useEffectCallback(() => {
-    const {current: element} = ref
-    if (!element) {
-      return
-    }
-
-    if (hidden) {
-      return
-    }
-
-    // PERFORMANCE: Check text content before getComputedStyle to avoid forcing
-    // a style recalculation when there's nothing to announce. getComputedStyle
-    // triggers a synchronous reflow that can cost hundreds of milliseconds on
-    // large DOM trees (e.g. TreeView with 14K+ nodes).
-    const textContent = getTextContent(element)
-    if (!textContent) {
-      return
-    }
-
-    if (textContent === previousAnnouncementText.current) {
-      return
-    }
-
-    if (!isVisible(element)) {
-      return
-    }
-
-    savedAnnouncement.current?.cancel()
-    savedAnnouncement.current = announceFromElement(
-      element,
-      politeness === 'assertive'
-        ? {
-            politeness,
-          }
-        : {
-            politeness,
-            delayMs,
-          },
-    )
-    previousAnnouncementText.current = textContent
+  const {announce} = useAnnounce(ref, {
+    delayMs,
+    hidden,
+    politeness,
   })
 
   // Announce the initial message, this is wrapped in `useEffectOnce` so that it
@@ -130,28 +87,9 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     }
   }, [announce])
 
-  useEffect(() => {
-    return () => {
-      if (savedAnnouncement.current !== null) {
-        savedAnnouncement.current.cancel()
-        savedAnnouncement.current = null
-      }
-    }
-  }, [])
-
   return (
     <BaseComponent {...rest} ref={ref}>
       {children}
     </BaseComponent>
   )
-}
-
-function getTextContent(element: HTMLElement): string {
-  let value = ''
-  if (element.hasAttribute('aria-label')) {
-    value = element.getAttribute('aria-label')!
-  } else if (element.textContent) {
-    value = element.textContent
-  }
-  return value ? value.trim() : ''
 }

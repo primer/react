@@ -1,4 +1,4 @@
-import {useEffect, useId, useRef, useState, type ReactElement, type ReactNode, type RefObject} from 'react'
+import {useEffect, useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -20,7 +20,7 @@ import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
 import {TableSelectionAnnouncementContext} from './TableSelectionAnnouncementContext'
 import classes from './TableBulkActions.module.css'
 import VisuallyHidden from '../_VisuallyHidden'
-import {AriaStatus} from '../live-region'
+import {useAnnounce} from '../internal/hooks/useAnnounce'
 
 export interface DataTableBulkActionsContext {
   selectedRows: ReadonlySet<DataTableRowId>
@@ -276,7 +276,33 @@ function DataTableImplementation<Data extends UniqueRow>({
     </TableRow>
   )
 
-  const tableElement = (
+  const selectedCountForAnnouncement = rowSelection ? selection.selectedCount : null
+  const previousSelectedCount = useRef(selectedCountForAnnouncement)
+  const {announce, cancel} = useAnnounce(tableRef, {delayMs: 150})
+  useEffect(() => {
+    const previous = previousSelectedCount.current
+    previousSelectedCount.current = selectedCountForAnnouncement
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- Controlled selection changes also need announcements.
+    if (selectedCountForAnnouncement === null) {
+      cancel()
+      return
+    }
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- Controlled selection changes also need announcements.
+    if (previous === null || previous === selectedCountForAnnouncement) {
+      return
+    }
+
+    // Read committed content: a React element may render no actions.
+    const actions = bulkActionsRef.current?.querySelector(`.${classes.Actions}`)
+    announce(
+      getSelectionAnnouncement({
+        selectedCount: selectedCountForAnnouncement,
+        bulkActionsAvailable: Boolean(actions && (actions.children.length > 0 || actions.textContent.trim())),
+      }),
+    )
+  }, [selectedCountForAnnouncement, getSelectionAnnouncement, announce, cancel])
+
+  return (
     <Table
       ref={tableRef}
       tabIndex={hasBulkActions ? -1 : undefined}
@@ -417,58 +443,6 @@ function DataTableImplementation<Data extends UniqueRow>({
         ),
       )}
     </Table>
-  )
-
-  return (
-    <>
-      {tableElement}
-      {rowSelection ? (
-        <TableSelectionAnnouncement
-          selectedCount={selection.selectedCount}
-          bulkActionsRef={bulkActionsRef}
-          getSelectionAnnouncement={getSelectionAnnouncement}
-        />
-      ) : null}
-    </>
-  )
-}
-
-function TableSelectionAnnouncement({
-  selectedCount,
-  bulkActionsRef,
-  getSelectionAnnouncement,
-}: {
-  selectedCount: number
-  bulkActionsRef: RefObject<HTMLDivElement | null>
-  getSelectionAnnouncement: (context: DataTableSelectionAnnouncementContext) => string
-}) {
-  const previousSelectedCount = useRef(selectedCount)
-  const [message, setMessage] = useState('')
-
-  useEffect(() => {
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- Controlled selection changes also need announcements.
-    if (previousSelectedCount.current === selectedCount) {
-      return
-    }
-    previousSelectedCount.current = selectedCount
-
-    // Read committed content: a React element may render no actions.
-    const actions = bulkActionsRef.current?.querySelector(`.${classes.Actions}`)
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state -- Action availability is only known after commit.
-    setMessage(
-      getSelectionAnnouncement({
-        selectedCount,
-        bulkActionsAvailable: Boolean(actions && (actions.children.length > 0 || actions.textContent.trim())),
-      }),
-    )
-  }, [selectedCount, bulkActionsRef, getSelectionAnnouncement])
-
-  return (
-    <VisuallyHidden data-table-selection-announcement="">
-      <AriaStatus as="span" delayMs={150}>
-        {message}
-      </AriaStatus>
-    </VisuallyHidden>
   )
 }
 
