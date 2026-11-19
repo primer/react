@@ -15,6 +15,9 @@
     },
     {
       "id": "components-relativetime-features--count-down-timer"
+    },
+    {
+      "id": "components-relativetime-features--compact-absolute-format"
     }
   ],
   "importPath": "@primer/react",
@@ -37,6 +40,12 @@
       "type": "'auto' | 'micro' | 'elapsed'",
       "defaultValue": "'auto'",
       "description": "The format with which to display the time"
+    },
+    {
+      "name": "absoluteFormat",
+      "type": "'compact'",
+      "defaultValue": "undefined",
+      "description": "Controls presentation when absolute output is selected. `compact` shows localized today with 12-hour time, or a localized date with its year and no time. It omits the visible time zone and overrides `prefix`, `formatStyle`, and individual date/time display fields. Locale and display time zone still apply. It does not force absolute output or change the full timestamp title. Omitting the prop preserves existing behavior."
     },
     {
       "name": "tense",

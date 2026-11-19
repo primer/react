@@ -10,10 +10,16 @@ const localeOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   timeZone: 'UTC',
 } satisfies Intl.DateTimeFormatOptions
-function RelativeTime({date, datetime, children, noTitle, ...props}: RelativeTimeProps) {
+function RelativeTime({date, datetime, children, noTitle, absoluteFormat, ...props}: RelativeTimeProps) {
   if (datetime) date = new Date(datetime)
   return (
-    <RelativeTimeComponent {...props} date={date} no-title={noTitle ? '' : undefined} data-component="RelativeTime">
+    <RelativeTimeComponent
+      {...props}
+      date={date}
+      absoluteFormat={absoluteFormat}
+      no-title={noTitle ? '' : undefined}
+      data-component="RelativeTime"
+    >
       {children || date?.toLocaleDateString('en', localeOptions) || ''}
     </RelativeTimeComponent>
   )
