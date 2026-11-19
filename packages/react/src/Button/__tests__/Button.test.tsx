@@ -555,6 +555,28 @@ describe('Button', () => {
     await expect.element(wrapper).toHaveClass(classes.ConditionalWrapperLink)
   })
 
+  it('keeps an active popup trigger enabled while suppressing its tooltip', async () => {
+    const onClick = vi.fn()
+    const example = (expanded: boolean) => (
+      <IconButton icon={HeartIcon} aria-label="Heart" aria-haspopup="true" aria-expanded={expanded} onClick={onClick} />
+    )
+    const {container, rerender} = render(example(false))
+    const button = page.getByRole('button', {name: 'Heart', exact: true})
+    const tooltip = container.querySelector('[data-component="Tooltip"]')!
+    const labelId = button.element().getAttribute('aria-labelledby')
+    await userEvent.hover(button)
+    await expect.poll(() => tooltip.matches(':popover-open')).toBe(true)
+
+    rerender(example(true))
+    expect(tooltip.matches(':popover-open')).toBe(false)
+    expect(button.element()).toHaveAttribute('aria-labelledby', labelId)
+    expect(button.element()).toHaveAccessibleName('Heart')
+    await expect.element(button).toBeEnabled()
+    await userEvent.click(button)
+    expect(onClick).toHaveBeenCalledOnce()
+    expect(tooltip.matches(':popover-open')).toBe(false)
+  })
+
   it('should render tooltip on an icon button when unsafeDisableTooltip prop is passed as false', async () => {
     render(<IconButton icon={HeartIcon} aria-label="Heart" />)
     const triggerEL = page.getByRole('button')
