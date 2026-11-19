@@ -222,7 +222,10 @@ export const DragHandle = memo<DragHandleProps>(function DragHandle({
         rafIdRef.current = null
         pendingClientXRef.current = null
       }
-      endDragging()
+      if (isDraggingRef.current) {
+        endDragging()
+        stableOnDragEnd.current()
+      }
     }
   }, [endDragging])
 

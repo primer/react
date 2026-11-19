@@ -367,12 +367,18 @@ describe('PageLayout', async () => {
       await expect.poll(() => container.querySelector('[data-component="PageLayout.DragHandle"]')).toBeNull()
     })
 
-    it('restores interaction when the resize handle disappears before keyup', async () => {
+    it('commits the final width and restores interaction when the resize handle disappears before keyup', async () => {
       const onClick = vi.fn()
+      const onResizeEnd = vi.fn()
       const layout = (max: '256px' | '300px') => (
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar resizable width={{min: '256px', default: '256px', max}}>
+          <PageLayout.Sidebar
+            resizable
+            width={{min: '256px', default: '256px', max}}
+            currentWidth={undefined}
+            onResizeEnd={onResizeEnd}
+          >
             <button type="button" onClick={onClick}>
               Sidebar action
             </button>
@@ -389,6 +395,7 @@ describe('PageLayout', async () => {
       try {
         expect(sidebar).toHaveAttribute('data-dragging', 'true')
         expect(wrapper).toHaveAttribute('data-dragging', 'true')
+        expect(onResizeEnd).not.toHaveBeenCalled()
 
         rerender(layout('256px'))
         await expect.poll(() => handle.isConnected).toBe(false)
@@ -398,8 +405,33 @@ describe('PageLayout', async () => {
         await userEvent.keyboard('{/ArrowRight}')
       }
 
+      expect(onResizeEnd).toHaveBeenCalledExactlyOnceWith(259)
       await page.getByRole('button', {name: 'Sidebar action'}).click()
       expect(onClick).toHaveBeenCalledOnce()
+
+      rerender(layout('300px'))
+      await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '259')
+    })
+
+    it('does not report resize completion when an idle handle unmounts', async () => {
+      const onResizeEnd = vi.fn()
+      const {unmount} = render(
+        <PageLayout>
+          <PageLayout.Sidebar
+            resizable
+            width={{min: '256px', default: '256px', max: '300px'}}
+            currentWidth={undefined}
+            onResizeEnd={onResizeEnd}
+          >
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+      await expect.element(page.getByRole('slider')).toBeVisible()
+
+      unmount()
+
+      expect(onResizeEnd).not.toHaveBeenCalled()
     })
 
     it.each([
