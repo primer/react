@@ -9,9 +9,9 @@ describe('Spinner', () => {
   implementsClassName(Spinner, classes.SpinnerAnimation)
 
   it('should label the spinner with default loading text', async () => {
-    const {getByLabelText} = render(<Spinner />)
+    render(<Spinner />)
 
-    expect(getByLabelText('Loading')).toBeInTheDocument()
+    expect(screen.getByRole('status', {name: 'Loading'})).toBeInTheDocument()
   })
 
   it('renders data-component attribute on the outermost element', () => {
@@ -20,9 +20,9 @@ describe('Spinner', () => {
   })
 
   it('should label the spinner with with custom loading text', async () => {
-    const {getByLabelText} = render(<Spinner srText="Custom loading text" />)
+    render(<Spinner srText="Custom loading text" />)
 
-    expect(getByLabelText('Custom loading text')).toBeInTheDocument()
+    expect(screen.getByRole('status', {name: 'Custom loading text'})).toBeInTheDocument()
   })
 
   it('should not label the spinner with with loading text when `srText` is set to `null`', () => {
@@ -33,7 +33,15 @@ describe('Spinner', () => {
 
   it('should use `aria-label` over `srText` if `aria-label` is provided', () => {
     render(<Spinner aria-label="Test label" />)
-    expect(screen.getByLabelText('Test label')).toBeInTheDocument()
+    expect(screen.getByRole('status', {name: 'Test label'})).toBeInTheDocument()
+  })
+
+  it('should render the SVG as decorative content', () => {
+    const {container} = render(<Spinner />)
+
+    expect(container.querySelector('svg')).toHaveAttribute('aria-hidden', 'true')
+    expect(container.querySelector('svg')).not.toHaveAttribute('aria-label')
+    expect(container.querySelector('svg')).not.toHaveAttribute('aria-labelledby')
   })
 
   it('should respect size arguments', () => {
