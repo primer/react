@@ -532,6 +532,38 @@ describe('MCP server', () => {
     expect(fetchMock.mock.calls[0]?.[0].toString()).toBe(expectedUrl)
   })
 
+  it.each([
+    {
+      tool: 'get_component_usage_guidelines',
+      expectedPath: '/product/components/card/guidelines',
+      expectedMessage: 'There are no usage guidelines for the `Card` component',
+    },
+    {
+      tool: 'get_component_accessibility_guidelines',
+      expectedPath: '/product/components/card/accessibility',
+      expectedMessage: 'There are no accessibility guidelines for the `Card` component',
+    },
+  ])('$tool does not return homepage content after a redirect', async ({tool, expectedPath, expectedMessage}) => {
+    const fetchMock = vi.mocked(fetch)
+    fetchMock.mockResolvedValue(responseWithFinalUrl('<main><h1>Primer homepage</h1></main>', 'https://primer.style/'))
+
+    const result = await client.callTool({name: tool, arguments: {name: 'Card'}})
+
+    expect(fetchMock).toHaveBeenCalledWith(new URL(expectedPath, 'https://primer.style'))
+    expect(result.content).toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining(expectedMessage),
+      }),
+    )
+    expect(result.content).not.toContainEqual(
+      expect.objectContaining({
+        type: 'text',
+        text: expect.stringContaining('Primer homepage'),
+      }),
+    )
+  })
+
   it.each(['ConfirmationDialog', 'confirmationdialog'])(
     'retrieves ConfirmationDialog documentation for %s from its published URL',
     async name => {
