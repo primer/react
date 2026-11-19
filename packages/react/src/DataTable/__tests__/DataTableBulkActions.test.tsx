@@ -148,6 +148,41 @@ describe('DataTable bulk actions', () => {
     await expect.element(page.getByRole('button', {name: 'Details', exact: true})).toHaveFocus()
   })
 
+  it('keeps the focused action observer and uses the latest focus return callback', async () => {
+    const first = vi.fn()
+    const latest = vi.fn()
+    function Action() {
+      const [visible, setVisible] = React.useState(true)
+      return visible ? (
+        <button type="button" onClick={() => setVisible(false)}>
+          Remove
+        </button>
+      ) : null
+    }
+    const {rerender} = render(
+      <Table.BulkActions selectedCount={1} onFocusReturn={first}>
+        <Action />
+      </Table.BulkActions>,
+    )
+    const observe = vi.spyOn(MutationObserver.prototype, 'observe')
+    try {
+      act(() => screen.getByRole('button', {name: 'Remove'}).focus())
+      const bodyObservations = () => observe.mock.calls.filter(([target]) => target === document.body).length
+      expect(bodyObservations()).toBe(1)
+      rerender(
+        <Table.BulkActions selectedCount={1} onFocusReturn={latest}>
+          <Action />
+        </Table.BulkActions>,
+      )
+      expect(bodyObservations()).toBe(1)
+      await browserUserEvent.click(page.getByRole('button', {name: 'Remove'}))
+      await waitFor(() => expect(latest).toHaveBeenCalledOnce())
+      expect(first).not.toHaveBeenCalled()
+    } finally {
+      observe.mockRestore()
+    }
+  })
+
   it.each([false, true])('recovers focus after a child-only action removal (portal: %s)', async portal => {
     function Action() {
       const [visible, setVisible] = React.useState(true)
