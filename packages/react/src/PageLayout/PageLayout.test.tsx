@@ -342,6 +342,20 @@ describe('PageLayout', async () => {
   })
 
   describe('PageLayout.Sidebar', () => {
+    it.each([
+      {padding: 'condensed', expectedPadding: '16px'},
+      {padding: 'normal', expectedPadding: '24px'},
+    ] as const)('applies $padding padding when the layout has no padding', ({padding, expectedPadding}) => {
+      render(
+        <PageLayout padding="none">
+          <PageLayout.Sidebar padding={padding}>Sidebar</PageLayout.Sidebar>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      expect(getComputedStyle(page.getByText('Sidebar').element()).padding).toBe(expectedPadding)
+    })
+
     it('SidebarWrapper should prevent shrinking', () => {
       const {container} = render(
         <PageLayout>
