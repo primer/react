@@ -1,4 +1,27 @@
+import type {Ref} from 'react'
 import {PageHeader} from '../PageHeader'
+
+export function titleAcceptsHeadingRef(ref: Ref<HTMLHeadingElement>) {
+  return <PageHeader.Title ref={ref}>Project</PageHeader.Title>
+}
+
+export function titleAcceptsHeadingProps() {
+  return (
+    <PageHeader.Title
+      id="project-title"
+      aria-describedby="description"
+      tabIndex={-1}
+      onClick={event => event.currentTarget.focus()}
+    >
+      Project
+    </PageHeader.Title>
+  )
+}
+
+export function titleOnlyAcceptsHeadingElements() {
+  // @ts-expect-error titles must render a heading
+  return <PageHeader.Title as="div">Project</PageHeader.Title>
+}
 
 // PageHeader
 export function acceptsAsProp() {

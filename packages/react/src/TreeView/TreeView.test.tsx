@@ -1,14 +1,16 @@
 import {page, userEvent} from 'vitest/browser'
-import {fireEvent, render, act, screen} from '@testing-library/react'
-import rtlUserEvent from '@testing-library/user-event'
+import {fireEvent, render, act} from '@testing-library/react'
 import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
+import {renderToString} from 'react-dom/server'
+import {hydrateRoot, type Root} from 'react-dom/client'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
 import {GearIcon} from '@primer/octicons-react'
 import {getLiveRegion} from '../live-region/__tests__/test-helpers'
 import {implementsClassName} from '../utils/testing'
 import classes from './TreeView.module.css'
+import {PlatformOverrideProvider} from '../KeybindingHint/platform'
 
 afterEach(() => {
   vi.useRealTimers()
@@ -529,6 +531,353 @@ describe('Markup', () => {
       await userEvent.click(item)
       expect(onSelect).toHaveBeenCalledTimes(1)
     })
+  })
+})
+
+describe('SubTree accessible name', () => {
+  const actions = [{icon: GearIcon, label: 'Item settings', onClick: () => {}}]
+  const renderTree = (itemProps: Partial<React.ComponentProps<typeof TreeView.Item>>, subTreeLabel?: string) => (
+    <>
+      <span id="external-label">External label</span>
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="src" defaultExpanded {...itemProps}>
+          <TreeView.LeadingVisual label="Directory">
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          src
+          <TreeView.TrailingVisual label="Modified">M</TreeView.TrailingVisual>
+          <TreeView.SubTree aria-label={subTreeLabel}>
+            <TreeView.Item id="src/index.ts">index.ts</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    </>
+  )
+
+  it.each([
+    ['the parent item label', {}, undefined, 'src'],
+    ['the parent item label without the shortcut text', {secondaryActions: actions}, undefined, 'src'],
+    ['the parent `aria-label`', {'aria-label': 'Source'}, undefined, 'Source'],
+    [
+      'the parent `aria-label` without the shortcut text',
+      {'aria-label': 'Source', secondaryActions: actions},
+      undefined,
+      'Source',
+    ],
+    ['the parent `aria-labelledby`', {'aria-labelledby': 'external-label'}, undefined, 'External label'],
+    ['its own `aria-label`', {}, 'Custom', 'Custom'],
+  ])('is named by %s', async (_, itemProps, subTreeLabel, name) => {
+    render(renderTree(itemProps, subTreeLabel))
+    await expect.element(page.getByRole('group', {name, exact: true})).toBeInTheDocument()
+  })
+
+  it('is named in server-rendered markup', () => {
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(renderTree({}))
+    const group = container.querySelector('[role="group"]')!
+    const labelledBy = group.getAttribute('aria-labelledby')!
+    expect(container.querySelector(`[id="${labelledBy}"]`)).toHaveTextContent('src')
+  })
+})
+
+describe('Tab order', () => {
+  const getTabStops = (container: Element) =>
+    Array.from(container.querySelectorAll('[tabindex="0"]')).map(element => element.id || element.textContent)
+
+  it('keeps standalone items tabbable without a TreeView root', async () => {
+    render(
+      <>
+        <button type="button">Before</button>
+        <ul role="tree" aria-label="Custom tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        </ul>
+        <button type="button">After</button>
+      </>,
+    )
+
+    act(() => page.getByRole('button', {name: 'Before'}).element().focus())
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 1', exact: true})).toHaveFocus()
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('button', {name: 'After'})).toHaveFocus()
+  })
+
+  it('server renders only the current item in the tab order and keeps one tab stop after hydration', async () => {
+    const tree = (
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2" defaultExpanded>
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2-1" current>
+              Item 2.1
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    )
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    container.innerHTML = renderToString(tree)
+
+    expect(getTabStops(container)).toEqual(['item-2-1'])
+
+    let root: Root | undefined
+    act(() => {
+      root = hydrateRoot(container, tree)
+    })
+    expect(getTabStops(container)).toEqual(['item-2-1'])
+
+    act(() => root?.unmount())
+    container.remove()
+  })
+
+  it('makes the first item the tab stop when there is no current item', () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    expect(getTabStops(container)).toEqual(['item-1'])
+  })
+
+  it('moves the tab stop to the focused item', async () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+      </TreeView>,
+    )
+
+    act(() => page.getByRole('treeitem', {name: 'Item 1'}).element().focus())
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 2'})).toHaveFocus()
+    expect(getTabStops(container)).toEqual(['item-2'])
+
+    // A pointer focus also moves the tab stop
+    await userEvent.click(page.getByRole('treeitem', {name: 'Item 3'}))
+    expect(getTabStops(container)).toEqual(['item-3'])
+  })
+
+  it('tabs into the tree once and lands on the current item', async () => {
+    render(
+      <div>
+        <button type="button">Before</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+          <TreeView.Item id="item-2" current>
+            Item 2
+          </TreeView.Item>
+          <TreeView.Item id="item-3">
+            <TreeView.LeadingAction>
+              <button type="button">Nested action</button>
+            </TreeView.LeadingAction>
+            Item 3
+          </TreeView.Item>
+        </TreeView>
+        <button type="button">After</button>
+      </div>,
+    )
+
+    act(() => page.getByRole('button', {name: 'Before'}).element().focus())
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 2'})).toHaveFocus()
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('button', {name: 'After'})).toHaveFocus()
+    await userEvent.keyboard('{Shift>}{Tab}{/Shift}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 2'})).toHaveFocus()
+  })
+
+  it('keeps nested controls and late-mounted current items out of the tab order', async () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2-1" current>
+              <TreeView.LeadingAction>
+                <button type="button">Nested action</button>
+              </TreeView.LeadingAction>
+              Item 2.1
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    act(() => page.getByRole('treeitem', {name: 'Item 1'}).element().focus())
+    await userEvent.keyboard('{ArrowDown}{ArrowRight}')
+    await expect.element(page.getByRole('treeitem', {name: /Item 2.1/})).toBeInTheDocument()
+
+    expect(getTabStops(container)).toEqual(['item-2'])
+    expect(container.querySelector('button')).toHaveAttribute('tabindex', '-1')
+  })
+
+  it('assigns a new tab stop when the tab stop is removed', async () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1" defaultExpanded>
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item id="item-1-1">Item 1.1</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    act(() => page.getByRole('treeitem', {name: 'Item 1.1'}).element().focus())
+    expect(getTabStops(container)).toEqual(['item-1-1'])
+
+    // Collapse the parent with a pointer, which unmounts the tab stop
+    const toggle = container.querySelector('.PRIVATE_TreeView-item-toggle') as HTMLElement
+    act(() => toggle.click())
+    await expect.element(page.getByRole('treeitem', {name: 'Item 1.1'})).not.toBeInTheDocument()
+
+    await vi.waitFor(() => expect(getTabStops(container)).toEqual(['item-1']))
+  })
+
+  it('removes nested controls from the tab order on mount', () => {
+    const {container} = render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">
+          <TreeView.LeadingAction>
+            <button type="button">Nested action</button>
+          </TreeView.LeadingAction>
+          Item 1
+        </TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    // Nothing has been focused: the aria-hidden leading action must not be tabbable
+    expect(container.querySelector('button')).toHaveAttribute('tabindex', '-1')
+  })
+
+  it('removes nested elements from the tab order when they become focusable after mount', async () => {
+    const tree = (focusable: boolean) => (
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">
+          <TreeView.LeadingVisual>
+            <a href={focusable ? '#nested' : undefined}>Nested link</a>
+          </TreeView.LeadingVisual>
+          Item 1
+        </TreeView.Item>
+        <TreeView.Item id="item-2">
+          <TreeView.LeadingVisual>
+            <button type="button" data-testid="nested-button" tabIndex={focusable ? 0 : -1}>
+              Nested button
+            </button>
+          </TreeView.LeadingVisual>
+          Item 2
+        </TreeView.Item>
+      </TreeView>
+    )
+    const {container, rerender} = render(tree(false))
+
+    rerender(tree(true))
+
+    await vi.waitFor(() => {
+      expect(container.querySelector('a')).toHaveAttribute('tabindex', '-1')
+      expect(container.querySelector('[data-testid="nested-button"]')).toHaveAttribute('tabindex', '-1')
+    })
+    expect(getTabStops(container)).toEqual(['item-1'])
+  })
+
+  it('removes nested controls from the tab order when focus is already inside the tree at mount', () => {
+    const tree = (
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">
+          <TreeView.LeadingAction>
+            <button type="button">Nested action</button>
+          </TreeView.LeadingAction>
+          Item 2
+        </TreeView.Item>
+      </TreeView>
+    )
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    container.innerHTML = renderToString(tree)
+
+    const focusedItem = container.querySelector<HTMLElement>('#item-2')!
+    focusedItem.focus()
+    expect(document.activeElement).toBe(focusedItem)
+
+    let root: Root | undefined
+    act(() => {
+      root = hydrateRoot(container, tree)
+    })
+
+    try {
+      expect(container.querySelector('button')).toHaveAttribute('tabindex', '-1')
+      expect(getTabStops(container)).toEqual(['item-2'])
+    } finally {
+      act(() => root?.unmount())
+      container.remove()
+    }
+  })
+
+  it('does not handle Alt or Meta modified ArrowLeft and ArrowRight', () => {
+    render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="parent" defaultExpanded>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.Item id="child">Child</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item id="collapsed-parent">
+          Collapsed parent
+          <TreeView.SubTree>
+            <TreeView.Item id="hidden-child">Hidden child</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    const parent = page.getByRole('treeitem', {name: 'Parent', exact: true}).element()
+    const child = page.getByRole('treeitem', {name: 'Child', exact: true}).element()
+    const collapsedParent = page.getByRole('treeitem', {name: 'Collapsed parent'}).element()
+
+    // Alt+ArrowLeft on a child must not move focus to the parent
+    act(() => child.focus())
+    expect(fireEvent.keyDown(child, {key: 'ArrowLeft', altKey: true})).toBe(true)
+    expect(child).toHaveFocus()
+
+    // Meta+ArrowRight on an expanded parent must not move focus to its first child
+    act(() => parent.focus())
+    expect(fireEvent.keyDown(parent, {key: 'ArrowRight', metaKey: true})).toBe(true)
+    expect(parent).toHaveFocus()
+    expect(parent).toHaveAttribute('aria-expanded', 'true')
+
+    // Meta+ArrowRight on a collapsed parent must not expand it
+    act(() => collapsedParent.focus())
+    expect(fireEvent.keyDown(collapsedParent, {key: 'ArrowRight', metaKey: true})).toBe(true)
+    expect(collapsedParent).toHaveFocus()
+    expect(collapsedParent).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('lets nested editable controls handle navigation keys', async () => {
+    render(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">
+          Item 1
+          <input aria-label="Nested input" defaultValue="abc" />
+        </TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    const input = page.getByRole('textbox', {name: 'Nested input'})
+    act(() => input.element().focus())
+    expect(fireEvent.keyDown(input.element(), {key: 'Backspace'})).toBe(true)
+    expect(fireEvent.keyDown(input.element(), {key: 'ArrowDown'})).toBe(true)
+    expect(input.element()).toHaveFocus()
   })
 })
 
@@ -1383,7 +1732,7 @@ describe('Keyboard interactions', () => {
   })
 
   describe('Typeahead', () => {
-    it.each(['z', 'c'])('ignores rapid "%s" key presses from a nested button', key => {
+    it.each(['z', 'c'])('ignores rapid "%s" key presses from a nested button', async key => {
       vi.useFakeTimers()
       const onKeyDown = vi.fn()
       render(
@@ -1399,9 +1748,9 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const apple = screen.getByRole('treeitem', {name: 'Apple'})
-      const button = screen.getByRole('button', {name: 'Nested action'})
-      const cherry = screen.getByRole('treeitem', {name: 'Cherry'})
+      const apple = page.getByRole('treeitem', {name: 'Apple', exact: true}).element()
+      const button = page.getByRole('button', {name: 'Nested action', exact: true}).element()
+      const cherry = page.getByRole('treeitem', {name: 'Cherry', exact: true}).element()
 
       act(() => apple.focus())
       act(() => button.focus())
@@ -1413,12 +1762,11 @@ describe('Keyboard interactions', () => {
       expect(onKeyDown).toHaveBeenCalledTimes(2)
 
       act(() => apple.focus())
-      fireEvent.keyDown(apple, {key: 'c'})
+      await userEvent.keyboard('c')
       expect(cherry).toHaveFocus()
     })
 
     it('allows typing in a nested input without moving focus', async () => {
-      const user = rtlUserEvent.setup()
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple" aria-label="Apple">
@@ -1430,15 +1778,15 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const input = screen.getByRole('textbox', {name: 'Filter'})
+      const input = page.getByRole('textbox', {name: 'Filter', exact: true})
 
-      await user.type(input, 'ch')
+      await userEvent.type(input, 'ch')
 
-      expect(input).toHaveValue('ch')
-      expect(input).toHaveFocus()
+      await expect.element(input).toHaveValue('ch')
+      await expect.element(input).toHaveFocus()
     })
 
-    it('does not add nested-control keystrokes to an ongoing search', () => {
+    it('does not add nested-control keystrokes to an ongoing search', async () => {
       vi.useFakeTimers()
       render(
         <TreeView aria-label="Test tree">
@@ -1453,13 +1801,13 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const apple = screen.getByRole('treeitem', {name: 'Apple'})
-      const button = screen.getByRole('button', {name: 'Nested action'})
-      const cherry = screen.getByRole('treeitem', {name: 'Cherry'})
-      const cantalope = screen.getByRole('treeitem', {name: 'Cantalope'})
+      const apple = page.getByRole('treeitem', {name: 'Apple', exact: true}).element()
+      const button = page.getByRole('button', {name: 'Nested action', exact: true}).element()
+      const cherry = page.getByRole('treeitem', {name: 'Cherry', exact: true}).element()
+      const cantalope = page.getByRole('treeitem', {name: 'Cantalope', exact: true}).element()
 
       act(() => apple.focus())
-      fireEvent.keyDown(apple, {key: 'c'})
+      await userEvent.keyboard('c')
       expect(cherry).toHaveFocus()
 
       act(() => button.focus())
@@ -1467,7 +1815,7 @@ describe('Keyboard interactions', () => {
       expect(button).toHaveFocus()
 
       act(() => cherry.focus())
-      fireEvent.keyDown(cherry, {key: 'a'})
+      await userEvent.keyboard('a')
       expect(cantalope).toHaveFocus()
     })
 
@@ -1541,6 +1889,8 @@ describe('Keyboard interactions', () => {
     })
 
     it('supports multiple typed characters', async () => {
+      vi.useFakeTimers()
+
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">Apple</TreeView.Item>
@@ -1559,6 +1909,10 @@ describe('Keyboard interactions', () => {
         name: 'Cantalope 1',
         exact: true,
       })
+      const cherry = page.getByRole('treeitem', {
+        name: 'Cherry',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
@@ -1567,11 +1921,55 @@ describe('Keyboard interactions', () => {
 
       // Press C + A + N
       await userEvent.keyboard('c')
+      expect(cherry.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(299)
+      })
       await userEvent.keyboard('a')
+      expect(cantalope.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(299)
+      })
       await userEvent.keyboard('n')
 
       // Cantalope should be focused
-      await expect.element(cantalope).toHaveFocus()
+      expect(cantalope.element()).toHaveFocus()
+    })
+
+    it('starts a new search after the typeahead timeout', async () => {
+      vi.useFakeTimers()
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="apple">Apple</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+          <TreeView.Item id="cantalope">Cantalope</TreeView.Item>
+        </TreeView>,
+      )
+
+      const apple = page.getByRole('treeitem', {
+        name: 'Apple',
+        exact: true,
+      })
+      const cherry = page.getByRole('treeitem', {
+        name: 'Cherry',
+        exact: true,
+      })
+
+      act(() => {
+        apple.element().focus()
+      })
+
+      await userEvent.keyboard('c')
+      expect(cherry.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(300)
+      })
+      await userEvent.keyboard('a')
+
+      expect(apple.element()).toHaveFocus()
     })
 
     it('prioritizes items following the current aria-activedescendant', async () => {
@@ -2188,6 +2586,25 @@ it('should have keyboard shortcut command as part of accessible name when using 
   )
 
   await expect.element(page.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
+})
+
+it.each([
+  ['apple', /^Parent - Press \(.*command.*\) for more actions\.$/i],
+  ['windows', /^Parent - Press \(.*control.*\) for more actions\.$/i],
+] as const)('announces the %s keyboard shortcut only on items with `secondaryActions`', async (platform, name) => {
+  render(
+    <PlatformOverrideProvider value={platform}>
+      <TreeView aria-label="Files changed">
+        <TreeView.Item id="parent" secondaryActions={[{icon: GearIcon, label: 'Item settings', onClick: () => {}}]}>
+          Parent
+        </TreeView.Item>
+        <TreeView.Item id="sibling">Sibling</TreeView.Item>
+      </TreeView>
+    </PlatformOverrideProvider>,
+  )
+
+  await expect.element(page.getByRole('treeitem', {name})).toBeInTheDocument()
+  await expect.element(page.getByRole('treeitem', {name: 'Sibling', exact: true})).toBeInTheDocument()
 })
 
 it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {

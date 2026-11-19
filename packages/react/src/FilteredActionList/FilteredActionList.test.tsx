@@ -1,8 +1,8 @@
-import {fireEvent, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import {FilteredActionList} from '../FilteredActionList'
-import {FeatureFlags} from '../FeatureFlags'
 import {FilteredActionListBodyLoader, FilteredActionListLoadingTypes} from './FilteredActionListLoaders'
 import {implementsClassName} from '../utils/testing'
 import classes from './FilteredActionList.module.css'
@@ -16,13 +16,53 @@ const items = [
 describe('FilteredActionList', () => {
   implementsClassName(props => <FilteredActionList items={items} onFilterChange={vi.fn()} {...props} />, classes.Root)
 
-  it('calls the provided input focus handler', () => {
+  it('calls the provided input focus handler', async () => {
     const onFocus = vi.fn()
-    const {getByRole} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} textInputProps={{onFocus}} />)
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} textInputProps={{onFocus}} />)
 
-    fireEvent.focus(getByRole('combobox'))
+    await userEvent.click(page.getByRole('combobox'))
 
     expect(onFocus).toHaveBeenCalledOnce()
+  })
+
+  describe('combobox list reference', () => {
+    it('references the rendered list when items are shown', async () => {
+      render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      const combobox = page.getByRole('combobox')
+      const listId = combobox.element().getAttribute('aria-controls')
+
+      await expect.element(combobox).toHaveAttribute('aria-expanded', 'true')
+      expect(listId).toBeTruthy()
+      expect(document.getElementById(listId!)).toBeInTheDocument()
+    })
+
+    it('does not reference a list while a message is shown', async () => {
+      render(<FilteredActionList items={[]} onFilterChange={vi.fn()} message={<div>No matching items</div>} />)
+
+      const combobox = page.getByRole('combobox')
+
+      await expect.element(combobox).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(combobox).not.toHaveAttribute('aria-controls')
+    })
+
+    it('does not reference a list while the body shows a loader', async () => {
+      const props = {
+        items,
+        onFilterChange: vi.fn(),
+        loading: true,
+        loadingType: FilteredActionListLoadingTypes.bodySpinner,
+      }
+      const {rerender, container} = render(<FilteredActionList {...props} />)
+      // The body loader needs the mounted scroll container, so it appears on the next render
+      rerender(<FilteredActionList {...props} />)
+
+      const combobox = page.getByRole('combobox')
+
+      expect(container.querySelector('[data-component="FilteredActionList.Spinner"]')).toBeInTheDocument()
+      await expect.element(combobox).toHaveAttribute('aria-expanded', 'false')
+      await expect.element(combobox).not.toHaveAttribute('aria-controls')
+    })
   })
 
   describe('data-component attributes', () => {
@@ -131,38 +171,43 @@ describe('FilteredActionListBodyLoader', () => {
   })
 })
 
-describe('FilteredActionList forwarded refs (primer_react_merged_forwarded_refs)', () => {
-  for (const enabled of [true, false]) {
-    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
-      it('forwards the input ref object', () => {
-        const ref = React.createRef<HTMLInputElement>()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <FilteredActionList items={items} onFilterChange={vi.fn()} inputRef={ref} />
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLInputElement)
-      })
+describe('FilteredActionList forwarded refs', () => {
+  it('forwards the input ref object', () => {
+    const ref = React.createRef<HTMLInputElement>()
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} inputRef={ref} />)
+    expect(ref.current).toBeInstanceOf(HTMLInputElement)
+  })
 
-      it('forwards the scroll container ref object', () => {
-        const ref = React.createRef<HTMLDivElement>()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={ref} />
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLDivElement)
-      })
+  it('forwards the scroll container ref object', () => {
+    const ref = React.createRef<HTMLDivElement>()
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={ref} />)
+    expect(ref.current).toBeInstanceOf(HTMLDivElement)
+  })
 
-      it('calls a scroll container callback ref', () => {
-        const refCallback = vi.fn()
-        render(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={refCallback} />
-          </FeatureFlags>,
-        )
-        expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
-      })
-    })
-  }
+  it('calls a scroll container callback ref', () => {
+    const refCallback = vi.fn()
+    render(<FilteredActionList items={items} onFilterChange={vi.fn()} scrollContainerRef={refCallback} />)
+    expect(refCallback.mock.calls.some(([el]) => el instanceof HTMLDivElement)).toBe(true)
+  })
+
+  it('handles a scroll container callback ref while loading', () => {
+    const ui = (
+      <FilteredActionList
+        items={items}
+        onFilterChange={vi.fn()}
+        scrollContainerRef={() => {}}
+        loading
+        loadingType={FilteredActionListLoadingTypes.bodySpinner}
+      />
+    )
+    const {rerender, container} = render(ui)
+
+    expect(() => rerender(ui)).not.toThrow()
+    expect(container.querySelector('[data-component="FilteredActionList.Spinner"]')).toBeInTheDocument()
+
+    const listId = page.getByRole('combobox').element().getAttribute('aria-controls')
+    if (listId) {
+      expect(document.getElementById(listId)).not.toBeNull()
+    }
+  })
 })

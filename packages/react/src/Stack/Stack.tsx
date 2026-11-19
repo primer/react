@@ -15,7 +15,7 @@ type Direction = DirectionScale | ResponsiveValue<DirectionScale>
 type AlignScale = 'stretch' | 'start' | 'center' | 'end' | 'baseline'
 type Align = AlignScale | ResponsiveValue<AlignScale>
 
-type WrapScale = 'wrap' | 'nowrap'
+type WrapScale = 'wrap' | 'nowrap' | 'balance'
 type Wrap = WrapScale | ResponsiveValue<WrapScale>
 
 type JustifyScale = 'start' | 'center' | 'end' | 'space-between' | 'space-evenly'

@@ -1,9 +1,9 @@
 import {describe, expect, it, vi} from 'vitest'
 import type React from 'react'
 import {Fragment, useEffect, useState} from 'react'
-import {act, render, waitFor} from '@testing-library/react'
+import {act, render} from '@testing-library/react'
+import {page, userEvent} from 'vitest/browser'
 import {createDescendantRegistry} from '../descendant-registry'
-import {userEvent} from '@testing-library/user-event'
 
 /**
  * Creates a fresh registry instance with isolated helper components for each test. This ensures
@@ -42,13 +42,13 @@ describe('createDescendantRegistry', () => {
     const onRegistryRender = vi.fn()
     const {RegistryParent, Item} = createTestRegistry({onRegistryRender})
 
-    const {getByTestId} = render(
+    render(
       <RegistryParent>
         <Item value="a" />
       </RegistryParent>,
     )
 
-    expect(getByTestId('registry-values').textContent).toBe('a')
+    expect(page.getByTestId('registry-values').element().textContent).toBe('a')
     expect(onRegistryRender).toHaveBeenCalledTimes(2)
   })
 
@@ -59,7 +59,7 @@ describe('createDescendantRegistry', () => {
       return <Item value={value} />
     }
 
-    const {getByTestId} = render(
+    render(
       <RegistryParent>
         <Wrapper value="a" />
         <Wrapper value="b" />
@@ -67,13 +67,13 @@ describe('createDescendantRegistry', () => {
       </RegistryParent>,
     )
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b,c')
   })
 
   it('registers descendant items inside of React fragments', async () => {
     const {RegistryParent, Item} = createTestRegistry()
 
-    const {getByTestId} = render(
+    render(
       <RegistryParent>
         <Fragment>
           <Item value="a" />
@@ -83,7 +83,7 @@ describe('createDescendantRegistry', () => {
       </RegistryParent>,
     )
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b,c')
   })
 
   it('updates item values on change', async () => {
@@ -103,12 +103,12 @@ describe('createDescendantRegistry', () => {
       )
     }
 
-    const {getByTestId, getByRole} = render(<Test />)
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,middle,b'))
+    render(<Test />)
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,middle,b')
 
-    await userEvent.click(getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,c,b'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,c,b')
   })
 
   it('registers items added to the middle of children after initial render', async () => {
@@ -128,12 +128,12 @@ describe('createDescendantRegistry', () => {
       )
     }
 
-    const {getByTestId, getByRole} = render(<Test />)
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b'))
+    render(<Test />)
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b')
 
-    await userEvent.click(getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,middle,b'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,middle,b')
   })
 
   it('coalesces multiple descendants added in a single update into one correct rebuild', async () => {
@@ -159,13 +159,13 @@ describe('createDescendantRegistry', () => {
       )
     }
 
-    const {getByTestId, getByRole} = render(<Test />)
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,e'))
+    render(<Test />)
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,e')
 
     // Several descendants register in the same tick; the coalesced rebuild must still capture all of them in order.
-    await userEvent.click(getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c,d,e'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b,c,d,e')
   })
 
   it('preserves all descendants when the parent rerenders before a queued rebuild', async () => {
@@ -181,14 +181,14 @@ describe('createDescendantRegistry', () => {
       )
     }
 
-    const {getByTestId, rerender} = render(<Test values={['a', 'd']} />)
-    expect(getByTestId('registry-values').textContent).toBe('a,d')
+    const {rerender} = render(<Test values={['a', 'd']} />)
+    expect(page.getByTestId('registry-values').element().textContent).toBe('a,d')
 
     // Both parent commits must finish before the scheduled rebuild runs.
     rerender(<Test values={['a', 'b', 'd']} />)
     rerender(<Test values={['a', 'b', 'c', 'd']} />)
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c,d'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b,c,d')
   })
 
   it('drops items from the registry after they unmount', async () => {
@@ -208,12 +208,12 @@ describe('createDescendantRegistry', () => {
       )
     }
 
-    const {getByTestId, getByRole} = render(<Test />)
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c'))
+    render(<Test />)
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b,c')
 
-    await userEvent.click(getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b')
   })
 
   it('batches rapid value updates and unregisters into one registry render', async () => {
@@ -237,12 +237,12 @@ describe('createDescendantRegistry', () => {
       return items.map(item => <Item key={item.id} value={item.value} />)
     }
 
-    const {getByTestId} = render(
+    render(
       <RegistryParent>
         <Items />
       </RegistryParent>,
     )
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b,c')
     onRegistryRender.mockClear()
 
     act(() =>
@@ -266,7 +266,7 @@ describe('createDescendantRegistry', () => {
       ]),
     )
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,c-latest'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,c-latest')
     expect(onRegistryRender).toHaveBeenCalledTimes(1)
   })
 
@@ -290,12 +290,12 @@ describe('createDescendantRegistry', () => {
       return items.map(item => <Item key={item.id} value={item.value} />)
     }
 
-    const {getByTestId} = render(
+    render(
       <RegistryParent>
         <Items />
       </RegistryParent>,
     )
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,d'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,d')
     onRegistryRender.mockClear()
 
     act(() =>
@@ -328,7 +328,7 @@ describe('createDescendantRegistry', () => {
       ]),
     )
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,d,c-final'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,d,c-final')
     expect(onRegistryRender).toHaveBeenCalledTimes(1)
   })
 
@@ -353,12 +353,12 @@ describe('createDescendantRegistry', () => {
       return items.map(item => <Item key={item.id} value={item.value} />)
     }
 
-    const {getByTestId} = render(
+    render(
       <RegistryParent>
         <Items />
       </RegistryParent>,
     )
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b,c'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b,c')
     onRegistryRender.mockClear()
 
     act(() =>
@@ -382,7 +382,7 @@ describe('createDescendantRegistry', () => {
       ]),
     )
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('a,b-latest,c'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('a,b-latest,c')
     expect(onRegistryRender).toHaveBeenCalledTimes(1)
   })
 
@@ -413,11 +413,11 @@ describe('createDescendantRegistry', () => {
       )
     }
 
-    const {getByTestId, getByRole} = render(<Test />)
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('second,third'))
+    render(<Test />)
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('second,third')
 
-    await userEvent.click(getByRole('button'))
+    await userEvent.click(page.getByRole('button'))
 
-    await waitFor(() => expect(getByTestId('registry-values').textContent).toBe('first,second,third'))
+    await expect.poll(() => page.getByTestId('registry-values').element().textContent).toBe('first,second,third')
   })
 })

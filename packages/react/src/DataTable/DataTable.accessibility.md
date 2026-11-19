@@ -239,7 +239,7 @@ The fragments below show these associations; `sr-only` denotes hidden text.
 
 Without a row header, `DataTable` uses `Select row {id}` from `getRowId`.
 Place selection first and include it in group `colSpan`. `Table.Group` prepends
-its header ID to selection cells' `headers`; group headings have no checkbox.
+its header ID to selection cells' `headers`. Group headers are not selected row IDs.
 
 ### State, scope, and focus
 
@@ -263,14 +263,23 @@ and `WithPaginatedRowSelection` in [DataTable features](./DataTable.features.sto
 
 With `collapsibleGroups` (`Table.Group`'s `collapsible`), the group header contains
 a native disclosure button. The header and button use the group label, or its
-`aria-label` override, as their name; the button's `aria-description` supplies the
-row count. The generated count description is currently English.
+`aria-label` override, as their name. The checkbox and disclosure reference the same
+total-member count through `aria-describedby`, including non-selectable rows.
+It defaults to `1 row` or `N rows`; localize it with `DataTable.getGroupRowCountLabel`
+or `Table.Group.getRowCountLabel`.
 
 - Enter or Space toggles `aria-expanded`; `aria-controls` references the member body.
 - Collapsed members stay mounted but are hidden from table navigation and Tab order.
 - If a controlled collapse hides the focused member, focus returns to that group's
   disclosure. Focus outside the group is left alone.
 - Collapse does not clear selection or change its scope.
+
+With `rowSelection`, each collapsible group has a checkbox named `Select {group name}`.
+It toggles the group's selectable members on the current page, including collapsed
+members. Partial selection is mixed; activating it selects the remaining members.
+Empty groups and groups without selectable members have disabled checkboxes.
+The checkbox precedes the disclosure in Tab order; selection does not toggle expansion.
+With `Table.Group`, consumers provide `selection`, `selectionDisabled`, and `onToggleSelect`.
 
 ## Bulk actions
 
@@ -313,7 +322,7 @@ See `WithBulkActions` in [DataTable features](./DataTable.features.stories.tsx).
 - [Selection tests](./__tests__/DataTableSelection.test.tsx) cover controlled
   updates, disabled rows, focus, and hydration.
 - [Expansion tests](./__tests__/DataTableExpansion.test.tsx) cover disclosure
-  semantics, focus recovery, hidden members, and selection compatibility.
+  semantics, focus recovery, hidden members, and group selection.
 - [Bulk-action tests](./__tests__/DataTableBulkActions.test.tsx) cover effective
   IDs/counts, announcements, controlled clearing, focus recovery and hydration.
 - [DataTable browser tests](../../../../e2e/components/DataTable.test.ts) cover

@@ -2,7 +2,7 @@
 
 exports[`Timeline.Item > renders with condensed prop 1`] = `
 <div>
-  <div
+  <li
     class="Timeline-Item prc-Timeline-TimelineItem-yUFAS"
     data-condensed=""
   />

@@ -2,10 +2,8 @@ import React, {type JSX} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {ActionList} from '../../ActionList'
 import FormControl from '../../FormControl'
-import type {RenderResult} from '@testing-library/react'
 import {render} from '@testing-library/react'
-import type {UserEvent} from '@testing-library/user-event'
-import userEvent from '@testing-library/user-event'
+import {page, userEvent} from 'vitest/browser'
 import data from './mock-story-data'
 import type {SelectPanelProps} from './SelectPanel'
 import {SelectPanel} from './SelectPanel'
@@ -80,62 +78,57 @@ describe('SelectPanel', () => {
   implementsClassName(SelectPanel.Header, classes.Header)
   implementsClassName(SelectPanel.SearchInput, classes.TextInput)
   it('renders Button by default', async () => {
-    const container = render(<Fixture />)
+    render(<Fixture />)
 
-    const trigger = container.getByRole('button')
-    expect(trigger).toBeInTheDocument()
-    expect(container.queryByRole('dialog')).toBeNull()
+    const trigger = page.getByRole('button')
+    await expect.element(trigger).toBeInTheDocument()
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
   })
 
   it('opens Dialog on Button click', async () => {
-    const container = render(<Fixture />)
-    const user = userEvent.setup()
+    render(<Fixture />)
 
-    expect(container.queryByRole('dialog')).toBeNull()
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
 
-    const trigger = container.getByRole('button')
-    await user.click(trigger)
+    const trigger = page.getByRole('button')
+    await trigger.click()
 
-    expect(container.queryByRole('dialog')).toBeInTheDocument()
+    await expect.element(page.getByRole('dialog')).toBeInTheDocument()
   })
 
   type MockFunctions = {mockOnSubmit?: () => void; mockOnCancel?: () => void}
-  const getFixtureWithOpenContainer = async ({mockOnSubmit, mockOnCancel}: MockFunctions = {}) => {
-    const container = render(<Fixture onSubmit={mockOnSubmit} onCancel={mockOnCancel} />)
-    const user = await userEvent.setup()
+  const renderOpenFixture = async ({mockOnSubmit, mockOnCancel}: MockFunctions = {}) => {
+    render(<Fixture onSubmit={mockOnSubmit} onCancel={mockOnCancel} />)
 
-    const trigger = container.getByRole('button')
-    await user.click(trigger)
-
-    return {container, user}
+    await page.getByRole('button').click()
   }
 
   it('clicking an item selects it', async () => {
-    const {container, user} = await getFixtureWithOpenContainer()
+    await renderOpenFixture()
 
-    const initiallyUnselectedOption = container.getAllByRole('option')[2]
-    expect(initiallyUnselectedOption).toHaveAttribute('aria-selected', 'false')
+    const initiallyUnselectedOption = page.getByRole('option').nth(2)
+    await expect.element(initiallyUnselectedOption).toHaveAttribute('aria-selected', 'false')
 
-    await user.click(initiallyUnselectedOption)
-    expect(initiallyUnselectedOption).toHaveAttribute('aria-selected', 'true')
+    await initiallyUnselectedOption.click()
+    await expect.element(initiallyUnselectedOption).toHaveAttribute('aria-selected', 'true')
   })
 
-  const selectUnselectedOption = async (container: RenderResult, user: UserEvent) => {
-    const initiallyUnselectedOption = container.getAllByRole('option')[2]
-    expect(initiallyUnselectedOption).toHaveAttribute('aria-selected', 'false')
-    await user.click(initiallyUnselectedOption)
+  const selectUnselectedOption = async () => {
+    const initiallyUnselectedOption = page.getByRole('option').nth(2)
+    await expect.element(initiallyUnselectedOption).toHaveAttribute('aria-selected', 'false')
+    await initiallyUnselectedOption.click()
   }
 
   it('submit closes the dialog and calls onSubmit', async () => {
     const mockOnSubmit = vi.fn()
     const mockOnCancel = vi.fn()
-    const {container, user} = await getFixtureWithOpenContainer({mockOnSubmit, mockOnCancel})
-    selectUnselectedOption(container, user)
+    await renderOpenFixture({mockOnSubmit, mockOnCancel})
+    await selectUnselectedOption()
 
-    const submitButton = container.getByRole('button', {name: 'Save'})
-    await user.click(submitButton)
+    const submitButton = page.getByRole('button', {name: 'Save'})
+    await submitButton.click()
 
-    expect(container.queryByRole('dialog')).toBeNull()
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
     expect(mockOnSubmit).toHaveBeenCalledTimes(1)
     expect(mockOnCancel).toHaveBeenCalledTimes(0)
   })
@@ -143,13 +136,13 @@ describe('SelectPanel', () => {
   it('cancel closes the dialog and calls onCancel', async () => {
     const mockOnSubmit = vi.fn()
     const mockOnCancel = vi.fn()
-    const {container, user} = await getFixtureWithOpenContainer({mockOnSubmit, mockOnCancel})
-    selectUnselectedOption(container, user)
+    await renderOpenFixture({mockOnSubmit, mockOnCancel})
+    await selectUnselectedOption()
 
-    const cancelButton = container.getByRole('button', {name: 'Cancel'})
-    await user.click(cancelButton)
+    const cancelButton = page.getByRole('button', {name: 'Cancel'})
+    await cancelButton.click()
 
-    expect(container.queryByRole('dialog')).toBeNull()
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
     expect(mockOnCancel).toHaveBeenCalledTimes(1)
     expect(mockOnSubmit).toHaveBeenCalledTimes(0)
   })
@@ -157,13 +150,13 @@ describe('SelectPanel', () => {
   it('close button closes the dialog and calls onCancel', async () => {
     const mockOnSubmit = vi.fn()
     const mockOnCancel = vi.fn()
-    const {container, user} = await getFixtureWithOpenContainer({mockOnSubmit, mockOnCancel})
-    selectUnselectedOption(container, user)
+    await renderOpenFixture({mockOnSubmit, mockOnCancel})
+    await selectUnselectedOption()
 
-    const closeButton = container.getByRole('button', {name: 'Close'})
-    await user.click(closeButton)
+    const closeButton = page.getByRole('button', {name: 'Close'})
+    await closeButton.click()
 
-    expect(container.queryByRole('dialog')).toBeNull()
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
     expect(mockOnCancel).toHaveBeenCalledTimes(1)
     expect(mockOnSubmit).toHaveBeenCalledTimes(0)
   })
@@ -190,34 +183,34 @@ describe('SelectPanel', () => {
   it('Escape key closes the dialog and calls onCancel', async () => {
     const mockOnSubmit = vi.fn()
     const mockOnCancel = vi.fn()
-    const {container, user} = await getFixtureWithOpenContainer({mockOnSubmit, mockOnCancel})
-    selectUnselectedOption(container, user)
+    await renderOpenFixture({mockOnSubmit, mockOnCancel})
+    await selectUnselectedOption()
 
-    await user.keyboard('{Escape}')
+    await userEvent.keyboard('{Escape}')
 
-    expect(container.queryByRole('dialog')).toBeNull()
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
     expect(mockOnCancel).toHaveBeenCalledTimes(1)
     expect(mockOnSubmit).toHaveBeenCalledTimes(0)
   })
 
   it('SelectPanel within FormControl should be labelled by FormControl.Label', async () => {
-    const component = render(<SelectPanelWithinForm />)
-    const buttonByRole = component.getByRole('button')
-    expect(buttonByRole).toBeVisible()
-    expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
+    render(<SelectPanelWithinForm />)
+    const buttonByRole = page.getByRole('button')
+    await expect.element(buttonByRole).toBeVisible()
+    await expect.element(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
   })
 
   it('SelectPanel with complex button within FormControl should be labelled by FormControl.Label', async () => {
-    const component = render(<SelectPanelWithComplexButtonWithinForm />)
-    const buttonByRole = component.getByRole('button')
-    expect(buttonByRole).toBeVisible()
-    expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
+    render(<SelectPanelWithComplexButtonWithinForm />)
+    const buttonByRole = page.getByRole('button')
+    await expect.element(buttonByRole).toBeVisible()
+    await expect.element(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
   })
 
   it('SelectPanel outside of FormControl should not be automatically assigned aria-label and aria-labelledby', async () => {
-    const component = render(<Fixture />)
-    const buttonByRole = component.getByRole('button')
-    expect(buttonByRole).toBeVisible()
-    expect(buttonByRole).not.toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
+    render(<Fixture />)
+    const buttonByRole = page.getByRole('button')
+    await expect.element(buttonByRole).toBeVisible()
+    await expect.element(buttonByRole).not.toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
   })
 })

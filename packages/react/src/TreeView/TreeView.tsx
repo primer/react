@@ -17,7 +17,8 @@ import {useId} from '../hooks/useId'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import {useSlots} from '../hooks/useSlots'
 import {getAccessibleName} from './shared'
-import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
+import {getFirstChildElement} from './useRovingTabIndex'
+import {useTreeRovingTabIndex} from './useTreeRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {SkeletonText} from '../SkeletonText'
@@ -36,16 +37,20 @@ import {fixedForwardRef, type DistributiveOmit} from '../utils/modern-polymorphi
 // Context
 
 const RootContext = React.createContext<{
+  isWithinTree: boolean
   announceUpdate: (message: string) => void
   // We cache the expanded state of tree items so we can preserve the state
   // across remounts. This is necessary because we unmount tree items
   // when their parent is collapsed.
   expandedStateCache: React.RefObject<Map<string, boolean> | null>
   scrollElementIntoView: (element: Element | null | undefined) => void
+  trailingActionShortcutText: string
 }>({
+  isWithinTree: false,
   announceUpdate: () => {},
   expandedStateCache: {current: new Map()},
   scrollElementIntoView: () => {},
+  trailingActionShortcutText: '',
 })
 
 const ItemContext = React.createContext<{
@@ -58,6 +63,10 @@ const ItemContext = React.createContext<{
   leadingVisualId: string
   trailingVisualId: string
   trailingActionId: string
+  // How a SubTree is named after its parent item: the item's `aria-label`, or else the element(s)
+  // that label the item, without the secondary action shortcut text.
+  subTreeAriaLabel: string | undefined
+  subTreeAriaLabelledBy: string | undefined
 }>({
   itemId: '',
   level: 1,
@@ -68,6 +77,8 @@ const ItemContext = React.createContext<{
   leadingVisualId: '',
   trailingVisualId: '',
   trailingActionId: '',
+  subTreeAriaLabel: undefined,
+  subTreeAriaLabelledBy: undefined,
 })
 
 // Module-private channel from LoadingItem to the Item it renders. Lets us mark the placeholder
@@ -129,7 +140,7 @@ const Root: React.FC<TreeViewProps> = ({
     }
   }, [])
 
-  useRovingTabIndex({containerRef, mouseDownRef})
+  useTreeRovingTabIndex({containerRef, mouseDownRef})
   useTypeahead({
     containerRef,
     onFocusChange: element => {
@@ -171,12 +182,18 @@ const Root: React.FC<TreeViewProps> = ({
     expandedStateCache.current = new Map()
   }
 
+  // Identical for every item, so compute it once here instead of per item.
+  const platform = usePlatform()
+  const trailingActionShortcutText = React.useMemo(() => getTrailingActionShortcutText(platform), [platform])
+
   return (
     <RootContext.Provider
       value={{
+        isWithinTree: true,
         announceUpdate,
         expandedStateCache,
         scrollElementIntoView,
+        trailingActionShortcutText,
       }}
     >
       <>
@@ -270,7 +287,8 @@ const ItemImpl = fixedForwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
     })
-    const {expandedStateCache, scrollElementIntoView} = React.useContext(RootContext)
+    const {isWithinTree, expandedStateCache, scrollElementIntoView, trailingActionShortcutText} =
+      React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
@@ -292,7 +310,10 @@ const ItemImpl = fixedForwardRef(
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
     const [isFocused, setIsFocused] = React.useState(false)
-    const platform = usePlatform()
+    // Within a tree, only the current item starts as the tab stop so it is reachable
+    // before hydration, then `useTreeRovingTabIndex` moves the tab stop by writing `tabindex`
+    // directly. The value is latched so re-renders never fight those writes.
+    const [initialTabIndex] = React.useState(!isWithinTree || isCurrentItem ? 0 : -1)
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
@@ -367,9 +388,6 @@ const ItemImpl = fixedForwardRef(
       slots.trailingVisual ? trailingVisualId : null,
     ].filter(Boolean)
 
-    const shortcut = `Shift+${platform === 'apple' ? 'Meta' : 'Control'}+U`
-    const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
-
     const itemElement = (
       // @ts-ignore TypeScript can't infer that the `ref` here is compatible
       // with every possible polymorphic `ItemElement` (it's typed as
@@ -378,7 +396,7 @@ const ItemImpl = fixedForwardRef(
         {...restProps}
         className={clsx('PRIVATE_TreeView-item', className, classes.TreeViewItem)}
         ref={ref as React.ForwardedRef<HTMLElement>}
-        tabIndex={0}
+        tabIndex={initialTabIndex}
         id={itemId}
         role="treeitem"
         aria-label={
@@ -491,6 +509,8 @@ const ItemImpl = fixedForwardRef(
           leadingVisualId,
           trailingVisualId,
           trailingActionId,
+          subTreeAriaLabel: ariaLabel,
+          subTreeAriaLabelledBy: ariaLabel ? undefined : ariaLabelledby || labelId,
         }}
       >
         {isPolymorphic ? <li role="none">{itemElement}</li> : itemElement}
@@ -500,6 +520,11 @@ const ItemImpl = fixedForwardRef(
 )
 
 const Item = Object.assign(ItemImpl, {displayName: 'TreeView.Item'})
+
+function getTrailingActionShortcutText(platform: ReturnType<typeof usePlatform>) {
+  const shortcut = `Shift+${platform === 'apple' ? 'Meta' : 'Control'}+U`
+  return `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
+}
 
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
@@ -529,11 +554,11 @@ export type TreeViewSubTreeProps = {
 
 const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children, 'aria-label': ariaLabel}) => {
   const {announceUpdate} = React.useContext(RootContext)
-  const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
+  const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty, subTreeAriaLabel, subTreeAriaLabelledBy} =
+    React.useContext(ItemContext)
   const loadingItemRef = React.useRef<HTMLElement>(null)
   const ref = React.useRef<HTMLElement>(null)
   const [loadingFocused, setLoadingFocused] = React.useState(false)
-  const [subTreeLabel, setSubTreeLabel] = React.useState('')
   const previousState = usePreviousValue(state)
   const {safeSetTimeout} = useSafeTimeout()
 
@@ -553,12 +578,13 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
 
   // Handle transition from loading to done state
   React.useEffect(() => {
+    const isDoneLoading = previousState === 'loading' && state === 'done'
+    if (!isDoneLoading && state !== 'loading') return
+
     const parentElement = document.getElementById(itemId)
     if (!parentElement) return
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
-    setSubTreeLabel(getAccessibleName(parentElement))
-    if (previousState === 'loading' && state === 'done') {
+    if (isDoneLoading) {
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
 
@@ -584,7 +610,7 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
           })
         }
 
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
+        // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
         setLoadingFocused(false)
       }
     } else if (state === 'loading') {
@@ -637,7 +663,8 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
       }}
       // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
       ref={ref}
-      aria-label={ariaLabel || subTreeLabel}
+      aria-label={ariaLabel || subTreeAriaLabel}
+      aria-labelledby={ariaLabel || subTreeAriaLabel ? undefined : subTreeAriaLabelledBy}
     >
       {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
       {isSubTreeEmpty && state !== 'loading' ? <EmptyItem /> : null}

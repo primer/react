@@ -59,4 +59,22 @@ test.describe('NavList', () => {
       }
     })
   }
+
+  test.describe('Preserve Animation On Sibling Update', () => {
+    test.beforeEach(async ({page}) => {
+      await visit(page, {id: 'components-navlist-dev--preserve-animation-on-sibling-update'})
+    })
+
+    test('keeps a focused link and its running animation when a sibling updates @aat', async ({page}) => {
+      const link = page.getByRole('link', {name: 'Add unit tests for parser'})
+      await link.focus()
+      const startTime = await link.locator('svg').evaluate(icon => icon.getAnimations()[0]?.startTime ?? null)
+
+      await page.keyboard.press('u')
+
+      await expect(page.getByText('Working')).toHaveCount(2)
+      await expect(link).toBeFocused()
+      expect(await link.locator('svg').evaluate(icon => icon.getAnimations()[0]?.startTime ?? null)).toBe(startTime)
+    })
+  })
 })

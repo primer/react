@@ -12,8 +12,8 @@ describe('BranchName', () => {
     expect(container.firstChild?.nodeName).toEqual('A')
   })
 
-  it('renders data-component attribute', () => {
+  it('renders data-component attribute', async () => {
     const {container} = HTMLRender(<BranchName />)
-    expect(container.querySelector('[data-component="BranchName"]')).toBeInTheDocument()
+    await expect.element(container.querySelector<HTMLElement>('[data-component="BranchName"]')).toBeInTheDocument()
   })
 })
