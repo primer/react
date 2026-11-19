@@ -21,7 +21,7 @@ export default defineComponent({
   props: [
     {
       name: 'tokens',
-      type: 'TokenProps[]',
+      type: 'Array<TokenProps>',
       defaultValue: '',
       required: true,
       description: 'The array of tokens to render',

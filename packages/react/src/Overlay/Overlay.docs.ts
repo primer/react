@@ -45,7 +45,7 @@ export default defineComponent({
     },
     {
       name: 'ignoreClickRefs',
-      type: 'React.RefObject<HTMLElement> []',
+      type: 'Array<React.RefObject<HTMLElement>>',
       defaultValue: '',
       description:
         'An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice.',

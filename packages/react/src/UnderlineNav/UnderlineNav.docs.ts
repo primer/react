@@ -25,7 +25,7 @@ export default defineComponent({
         "A unique name for the rendered nav landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll _aria-label_ left/right')\n",
       required: false,
     },
-    {name: 'children', type: 'UnderlineNav.Item[]', defaultValue: '', required: true, description: ''},
+    {name: 'children', type: 'Array<UnderlineNav.Item>', defaultValue: '', required: true, description: ''},
     {
       name: 'loadingCounters',
       type: 'boolean',

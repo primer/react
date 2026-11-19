@@ -21,7 +21,7 @@ export default defineComponent({
   props: [
     {
       name: 'items',
-      type: 'ItemInput[]',
+      type: 'Array<ItemInput>',
       required: true,
       description: 'A collection of `Item` props and `Item`-level custom `Item` renderers.',
       defaultValue: '',
@@ -84,7 +84,7 @@ export default defineComponent({
     },
     {
       name: 'selected',
-      type: 'ItemInput | ItemInput[] | undefined',
+      type: 'ItemInput | Array<ItemInput> | undefined',
       defaultValue: '',
       required: true,
       description: 'Specify the selected item(s)',
@@ -113,7 +113,7 @@ export default defineComponent({
     },
     {
       name: 'onSelectedChange',
-      type: '(selected: ItemInput | ItemInput[]) => void',
+      type: '(selected: ItemInput | Array<ItemInput>) => void',
       defaultValue: '',
       required: true,
       description: 'Provide a callback called when the selected item(s) change',

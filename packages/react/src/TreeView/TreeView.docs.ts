@@ -83,7 +83,7 @@ export default defineComponent({
         },
         {
           name: 'secondaryActions',
-          type: 'TreeViewSecondaryActions[]',
+          type: 'Array<TreeViewSecondaryActions>',
           description:
             "An array of secondary actions to render in as a trailing action. Each action should have a 'label', 'icon', and 'onClick' handler.",
           required: false,

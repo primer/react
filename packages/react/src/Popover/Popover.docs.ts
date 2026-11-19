@@ -83,7 +83,7 @@ export default defineComponent({
         },
         {
           name: 'ignoreClickRefs',
-          type: 'React.RefObject<HTMLElement>[]',
+          type: 'Array<React.RefObject<HTMLElement>>',
           description: 'Refs to elements that should be ignored when detecting outside clicks',
           required: false,
         },

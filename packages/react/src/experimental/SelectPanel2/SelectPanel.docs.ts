@@ -74,7 +74,7 @@ export default defineComponent({
     },
     {
       name: 'children',
-      type: 'React.ReactNode[]',
+      type: 'Array<React.ReactNode>',
       description:
         'Recommended: `SelectPanel.Button`, `SelectPanel.Header`, `ActionList`, `SelectPanel.Loading`, `SelectPanel.Message`, `SelectPanel.Footer`',
       required: true,

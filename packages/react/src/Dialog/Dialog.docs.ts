@@ -58,7 +58,7 @@ export default defineComponent({
     },
     {
       name: 'footerButtons',
-      type: 'DialogButtonProps[]',
+      type: 'Array<DialogButtonProps>',
       description: 'Specifies the buttons to be rendered in the Dialog footer.',
       required: false,
     },
@@ -133,7 +133,7 @@ export default defineComponent({
       props: [
         {
           name: 'buttons',
-          type: 'DialogButtonProps[]',
+          type: 'Array<DialogButtonProps>',
           required: true,
           description: 'Buttons to render. See the `DialogButtonProps` table.',
         },

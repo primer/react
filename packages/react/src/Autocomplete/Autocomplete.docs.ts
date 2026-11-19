@@ -91,11 +91,11 @@ export default defineComponent({
         {
           name: 'items',
           required: true,
-          type: 'T[]',
+          type: 'Array<T>',
           description:
             'The options for field values that are displayed in the dropdown menu. One or more may be selected depending on the value of the `selectionVariant` prop.',
         },
-        {name: 'selectedItemIds', required: true, type: 'string[]', description: 'The IDs of the selected items'},
+        {name: 'selectedItemIds', required: true, type: 'Array<string>', description: 'The IDs of the selected items'},
         {
           name: 'aria-labelledby',
           required: true,
@@ -150,7 +150,7 @@ export default defineComponent({
         },
         {
           name: 'onSelectedChange',
-          type: '(item: T | T[]) => void',
+          type: '(item: T | Array<T>) => void',
           description: 'The function that is called when an item in the list is selected or deselected',
           required: false,
         },

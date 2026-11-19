@@ -92,7 +92,7 @@ export default defineComponent({
     },
     {
       name: 'keybindingHint',
-      type: 'string | string[]',
+      type: 'string | Array<string>',
       description:
         'Optional keybinding hint to show in the tooltip for this button. Pass a string for a single shortcut or an array of strings to show multiple shortcuts joined with "or". See the `KeybindingHint` component documentation for the correct format. Has no effect if tooltip is overridden or disabled. Does **not** bind any keybindings for this button - this is only for visual hints.',
       required: false,

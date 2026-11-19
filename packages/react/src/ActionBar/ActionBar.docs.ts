@@ -133,7 +133,7 @@ export default defineComponent({
         {name: 'icon', type: 'Component', required: true, description: 'Icon for the menu button.'},
         {
           name: 'items',
-          type: 'ActionBarMenuItemProps[]',
+          type: 'Array<ActionBarMenuItemProps>',
           required: true,
           description: 'Array of menu items to render in the menu. Each item can be an action, group, or divider.',
         },

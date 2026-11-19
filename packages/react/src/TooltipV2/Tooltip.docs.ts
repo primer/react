@@ -37,7 +37,7 @@ export default defineComponent({
     },
     {
       name: 'keybindingHint',
-      type: 'string | string[]',
+      type: 'string | Array<string>',
       description:
         'Optional keybinding hint to indicate the availability of a keyboard shortcut. Pass a string for a single shortcut or an array of strings to show multiple shortcuts joined with "or". Supported syntax is described in the docs for the `KeybindingHint` component.',
       required: false,

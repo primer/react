@@ -17,7 +17,7 @@ export default defineComponent({
     },
     {
       name: 'children',
-      type: 'Breadcrumbs.Item[]',
+      type: 'Array<Breadcrumbs.Item>',
       defaultValue: '',
       description: 'Breadcrumb items to render. Each item should be a Breadcrumbs.Item component.',
       required: false,

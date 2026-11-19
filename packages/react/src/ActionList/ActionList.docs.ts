@@ -10,7 +10,7 @@ export default defineComponent({
   props: [
     {
       name: 'children',
-      type: 'ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]',
+      type: 'Array<ActionList.Item> | Array<ActionList.LinkItem> | Array<ActionList.Group>',
       defaultValue: '',
       required: true,
       description: '',
@@ -345,7 +345,7 @@ export default defineComponent({
       props: [
         {
           name: 'children',
-          type: 'ActionList.Item[] | ActionList.LinkItem[]',
+          type: 'Array<ActionList.Item> | Array<ActionList.LinkItem>',
           defaultValue: '',
           required: true,
           description: '',

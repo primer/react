@@ -18,7 +18,7 @@ export default defineComponent({
   props: [
     {
       name: 'children',
-      type: 'React.ReactElement[]',
+      type: 'Array<React.ReactElement>',
       defaultValue: '',
       required: true,
       description: 'Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`',

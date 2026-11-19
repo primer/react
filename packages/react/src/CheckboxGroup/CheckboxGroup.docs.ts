@@ -46,7 +46,7 @@ export default defineComponent({
     },
     {
       name: 'onChange',
-      type: '(selected: string[], e?: ChangeEvent<HTMLInputElement>) => void',
+      type: '(selected: Array<string>, e?: ChangeEvent<HTMLInputElement>) => void',
       defaultValue: '',
       description: 'An onChange handler that gets called when the selection changes',
       required: false,
