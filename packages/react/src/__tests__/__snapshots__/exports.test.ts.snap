@@ -254,6 +254,8 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "useResponsiveValue",
   "useRovingTabIndex",
   "useSafeTimeout",
+  "useScrollAnchor",
+  "UseScrollAnchorSettings",
   "useSlots",
   "useSyncedState",
   "useTheme",
