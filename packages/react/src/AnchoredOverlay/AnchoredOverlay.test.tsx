@@ -403,6 +403,31 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       expect(anchor!.getAttribute('popovertarget')).toBe(overlay!.getAttribute('id'))
     })
 
+    it('preserves a consumer ID for the popover and its invoker target', async () => {
+      render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open
+              renderAs="popover"
+              overlayProps={{id: 'consumer.popover', role: 'dialog', 'aria-label': 'Custom popover'}}
+              renderAnchor={props => <Button {...props}>Custom anchor</Button>}
+            >
+              <button type="button">Focusable child</button>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      const dialog = page.getByRole('dialog', {name: 'Custom popover', exact: true})
+      await expect.element(dialog).toBeVisible()
+      expect(dialog.element()).toHaveAttribute('id', 'consumer.popover')
+      expect(page.getByRole('button', {name: 'Custom anchor', exact: true}).element()).toHaveAttribute(
+        'popovertarget',
+        'consumer.popover',
+      )
+      expect(dialog.element().matches(':popover-open')).toBe(true)
+    })
+
     it('should not set popover attribute on overlay when renderAs is "portal"', () => {
       const {baseElement} = render(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>

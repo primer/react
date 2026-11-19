@@ -1,136 +1,50 @@
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
+/** Behaviors */
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {forwardRef, useCallback, useEffect, useMemo, useRef, useState} from 'react'
-import type {TextInputProps} from '../TextInput'
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {ActionList, type ActionListProps} from '../ActionList'
-import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
+import type {FilteredActionListProps, ItemInput} from './types'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
-import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 import classes from './FilteredActionList.module.css'
 import Checkbox from '../Checkbox'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {useMergedRefs} from '../hooks'
-import {FilteredActionListInput} from './FilteredActionListInput'
+import {FilteredActionListInput, type FilteredActionListInputProps} from './FilteredActionListInput'
 
-const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
+import {MappedActionListItem} from './components/MappedActionListItem'
+import {menuScrollMargins} from './utils'
+import {activateDescendant} from '../internal/hooks/useListboxFocus'
 
-export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
-  loading?: boolean
-  loadingType?: FilteredActionListLoadingType
-  placeholderText?: string
-  filterValue?: string
-  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
-  onListContainerRefChanged?: (ref: HTMLElement | null) => void
-  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement | null>) => void
-  /**
-   * A ref assigned to the scrollable container wrapping the ActionList
-   */
-  scrollContainerRef?: React.Ref<HTMLDivElement | null>
-  textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
-  inputRef?: React.RefObject<HTMLInputElement | null>
-  message?: React.ReactNode
-  messageText?: {
-    title: string
-    description: string
-  }
-  className?: string
-  announcementsEnabled?: boolean
-  fullScreenOnNarrow?: boolean
-  onSelectAllChange?: (checked: boolean) => void
-  /**
-   * Additional props to pass to the underlying ActionList component.
-   */
-  actionListProps?: Partial<ActionListProps>
-  /**
-   * Determines how keyboard focus behaves when navigating beyond the first or last item in the list.
-   *
-   * - `'stop'`: Focus will stop at the first or last item; further navigation in that direction will not move focus.
-   * - `'wrap'`: Focus will wrap around to the opposite end of the list when navigating past the boundaries (e.g., pressing Down on the last item moves focus to the first).
-   *
-   *  @default 'wrap'
-   */
-  focusOutBehavior?: 'stop' | 'wrap'
-  /**
-   * Callback function that is called when the active descendant changes.
-   *
-   * @param newActiveDescendant - The new active descendant element.
-   * @param previousActiveDescendant - The previous active descendant element.
-   * @param directlyActivated - Whether the active descendant was directly activated (e.g., by a keyboard event).
-   */
-  onActiveDescendantChanged?: (
-    newActiveDescendant: HTMLElement | undefined,
-    previousActiveDescendant: HTMLElement | undefined,
-    directlyActivated: boolean,
-  ) => void
-  /**
-   * Private API for use internally only. Adds the ability to switch between
-   * `active-descendant` and roving tabindex.
-   *
-   * By default, FilteredActionList uses `aria-activedescendant` to manage focus.
-   *
-   * Roving tabindex is an alternative focus management method that moves
-   * focus to the list items themselves instead of keeping focus on the input.
-   *
-   * Improper usage can lead to inaccessible experiences, so this prop should be used with caution.
-   *
-   * For usage, refer to the documentation:
-   *
-   * WAI-ARIA `aria-activedescendant`: https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant
-   *
-   * Roving Tabindex: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex
-   *
-   * @default 'active-descendant'
-   */
-  _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
-  /**
-   * If true, disables selecting items when hovering over them with the mouse.
-   */
-  disableSelectOnHover?: boolean
-  /**
-   * If true, focus remains where it was and the user must interact to move focus.
-   * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
-   */
-  setInitialFocus?: boolean
-  /**
-   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
-   * Default is false.
-   */
-  focusPrependedElements?: boolean
-  /**
-   * Determines the scroll behavior of the container when an item is focused.
-   *
-   * @default 'auto'
-   */
-  scrollBehavior?: ScrollBehavior
-  /**
-   * If true, enables client-side list virtualization. Only the visible items (plus a small
-   * overscan buffer) are rendered in the DOM, dramatically improving performance for large lists.
-   *
-   * This is a purely client-side optimization — it does not require server-side pagination.
-   * The consumer can still pass all items at once; the component will only render what is visible.
-   *
-   * Recommended for lists with more than 100 items.
-   *
-   * Note: Has no effect when `groupMetadata` is provided, as grouped lists are
-   * typically small enough not to need virtualization.
-   *
-   * @default false
-   */
-  virtualized?: boolean
+export type {FilteredActionListProps} from './types'
+
+interface FilteredActionListRenderers {
+  Input?: React.ComponentType<FilteredActionListInputProps>
+  List?: React.ComponentType<React.PropsWithoutRef<ActionListProps> & React.RefAttributes<HTMLUListElement>>
+  Item?: typeof MappedActionListItem
 }
 
-export function FilteredActionList({
+function getDefaultItemKey(item: ItemInput, index: number) {
+  return item.id?.toString() ?? index.toString()
+}
+
+export function FilteredActionList(props: FilteredActionListProps): JSX.Element {
+  return <FilteredActionListContent {...props} />
+}
+
+// Share the compatibility behavior without requiring its configured renderer.
+export function FilteredActionListContent({
+  components,
+  getItemKey = getDefaultItemKey,
+  componentName = 'FilteredActionList',
   loading = false,
   placeholderText,
   filterValue: externalFilterValue,
@@ -161,7 +75,14 @@ export function FilteredActionList({
   scrollBehavior,
   virtualized = false,
   ...listProps
-}: FilteredActionListProps): JSX.Element {
+}: FilteredActionListProps & {
+  components?: FilteredActionListRenderers
+  getItemKey?: (item: ItemInput, index: number) => string
+  componentName?: 'FilteredActionList' | 'SelectPanel.Collection'
+}): JSX.Element {
+  const Input = components?.Input ?? FilteredActionListInput
+  const List = components?.List ?? ActionList
+  const Item = components?.Item ?? MappedActionListItem
   if (__DEV__) {
     if (virtualized && groupMetadata?.length) {
       // eslint-disable-next-line no-console
@@ -177,6 +98,7 @@ export function FilteredActionList({
   const isVirtualized = virtualized && !groupMetadata?.length
 
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
@@ -262,16 +184,10 @@ export function FilteredActionList({
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && activeDescendantRef.current) {
-        event.preventDefault()
-        event.nativeEvent.stopImmediatePropagation()
-
-        // Forward Enter key press to active descendant so that item gets activated
-        const activeDescendantEvent = new KeyboardEvent(event.type, event.nativeEvent)
-        activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
-      }
+      if (components && (event.defaultPrevented || !activeDescendantRef.current?.isConnected)) return
+      activateDescendant(event, activeDescendantRef.current)
     },
-    [activeDescendantRef],
+    [activeDescendantRef, components],
   )
 
   const listContainerRefCallback = useCallback(
@@ -305,7 +221,7 @@ export function FilteredActionList({
       // so guard against `items[index]` being undefined.
       const item = items[index] as ItemInput | undefined
       if (!item) return index.toString()
-      return item.key ?? item.id?.toString() ?? index.toString()
+      return item.key ?? getItemKey(item, index)
     },
     measureElement: el => (el as HTMLElement).scrollHeight,
   })
@@ -449,9 +365,9 @@ export function FilteredActionList({
                 {group.header?.title ? group.header.title : `Group ${group.groupId}`}
               </ActionList.GroupHeading>
               {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
-                const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
+                const key = itemKey ?? getItemKey(item, itemIndex)
                 return (
-                  <MappedActionListItem
+                  <Item
                     key={key}
                     className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                     data-input-focused={isInputFocused ? '' : undefined}
@@ -468,9 +384,9 @@ export function FilteredActionList({
 
       if (isVirtualized && virtualizedItemEntries) {
         return virtualizedItemEntries.map(({virtualItem, item: {key: itemKey, ...item}, index}) => {
-          const key = itemKey ?? item.id?.toString() ?? index.toString()
+          const key = itemKey ?? getItemKey(item, index)
           return (
-            <MappedActionListItem
+            <Item
               key={key}
               className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
               data-input-focused={isInputFocused ? '' : undefined}
@@ -496,9 +412,9 @@ export function FilteredActionList({
       }
 
       return items.map(({key: itemKey, ...item}, index) => {
-        const key = itemKey ?? item.id?.toString() ?? index.toString()
+        const key = itemKey ?? getItemKey(item, index)
         return (
-          <MappedActionListItem
+          <Item
             key={key}
             className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
             data-input-focused={isInputFocused ? '' : undefined}
@@ -511,10 +427,11 @@ export function FilteredActionList({
     }
 
     const actionListContent = (
-      <ActionList
+      <List
         ref={usingRovingTabindex ? listRef : listContainerRefCallback}
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
+        disableFocusZone={components?.List ? !usingRovingTabindex : undefined}
         {...listProps}
         {...actionListProps}
         role="listbox"
@@ -536,7 +453,7 @@ export function FilteredActionList({
         }
       >
         {renderListItems()}
-      </ActionList>
+      </List>
     )
 
     // Use ActionListContainerContext.Provider only for the old behavior (when feature flag is disabled)
@@ -564,9 +481,9 @@ export function FilteredActionList({
       ref={inputAndListContainerRef}
       className={clsx(className, classes.Root)}
       data-testid="filtered-action-list"
-      data-component="FilteredActionList"
+      data-component={componentName}
     >
-      <FilteredActionListInput
+      <Input
         inputRef={mergedInputRef}
         onInputFocus={onInputFocus}
         value={filterValue}
@@ -606,61 +523,4 @@ export function FilteredActionList({
     </div>
   )
 }
-const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?: RenderItemFn}>((item, ref) => {
-  // keep backward compatibility for renderItem
-  // escape hatch for custom Item rendering
-  if (typeof item.renderItem === 'function') return item.renderItem(item)
-
-  const {
-    id,
-    description,
-    descriptionVariant,
-    text,
-    trailingVisual: TrailingVisual,
-    leadingVisual: LeadingVisual,
-    trailingText,
-    trailingIcon: TrailingIcon,
-    onAction,
-    children,
-    ...rest
-  } = item
-
-  return (
-    <ActionList.Item
-      role="option"
-      // @ts-ignore - for now
-      onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-        if (typeof onAction === 'function')
-          onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
-      }}
-      data-id={id}
-      ref={ref}
-      {...rest}
-    >
-      {LeadingVisual ? (
-        <ActionList.LeadingVisual>
-          <LeadingVisual />
-        </ActionList.LeadingVisual>
-      ) : null}
-      {children}
-      {text}
-      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
-      {TrailingVisual ? (
-        <ActionList.TrailingVisual>
-          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-            <TrailingVisual />
-          ) : (
-            TrailingVisual
-          )}
-        </ActionList.TrailingVisual>
-      ) : TrailingIcon || trailingText ? (
-        <ActionList.TrailingVisual>
-          {trailingText}
-          {TrailingIcon && <TrailingIcon />}
-        </ActionList.TrailingVisual>
-      ) : null}
-    </ActionList.Item>
-  )
-})
-
 FilteredActionList.displayName = 'FilteredActionList'

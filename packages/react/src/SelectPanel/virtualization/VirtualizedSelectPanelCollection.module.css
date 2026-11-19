@@ -1,0 +1,25 @@
+.Collection {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.Viewport {
+  height: 320px;
+  min-height: 0;
+  margin: var(--base-size-8);
+  overflow: auto;
+  overflow-anchor: none;
+}
+
+.List {
+  position: relative;
+}
+
+.Row {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
