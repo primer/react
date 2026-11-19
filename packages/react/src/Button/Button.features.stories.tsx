@@ -7,6 +7,8 @@ import {
   GearIcon,
   InboxIcon,
   KebabHorizontalIcon,
+  SearchIcon,
+  ChevronDownIcon,
 } from '@primer/octicons-react'
 import {useState} from 'react'
 import {Button, IconButton} from '.'
@@ -31,6 +33,102 @@ export const Link = () => <Button variant="link">Button that looks like a link</
 export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
 
 export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>
+
+export const IconVisualSizeExploration = () => (
+  <Stack gap="spacious">
+    <h2>Small button icon size exploration</h2>
+    {[16, 14, 12].map(iconSize => (
+      <Stack key={iconSize} gap="condensed">
+        <h3>{iconSize}px icons</h3>
+        <Stack direction="horizontal" gap="normal" wrap="wrap">
+          <Button size="small" leadingVisual={<SearchIcon size={iconSize} />}>
+            Search
+          </Button>
+          <Button size="small" leadingVisual={<HeartIcon size={iconSize} />}>
+            Favorite
+          </Button>
+          <Button size="small" leadingVisual={<DownloadIcon size={iconSize} />}>
+            Download
+          </Button>
+          <Button size="small" trailingVisual={<ChevronDownIcon size={iconSize} />}>
+            Options
+          </Button>
+          <Button
+            size="small"
+            leadingVisual={<GearIcon size={iconSize} />}
+            trailingVisual={<EyeIcon size={iconSize} />}
+          >
+            View settings
+          </Button>
+        </Stack>
+      </Stack>
+    ))}
+    <Stack gap="condensed">
+      <h3>Medium button reference</h3>
+      <Stack direction="horizontal" gap="normal" wrap="wrap">
+        <Button leadingVisual={SearchIcon}>Search</Button>
+        <Button leadingVisual={HeartIcon}>Favorite</Button>
+        <Button leadingVisual={DownloadIcon}>Download</Button>
+        <Button trailingVisual={ChevronDownIcon}>Options</Button>
+        <Button leadingVisual={GearIcon} trailingVisual={EyeIcon}>
+          View settings
+        </Button>
+      </Stack>
+    </Stack>
+  </Stack>
+)
+
+export const VisualSizes = () => (
+  <Stack gap="spacious">
+    {(['small', 'medium', 'large'] as const).map(size => (
+      <Stack key={size} gap="condensed">
+        <h3>{size} buttons</h3>
+        <Stack direction="horizontal" gap="normal" wrap="wrap">
+          <Button size={size} leadingVisual={SearchIcon}>
+            Search
+          </Button>
+          <Button size={size} leadingVisual={<HeartIcon />}>
+            Favorite
+          </Button>
+          <Button size={size} trailingVisual={ChevronDownIcon}>
+            Options
+          </Button>
+          <Button size={size} leadingVisual={<GearIcon />} trailingVisual={<EyeIcon />}>
+            View settings
+          </Button>
+          <Button size={size} leadingVisual={<HeartIcon size={16} />}>
+            Explicit 16px
+          </Button>
+          <Button size={size} leadingVisual={<HeartIcon size={24} />}>
+            Explicit 24px
+          </Button>
+          <Button size={size} leadingVisual={() => <HeartIcon />}>
+            Custom visual
+          </Button>
+        </Stack>
+        <Stack direction="horizontal" gap="normal" wrap="wrap">
+          <Button
+            size={size}
+            leadingVisual={InboxIcon}
+            notificationIndicator="leadingVisual"
+            aria-label="Inbox (new activity)"
+          >
+            Inbox
+          </Button>
+          <Button size={size} leadingVisual={HeartIcon} count={3}>
+            Favorites
+          </Button>
+          <Button size={size} leadingVisual={DownloadIcon} loading>
+            Download
+          </Button>
+          <Button size={size} trailingVisual={DownloadIcon} loading>
+            Export
+          </Button>
+        </Stack>
+      </Stack>
+    ))}
+  </Stack>
+)
 
 export const NotificationIndicator = () => (
   <Stack gap="spacious">
