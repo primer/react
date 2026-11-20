@@ -1,0 +1,1414 @@
+{
+  "auditedSourceSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+  "audits": [
+    {
+      "component": "Tooltip V2",
+      "sourceSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+      "pendingHuman": true,
+      "checks": [
+        {
+          "id": "MOD-01",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "Config overlay; no unnecessary abstraction layer. contributor-docs/style.md:161-183"
+        },
+        {
+          "id": "CHILD-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Consumer supplies one interactive trigger child. Tooltip.tsx:20-48,135"
+        },
+        {
+          "id": "PART-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Requires one child and clones it; docs subcomponents are empty. Tooltip.tsx:135-140,327-352; Tooltip.docs.json:71",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "PART-DOCS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No named parts surface to document; owned by T-F1.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "API-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TooltipProps extends HTMLAttributes and has no sx; rendered tooltip span accepts className/style attributes. Tooltip.tsx:20-48,392-397",
+          "findingId": "T-F2"
+        },
+        {
+          "id": "PART-AS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The cloned trigger has no public as contract; owned by missing parts surface T-F1.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "PART-RENDER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No element/function render API exists; owned by missing parts surface T-F1.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "MERGE-CONFIG",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Configured clone calls consumer touch handler before Primer close behavior; tooltip className is consumer-first. Tooltip.tsx:355-361,392-394",
+          "findingId": "T-F3"
+        },
+        {
+          "id": "MERGE-HANDLER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No reusable part handler contract; owned by T-F1.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "MERGE-CLASS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new part class merge path; owned by T-F1.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "MERGE-STYLE-ATTR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new part style/attribute merge path; owned by T-F1.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "MERGE-REF",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing trigger refs are merged; no generic part render ref contract exists. Tooltip.tsx:142-145; missing part contract owned by T-F1.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "MERGE-BEHAVIOR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No part-owned render contract exists; owned by T-F1.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "STATE-CALLBACK",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tooltip owns isPopoverOpen state and exposes no transition callback. Tooltip.tsx:153-161; TooltipProps:20-48",
+          "findingId": "T-F4"
+        },
+        {
+          "id": "NAMES-DEFAULTS",
+          "verdict": "COVERED",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "The additive transition callback should share the onOpenChange concept; owned by T-F4.",
+          "findingId": "T-F4"
+        },
+        {
+          "id": "STATE-OWNER",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No public controlled/uncontrolled state prop; the component owns internal open state. Tooltip.tsx:153-161",
+          "reason": "The check applies only to public controlled or uncontrolled state axes."
+        },
+        {
+          "id": "ACCESS-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Focused Tooltip suite passed; trigger ref, aria-describedby/labelledby, and escape handling are present. Tooltip.tsx:142-145,309-320,330-350"
+        },
+        {
+          "id": "LIVE-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The tooltip is connected through aria-describedby/aria-labelledby and does not announce changing status. Tooltip.tsx:334-350",
+          "reason": "No changing status or alert announcement is owned by Tooltip."
+        },
+        {
+          "id": "WARN-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Fragment and invalid-ref warnings use the development-only warning helper; focused Tooltip suite passed. Tooltip.tsx:135-140; utils/warning.ts:3-23"
+        },
+        {
+          "id": "SELECTOR-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tooltip root has stable data-component identity. Tooltip.tsx:392-397"
+        },
+        {
+          "id": "STYLE-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tooltip uses a colocated CSS module and the audited build/type check passed. Tooltip.tsx:9; Tooltip.module.css"
+        },
+        {
+          "id": "RESP-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Direction selects fixed placement values; no responsive value API. Tooltip.tsx:19-20,65-87",
+          "reason": "The component does not own responsive values or viewport-dependent behavior."
+        },
+        {
+          "id": "TYPE-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "React workspace type-check passed after building @primer/doc-gen; public Tooltip type is exported."
+        },
+        {
+          "id": "EXPORT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tooltip is exported as a public component; no internal-module or styled-react compatibility export exists in this snapshot.",
+          "reason": "No internal module or styled-react compatibility surface applies to Tooltip."
+        },
+        {
+          "id": "TEST-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "NOT MEASURED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
+          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+        }
+      ],
+      "findings": [
+        {
+          "id": "T-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-01",
+          "section": 1,
+          "status": "OPEN",
+          "title": "Add a consumer-composable Tooltip parts surface",
+          "reachableUseCase": "A consumer composes Tooltip with an interactive trigger such as ActionMenu.Button; ActionMenu has an explicit Tooltip-wrapped anchor path.",
+          "observedGap": "Tooltip requires one child, clones it to inject behavior, and documents no subcomponents. It has no parts surface for consumer-controlled trigger and tooltip regions.",
+          "additiveFix": "Add an opt-in parts entry point with trigger and tooltip-surface ownership while retaining the existing <Tooltip text> child API. Keep exact part names and default elements pending maintainer review.",
+          "citations": [
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "135-140",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "327-352",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.docs.json",
+              "line": "71",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "126-140",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "T-F2",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "API-01",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add the ADR-003 sx root prop",
+          "reachableUseCase": "A consumer needs a local style adjustment to the Tooltip surface without replacing its trigger.",
+          "observedGap": "Tooltip renders a DOM surface and accepts HTML attributes, but TooltipProps does not include sx.",
+          "additiveFix": "Add sx to TooltipProps and route it to the owned tooltip surface while preserving the existing trigger ref behavior and all current props.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
+              "line": "24-26",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "20-48",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "392-397",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "T-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-CONFIG",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Align configured Tooltip merging with ADR-025",
+          "reachableUseCase": "A consumer supplies onTouchEnd and className while Tooltip adds touch dismissal and its own surface class.",
+          "observedGap": "The consumer touch handler runs before Primer dismissal, and consumer className precedes the component class, contrary to ADR-025 configured merge precedence.",
+          "additiveFix": "Keep the legacy merge behavior during transition; implement the target merge behavior on the new parts API and provide an explicit opt-in or versioned migration before changing the existing wrapper.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-025-prop-merging.md",
+              "line": "24-50",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "355-361",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "392-394",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "T-F4",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STATE-CALLBACK",
+          "section": 4,
+          "status": "OPEN",
+          "title": "Expose Tooltip open-state transitions",
+          "reachableUseCase": "A consumer needs to coordinate tooltip visibility with an adjacent interactive control or observe the transition.",
+          "observedGap": "Tooltip owns open state but exposes no transition callback.",
+          "additiveFix": "Add an object-shaped onOpenChange callback with value, reason, event when present, and synchronous cancel; keep Tooltip's existing props and uncontrolled behavior.",
+          "citations": [
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "20-48",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "153-161",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        }
+      ],
+      "contractFindings": []
+    },
+    {
+      "component": "ActionMenu",
+      "sourceSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+      "pendingHuman": true,
+      "checks": [
+        {
+          "id": "MOD-01",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "Config collection/overlay pattern has a concrete consumer need; no extra spectrum layer required. contributor-docs/style.md:161-183"
+        },
+        {
+          "id": "CHILD-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Consumers compose documented Button, Anchor, and Overlay children. ActionMenu.tsx:37-42,390-394"
+        },
+        {
+          "id": "PART-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Public ActionMenu.Button, Anchor, Overlay, and Divider parts are exported. ActionMenu.tsx:390-394"
+        },
+        {
+          "id": "PART-DOCS",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Docs list the configured parts and root composition contract. ActionMenu.docs.json:35-60"
+        },
+        {
+          "id": "API-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu renders a DOM container but root props have no sx prop. ActionMenu.tsx:37-53,373-384",
+          "findingId": "A-F2"
+        },
+        {
+          "id": "PART-AS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu.Anchor requires a consumer-supplied React element and exposes no as prop; ActionMenu's rendered parts do not expose element/function render. ActionMenu.tsx:198-209,274-282",
+          "findingId": "A-F1"
+        },
+        {
+          "id": "PART-RENDER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Root and child parts have no element/function render contract; owned by A-F1.",
+          "findingId": "A-F1"
+        },
+        {
+          "id": "MERGE-CONFIG",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The configured anchor merge follows the documented legacy subcomponent exception; class merge uses anchor then consumer. ActionMenu.tsx:55-81,161-173"
+        },
+        {
+          "id": "MERGE-HANDLER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new render part merge boundary; owned by A-F1.",
+          "findingId": "A-F1"
+        },
+        {
+          "id": "MERGE-CLASS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new render part class path; owned by A-F1.",
+          "findingId": "A-F1"
+        },
+        {
+          "id": "MERGE-STYLE-ATTR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new render part style/attribute path; owned by A-F1.",
+          "findingId": "A-F1"
+        },
+        {
+          "id": "MERGE-REF",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing anchor ref is passed to the trigger; no generic render-part ref contract exists. ActionMenu.tsx:118-120,133-139; remaining part policy owned by A-F1.",
+          "findingId": "A-F1"
+        },
+        {
+          "id": "MERGE-BEHAVIOR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No render part exists to express behavior-prop ownership; owned by A-F1.",
+          "findingId": "A-F1"
+        },
+        {
+          "id": "STATE-CALLBACK",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing onOpenChange reports state changes; legacy boolean signature remains unchanged. ActionMenu.tsx:45-53,84-93"
+        },
+        {
+          "id": "NAMES-DEFAULTS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu open defaults false while SelectPanel requires open; shared state name/default shape is inconsistent. ActionMenu.docs.json:39-48; SelectPanel.tsx:77-86,132-140; AnchoredOverlay.tsx:67",
+          "findingId": "A-F3"
+        },
+        {
+          "id": "STATE-OWNER",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "useProvidedStateOrCreate owns the optional controlled/uncontrolled open axis and defaults false. ActionMenu.tsx:84-93"
+        },
+        {
+          "id": "ACCESS-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Focused ActionMenu suite passed; anchor and overlay behavior remain wired through AnchoredOverlay. ActionMenu.tsx:354-384"
+        },
+        {
+          "id": "LIVE-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu does not own changing status or alert announcements.",
+          "reason": "No changing status or alert announcement is owned by ActionMenu."
+        },
+        {
+          "id": "WARN-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No component-owned development warning call exists in ActionMenu.tsx.",
+          "reason": "ActionMenu emits no development warning."
+        },
+        {
+          "id": "SELECTOR-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu overlay and related parts use stable data-component selectors. ActionMenu.tsx:364-367"
+        },
+        {
+          "id": "STYLE-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu uses a colocated CSS module and audited package build/type-check passed. ActionMenu.tsx:375"
+        },
+        {
+          "id": "RESP-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu computes responsive overlay variant through useResponsiveValue."
+        },
+        {
+          "id": "TYPE-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "React workspace type-check passed after building @primer/doc-gen; public ActionMenu types compile."
+        },
+        {
+          "id": "EXPORT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No ActionMenu internal-module or styled-react compatibility export exists in this snapshot.",
+          "reason": "No internal module or styled-react compatibility surface applies to ActionMenu."
+        },
+        {
+          "id": "TEST-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "NOT MEASURED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
+          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+        }
+      ],
+      "findings": [
+        {
+          "id": "A-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-AS",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Complete the ActionMenu part substitution contract",
+          "reachableUseCase": "A consumer needs a custom semantic trigger or overlay while retaining ActionMenu's anchor behavior, refs, and menu lifecycle.",
+          "observedGap": "ActionMenu.Anchor requires a child element and has no as prop; the rendered parts do not provide the required element/function render contract.",
+          "additiveFix": "Add as support to ActionMenu.Anchor and element/function render support to each rendered part while preserving ActionMenu.Button, Anchor, Overlay, and the configured default export; keep simultaneous as/render precedence pending review.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "198-209",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "261-267",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "274-282",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "373-384",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "390-394",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "A-F2",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "API-01",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add the ADR-003 sx root prop",
+          "reachableUseCase": "A consumer needs to adjust the ActionMenu panel styling without replacing its anchor or overlay behavior.",
+          "observedGap": "ActionMenu ultimately renders a DOM container but the root props do not accept sx.",
+          "additiveFix": "Add sx to the ActionMenu root and apply it to the documented overlay container while retaining anchorRef and all existing props.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
+              "line": "24-30",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "37-53",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "373-384",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "A-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "NAMES-DEFAULTS",
+          "section": 4,
+          "status": "OPEN",
+          "title": "Align the shared open-state contract",
+          "reachableUseCase": "Consumers use ActionMenu and SelectPanel together and need a predictable shared open-state name and default model.",
+          "observedGap": "ActionMenu documents open as optional with default false; SelectPanel requires open, so the shared concept has inconsistent default/control shape.",
+          "additiveFix": "Align the new parts APIs on one open/defaultOpen model and shared default chosen by maintainers; retain both legacy root contracts and callback signatures.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.docs.json",
+              "line": "39-48",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "77-86",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "132-140",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx",
+              "line": "67",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        }
+      ],
+      "contractFindings": []
+    },
+    {
+      "component": "Dialog",
+      "sourceSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+      "pendingHuman": true,
+      "checks": [
+        {
+          "id": "MOD-01",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "Config modal pattern has a concrete use case; no artificial spectrum layer required. contributor-docs/style.md:161-183"
+        },
+        {
+          "id": "CHILD-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Free-form body content uses children; title, role, and layout use props. Dialog.tsx:61-73"
+        },
+        {
+          "id": "PART-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog subcomponents are explicitly limited to custom renderers and are not intended for direct composition. Dialog.tsx:560-575",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "PART-DOCS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing custom-renderer slots are not a supported parts surface; owned by D-F1.",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "API-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "DialogProps includes className/style but no sx; the inner dialog element is the ADR-003 styling target. Dialog.tsx:160-172,414-431",
+          "findingId": "D-F2"
+        },
+        {
+          "id": "PART-AS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Renderer-only subcomponents do not provide the required consumer parts substitution path; owned by D-F1.",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "PART-RENDER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing renderHeader/body/footer functions are configured renderers, not part element/function overrides; owned by D-F1.",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "MERGE-CONFIG",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The configured Dialog class merge puts consumer className before the component class. Dialog.tsx:426",
+          "findingId": "D-F3"
+        },
+        {
+          "id": "MERGE-HANDLER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new composable part handler boundary; owned by D-F1.",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "MERGE-CLASS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new composable part class path; owned by D-F1.",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "MERGE-STYLE-ATTR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new composable part style/attribute path; owned by D-F1.",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "MERGE-REF",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog root refs are merged, but no generic render-part ref policy exists; missing part contract owned by D-F1. Dialog.tsx:322-324",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "MERGE-BEHAVIOR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No consumer render part exists to exercise behavior ownership; owned by D-F1.",
+          "findingId": "D-F1"
+        },
+        {
+          "id": "STATE-CALLBACK",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog exposes onClose(gesture) but no state transition callback; visibility is controlled by caller mounting. Dialog.tsx:108-113,334-340",
+          "findingId": "D-F4"
+        },
+        {
+          "id": "NAMES-DEFAULTS",
+          "verdict": "COVERED",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "The new transition callback should align with the reviewed onOpenChange concept; owned by D-F4.",
+          "findingId": "D-F4"
+        },
+        {
+          "id": "STATE-OWNER",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog has no public open/defaultOpen axis; caller mounting controls visibility. Dialog.tsx:61-73,108-113",
+          "reason": "The component does not expose controlled or uncontrolled visibility state."
+        },
+        {
+          "id": "ACCESS-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Focused Dialog suite passed; role, title/description relationships, focus trap, and escape close behavior are wired. Dialog.tsx:322-340,414-431"
+        },
+        {
+          "id": "LIVE-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog does not own changing status or alert announcements.",
+          "reason": "No changing status or alert announcement is owned by Dialog."
+        },
+        {
+          "id": "WARN-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog renderer JSDoc cautions are not runtime development warnings; no component-owned warning call exists.",
+          "reason": "The source contains documentation warnings only, not a component-emitted development warning."
+        },
+        {
+          "id": "SELECTOR-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog root and named internal regions use stable data-component selectors. Dialog.tsx:431,449,457,477,485"
+        },
+        {
+          "id": "STYLE-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog uses a colocated CSS module and audited package build/type-check passed. Dialog.tsx:16"
+        },
+        {
+          "id": "RESP-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog position accepts ResponsiveValue. Dialog.tsx:142-144"
+        },
+        {
+          "id": "TYPE-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "React workspace type-check passed after building @primer/doc-gen; public Dialog types compile."
+        },
+        {
+          "id": "EXPORT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No Dialog internal-module or styled-react compatibility export exists in this snapshot.",
+          "reason": "No internal module or styled-react compatibility surface applies to Dialog."
+        },
+        {
+          "id": "TEST-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "NOT MEASURED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
+          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+        }
+      ],
+      "findings": [
+        {
+          "id": "D-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-01",
+          "section": 1,
+          "status": "OPEN",
+          "title": "Add a consumer-composable Dialog parts surface",
+          "reachableUseCase": "A consumer needs to arrange dialog title, body, footer, trigger, and close behavior without supplying a custom renderer.",
+          "observedGap": "Dialog.Header, Title, Body, Footer, and related subcomponents are documented as custom-renderer-only and are not intended for direct use.",
+          "additiveFix": "Add an opt-in parts entry point for the modal pattern while preserving Dialog's current config props, renderers, slots, and caller-controlled mount behavior. Keep exact part names/default elements pending review.",
+          "citations": [
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "316-320",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "560-575",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.docs.json",
+              "line": "58-70",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "D-F2",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "API-01",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add sx to the Dialog surface",
+          "reachableUseCase": "A consumer needs a local style adjustment to the modal dialog body without styling the backdrop.",
+          "observedGap": "Dialog accepts className and style but not sx; ADR-003 names the inner dialog element as the appropriate target when the outer element is a backdrop.",
+          "additiveFix": "Add sx to DialogProps and apply it to the inner dialog element, retaining className, style, refs, and all current props.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
+              "line": "24-26",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "160-172",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "414-431",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "D-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-CONFIG",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Align configured Dialog class merging with ADR-025",
+          "reachableUseCase": "A consumer supplies className to style the documented Dialog root.",
+          "observedGap": "The configured Dialog combines consumer className before its component class, reversing ADR-025's component-first order.",
+          "additiveFix": "Preserve existing Dialog class behavior during transition; apply the target merge policy on the new parts API and use an opt-in or versioned migration before changing the configured root.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-025-prop-merging.md",
+              "line": "24-50",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "414-431",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "D-F4",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STATE-CALLBACK",
+          "section": 4,
+          "status": "OPEN",
+          "title": "Expose Dialog state transitions on the new root",
+          "reachableUseCase": "A consumer needs to observe or veto a close request while using the composable Dialog surface.",
+          "observedGap": "Dialog reports close gestures through onClose but provides no state-transition callback with the proposed value and cancellation contract.",
+          "additiveFix": "Add an object-shaped open-state callback to the new parts root with value, reason, event when present, and synchronous cancel; preserve onClose(gesture) and caller-controlled mounting on the existing config API.",
+          "citations": [
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "108-113",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "334-340",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        }
+      ],
+      "contractFindings": []
+    },
+    {
+      "component": "SelectPanel",
+      "sourceSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+      "pendingHuman": true,
+      "checks": [
+        {
+          "id": "MOD-01",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "Configured collection/form surface owns data ordering and selection; no unnecessary spectrum layer required. contributor-docs/style.md:161-183"
+        },
+        {
+          "id": "CHILD-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Items and selection are data-driven because SelectPanel owns filtering, ordering, and selection. SelectPanel.tsx:132-140"
+        },
+        {
+          "id": "PART-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "SelectPanel is an item/data config with one renderAnchor and no documented subcomponents. SelectPanel.tsx:132-140,175-181; docs.json:248",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "PART-DOCS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No independently composable parts are documented; owned by S-F1.",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "API-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The wrapper renders DOM but SelectPanelProps provides no sx prop. SelectPanel.tsx:77-100,132-140,960-961",
+          "findingId": "S-F2"
+        },
+        {
+          "id": "PART-AS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No named parts surface has as contracts; owned by S-F1.",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "PART-RENDER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "renderAnchor is a function-only configured escape hatch, not both part render forms; owned by S-F1. SelectPanel.tsx:175-181",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "MERGE-CONFIG",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Consumer className precedes FilteredActionList's component class. SelectPanel.tsx:1030",
+          "findingId": "S-F4"
+        },
+        {
+          "id": "MERGE-HANDLER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new part handler merge boundary; owned by S-F1.",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "MERGE-CLASS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new part class merge boundary; owned by S-F1.",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "MERGE-STYLE-ATTR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new part style/attribute merge boundary; owned by S-F1.",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "MERGE-REF",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The existing anchor ref is merged internally; no generic part render ref contract exists. SelectPanel.tsx:598; remaining part policy owned by S-F1.",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "MERGE-BEHAVIOR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No consumer render part exists to exercise behavior ownership; owned by S-F1.",
+          "findingId": "S-F1"
+        },
+        {
+          "id": "STATE-CALLBACK",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing onOpenChange reports value and gesture; its signature remains the legacy contract. SelectPanel.tsx:83-86,599-623"
+        },
+        {
+          "id": "NAMES-DEFAULTS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "SelectPanel requires open while ActionMenu documents open default false; shared state name/default shape is inconsistent. SelectPanel.tsx:77-86,132-140; ActionMenu.docs.json:39-48",
+          "findingId": "S-F3"
+        },
+        {
+          "id": "STATE-OWNER",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "SelectPanel requires controlled open and onOpenChange; the config has one external state owner. SelectPanel.tsx:77-86,132-140"
+        },
+        {
+          "id": "ACCESS-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Focused SelectPanel suite passed; listbox, multiselect, accessible title, and focus wiring are present. SelectPanel.tsx:960-1016"
+        },
+        {
+          "id": "LIVE-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "SelectPanel uses @primer/live-region-element for loading/status announcements; focused suite passed. SelectPanel.tsx:23,47-59"
+        },
+        {
+          "id": "WARN-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No component-owned development warning call exists in SelectPanel.tsx.",
+          "reason": "SelectPanel emits no development warning."
+        },
+        {
+          "id": "SELECTOR-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "SelectPanel root and named regions have stable data-component attributes. SelectPanel.tsx:960-980"
+        },
+        {
+          "id": "STYLE-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "SelectPanel uses a colocated CSS module and audited package build/type-check passed. SelectPanel.tsx:24"
+        },
+        {
+          "id": "RESP-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "SelectPanel uses useResponsiveValue for its responsive variant behavior. SelectPanel.tsx:27"
+        },
+        {
+          "id": "TYPE-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "React workspace type-check passed after building @primer/doc-gen; public SelectPanel types compile."
+        },
+        {
+          "id": "EXPORT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No SelectPanel internal-module or styled-react compatibility export exists in this snapshot.",
+          "reason": "No internal module or styled-react compatibility surface applies to SelectPanel."
+        },
+        {
+          "id": "TEST-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "NOT MEASURED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
+          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+        }
+      ],
+      "findings": [
+        {
+          "id": "S-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-01",
+          "section": 1,
+          "status": "OPEN",
+          "title": "Add a consumer-composable SelectPanel parts surface",
+          "reachableUseCase": "A consumer needs to own the trigger, panel layout, input, list, and footer actions beyond the current item/data configuration.",
+          "observedGap": "SelectPanel exposes an item-configured component and function-only renderAnchor; docs report no subcomponents for a consumer-composable panel.",
+          "additiveFix": "Add an opt-in parts entry point while retaining the existing config/data API, renderAnchor signature, and defaults. Keep exact part names/default elements pending review.",
+          "citations": [
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "77-100",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "132-140",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "175-181",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.docs.json",
+              "line": "248",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "S-F2",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "API-01",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add sx to the SelectPanel surface",
+          "reachableUseCase": "A consumer needs a local style adjustment to the SelectPanel surface.",
+          "observedGap": "The component renders a DOM wrapper but SelectPanelProps does not include sx.",
+          "additiveFix": "Add sx to the new parts root and document its target while retaining anchorRef and existing component behavior.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
+              "line": "24-30",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "77-100",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "960-961",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "S-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "NAMES-DEFAULTS",
+          "section": 4,
+          "status": "OPEN",
+          "title": "Align the shared open-state contract",
+          "reachableUseCase": "Consumers use SelectPanel and ActionMenu together and need a predictable shared open-state name and default model.",
+          "observedGap": "SelectPanel requires open while ActionMenu documents open as optional with default false.",
+          "additiveFix": "Align the new parts APIs on one open/defaultOpen model and shared default chosen by maintainers; preserve both legacy root contracts and their callbacks.",
+          "citations": [
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "77-86",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "132-140",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx",
+              "line": "67",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.docs.json",
+              "line": "39-48",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "S-F4",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-CONFIG",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Align configured SelectPanel class merging with ADR-025",
+          "reachableUseCase": "A consumer supplies className for the action list rendered within SelectPanel.",
+          "observedGap": "The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.",
+          "additiveFix": "Keep current config class behavior during transition; apply the required new-part merge policy on the additive composition API and define an explicit opt-in or versioned migration for the configured root.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-025-prop-merging.md",
+              "line": "24-50",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "1030",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        }
+      ],
+      "contractFindings": []
+    },
+    {
+      "component": "Button",
+      "sourceSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+      "pendingHuman": true,
+      "checks": [
+        {
+          "id": "MOD-01",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "A single leaf control is an appropriate config/presentational surface; no extra spectrum layer required. contributor-docs/style.md:161-183"
+        },
+        {
+          "id": "CHILD-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button content is consumer-owned and uses children. Button/types.ts:86"
+        },
+        {
+          "id": "PART-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The public Button root is a single interactive leaf and can serve as its one-part surface under the rubric's explicit leaf rule. Button.tsx:6-16"
+        },
+        {
+          "id": "PART-DOCS",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button root props, defaults, and as path are documented. Button.docs.json:94-103,146"
+        },
+        {
+          "id": "API-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ButtonProps and ButtonBaseProps include DOM button props but no sx prop. Button/types.ts:20-96",
+          "findingId": "B-F2"
+        },
+        {
+          "id": "PART-AS",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button is a polymorphic forwardRef component and ButtonBase consumes as. Button.tsx:6-12; ButtonBase.tsx:44-45"
+        },
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ButtonProps has no element or function render prop. Button/types.ts:20-96",
+          "findingId": "B-F1"
+        },
+        {
+          "id": "MERGE-CONFIG",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button component class precedes consumer class and the forwarded/internal refs are merged. ButtonBase.tsx:68-70,108-115"
+        },
+        {
+          "id": "MERGE-HANDLER",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No new render override handler chain exists; missing render path is owned by B-F1.",
+          "findingId": "B-F1"
+        },
+        {
+          "id": "MERGE-CLASS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No render-part class merge path exists; missing render path is owned by B-F1.",
+          "findingId": "B-F1"
+        },
+        {
+          "id": "MERGE-STYLE-ATTR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No render-part style/attribute merge path exists; missing render path is owned by B-F1.",
+          "findingId": "B-F1"
+        },
+        {
+          "id": "MERGE-REF",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing refs are merged; no render-part ref contract exists. ButtonBase.tsx:68-70; missing render path owned by B-F1.",
+          "findingId": "B-F1"
+        },
+        {
+          "id": "MERGE-BEHAVIOR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No render element exists to exercise behavior-prop ownership; missing render path is owned by B-F1.",
+          "findingId": "B-F1"
+        },
+        {
+          "id": "STATE-CALLBACK",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "loading and disabled are consumer-supplied props; Button does not own their state transitions. Button/types.ts:33-45",
+          "reason": "No consumer-observable state transition is owned by Button."
+        },
+        {
+          "id": "NAMES-DEFAULTS",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button and ActionMenu.Button share small/medium/large and medium default. Button/types.ts:7-8; ButtonBase.tsx:54-56"
+        },
+        {
+          "id": "STATE-OWNER",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button does not expose a controlled/uncontrolled state axis; loading/disabled are ordinary props.",
+          "reason": "The check applies only to component-owned controlled or uncontrolled state."
+        },
+        {
+          "id": "ACCESS-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Focused Button suite passed; semantic button/anchor target and loading accessibility behavior are covered. ButtonBase.tsx:78-97,108-135"
+        },
+        {
+          "id": "LIVE-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Loading status uses AriaStatus and the focused Button suite verifies its content. ButtonBase.tsx:200-203"
+        },
+        {
+          "id": "WARN-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Component warnings are guarded by __DEV__. ButtonBase.tsx:78-97"
+        },
+        {
+          "id": "SELECTOR-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button has a stable data-component selector and feature tests. ButtonBase.tsx:108-120"
+        },
+        {
+          "id": "STYLE-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button uses a colocated CSS module and audited package build/type-check passed. ButtonBase.tsx:11,114"
+        },
+        {
+          "id": "RESP-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button size/block variants are not responsive-value APIs.",
+          "reason": "Button does not own responsive values or viewport-dependent behavior."
+        },
+        {
+          "id": "TYPE-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "React workspace type-check passed after building @primer/doc-gen; public Button types compile."
+        },
+        {
+          "id": "EXPORT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No Button internal-module or styled-react compatibility export exists in this snapshot.",
+          "reason": "No internal module or styled-react compatibility surface applies to Button."
+        },
+        {
+          "id": "TEST-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "NOT MEASURED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
+          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+        }
+      ],
+      "findings": [
+        {
+          "id": "B-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add both render forms to the Button leaf part",
+          "reachableUseCase": "A consumer needs to supply a custom button-like element or component while retaining Button's loading, accessibility, and focus behavior.",
+          "observedGap": "Button supports as but has no render-element or render-function API.",
+          "additiveFix": "Add element and function render forms to the root part while preserving as, ref, and existing props. Decide how simultaneous as and render values interact before shipping.",
+          "citations": [
+            {
+              "path": "packages/react/src/Button/Button.tsx",
+              "line": "6-16",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Button/types.ts",
+              "line": "20-96",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Button/ButtonBase.tsx",
+              "line": "44-66",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "B-F2",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "API-01",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add the ADR-003 sx root prop",
+          "reachableUseCase": "A consumer needs a local style adjustment to Button without wrapping it in another styling component.",
+          "observedGap": "Button renders a DOM button/anchor target, but ButtonProps has no sx prop.",
+          "additiveFix": "Add sx to ButtonProps and apply it to the rendered control while preserving as, refs, className, and existing styling behavior.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
+              "line": "24-30",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Button/types.ts",
+              "line": "20-96",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Button/ButtonBase.tsx",
+              "line": "108-120",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        }
+      ],
+      "contractFindings": []
+    }
+  ]
+}
