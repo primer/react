@@ -1,0 +1,26 @@
+{
+  "name": "stackblitz",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@primer/react": "38.46.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.0",
+    "@vitejs/plugin-react": "6.0.2",
+    "typescript": "6.0.3",
+    "vite": "8.3.4"
+  },
+  "stackblitz": {
+    "startCommand": "npm run dev -- --host 0.0.0.0"
+  }
+}

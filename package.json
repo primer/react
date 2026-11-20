@@ -28,6 +28,7 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!.agent\" \"!.agents\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "test": "vitest",
+    "test:bug-reproductions": "node --test script/create-stackblitz-reproduction.test.mts script/publish-bug-reproduction.test.mts",
     "test:type-check": "tsc --noEmit",
     "test:update": "npm run test -- -u",
     "test:classname-coverage": "node script/check-classname-tests.mjs",
