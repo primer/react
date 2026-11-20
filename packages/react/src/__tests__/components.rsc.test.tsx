@@ -1,7 +1,8 @@
 import {describe, expect, test} from 'vitest'
 import {page} from 'vitest/browser'
 import {renderServer} from 'vitest-plugin-rsc/testing-library'
-import {Checkbox, Heading, Text} from '../index'
+import {Heading, Text} from '../index'
+import {Counter} from './rsc-fixtures/Counter'
 
 // `src/index.ts` is the `'use client'` boundary, so everything imported from it is a client
 // reference when it is rendered by a Server Component.
@@ -22,12 +23,12 @@ describe('React Server Components', () => {
     await expect.element(page.getByText('Rendered on the server')).toBeVisible()
   })
 
-  test('hydrates client components rendered by a Server Component', async () => {
-    await renderServer(<Checkbox aria-label="Subscribe" />)
+  test('runs client state and handlers for a client component rendered by a Server Component', async () => {
+    await renderServer(<Counter initialCount={1} />)
 
-    const checkbox = page.getByRole('checkbox', {name: 'Subscribe'})
-    await expect.element(checkbox).not.toBeChecked()
-    await checkbox.click()
-    await expect.element(checkbox).toBeChecked()
+    const button = page.getByRole('button', {name: 'Count: 1'})
+    await expect.element(button).toBeVisible()
+    await button.click()
+    await expect.element(page.getByRole('button', {name: 'Count: 2'})).toBeVisible()
   })
 })
