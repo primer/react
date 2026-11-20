@@ -25,8 +25,8 @@ export interface IssueLabelTokenProps extends TokenBaseProps {
  * @deprecated Use `IssueLabel` from `@primer/react/experimental` instead.
  * `fillColor` carries over (as a `#hex` value). `IssueLabel` also accepts a `variant` for preset colors and
  * renders a `span`, `a` (with `href`) or `button` (with `onClick`) based on the props provided.
- * It has no `text`, `size`, `isSelected`, `id`, `onRemove` or `hideRemoveButton` props: pass the label text as `children`
- * and render your own remove control if one is needed.
+ * It has no `text`, `size`, `isSelected`, `onRemove` or `hideRemoveButton` props: pass the label text as `children`
+ * and render your own remove control if one is needed. `id` is forwarded to the root element, so convert numeric ids to strings.
  */
 const IssueLabelToken = forwardRef((props, forwardedRef) => {
   const {
