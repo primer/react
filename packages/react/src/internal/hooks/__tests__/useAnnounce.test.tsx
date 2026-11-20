@@ -56,6 +56,7 @@ describe('useAnnounce', () => {
     await act(async () => vi.advanceTimersByTime(1))
     expect(liveRegion.getMessage('polite')).toBe('2 rows selected')
     expect(announceSpy).toHaveBeenCalledTimes(2)
+    expect(announceSpy).toHaveBeenLastCalledWith('2 rows selected', {politeness: 'polite', delayMs: 150})
   })
 
   it('supports assertive announcements', async () => {

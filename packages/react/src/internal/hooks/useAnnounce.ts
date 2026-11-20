@@ -93,12 +93,10 @@ export function useAnnounce(ref: RefObject<HTMLElement | null>, options: UseAnno
       politeness === 'assertive'
         ? {
             politeness,
-            from: element,
           }
         : {
             politeness,
             delayMs,
-            from: element,
           }
 
     savedAnnouncement.current =
