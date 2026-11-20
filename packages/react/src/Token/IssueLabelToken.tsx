@@ -11,6 +11,9 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './IssueLabelToken.module.css'
 import {clsx} from 'clsx'
 
+/**
+ * @deprecated Use `IssueLabel` from `@primer/react/experimental` instead.
+ */
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
    * The color that corresponds to the label
@@ -18,6 +21,13 @@ export interface IssueLabelTokenProps extends TokenBaseProps {
   fillColor?: string
 }
 
+/**
+ * @deprecated Use `IssueLabel` from `@primer/react/experimental` instead.
+ * `fillColor` carries over (as a `#hex` value). `IssueLabel` also accepts a `variant` for preset colors and
+ * renders a `span`, `a` (with `href`) or `button` (with `onClick`) based on the props provided.
+ * It has no `text`, `size`, `isSelected`, `id`, `onRemove` or `hideRemoveButton` props: pass the label text as `children`
+ * and render your own remove control if one is needed.
+ */
 const IssueLabelToken = forwardRef((props, forwardedRef) => {
   const {
     as,
