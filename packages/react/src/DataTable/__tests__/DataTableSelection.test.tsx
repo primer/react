@@ -3,8 +3,16 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {hydrateRoot, type Root} from 'react-dom/client'
 import {renderToString} from 'react-dom/server'
-import {describe, expect, it, vi} from 'vitest'
-import {DataTable, Table} from '../../DataTable'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {page, userEvent as browserUserEvent} from 'vitest/browser'
+import {
+  DataTable,
+  Table,
+  type DataTableBulkActionsContext,
+  type DataTableSelectionAnnouncementContext,
+} from '../../DataTable'
+import {Button} from '../../Button'
+import {getLiveRegion} from '../../live-region/__tests__/test-helpers'
 import type {Column} from '../column'
 import type {DataTableData, DataTableRowGroup} from '../row'
 import classes from '../Table.module.css'
@@ -610,5 +618,354 @@ describe('Table selection parts', () => {
       await user.click(checkbox)
     }
     expect(onToggleSelect).not.toHaveBeenCalled()
+  })
+})
+
+describe('DataTable selection announcements', () => {
+  const data = [
+    {id: 1, name: 'Alpha'},
+    {id: 2, name: 'Beta'},
+  ]
+  const renderActions = ({clearSelection}: DataTableBulkActionsContext) => (
+    <Button onClick={clearSelection}>Apply</Button>
+  )
+  function EmptyActions() {
+    return null
+  }
+
+  beforeEach(() => {
+    document.body.appendChild(document.createElement('live-region'))
+  })
+
+  afterEach(() => {
+    getLiveRegion().clear()
+    getLiveRegion().remove()
+    vi.restoreAllMocks()
+    vi.useRealTimers()
+  })
+
+  describe.each([false, true])('with bulk actions: %s', withBulkActions => {
+    const renderBulkActions = withBulkActions ? renderActions : undefined
+
+    it.each([{selected: []}, {selected: [1]}])(
+      'does not announce initial selection $selected, including StrictMode',
+      async ({selected}) => {
+        vi.useFakeTimers()
+        const announce = vi.spyOn(getLiveRegion(), 'announce')
+        render(
+          <React.StrictMode>
+            <DataTable
+              data={data}
+              columns={columns}
+              rowSelection
+              defaultSelectedRows={new Set(selected)}
+              renderBulkActions={renderBulkActions}
+            />
+          </React.StrictMode>,
+        )
+        await act(async () => vi.advanceTimersByTime(500))
+        expect(announce).not.toHaveBeenCalled()
+        expect(getLiveRegion().getMessage('polite')).toBe('')
+      },
+    )
+
+    it('announces singular, plural, and clearing once per change', async () => {
+      const announce = vi.spyOn(getLiveRegion(), 'announce')
+      render(<DataTable data={data} columns={columns} rowSelection renderBulkActions={renderBulkActions} />)
+      const alpha = page.getByRole('checkbox', {name: 'Select Alpha', exact: true})
+      await browserUserEvent.click(alpha)
+      const bulkActionsSuffix = withBulkActions ? ', additional bulk actions available' : ''
+      await expect.poll(() => getLiveRegion().getMessage('polite')).toBe(`1 row selected${bulkActionsSuffix}`)
+      await browserUserEvent.click(page.getByRole('checkbox', {name: 'Select Beta', exact: true}))
+      await expect.poll(() => getLiveRegion().getMessage('polite')).toBe(`2 rows selected${bulkActionsSuffix}`)
+      const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+      await browserUserEvent.click(selectAll)
+      await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('Selection cleared')
+      expect(announce.mock.calls.map(([message]) => message)).toEqual([
+        `1 row selected${bulkActionsSuffix}`,
+        `2 rows selected${bulkActionsSuffix}`,
+        'Selection cleared',
+      ])
+    })
+
+    it('debounces rapid changes and does not repeat unchanged counts', async () => {
+      vi.useFakeTimers()
+      const announce = vi.spyOn(getLiveRegion(), 'announce')
+      const example = (ids: Array<number>) => (
+        <DataTable
+          data={data}
+          columns={columns}
+          rowSelection
+          selectedRows={new Set(ids)}
+          renderBulkActions={renderBulkActions}
+        />
+      )
+      const {rerender} = render(example([]))
+      await act(async () => rerender(example([1])))
+      await act(async () => vi.advanceTimersByTime(100))
+      expect(getLiveRegion().getMessage('polite')).toBe('')
+      await act(async () => rerender(example([1, 2])))
+      await act(async () => vi.advanceTimersByTime(149))
+      expect(getLiveRegion().getMessage('polite')).toBe('')
+      await act(async () => vi.advanceTimersByTime(1))
+      expect(getLiveRegion().getMessage('polite')).toBe(
+        withBulkActions ? '2 rows selected, additional bulk actions available' : '2 rows selected',
+      )
+      expect(announce).toHaveBeenCalledTimes(2)
+      await act(async () => rerender(example([2, 1])))
+      await act(async () => vi.advanceTimersByTime(500))
+      expect(announce).toHaveBeenCalledTimes(2)
+    })
+
+    it.each([{display: 'none'}, {visibility: 'hidden'}] as const)(
+      'does not announce selection changes under a hidden ancestor (%j)',
+      async style => {
+        vi.useFakeTimers()
+        const announce = vi.spyOn(getLiveRegion(), 'announce')
+        const example = (ids: Array<number>, hidden: boolean) => (
+          <div style={hidden ? style : undefined}>
+            <DataTable
+              data={data}
+              columns={columns}
+              rowSelection
+              selectedRows={new Set(ids)}
+              renderBulkActions={renderBulkActions}
+            />
+          </div>
+        )
+        const {rerender} = render(example([], false))
+        await act(async () => rerender(example([1], true)))
+        await act(async () => vi.advanceTimersByTime(500))
+        expect(getLiveRegion().getMessage('polite')).toBe('')
+        await act(async () => rerender(example([1], false)))
+        await act(async () => vi.advanceTimersByTime(500))
+        expect(getLiveRegion().getMessage('polite')).toBe('')
+        await act(async () => rerender(example([1, 2], false)))
+        await act(async () => vi.advanceTimersByTime(150))
+        const twoSelectedMessage = withBulkActions
+          ? '2 rows selected, additional bulk actions available'
+          : '2 rows selected'
+        expect(getLiveRegion().getMessage('polite')).toBe(twoSelectedMessage)
+        expect(announce).toHaveBeenCalledTimes(1)
+
+        await act(async () => rerender(example([], true)))
+        await act(async () => vi.advanceTimersByTime(500))
+        expect(getLiveRegion().getMessage('polite')).toBe(twoSelectedMessage)
+        expect(announce).toHaveBeenCalledTimes(1)
+        await act(async () => rerender(example([1, 2], false)))
+        await act(async () => vi.advanceTimersByTime(150))
+        expect(getLiveRegion().getMessage('polite')).toBe(`${twoSelectedMessage}\u00a0`)
+        expect(announce).toHaveBeenCalledTimes(2)
+      },
+    )
+
+    it('uses a custom selection announcement formatter', async () => {
+      const getSelectionAnnouncement = vi.fn(
+        ({selectedCount, bulkActionsAvailable}: DataTableSelectionAnnouncementContext) =>
+          `${selectedCount} chosen; bulk actions: ${bulkActionsAvailable ? 'yes' : 'no'}`,
+      )
+      render(
+        <DataTable
+          data={data}
+          columns={columns}
+          rowSelection
+          renderBulkActions={renderBulkActions}
+          getSelectionAnnouncement={getSelectionAnnouncement}
+        />,
+      )
+      const alpha = page.getByRole('checkbox', {name: 'Select Alpha', exact: true})
+      await browserUserEvent.click(alpha)
+      await expect
+        .poll(() => getLiveRegion().getMessage('polite'))
+        .toBe(`1 chosen; bulk actions: ${withBulkActions ? 'yes' : 'no'}`)
+      expect(getSelectionAnnouncement).toHaveBeenLastCalledWith({
+        selectedCount: 1,
+        bulkActionsAvailable: withBulkActions,
+      })
+      await browserUserEvent.click(alpha)
+      await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('0 chosen; bulk actions: no')
+      expect(getSelectionAnnouncement).toHaveBeenLastCalledWith({
+        selectedCount: 0,
+        bulkActionsAvailable: false,
+      })
+    })
+  })
+
+  it('keeps visible toolbar count localization separate from the live announcement', async () => {
+    render(
+      <DataTable
+        data={data}
+        columns={columns}
+        rowSelection
+        renderBulkActions={renderActions}
+        bulkActionsProps={{getSelectedCountLabel: count => `${count} chosen`}}
+      />,
+    )
+    await browserUserEvent.click(page.getByRole('checkbox', {name: 'Select Alpha', exact: true}))
+    expect(screen.getByText('1 chosen')).toBeVisible()
+    await expect
+      .poll(() => getLiveRegion().getMessage('polite'))
+      .toBe('1 row selected, additional bulk actions available')
+  })
+
+  it('does not repeat the same custom announcement for different counts', async () => {
+    vi.useFakeTimers()
+    const announce = vi.spyOn(getLiveRegion(), 'announce')
+    const example = (ids: Array<number>) => (
+      <DataTable
+        data={data}
+        columns={columns}
+        rowSelection
+        selectedRows={new Set(ids)}
+        getSelectionAnnouncement={() => 'Selection changed'}
+      />
+    )
+    const {rerender} = render(example([]))
+    await act(async () => rerender(example([1])))
+    await act(async () => vi.advanceTimersByTime(100))
+    expect(getLiveRegion().getMessage('polite')).toBe('')
+    expect(announce).toHaveBeenCalledTimes(1)
+    await act(async () => rerender(example([1, 2])))
+    await act(async () => vi.advanceTimersByTime(49))
+    expect(getLiveRegion().getMessage('polite')).toBe('')
+    await act(async () => vi.advanceTimersByTime(1))
+    expect(getLiveRegion().getMessage('polite')).toBe('Selection changed')
+    expect(announce).toHaveBeenCalledTimes(1)
+  })
+
+  it.each([
+    {name: 'null', render: () => null},
+    {name: 'an empty fragment', render: () => <></>},
+    {name: 'a null-rendering component', render: () => <EmptyActions />},
+  ])('does not report bulk actions when the renderer returns $name', async ({render: renderContent}) => {
+    const renderBulkActions = vi.fn(renderContent)
+    render(<DataTable data={data} columns={columns} rowSelection renderBulkActions={renderBulkActions} />)
+    await browserUserEvent.click(page.getByRole('checkbox', {name: 'Select Alpha', exact: true}))
+    await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('1 row selected')
+    expect(renderBulkActions).toHaveBeenCalledTimes(1)
+  })
+
+  it('reads child-only action updates on the next selection change', async () => {
+    vi.useFakeTimers()
+    const actionsRef = React.createRef<{hide: () => void}>()
+    function MutableActions() {
+      const [visible, setVisible] = React.useState(true)
+      React.useImperativeHandle(actionsRef, () => ({hide: () => setVisible(false)}), [])
+      return visible ? <Button>Apply</Button> : null
+    }
+    const renderBulkActions = vi.fn(() => <MutableActions />)
+    const example = (ids: Array<number>) => (
+      <DataTable
+        data={data}
+        columns={columns}
+        rowSelection
+        selectedRows={new Set(ids)}
+        renderBulkActions={renderBulkActions}
+      />
+    )
+    const {rerender} = render(example([]))
+    await act(async () => rerender(example([1])))
+    expect(screen.getByRole('button', {name: 'Apply'})).toBeVisible()
+    await act(async () => vi.advanceTimersByTime(100))
+    await act(async () => actionsRef.current?.hide())
+    expect(screen.queryByRole('button', {name: 'Apply'})).not.toBeInTheDocument()
+    expect(renderBulkActions).toHaveBeenCalledTimes(1)
+    await act(async () => rerender(example([1, 2])))
+    await act(async () => vi.advanceTimersByTime(150))
+    expect(getLiveRegion().getMessage('polite')).toBe('2 rows selected')
+  })
+
+  it('does not announce same-count toolbar changes after delivery', async () => {
+    vi.useFakeTimers()
+    const announce = vi.spyOn(getLiveRegion(), 'announce')
+    const example = (ids: Array<number>, withActions: boolean) => (
+      <DataTable
+        data={data}
+        columns={columns}
+        rowSelection
+        selectedRows={new Set(ids)}
+        renderBulkActions={withActions ? renderActions : undefined}
+      />
+    )
+    const {rerender} = render(example([], true))
+    await act(async () => rerender(example([1], true)))
+    await act(async () => vi.advanceTimersByTime(150))
+    expect(getLiveRegion().getMessage('polite')).toBe('1 row selected, additional bulk actions available')
+    await act(async () => rerender(example([1], false)))
+    await act(async () => vi.advanceTimersByTime(500))
+    await act(async () => rerender(example([1], true)))
+    await act(async () => vi.advanceTimersByTime(500))
+    expect(announce).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps selection silent when enabled and does not repeat it when adding a toolbar', async () => {
+    vi.useFakeTimers()
+    const announce = vi.spyOn(getLiveRegion(), 'announce')
+    const {rerender} = render(<DataTable data={data} columns={columns} selectedRows={new Set([1])} />)
+    await act(async () =>
+      rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set([1])} />),
+    )
+    await act(async () => vi.advanceTimersByTime(500))
+    expect(announce).not.toHaveBeenCalled()
+    await act(async () =>
+      rerender(
+        <DataTable
+          data={data}
+          columns={columns}
+          rowSelection
+          selectedRows={new Set([1])}
+          renderBulkActions={renderActions}
+        />,
+      ),
+    )
+    await act(async () => vi.advanceTimersByTime(500))
+    expect(announce).not.toHaveBeenCalled()
+    await act(async () => rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set()} />))
+    await act(async () => vi.advanceTimersByTime(150))
+    expect(getLiveRegion().getMessage('polite')).toBe('Selection cleared')
+    expect(announce).toHaveBeenCalledTimes(1)
+  })
+
+  it('cancels a pending selection announcement when unmounted', async () => {
+    vi.useFakeTimers()
+    const {rerender, unmount} = render(
+      <DataTable data={data} columns={columns} rowSelection selectedRows={new Set()} />,
+    )
+    await act(async () =>
+      rerender(<DataTable data={data} columns={columns} rowSelection selectedRows={new Set([1])} />),
+    )
+    await act(async () => vi.advanceTimersByTime(149))
+    unmount()
+    await act(async () => vi.advanceTimersByTime(500))
+    expect(getLiveRegion().getMessage('polite')).toBe('')
+  })
+
+  it('excludes the inactive toolbar row and preserves keyboard focus when clearing the last selection', async () => {
+    render(<DataTable data={data} columns={columns} rowSelection renderBulkActions={renderActions} />)
+    const table = page.getByRole('table')
+    const header = table.getByRole('rowgroup').first()
+    expect(header.getByRole('row').elements()).toHaveLength(1)
+    const selectAll = page.getByRole('checkbox', {name: 'Select rows', exact: true})
+    const alpha = page.getByRole('checkbox', {name: 'Select Alpha', exact: true})
+    act(() => alpha.element().focus())
+    await browserUserEvent.keyboard(' ')
+    expect(header.getByRole('row').elements()).toHaveLength(2)
+    await browserUserEvent.tab({shift: true})
+    await expect.element(page.getByRole('button', {name: 'Apply', exact: true})).toHaveFocus()
+    await browserUserEvent.keyboard('{Enter}')
+    await expect.element(selectAll).toHaveFocus()
+    expect(header.getByRole('row').elements()).toHaveLength(1)
+    await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('Selection cleared')
+  })
+
+  it('keeps standalone Table.BulkActions announcements without announcing its initial count', async () => {
+    const announce = vi.spyOn(getLiveRegion(), 'announce')
+    const {rerender} = render(<Table.BulkActions selectedCount={1} />)
+    expect(announce).not.toHaveBeenCalled()
+    rerender(<Table.BulkActions selectedCount={2} />)
+    await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('2 selected')
+    rerender(<Table.BulkActions selectedCount={0} />)
+    await expect.poll(() => getLiveRegion().getMessage('polite')).toBe('0 selected')
+    expect(announce.mock.calls.map(([message]) => message)).toEqual(['2 selected', '0 selected'])
   })
 })

@@ -1,4 +1,5 @@
-import {describe, expect, it, beforeEach, afterEach} from 'vitest'
+import {describe, expect, it, beforeEach, afterEach, vi} from 'vitest'
+import React from 'react'
 import {render, act, waitFor} from '@testing-library/react'
 import {page} from 'vitest/browser'
 import {Announce} from '../Announce'
@@ -122,5 +123,31 @@ describe('Announce', () => {
     })
     // ...and it did so without any extra commit beyond the prop updates.
     expect(counter.updateCount).toBe(changes)
+  })
+
+  it('preserves initial announcement deduplication across StrictMode mount cleanup', async () => {
+    const liveRegion = getLiveRegion()
+    const announceSpy = vi.spyOn(liveRegion, 'announce')
+
+    const {rerender} = render(
+      <React.StrictMode>
+        <Announce>test</Announce>
+      </React.StrictMode>,
+    )
+
+    expect(liveRegion.getMessage('polite')).toBe('test')
+    expect(announceSpy).toHaveBeenCalledTimes(1)
+
+    rerender(
+      <React.StrictMode>
+        <Announce>
+          test
+          <span />
+        </Announce>
+      </React.StrictMode>,
+    )
+    await act(async () => {})
+
+    expect(announceSpy).toHaveBeenCalledTimes(1)
   })
 })
