@@ -67,7 +67,7 @@
           "id": "API-01",
           "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The applicable ADR-003 root ref/as/DOM prop conventions remain intact. ADR-022-styled-react moves legacy sx compatibility out of @primer/react; the audited @primer/styled-react index exports styling/theming helpers, not this component. SelectPanel/SelectPanel.tsx:1127-1132; packages/styled-react/src/index.tsx:1-95."
+          "evidence": "SelectPanel is a configured composite with no single host element. Its public anchorRef targets the trigger; renderAnchor receives the trigger ref and DOM props, and the default renderer spreads them onto Button. ADR-003 limits as to clear polymorphism needs, which this configurable renderAnchor already covers. ADR-022-styled-react keeps legacy sx compatibility outside @primer/react. SelectPanel/SelectPanel.tsx:132-140,175-181,188-189,598,936; AnchoredOverlay/AnchoredOverlay.tsx:30-33,59-61; packages/styled-react/src/index.tsx:1-95."
         },
         {
           "id": "PART-AS",
@@ -375,328 +375,7 @@
       }
     },
     {
-      "component": "SelectPanel (after, configured API)",
-      "sourceSha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b",
-      "pendingHuman": true,
-      "checks": [
-        {
-          "id": "MOD-01",
-          "verdict": "PASS",
-          "evidenceClass": "AGENT JUDGMENT",
-          "evidence": "Configured collection/form surface owns data ordering and selection; no unnecessary spectrum layer required. contributor-docs/style.md:161-183"
-        },
-        {
-          "id": "CHILD-01",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Items and selection are data-driven because SelectPanel owns filtering, ordering, and selection. SelectPanel.tsx:132-140"
-        },
-        {
-          "id": "PART-01",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "PART-DOCS",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "STRUCTURE-01",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The PascalCase SelectPanel directory exposes SecondaryActionButton, SecondaryActionLink, and Message on the exported parent with Object.assign at SelectPanel.tsx:1127-1132. SelectPanel/SelectPanel.tsx:1127-1132."
-        },
-        {
-          "id": "CUSTOM-ELEMENT-01",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The component integrates the live-region custom element for client-side announcements through announceFromElement and AriaStatus. SelectPanel.tsx:21,581-585; SelectPanelMessage.tsx:6,123-127."
-        },
-        {
-          "id": "API-01",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The applicable ADR-003 root ref/as/DOM prop conventions remain intact. ADR-022-styled-react moves legacy sx compatibility out of @primer/react; the audited @primer/styled-react index exports styling/theming helpers, not this component. SelectPanel/SelectPanel.tsx:1127-1132; packages/styled-react/src/index.tsx:1-95."
-        },
-        {
-          "id": "PART-AS",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "MERGE-CONFIG",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Consumer className precedes FilteredActionList's component class. SelectPanel.tsx:1030",
-          "findingId": "S-F4"
-        },
-        {
-          "id": "MERGE-HANDLER",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "MERGE-CLASS",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "MERGE-STYLE-ATTR",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "MERGE-REF",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "MERGE-BEHAVIOR",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here.",
-          "reason": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here."
-        },
-        {
-          "id": "STATE-CALLBACK",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Existing onOpenChange reports value and gesture; its signature remains the legacy contract. SelectPanel.tsx:83-86,599-623"
-        },
-        {
-          "id": "NAMES-DEFAULTS",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "SelectPanel requires open while ActionMenu documents open default false; shared state name/default shape is inconsistent. SelectPanel.tsx:77-86,132-140; ActionMenu.docs.json:39-48",
-          "findingId": "S-F3"
-        },
-        {
-          "id": "STATE-OWNER",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "SelectPanel requires controlled open and onOpenChange; the config has one external state owner. SelectPanel.tsx:77-86,132-140"
-        },
-        {
-          "id": "ACCESS-01",
-          "verdict": "PASS",
-          "evidenceClass": "EXECUTION VERIFIED",
-          "evidence": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 370 tests passed; the default-off adapter is outside this configured-entry test command. The configured Storybook path also passed the focused Playwright test."
-        },
-        {
-          "id": "LIVE-01",
-          "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
-          "evidence": "SelectPanel uses @primer/live-region-element for loading/status announcements; focused suite passed. SelectPanel.tsx:23,47-59"
-        },
-        {
-          "id": "WARN-01",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No component-owned development warning call exists in SelectPanel.tsx.",
-          "reason": "SelectPanel emits no development warning."
-        },
-        {
-          "id": "SELECTOR-01",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "SelectPanel root and named regions have stable data-component attributes. SelectPanel.tsx:960-980"
-        },
-        {
-          "id": "STYLE-01",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "packages/react/src/SelectPanel/SelectPanel.module.css has no @layer declaration across lines 1-236; ADR-021 requires component style rules in @layer primer.components.SelectPanel. packages/react/src/SelectPanel/SelectPanel.tsx:24.",
-          "findingId": "S-F5"
-        },
-        {
-          "id": "RESP-01",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "SelectPanel uses useResponsiveValue for its responsive variant behavior. SelectPanel.tsx:27"
-        },
-        {
-          "id": "TYPE-01",
-          "verdict": "NOT MEASURED",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "npm run type-check --workspace @primer/react failed in both snapshots with TypeScript errors in script/components-json/build.ts and src/__tests__/exports.test.ts, including duplicate Babel type definitions. SelectPanel-specific type execution is unverified.",
-          "reason": "The package type-check command failed in both detached worktrees on unrelated existing files because the shared dependency tree resolves duplicate @babel/types copies and incompatible parser declarations; no SelectPanel-isolated type-check could be established."
-        },
-        {
-          "id": "EXPORT-01",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The public SelectPanel entry exports the parent API and named part types; no internal module path is re-exported, and @primer/styled-react does not re-export SelectPanel. SelectPanel/index.ts:1-13; packages/styled-react/src/index.tsx:1-95."
-        },
-        {
-          "id": "TEST-01",
-          "verdict": "PASS",
-          "evidenceClass": "EXECUTION VERIFIED",
-          "evidence": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 1 file, 370 tests passed at PR head."
-        },
-        {
-          "id": "SNAPSHOT-01",
-          "verdict": "PASS",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The focused SelectPanel unit tests contain no component render-tree toMatchSnapshot calls; the policy check is separate from the recorded test execution."
-        },
-        {
-          "id": "INTERACTION-01",
-          "verdict": "PASS",
-          "evidenceClass": "EXECUTION VERIFIED",
-          "evidence": "STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast)."
-        },
-        {
-          "id": "MIG-01",
-          "verdict": "N/A",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The configured merge recommendation preserves current behavior through an opt-in or parallel path. No default switch is selected; repository package version is recorded separately, and publication must be verified before any later default change.",
-          "reason": "No release-dependent default change is selected. The configured merge fix remains opt-in or parallel to preserve current behavior, and any later default switch requires published-surface verification."
-        }
-      ],
-      "findings": [
-        {
-          "id": "S-F3",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "NAMES-DEFAULTS",
-          "section": 4,
-          "status": "OPEN",
-          "title": "Align the shared open-state contract",
-          "reachableUseCase": "Consumers use SelectPanel and ActionMenu together and need a predictable shared open-state name and default model.",
-          "observedGap": "SelectPanel requires open while ActionMenu documents open as optional with default false.",
-          "additiveFix": "Align the new parts APIs on one open/defaultOpen model and shared default chosen by maintainers; preserve both legacy root contracts and their callbacks.",
-          "citations": [
-            {
-              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
-              "line": "77-86",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            },
-            {
-              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
-              "line": "132-140",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            },
-            {
-              "path": "packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx",
-              "line": "67",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            },
-            {
-              "path": "packages/react/src/ActionMenu/ActionMenu.docs.json",
-              "line": "39-48",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            }
-          ]
-        },
-        {
-          "id": "S-F4",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "MERGE-CONFIG",
-          "section": 3,
-          "status": "OPEN",
-          "title": "Align configured SelectPanel class merging with ADR-025",
-          "reachableUseCase": "A consumer supplies className for the action list rendered within SelectPanel.",
-          "observedGap": "The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.",
-          "additiveFix": "Keep current configured class behavior and signatures; add an opt-in or parallel compliant merge path, and verify the published surface before recommending any default switch.",
-          "citations": [
-            {
-              "path": "contributor-docs/adrs/adr-025-prop-merging.md",
-              "line": "24-50",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            },
-            {
-              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
-              "line": "1060",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            }
-          ]
-        },
-        {
-          "id": "S-F5",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "STYLE-01",
-          "section": 5,
-          "status": "OPEN",
-          "title": "Place SelectPanel styles in the component cascade layer",
-          "reachableUseCase": "A consumer applies utility-layer styles to SelectPanel; unlayered component rules do not participate in the declared Primer layer order.",
-          "observedGap": "The authored CSS Module contains no cascade-layer declaration, although ADR-021 and ADR-022 require component styles to use the named primer.components layer.",
-          "additiveFix": "Place the component style rules in @layer primer.components.SelectPanel; retain any globally scoped registrations and all existing selectors and declarations.",
-          "citations": [
-            {
-              "path": "contributor-docs/adrs/adr-021-css-layers.md",
-              "line": "66-107",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            },
-            {
-              "path": "contributor-docs/adrs/adr-022-css-layer-names.md",
-              "line": "28-65",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            },
-            {
-              "path": "packages/react/src/SelectPanel/SelectPanel.module.css",
-              "line": "1-309",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            }
-          ]
-        }
-      ],
-      "contractFindings": [],
-      "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
-      "metadata": {
-        "packageVersion": "38.46.0",
-        "mode": "whole component; surface-scoped record",
-        "acceptedTarget": {
-          "adrSnapshotSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
-          "adrRule": "All ADR files in the audited main snapshot are included regardless of status label; later explicit decisions control overlapping requirements.",
-          "gist": {
-            "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
-            "file": "0-2026-11-17-base-ui-foundation.md",
-            "sha256": "30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2"
-          }
-        },
-        "pendingHuman": true,
-        "surface": "Configured SelectPanel(props) only; composable parts are isolated in the separate after-composable record.",
-        "tests": {
-          "unit": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 1 file, 370 passed.",
-          "fullComponentRun": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel — 19 files, 1681 passed and 7 failed; the failures are in the new compatibility/composition/overlay paths and are graded with the composable surface.",
-          "interaction": "STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast).",
-          "typeCheck": "npm run type-check --workspace @primer/react — not measured reliably in this shared dependency setup; the current attempt failed on unrelated files."
-        },
-        "topFixes": [
-          "Keep the configured API intact while aligning its class merge with ADR-025 through a compatible migration.",
-          "Align configured open-state naming/defaults with the shared concept without replacing its existing callback.",
-          "Verify package types with a dependency tree matching the audited commit."
-        ],
-        "scopeNote": "This record isolates the configured SelectPanel(props) entry point. The separate SelectPanel.Root/parts entry point is graded in its own record; its part-specific requirements are not scored twice here. The configured score is not a combined grade for the component."
-      }
-    },
-    {
-      "component": "SelectPanel (after, composable API)",
+      "component": "SelectPanel (after #7287, whole component)",
       "sourceSha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b",
       "pendingHuman": true,
       "checks": [
@@ -739,10 +418,9 @@
         },
         {
           "id": "API-01",
-          "verdict": "N/A",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This surface’s Root is a non-rendering context/state provider; root DOM ref/as conventions are not applicable here. The gist’s every-part substitution requirement is scored under PART-AS and PART-RENDER.",
-          "reason": "No DOM root exists on SelectPanel.Root; substitution is scored under the part-specific target checks."
+          "evidence": "SelectPanel is a configured composite with no single host element. Its public anchorRef targets the trigger; renderAnchor receives the trigger ref and DOM props, and the default renderer spreads them onto Button. ADR-003 limits as to clear polymorphism needs, which this configurable renderAnchor already covers. ADR-022-styled-react keeps legacy sx compatibility outside @primer/react. SelectPanel/SelectPanel.tsx:142-150,170-176,596,953; AnchoredOverlay/AnchoredOverlay.tsx:30-33,59-61; packages/styled-react/src/index.tsx:1-95."
         },
         {
           "id": "PART-AS",
@@ -760,10 +438,10 @@
         },
         {
           "id": "MERGE-CONFIG",
-          "verdict": "N/A",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "This record grades the new composable parts; the configured props/data merge is graded in the separate configured record.",
-          "reason": "The composable Root/parts surface does not expose the configured component/consumer merge contract."
+          "evidence": "Consumer className precedes FilteredActionList's component class. SelectPanel.tsx:1030",
+          "findingId": "S-F4"
         },
         {
           "id": "MERGE-HANDLER",
@@ -807,9 +485,10 @@
         },
         {
           "id": "NAMES-DEFAULTS",
-          "verdict": "PASS",
-          "evidenceClass": "AGENT JUDGMENT",
-          "evidence": "The composable open/defaultOpen API uses defaultOpen=false, aligned with the shared open-state model; exact shared-concept review remains pending human. useSelectPanel.ts:16-21,48-52."
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "SelectPanel requires open while ActionMenu documents open default false; shared state name/default shape is inconsistent. SelectPanel.tsx:77-86,132-140; ActionMenu.docs.json:39-48",
+          "findingId": "S-F3"
         },
         {
           "id": "STATE-OWNER",
@@ -894,8 +573,8 @@
           "id": "MIG-01",
           "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "All recommendations are additive for the new composable surface; published-package migration evidence is not required.",
-          "reason": "The composable parts and their migration recommendations are additive; no published-surface change is proposed."
+          "evidence": "The configured merge recommendation preserves current behavior through an opt-in or parallel path. No default switch is selected; repository package version is recorded separately, and publication must be verified before any later default change.",
+          "reason": "No release-dependent default change is selected. The configured merge fix remains opt-in or parallel to preserve current behavior, and any later default switch requires published-surface verification."
         }
       ],
       "findings": [
@@ -1167,6 +846,64 @@
               "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
             }
           ]
+        },
+        {
+          "id": "S-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "NAMES-DEFAULTS",
+          "section": 4,
+          "status": "OPEN",
+          "title": "Align the shared open-state contract",
+          "reachableUseCase": "Consumers use SelectPanel and ActionMenu together and need a predictable shared open-state name and default model.",
+          "observedGap": "SelectPanel requires open while ActionMenu documents open as optional with default false.",
+          "additiveFix": "Align the new parts APIs on one open/defaultOpen model and shared default chosen by maintainers; preserve both legacy root contracts and their callbacks.",
+          "citations": [
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "77-86",
+              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "132-140",
+              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
+            },
+            {
+              "path": "packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx",
+              "line": "67",
+              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.docs.json",
+              "line": "39-48",
+              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
+            }
+          ]
+        },
+        {
+          "id": "S-F4",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-CONFIG",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Align configured SelectPanel class merging with ADR-025",
+          "reachableUseCase": "A consumer supplies className for the action list rendered within SelectPanel.",
+          "observedGap": "The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.",
+          "additiveFix": "Keep current configured class behavior and signatures; add an opt-in or parallel compliant merge path, and verify the published surface before recommending any default switch.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-025-prop-merging.md",
+              "line": "24-50",
+              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "1060",
+              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
+            }
+          ]
         }
       ],
       "contractFindings": [],
@@ -1185,24 +922,27 @@
           }
         },
         "pendingHuman": true,
-        "surface": "SelectPanel.Root and its new named parts only; configured SelectPanel(props) is scored separately.",
+        "surface": "Complete SelectPanel component: configured props/data API plus SelectPanel.Root and named parts.",
         "tests": {
           "unit": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel — 19 files, 1681 passed and 7 failed (1688 total).",
           "focusedRerun": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.compatibility.test.tsx packages/react/src/SelectPanel/SelectPanel.composition.test.tsx packages/react/src/SelectPanel/SelectPanelOverlay.test.tsx --maxWorkers=1 --testNamePattern='opens every configured panel in SelectPanelRepositionInsideDialog without falling back|repairs removed list focus without stealing focus from search or after an explicit blur|dismisses only the supplemental dialog when clicking outside it|supports modal presentation without an anchor' — 7 failed, 2 passed; the failures reproduced without parallel workers.",
           "interaction": "No composable SelectPanel Playwright scenario exists in e2e/components/SelectPanel.test.ts; configured stories were tested separately.",
-          "typeCheck": "npm run type-check --workspace @primer/react — not measured reliably in this shared dependency setup; the current attempt failed on unrelated files."
+          "typeCheck": "npm run type-check --workspace @primer/react — not measured reliably in this shared dependency setup; the current attempt failed on unrelated files.",
+          "configuredUnit": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 1 file, 370 passed.",
+          "configuredInteraction": "STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast)."
         },
         "topFixes": [
-          "Add as and both render forms to every part, preserving behavior, props, state, and refs.",
-          "Implement the new-part merge policy: separate skip from preventDefault, put consumer classes first, and forward all refs.",
-          "Add object-shaped transition callbacks and resolve the failing overlay/focus cases; add composable Storybook Playwright coverage."
+          "Provide every composable part with both as and element/function render while preserving behavior, props, state, and refs.",
+          "Align configured and composable prop merges with their accepted policies while preserving existing behavior through additive migration paths.",
+          "Add the object-shaped transition callback and resolve composable interaction failures; add Storybook Playwright coverage."
         ],
-        "scopeNote": "This is the headline after grade for the decomposition surface. It is not combined with the configured API grade.",
+        "scopeNote": "One whole-component grade covers the configured API and the new composable API. Each check is assessed once across all applicable public paths; a target failure on any path is one owned gap.",
         "unresolved": [
           "Whether the DOM-less Root should support as/render and how it should expose a ref.",
           "Exact part names/default elements, simultaneous as + render behavior, skip-method name, and overlay coordination implementation remain pending in the pinned gist.",
           "Human review of part boundaries, defaults, and shared naming remains pending."
-        ]
+        ],
+        "currentContractContext": "No separate current-contract defect was established. The seven full-run failures on the composable path remain candidate behavior defects under SC-F8 pending maintainer triage."
       }
     }
   ]
