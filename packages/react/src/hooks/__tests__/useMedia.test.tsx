@@ -1,4 +1,5 @@
-import {act, render} from '@testing-library/react'
+import {act, render, screen} from '@testing-library/react'
+import {Suspense} from 'react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import ReactDOM from 'react-dom/server'
 import {useMedia, MatchMedia} from '../useMedia'
@@ -14,7 +15,9 @@ function mockMatchMedia({defaultMatch = false} = {}) {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: vi.fn().mockImplementation(query => ({
-      matches: currentMatches,
+      get matches() {
+        return currentMatches
+      },
       media: query,
       onchange: null,
       addListener: vi.fn(), // deprecated
@@ -120,6 +123,35 @@ describe('useMedia', () => {
     })
 
     expect(match[1]).toBe(true)
+  })
+
+  it('reads the current match state when a suspended subscriber first mounts', async () => {
+    const {change} = mockMatchMedia({defaultMatch: true})
+    const {promise, resolve} = Promise.withResolvers<void>()
+    let ready = false
+
+    function TestComponent() {
+      const matches = useMedia('(min-width: 800px)')
+      if (!ready) throw promise
+      return <span>{matches ? 'Wide' : 'Narrow'}</span>
+    }
+
+    render(
+      <Suspense fallback={<span>Loading</span>}>
+        <TestComponent />
+      </Suspense>,
+    )
+    expect(screen.getByText('Loading')).toBeInTheDocument()
+
+    await act(async () => {
+      change({matches: false})
+      ready = true
+      resolve()
+      await promise
+    })
+
+    expect(screen.getByText('Narrow')).toBeInTheDocument()
+    expect(window.matchMedia).toHaveBeenCalledTimes(1)
   })
 
   it('shares one MediaQueryList and one change listener across subscribers of the same query', () => {

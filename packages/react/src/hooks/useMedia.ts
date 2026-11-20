@@ -12,8 +12,6 @@ import {MatchMediaContext} from './MatchMediaContext'
  * listener per query keeps that cost flat however many components subscribe.
  */
 type SharedMediaQuery = {
-  /** Last known match state, kept in sync by the shared `change` handler. */
-  matches: boolean
   /** The `matchMedia` implementation that produced `mediaQueryList`. */
   matchMediaFn: (query: string) => MediaQueryList
   mediaQueryList: MediaQueryList
@@ -60,17 +58,13 @@ function detachSharedListener(entry: SharedMediaQuery) {
 function createSharedMediaQuery(mediaQueryString: string): SharedMediaQuery {
   const mediaQueryList = window.matchMedia(mediaQueryString)
   const entry: SharedMediaQuery = {
-    matches: mediaQueryList.matches,
     matchMediaFn: window.matchMedia,
     mediaQueryList,
     listeners: new Map(),
     handleChange: null,
     listening: false,
   }
-  // The `change` event carries the new match state, so the cached value stays
-  // correct even if the underlying list object is replaced.
-  entry.handleChange = (event: MediaQueryListEvent) => {
-    entry.matches = 'matches' in event ? event.matches : mediaQueryList.matches
+  entry.handleChange = () => {
     for (const listener of entry.listeners.keys()) {
       listener()
     }
@@ -167,9 +161,8 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     if (contextValue !== undefined) {
       return contextValue
     }
-    // Read the cached match state instead of allocating a new
-    // `MediaQueryList` on every render.
-    return getSharedMediaQuery(mediaQueryString)?.matches ?? false
+    // Read the live list even when its first subscriber has not mounted yet.
+    return getSharedMediaQuery(mediaQueryString)?.mediaQueryList.matches ?? false
   }, [contextValue, mediaQueryString])
 
   const getServerSnapshot = useCallback(() => {
