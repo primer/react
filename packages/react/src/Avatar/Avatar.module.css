@@ -14,11 +14,13 @@
     box-shadow: 0 0 0 var(--borderWidth-thin) var(--avatar-borderColor);
   }
 
-  @media (forced-colors: none) {
-    &:where(:not(:focus-visible, [data-component='AvatarStack'] *)) {
-      /* An inset shadow paints behind the image; an outline paints over it. */
-      outline: var(--borderWidth-thin) solid var(--avatar-borderColor);
-      outline-offset: calc(-1 * var(--borderWidth-thin));
+  &:where(:not(:focus-visible, [data-component='AvatarStack'] *)) {
+    /* An inset shadow paints behind the image; an outline paints over it. */
+    outline: var(--borderWidth-thin) solid var(--avatar-borderColor);
+    outline-offset: calc(-1 * var(--borderWidth-thin));
+
+    @media (forced-colors: active) {
+      outline: none;
     }
   }
 
