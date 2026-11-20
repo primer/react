@@ -14,7 +14,6 @@ const files = glob
 const unsupportedPatterns = [
   'src/ActionMenu/ActionMenu.test.tsx',
   'src/AnchoredOverlay/AnchoredOverlay.tsx',
-  'src/Autocomplete/AutocompleteInput.tsx',
   'src/Button/ButtonBase.tsx',
   'src/Dialog/Dialog.tsx',
   'src/FilteredActionList/FilteredActionList.tsx',
