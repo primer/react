@@ -32,6 +32,7 @@
     "test:update": "npm run test -- -u",
     "test:classname-coverage": "node script/check-classname-tests.mjs",
     "type-check": "tsc --noEmit && turbo run type-check",
+    "version-packages": "changeset version && npm install --package-lock-only",
     "release": "npm run build && changeset publish",
     "reset": "script/reset",
     "size": "size-limit"
