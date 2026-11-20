@@ -2,7 +2,12 @@ import {readFile} from 'node:fs/promises'
 import {reproductionFiles} from './create-stackblitz-reproduction.ts'
 
 export interface ReproductionPublisher {
-  getIssue(): Promise<{state: string; body: string | null; labels: Array<string | {name?: string}>}>
+  getIssue(): Promise<{
+    state: string
+    body: string | null
+    labels: Array<string | {name?: string}>
+    type?: string | {name?: string} | null
+  }>
   getComments(): Promise<Array<{body?: string | null}>>
   createTree(files: Record<string, string>, screenshot?: string): Promise<string>
   getBranch(branch: string): Promise<{sha: string; tree: string} | undefined>
@@ -108,9 +113,10 @@ export async function publishBugReproduction({
   const marker = '<!-- primer-bug-reproduction -->'
   const issue = await publisher.getIssue()
   const comments = await publisher.getComments()
+  const issueType = typeof issue.type === 'string' ? issue.type : issue.type?.name
   if (
     issue.state !== 'open' ||
-    !issue.labels.some(label => (typeof label === 'string' ? label : label.name) === 'bug') ||
+    (!issue.labels.some(label => (typeof label === 'string' ? label : label.name) === 'bug') && issueType !== 'Bug') ||
     comments.some(comment => comment.body?.includes(marker))
   ) {
     return {status: 'skipped'}

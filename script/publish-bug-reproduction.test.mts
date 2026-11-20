@@ -80,6 +80,18 @@ test('skips closed, unlabelled, and previously handled issues and respects stage
   }
 })
 
+test('publishes issues typed as Bug even without the legacy bug label', async () => {
+  const {options, calls} = await fixture()
+  options.publisher.getIssue = async () => ({
+    state: 'open',
+    body: 'Bug description',
+    labels: [],
+    type: {name: 'Bug'},
+  })
+  await publishBugReproduction(options)
+  assert.ok(calls.includes('comment'))
+})
+
 test('does not add another screenshot when a human has already supplied media', async () => {
   const {options, posted, hasImage} = await fixture()
   options.publisher.getComments = async () => [{body: '![Recording](https://example.com/bug.gif)'}]
