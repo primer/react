@@ -33,11 +33,23 @@
           "findingId": "T-F1"
         },
         {
-          "id": "API-01",
-          "verdict": "GAP",
+          "id": "STRUCTURE-01",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "TooltipProps extends HTMLAttributes and has no sx; rendered tooltip span accepts className/style attributes. Tooltip.tsx:20-48,392-397",
-          "findingId": "T-F2"
+          "evidence": "The PascalCase TooltipV2 directory is the incremented replacement for Tooltip; its index exports one Tooltip root and no subcomponents. TooltipV2/index.ts:1; TooltipV2/Tooltip.tsx:20-48."
+        },
+        {
+          "id": "CUSTOM-ELEMENT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tooltip V2 is implemented as a React component and does not render or wrap a custom element.",
+          "reason": "ADR-009 applies only when a custom element is involved; none is part of this component surface."
+        },
+        {
+          "id": "API-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The applicable ADR-003 root ref/as/DOM prop conventions remain intact. ADR-022-styled-react moves legacy sx compatibility out of @primer/react; the audited @primer/styled-react index exports styling/theming helpers, not this component. TooltipV2/index.ts:1; TooltipV2/Tooltip.tsx:20-48; packages/styled-react/src/index.tsx:1-95."
         },
         {
           "id": "PART-AS",
@@ -143,9 +155,10 @@
         },
         {
           "id": "STYLE-01",
-          "verdict": "PASS",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Tooltip uses a colocated CSS module and the audited build/type check passed. Tooltip.tsx:9; Tooltip.module.css"
+          "evidence": "packages/react/src/TooltipV2/Tooltip.module.css has no @layer declaration across lines 1-132; ADR-021 requires component style rules in @layer primer.components.Tooltip. packages/react/src/TooltipV2/Tooltip.tsx:9.",
+          "findingId": "T-F5"
         },
         {
           "id": "RESP-01",
@@ -157,28 +170,41 @@
         {
           "id": "TYPE-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
-          "evidence": "React workspace type-check passed after building @primer/doc-gen; public Tooltip type is exported."
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npm run build --workspace @primer/doc-gen and npm run type-check --workspace @primer/react passed; public component types are included in the audited export surface."
         },
         {
           "id": "EXPORT-01",
           "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Tooltip is exported as a public component; no internal-module or styled-react compatibility export exists in this snapshot.",
-          "reason": "No internal module or styled-react compatibility surface applies to Tooltip."
+          "evidence": "The audited @primer/styled-react index exports BaseStyles, theming, and sx helpers, but does not re-export Tooltip V2; no component-specific compatibility export applies. TooltipV2/index.ts:1; TooltipV2/Tooltip.tsx:20-48; packages/styled-react/src/index.tsx:1-95.",
+          "reason": "No internal module is exposed and this component is not re-exported by @primer/styled-react at the audited SHA."
         },
         {
           "id": "TEST-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidenceClass": "EXECUTION VERIFIED",
           "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
         },
         {
-          "id": "MIG-01",
+          "id": "SNAPSHOT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The focused Tooltip V2 unit tests contain no component render-tree toMatchSnapshot calls; the policy check is separate from the recorded test execution."
+        },
+        {
+          "id": "INTERACTION-01",
           "verdict": "NOT MEASURED",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
-          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+          "evidence": "The existing e2e test visits Storybook and tabs to the tooltip trigger, but the selected test cannot complete because the expected Darwin screenshot baseline is absent. See e2e/components/TooltipV2.test.ts.",
+          "reason": "The Playwright run reached the screenshot assertion but could not complete because the repository has no Darwin-specific baseline snapshots; the execution result is not counted as a pass."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The recommendations add new parts, callback props, or styling declarations without changing an existing released API. Repository package version 38.46.0 is recorded separately; publication status is not used to score an additive design.",
+          "reason": "No recommendation changes a released prop, callback signature, or API, so release-dependent compatibility comparison does not apply."
         }
       ],
       "findings": [
@@ -212,35 +238,6 @@
             {
               "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
               "line": "126-140",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            }
-          ]
-        },
-        {
-          "id": "T-F2",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "API-01",
-          "section": 2,
-          "status": "OPEN",
-          "title": "Add the ADR-003 sx root prop",
-          "reachableUseCase": "A consumer needs a local style adjustment to the Tooltip surface without replacing its trigger.",
-          "observedGap": "Tooltip renders a DOM surface and accepts HTML attributes, but TooltipProps does not include sx.",
-          "additiveFix": "Add sx to TooltipProps and route it to the owned tooltip surface while preserving the existing trigger ref behavior and all current props.",
-          "citations": [
-            {
-              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
-              "line": "24-26",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
-              "line": "20-48",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
-              "line": "392-397",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
@@ -297,9 +294,40 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
+        },
+        {
+          "id": "T-F5",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STYLE-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Place Tooltip V2 styles in the component cascade layer",
+          "reachableUseCase": "A consumer applies utility-layer styles to Tooltip V2; unlayered component rules do not participate in the declared Primer layer order.",
+          "observedGap": "The authored CSS Module contains no cascade-layer declaration, although ADR-021 and ADR-022 require component styles to use the named primer.components layer.",
+          "additiveFix": "Place the component style rules in @layer primer.components.Tooltip; retain any globally scoped registrations and all existing selectors and declarations.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-021-css-layers.md",
+              "line": "66-107",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "contributor-docs/adrs/adr-022-css-layer-names.md",
+              "line": "28-65",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.module.css",
+              "line": "1-132",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
         }
       ],
-      "contractFindings": []
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
     },
     {
       "component": "ActionMenu",
@@ -331,11 +359,23 @@
           "evidence": "Docs list the configured parts and root composition contract. ActionMenu.docs.json:35-60"
         },
         {
-          "id": "API-01",
-          "verdict": "GAP",
+          "id": "STRUCTURE-01",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "ActionMenu renders a DOM container but root props have no sx prop. ActionMenu.tsx:37-53,373-384",
-          "findingId": "A-F2"
+          "evidence": "The PascalCase ActionMenu directory exposes Button, Anchor, Overlay, and Divider on the exported parent with Object.assign at ActionMenu.tsx:394. ActionMenu/ActionMenu.tsx:394."
+        },
+        {
+          "id": "CUSTOM-ELEMENT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu is implemented as a React component and does not render or wrap a custom element.",
+          "reason": "ADR-009 applies only when a custom element is involved; none is part of this component surface."
+        },
+        {
+          "id": "API-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The applicable ADR-003 root ref/as/DOM prop conventions remain intact. ADR-022-styled-react moves legacy sx compatibility out of @primer/react; the audited @primer/styled-react index exports styling/theming helpers, not this component. ActionMenu/ActionMenu.tsx:394; packages/styled-react/src/index.tsx:1-95."
         },
         {
           "id": "PART-AS",
@@ -439,9 +479,10 @@
         },
         {
           "id": "STYLE-01",
-          "verdict": "PASS",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "ActionMenu uses a colocated CSS module and audited package build/type-check passed. ActionMenu.tsx:375"
+          "evidence": "packages/react/src/ActionMenu/ActionMenu.module.css has no @layer declaration across lines 1-70; ADR-021 requires component style rules in @layer primer.components.ActionMenu. packages/react/src/ActionMenu/ActionMenu.tsx:17.",
+          "findingId": "A-F5"
         },
         {
           "id": "RESP-01",
@@ -452,28 +493,41 @@
         {
           "id": "TYPE-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
-          "evidence": "React workspace type-check passed after building @primer/doc-gen; public ActionMenu types compile."
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npm run build --workspace @primer/doc-gen and npm run type-check --workspace @primer/react passed; public component types are included in the audited export surface."
         },
         {
           "id": "EXPORT-01",
           "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No ActionMenu internal-module or styled-react compatibility export exists in this snapshot.",
-          "reason": "No internal module or styled-react compatibility surface applies to ActionMenu."
+          "evidence": "The audited @primer/styled-react index exports BaseStyles, theming, and sx helpers, but does not re-export ActionMenu; no component-specific compatibility export applies. ActionMenu/ActionMenu.tsx:394; packages/styled-react/src/index.tsx:1-95.",
+          "reason": "No internal module is exposed and this component is not re-exported by @primer/styled-react at the audited SHA."
         },
         {
           "id": "TEST-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidenceClass": "EXECUTION VERIFIED",
           "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
         },
         {
-          "id": "MIG-01",
+          "id": "SNAPSHOT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The focused ActionMenu unit tests contain no component render-tree toMatchSnapshot calls; the policy check is separate from the recorded test execution."
+        },
+        {
+          "id": "INTERACTION-01",
           "verdict": "NOT MEASURED",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
-          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+          "evidence": "The existing e2e test visits Storybook and clicks the menu trigger, but the selected test cannot complete because the expected Darwin screenshot baseline is absent. See e2e/components/ActionMenu.test.ts.",
+          "reason": "The Playwright run reached the screenshot assertion but could not complete because the repository has no Darwin-specific baseline snapshots; the execution result is not counted as a pass."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The recommendations add new parts, callback props, or styling declarations without changing an existing released API. Repository package version 38.46.0 is recorded separately; publication status is not used to score an additive design.",
+          "reason": "No recommendation changes a released prop, callback signature, or API, so release-dependent compatibility comparison does not apply."
         }
       ],
       "findings": [
@@ -517,35 +571,6 @@
           ]
         },
         {
-          "id": "A-F2",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "API-01",
-          "section": 2,
-          "status": "OPEN",
-          "title": "Add the ADR-003 sx root prop",
-          "reachableUseCase": "A consumer needs to adjust the ActionMenu panel styling without replacing its anchor or overlay behavior.",
-          "observedGap": "ActionMenu ultimately renders a DOM container but the root props do not accept sx.",
-          "additiveFix": "Add sx to the ActionMenu root and apply it to the documented overlay container while retaining anchorRef and all existing props.",
-          "citations": [
-            {
-              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
-              "line": "24-30",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
-              "line": "37-53",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
-              "line": "373-384",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            }
-          ]
-        },
-        {
           "id": "A-F3",
           "classification": "ADR GAP",
           "severity": "FIX",
@@ -578,9 +603,40 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
+        },
+        {
+          "id": "A-F5",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STYLE-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Place ActionMenu styles in the component cascade layer",
+          "reachableUseCase": "A consumer applies utility-layer styles to ActionMenu; unlayered component rules do not participate in the declared Primer layer order.",
+          "observedGap": "The authored CSS Module contains no cascade-layer declaration, although ADR-021 and ADR-022 require component styles to use the named primer.components layer.",
+          "additiveFix": "Place the component style rules in @layer primer.components.ActionMenu; retain any globally scoped registrations and all existing selectors and declarations.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-021-css-layers.md",
+              "line": "66-107",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "contributor-docs/adrs/adr-022-css-layer-names.md",
+              "line": "28-65",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.module.css",
+              "line": "1-70",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
         }
       ],
-      "contractFindings": []
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
     },
     {
       "component": "Dialog",
@@ -614,11 +670,23 @@
           "findingId": "D-F1"
         },
         {
-          "id": "API-01",
-          "verdict": "GAP",
+          "id": "STRUCTURE-01",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "DialogProps includes className/style but no sx; the inner dialog element is the ADR-003 styling target. Dialog.tsx:160-172,414-431",
-          "findingId": "D-F2"
+          "evidence": "The PascalCase Dialog directory exposes Header, Title, Subtitle, Body, Footer, Buttons, and CloseButton on the exported parent with Object.assign at Dialog.tsx:568-575. Dialog/Dialog.tsx:568-575."
+        },
+        {
+          "id": "CUSTOM-ELEMENT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog is implemented as a React component and does not render or wrap a custom element.",
+          "reason": "ADR-009 applies only when a custom element is involved; none is part of this component surface."
+        },
+        {
+          "id": "API-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The applicable ADR-003 root ref/as/DOM prop conventions remain intact. ADR-022-styled-react moves legacy sx compatibility out of @primer/react; the audited @primer/styled-react index exports styling/theming helpers, not this component. Dialog/Dialog.tsx:568-575; packages/styled-react/src/index.tsx:1-95."
         },
         {
           "id": "PART-AS",
@@ -725,9 +793,10 @@
         },
         {
           "id": "STYLE-01",
-          "verdict": "PASS",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Dialog uses a colocated CSS module and audited package build/type-check passed. Dialog.tsx:16"
+          "evidence": "packages/react/src/Dialog/Dialog.module.css has no @layer declaration across lines 1-380; ADR-021 requires component style rules in @layer primer.components.Dialog. packages/react/src/Dialog/Dialog.tsx:15.",
+          "findingId": "D-F5"
         },
         {
           "id": "RESP-01",
@@ -738,28 +807,41 @@
         {
           "id": "TYPE-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
-          "evidence": "React workspace type-check passed after building @primer/doc-gen; public Dialog types compile."
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npm run build --workspace @primer/doc-gen and npm run type-check --workspace @primer/react passed; public component types are included in the audited export surface."
         },
         {
           "id": "EXPORT-01",
           "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No Dialog internal-module or styled-react compatibility export exists in this snapshot.",
-          "reason": "No internal module or styled-react compatibility surface applies to Dialog."
+          "evidence": "The audited @primer/styled-react index exports BaseStyles, theming, and sx helpers, but does not re-export Dialog; no component-specific compatibility export applies. Dialog/Dialog.tsx:568-575; packages/styled-react/src/index.tsx:1-95.",
+          "reason": "No internal module is exposed and this component is not re-exported by @primer/styled-react at the audited SHA."
         },
         {
           "id": "TEST-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidenceClass": "EXECUTION VERIFIED",
           "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
         },
         {
-          "id": "MIG-01",
+          "id": "SNAPSHOT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The focused Dialog unit tests contain no component render-tree toMatchSnapshot calls; the policy check is separate from the recorded test execution."
+        },
+        {
+          "id": "INTERACTION-01",
           "verdict": "NOT MEASURED",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
-          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+          "evidence": "The existing e2e test visits Storybook and opens the dialog, but the selected test cannot complete because the expected Darwin screenshot baseline is absent. See e2e/components/Dialog.test.ts.",
+          "reason": "The Playwright run reached the screenshot assertion but could not complete because the repository has no Darwin-specific baseline snapshots; the execution result is not counted as a pass."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The recommendations add new parts, callback props, or styling declarations without changing an existing released API. Repository package version 38.46.0 is recorded separately; publication status is not used to score an additive design.",
+          "reason": "No recommendation changes a released prop, callback signature, or API, so release-dependent compatibility comparison does not apply."
         }
       ],
       "findings": [
@@ -788,35 +870,6 @@
             {
               "path": "packages/react/src/Dialog/Dialog.docs.json",
               "line": "58-70",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            }
-          ]
-        },
-        {
-          "id": "D-F2",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "API-01",
-          "section": 2,
-          "status": "OPEN",
-          "title": "Add sx to the Dialog surface",
-          "reachableUseCase": "A consumer needs a local style adjustment to the modal dialog body without styling the backdrop.",
-          "observedGap": "Dialog accepts className and style but not sx; ADR-003 names the inner dialog element as the appropriate target when the outer element is a backdrop.",
-          "additiveFix": "Add sx to DialogProps and apply it to the inner dialog element, retaining className, style, refs, and all current props.",
-          "citations": [
-            {
-              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
-              "line": "24-26",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/Dialog/Dialog.tsx",
-              "line": "160-172",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/Dialog/Dialog.tsx",
-              "line": "414-431",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
@@ -868,9 +921,40 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
+        },
+        {
+          "id": "D-F5",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STYLE-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Place Dialog styles in the component cascade layer",
+          "reachableUseCase": "A consumer applies utility-layer styles to Dialog; unlayered component rules do not participate in the declared Primer layer order.",
+          "observedGap": "The authored CSS Module contains no cascade-layer declaration, although ADR-021 and ADR-022 require component styles to use the named primer.components layer.",
+          "additiveFix": "Place the component style rules in @layer primer.components.Dialog; retain any globally scoped registrations and all existing selectors and declarations.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-021-css-layers.md",
+              "line": "66-107",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "contributor-docs/adrs/adr-022-css-layer-names.md",
+              "line": "28-65",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.module.css",
+              "line": "1-380",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
         }
       ],
-      "contractFindings": []
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
     },
     {
       "component": "SelectPanel",
@@ -904,11 +988,23 @@
           "findingId": "S-F1"
         },
         {
-          "id": "API-01",
-          "verdict": "GAP",
+          "id": "STRUCTURE-01",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The wrapper renders DOM but SelectPanelProps provides no sx prop. SelectPanel.tsx:77-100,132-140,960-961",
-          "findingId": "S-F2"
+          "evidence": "The PascalCase SelectPanel directory exposes SecondaryActionButton, SecondaryActionLink, and Message on the exported parent with Object.assign at SelectPanel.tsx:1127-1132. SelectPanel/SelectPanel.tsx:1127-1132."
+        },
+        {
+          "id": "CUSTOM-ELEMENT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "SelectPanel is implemented as a React component and does not render or wrap a custom element.",
+          "reason": "ADR-009 applies only when a custom element is involved; none is part of this component surface."
+        },
+        {
+          "id": "API-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The applicable ADR-003 root ref/as/DOM prop conventions remain intact. ADR-022-styled-react moves legacy sx compatibility out of @primer/react; the audited @primer/styled-react index exports styling/theming helpers, not this component. SelectPanel/SelectPanel.tsx:1127-1132; packages/styled-react/src/index.tsx:1-95."
         },
         {
           "id": "PART-AS",
@@ -1012,9 +1108,10 @@
         },
         {
           "id": "STYLE-01",
-          "verdict": "PASS",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "SelectPanel uses a colocated CSS module and audited package build/type-check passed. SelectPanel.tsx:24"
+          "evidence": "packages/react/src/SelectPanel/SelectPanel.module.css has no @layer declaration across lines 1-236; ADR-021 requires component style rules in @layer primer.components.SelectPanel. packages/react/src/SelectPanel/SelectPanel.tsx:24.",
+          "findingId": "S-F5"
         },
         {
           "id": "RESP-01",
@@ -1025,28 +1122,40 @@
         {
           "id": "TYPE-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
-          "evidence": "React workspace type-check passed after building @primer/doc-gen; public SelectPanel types compile."
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npm run build --workspace @primer/doc-gen and npm run type-check --workspace @primer/react passed; public component types are included in the audited export surface."
         },
         {
           "id": "EXPORT-01",
           "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No SelectPanel internal-module or styled-react compatibility export exists in this snapshot.",
-          "reason": "No internal module or styled-react compatibility surface applies to SelectPanel."
+          "evidence": "The audited @primer/styled-react index exports BaseStyles, theming, and sx helpers, but does not re-export SelectPanel; no component-specific compatibility export applies. SelectPanel/SelectPanel.tsx:1127-1132; packages/styled-react/src/index.tsx:1-95.",
+          "reason": "No internal module is exposed and this component is not re-exported by @primer/styled-react at the audited SHA."
         },
         {
           "id": "TEST-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidenceClass": "EXECUTION VERIFIED",
           "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
         },
         {
-          "id": "MIG-01",
-          "verdict": "NOT MEASURED",
+          "id": "SNAPSHOT-01",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
-          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+          "evidence": "The focused SelectPanel unit tests contain no component render-tree toMatchSnapshot calls; the policy check is separate from the recorded test execution."
+        },
+        {
+          "id": "INTERACTION-01",
+          "verdict": "PASS",
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "The focused Storybook Playwright filter interaction test passed, including light and light-high-contrast variants. See e2e/components/SelectPanel.test.ts."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The recommendations add new parts, callback props, or styling declarations without changing an existing released API. Repository package version 38.46.0 is recorded separately; publication status is not used to score an additive design.",
+          "reason": "No recommendation changes a released prop, callback signature, or API, so release-dependent compatibility comparison does not apply."
         }
       ],
       "findings": [
@@ -1080,35 +1189,6 @@
             {
               "path": "packages/react/src/SelectPanel/SelectPanel.docs.json",
               "line": "248",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            }
-          ]
-        },
-        {
-          "id": "S-F2",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "API-01",
-          "section": 2,
-          "status": "OPEN",
-          "title": "Add sx to the SelectPanel surface",
-          "reachableUseCase": "A consumer needs a local style adjustment to the SelectPanel surface.",
-          "observedGap": "The component renders a DOM wrapper but SelectPanelProps does not include sx.",
-          "additiveFix": "Add sx to the new parts root and document its target while retaining anchorRef and existing component behavior.",
-          "citations": [
-            {
-              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
-              "line": "24-30",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
-              "line": "77-100",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
-              "line": "960-961",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
@@ -1170,9 +1250,40 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
+        },
+        {
+          "id": "S-F5",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STYLE-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Place SelectPanel styles in the component cascade layer",
+          "reachableUseCase": "A consumer applies utility-layer styles to SelectPanel; unlayered component rules do not participate in the declared Primer layer order.",
+          "observedGap": "The authored CSS Module contains no cascade-layer declaration, although ADR-021 and ADR-022 require component styles to use the named primer.components layer.",
+          "additiveFix": "Place the component style rules in @layer primer.components.SelectPanel; retain any globally scoped registrations and all existing selectors and declarations.",
+          "citations": [
+            {
+              "path": "contributor-docs/adrs/adr-021-css-layers.md",
+              "line": "66-107",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "contributor-docs/adrs/adr-022-css-layer-names.md",
+              "line": "28-65",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.module.css",
+              "line": "1-236",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
         }
       ],
-      "contractFindings": []
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
     },
     {
       "component": "Button",
@@ -1204,11 +1315,23 @@
           "evidence": "Button root props, defaults, and as path are documented. Button.docs.json:94-103,146"
         },
         {
-          "id": "API-01",
-          "verdict": "GAP",
+          "id": "STRUCTURE-01",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "ButtonProps and ButtonBaseProps include DOM button props but no sx prop. Button/types.ts:20-96",
-          "findingId": "B-F2"
+          "evidence": "The PascalCase Button directory contains separate Button, IconButton, LinkButton, and ButtonBase controls; no compound subcomponents are exported without parent ownership. Button/index.ts:5-7."
+        },
+        {
+          "id": "CUSTOM-ELEMENT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Button is implemented as a React component and does not render or wrap a custom element.",
+          "reason": "ADR-009 applies only when a custom element is involved; none is part of this component surface."
+        },
+        {
+          "id": "API-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The applicable ADR-003 root ref/as/DOM prop conventions remain intact. ADR-022-styled-react moves legacy sx compatibility out of @primer/react; the audited @primer/styled-react index exports styling/theming helpers, not this component. Button/index.ts:5-7; packages/styled-react/src/index.tsx:1-95."
         },
         {
           "id": "PART-AS",
@@ -1310,9 +1433,10 @@
         },
         {
           "id": "STYLE-01",
-          "verdict": "PASS",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Button uses a colocated CSS module and audited package build/type-check passed. ButtonBase.tsx:11,114"
+          "evidence": "packages/react/src/Button/ButtonBase.module.css has no @layer declaration across lines 1-733; ADR-021 requires component style rules in @layer primer.components.Button. packages/react/src/Button/ButtonBase.tsx:12.",
+          "findingId": "B-F5"
         },
         {
           "id": "RESP-01",
@@ -1324,28 +1448,40 @@
         {
           "id": "TYPE-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
-          "evidence": "React workspace type-check passed after building @primer/doc-gen; public Button types compile."
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npm run build --workspace @primer/doc-gen and npm run type-check --workspace @primer/react passed; public component types are included in the audited export surface."
         },
         {
           "id": "EXPORT-01",
           "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No Button internal-module or styled-react compatibility export exists in this snapshot.",
-          "reason": "No internal module or styled-react compatibility surface applies to Button."
+          "evidence": "The audited @primer/styled-react index exports BaseStyles, theming, and sx helpers, but does not re-export Button; no component-specific compatibility export applies. Button/index.ts:5-7; packages/styled-react/src/index.tsx:1-95.",
+          "reason": "No internal module is exposed and this component is not re-exported by @primer/styled-react at the audited SHA."
         },
         {
           "id": "TEST-01",
           "verdict": "PASS",
-          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidenceClass": "EXECUTION VERIFIED",
           "evidence": "npx vitest run --project '@primer/react' packages/react/src/TooltipV2/__tests__/Tooltip.test.tsx packages/react/src/ActionMenu/ActionMenu.test.tsx packages/react/src/Dialog/Dialog.test.tsx packages/react/src/SelectPanel/SelectPanel.test.tsx packages/react/src/Button/__tests__/Button.test.tsx — 5 files, 390 tests passed."
         },
         {
-          "id": "MIG-01",
-          "verdict": "NOT MEASURED",
+          "id": "SNAPSHOT-01",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Repository version is 38.46.0; npm view @primer/react@38.46.0 version returned E404, so the exact published API is unavailable.",
-          "reason": "Migration compatibility cannot be certified without the exact published package surface."
+          "evidence": "Button snapshots are in individual block, size, variant, and alignContent tests and snapshot one button element; no catch-all render-tree snapshot is used. Button/__tests__/Button.test.tsx:97,155-199,218."
+        },
+        {
+          "id": "INTERACTION-01",
+          "verdict": "PASS",
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "The focused Storybook Playwright link-underline interaction test passed. See e2e/components/Button.test.ts."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The recommendations add new parts, callback props, or styling declarations without changing an existing released API. Repository package version 38.46.0 is recorded separately; publication status is not used to score an additive design.",
+          "reason": "No recommendation changes a released prop, callback signature, or API, so release-dependent compatibility comparison does not apply."
         }
       ],
       "findings": [
@@ -1379,36 +1515,39 @@
           ]
         },
         {
-          "id": "B-F2",
+          "id": "B-F5",
           "classification": "ADR GAP",
           "severity": "FIX",
-          "checkId": "API-01",
-          "section": 2,
+          "checkId": "STYLE-01",
+          "section": 5,
           "status": "OPEN",
-          "title": "Add the ADR-003 sx root prop",
-          "reachableUseCase": "A consumer needs a local style adjustment to Button without wrapping it in another styling component.",
-          "observedGap": "Button renders a DOM button/anchor target, but ButtonProps has no sx prop.",
-          "additiveFix": "Add sx to ButtonProps and apply it to the rendered control while preserving as, refs, className, and existing styling behavior.",
+          "title": "Place Button styles in the component cascade layer",
+          "reachableUseCase": "A consumer applies utility-layer styles to Button; unlayered component rules do not participate in the declared Primer layer order.",
+          "observedGap": "The authored CSS Module contains no cascade-layer declaration, although ADR-021 and ADR-022 require component styles to use the named primer.components layer.",
+          "additiveFix": "Place the component style rules in @layer primer.components.Button; retain any globally scoped registrations and all existing selectors and declarations.",
           "citations": [
             {
-              "path": "contributor-docs/adrs/adr-003-prop-norms.md",
-              "line": "24-30",
+              "path": "contributor-docs/adrs/adr-021-css-layers.md",
+              "line": "66-107",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             },
             {
-              "path": "packages/react/src/Button/types.ts",
-              "line": "20-96",
+              "path": "contributor-docs/adrs/adr-022-css-layer-names.md",
+              "line": "28-65",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             },
             {
-              "path": "packages/react/src/Button/ButtonBase.tsx",
-              "line": "108-120",
+              "path": "packages/react/src/Button/ButtonBase.module.css",
+              "line": "1-733",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
         }
       ],
-      "contractFindings": []
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
     }
-  ]
+  ],
+  "rubricVersion": "0.3.0"
 }
