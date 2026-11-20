@@ -24,7 +24,7 @@ Use the [component API design skill](../.agents/skills/component-api-design/SKIL
 
 ### 3. Preserve the root polymorphism contract and substitute every part
 
-**Rule:** Root-level `as` follows adopted [ADR-003](./adrs/adr-003-prop-norms.md) and remains limited to a clear polymorphism need. Every part has both `as` and `render`, including render-element and render-function forms. This parts requirement comes from the pinned composition target and does not change ADR-003's root-level rule.
+**Rule:** Root-level `as` follows adopted [ADR-003](./adrs/adr-003-prop-norms.md) and remains limited to a clear polymorphism need. Every part has both `as` and `render`, including render-element and render-function forms. This parts requirement comes from the pinned composition target and does not change ADR-003's root-level rule. ADR-022-styled-react places legacy `sx` compatibility at the `@primer/styled-react` boundary; absence of `sx` from `@primer/react` is not a gap.
 
 **Applicability:** Every interactive part. A root without a polymorphism need may remain fixed; pure content and utilities without rendered interaction are N/A.
 
@@ -32,7 +32,7 @@ Use the [component API design skill](../.agents/skills/component-api-design/SKIL
 
 ### 4. Specify configured merges and part merges separately
 
-**Rule:** Configured-component and internal merges follow ADR-025. Existing subcomponents retain their current handler and prop behavior as a legacy compatibility exception. New parts follow the pinned composition target: render-element handler, consumer part handler, part handler, then Primer handler; a consumer skip method stops the remaining handlers for that event; consumer classes come first; consumer styles and ordinary duplicate attributes win; all refs are merged; behavior props remain owned by the part. The skip-method name remains unresolved.
+**Rule:** Configured-component and internal merges follow ADR-025. Existing subcomponents retain their current handler and prop behavior as a legacy compatibility exception. New parts follow the pinned composition target: render-element consumer handler, consumer handler passed to the part, then Primer's handler. The target defines no additional internal part-handler stage. A consumer skip method stops the remaining handlers for that event; DOM `preventDefault()` and state-transition `cancel()` remain separate contracts. Consumer classes come first; consumer styles and ordinary duplicate attributes win; all refs are merged; behavior props remain owned by the part. The skip-method name remains unresolved.
 
 **Applicability:** Components with configured/internal merges or interactive parts.
 
@@ -80,7 +80,7 @@ Use the [component API design skill](../.agents/skills/component-api-design/SKIL
 
 ### 10. Keep semantics, accessibility, and native form behavior with the pattern owner
 
-**Rule:** The component owns the roles, relationships, keyboard model, focus behavior, and native form wiring required by its pattern. Document consumer responsibilities that cannot be provided automatically. Alternate render targets preserve the required contract.
+**Rule:** The component owns the roles, relationships, keyboard model, focus behavior, and native form wiring required by its pattern. Prefer native elements when they provide sufficient semantics and UI. A custom element must provide client-side behavior or a ShadowDOM benefit. Document consumer responsibilities that cannot be provided automatically. Alternate render targets preserve the required contract.
 
 **Applicability:** All rendered components; form-specific checks apply to form controls and components integrated with field context; keyboard checks apply to interactive patterns.
 
@@ -102,6 +102,14 @@ Use the [component API design skill](../.agents/skills/component-api-design/SKIL
 
 **Check:** At least two descendant consumers share the setting, the provider owns one source of truth, and tests establish the boundary and any supported local override.
 
+### 13. Keep component structure discoverable
+
+**Rule:** Put each component in a PascalCase directory directly under `src/`. Expose a component's subcomponents as properties of its exported parent. Name a replacement component with an incremented number rather than an unrelated name.
+
+**Applicability:** Every component implementation; the subcomponent and replacement rules apply only when those cases exist.
+
+**Check:** Verify the directory name and location, inspect public exports for parent-property ownership of subcomponents, and compare replacement names with the component they replace.
+
 ## Applicability vocabulary
 
 Use the following shapes to decide whether a check applies: **config** composes a complete pattern from intent/data; **presentational** exposes Primer-styled parts for consumer composition; **base** provides a low-level primitive, often unstyled; **utility** provides component-agnostic behavior or state; **leaf** renders one main semantic control; **overlay** owns a floating or modal lifecycle; **form control** participates in native form or field context; **collection** manages related items, ordering, selection, or keyboard navigation. A component may have more than one shape.
@@ -110,9 +118,9 @@ Use the following shapes to decide whether a check applies: **config** composes 
 
 ## Authority and compatibility
 
-For this benchmark, use the [pinned target baseline](../.agents/skills/component-api-design/references/target-baseline.md): every ADR in the audited `origin/main` snapshot and the pinned composition gist are included regardless of status label. This assumption does not change ADR metadata or the released contract. Assess the component's own stated contract separately so an existing contract violation is recorded as a `DEFECT` and a target mismatch is recorded as an `ADR GAP`.
+For this benchmark, use the [pinned target baseline](../.agents/skills/component-api-design/references/target-baseline.md): every ADR in the audited `origin/main` snapshot and the pinned composition gist are included regardless of status label. Resolve conflicts at the requirement and package-scope level; explicit later decision text controls an overlapping earlier requirement even without a supersession label. ADR-022-styled-react keeps legacy `sx` compatibility at the compatibility-package boundary while ADR-003's unaffected root `ref`, `as`, and DOM-prop rules remain in force. This benchmark assumption does not change ADR metadata or the released contract. Assess the component's own stated contract separately so an existing contract violation is recorded as a `DEFECT` and a target mismatch is recorded as an `ADR GAP`.
 
-For a released surface, any recommended API change retains existing props, callback signatures, and behavior while adding an opt-in path or a documented versioned migration. Verify release status before raising a breaking-change finding. Prefer existing Primer behavior and native platform APIs where they satisfy the contract.
+For a released surface, any recommended API change retains existing props, callback signatures, and behavior while adding an opt-in path or a documented versioned migration. Apply release checks only when a recommendation changes an existing published API; all-additive recommendations are not release-dependent. Prefer existing Primer behavior and native platform APIs where they satisfy the contract.
 
 ## Review checklist
 

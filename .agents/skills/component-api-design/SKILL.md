@@ -5,9 +5,9 @@ description: Use when designing, reviewing, or grading a Primer React component 
 
 # Primer component API design
 
-Start by documenting the component's own contract, then grade it against the accepted benchmark target. Keep current-contract defects separate from target gaps; a missing target requirement is an `ADR GAP`, even when the released component never promised it. Preserve existing callback signatures and recommend additive migrations.
+Start by documenting the component's own contract, then grade it against the accepted benchmark target. Resolve conflicting ADR requirements by scope and decision text; in particular, ADR-022-styled-react moves legacy `sx` compatibility to `@primer/styled-react`, so its absence from `@primer/react` is not a gap. Keep current-contract defects separate from target gaps; a missing target requirement is an `ADR GAP`, even when the released component never promised it. Preserve existing callback signatures and recommend additive migrations.
 
-For whole-component grading, use the pinned baseline, complete every per-check verdict row, distinguish source/runtime/judgment evidence, and run the calculator. Keep `NOT MEASURED` and `UNRESOLVED` as unknown evidence; report score ranges and coverage without scoring either as zero or as a pass. Every interactive component needs a parts surface; every part supports `as` and element/function `render`. For PR review, grade only introduced or changed behavior. Cite each finding with its check ID and `path:line` pinned to the audited commit, and identify a reachable consumer path.
+For whole-component grading, use the pinned baseline, complete every per-check verdict row, distinguish source/execution/judgment evidence, and run the calculator. Keep `NOT MEASURED` and `UNRESOLVED` as unknown evidence; report score ranges and coverage without scoring either as zero or as a pass. Every interactive component needs a parts surface; every part supports `as` and element/function `render`. For PR review, grade only introduced or changed behavior. Cite each finding with its check ID and `path:line` pinned to the audited commit, and identify a reachable consumer path.
 
 ## References
 
