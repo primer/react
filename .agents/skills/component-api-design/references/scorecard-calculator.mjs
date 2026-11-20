@@ -9,10 +9,12 @@ export const sections = {
 }
 
 export const checks = {
-  'MOD-01': {section: 1, weight: 4},
-  'CHILD-01': {section: 1, weight: 4},
+  'MOD-01': {section: 1, weight: 3},
+  'CHILD-01': {section: 1, weight: 3},
   'PART-01': {section: 1, weight: 7},
   'PART-DOCS': {section: 1, weight: 5},
+  'STRUCTURE-01': {section: 1, weight: 1},
+  'CUSTOM-ELEMENT-01': {section: 1, weight: 1},
   'API-01': {section: 2, weight: 4},
   'PART-AS': {section: 2, weight: 8},
   'PART-RENDER': {section: 2, weight: 8},
@@ -33,12 +35,20 @@ export const checks = {
   'RESP-01': {section: 5, weight: 1},
   'TYPE-01': {section: 5, weight: 1},
   'EXPORT-01': {section: 5, weight: 1},
-  'TEST-01': {section: 5, weight: 3},
+  'TEST-01': {section: 5, weight: 1},
+  'SNAPSHOT-01': {section: 5, weight: 1},
+  'INTERACTION-01': {section: 5, weight: 1},
   'MIG-01': {section: 5, weight: 4},
 }
 
 const verdicts = new Set(['PASS', 'GAP', 'N/A', 'COVERED', 'NOT MEASURED', 'UNRESOLVED'])
-const evidenceClasses = new Set(['SOURCE VERIFIED', 'BEHAVIOR VERIFIED', 'AGENT JUDGMENT', 'PENDING HUMAN'])
+const evidenceClasses = new Set([
+  'SOURCE VERIFIED',
+  'EXECUTION VERIFIED',
+  'BEHAVIOR VERIFIED',
+  'AGENT JUDGMENT',
+  'PENDING HUMAN',
+])
 const severityOrder = ['NIT', 'FIX', 'BLOCK']
 
 function assert(condition, message) {
@@ -79,6 +89,7 @@ function validateAudit(audit) {
   assert(audit && typeof audit === 'object', 'Audit must be an object')
   assert(typeof audit.component === 'string' && audit.component.length > 0, 'Audit component is required')
   assert(/^[0-9a-f]{40}$/i.test(audit.sourceSha), `${audit.component}: sourceSha must be a full Git commit SHA`)
+  assert(typeof audit.pendingHuman === 'boolean', `${audit.component}: pendingHuman must be a boolean`)
   assert(Array.isArray(audit.checks), `${audit.component}: checks must be an array`)
   assert(Array.isArray(audit.findings), `${audit.component}: findings must be an array`)
   assert(Array.isArray(audit.contractFindings ?? []), `${audit.component}: contractFindings must be an array`)
@@ -91,6 +102,18 @@ function validateAudit(audit) {
     assert(verdicts.has(row.verdict), `${audit.component}: invalid verdict for ${row.id}: ${row.verdict}`)
     assert(typeof row.evidence === 'string' && row.evidence.length > 0, `${audit.component}: evidence is required for ${row.id}`)
     assert(evidenceClasses.has(row.evidenceClass), `${audit.component}: valid evidenceClass is required for ${row.id}`)
+
+    if (row.evidenceClass === 'PENDING HUMAN') {
+      assert(row.verdict === 'UNRESOLVED', `${audit.component}: PENDING HUMAN evidence must remain UNRESOLVED for ${row.id}`)
+      assert(audit.pendingHuman, `${audit.component}: pendingHuman must be true when ${row.id} awaits human review`)
+    }
+
+    if (row.verdict === 'PASS' && ['TYPE-01', 'TEST-01', 'INTERACTION-01'].includes(row.id)) {
+      assert(
+        row.evidenceClass === 'EXECUTION VERIFIED',
+        `${audit.component}: ${row.id} PASS requires EXECUTION VERIFIED evidence`,
+      )
+    }
 
     if (row.verdict === 'N/A') {
       assert(typeof row.reason === 'string' && row.reason.length > 0, `${audit.component}: N/A reason is required for ${row.id}`)
@@ -209,10 +232,7 @@ function summarize(audit, {sensitivity = false} = {}) {
         total + (['NOT MEASURED', 'UNRESOLVED'].includes(row.verdict) ? checks[row.id].weight : 0),
       0,
     )
-    const hasNonPassingVerdict = applicableRows.some(row =>
-      ['GAP', 'NOT MEASURED', 'UNRESOLVED'].includes(row.verdict),
-    )
-    const limited = applicableWeight < section.weight / 2 && !hasNonPassingVerdict
+    const limited = applicableWeight < section.weight / 2
     const sectionFindings = allOpenFindings.filter(
       finding => finding.section === sectionNumber && !(sensitivity && forcedPass.has(finding.id)),
     )
@@ -225,7 +245,7 @@ function summarize(audit, {sensitivity = false} = {}) {
           }
     const cap = calculateSectionCap(sectionFindings)
     const scoreRange =
-      rawScoreRange === null || limited
+      rawScoreRange === null
         ? null
         : {
             min: Math.min(rawScoreRange.min, cap),
@@ -248,18 +268,24 @@ function summarize(audit, {sensitivity = false} = {}) {
   })
 
   const scoredSections = sectionResults.filter(section => section.scoreRange !== null)
-  const scoredWeight = scoredSections.reduce((total, section) => total + section.weight, 0)
+  const scoredWeight = scoredSections.reduce((total, section) => total + section.applicableWeight, 0)
   const overallScoreRange =
     scoredWeight === 0
       ? null
       : {
           min:
             (100 *
-              scoredSections.reduce((total, section) => total + (section.weight * section.scoreRange.min) / 5, 0)) /
+              scoredSections.reduce(
+                (total, section) => total + (section.applicableWeight * section.scoreRange.min) / 5,
+                0,
+              )) /
             scoredWeight,
           max:
             (100 *
-              scoredSections.reduce((total, section) => total + (section.weight * section.scoreRange.max) / 5, 0)) /
+              scoredSections.reduce(
+                (total, section) => total + (section.applicableWeight * section.scoreRange.max) / 5,
+                0,
+              )) /
             scoredWeight,
         }
   const scoreRange =

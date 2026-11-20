@@ -3,12 +3,12 @@
 ## Table of contents
 
 - [Identity and result](#identity-and-result), L:15
-- [Section scores](#section-scores), L:40
-- [Per-check evidence matrix](#per-check-evidence-matrix), L:50
-- [Target gaps](#target-gaps), L:83
-- [Current-contract defects](#current-contract-defects), L:99
-- [Layer 3 human review](#layer-3-human-review), L:113
-- [Evidence, calibration, and decisions](#evidence-calibration-and-decisions), L:126
+- [Section scores](#section-scores), L:41
+- [Per-check evidence matrix](#per-check-evidence-matrix), L:51
+- [Target gaps](#target-gaps), L:88
+- [Current-contract defects](#current-contract-defects), L:104
+- [Layer 3 human review](#layer-3-human-review), L:118
+- [Evidence, calibration, and decisions](#evidence-calibration-and-decisions), L:131
 
 Copy this template for each whole-component grade. For PR reviews, record only changed-surface findings and omit whole-component scores and ledger metadata.
 
@@ -18,10 +18,11 @@ Copy this template for each whole-component grade. For PR reviews, record only c
 | :--- | :--- |
 | Component / shape | |
 | Public entry point / docs maturity | |
-| Repository package version / exact registry status | |
+| Repository package version | |
+| Published-package metadata (only if relevant to a release-changing recommendation) | |
 | Mode | Whole component / PR review |
 | Audited source SHA | |
-| Rubric | Component API compliance rubric 0.2.0 |
+| Rubric | Component API compliance rubric 0.3.0 |
 | Accepted target | All ADR files at the audited SHA + pinned composition gist |
 | Gist revision / file / content SHA-256 | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2` |
 | Result status | CONCLUSIVE / PROVISIONAL / UNKNOWN |
@@ -30,7 +31,7 @@ Copy this template for each whole-component grade. For PR reviews, record only c
 | Current-contract context | No defects / list below |
 | Open BLOCK count | _ |
 | Target ADR gaps / current-contract defects / raw observations | _ / _ / _ |
-| Scored section weight / check-evidence coverage | _ / 100; _ / _ applicable check weight |
+| Applicable/scored check weight / check-evidence coverage | _ / 100; _ / _ applicable check weight |
 | BLOCK sensitivity | Fix the _ open BLOCKs, change nothing else → projected _ / grade _ |
 | Unverified / unresolved | |
 | N/A / limited sections | |
@@ -55,6 +56,8 @@ Use one row per check. `GAP` rows point to one owning target finding. Related ro
 | :--- | :--- | :--- | :--- | :--- |
 | `MOD-01` | | | | |
 | `CHILD-01` | | | | |
+| `STRUCTURE-01` | | | | |
+| `CUSTOM-ELEMENT-01` | | | | |
 | `PART-01` | | | | |
 | `PART-DOCS` | | | | |
 | `API-01` | | | | |
@@ -78,6 +81,8 @@ Use one row per check. `GAP` rows point to one owning target finding. Related ro
 | `TYPE-01` | | | | |
 | `EXPORT-01` | | | | |
 | `TEST-01` | | | | |
+| `SNAPSHOT-01` | | | | |
+| `INTERACTION-01` | | | | |
 | `MIG-01` | | | | |
 
 ## Target gaps
@@ -121,14 +126,16 @@ Keep the result `PENDING HUMAN` until a human reviewer supplies the judgment and
 | Context, semantic order, collection ownership, and accessible naming | |
 | Shared names/defaults for shared concepts | |
 | Unresolved maintainer decisions | |
-| Additive compatibility for the exact released surface | |
+| Release-dependent migration decisions, if any | |
 
 ## Evidence, calibration, and decisions
 
 | Evidence item | Path or result |
 | :--- | :--- |
 | Public exports, types, docs, stories, and implementation read | |
-| Focused runtime tests (exact command and result) | |
+| Focused unit/integration test execution (exact command and result) | |
+| ADR-011 snapshot-policy evidence | |
+| ADR-017 Storybook Playwright interaction evidence and test result | |
 | Type-check command and result | |
 | Calculator and validator test commands and results | |
 | Claims not runtime-verified | |

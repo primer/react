@@ -28,7 +28,7 @@ function createAudit() {
     checks: Object.entries(checks).map(([id]) => ({
       id,
       verdict: 'PASS',
-      evidenceClass: 'SOURCE VERIFIED',
+      evidenceClass: ['TYPE-01', 'TEST-01', 'INTERACTION-01'].includes(id) ? 'EXECUTION VERIFIED' : 'SOURCE VERIFIED',
       evidence: `Verified ${id}`,
     })),
     findings: [],
@@ -42,7 +42,7 @@ test('grade thresholds map 78.5 to C and 80 to B', () => {
   assert.equal(letterGrade(80), 'B')
 })
 
-test('a mostly N/A section is limited and cannot receive 5/5', () => {
+test('a fully N/A section is limited and has no numeric score', () => {
   const audit = createAudit()
   for (const row of audit.checks.filter(row => checks[row.id].section === 4)) {
     row.verdict = 'N/A'
@@ -55,7 +55,7 @@ test('a mostly N/A section is limited and cannot receive 5/5', () => {
   assert.equal(result.status, 'PROVISIONAL')
 })
 
-test('a narrow section with a scored GAP is not hidden as limited', () => {
+test('a limited section still scores and retains its GAP', () => {
   const audit = createAudit()
   const stateChecks = audit.checks.filter(row => checks[row.id].section === 4)
   for (const row of stateChecks) {
@@ -67,9 +67,12 @@ test('a narrow section with a scored GAP is not hidden as limited', () => {
   namesCheck.evidenceClass = 'SOURCE VERIFIED'
   namesCheck.findingId = 'F-1'
   audit.findings = [createFinding({id: 'F-1', checkId: 'NAMES-DEFAULTS', section: 4})]
-  const stateSection = calculateAudit(audit).sections.find(section => section.id === 4)
-  assert.equal(stateSection.limited, false)
+  const result = calculateAudit(audit)
+  const stateSection = result.sections.find(section => section.id === 4)
+  assert.equal(stateSection.limited, true)
   assert.equal(stateSection.score, 0)
+  assert.equal(stateSection.applicableWeight, checks['NAMES-DEFAULTS'].weight)
+  assert.equal(result.scoredSectionWeight, 90)
 })
 
 test('a GAP without a linked finding is rejected', () => {
@@ -84,6 +87,44 @@ test('every check row requires an evidence class', () => {
   const audit = createAudit()
   delete audit.checks.find(row => row.id === 'LIVE-01').evidenceClass
   assert.throws(() => calculateAudit(audit), /valid evidenceClass is required for LIVE-01/)
+})
+
+test('pendingHuman must be present and boolean', () => {
+  const missing = createAudit()
+  delete missing.pendingHuman
+  assert.throws(() => calculateAudit(missing), /pendingHuman must be a boolean/)
+
+  const nonBoolean = createAudit()
+  nonBoolean.pendingHuman = 'false'
+  assert.throws(() => calculateAudit(nonBoolean), /pendingHuman must be a boolean/)
+})
+
+test('a PASS cannot use PENDING HUMAN evidence', () => {
+  const audit = createAudit()
+  audit.pendingHuman = true
+  const row = audit.checks.find(check => check.id === 'PART-01')
+  row.evidenceClass = 'PENDING HUMAN'
+  assert.throws(() => calculateAudit(audit), /PENDING HUMAN evidence must remain UNRESOLVED/)
+})
+
+test('pending human review remains provisional', () => {
+  const audit = createAudit()
+  audit.pendingHuman = true
+  const row = audit.checks.find(check => check.id === 'NAMES-DEFAULTS')
+  row.verdict = 'UNRESOLVED'
+  row.evidenceClass = 'PENDING HUMAN'
+  row.reason = 'A maintainer decision is still required'
+  const result = calculateAudit(audit)
+  assert.equal(result.status, 'PROVISIONAL')
+  assert.equal(result.overallScore, null)
+})
+
+test('TYPE-01, TEST-01, and INTERACTION-01 PASS require execution evidence', () => {
+  for (const id of ['TYPE-01', 'TEST-01', 'INTERACTION-01']) {
+    const audit = createAudit()
+    audit.checks.find(check => check.id === id).evidenceClass = 'SOURCE VERIFIED'
+    assert.throws(() => calculateAudit(audit), new RegExp(`${id} PASS requires EXECUTION VERIFIED evidence`))
+  }
 })
 
 test('findings require citations pinned to the audited source SHA', () => {
@@ -120,12 +161,37 @@ test('NOT MEASURED remains unscored and produces a provisional score range', () 
   const result = calculateAudit(audit)
   const evidenceSection = result.sections.find(section => section.id === 5)
   assert.equal(evidenceSection.score, null)
-  assert.deepEqual(evidenceSection.scoreRange, {min: 4.25, max: 5})
+  assert.deepEqual(evidenceSection.scoreRange, {min: 4.75, max: 5})
   assert.equal(result.overallScore, null)
-  assert.deepEqual(result.scoreRange, {min: 97, max: 100})
+  assert.deepEqual(result.scoreRange, {min: 99, max: 100})
   assert.deepEqual(result.gradeRange, {min: 'A', max: 'A'})
-  assert.equal(result.checkEvidenceCoveragePercent, 97)
+  assert.equal(result.checkEvidenceCoveragePercent, 99)
   assert.equal(result.status, 'PROVISIONAL')
+})
+
+test('fixing a GAP in an unchanged limited section cannot lower the score', () => {
+  const audit = createAudit()
+  for (const row of audit.checks.filter(row => checks[row.id].section === 4)) {
+    row.verdict = 'N/A'
+    row.reason = 'No other state/shared concept is present'
+  }
+  const namesCheck = audit.checks.find(row => row.id === 'NAMES-DEFAULTS')
+  namesCheck.verdict = 'GAP'
+  namesCheck.evidenceClass = 'SOURCE VERIFIED'
+  namesCheck.findingId = 'F-1'
+  audit.findings = [createFinding({id: 'F-1', checkId: 'NAMES-DEFAULTS', section: 4})]
+
+  const before = calculateAudit(audit)
+  namesCheck.verdict = 'PASS'
+  delete namesCheck.findingId
+  audit.findings = []
+  const after = calculateAudit(audit)
+
+  assert.equal(before.sections.find(section => section.id === 4).limited, true)
+  assert.equal(after.sections.find(section => section.id === 4).limited, true)
+  assert.equal(before.applicableCheckWeight, after.applicableCheckWeight)
+  assert.ok(after.scoreRange.min >= before.scoreRange.min)
+  assert.ok(after.scoreRange.max >= before.scoreRange.max)
 })
 
 test('section ceilings count distinct findings while preserving raw observations', () => {

@@ -1,6 +1,6 @@
 # Component API compliance rubric
 
-**Version: 0.2.0.**
+**Version: 0.3.0.**
 
 ## Table of contents
 
@@ -9,13 +9,13 @@
 - [Grading modes](#grading-modes), L:36
 - [Audit procedure](#audit-procedure), L:44
 - [Applicability](#applicability), L:55
-- [Check catalog](#check-catalog), L:87
-- [Evidence and verdicts](#evidence-and-verdicts), L:120
-- [Findings and citations](#findings-and-citations), L:137
-- [Scoring and validation](#scoring-and-validation), L:145
-- [Section anchors](#section-anchors), L:167
-- [Layer 3 human review](#layer-3-human-review), L:179
-- [Recording results](#recording-results), L:192
+- [Check catalog](#check-catalog), L:89
+- [Evidence and verdicts](#evidence-and-verdicts), L:126
+- [Findings and citations](#findings-and-citations), L:143
+- [Scoring and validation](#scoring-and-validation), L:151
+- [Section anchors](#section-anchors), L:173
+- [Layer 3 human review](#layer-3-human-review), L:185
+- [Recording results](#recording-results), L:198
 
 This rubric evaluates a component against the accepted benchmark target. It records current-contract defects separately and never changes production APIs, ADR status, release status, or merge policy.
 
@@ -29,7 +29,7 @@ An accepted-target gap is a `FIX` or `NIT`. A `BLOCK` is reserved for a reachabl
 
 Use the [pinned target baseline](./target-baseline.md) for all ADR inventory, gist requirements, precedence, mappings, and unresolved decisions. For the audited snapshot, every ADR file present at the pinned `origin/main` SHA is in scope regardless of its status label. The pinned composition gist is also in scope. This is a benchmark assumption and does not edit existing ADR metadata.
 
-The gist requires a parts surface for every interactive component, including interactive leaf controls. Every part supports `as` and element/function `render`. New-part handlers run render-element consumer, part consumer, part, then Primer; consumer classes come first; consumer style and ordinary attributes win; all refs are merged; behavior props remain part-owned. The gist takes precedence over ADR-025 for new parts. ADR-025 remains in force for configured/internal merges, and existing subcomponents retain their current handler/prop behavior.
+The gist requires a parts surface for every interactive component, including interactive leaf controls. Every part supports `as` and element/function `render`. New-part handlers run in this exact order: render-element consumer handler, consumer handler passed to the part, then Primer's handler. The gist defines no additional internal part-handler stage. A consumer skip method stops the remaining handlers for that event; DOM `preventDefault()` and state-transition `cancel()` are separate contracts. Consumer classes come first; consumer style and ordinary attributes win; all refs are merged; behavior props remain part-owned. The gist takes precedence over ADR-025 for new parts. ADR-025 remains in force for configured/internal merges, and existing subcomponents retain their current handler/prop behavior.
 
 New state-transition callbacks use one object with the proposed value, `reason`, originating `event` when present, and synchronous `cancel()`. Existing callback signatures remain unchanged. The gist leaves exact part names/default elements/state types, simultaneous `as` and `render`, skip-method name, and overlay coordination implementation unresolved. Never mark a required interactive part or render form N/A because the current component lacks it.
 
@@ -43,10 +43,10 @@ New state-transition callbacks use one object with the proposed value, `reason`,
 
 ## Audit procedure
 
-1. Record component name, import/export paths, docs maturity metadata, repository package version, audited SHA, mode, and whether the exact audited package version is published. Root export and sample selection do not prove stable status.
+1. Record component name, import/export paths, docs maturity metadata, repository package version, audited SHA, and mode. Keep published-package metadata separate; verify a published surface only when a recommendation changes an existing released API. Root export and sample selection do not prove stable status.
 2. Read the component's own public contract from exports, types, docs, stories, implementation, and focused tests. Record contract defects separately from target gaps.
 3. Classify component shapes and complete one verdict row for every check ID. Apply every interactive-part requirement to interactive leaves. Record `N/A` only with a shape-based reason.
-4. For every criterion requiring behavior evidence, run the smallest relevant existing test command. Keep source structure, executable behavior, agent judgment, and human verification as separate evidence classes.
+4. Record focused unit/integration test execution as `TEST-01` evidence. Separately inspect the snapshot policy (`SNAPSHOT-01`) and Storybook Playwright interaction policy (`INTERACTION-01`); run the smallest relevant Playwright test when feasible. Keep source structure, execution, agent judgment, and human verification as separate evidence classes.
 5. Link each gap to one owning finding and one owning check. Use `COVERED` for related check rows owned by the same root defect; do not deduct the root defect twice.
 6. Fill the Layer 3 review form with `PENDING HUMAN` until a human reviewer supplies each required judgment. An agent's opinion is `AGENT JUDGMENT`, not human sign-off.
 7. Run the deterministic validator on the structured scorecard data. Confirm all section scores, the threshold grade, caps, distinct finding counts, and BLOCK sensitivity match the rendered report.
@@ -72,17 +72,19 @@ A single interactive leaf may use its public root as its parts surface; this doe
 | Check family | Applicability rule |
 | :--- | :--- |
 | `MOD-01`, `CHILD-01`, `API-01` | All public components; `CHILD-01` is N/A for components with no consumer content. |
+| `STRUCTURE-01` | All component implementations; replacement naming applies only when replacing an existing component, and subcomponent ownership applies only when subcomponents are exported. |
+| `CUSTOM-ELEMENT-01` | Components that involve a custom element; N/A when the component uses no custom element. |
 | `PART-01`, `PART-DOCS`, `PART-AS`, `PART-RENDER`, `MERGE-HANDLER`, `MERGE-CLASS`, `MERGE-STYLE-ATTR`, `MERGE-REF`, `MERGE-BEHAVIOR` | Every component with pointer, keyboard, focus, form, or state interaction, including leaf controls. Utilities and pure content components with no rendered interaction are N/A. |
 | `MERGE-CONFIG` | Configured or internal component/consumer merge exists. |
 | `STATE-CALLBACK` | A consumer-observable interactive state transition exists. |
 | `NAMES-DEFAULTS` | At least one concept is shared with another component under review; compare only that shared concept. |
 | `STATE-OWNER` | Public controlled or uncontrolled component-owned state exists. |
-| `ACCESS-01`, `SELECTOR-01`, `TYPE-01`, `EXPORT-01`, `TEST-01` | Rendered public components. `TYPE-01` checks the public TypeScript surface; `EXPORT-01` checks internal and compatibility-package boundaries; `TEST-01` checks executable evidence. |
+| `ACCESS-01`, `SELECTOR-01`, `TYPE-01`, `EXPORT-01`, `TEST-01`, `SNAPSHOT-01`, `INTERACTION-01` | Rendered public components. `TYPE-01` checks the public TypeScript surface; `EXPORT-01` checks internal and actual compatibility-package boundaries; `TEST-01` records focused test execution; `SNAPSHOT-01` and `INTERACTION-01` check the distinct ADR-011 and ADR-017 policies. |
 | `LIVE-01` | Component announces changing content or status to assistive technology. |
 | `WARN-01` | Component emits a development warning; otherwise mark N/A with evidence that no component-owned warning exists. |
-| `STYLE-01` | Component owns CSS or a styling contract. |
+| `STYLE-01` | Component owns CSS or a styling contract; inspect authored CSS modules and cascade-layer declarations directly. |
 | `RESP-01` | Component owns responsive values or behavior. |
-| `MIG-01` | A proposed change alters an API confirmed on the exact released package surface. If publication status is unknown, mark the release-dependent item `NOT MEASURED`. |
+| `MIG-01` | A recommendation changes an existing API on a published package surface. Mark N/A when all recommendations are additive; do not infer publication state from an unverified registry lookup. |
 
 ## Check catalog
 
@@ -90,15 +92,17 @@ Each check has a section weight and a verification class. The listed target gaps
 
 | ID | Section / weight | Checkable pass condition | Class | Severity for target gap | Source |
 | :--- | :--- | :--- | :---: | :---: | :--- |
-| `MOD-01` | 1 / 4 | Public layers are classified by their responsibility; each existing layer has a concrete consumer need. No spectrum layer is required without such a need. | semi | FIX | ADR-024; principles 1 |
-| `CHILD-01` | 1 / 4 | Consumer-owned free-form content uses `children`; props/data own content Primer transforms, orders, or constrains. | semi | FIX | ADR-004; principles 2 |
+| `MOD-01` | 1 / 3 | Public layers are classified by their responsibility; each existing layer has a concrete consumer need. No spectrum layer is required without such a need. | semi | FIX | ADR-024; principles 1 |
+| `CHILD-01` | 1 / 3 | Consumer-owned free-form content uses `children`; props/data own content Primer transforms, orders, or constrains. | semi | FIX | ADR-004; principles 2 |
 | `PART-01` | 1 / 7 | Every interactive component exposes a parts surface, including a root part for an interactive leaf. | semi | FIX | ADR-024; pinned gist |
 | `PART-DOCS` | 1 / 5 | Each part has a documented owner, required props/state/ref, and supported composition path. Document the default element when resolved; surface target-unstated names/defaults as unresolved. | semi | FIX | Pinned gist |
-| `API-01` | 2 / 4 | Root props follow ADR-003 for `sx`, `ref`, `as`, DOM attributes, Styled System props, `theme`, `children`, and prop sequencing. Root `as` is required only for a clear polymorphism need. | semi | FIX | ADR-003 |
+| `STRUCTURE-01` | 1 / 1 | Each component is in a PascalCase directory directly under `src/`; exported subcomponents are parent properties; replacements use an incremented numeric name. Apply the latter two rules only when their conditions exist. | semi | FIX | ADR-013 |
+| `CUSTOM-ELEMENT-01` | 1 / 1 | A custom element is used only when it provides client-side behavior or a ShadowDOM benefit; retain native elements when they provide sufficient semantics and UI. N/A if none is involved. | semi | FIX | ADR-009 |
+| `API-01` | 2 / 4 | Root props follow ADR-003 for `ref`, `as`, DOM attributes, Styled System props, `theme`, `children`, and prop sequencing. `sx` is not required on `@primer/react`; ADR-022-styled-react places legacy `sx` compatibility at the package boundary. Root `as` is required only for a clear polymorphism need. | semi | FIX | ADR-003; ADR-022-styled-react |
 | `PART-AS` | 2 / 8 | Every interactive part supports `as` with required behavior props and refs reaching the rendered element. | semi | FIX | Pinned gist; ADR-003 applies to roots |
 | `PART-RENDER` | 2 / 8 | Every interactive part supports render-element and render-function forms; the function receives required props and current state. Preserve existing renderer signatures. | semi | FIX | Pinned gist |
 | `MERGE-CONFIG` | 3 / 5 | Existing configured/internal merges follow ADR-025; record explicit gist legacy exceptions for existing subcomponents. | semi | FIX | ADR-025; pinned gist |
-| `MERGE-HANDLER` | 3 / 8 | New-part handlers run render-element consumer, part consumer, part, then Primer. A consumer skip method stops the remaining handlers for that event. | semi | FIX | Pinned gist |
+| `MERGE-HANDLER` | 3 / 8 | New-part handlers run render-element consumer, consumer handler passed to the part, then Primer. A consumer skip method stops remaining handlers for that event; no additional internal part-handler stage is assumed. | semi | FIX | Pinned gist |
 | `MERGE-CLASS` | 3 / 3 | New-part classes combine with consumer classes first. | semi | FIX | Pinned gist |
 | `MERGE-STYLE-ATTR` | 3 / 4 | New-part consumer style and ordinary duplicate attributes win; behavior props remain part-owned. | semi | FIX | Pinned gist |
 | `MERGE-REF` | 3 / 3 | Consumer and internal refs all resolve to the final rendered element. | semi | FIX | ADR-025; pinned gist |
@@ -110,12 +114,14 @@ Each check has a section weight and a verification class. The listed target gaps
 | `LIVE-01` | 5 / 1 | Changing announcements use the shared live-region policy where the component announces status. | semi | FIX | ADR-020 |
 | `WARN-01` | 5 / 1 | Component-emitted development warnings are development-only and describe a reachable invalid or discouraged usage. | semi | FIX | ADR-012 |
 | `SELECTOR-01` | 5 / 2 | Stable `data-component` identity is present and distinguished from state attributes; associated tests/docs identify the public selector. | semi | FIX | ADR-023 |
-| `STYLE-01` | 5 / 2 | Component styling follows the applicable CSS, module, and layer requirements. | semi | FIX | ADR-016, ADR-021, ADR-022 CSS layer names |
+| `STYLE-01` | 5 / 2 | Inspect each authored component CSS file. Styles use CSS Modules and are wrapped in `@layer primer.components.<ComponentName>`; component import and a TypeScript build alone do not prove this. | semi | FIX | ADR-016, ADR-021, ADR-022 CSS layer names |
 | `RESP-01` | 5 / 1 | Component-owned responsive behavior uses the accepted responsive-value approach and preserves supported viewport behavior. | semi | FIX | ADR-018 |
 | `TYPE-01` | 5 / 1 | Public TypeScript types and exports compile and match the documented component contract. | auto | FIX | ADR-001 |
 | `EXPORT-01` | 5 / 1 | Internal modules are not exposed as public API; applicable styled-react compatibility exports follow the documented boundary. | semi | FIX | ADR-015, ADR-022 styled-react |
-| `TEST-01` | 5 / 3 | Focused existing tests execute successfully for behavior claims; missing required execution evidence is `NOT MEASURED`. | auto | FIX | ADR-011, ADR-017 |
-| `MIG-01` | 5 / 4 | A recommendation that changes a released API preserves existing props/callback signatures or names a safe additive/versioned migration. Applies only to a surface confirmed in the exact published package. | semi | FIX | ADR-006, ADR-007, ADR-010, ADR-019; versioning guidance |
+| `TEST-01` | 5 / 1 | The smallest focused existing unit/integration test command for behavior claims passes; record the exact command and outcome as execution evidence. | auto | FIX | Audit evidence requirement |
+| `SNAPSHOT-01` | 5 / 1 | Component tests avoid catch-all render-tree snapshots; snapshots are limited to static outputs with a clear change signal. | semi | FIX | ADR-011 |
+| `INTERACTION-01` | 5 / 1 | Tests involving interaction use Playwright to visit a Storybook story and interact with the component; a passing result requires source evidence plus executed test evidence. | semi | FIX | ADR-017 |
+| `MIG-01` | 5 / 4 | When a recommendation changes an API confirmed on a published surface, it preserves existing props/callback signatures or names a safe additive/versioned migration. All-additive recommendations are N/A. | semi | FIX | ADR-006, ADR-007, ADR-010, ADR-019; versioning guidance |
 
 ## Evidence and verdicts
 
@@ -130,9 +136,9 @@ Every scorecard contains exactly one row for every check ID. Use these verdicts:
 | `NOT MEASURED` | Required evidence was not run or cannot be obtained. Include the missing command/source and reason. | Keep the check weight in the denominator as unknown; do not score it as a pass or zero. Report a provisional score range. |
 | `UNRESOLVED` | The target explicitly leaves a decision open or the reviewer cannot resolve it from evidence. State the decision and scope. | Keep the check weight in the denominator as unknown; do not score it as a pass or zero. Report a provisional score range. |
 
-Every row records an evidence class: `SOURCE VERIFIED`, `BEHAVIOR VERIFIED`, `AGENT JUDGMENT`, or `PENDING HUMAN`. Source inspection proves structure only. Runtime claims need an executed test or observable behavior result. Human review rows remain pending until an actual human supplies the judgment. An agent-filled review form never counts as human sign-off.
+Every row records an evidence class: `SOURCE VERIFIED`, `EXECUTION VERIFIED`, `BEHAVIOR VERIFIED`, `AGENT JUDGMENT`, or `PENDING HUMAN`. Source inspection proves structure only. `TYPE-01`, `TEST-01`, and `INTERACTION-01` cannot pass without `EXECUTION VERIFIED`; runtime claims need an executed test or observable behavior result. A `PENDING HUMAN` evidence row must remain `UNRESOLVED`, and an audit must explicitly carry a boolean `pendingHuman` value. Human review rows remain pending until an actual human supplies the judgment. An agent-filled review form never counts as human sign-off.
 
-`NOT MEASURED` and `UNRESOLVED` remain in the applicable denominator but are unknown, not zero-valued failures or passes. A section is `LIMITED` when less than 50% of its published check weight has an applicable row and every applicable row is `PASS`; a limited section has no numeric score and its weight is excluded from the overall denominator. For other sections, compute the lower bound as `5 × earned PASS weight / applicable weight` and the upper bound as `5 × (earned PASS weight + unknown weight) / applicable weight`, then apply the same mechanical cap to both bounds. Report an exact score only when the bounds are equal. Aggregate section bounds by section weight; show a letter-grade range and keep the result provisional while any required evidence or human judgment is incomplete. This prevents unknown evidence from receiving a false zero or disappearing from the denominator.
+`NOT MEASURED` and `UNRESOLVED` remain in the applicable denominator but are unknown, not zero-valued failures or passes. A section is `LIMITED` when less than 50% of its published check weight is applicable, regardless of verdict. Still score its applicable rows, apply its finding cap, and include its applicable weight in the overall denominator; `LIMITED` never hides a failure or removes weight when a GAP is fixed. For every section, compute the lower bound as `5 × earned PASS weight / applicable weight` and the upper bound as `5 × (earned PASS weight + unknown weight) / applicable weight`, then apply the same mechanical cap to both bounds. Report an exact score only when the bounds are equal. Aggregate section bounds by their applicable check weight. Keep the result provisional when any section is limited or required evidence/human judgment is incomplete.
 
 ## Findings and citations
 
@@ -140,11 +146,11 @@ Each finding has a unique ID, classification (`DEFECT` or `ADR GAP`), severity, 
 
 A reachable victim is a valid consumer invocation or documented user state that reaches the behavior. A type-rejected, undocumented input is not a reachable victim. Group observations with one owning fix into one distinct finding; report raw observations separately. A finding appears in only one owning section. New-part policy gaps are FIX-level `ADR GAP`s; existing contract and objective violations may be BLOCK-level `DEFECT`s.
 
-For each recommendation touching a released surface, retain existing props, callback signatures, and behavior through an additive path or a documented versioned migration. Apply `MIG-01` only after confirming the exact API exists in the exact published package. A registry lookup that cannot establish publication is `NOT MEASURED`, never evidence of a breaking released contract.
+For each recommendation that changes a released surface, retain existing props, callback signatures, and behavior through an additive path or a documented versioned migration. Apply `MIG-01` only when the recommendation depends on an API confirmed in a published package. Mark it `N/A` when the proposed changes only add new surfaces; record repository package version separately. A registry lookup that cannot establish publication is not evidence that an API is absent.
 
 ## Scoring and validation
 
-Check weights in each section sum to that section's published weight. For each section, `applicable weight` is the sum of weights for `PASS`, `GAP`, `NOT MEASURED`, and `UNRESOLVED` rows. `N/A` and `COVERED` rows are excluded. Earned weight is the sum for `PASS` rows. `NOT MEASURED` and `UNRESOLVED` weights are unknown and contribute to the score interval, never as a fixed zero. Compute lower and upper section scores using the interval formula above and report two decimal places. Apply the mechanical cap to both bounds. Count raw observations as the number of `GAP` and `COVERED` matrix rows plus current-contract findings; count distinct findings by unique finding ID after grouping related observations under one owner.
+Check weights in each section sum to that section's published weight. For each section, `applicable weight` is the sum of weights for `PASS`, `GAP`, `NOT MEASURED`, and `UNRESOLVED` rows. `N/A` and `COVERED` rows are excluded. Earned weight is the sum for `PASS` rows. `NOT MEASURED` and `UNRESOLVED` weights are unknown and contribute to the score interval, never as a fixed zero. Compute lower and upper section scores using the interval formula above and report two decimal places. Apply the mechanical cap to both bounds. Every section with applicable rows contributes its applicable weight to the overall denominator, including limited sections. Count raw observations as the number of `GAP` and `COVERED` matrix rows plus current-contract findings; count distinct findings by unique finding ID after grouping related observations under one owner.
 
 | Open distinct findings owned by section | Maximum section score |
 | :--- | :---: |
@@ -156,7 +162,7 @@ Check weights in each section sum to that section's published weight. For each s
 | No BLOCK and 3–4 FIX/NIT findings | 3 |
 | No BLOCK and 5 or more FIX/NIT findings | 2 |
 
-Compute each endpoint of the overall target score range as `100 × sum(section weight × capped section endpoint / 5) / sum(weight of scored sections)`. A limited section contributes no score and no weight. Report a single numeric score and grade only when the range endpoints match; otherwise report the score interval and corresponding letter-grade interval. Grade endpoints use A (90–100), B (80–89.99), C (70–79.99), D (60–69.99), and F (below 60). An open BLOCK caps each letter-grade endpoint at D. The 78.5 boundary is C; 80.0 is B.
+Compute each endpoint of the overall target score range as `100 × sum(applicable check weight × capped section endpoint / 5) / sum(applicable check weight)`. A limited section contributes its applicable check weight and score. Report a single numeric score and grade only when the range endpoints match; otherwise report the score interval and corresponding letter-grade interval. Grade endpoints use A (90–100), B (80–89.99), C (70–79.99), D (60–69.99), and F (below 60). An open BLOCK caps each letter-grade endpoint at D. The 78.5 boundary is C; 80.0 is B.
 
 Report `CONCLUSIVE`, `PROVISIONAL`, or `UNKNOWN`. Any `NOT MEASURED`, `UNRESOLVED`, limited section, or pending human review makes the result `PROVISIONAL`; show the calculated provisional score range, check-evidence coverage, and grade range. Use `UNKNOWN` when no scored section exists. Only use `CONCLUSIVE` when all applicable checks and required evidence are complete and required human judgments have been supplied.
 
