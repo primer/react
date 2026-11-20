@@ -19,6 +19,7 @@ import {useSlots} from '../hooks/useSlots'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement} from './useRovingTabIndex'
 import {useTreeRovingTabIndex} from './useTreeRovingTabIndex'
+import {useFocusWithinAttribute} from './useFocusWithinAttribute'
 import {useTypeahead} from './useTypeahead'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {SkeletonText} from '../SkeletonText'
@@ -141,6 +142,7 @@ const Root: React.FC<TreeViewProps> = ({
   }, [])
 
   useTreeRovingTabIndex({containerRef, mouseDownRef})
+  useFocusWithinAttribute(containerRef)
   useTypeahead({
     containerRef,
     onFocusChange: element => {
