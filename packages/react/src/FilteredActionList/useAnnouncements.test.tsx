@@ -267,6 +267,116 @@ describe('useAnnouncements', () => {
     vi.useRealTimers()
   })
 
+  it.each([100, 250])('cancels list-update delivery when unmounted after %i ms', async elapsed => {
+    const {announce: announceToLiveRegion} = await vi.importActual<{announce: typeof announce}>(
+      '@primer/live-region-element',
+    )
+    const liveRegion = document.createElement('live-region')
+    document.body.append(liveRegion)
+    vi.mocked(announce).mockImplementation(announceToLiveRegion)
+    vi.useFakeTimers()
+
+    try {
+      const {rerender, unmount} = renderHook(
+        ({filterValue}) =>
+          useAnnouncements(
+            [{text: 'Start date'}],
+            {current: null},
+            {current: null},
+            true,
+            false,
+            undefined,
+            'roving-tabindex',
+            filterValue,
+          ),
+        {initialProps: {filterValue: ''}},
+      )
+
+      rerender({filterValue: 's'})
+      await act(() => vi.advanceTimersByTimeAsync(elapsed))
+      expect(announce).toHaveBeenCalledTimes(elapsed === 250 ? 1 : 0)
+      unmount()
+      await act(() => vi.advanceTimersByTimeAsync(1000))
+      expect(liveRegion.getMessage('polite')).toBe('')
+    } finally {
+      vi.mocked(announce).mockReset()
+      liveRegion.remove()
+    }
+  })
+
+  it('cancels a queued list update when announcements are disabled without a content change', () => {
+    vi.useFakeTimers()
+    const {rerender} = renderHook(
+      ({enabled, filterValue}) =>
+        useAnnouncements(
+          [{text: 'Start date'}],
+          {current: null},
+          {current: null},
+          enabled,
+          false,
+          undefined,
+          'roving-tabindex',
+          filterValue,
+        ),
+      {initialProps: {enabled: true, filterValue: ''}},
+    )
+
+    rerender({enabled: true, filterValue: 's'})
+    act(() => vi.advanceTimersByTime(100))
+    rerender({enabled: false, filterValue: 's'})
+    act(() => vi.advanceTimersByTime(1000))
+    expect(announce).not.toHaveBeenCalled()
+
+    rerender({enabled: true, filterValue: 'st'})
+    act(() => vi.advanceTimersByTime(250))
+    expect(announce).toHaveBeenCalledTimes(1)
+  })
+
+  it('announces current focus once after the final active-descendant list update', () => {
+    vi.useFakeTimers({toFake: ['requestAnimationFrame', 'cancelAnimationFrame', 'setTimeout', 'clearTimeout']})
+    const list = document.createElement('ul')
+    const start = document.createElement('li')
+    start.setAttribute('role', 'option')
+    start.setAttribute('data-is-active-descendant', 'true')
+    start.textContent = 'Start date'
+    const end = document.createElement('li')
+    end.setAttribute('role', 'option')
+    end.textContent = 'End date'
+    list.append(start, end)
+
+    const {rerender} = renderHook(
+      ({filterValue}) =>
+        useAnnouncements(
+          [{text: 'Start date'}, {text: 'End date', selected: true}],
+          {current: list},
+          {current: null},
+          true,
+          false,
+          undefined,
+          'active-descendant',
+          filterValue,
+        ),
+      {initialProps: {filterValue: ''}},
+    )
+
+    rerender({filterValue: 's'})
+    act(() => vi.advanceTimersToNextFrame())
+    act(() => vi.advanceTimersByTime(100))
+    rerender({filterValue: 'st'})
+    rerender({filterValue: 'sta'})
+    act(() => vi.advanceTimersToNextFrame())
+
+    start.removeAttribute('data-is-active-descendant')
+    end.setAttribute('data-is-active-descendant', 'true')
+    act(() => vi.advanceTimersByTime(249))
+    expect(announce).not.toHaveBeenCalled()
+    act(() => vi.advanceTimersByTime(1))
+    expect(announce).toHaveBeenCalledExactlyOnceWith('List updated, Focused item: End date, selected, 2 of 2', {
+      delayMs: 500,
+      from: undefined,
+    })
+  })
+
   it('cancels a queued empty-result announcement when a new query starts loading', () => {
     vi.useFakeTimers()
     const message = {title: 'Nothing found', description: "There's nothing here."}
