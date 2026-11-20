@@ -24,7 +24,7 @@ describe('Avatar', () => {
     await expect.element(avatar).toHaveAttribute('height', size.toString())
   })
 
-  it('keeps the decorative edge from overriding keyboard focus', async () => {
+  it('preserves the keyboard focus outline', async () => {
     render(<Avatar src="primer.png" alt="Mona" tabIndex={0} />)
     const avatar = page.getByRole('img', {name: 'Mona'})
     await expect.element(avatar).toHaveStyle('outline-offset: -1px')
