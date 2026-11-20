@@ -123,7 +123,7 @@ const AvatarStack = ({
 
       const observer = new MutationObserver(interactiveChildren)
 
-      observer.observe(stackContainer.current, {childList: true})
+      observer.observe(stackContainer.current, {childList: true, subtree: true})
 
       // Call on initial render, then call it again only if there's a mutation
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-initialize-state
