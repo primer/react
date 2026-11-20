@@ -1,0 +1,8 @@
+export {default as Dialog} from '../deprecated/DialogV1/Dialog.docs'
+export {default as FilteredSearch} from '../deprecated/FilteredSearch/FilteredSearch.docs'
+export {default as Flash} from '../Flash/Flash.docs'
+export {default as Octicon} from '../Octicon/Octicon.docs'
+export {default as Pagehead} from '../Pagehead/Pagehead.docs'
+export {default as TabNav} from '../TabNav/TabNav.docs'
+export {default as Tooltip} from '../Tooltip/Tooltip.docs'
+export {default as UnderlineNav} from '../deprecated/UnderlineNav/UnderlineNav.docs'

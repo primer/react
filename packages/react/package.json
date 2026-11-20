@@ -10,6 +10,22 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./docs": {
+      "types": "./dist/docs/index.d.ts",
+      "default": "./dist/docs/index.js"
+    },
+    "./docs/deprecated": {
+      "types": "./dist/docs/deprecated.d.ts",
+      "default": "./dist/docs/deprecated.js"
+    },
+    "./docs/experimental": {
+      "types": "./dist/docs/experimental.d.ts",
+      "default": "./dist/docs/experimental.js"
+    },
+    "./docs/next": {
+      "types": "./dist/docs/next.d.ts",
+      "default": "./dist/docs/next.js"
+    },
     "./experimental": {
       "types": "./dist/experimental/index.d.ts",
       "default": "./dist/experimental/index.js"

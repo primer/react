@@ -24,6 +24,7 @@ export default defineConfig({
       'src/__tests__/exports.test.ts',
       'src/__tests__/ssr.test.tsx',
       'src/__tests__/storybook.test.tsx',
+      'script/docs-plugin.test.ts',
       'script/lint-component-docs.test.ts',
     ],
     environment: 'node',

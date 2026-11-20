@@ -6,6 +6,7 @@ import {preserveDirectives} from 'rolldown-plugin-preserve-directives'
 import {dts} from 'rolldown-plugin-dts'
 import {importCSS} from 'rolldown-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
+import {docs} from './script/docs-plugin'
 import {files, isSupported} from './script/react-compiler.mjs'
 import packageJson from './package.json' with {type: 'json'}
 
@@ -30,6 +31,18 @@ const entrypoints = new Set([
 
   // "./next"
   'src/next/index.ts',
+
+  // "./docs",
+  'src/docs/index.ts',
+
+  // "./docs/deprecated",
+  'src/docs/deprecated.ts',
+
+  // "./docs/experimental",
+  'src/docs/experimental.ts',
+
+  // "./docs/next",
+  'src/docs/next.ts',
 ])
 
 function getEntrypointsFromInput(input: ReadonlySet<string>) {
@@ -94,6 +107,7 @@ export default defineConfig([
   {
     input,
     plugins: [
+      docs(),
       reactCompilerRuntimeAlias(),
       react({
         compiler: {

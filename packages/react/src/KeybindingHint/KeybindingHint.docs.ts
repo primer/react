@@ -6,7 +6,7 @@ export default defineComponent({
   status: 'draft',
   a11yReviewed: '2025-01-08',
   stories: [],
-  importPath: '@primer/react',
+  importPath: '@primer/react/experimental',
   props: [
     {
       name: 'keys',
