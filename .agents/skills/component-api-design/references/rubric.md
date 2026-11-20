@@ -1,110 +1,150 @@
 # Component API compliance rubric
 
-**Version: 0.1.0.**
+**Version: 0.2.0.**
 
 ## Table of contents
 
-- [Purpose and authority](#purpose-and-authority), L:20
-- [Modes](#modes), L:26
-- [Audit procedure](#audit-procedure), L:34
-- [Applicability](#applicability), L:43
-- [Checks](#checks), L:74
-- [Findings and evidence](#findings-and-evidence), L:97
-- [Scoring](#scoring), L:105
-- [Section anchors](#section-anchors), L:124
-- [Human review form](#human-review-form), L:136
-- [Recording results](#recording-results), L:149
+- [Purpose and authority](#purpose-and-authority), L:22
+- [Target baseline](#target-baseline), L:28
+- [Grading modes](#grading-modes), L:36
+- [Audit procedure](#audit-procedure), L:44
+- [Applicability](#applicability), L:55
+- [Check catalog](#check-catalog), L:87
+- [Evidence and verdicts](#evidence-and-verdicts), L:120
+- [Findings and citations](#findings-and-citations), L:137
+- [Scoring and validation](#scoring-and-validation), L:145
+- [Section anchors](#section-anchors), L:167
+- [Layer 3 human review](#layer-3-human-review), L:179
+- [Recording results](#recording-results), L:192
 
-This rubric grades how well a Primer React component keeps its own stated contract and how closely its API aligns with the proposed composition principles. It is a design review aid, not a release gate. It does not authorize API changes, infer new product requirements, or turn a proposed ADR into a current guarantee.
+This rubric evaluates a component against the accepted benchmark target. It records current-contract defects separately and never changes production APIs, ADR status, release status, or merge policy.
 
 ## Purpose and authority
 
-Run the two stages in order. **Stage 1: shipped contract.** Establish the public surface from package exports, types, docs, stories, tests, and source. Decide whether current Primer guarantees and the component's own documented contract are met. Findings here are `DEFECT`s. **Stage 2: proposed alignment.** Assess applicable principles and proposed ADR-024, ADR-025, and the Base UI-compatible composition ADR. A mismatch is an `ADR GAP`, never a defect solely because a proposed capability is absent.
+Establish the component's own stated contract from exports, types, docs, stories, and tests before grading. Report a reachable violation of that contract as a `DEFECT`. Then grade compliance with the accepted target; missing target requirements are `ADR GAP`s even when the released component never promised them. The accepted-target score is the headline result. Keep current-contract findings in a separate context table.
 
-For conflict resolution, current adopted ADRs and objective accessibility/native-platform requirements take precedence over a component-local promise. The component-local contract establishes its current behavior and claimed use; an explicit contradiction with higher authority is a defect. ADR-024, ADR-025, and the Base UI-compatible composition ADR are proposed. Their features are scored as design gaps only.
+An accepted-target gap is a `FIX` or `NIT`. A `BLOCK` is reserved for a reachable current-contract defect or an objective accessibility/native-platform violation. Any open `BLOCK` caps the overall letter grade at D. Record the BLOCK count separately from target-gap counts.
 
-## Modes
+## Target baseline
+
+Use the [pinned target baseline](./target-baseline.md) for all ADR inventory, gist requirements, precedence, mappings, and unresolved decisions. For the audited snapshot, every ADR file present at the pinned `origin/main` SHA is in scope regardless of its status label. The pinned composition gist is also in scope. This is a benchmark assumption and does not edit existing ADR metadata.
+
+The gist requires a parts surface for every interactive component, including interactive leaf controls. Every part supports `as` and element/function `render`. New-part handlers run render-element consumer, part consumer, part, then Primer; consumer classes come first; consumer style and ordinary attributes win; all refs are merged; behavior props remain part-owned. The gist takes precedence over ADR-025 for new parts. ADR-025 remains in force for configured/internal merges, and existing subcomponents retain their current handler/prop behavior.
+
+New state-transition callbacks use one object with the proposed value, `reason`, originating `event` when present, and synchronous `cancel()`. Existing callback signatures remain unchanged. The gist leaves exact part names/default elements/state types, simultaneous `as` and `render`, skip-method name, and overlay coordination implementation unresolved. Never mark a required interactive part or render form N/A because the current component lacks it.
+
+## Grading modes
 
 | Mode | Scope | Output |
 | :--- | :--- | :--- |
-| Whole component | Grade one named component at a pinned commit; complete both stages and all applicable checks. | Full scorecard and ledger entry. |
-| PR review | Grade only behavior and contracts introduced or changed by the diff. Do not assign pre-existing findings or a whole-component grade. | Delta findings, cited to base/head SHAs; no ledger entry. |
-| Nightly | Future automation may invoke one whole-component grader per component and aggregate scorecards. It must not infer human judgments, change public APIs, or claim a verified score when evidence is missing. | Future work; no current automation or merge gate. |
+| Whole component | One named component at a pinned commit; complete the stated-contract review and every applicable target check. | Target scorecard, current-contract context, evidence matrix, and ledger input. |
+| PR review | Grade only API behavior introduced or changed by the diff; compare base and head. | Delta findings with no whole-component grade or ledger entry. |
+| Nightly | Future automation may run one isolated whole-component grader per component and aggregate its output. | Future work only; no automation or merge gate is created by this rubric. |
 
 ## Audit procedure
 
-1. Record component name, public package entry point, version/status (stable, experimental, deprecated, or `/next`), mode, and exact commit SHA.
-2. Read the component's public types, implementation, docs, stories, and focused tests. Identify each shipped contract statement before evaluating the proposed principles.
-3. Classify the component's applicable shapes using the table below. Record the reason for every `N/A`.
-4. Grade the shipped contract, current adopted ADRs, and objective requirements first. Then grade proposed ADR alignment, labeling each mismatch `ADR GAP`.
-5. Run checks appropriate to the mode. `auto` requires deterministic machine evidence; `semi` requires a script/search to produce candidates that a reviewer adjudicates; `manual` requires a written reviewer judgment. Do not claim a check was automated when the tool did not decide pass/fail.
-6. Record findings once in the section that owns the fix, attach exact citations, assign severity by the finding's current-contract or proposed-ADR scope, and calculate the score.
+1. Record component name, import/export paths, docs maturity metadata, repository package version, audited SHA, mode, and whether the exact audited package version is published. Root export and sample selection do not prove stable status.
+2. Read the component's own public contract from exports, types, docs, stories, implementation, and focused tests. Record contract defects separately from target gaps.
+3. Classify component shapes and complete one verdict row for every check ID. Apply every interactive-part requirement to interactive leaves. Record `N/A` only with a shape-based reason.
+4. For every criterion requiring behavior evidence, run the smallest relevant existing test command. Keep source structure, executable behavior, agent judgment, and human verification as separate evidence classes.
+5. Link each gap to one owning finding and one owning check. Use `COVERED` for related check rows owned by the same root defect; do not deduct the root defect twice.
+6. Fill the Layer 3 review form with `PENDING HUMAN` until a human reviewer supplies each required judgment. An agent's opinion is `AGENT JUDGMENT`, not human sign-off.
+7. Run the deterministic validator on the structured scorecard data. Confirm all section scores, the threshold grade, caps, distinct finding counts, and BLOCK sensitivity match the rendered report.
+8. Verify every cited `path:line` against the pinned source SHA. Record the exact test, type-check, and validator commands and their outcomes.
 
 ## Applicability
 
-Use `Y` when the shape normally makes the check applicable, `C` when the listed behavior exists, and `—` when it is structurally inapplicable. A component may have multiple shapes.
+Shapes can overlap. Use the matrix as a starting point and cite the public contract when resolving a conditional row.
+
+A single interactive leaf may use its public root as its parts surface; this does not waive `PART-AS`, `PART-RENDER`, or the part merge checks.
 
 | Shape | Definition |
 | :--- | :--- |
 | Config | Provides a ready-made pattern from intent, data, and defaults. |
 | Presentational | Provides styled, semantic parts for consumer composition. |
-| Base | Provides a low-level primitive, often unstyled, with a narrow behavior contract. |
-| Utility | Provides component-agnostic state or behavior without owning a rendered pattern. |
+| Base | Provides a low-level primitive with a narrow behavior contract. |
+| Utility | Provides component-agnostic behavior or state without necessarily rendering UI. |
 | Leaf | Renders one main semantic control or content element. |
 | Overlay | Owns floating or modal content, dismissal, or focus lifecycle. |
 | Form control | Participates in native form submission or shared field context. |
 | Collection | Manages related items, ordering, selection, or keyboard navigation. |
 
-| Check | Config | Presentational | Base | Utility | Leaf | Overlay | Form | Collection |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| C1–C2 | Y | Y | Y | C | Y | Y | Y | Y |
-| A1 | Y | Y | Y | C | Y | Y | Y | Y |
-| A2–A3 | C | Y | C | — | — | C | C | Y |
-| R1–R2 | C | C | C | — | C | C | C | C |
-| M1–M2 | C | C | C | C | C | C | C | C |
-| S1–S2 | C | C | C | C | C | C | C | C |
-| L1 | Y | Y | Y | — | Y | Y | Y | Y |
-| L2 | C | C | C | — | C | C | Y | C |
-| L3 | — | — | — | — | — | Y | — | C |
-| D1 | Y | Y | Y | C | Y | Y | Y | Y |
-| D2 | C | C | C | C | C | C | C | C |
+| Check family | Applicability rule |
+| :--- | :--- |
+| `MOD-01`, `CHILD-01`, `API-01` | All public components; `CHILD-01` is N/A for components with no consumer content. |
+| `PART-01`, `PART-DOCS`, `PART-AS`, `PART-RENDER`, `MERGE-HANDLER`, `MERGE-CLASS`, `MERGE-STYLE-ATTR`, `MERGE-REF`, `MERGE-BEHAVIOR` | Every component with pointer, keyboard, focus, form, or state interaction, including leaf controls. Utilities and pure content components with no rendered interaction are N/A. |
+| `MERGE-CONFIG` | Configured or internal component/consumer merge exists. |
+| `STATE-CALLBACK` | A consumer-observable interactive state transition exists. |
+| `NAMES-DEFAULTS` | At least one concept is shared with another component under review; compare only that shared concept. |
+| `STATE-OWNER` | Public controlled or uncontrolled component-owned state exists. |
+| `ACCESS-01`, `SELECTOR-01`, `TYPE-01`, `EXPORT-01`, `TEST-01` | Rendered public components. `TYPE-01` checks the public TypeScript surface; `EXPORT-01` checks internal and compatibility-package boundaries; `TEST-01` checks executable evidence. |
+| `LIVE-01` | Component announces changing content or status to assistive technology. |
+| `WARN-01` | Component emits a development warning; otherwise mark N/A with evidence that no component-owned warning exists. |
+| `STYLE-01` | Component owns CSS or a styling contract. |
+| `RESP-01` | Component owns responsive values or behavior. |
+| `MIG-01` | A proposed change alters an API confirmed on the exact released package surface. If publication status is unknown, mark the release-dependent item `NOT MEASURED`. |
 
-`C` means inspect whether that feature exists; use `N/A` with a specific reason if it does not. Do not mark an absent API as a failure when the component shape does not need it. In particular, parts, `render`, state callbacks, providers, and imperative refs are not universal requirements. ADR-003 restricts `as` to components with a clear polymorphism need.
+## Check catalog
 
-## Checks
+Each check has a section weight and a verification class. The listed target gaps default to `FIX`; `BLOCK` is available only for a separately recorded current-contract defect or objective violation.
 
-`Contract` checks evaluate an existing guarantee or the component's own stated contract. `ADR` checks evaluate only a proposed design pattern. Potential severity is a ceiling; a proposed ADR gap cannot be a `BLOCK`.
+| ID | Section / weight | Checkable pass condition | Class | Severity for target gap | Source |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| `MOD-01` | 1 / 4 | Public layers are classified by their responsibility; each existing layer has a concrete consumer need. No spectrum layer is required without such a need. | semi | FIX | ADR-024; principles 1 |
+| `CHILD-01` | 1 / 4 | Consumer-owned free-form content uses `children`; props/data own content Primer transforms, orders, or constrains. | semi | FIX | ADR-004; principles 2 |
+| `PART-01` | 1 / 7 | Every interactive component exposes a parts surface, including a root part for an interactive leaf. | semi | FIX | ADR-024; pinned gist |
+| `PART-DOCS` | 1 / 5 | Each part has a documented owner, required props/state/ref, and supported composition path. Document the default element when resolved; surface target-unstated names/defaults as unresolved. | semi | FIX | Pinned gist |
+| `API-01` | 2 / 4 | Root props follow ADR-003 for `sx`, `ref`, `as`, DOM attributes, Styled System props, `theme`, `children`, and prop sequencing. Root `as` is required only for a clear polymorphism need. | semi | FIX | ADR-003 |
+| `PART-AS` | 2 / 8 | Every interactive part supports `as` with required behavior props and refs reaching the rendered element. | semi | FIX | Pinned gist; ADR-003 applies to roots |
+| `PART-RENDER` | 2 / 8 | Every interactive part supports render-element and render-function forms; the function receives required props and current state. Preserve existing renderer signatures. | semi | FIX | Pinned gist |
+| `MERGE-CONFIG` | 3 / 5 | Existing configured/internal merges follow ADR-025; record explicit gist legacy exceptions for existing subcomponents. | semi | FIX | ADR-025; pinned gist |
+| `MERGE-HANDLER` | 3 / 8 | New-part handlers run render-element consumer, part consumer, part, then Primer. A consumer skip method stops the remaining handlers for that event. | semi | FIX | Pinned gist |
+| `MERGE-CLASS` | 3 / 3 | New-part classes combine with consumer classes first. | semi | FIX | Pinned gist |
+| `MERGE-STYLE-ATTR` | 3 / 4 | New-part consumer style and ordinary duplicate attributes win; behavior props remain part-owned. | semi | FIX | Pinned gist |
+| `MERGE-REF` | 3 / 3 | Consumer and internal refs all resolve to the final rendered element. | semi | FIX | ADR-025; pinned gist |
+| `MERGE-BEHAVIOR` | 3 / 2 | Part behavior reads its behavior props from the part; render-element props cannot silently replace part-owned behavior. | semi | FIX | Pinned gist |
+| `STATE-CALLBACK` | 4 / 8 | Each consumer-observable transition exposes a callback. A new callback uses the proposed state value under its normal name, `reason`, `event` when present, and synchronous `cancel()`; preserve existing callback signatures and record the additive callback-name decision. | semi | FIX | Pinned gist; `contributor-docs/style.md` |
+| `NAMES-DEFAULTS` | 4 / 5 | Shared concepts use aligned names and defaults. A shared size uses `small`, `medium`, `large` and `medium` default where that scale applies. | manual | FIX | Pinned gist; style-guide prop naming |
+| `STATE-OWNER` | 4 / 2 | A public controlled/uncontrolled state axis has one owner and its value, default, and transition behavior agree with the documented contract. | semi | FIX | ADR-024; component contract |
+| `ACCESS-01` | 5 / 4 | Required role, accessible relationships, keyboard, focus, and native form behavior remain on the element that owns the interaction, including alternate composition paths. | semi | FIX | ADR-020 where applicable; accessibility contract |
+| `LIVE-01` | 5 / 1 | Changing announcements use the shared live-region policy where the component announces status. | semi | FIX | ADR-020 |
+| `WARN-01` | 5 / 1 | Component-emitted development warnings are development-only and describe a reachable invalid or discouraged usage. | semi | FIX | ADR-012 |
+| `SELECTOR-01` | 5 / 2 | Stable `data-component` identity is present and distinguished from state attributes; associated tests/docs identify the public selector. | semi | FIX | ADR-023 |
+| `STYLE-01` | 5 / 2 | Component styling follows the applicable CSS, module, and layer requirements. | semi | FIX | ADR-016, ADR-021, ADR-022 CSS layer names |
+| `RESP-01` | 5 / 1 | Component-owned responsive behavior uses the accepted responsive-value approach and preserves supported viewport behavior. | semi | FIX | ADR-018 |
+| `TYPE-01` | 5 / 1 | Public TypeScript types and exports compile and match the documented component contract. | auto | FIX | ADR-001 |
+| `EXPORT-01` | 5 / 1 | Internal modules are not exposed as public API; applicable styled-react compatibility exports follow the documented boundary. | semi | FIX | ADR-015, ADR-022 styled-react |
+| `TEST-01` | 5 / 3 | Focused existing tests execute successfully for behavior claims; missing required execution evidence is `NOT MEASURED`. | auto | FIX | ADR-011, ADR-017 |
+| `MIG-01` | 5 / 4 | A recommendation that changes a released API preserves existing props/callback signatures or names a safe additive/versioned migration. Applies only to a surface confirmed in the exact published package. | semi | FIX | ADR-006, ADR-007, ADR-010, ADR-019; versioning guidance |
 
-| ID | Stage / owner | Check and pass condition | Applicability | Class | Severity | Source |
-| :--- | :--- | :--- | :--- | :---: | :---: | :--- |
-| C1 | Contract / 1 | Public types, exports, docs, stories, and implementation agree on the component's documented behavior, defaults, and callback signatures. Record a reachable disagreement as one defect. | All public shapes | semi | BLOCK | Component's docs/types/stories; adopted ADRs |
-| C2 | Contract / 1 | A changed or removed API on a released surface has the required migration/versioning path. First verify that the exact surface exists in the latest published package. Unreleased APIs do not create installed-consumer breakage. | Released surface and API change | semi | BLOCK in PR mode; FIX in whole-component mode | `contributor-docs/versioning.md`; changeset guidance |
-| A1 | ADR / 2 | The layer ownership is explicit and each public layer serves a concrete use; no config/presentational/base/utility layer is required without a consumer need. | All shapes | manual | FIX | Principle 1; proposed ADR-024 |
-| A2 | ADR / 2 | Each named part has a distinct consumer-controlled region and documented owner; semantic, collection, and context relationships remain valid. | Compound/collection/overlay shapes | manual | FIX | Principle 2; ADR-004 |
-| A3 | ADR / 2 | Free-form content uses `children`; props/data are used when Primer owns transforming, ordering, or constraining content. | Content-bearing shapes | semi | FIX | Principle 2; ADR-004 |
-| R1 | ADR / 3 | `as` is present only for a clear polymorphism need; new part `render` has an explicit supported form, default element, prop/state/ref contract, and `as`/`render` interaction rule. | Applicable roots/parts | semi | FIX | Principle 3; ADR-003; proposed composition ADR |
-| R2 | ADR / 3 | New replacement targets receive required behavior props and ref; custom components are documented to spread props and forward refs. Existing renderer signatures remain unchanged. | Existing/new render or substitution boundary | semi | FIX | Principle 3; proposed composition ADR |
-| M1 | Contract or ADR / 1 if DEFECT, 3 if ADR GAP | Every supported collision has a specified precedence or handler composition/cancellation rule; current configured behavior is preserved and new part behavior is documented and tested separately. | Props combine on an element | semi | BLOCK for a reachable regression; FIX for an ADR gap | Principle 4; adopted/current behavior; proposed ADR-025 and composition ADR |
-| M2 | Contract or ADR / 1 if DEFECT, 3 if ADR GAP | The public ref target is documented and every consumer/internal ref required by the contract reaches the final rendered element. | Rendered component with refs | semi | BLOCK for a reachable contract break; FIX for an ADR gap | Principle 4; ADR-003 |
-| S1 | Contract / 1 | For exposed component-owned state, controlled value, `default*`, and change behavior are internally consistent with the documented ownership and do not silently switch modes. | State-bearing shapes | semi | BLOCK for a reachable contract break; N/A if no such state | Principles 5–6; component contract |
-| S2 | ADR / 4 | New state callbacks expose the proposed value and typed transition context; synchronous cancellation is offered only when consumer veto is needed and happens before uncontrolled state commits. Existing callback signatures are preserved. | New state-transition API | manual | FIX | Principle 7; `style.md`; proposed composition ADR |
-| L1 | Contract / 1 | Required semantic roles, accessible relationships, keyboard, and focus behavior are present at the element that owns the interaction; alternate composition paths preserve them. | Rendered patterns | semi | BLOCK for an objective/reachable violation | Principle 10; applicable adopted ADR and accessibility contract |
-| L2 | Contract / 1 | Native form attributes and field-context IDs/relationships reach the actual native control and preserve native submission behavior where promised. | Form controls and integrations | semi | BLOCK for a reachable break; otherwise N/A | Principle 10; component/field contract |
-| L3 | Contract or ADR / 1 if DEFECT, 4 if ADR GAP | Overlay ownership states mount, portal, dismissal, focus-entry/return, and supported nested behavior. Grade only behaviors the current or proposed surface claims to support. | Overlay shapes | semi | BLOCK for a broken claimed behavior; FIX for an ADR gap | Principle 9; component contract; proposed composition ADR |
-| D1 | Contract or ADR / 1 if DEFECT, 5 if ADR GAP | Public types, exports, defaults, docs, stories, identifiers, and any documented state styling describe the same supported contract. `data-component` identity is distinct from state attributes. | All public shapes | semi | FIX | Principle 11; ADR-023 |
-| D2 | ADR / 5 | A provider owns configuration only when multiple descendants share it and local props cannot express it naturally; its boundary and supported overrides are documented. | Provider/context-bearing shapes | manual | NIT | Principle 12 |
+## Evidence and verdicts
 
-## Findings and evidence
+Every scorecard contains exactly one row for every check ID. Use these verdicts:
 
-Each finding has: `DEFECT` or `ADR GAP`; one primary check ID; `BLOCK`, `FIX`, or `NIT`; one owning section; a named reachable consumer and path; a concise observed behavior; a concrete additive API fix; and one or more `path:line` citations pinned to the audited SHA. Include the relevant public type, test, docs, or story when it supports reachability or the claimed contract.
+| Verdict | Meaning | Scoring treatment |
+| :--- | :--- | :--- |
+| `PASS` | The property is verified with the evidence required by its check. | Earn the full check weight. |
+| `GAP` | The accepted target or current contract is violated and has one owning finding ID. | Earn zero check weight. |
+| `N/A` | The shape or contract makes the requirement inapplicable; provide a specific reason. | Exclude the check weight from the section denominator. |
+| `COVERED` | A related check is represented by one root finding owned by another check; include its finding ID. | Exclude the row from the denominator and do not create another finding. |
+| `NOT MEASURED` | Required evidence was not run or cannot be obtained. Include the missing command/source and reason. | Keep the check weight in the denominator as unknown; do not score it as a pass or zero. Report a provisional score range. |
+| `UNRESOLVED` | The target explicitly leaves a decision open or the reviewer cannot resolve it from evidence. State the decision and scope. | Keep the check weight in the denominator as unknown; do not score it as a pass or zero. Report a provisional score range. |
 
-Score one root cause once in the section whose fix owns it. Cross-reference related checks without adding another defect. A finding needs a reachable victim: users in valid rare states count, and ordinary documented consumer code counts even without a current repo callsite. Code rejected by the public type and unsupported by docs or callsites is not a BLOCK; do not propose a runtime guard for an unreachable case.
+Every row records an evidence class: `SOURCE VERIFIED`, `BEHAVIOR VERIFIED`, `AGENT JUDGMENT`, or `PENDING HUMAN`. Source inspection proves structure only. Runtime claims need an executed test or observable behavior result. Human review rows remain pending until an actual human supplies the judgment. An agent-filled review form never counts as human sign-off.
 
-Do not grade migrations against unreleased surfaces. Do not charge a consumer for proposed ADR gaps as defects. If a concern is caused by a shared primitive outside the component, label it advisory and name the owning module rather than duplicating a scored defect across consumers.
+`NOT MEASURED` and `UNRESOLVED` remain in the applicable denominator but are unknown, not zero-valued failures or passes. A section is `LIMITED` when less than 50% of its published check weight has an applicable row and every applicable row is `PASS`; a limited section has no numeric score and its weight is excluded from the overall denominator. For other sections, compute the lower bound as `5 × earned PASS weight / applicable weight` and the upper bound as `5 × (earned PASS weight + unknown weight) / applicable weight`, then apply the same mechanical cap to both bounds. Report an exact score only when the bounds are equal. Aggregate section bounds by section weight; show a letter-grade range and keep the result provisional while any required evidence or human judgment is incomplete. This prevents unknown evidence from receiving a false zero or disappearing from the denominator.
 
-## Scoring
+## Findings and citations
 
-Score each section from 0 to 5 using its anchors below. Start from the written property anchor, then apply the ceiling for open distinct findings owned by that section.
+Each finding has a unique ID, classification (`DEFECT` or `ADR GAP`), severity, one owning section/check, affected check IDs, reachable consumer path, observed behavior, concrete additive fix, and evidence. A finding cites its check ID and one or more exact `path:line` references with the full audited commit SHA. Every `GAP` row points to exactly one finding. Every finding has exactly one primary `GAP` row. Related rows use `COVERED` and the same finding ID.
+
+A reachable victim is a valid consumer invocation or documented user state that reaches the behavior. A type-rejected, undocumented input is not a reachable victim. Group observations with one owning fix into one distinct finding; report raw observations separately. A finding appears in only one owning section. New-part policy gaps are FIX-level `ADR GAP`s; existing contract and objective violations may be BLOCK-level `DEFECT`s.
+
+For each recommendation touching a released surface, retain existing props, callback signatures, and behavior through an additive path or a documented versioned migration. Apply `MIG-01` only after confirming the exact API exists in the exact published package. A registry lookup that cannot establish publication is `NOT MEASURED`, never evidence of a breaking released contract.
+
+## Scoring and validation
+
+Check weights in each section sum to that section's published weight. For each section, `applicable weight` is the sum of weights for `PASS`, `GAP`, `NOT MEASURED`, and `UNRESOLVED` rows. `N/A` and `COVERED` rows are excluded. Earned weight is the sum for `PASS` rows. `NOT MEASURED` and `UNRESOLVED` weights are unknown and contribute to the score interval, never as a fixed zero. Compute lower and upper section scores using the interval formula above and report two decimal places. Apply the mechanical cap to both bounds. Count raw observations as the number of `GAP` and `COVERED` matrix rows plus current-contract findings; count distinct findings by unique finding ID after grouping related observations under one owner.
 
 | Open distinct findings owned by section | Maximum section score |
 | :--- | :---: |
@@ -112,42 +152,45 @@ Score each section from 0 to 5 using its anchors below. Start from the written p
 | 2 BLOCKs | 2.5 |
 | 3 BLOCKs | 2 |
 | 4 or more BLOCKs | 1 |
-| No BLOCK and 3–5 FIXes | 4 |
-| No BLOCK and 6 or more FIXes | 3 |
+| No BLOCK and 1–2 FIX/NIT findings | 4 |
+| No BLOCK and 3–4 FIX/NIT findings | 3 |
+| No BLOCK and 5 or more FIX/NIT findings | 2 |
 
-An ADR gap may be a FIX or NIT; it cannot be a BLOCK. Contract defects may be BLOCK only when a reachable user path exists and the outcome is materially broken or violates an objective requirement.
+Compute each endpoint of the overall target score range as `100 × sum(section weight × capped section endpoint / 5) / sum(weight of scored sections)`. A limited section contributes no score and no weight. Report a single numeric score and grade only when the range endpoints match; otherwise report the score interval and corresponding letter-grade interval. Grade endpoints use A (90–100), B (80–89.99), C (70–79.99), D (60–69.99), and F (below 60). An open BLOCK caps each letter-grade endpoint at D. The 78.5 boundary is C; 80.0 is B.
 
-Compute each scored section's contribution as `(section score / 5) × section weight`. Section 1 is the Stage 1 shipped-contract score; sections 2–5 are Stage 2 ADR-alignment scores. Current-contract defects are scored in section 1 even when a related principle check is listed under another section; proposed ADR gaps are scored in the ADR section that owns the fix. Report the ADR alignment score normalized across applicable sections 2–5, and the overall grade across all scored sections. Exclude `N/A` sections. Mark a section `limited` when fewer than one-third of its checks have a non-vacuous verdict; retain its score for information, but redistribute its weight proportionally among the other scored sections. Mark unverified sections `not measured`, never zero; exclude their weight rather than redistributing evidence uncertainty. If no section is scored, the overall result is `not measured`. Overall percentage maps to A (90–100), B (80–89.9), C (70–79.9), D (60–69.9), or F (below 60). Any open BLOCK caps the overall letter grade at C.
+Report `CONCLUSIVE`, `PROVISIONAL`, or `UNKNOWN`. Any `NOT MEASURED`, `UNRESOLVED`, limited section, or pending human review makes the result `PROVISIONAL`; show the calculated provisional score range, check-evidence coverage, and grade range. Use `UNKNOWN` when no scored section exists. Only use `CONCLUSIVE` when all applicable checks and required evidence are complete and required human judgments have been supplied.
 
-Report raw findings and distinct defects separately. Include the sensitivity line: “Fix the N open BLOCKs, change nothing else → projected X / grade Y.” Recalculate with those BLOCKs closed and all other verdicts unchanged.
+The scorecard reports `BLOCK count`, `distinct defects`, and `raw findings` separately. Its sensitivity line is “Fix the N open BLOCKs, change nothing else → projected X / grade Y.” Recalculate with each BLOCK finding's primary check changed to PASS and the BLOCK cap removed; preserve every other verdict and evidence state.
+
+Run `.agents/skills/component-api-design/references/scorecard-calculator.mjs` against the structured JSON audit data. It validates check coverage, verdicts, evidence classes, N/A reasons, finding ownership/counts, section caps, grade thresholds, provisional status, and sensitivity. Focused tests run with `node --test .agents/skills/component-api-design/references/scorecard-calculator.test.mjs`.
 
 ## Section anchors
 
-| Section | Weight | 5 | 3 | 1 |
+| Section | Weight | 5-point anchor | 3-point anchor | 1-point anchor |
 | :--- | :---: | :--- | :--- | :--- |
-| 1. Shipped contract fidelity | 25 | Public types, docs, defaults, callbacks, and observed behavior agree; current guarantees hold on every supported path. | One localized, reachable contract disagreement with a clear repair; remaining declared behavior is verifiable. | Multiple central contracts disagree, or a required current guarantee fails on a primary consumer path. |
-| 2. Abstraction and composition | 20 | Each existing layer has a distinct owner; demonstrated composition needs are met without forcing extra abstractions; semantics and ordering remain explicit. | One demonstrated variation requires a documented workaround or one region's ownership is unclear. | Primary documented composition needs require cloning, forking, or unsupported tree surgery, or the API forces unrelated responsibilities together. |
-| 3. Element substitution and merging | 20 | Applicable substitution surfaces preserve semantics, props, refs, and documented collision rules consistently; fixed elements remain fixed where their meaning requires it. | One localized target or collision rule is incomplete, without breaking the existing contract. | A supported target loses essential behavior/ref/ARIA, or collision handling makes normal composition unpredictable. |
-| 4. State, callbacks, and lifecycle | 20 | Exposed state has one owner; current controlled behavior is correct; applicable transition and overlay lifecycles are explicit and verifiable. | State works, with one useful reason, event, or lifecycle detail left implicit. | A reachable state transition or claimed lifecycle is incorrect, inaccessible, or cannot be controlled as documented. |
-| 5. Semantics, documentation, and compatibility | 15 | Applicable semantics, form behavior, public types, docs, examples, stable identifiers, and migration paths agree. | One localized documentation or compatibility seam is incomplete; required semantics remain intact. | A reachable accessibility/form contract is broken, public guidance misleads consumers, or a released surface has no safe migration path. |
+| 1. Architecture and parts | 20 | All applicable layers have distinct ownership, content ownership is explicit, and every interactive component has a documented parts surface. | Most structure is verifiable; one local boundary or part-contract gap remains. | The primary interactive surface lacks a coherent owner or parts boundary. |
+| 2. Root and part substitution | 20 | Root props follow ADR-003; every part supports both `as` and element/function `render` with its required behavior and refs. | Root conventions hold and most parts preserve the contract, with a localized substitution gap. | The main consumer path cannot substitute the interactive element while retaining behavior. |
+| 3. Prop merge behavior | 25 | Configured/internal and new-part merge policies are independently documented and verified, including all collision classes. | Most collisions have a verifiable rule; a localized part merge remains incomplete. | Normal consumer composition loses handlers, refs, behavior, or ownership unpredictably. |
+| 4. State and shared concepts | 15 | Observable transitions, callback contracts, state ownership, and shared names/defaults are aligned and verifiable. | State works with one localized callback or shared-concept inconsistency. | A central state transition is unobservable or has conflicting ownership. |
+| 5. Accessibility and evidence | 20 | Applicable semantics, selectors, styles, responsive behavior, types, runtime tests, and released-surface migrations have the required evidence. | Most applicable requirements are verified; one local evidence or compatibility gap remains. | Central semantics or behavior evidence is absent or a released contract has no safe migration. |
 
-Anchors describe API properties, not resemblance to a named component or library. A section with no applicable checks is `N/A`; a section with mostly vacuous passes is `limited`, not a high score.
+Anchors describe observable properties of the API and evidence. Apply the numeric formula and mechanical ceilings; anchors do not replace calculation or excuse a missing required check.
 
-## Human review form
+## Layer 3 human review
 
-Fill only after the source-backed checks. Record a short rationale and a reachable use case for each judgment.
+Complete this form after source and runtime checks. Record rationale, a reachable use case, and the human reviewer. Keep each item `PENDING HUMAN` until a human answers.
 
-| Judgment | Response |
+| Judgment item | Result and rationale |
 | :--- | :--- |
-| Is each proposed part boundary meaningful to a consumer who needs to position, omit, replace, style, or configure that region? | Pass / concern / N/A — why: |
-| Is each default rendered element right for the behavior and semantics it owns? | Pass / concern / N/A — why: |
-| Does the API retain a useful default path while exposing only needed variation? | Pass / concern — example: |
-| Does composition preserve parent context, semantic order, collection ownership, and accessible naming? | Pass / concern / N/A — evidence: |
-| Is any proposed provider or imperative API justified by a named integration need? | Pass / concern / N/A — why: |
-| Which ADR gaps need a maintainer decision before an implementation proposal? | List / none: |
+| Does each proposed part boundary map to a consumer-controlled region? | Pass / concern / pending / N/A — reason and use case: |
+| Is the default element suitable for the behavior and semantics it owns? | Pass / concern / pending / N/A — reason and evidence: |
+| Do both `as` and `render` preserve parent context, semantic order, collection ownership, and accessible naming? | Pass / concern / pending / N/A — reason and evidence: |
+| Are shared names/defaults coherent for concepts this component shares with the audited set? | Pass / concern / pending / N/A — shared concepts: |
+| Which unresolved target decisions need maintainer direction? | Decision IDs / none: |
+| Is the proposed fix additive for the exact released surface? | Pass / concern / pending / N/A — package evidence: |
 
 ## Recording results
 
-Keep whole-component scorecards under `contributor-docs/component-api-audits/` and index each completed grade in `contributor-docs/component-api-audit-ledger.md`. The ledger records component, public status, audited SHA, date, mode, contract result, ADR grade, BLOCK count, and scorecard link. Do not update it for PR-only delta reviews. Increment the minor rubric version when checks, severities, applicability, weights, or score rules change; increment the patch for wording or citation-only changes.
+Store whole-component scorecards under `contributor-docs/component-api-audits/` and index completed results in `contributor-docs/component-api-audit-ledger.md`. Keep structured inputs next to the reports or in the audit data file named in each scorecard. One aggregator owns ledger updates; an isolated grader emits its scorecard and structured data to its caller. Do not have parallel graders write the shared ledger.
 
-Every scorecard and ledger row uses the commit SHA as the evidence boundary. Cite `path:line` and the SHA; regenerate citations if source moves. The grader agent is designed for one component per invocation so a later workflow can run one isolated grade per component and combine only the completed scorecards.
+PR reviews grade the changed diff only and do not enter the whole-component ledger. Future nightly orchestration may fan out one grader per component, validate each result, and let one aggregator update the ledger. It must keep incomplete results provisional and preserve exact citations.

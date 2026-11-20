@@ -5,14 +5,16 @@ description: Use when designing, reviewing, or grading a Primer React component 
 
 # Primer component API design
 
-Start with the component's released contract and current Primer guarantees. Apply the proposed principles to concrete consumer needs, then assess proposed ADR alignment separately. Never label an unimplemented proposed feature a shipped defect. Preserve existing callback signatures and give recommendations an additive migration path.
+Start by documenting the component's own contract, then grade it against the accepted benchmark target. Keep current-contract defects separate from target gaps; a missing target requirement is an `ADR GAP`, even when the released component never promised it. Preserve existing callback signatures and recommend additive migrations.
 
-For grading, use the whole-component mode in the rubric; for PR review, grade only introduced or changed behavior. Cite every finding with its check ID and `path:line` at the audited commit. A finding needs a reachable consumer path.
+For whole-component grading, use the pinned baseline, complete every per-check verdict row, distinguish source/runtime/judgment evidence, and run the calculator. Keep `NOT MEASURED` and `UNRESOLVED` as unknown evidence; report score ranges and coverage without scoring either as zero or as a pass. Every interactive component needs a parts surface; every part supports `as` and element/function `render`. For PR review, grade only introduced or changed behavior. Cite each finding with its check ID and `path:line` pinned to the audited commit, and identify a reachable consumer path.
 
 ## References
 
 | Name | Description |
 | :--- | :--- |
 | [Principles](../../../contributor-docs/api-design-principles.md) | Checkable API principles, authority boundaries, and applicability |
-| [Rubric](./references/rubric.md) | Grading procedure, checks, scoring, and review form |
+| [Target baseline](./references/target-baseline.md) | Pinned ADR inventory, composition requirements, precedence, mappings, and unresolved decisions |
+| [Rubric](./references/rubric.md) | Grading procedure, checks, scoring, evidence rules, and human review form |
 | [Scorecard template](./references/scorecard-template.md) | Copy for recording a component or PR grade |
+| [Scorecard calculator](./references/scorecard-calculator.mjs) | Validate structured audit data and compute section, overall, cap, and sensitivity results |
