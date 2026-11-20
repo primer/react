@@ -75,6 +75,26 @@ test('a limited section still scores and retains its GAP', () => {
   assert.equal(result.scoredSectionWeight, 90)
 })
 
+test('a COVERED target check remains in the denominator without adding a distinct finding', () => {
+  const audit = createAudit()
+  const partCheck = audit.checks.find(row => row.id === 'PART-01')
+  partCheck.verdict = 'GAP'
+  partCheck.findingId = 'F-1'
+  const docsCheck = audit.checks.find(row => row.id === 'PART-DOCS')
+  docsCheck.verdict = 'COVERED'
+  docsCheck.findingId = 'F-1'
+  audit.findings = [createFinding({id: 'F-1', checkId: 'PART-01', section: 1})]
+
+  const result = calculateAudit(audit)
+  const architectureSection = result.sections.find(section => section.id === 1)
+
+  assert.equal(architectureSection.applicableWeight, sections[1].weight)
+  assert.equal(architectureSection.earnedWeight, 8)
+  assert.equal(architectureSection.score, 2)
+  assert.equal(result.distinctTargetGaps, 1)
+  assert.equal(result.rawFindings, 2)
+})
+
 test('a GAP without a linked finding is rejected', () => {
   const audit = createAudit()
   const row = audit.checks.find(check => check.id === 'PART-01')

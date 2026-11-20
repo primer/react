@@ -13,6 +13,7 @@
   ],
   "baseCommit": "5b50bc053cab249809ef0bad0cd1aab64e8924a5",
   "afterCommit": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b",
+  "rubricVersion": "0.4.0",
   "baselineSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
   "gist": {
     "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",

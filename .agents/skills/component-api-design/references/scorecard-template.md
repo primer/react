@@ -22,7 +22,7 @@ Copy this template for each whole-component grade. For PR reviews, record only c
 | Published-package metadata (only if relevant to a release-changing recommendation) | |
 | Mode | Whole component / PR review |
 | Audited source SHA | |
-| Rubric | Component API compliance rubric 0.3.0 |
+| Rubric | Component API compliance rubric 0.4.0 |
 | Accepted target | All ADR files at the audited SHA + pinned composition gist |
 | Gist revision / file / content SHA-256 | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2` |
 | Result status | CONCLUSIVE / PROVISIONAL / UNKNOWN |
@@ -50,7 +50,7 @@ Copy this template for each whole-component grade. For PR reviews, record only c
 
 ## Per-check evidence matrix
 
-Use one row per check. `GAP` rows point to one owning target finding. Related rows use `COVERED` and that finding ID. `N/A`, `NOT MEASURED`, and `UNRESOLVED` include their reason.
+Use one row per check. `GAP` rows point to one owning target finding. Related unmet rows use `COVERED` and that finding ID; they remain in the denominator and score zero without adding distinct findings. Only `N/A` excludes a check's weight. `N/A`, `NOT MEASURED`, and `UNRESOLVED` include their reason.
 
 | Check | Verdict | Evidence class | Evidence at audited SHA / command result | Finding ID or reason |
 | :--- | :--- | :--- | :--- | :--- |

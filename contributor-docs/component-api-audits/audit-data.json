@@ -1549,5 +1549,5 @@
       "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
     }
   ],
-  "rubricVersion": "0.3.0"
+  "rubricVersion": "0.4.0"
 }

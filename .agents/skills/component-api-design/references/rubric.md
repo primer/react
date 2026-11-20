@@ -1,6 +1,6 @@
 # Component API compliance rubric
 
-**Version: 0.3.0.**
+**Version: 0.4.0.**
 
 ## Table of contents
 
@@ -47,7 +47,7 @@ New state-transition callbacks use one object with the proposed value, `reason`,
 2. Read the component's own public contract from exports, types, docs, stories, implementation, and focused tests. Record contract defects separately from target gaps.
 3. Classify component shapes and complete one verdict row for every check ID. Apply every interactive-part requirement to interactive leaves. Record `N/A` only with a shape-based reason.
 4. Record focused unit/integration test execution as `TEST-01` evidence. Separately inspect the snapshot policy (`SNAPSHOT-01`) and Storybook Playwright interaction policy (`INTERACTION-01`); run the smallest relevant Playwright test when feasible. Keep source structure, execution, agent judgment, and human verification as separate evidence classes.
-5. Link each gap to one owning finding and one owning check. Use `COVERED` for related check rows owned by the same root defect; do not deduct the root defect twice.
+5. Link each gap to one owning finding and one owning check. Use `COVERED` for related unmet check rows owned by the same root finding. A `COVERED` row remains in the denominator and scores zero; it adds no distinct finding or section cap. Use `N/A` only when the target requirement genuinely does not apply.
 6. Fill the Layer 3 review form with `PENDING HUMAN` until a human reviewer supplies each required judgment. An agent's opinion is `AGENT JUDGMENT`, not human sign-off.
 7. Run the deterministic validator on the structured scorecard data. Confirm all section scores, the threshold grade, caps, distinct finding counts, and BLOCK sensitivity match the rendered report.
 8. Verify every cited `path:line` against the pinned source SHA. Record the exact test, type-check, and validator commands and their outcomes.
@@ -132,17 +132,17 @@ Every scorecard contains exactly one row for every check ID. Use these verdicts:
 | `PASS` | The property is verified with the evidence required by its check. | Earn the full check weight. |
 | `GAP` | The accepted target or current contract is violated and has one owning finding ID. | Earn zero check weight. |
 | `N/A` | The shape or contract makes the requirement inapplicable; provide a specific reason. | Exclude the check weight from the section denominator. |
-| `COVERED` | A related check is represented by one root finding owned by another check; include its finding ID. | Exclude the row from the denominator and do not create another finding. |
+| `COVERED` | A related target check is unmet for the same underlying issue as its owning finding; include that finding ID. | Keep the weight in the denominator and award zero; do not create another distinct finding or section cap. |
 | `NOT MEASURED` | Required evidence was not run or cannot be obtained. Include the missing command/source and reason. | Keep the check weight in the denominator as unknown; do not score it as a pass or zero. Report a provisional score range. |
 | `UNRESOLVED` | The target explicitly leaves a decision open or the reviewer cannot resolve it from evidence. State the decision and scope. | Keep the check weight in the denominator as unknown; do not score it as a pass or zero. Report a provisional score range. |
 
 Every row records an evidence class: `SOURCE VERIFIED`, `EXECUTION VERIFIED`, `BEHAVIOR VERIFIED`, `AGENT JUDGMENT`, or `PENDING HUMAN`. Source inspection proves structure only. `TYPE-01`, `TEST-01`, and `INTERACTION-01` cannot pass without `EXECUTION VERIFIED`; runtime claims need an executed test or observable behavior result. A `PENDING HUMAN` evidence row must remain `UNRESOLVED`, and an audit must explicitly carry a boolean `pendingHuman` value. Human review rows remain pending until an actual human supplies the judgment. An agent-filled review form never counts as human sign-off.
 
-`NOT MEASURED` and `UNRESOLVED` remain in the applicable denominator but are unknown, not zero-valued failures or passes. A section is `LIMITED` when less than 50% of its published check weight is applicable, regardless of verdict. Still score its applicable rows, apply its finding cap, and include its applicable weight in the overall denominator; `LIMITED` never hides a failure or removes weight when a GAP is fixed. For every section, compute the lower bound as `5 × earned PASS weight / applicable weight` and the upper bound as `5 × (earned PASS weight + unknown weight) / applicable weight`, then apply the same mechanical cap to both bounds. Report an exact score only when the bounds are equal. Aggregate section bounds by their applicable check weight. Keep the result provisional when any section is limited or required evidence/human judgment is incomplete.
+`COVERED` rows are measured failures and remain in the applicable denominator with zero earned weight. Grouping related checks under one finding prevents duplicate issue counts while preserving every unmet target obligation in the grade. `NOT MEASURED` and `UNRESOLVED` remain in the applicable denominator as unknown evidence, not zero-valued failures or passes. A section is `LIMITED` when less than 50% of its published check weight is applicable, regardless of verdict. Still score every applicable row, apply the distinct-finding cap, and include its applicable weight in the overall denominator; `LIMITED` never hides a failure or removes weight when a GAP is fixed. For every section, compute the lower bound as `5 × earned PASS weight / applicable weight` and the upper bound as `5 × (earned PASS weight + unknown weight) / applicable weight`, then apply the same mechanical cap to both bounds. Report an exact score only when the bounds are equal. Aggregate section bounds by their applicable check weight. Keep the result provisional when any section is limited or required evidence/human judgment is incomplete.
 
 ## Findings and citations
 
-Each finding has a unique ID, classification (`DEFECT` or `ADR GAP`), severity, one owning section/check, affected check IDs, reachable consumer path, observed behavior, concrete additive fix, and evidence. A finding cites its check ID and one or more exact `path:line` references with the full audited commit SHA. Every `GAP` row points to exactly one finding. Every finding has exactly one primary `GAP` row. Related rows use `COVERED` and the same finding ID.
+Each finding has a unique ID, classification (`DEFECT` or `ADR GAP`), severity, one owning section/check, affected check IDs, reachable consumer path, observed behavior, concrete additive fix, and evidence. A finding cites its check ID and one or more exact `path:line` references with the full audited commit SHA. Every `GAP` row points to exactly one finding. Every finding has exactly one primary `GAP` row. Related unmet rows use `COVERED` and the same finding ID; each covered row's check weight still scores zero in the denominator.
 
 A reachable victim is a valid consumer invocation or documented user state that reaches the behavior. A type-rejected, undocumented input is not a reachable victim. Group observations with one owning fix into one distinct finding; report raw observations separately. A finding appears in only one owning section. New-part policy gaps are FIX-level `ADR GAP`s; existing contract and objective violations may be BLOCK-level `DEFECT`s.
 
@@ -150,7 +150,7 @@ For each recommendation that changes a released surface, retain existing props, 
 
 ## Scoring and validation
 
-Check weights in each section sum to that section's published weight. For each section, `applicable weight` is the sum of weights for `PASS`, `GAP`, `NOT MEASURED`, and `UNRESOLVED` rows. `N/A` and `COVERED` rows are excluded. Earned weight is the sum for `PASS` rows. `NOT MEASURED` and `UNRESOLVED` weights are unknown and contribute to the score interval, never as a fixed zero. Compute lower and upper section scores using the interval formula above and report two decimal places. Apply the mechanical cap to both bounds. Every section with applicable rows contributes its applicable weight to the overall denominator, including limited sections. Count raw observations as the number of `GAP` and `COVERED` matrix rows plus current-contract findings; count distinct findings by unique finding ID after grouping related observations under one owner.
+Check weights in each section sum to that section's published weight. For each section, `applicable weight` is the sum of weights for every row except `N/A`, including `COVERED`. Earned weight is the sum for `PASS` rows only. `NOT MEASURED` and `UNRESOLVED` weights are unknown and contribute to the score interval, never as a fixed zero. `COVERED` weights are measured failures and score zero. Compute lower and upper section scores using the interval formula above and report two decimal places. Apply the mechanical cap to both bounds. Every section with applicable rows contributes its applicable weight to the overall denominator, including limited sections. Count raw observations as the number of `GAP` and `COVERED` matrix rows plus current-contract findings; count distinct findings by unique finding ID after grouping related observations under one owner.
 
 | Open distinct findings owned by section | Maximum section score |
 | :--- | :---: |

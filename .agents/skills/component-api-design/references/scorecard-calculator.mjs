@@ -221,7 +221,7 @@ function summarize(audit, {sensitivity = false} = {}) {
     const sectionRows = Object.entries(checks)
       .filter(([, check]) => check.section === sectionNumber)
       .map(([id]) => rows.get(id))
-    const applicableRows = sectionRows.filter(row => !['N/A', 'COVERED'].includes(row.verdict))
+    const applicableRows = sectionRows.filter(row => row.verdict !== 'N/A')
     const applicableWeight = applicableRows.reduce((total, row) => total + checks[row.id].weight, 0)
     const earnedWeight = applicableRows.reduce((total, row) => {
       const fixedBySensitivity = sensitivity && row.verdict === 'GAP' && forcedPass.has(row.findingId)
@@ -309,11 +309,11 @@ function summarize(audit, {sensitivity = false} = {}) {
       ? {min: capAtD(gradeRange.min), max: capAtD(gradeRange.max)}
       : gradeRange
   const applicableCheckWeight = audit.checks.reduce(
-    (total, row) => total + (!['N/A', 'COVERED'].includes(row.verdict) ? checks[row.id].weight : 0),
+    (total, row) => total + (row.verdict !== 'N/A' ? checks[row.id].weight : 0),
     0,
   )
   const measuredCheckWeight = audit.checks.reduce(
-    (total, row) => total + (['PASS', 'GAP'].includes(row.verdict) ? checks[row.id].weight : 0),
+    (total, row) => total + (['PASS', 'GAP', 'COVERED'].includes(row.verdict) ? checks[row.id].weight : 0),
     0,
   )
   const hasIncompleteEvidence =
