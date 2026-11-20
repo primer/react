@@ -27,6 +27,8 @@ const IGNORED_FILES = [
   'packages/react/src/__tests__/Caret.test.tsx',
   // Asserts server rendering behavior, not rendered markup
   'packages/react/src/__tests__/ssr.test.tsx',
+  // Asserts rendering inside a Server Component boundary, not a component's className prop
+  'packages/react/src/__tests__/components.rsc.test.tsx',
   'packages/react/src/FilteredActionList/useAnnouncements.test.tsx',
   'packages/react/src/TreeView/useRovingTabIndex.test.tsx',
 ]
