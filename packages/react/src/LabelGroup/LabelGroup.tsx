@@ -5,6 +5,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
 import {clsx} from 'clsx'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
@@ -16,17 +17,10 @@ export type LabelGroupProps = {
   visibleChildCount?: 'auto' | number
   className?: string
 }
-// Calculates the width of the overlay to cover the labels/tokens and the expand button.
-const getOverlayWidth = (
-  buttonClientRect: DOMRect,
-  containerRef: React.RefObject<HTMLElement>,
-  overlayPaddingPx: number,
-) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect().left || 0)
-
 const InlineToggle: React.FC<{
   collapseButtonRef: React.RefObject<HTMLButtonElement>
   collapseInlineExpandedChildren: () => void
-  expandButtonRef: React.RefCallback<HTMLButtonElement>
+  expandButtonRef: React.RefObject<HTMLButtonElement>
   hiddenItemIds: string[]
   isOverflowShown: boolean
   showAllTokensInline: () => void
@@ -53,7 +47,7 @@ const InlineToggle: React.FC<{
 const OverlayToggle: React.FC<
   React.PropsWithChildren<{
     closeOverflowOverlay: () => void
-    expandButtonRef: React.RefCallback<HTMLButtonElement>
+    expandButtonRef: React.RefObject<HTMLButtonElement>
     hiddenItemIds: string[]
     isOverflowShown: boolean
     openOverflowOverlay: () => void
@@ -81,8 +75,7 @@ const OverlayToggle: React.FC<
       height="auto"
       align="start"
       side="inside-right"
-      // expandButtonRef satisfies React.RefObject<HTMLButtonElement> because we manually set `.current` in the `useCallback` above
-      anchorRef={expandButtonRef as unknown as React.RefObject<HTMLButtonElement>}
+      anchorRef={expandButtonRef}
       anchorOffset={overlayPaddingPx * -1}
       alignmentOffset={overlayPaddingPx * -1}
       renderAnchor={props => (
@@ -116,51 +109,49 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   className,
 }) => {
   const containerRef = React.useRef<HTMLElement>(null)
+  const expandButtonRef = React.useRef<HTMLButtonElement>(null)
   const collapseButtonRef = React.useRef<HTMLButtonElement>(null)
   const firstHiddenIndexRef = React.useRef<number | undefined>(undefined)
   const [visibilityMap, setVisibilityMap] = React.useState<Record<string, boolean>>({})
   const [isOverflowShown, setIsOverflowShown] = React.useState<boolean>(false)
-  const [buttonClientRect, setButtonClientRect] = React.useState<DOMRect>({
-    width: 0,
-    right: 0,
-    height: 0,
-    x: 0,
-    y: 0,
-    top: 0,
-    left: 0,
-    bottom: 0,
-    toJSON: () => undefined,
-  })
+  const [buttonWidth, setButtonWidth] = React.useState(0)
+  const [overlayWidth, setOverlayWidth] = React.useState<number | undefined>(undefined)
 
   const overlayPaddingPx = 8 // var(--base-size-8), hardcoded to do some math
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
 
-  // `overlayWidth` is only needed when we render an overlay
-  // if we don't use an overlay, we can skip the width calculation
-  // and save on reflows caused by measuring DOM nodes.
-  const overlayWidth =
-    hiddenItemIds.length && overflowStyle === 'overlay'
-      ? // eslint-disable-next-line react-hooks/refs
-        getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
-      : undefined
+  // Measure layout changes after commit rather than reading refs during render.
+  // Equality checks keep measurement updates from causing a loop.
+  useLayoutEffect(() => {
+    const button = expandButtonRef.current
+    if (!visibleChildCount || !button) {
+      return
+    }
 
-  const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(
-    // eslint-disable-next-line react-hooks/immutability
-    node => {
-      if (node !== null) {
-        const nodeClientRect = node.getBoundingClientRect()
+    const buttonClientRect = button.getBoundingClientRect()
+    if (buttonClientRect.width !== buttonWidth) {
+      setButtonWidth(buttonClientRect.width)
+    }
 
-        if (nodeClientRect.width !== buttonClientRect.width || nodeClientRect.right !== buttonClientRect.right) {
-          setButtonClientRect(nodeClientRect)
-        }
-
-        // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
-        // eslint-disable-next-line react-hooks/immutability
-        expandButtonRef.current = node
+    // Only measure the container when an overlay needs to cover the labels.
+    if (hiddenItemIds.length && overflowStyle === 'overlay') {
+      const width =
+        overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect().left || 0)
+      if (width !== overlayWidth) {
+        setOverlayWidth(width)
       }
-    },
-    [buttonClientRect],
-  )
+    }
+  }, [
+    Component,
+    buttonWidth,
+    children,
+    className,
+    hiddenItemIds,
+    isOverflowShown,
+    overflowStyle,
+    overlayWidth,
+    visibleChildCount,
+  ])
 
   // Sets the visibility map to hide children after the given index.
   const hideChildrenAfterIndex = React.useCallback((truncateAfter: number) => {
@@ -193,7 +184,6 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     // list in an overlay.
     // TODO: get rid of this hack
     setTimeout(() => {
-      // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
       expandButtonRef.current?.focus()
     }, 10)
   }, [expandButtonRef, hideChildrenAfterIndex, visibleChildCount])
@@ -213,7 +203,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     if (visibleChildCount === 'auto') {
       // Instantiates the IntersectionObserver to track when children fit in the container.
       const observer = new IntersectionObserver(
-        (entries: IntersectionObserverEntry[]) => {
+        (entries: Array<IntersectionObserverEntry>) => {
           const updatedEntries: Record<string, boolean> = {}
 
           for (const entry of entries) {
@@ -232,7 +222,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
         },
         {
           root: containerRef.current,
-          rootMargin: `0px -${buttonClientRect.width}px 0px 0px`,
+          rootMargin: `0px -${buttonWidth}px 0px 0px`,
           threshold: 1,
         },
       )
@@ -250,7 +240,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       // eslint-disable-next-line react-hooks/set-state-in-effect
       hideChildrenAfterIndex(visibleChildCount)
     }
-  }, [buttonClientRect, visibleChildCount, hideChildrenAfterIndex, isOverflowShown])
+  }, [buttonWidth, visibleChildCount, hideChildrenAfterIndex, isOverflowShown])
 
   // Updates the index of the first hidden child.
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
