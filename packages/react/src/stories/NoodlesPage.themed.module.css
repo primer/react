@@ -1,0 +1,613 @@
+.NoodlesTheme {
+  --fontStack-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --fontStack-sansSerif: var(--fontStack-system);
+  --fontStack-sansSerifDisplay: var(--fontStack-system);
+  --text-body-size-small: 13px;
+  --text-body-size-medium: 16px;
+  --text-body-size-large: 18px;
+  --text-body-lineHeight-medium: 1.7;
+  --text-body-weight: 400;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 500;
+  --text-title-size-small: 20px;
+  --text-title-size-medium: 24px;
+  --text-title-size-large: 36px;
+  --text-title-weight-small: 600;
+  --text-title-weight-medium: 600;
+  --text-title-weight-large: 500;
+  --text-title-lineHeight-medium: 1.292;
+  --text-title-lineHeight-large: 1.105;
+  --borderRadius-default: 6px;
+  --borderRadius-small: 4px;
+  --borderRadius-medium: 8px;
+  --borderRadius-large: 16px;
+  --bgColor-default: #fff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-inset: #fff;
+  --bgColor-emphasis: #1f2328;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --borderColor-default: #d1d9e0;
+  --control-fgColor-rest: var(--fgColor-default);
+  --control-transparent-bgColor-hover: color-mix(in srgb, #1f2328 8%, transparent);
+  --control-transparent-bgColor-active: color-mix(in srgb, #1f2328 13%, transparent);
+  --control-transparent-bgColor-selected: #e7ecf0;
+  --ActionList--label-fontSize-medium: 13px;
+  --ActionList--label-fontWeight-selected: 400;
+  --ActionList--label-fgColor: #59636e;
+  --Button--fontWeight: 400;
+  --Button--fontSize-medium: var(--text-body-size-small);
+  --button-invisible-bgColor-active: transparent;
+  --button-invisible-bgColor-hover: color-mix(in srgb, #1f2328 8%, transparent);
+  --button-default-fgColor-rest: var(--fgColor-default);
+  --button-default-bgColor-rest: #fff;
+  --button-default-bgColor-hover: #eaeef2;
+  --button-default-bgColor-active: #eaeef2;
+  --button-default-shadow-resting: none;
+  --button-primary-bgColor-rest: #1f2328;
+  --button-primary-bgColor-hover: #1f2328;
+  --button-primary-bgColor-active: #1f2328;
+  --button-primary-fgColor-rest: #fff;
+  --button-primary-borderColor-rest: #1f2328;
+  --control-borderColor-rest: #818b98;
+  --NoodlesPage--header-minHeight: calc(var(--control-large-size) + var(--base-size-8));
+  --NoodlesPage--project-paddingInline: calc(var(--base-size-8) + var(--borderWidth-thin));
+  --NoodlesPage--project-bgColor-hover: #e7ecf0;
+  --NoodlesPage--wordmark-fontSize: var(--base-size-12);
+  --NoodlesPage--wordmark-lineHeight: var(--base-size-16);
+
+  position: relative;
+  font-family: var(--fontStack-system);
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-medium);
+
+  .Navigation {
+    --borderColor-accent-emphasis: transparent;
+  }
+
+  .ProjectCoverLink {
+    font-weight: var(--base-text-weight-medium);
+  }
+}
+
+.ThemePortals {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.Page {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 480px;
+}
+
+.Surface {
+  flex: 1;
+  min-height: 0;
+}
+
+.Workspace {
+  height: 100%;
+  min-height: 0;
+  padding: var(--base-size-8);
+  color: var(--fgColor-default);
+  background: var(--bgColor-muted);
+}
+
+.Layout {
+  height: 100%;
+}
+
+/* Keep PageLayout's flex wrappers shrinkable so the document and navigation scroll independently. */
+.Layout,
+.Layout > div,
+.Layout > div > div,
+.ContentRegion,
+.ContentRegion > div {
+  min-height: 0;
+  flex-wrap: nowrap;
+}
+
+.ContentRegion > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.Sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding-right: var(--base-size-8);
+  padding-bottom: var(--base-size-8);
+}
+
+.Brand,
+.Account {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  min-height: var(--control-large-size);
+}
+
+.Brand {
+  justify-content: space-between;
+  min-height: calc(var(--control-large-size) + var(--base-size-8));
+  padding-inline: var(--base-size-8) var(--base-size-4);
+}
+
+.NavigationToggle {
+  width: var(--control-xsmall-size);
+  height: var(--control-xsmall-size);
+}
+
+.Wordmark {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  font-family: var(--fontStack-monospace);
+  font-size: var(--NoodlesPage--wordmark-fontSize, inherit);
+  line-height: var(--NoodlesPage--wordmark-lineHeight, inherit);
+  color: var(--fgColor-muted);
+}
+
+.Project {
+  position: relative;
+  flex-shrink: 0;
+  height: var(--control-large-size);
+  margin-top: var(--base-size-6);
+  margin-bottom: var(--base-size-4);
+  border-radius: var(--borderRadius-medium);
+}
+
+.Project:where(:hover, :focus-within) {
+  background-color: var(--NoodlesPage--project-bgColor-hover, var(--button-invisible-bgColor-hover));
+}
+
+.ProjectCoverLink {
+  width: calc(100% - var(--base-size-32));
+  height: 100%;
+  padding-inline: var(--NoodlesPage--project-paddingInline, var(--control-medium-paddingInline-normal));
+}
+
+.ProjectCoverLink:where(:hover) {
+  background-color: transparent;
+}
+
+.NoodleCover {
+  display: block;
+  width: var(--base-size-16);
+  height: var(--base-size-24);
+  background: linear-gradient(
+    135deg,
+    var(--bgColor-emphasis),
+    color-mix(in srgb, var(--bgColor-done-emphasis) 25%, var(--bgColor-emphasis)),
+    color-mix(in srgb, var(--bgColor-accent-emphasis) 35%, var(--bgColor-emphasis))
+  );
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-radius: var(--base-size-2);
+}
+
+.CoverChevron {
+  display: flex;
+  color: var(--fgColor-onEmphasis);
+}
+
+.ProjectSwitch {
+  position: absolute;
+  top: calc((var(--control-large-size) - var(--control-small-size)) / 2);
+  left: calc(
+    var(--NoodlesPage--project-paddingInline, var(--control-medium-paddingInline-normal)) + var(--borderWidth-thin) -
+      var(--base-size-6)
+  );
+  z-index: 1;
+}
+
+.ProjectCreate {
+  position: absolute;
+  top: calc((var(--control-large-size) - var(--control-xsmall-size)) / 2);
+  right: var(--base-size-8);
+  width: var(--control-xsmall-size);
+  height: var(--control-xsmall-size);
+}
+
+.Navigation {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.SidebarFooter {
+  display: grid;
+  flex-shrink: 0;
+  margin-top: var(--base-size-16);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.SidebarFooter .SidebarAction,
+.Navigation .NewPage {
+  min-width: 0;
+  height: var(--control-medium-size);
+  min-height: var(--control-medium-size);
+  padding: var(--base-size-6) var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-normal);
+  line-height: var(--base-size-20);
+  border: 0;
+}
+
+.SidebarAction [data-component='leadingVisual'],
+.NewPage [data-component='leadingVisual'] {
+  margin-inline-end: var(--base-size-6);
+}
+
+.SidebarFooter [data-component='text'],
+.NewPage [data-component='text'] {
+  line-height: var(--base-size-20);
+}
+
+.SidebarAction [data-component='trailingAction'] svg,
+.NewPage [data-component='leadingVisual'] svg {
+  width: calc(var(--base-size-16) - var(--base-size-2));
+  height: calc(var(--base-size-16) - var(--base-size-2));
+}
+
+.Navigation .NewPage {
+  margin-top: var(--base-size-2);
+  color: var(--fgColor-muted);
+  opacity: 0.5;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--fgColor-default);
+    background: transparent;
+    opacity: 1;
+  }
+}
+
+.Navigation .Count {
+  min-width: calc(var(--base-size-16) + var(--base-size-2));
+  height: calc(var(--base-size-16) + var(--base-size-2));
+  padding: 0 calc(var(--base-size-4) + var(--borderWidth-thin));
+  font-size: calc(var(--text-body-size-small) - var(--base-size-2));
+  font-weight: var(--base-text-weight-normal);
+  font-variant-numeric: tabular-nums;
+  line-height: calc(var(--base-size-16) + var(--base-size-2));
+  color: var(--fgColor-muted);
+  background: rgb(129 139 152 / 0.11);
+  border: 0;
+  border-radius: var(--borderRadius-full);
+}
+
+.MenuOverlay {
+  background: var(--bgColor-default);
+  border-radius: min(var(--borderRadius-large), var(--base-size-12));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--borderColor-default) 50%, transparent),
+    0 6px 12px -3px rgb(26 26 26 / 0.04),
+    0 6px 18px rgb(26 26 26 / 0.12);
+
+  [data-component='ActionList'] {
+    padding: var(--base-size-4);
+  }
+
+  [data-component='ActionList.Item'] {
+    margin-inline: 0;
+
+    > [data-size] {
+      padding: var(--base-size-4) var(--base-size-8);
+    }
+  }
+
+  [data-component='ActionList.Item.Label'] {
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
+    line-height: var(--base-size-20);
+    color: var(--fgColor-default);
+  }
+
+  [data-component='ActionList.Divider'] {
+    margin: var(--base-size-4) var(--base-size-8);
+  }
+}
+
+.Account {
+  position: relative;
+  min-height: var(--control-small-size);
+  margin-top: calc(var(--base-size-16) + var(--borderWidth-thin));
+  gap: 0;
+
+  &::before {
+    position: absolute;
+    top: calc(-1 * (var(--base-size-8) + var(--borderWidth-thin)));
+    inset-inline: var(--base-size-8);
+    height: var(--borderWidth-thin);
+    content: '';
+    background: var(--borderColor-default);
+  }
+}
+
+.Account .AccountButton {
+  flex: 1;
+  min-width: 0;
+  height: var(--control-small-size);
+  padding: 0 var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-normal);
+  line-height: var(--base-size-20);
+}
+
+.Avatar {
+  display: grid;
+  width: var(--base-size-20);
+  height: var(--base-size-20);
+  place-items: center;
+  font-size: calc(var(--text-body-size-small) - var(--base-size-4));
+  color: var(--fgColor-onEmphasis);
+  background: var(--bgColor-emphasis);
+  border-radius: var(--borderRadius-full);
+}
+
+.PagePanel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--bgColor-default);
+  border-radius: var(--borderRadius-large);
+}
+
+.Header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--base-size-4);
+  min-height: var(--NoodlesPage--header-minHeight, var(--control-large-size));
+  padding: var(--base-size-4) var(--base-size-8);
+  font-size: var(--text-body-size-small);
+}
+
+.Breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  min-width: 0;
+
+  > button {
+    min-width: 0;
+    max-width: 240px;
+  }
+}
+
+.CurrentTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.HeaderActions,
+.SecondaryActions {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+}
+
+.HeaderActions {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.HeaderDivider {
+  height: var(--base-size-16);
+  margin-inline: var(--base-size-4);
+  border-left: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.ScrollArea {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+
+.Document {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--NoodlesPage--document-width, 768px);
+  margin-inline: auto;
+  padding: var(--base-size-64) var(--base-size-40) var(--base-size-128);
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-medium);
+
+  p {
+    margin: var(--base-size-12) 0 0;
+  }
+
+  ul {
+    display: grid;
+    gap: var(--base-size-16);
+    padding-left: var(--base-size-24);
+    margin: var(--base-size-12) 0 0;
+  }
+
+  li {
+    padding-left: var(--base-size-4);
+  }
+
+  li::marker {
+    color: var(--fgColor-muted);
+  }
+}
+
+.PagePanel:where([data-wide='true']) .Document {
+  max-width: 1120px;
+}
+
+.Title {
+  margin: 0;
+  font-size: var(--text-title-size-large);
+  font-weight: var(--text-title-weight-large);
+  line-height: var(--text-title-lineHeight-large);
+  overflow-wrap: anywhere;
+}
+
+.Introduction,
+.Section {
+  position: relative;
+  margin-top: var(--base-size-32);
+}
+
+.SectionHeading {
+  margin: 0;
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--text-title-weight-medium);
+  line-height: var(--text-title-lineHeight-medium);
+  overflow-wrap: anywhere;
+}
+
+.BlockHandle {
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * var(--base-size-24));
+  color: var(--fgColor-muted);
+  opacity: 0;
+}
+
+.Section:hover .BlockHandle {
+  opacity: 1;
+}
+
+.EditorFooter {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--base-size-4);
+  min-height: var(--control-medium-size);
+  padding-inline: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+}
+
+.Notice {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Muted {
+  color: var(--fgColor-muted);
+}
+
+.Comments {
+  height: 100%;
+  min-width: 0;
+  overflow: auto;
+  padding: var(--base-size-16);
+  border-left: var(--borderWidth-thin) solid var(--borderColor-default);
+
+  form {
+    display: grid;
+    gap: var(--base-size-12);
+  }
+
+  li {
+    overflow-wrap: anywhere;
+  }
+}
+
+.CommentsRegion > [data-component='PageLayout.Pane'] {
+  height: 100%;
+  min-height: 0;
+}
+
+@media (max-width: 1100px) {
+  .SecondaryActions {
+    display: none;
+  }
+
+  .Workspace:where([data-comments='true']) {
+    .Layout > div > div {
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+
+    .SidebarRegion {
+      display: none;
+    }
+
+    .CommentsRegion {
+      flex-shrink: 0;
+      width: 100%;
+      height: min(320px, 40dvh);
+
+      > [data-component='PageLayout.Pane'] {
+        width: 100%;
+      }
+    }
+
+    .Comments {
+      max-height: 40dvh;
+      border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+      border-left: 0;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .Layout {
+    flex-direction: column;
+  }
+
+  .SidebarRegion {
+    width: 100%;
+    height: 30dvh;
+
+    > [data-component='PageLayout.VerticalDivider'] {
+      display: none;
+    }
+  }
+
+  .Sidebar {
+    padding-right: 0;
+  }
+
+  .Project,
+  .SidebarFooter {
+    display: none;
+  }
+
+  .Header {
+    flex-wrap: wrap;
+  }
+
+  .Breadcrumb {
+    flex: 1;
+    max-width: 100%;
+
+    > button {
+      max-width: 144px;
+    }
+  }
+
+  .HeaderActions {
+    margin-left: 0;
+  }
+
+  .Document {
+    padding: var(--base-size-32) var(--base-size-24) var(--base-size-64);
+  }
+
+  .BlockHandle {
+    display: none;
+  }
+}
