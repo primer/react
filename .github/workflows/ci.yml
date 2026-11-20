@@ -105,6 +105,8 @@ jobs:
             ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-
       - name: Install dependencies
         run: npm ci
+      - name: Test bug reproduction tooling
+        run: npm run test:bug-reproductions
       - if: ${{ matrix.react-version == 'react-19' }}
         run: node script/setup-react-19.mts
       - name: Build
