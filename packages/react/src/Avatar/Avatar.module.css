@@ -11,14 +11,14 @@
   &:where([data-component='AvatarStack'] *) {
     /* Preserve the outer edge for stack items that don't override it. */
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 0 0 0 1px var(--avatar-borderColor);
+    box-shadow: 0 0 0 var(--borderWidth-thin) var(--avatar-borderColor);
   }
 
   @media (forced-colors: none) {
     &:where(:not(:focus-visible, [data-component='AvatarStack'] *)) {
       /* An inset shadow paints behind the image; an outline paints over it. */
-      outline: 1px solid var(--avatar-borderColor);
-      outline-offset: -1px;
+      outline: var(--borderWidth-thin) solid var(--avatar-borderColor);
+      outline-offset: calc(-1 * var(--borderWidth-thin));
     }
   }
 
