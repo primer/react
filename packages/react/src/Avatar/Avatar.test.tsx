@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
-import {page} from 'vitest/browser'
+import {page, userEvent} from 'vitest/browser'
 import Avatar from '../Avatar'
 import {implementsClassName} from '../utils/testing'
 import classes from './Avatar.module.css'
@@ -22,6 +22,19 @@ describe('Avatar', () => {
     const avatar = page.getByTestId('avatar')
     await expect.element(avatar).toHaveAttribute('width', size.toString())
     await expect.element(avatar).toHaveAttribute('height', size.toString())
+  })
+
+  it('keeps the decorative edge from overriding keyboard focus', async () => {
+    render(<Avatar src="primer.png" alt="Mona" tabIndex={0} />)
+    const avatar = page.getByRole('img', {name: 'Mona'})
+    await expect.element(avatar).toHaveStyle('outline-offset: -1px')
+
+    await userEvent.tab()
+
+    await expect.element(avatar).toHaveFocus()
+    const {outlineOffset, outlineStyle} = getComputedStyle(avatar.element())
+    expect(outlineOffset).not.toBe('-1px')
+    expect(outlineStyle).not.toBe('none')
   })
 
   it('respects the size prop', async () => {

@@ -7,8 +7,20 @@
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 0 0 1px var(--avatar-borderColor);
+
+  &:where([data-component='AvatarStack'] *) {
+    /* Preserve the outer edge for stack items that don't override it. */
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 0 0 1px var(--avatar-borderColor);
+  }
+
+  @media (forced-colors: none) {
+    &:where(:not(:focus-visible, [data-component='AvatarStack'] *)) {
+      /* An inset shadow paints behind the image; an outline paints over it. */
+      outline: 1px solid var(--avatar-borderColor);
+      outline-offset: -1px;
+    }
+  }
 
   &:where([data-square]) {
     /* stylelint-disable-next-line primer/borders */
