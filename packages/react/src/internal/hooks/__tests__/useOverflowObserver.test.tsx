@@ -75,6 +75,23 @@ describe('useIsClipped', () => {
     expect(MockIntersectionObserver.instances.every(o => !o.observed.has(item))).toBe(true)
   })
 
+  it('waits for a fresh measurement after re-enabling a clipped item', () => {
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+    const {rerender} = render(<Harness />)
+    const item = page.getByTestId('item').element()
+    const observer = MockIntersectionObserver.instances.at(-1)!
+    observer.trigger([{target: item, isIntersecting: false, intersectionRatio: 0}])
+    expect(item.getAttribute('data-overflowing')).toBe('true')
+
+    rerender(<Harness disabled />)
+    expect(item.getAttribute('data-overflowing')).toBe('false')
+    rerender(<Harness />)
+    expect(item.getAttribute('data-overflowing')).toBe('false')
+
+    observer.trigger([{target: item, isIntersecting: false, intersectionRatio: 0}])
+    expect(item.getAttribute('data-overflowing')).toBe('true')
+  })
+
   it('reflects overflow state from the shared root-scoped observer', () => {
     vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
     render(<Harness />)
