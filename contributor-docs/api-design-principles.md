@@ -1,6 +1,6 @@
 # Proposed component API design principles
 
-**Status: proposed guidance.** These principles guide API design and review; they do not amend released component contracts or change the status of any ADR. A finding against a component's own documented, typed, or released contract is a defect. A mismatch with a proposed ADR is an ADR gap with an additive migration path.
+**Status: proposed guidance.** These principles guide API design and review; they do not amend released component contracts or change the status of any ADR. A finding against a component's own documented, typed, or released contract is a defect. A mismatch with the accepted benchmark target is an ADR gap with an additive migration path.
 
 Use the [component API design skill](../.agents/skills/component-api-design/SKILL.md) when designing or reviewing changes that affect what consumers can compose, configure, observe, or control.
 
@@ -14,29 +14,29 @@ Use the [component API design skill](../.agents/skills/component-api-design/SKIL
 
 **Check:** Types, docs, stories, and implementation identify the current public layer and a supported lower-level path when consumers need a variation the high-level API cannot express.
 
-### 2. Make meaningful parts first-class
+### 2. Give every interactive component a parts surface
 
-**Rule:** Expose a region as a named part only when consumers need to position, omit, replace, style, or configure it independently. Keep free-form content in `children`; use props or data when Primer must own, transform, order, or constrain the content.
+**Rule:** Every interactive component exposes a parts surface. A leaf control may use one part for its root element. Each part supports `as` and `render`; `render` accepts an element or a function that receives the part's required props and current state. Preserve existing configured APIs and add the parts path alongside them.
 
-**Applicability:** Compound config and presentational components; collections and overlays only for independently configurable regions. Leaf controls, utilities, and fixed-format content do not need parts by default.
+**Applicability:** Components that own pointer, keyboard, focus, form, or state interaction. Pure content components and component-agnostic utilities with no rendered interaction are N/A. A missing parts or substitution API on an interactive component is an ADR gap, including on a leaf.
 
-**Check:** Every part maps to a distinct consumer-controlled region, has a documented owner, and preserves required parent context, semantic order, and collection relationships. Do not promise arbitrary DOM reparenting.
+**Check:** Each part maps to a consumer-reachable region, has a documented owner and default element, and preserves required props, refs, parent context, semantic order, collection relationships, and accessibility behavior for both substitution forms. Record exact part names/default elements as unresolved where the target source leaves them open. Keep free-form content in `children`; use props or data when Primer owns, transforms, orders, or constrains content.
 
-### 3. Use element substitution only where it preserves the component's job
+### 3. Preserve the root polymorphism contract and substitute every part
 
-**Rule:** Use `as` only for a demonstrated polymorphism need, consistent with adopted [ADR-003](./adrs/adr-003-prop-norms.md). For new behavior-bearing parts, an explicit `render` contract may pass required props and state to an alternate element. Do not add interchangeable escape hatches without distinct use cases.
+**Rule:** Root-level `as` follows adopted [ADR-003](./adrs/adr-003-prop-norms.md) and remains limited to a clear polymorphism need. Every part has both `as` and `render`, including render-element and render-function forms. This parts requirement comes from the pinned composition target and does not change ADR-003's root-level rule.
 
-**Applicability:** Roots or parts with a valid alternate semantic element or custom component integration. `as` is not universal; fixed semantic controls and utilities may be N/A.
+**Applicability:** Every interactive part. A root without a polymorphism need may remain fixed; pure content and utilities without rendered interaction are N/A.
 
-**Check:** The public type admits only supported targets; the default semantic element remains valid; all required behavior props and refs reach the target. Preserve existing `as`, render callbacks, and signatures.
+**Check:** The public type admits supported targets; the default semantic element remains valid; all required behavior props, state, and refs reach the target. The render function receives current state. The behavior for simultaneous `as` and `render` remains an unresolved decision until the target specifies it. Preserve all existing `as` and render callback signatures.
 
-### 4. Specify prop, handler, class, style, and ref behavior
+### 4. Specify configured merges and part merges separately
 
-**Rule:** Document collisions wherever component and consumer props meet. Use the existing contract for the current surface; do not infer package-wide precedence from a helper's existence or one call site. Define and test any new part/render boundary separately.
+**Rule:** Configured-component and internal merges follow ADR-025. Existing subcomponents retain their current handler and prop behavior as a legacy compatibility exception. New parts follow the pinned composition target: render-element handler, consumer part handler, part handler, then Primer handler; a consumer skip method stops the remaining handlers for that event; consumer classes come first; consumer styles and ordinary duplicate attributes win; all refs are merged; behavior props remain owned by the part. The skip-method name remains unresolved.
 
-**Applicability:** Components that combine internal and consumer props, including cloned children, parts, render targets, and wrapped controls.
+**Applicability:** Components with configured/internal merges or interactive parts.
 
-**Check:** For each collision class, source and tests show the winning value or composition order, cancellation behavior, and final ref target. Keep the existing ADR-025 behavior for configured APIs; ADR-025 remains proposed.
+**Check:** Source types and focused runtime tests establish each applicable handler order, skip behavior, class/style/attribute precedence, behavior-prop ownership, and final ref target. Keep the existing ADR-025 configured/internal merge behavior while applying the composition target to newly added part behavior.
 
 ### 5. Expose meaningful state at its owner
 
@@ -54,13 +54,13 @@ Use the [component API design skill](../.agents/skills/component-api-design/SKIL
 
 **Check:** Public types and focused tests demonstrate initial, controlled, uncontrolled, and controlled-value update behavior for each supported state axis.
 
-### 7. Make new state callbacks extensible without changing existing callbacks
+### 7. Expose transition callbacks with an additive contract
 
-**Rule:** Preserve every released callback signature. New state-change callbacks should use one object argument containing the proposed value and typed transition details, consistent with `style.md`. Include a synchronous cancellation method only when the consumer needs to veto an uncontrolled transition; keep state-transition cancellation distinct from DOM event cancellation.
+**Rule:** Expose a callback for each consumer-observable interactive state transition. A new transition callback takes one object containing the proposed value, `reason`, the originating DOM `event` when one exists, and a synchronous `cancel()` method that prevents the uncontrolled internal commit. `cancel()` is distinct from DOM `preventDefault()` and the part-handler skip method. Preserve every existing callback signature; add a parallel callback or use an explicitly versioned migration when the existing callback cannot accept the new contract.
 
-**Applicability:** New APIs that report state transitions. Native DOM callbacks, stateless components, and APIs without consumer-observable state are N/A.
+**Applicability:** Interactive components with consumer-observable state transitions. Stateless interactive controls and native DOM callbacks are N/A.
 
-**Check:** The type and tests establish the value, reason, originating event when present, and whether cancellation occurs before internal state commits. Any new convention or adapter is explicit.
+**Check:** Public types, docs, and runtime tests establish the value, reason, event, and synchronous cancellation behavior. Keep the additive callback's name visible as an unresolved design choice where the component already uses a legacy callback.
 
 ### 8. Keep imperative APIs narrow
 
@@ -86,13 +86,13 @@ Use the [component API design skill](../.agents/skills/component-api-design/SKIL
 
 **Check:** The DOM and focused tests verify required semantics and actual native control attributes at the element that performs the interaction or form submission.
 
-### 11. Make types, defaults, identifiers, and documentation agree
+### 11. Align common names and defaults
 
-**Rule:** Public exports, prop types, implementation defaults, docs, and stories describe the same contract. Reuse an established role name and state vocabulary when it expresses the same behavior; do not rename a released API for stylistic consistency.
+**Rule:** Public exports, prop types, implementation defaults, docs, and stories describe the same contract. Use aligned names and defaults for concepts shared by multiple components. For a shared size concept, use the common `small`, `medium`, `large` scale with `medium` as the default. Keep existing released names and defaults during migration.
 
-**Applicability:** Every public component and part; styling-state checks only apply when state styling is exposed.
+**Applicability:** Every public component and part; compare names/defaults only for concepts they share. Styling-state checks apply when state styling is exposed.
 
-**Check:** The documented surface exists in public types and exports, examples compile against that surface, defaults match implementation, and any stable selector follows its own adopted contract.
+**Check:** The documented surface exists in public types and exports, examples compile against it, defaults match implementation, shared concepts align, and stable selectors follow their adopted contract.
 
 ### 12. Use shared providers only for shared configuration
 
@@ -106,13 +106,13 @@ Use the [component API design skill](../.agents/skills/component-api-design/SKIL
 
 Use the following shapes to decide whether a check applies: **config** composes a complete pattern from intent/data; **presentational** exposes Primer-styled parts for consumer composition; **base** provides a low-level primitive, often unstyled; **utility** provides component-agnostic behavior or state; **leaf** renders one main semantic control; **overlay** owns a floating or modal lifecycle; **form control** participates in native form or field context; **collection** manages related items, ordering, selection, or keyboard navigation. A component may have more than one shape.
 
-`N/A` requires a reason tied to the component's shape and public contract. Do not mark an item N/A because it is inconvenient to inspect. A missing proposed capability is never a defect by itself. A finding must name a consumer path that can reach the behavior; type-rejected and undocumented hostile inputs are not a reachable victim.
+`N/A` requires a reason tied to the component's shape and public contract. Do not mark an item N/A because it is inconvenient to inspect. Every interactive component remains applicable to the parts and substitution requirements. A mismatch with the accepted benchmark target is an ADR gap, even if the released component never promised that feature. A finding must name a consumer path that can reach the behavior; type-rejected and undocumented inputs are not reachable victims.
 
 ## Authority and compatibility
 
-Apply current Primer guarantees first: adopted ADRs, the released component's own contract, and objective accessibility/native-platform requirements. Then assess alignment with proposed ADR-024, ADR-025, and the [Base UI-compatible composition ADR](https://gist.github.com/adierkens/894bb9ec4268f85e5a3119ed7de33410) as design opportunities. The last three remain proposals and cannot be used to label missing capability as a shipped defect.
+For this benchmark, use the [pinned target baseline](../.agents/skills/component-api-design/references/target-baseline.md): every ADR in the audited `origin/main` snapshot and the pinned composition gist are included regardless of status label. This assumption does not change ADR metadata or the released contract. Assess the component's own stated contract separately so an existing contract violation is recorded as a `DEFECT` and a target mismatch is recorded as an `ADR GAP`.
 
-For a released surface, any recommended API change must retain existing props, callback signatures, and behavior while adding an opt-in path or a documented versioned migration. Verify release status before raising a breaking-change finding. Prefer existing Primer behavior and native platform APIs where they satisfy the contract.
+For a released surface, any recommended API change retains existing props, callback signatures, and behavior while adding an opt-in path or a documented versioned migration. Verify release status before raising a breaking-change finding. Prefer existing Primer behavior and native platform APIs where they satisfy the contract.
 
 ## Review checklist
 
