@@ -53,21 +53,22 @@ export function useAnnounce(ref: RefObject<HTMLElement | null>, options: UseAnno
   const previousAnnouncementText = useRef<string | null>(null)
   const savedAnnouncement = useRef<ReturnType<typeof liveRegionAnnounce> | null>(null)
 
-  const cancel = useCallback(() => {
+  const cancelPendingAnnouncement = useCallback(() => {
     if (savedAnnouncement.current !== null) {
       savedAnnouncement.current.cancel()
       savedAnnouncement.current = null
     }
-    previousAnnouncementText.current = null
   }, [])
+
+  const cancel = useCallback(() => {
+    cancelPendingAnnouncement()
+    previousAnnouncementText.current = null
+  }, [cancelPendingAnnouncement])
 
   const announce = useEffectCallback((message?: string) => {
     const {current: element} = ref
-    if (!element) {
-      return
-    }
-
-    if (hidden) {
+    if (!element || hidden) {
+      cancel()
       return
     }
 
@@ -85,10 +86,11 @@ export function useAnnounce(ref: RefObject<HTMLElement | null>, options: UseAnno
     }
 
     if (!isVisible(element)) {
+      cancel()
       return
     }
 
-    savedAnnouncement.current?.cancel()
+    cancelPendingAnnouncement()
     const announceOptions =
       politeness === 'assertive'
         ? {
@@ -106,7 +108,7 @@ export function useAnnounce(ref: RefObject<HTMLElement | null>, options: UseAnno
     previousAnnouncementText.current = textContent
   })
 
-  useEffect(() => cancel, [cancel])
+  useEffect(() => cancelPendingAnnouncement, [cancelPendingAnnouncement])
 
   return {announce, cancel}
 }

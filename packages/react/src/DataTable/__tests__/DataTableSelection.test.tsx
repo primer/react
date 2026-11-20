@@ -724,6 +724,7 @@ describe('DataTable selection announcements', () => {
       'does not announce selection changes under a hidden ancestor (%j)',
       async style => {
         vi.useFakeTimers()
+        const announce = vi.spyOn(getLiveRegion(), 'announce')
         const example = (ids: Array<number>, hidden: boolean) => (
           <div style={hidden ? style : undefined}>
             <DataTable
@@ -744,9 +745,20 @@ describe('DataTable selection announcements', () => {
         expect(getLiveRegion().getMessage('polite')).toBe('')
         await act(async () => rerender(example([1, 2], false)))
         await act(async () => vi.advanceTimersByTime(150))
-        expect(getLiveRegion().getMessage('polite')).toBe(
-          withBulkActions ? '2 rows selected, additional bulk actions available' : '2 rows selected',
-        )
+        const twoSelectedMessage = withBulkActions
+          ? '2 rows selected, additional bulk actions available'
+          : '2 rows selected'
+        expect(getLiveRegion().getMessage('polite')).toBe(twoSelectedMessage)
+        expect(announce).toHaveBeenCalledTimes(1)
+
+        await act(async () => rerender(example([], true)))
+        await act(async () => vi.advanceTimersByTime(500))
+        expect(getLiveRegion().getMessage('polite')).toBe(twoSelectedMessage)
+        expect(announce).toHaveBeenCalledTimes(1)
+        await act(async () => rerender(example([1, 2], false)))
+        await act(async () => vi.advanceTimersByTime(150))
+        expect(getLiveRegion().getMessage('polite')).toBe(`${twoSelectedMessage}\u00a0`)
+        expect(announce).toHaveBeenCalledTimes(2)
       },
     )
 

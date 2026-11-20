@@ -148,6 +148,85 @@ describe('useAnnounce', () => {
     expect(announceSpy).toHaveBeenCalledTimes(1)
   })
 
+  it('cancels pending announcements and resets deduplication when updates occur while hidden', async () => {
+    vi.useFakeTimers()
+    const liveRegion = getLiveRegion()
+    const announceSpy = vi.spyOn(liveRegion, 'announce')
+
+    function Demo({hidden, style}: {hidden?: boolean; style?: React.CSSProperties}) {
+      const ref = useRef<HTMLDivElement>(null)
+      const {announce} = useAnnounce(ref, {delayMs: 150, hidden})
+      return (
+        <>
+          <div ref={ref} style={style}>
+            Target
+          </div>
+          <button type="button" onClick={() => announce('1 row selected')}>
+            Select 1
+          </button>
+          <button type="button" onClick={() => announce('2 rows selected')}>
+            Select 2
+          </button>
+          <button type="button" onClick={() => announce('Selection cleared')}>
+            Clear
+          </button>
+        </>
+      )
+    }
+
+    const {rerender} = render(<Demo />)
+
+    await act(async () => {
+      fireEvent.click(page.getByRole('button', {name: 'Select 1', exact: true}).element())
+    })
+    await act(async () => vi.advanceTimersByTime(150))
+    expect(liveRegion.getMessage('polite')).toBe('1 row selected')
+    expect(announceSpy).toHaveBeenCalledTimes(1)
+
+    // Queue a delayed update, then clear while CSS-hidden before the delay elapses.
+    await act(async () => {
+      fireEvent.click(page.getByRole('button', {name: 'Select 2', exact: true}).element())
+    })
+    await act(async () => vi.advanceTimersByTime(100))
+    rerender(<Demo style={{display: 'none'}} />)
+    await act(async () => {
+      fireEvent.click(page.getByRole('button', {name: 'Clear', exact: true}).element())
+    })
+    await act(async () => vi.advanceTimersByTime(200))
+    expect(liveRegion.getMessage('polite')).toBe('1 row selected')
+    expect(announceSpy).toHaveBeenCalledTimes(2)
+
+    // Once visible again, repeating the earlier message re-announces (LiveRegionElement appends NBSP).
+    rerender(<Demo />)
+    await act(async () => {
+      fireEvent.click(page.getByRole('button', {name: 'Select 1', exact: true}).element())
+    })
+    await act(async () => vi.advanceTimersByTime(150))
+    expect(liveRegion.getMessage('polite')).toBe('1 row selected\u00a0')
+    expect(announceSpy).toHaveBeenCalledTimes(3)
+
+    // Updates while hidden={true} also cancel an in-flight delayed announcement and reset deduplication.
+    await act(async () => {
+      fireEvent.click(page.getByRole('button', {name: 'Select 2', exact: true}).element())
+    })
+    await act(async () => vi.advanceTimersByTime(100))
+    rerender(<Demo hidden />)
+    await act(async () => {
+      fireEvent.click(page.getByRole('button', {name: 'Clear', exact: true}).element())
+    })
+    await act(async () => vi.advanceTimersByTime(200))
+    expect(liveRegion.getMessage('polite')).toBe('1 row selected\u00a0')
+    expect(announceSpy).toHaveBeenCalledTimes(4)
+
+    rerender(<Demo />)
+    await act(async () => {
+      fireEvent.click(page.getByRole('button', {name: 'Select 1', exact: true}).element())
+    })
+    await act(async () => vi.advanceTimersByTime(150))
+    expect(liveRegion.getMessage('polite')).toBe('1 row selected')
+    expect(announceSpy).toHaveBeenCalledTimes(5)
+  })
+
   it('cancels pending announcements on explicit cancel() and allows re-announcing', async () => {
     vi.useFakeTimers()
     const liveRegion = getLiveRegion()
