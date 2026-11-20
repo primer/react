@@ -7,6 +7,8 @@ description: "Use when: deciding how to structure a new Primer React component, 
 
 `contributor-docs/style.md` is the source of truth for this model. Read "Prefer building components across a spectrum of abstraction" first — it defines the four API types (config, presentational, base, utilities), when each one is appropriate, and, importantly, that this is not a mandatory stack every component must populate. This skill and its siblings carry the operational detail for applying that model, not a second definition of it.
 
+For cross-cutting composition, state, merging, form behavior, and compatibility decisions, also consult the proposed [Primer component API principles](../../../contributor-docs/api-design-principles.md). They supplement current contracts and do not require every component to expose every API type or part.
+
 See the dedicated skill for each API type for detailed rules:
 
 - `modular-ds-config-components`

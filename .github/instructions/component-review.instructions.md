@@ -8,6 +8,9 @@ Apply these rules only to behavior or contracts introduced or expanded by the
 change. Report concrete impact, cite the rule ID, and do not report pre-existing
 migration debt.
 
+For changes that alter consumer composition, configuration, state, callbacks,
+refs, forms, or compatibility, use the [component API design skill](../../.agents/skills/component-api-design/SKILL.md). Its rubric grades a PR diff only; use the whole-component mode only when a complete component audit is requested.
+
 ## `component-review.children-as-api`
 
 - **Check:** Content uses React children when consumers own the rendered
