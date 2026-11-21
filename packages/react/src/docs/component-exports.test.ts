@@ -138,7 +138,13 @@ function isComponent(checker: ts.TypeChecker, symbol: ts.Symbol) {
   if (
     calls.length > 0 &&
     calls.every(signature => {
-      return returnsReact(signature.getReturnType())
+      const owner = signature.getDeclaration().parent
+      // React 19's async return union can lose the ReactNode alias when TypeScript flattens it.
+      return (
+        (ts.isInterfaceDeclaration(owner) &&
+          isReactType(checker.getSymbolAtLocation(owner.name), ['FunctionComponent', 'ExoticComponent'])) ||
+        returnsReact(signature.getReturnType())
+      )
     })
   ) {
     return true
