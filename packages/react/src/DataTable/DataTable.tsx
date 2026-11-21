@@ -54,9 +54,10 @@ type DataTableBaseProps<Data extends UniqueRow> = {
   columns: Array<Column<Data>>
 
   /**
-   * Provide the id or field of the column by which the table is sorted. When
-   * using this `prop`, the input data must be sorted by this column in
-   * ascending order
+   * Provide the id or field of the column by which the table is sorted. The
+   * rows are sorted by this column on the first render, so the input data
+   * does not need to be sorted beforehand. With `externalSorting`, the table
+   * does not sort the rows, and the input data must arrive in the desired order
    */
   initialSortColumn?: ObjectPaths<Data> | string | number
 
