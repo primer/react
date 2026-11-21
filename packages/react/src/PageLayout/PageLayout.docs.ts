@@ -1,0 +1,433 @@
+import {defineComponent} from '../docs/component'
+
+export default defineComponent({
+  id: 'page_layout',
+  name: 'PageLayout',
+  status: 'alpha',
+  a11yReviewed: '2025-01-08',
+  stories: [
+    'components-pagelayout--default',
+    'components-pagelayout-features--pull-request-page',
+    'components-pagelayout-features--sticky-pane',
+    'components-pagelayout-features--nested-scroll-container',
+    'components-pagelayout-features--custom-sticky-header',
+    'components-pagelayout-features--resizable-pane',
+    'components-pagelayout-features--scroll-container-within-page-layout-pane',
+    'components-pagelayout-features--custom-pane-widths',
+    'components-pagelayout-features--with-custom-pane-heading',
+    'components-pagelayout-features--resizable-pane-without-persistence',
+    'components-pagelayout-features--resizable-pane-with-custom-persistence',
+    'components-pagelayout-features--resizable-pane-with-number-width',
+    'components-pagelayout-features--resizable-pane-with-controlled-width',
+    'components-pagelayout-features--sidebar-start',
+    'components-pagelayout-features--sidebar-end',
+    'components-pagelayout-features--resizable-sidebar',
+    'components-pagelayout-features--resizable-sidebar-without-persistence',
+    'components-pagelayout-features--resizable-sidebar-with-custom-persistence',
+    'components-pagelayout-features--sidebar-with-pane-resizable',
+    'components-pagelayout-features--sticky-sidebar',
+    'components-pagelayout-features--sidebar-fullscreen-responsive-variant',
+  ],
+  importPath: '@primer/react',
+  props: [
+    {
+      name: 'containerWidth',
+      type: "| 'full' | 'medium' | 'large' | 'xlarge'",
+      defaultValue: "'xlarge'",
+      description: 'The maximum width of the page container.',
+      required: false,
+    },
+    {
+      name: 'padding',
+      type: "| 'none' | 'condensed' | 'normal'",
+      defaultValue: "'normal'",
+      description: 'The spacing between the outer edges of the page container and the viewport',
+      required: false,
+    },
+    {
+      name: 'columnGap',
+      type: "| 'none' | 'condensed' | 'normal'",
+      defaultValue: "'normal'",
+      description: '',
+      required: false,
+    },
+    {
+      name: 'rowGap',
+      type: "| 'none' | 'condensed' | 'normal'",
+      defaultValue: "'normal'",
+      description: '',
+      required: false,
+    },
+  ],
+  subcomponents: [
+    {
+      name: 'PageLayout.Header',
+      props: [
+        {
+          name: 'aria-label',
+          type: 'string | undefined',
+          description: 'A unique label for the rendered banner landmark',
+          required: false,
+        },
+        {
+          name: 'aria-labelledby',
+          type: 'string | undefined',
+          description: 'An id to an element which uniquely labels the rendered banner landmark',
+          required: false,
+        },
+        {
+          name: 'padding',
+          type: "| 'none' | 'condensed' | 'normal'",
+          defaultValue: "'none'",
+          description: 'The amount of padding inside the header.',
+          required: false,
+        },
+        {
+          name: 'divider',
+          type: "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          defaultValue: "'none'",
+          description: '',
+          required: false,
+        },
+        {
+          name: 'dividerWhenNarrow',
+          type: "| 'inherit' | 'none' | 'line' | 'filled'",
+          defaultValue: "'inherit'",
+          deprecated: true,
+          description: 'Use the divider prop with a responsive value instead.',
+          required: false,
+        },
+        {
+          name: 'hidden',
+          type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
+          defaultValue: 'false',
+          description: 'Whether the header is hidden.',
+          required: false,
+        },
+      ],
+      displayName: 'Header',
+    },
+    {
+      name: 'PageLayout.Content',
+      props: [
+        {
+          name: 'aria-label',
+          type: 'string',
+          description: 'A unique label for the rendered main landmark',
+          required: false,
+        },
+        {
+          name: 'aria-labelledby',
+          type: 'string',
+          description: 'An id to an element which uniquely labels the rendered main landmark',
+          required: false,
+        },
+        {
+          name: 'as',
+          type: 'React.ElementType',
+          defaultValue: "'main'",
+          description: 'Change the root node to another HTML element or custom component.',
+          required: false,
+        },
+        {
+          name: 'width',
+          type: "| 'full' | 'medium' | 'large' | 'xlarge'",
+          defaultValue: "'full'",
+          description: 'The maximum width of the content region.',
+          required: false,
+        },
+        {
+          name: 'padding',
+          type: "| 'none' | 'condensed' | 'normal'",
+          defaultValue: "'none'",
+          description: 'The amount of padding inside the content.',
+          required: false,
+        },
+        {
+          name: 'hidden',
+          type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
+          defaultValue: 'false',
+          description: 'Whether the content is hidden.',
+          required: false,
+        },
+      ],
+      displayName: 'Content',
+    },
+    {
+      name: 'PageLayout.Pane',
+      props: [
+        {
+          name: 'aria-label',
+          type: 'string | undefined',
+          description: "Label for the pane. Required if the pane overflows and doesn't have aria-labelledby.",
+          required: false,
+        },
+        {
+          name: 'aria-labelledby',
+          type: 'string | undefined',
+          description:
+            "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label.",
+          required: false,
+        },
+        {
+          name: 'width',
+          type: "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
+          defaultValue: "'medium'",
+          description:
+            "The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'.",
+          required: false,
+        },
+        {
+          name: 'minWidth',
+          type: 'number',
+          defaultValue: '256',
+          description: 'The minimum width of the pane.',
+          required: false,
+        },
+        {
+          name: 'resizable',
+          type: 'boolean',
+          defaultValue: 'false',
+          description:
+            'When true, the pane may be resized by the user. Uses localStorage persistence by default. Note: with default persistence in SSR, the server-rendered width may differ from the stored client width, causing a brief layout shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this.',
+          required: false,
+        },
+        {
+          name: 'currentWidth',
+          type: 'number | undefined',
+          description:
+            'Current/controlled width value in pixels. Required when `onResizeEnd` is provided. Pass `undefined` when the persisted value has not loaded yet. The `width` prop still defines the default used when resetting (e.g., double-click).',
+          required: false,
+        },
+        {
+          name: 'onResizeEnd',
+          type: '(width: number) => void',
+          description:
+            'Callback fired when a resize operation ends (drag release or keyboard key up). When provided, replaces localStorage persistence. Requires `currentWidth`.',
+          required: false,
+        },
+        {
+          name: 'widthStorageKey',
+          type: 'string',
+          defaultValue: "'paneWidth'",
+          description:
+            'localStorage key used to persist the pane width across sessions. Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided.',
+          required: false,
+        },
+        {
+          name: 'sticky',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: 'Whether the pane should stick to the top of the screen while the content scrolls.',
+          required: false,
+        },
+        {
+          name: 'offsetHeader',
+          type: 'number | string',
+          defaultValue: '0',
+          description:
+            'Use offsetHeader along with the sticky prop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px.',
+          required: false,
+        },
+        {
+          name: 'padding',
+          type: "| 'none' | 'condensed' | 'normal'",
+          defaultValue: "'none'",
+          description: 'The amount of padding inside the pane.',
+          required: false,
+        },
+        {
+          name: 'divider',
+          type: "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          defaultValue: "'none'",
+          description: '',
+          required: false,
+        },
+        {
+          name: 'dividerWhenNarrow',
+          type: "| 'inherit' | 'none' | 'line' | 'filled'",
+          defaultValue: "'inherit'",
+          deprecated: true,
+          description: 'Use the divider prop with a responsive value instead.',
+          required: false,
+        },
+        {
+          name: 'hidden',
+          type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
+          defaultValue: 'false',
+          description: 'Whether the pane is hidden.',
+          required: false,
+        },
+        {
+          name: 'position',
+          type: "'end' | 'start' | { narrow?: 'end' | 'start'; regular?: 'end' | 'start'; wide?: 'end' | 'start'; }",
+          description: 'Which side of the page the pane should be on. Can be changed for different viewport widths.',
+          defaultValue: '',
+          required: false,
+        },
+        {
+          name: 'ref',
+          type: 'React.RefObject<HTMLDivElement>',
+          required: false,
+          description:
+            'Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).',
+        },
+      ],
+      displayName: 'Pane',
+    },
+    {
+      name: 'PageLayout.Sidebar',
+      props: [
+        {
+          name: 'aria-label',
+          type: 'string | undefined',
+          description: 'A unique label for the sidebar region.',
+          required: false,
+        },
+        {
+          name: 'aria-labelledby',
+          type: 'string | undefined',
+          description: 'An id to an element which uniquely labels the sidebar region.',
+          required: false,
+        },
+        {
+          name: 'position',
+          type: "'start' | 'end'",
+          defaultValue: "'start'",
+          description:
+            'Position of the sidebar relative to the page layout. The sidebar spans the full height of the layout, adjacent to the header, content, and footer.',
+          required: false,
+        },
+        {
+          name: 'width',
+          type: "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
+          defaultValue: "'medium'",
+          description:
+            "The width of the sidebar. If using custom widths, provide an object with keys 'min', 'max' and 'default'.",
+          required: false,
+        },
+        {
+          name: 'minWidth',
+          type: 'number',
+          defaultValue: '256',
+          description: 'Minimum width of the sidebar when resizable.',
+          required: false,
+        },
+        {
+          name: 'resizable',
+          type: 'boolean',
+          defaultValue: 'false',
+          description:
+            'When true, the sidebar may be resized by the user. By default no persistence is applied; pass `widthStorageKey` to persist via localStorage, or use `onResizeEnd` + `currentWidth` for fully controlled persistence.',
+          required: false,
+        },
+        {
+          name: 'currentWidth',
+          type: 'number | undefined',
+          description:
+            'Current/controlled width value in pixels. Required when `onResizeEnd` is provided. Pass `undefined` when the persisted value has not loaded yet. The `width` prop still defines the default used when resetting (e.g., double-click).',
+          required: false,
+        },
+        {
+          name: 'onResizeEnd',
+          type: '(width: number) => void',
+          description:
+            'Callback fired when a resize operation ends (drag release or keyboard key up). When provided, replaces localStorage persistence. Requires `currentWidth`.',
+          required: false,
+        },
+        {
+          name: 'widthStorageKey',
+          type: 'string',
+          description:
+            'localStorage key used to persist the sidebar width across sessions. Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided. When omitted, localStorage is not used.',
+          required: false,
+        },
+        {
+          name: 'padding',
+          type: "| 'none' | 'condensed' | 'normal'",
+          defaultValue: "'none'",
+          description: 'The amount of padding inside the sidebar.',
+          required: false,
+        },
+        {
+          name: 'divider',
+          type: "| 'none' | 'line'",
+          defaultValue: "'none'",
+          description: 'Divider style between the sidebar and the rest of the layout.',
+          required: false,
+        },
+        {
+          name: 'sticky',
+          type: 'boolean',
+          defaultValue: 'false',
+          description:
+            'Whether the sidebar sticks to the viewport when scrolling. When enabled, the sidebar uses position: sticky with top: 0 and height: 100vh.',
+          required: false,
+        },
+        {
+          name: 'responsiveVariant',
+          type: "| 'default' | 'fullscreen'",
+          defaultValue: "'default'",
+          description:
+            "Controls sidebar behavior at narrow viewport widths (below 768px). 'default' retains its normal inline layout. 'fullscreen' expands to cover the full viewport like a dialog overlay.",
+          required: false,
+        },
+        {
+          name: 'hidden',
+          type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
+          defaultValue: 'false',
+          description: 'Whether the sidebar is hidden.',
+          required: false,
+        },
+      ],
+      displayName: 'Sidebar',
+    },
+    {
+      name: 'PageLayout.Footer',
+      props: [
+        {
+          name: 'aria-label',
+          type: 'string | undefined',
+          description: 'A unique label for the rendered contentinfo landmark',
+          required: false,
+        },
+        {
+          name: 'aria-labelledby',
+          type: 'string | undefined',
+          description: 'An id to an element which uniquely labels the rendered contentinfo landmark',
+          required: false,
+        },
+        {
+          name: 'padding',
+          type: "| 'none' | 'condensed' | 'normal'",
+          defaultValue: "'none'",
+          description: 'The amount of padding inside the footer.',
+          required: false,
+        },
+        {
+          name: 'divider',
+          type: "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          defaultValue: "'none'",
+          description: '',
+          required: false,
+        },
+        {
+          name: 'dividerWhenNarrow',
+          type: "| 'inherit' | 'none' | 'line' | 'filled'",
+          defaultValue: "'inherit'",
+          deprecated: true,
+          description: 'Use the divider prop with a responsive value instead.',
+          required: false,
+        },
+        {
+          name: 'hidden',
+          type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
+          defaultValue: 'false',
+          description: 'Whether the footer is hidden.',
+          required: false,
+        },
+      ],
+      displayName: 'Footer',
+    },
+  ],
+})

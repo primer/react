@@ -1,0 +1,173 @@
+import {defineComponent} from '../docs/component'
+
+export default defineComponent({
+  id: 'anchored_overlay',
+  name: 'AnchoredOverlay',
+  status: 'alpha',
+  a11yReviewed: '2025-01-08',
+  stories: [
+    'components-anchoredoverlay--default',
+    'components-anchoredoverlay-features--portal-inside-scrolling-element',
+    'components-anchoredoverlay-features--custom-anchor-id',
+    'components-anchoredoverlay-features--height',
+    'components-anchoredoverlay-features--width',
+    'components-anchoredoverlay-features--anchor-alignment',
+    'components-anchoredoverlay-features--anchor-side',
+    'components-anchoredoverlay-features--offset-position-from-anchor',
+    'components-anchoredoverlay-features--offset-alignment-from-anchor',
+    'components-anchoredoverlay-features--focus-trap-overrides',
+    'components-anchoredoverlay-features--focus-zone-overrides',
+    'components-anchoredoverlay-features--overlay-props-overrides',
+  ],
+  importPath: '@primer/react',
+  props: [
+    {
+      name: 'open',
+      type: 'boolean',
+      required: true,
+      defaultValue: 'false',
+      description: 'Determines whether the overlay portion of the component should be shown or not.',
+    },
+    {
+      name: 'onOpen',
+      type: "(gesture: 'anchor-click' | 'anchor-key-press', event?: KeyboardEvent<HTMLElement> | undefined) => unknown",
+      description:
+        'A callback that is called whenever the overlay is currently closed and an "open gesture" is detected.',
+      required: false,
+    },
+    {
+      name: 'onClose',
+      type: "(gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown",
+      description:
+        'A callback that is called whenever the overlay is currently open and a "close gesture" is detected.',
+      required: false,
+    },
+    {
+      name: 'renderAnchor',
+      // eslint-disable-next-line github/unescaped-html-literal -- This is a TypeScript generic, not HTML.
+      type: '<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element',
+      description:
+        'A custom function component used to render the anchor element. When renderAnchor is null, an anchorRef is required.',
+      required: true,
+    },
+    {
+      name: 'anchorRef',
+      type: 'React.RefObject<HTMLElement>',
+      defaultValue: '',
+      description:
+        'An override to the internal `renderAnchor` ref that will be used to position the overlay. When `renderAnchor` is `null`, this can be used to make an anchor that is detached from ` AnchoredOverlay `.',
+      required: false,
+    },
+    {
+      name: 'anchorId',
+      type: 'string',
+      defaultValue: '',
+      description: 'An override to the internal id that will be passed to the anchor.',
+      required: false,
+    },
+    {
+      name: 'side',
+      type: "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+      defaultValue: "'outside-bottom'",
+      description: '',
+      required: false,
+    },
+    {name: 'align', type: "'start' | 'center' | 'end'", defaultValue: "'start'", description: '', required: false},
+    {
+      name: 'alignmentOffset',
+      type: 'number',
+      defaultValue: '4',
+      description:
+        "An additional offset, in pixels, to move the floating element from the aligning edge. Positive values move the floating element in the direction of center-alignment. Negative values move the floating element away from center-alignment. When align is `'center`, positive offsets move the floating element right (top or bottom anchor side) or down (left or right anchor side). If using outside positioning, or if `align` is set to `'center'`, this defaults to `0` instead of `4`.",
+      required: false,
+    },
+    {
+      name: 'anchorOffset',
+      type: 'number',
+      defaultValue: '4',
+      description:
+        "The number of pixels between the anchor edge and the floating element. Positive values move the floating element farther from the anchor element (for outside positioning) or further inside the anchor element (for inside positioning). Negative values have the opposite effect. If `side` is set to `'inside-center'`, this defaults to `0` instead of `4`.",
+      required: false,
+    },
+    {
+      name: 'overlayProps',
+      type: 'Partial<OverlayProps>',
+      defaultValue: '',
+      description: 'Props to be spread on the internal `Overlay` component.',
+      required: false,
+    },
+    {
+      name: 'focusTrapSettings',
+      type: 'Partial<FocusTrapHookSettings>',
+      defaultValue: '',
+      description: 'Settings to apply to the focus trap on the internal `Overlay` component.',
+      required: false,
+    },
+    {
+      name: 'focusZoneSettings',
+      type: 'Partial<FocusZoneHookSettings>',
+      defaultValue: '',
+      description: 'Settings to apply to the focus zone on the internal `Overlay` component.',
+      required: false,
+    },
+    {
+      name: 'className',
+      type: 'string',
+      description: 'Class name for custom styling.',
+      required: false,
+    },
+    {
+      name: 'preventOverflow',
+      type: 'boolean',
+      defaultValue: 'true',
+      description:
+        'Determines if the Overlay width should be adjusted responsively if there is not enough space to display the Overlay. If `preventOverflow` is set to `false`, the Overlay will be displayed at the maximum width that fits within the viewport.',
+      required: false,
+    },
+    {
+      name: 'height',
+      type: "'small' | 'initial' | 'large' | 'medium' | 'auto' | 'fit-content' | 'xsmall' | 'xlarge'",
+      required: false,
+      description: '',
+      defaultValue: '',
+    },
+    {
+      name: 'width',
+      type: "'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'xxlarge'",
+      required: false,
+      description: '',
+      defaultValue: '',
+    },
+    {
+      name: 'pinPosition',
+      type: 'boolean',
+      required: false,
+      description:
+        'If true, the overlay will attempt to prevent position shifting when sitting at the top of the anchor.',
+      defaultValue: 'false',
+    },
+    {
+      name: 'variant',
+      type: "{ regular?: 'anchored', narrow?: 'anchored' | 'fullscreen' }",
+      required: false,
+      description: 'Optional prop to set variant for narrow screen sizes',
+      defaultValue: "{ regular: 'anchored', narrow: 'anchored' }",
+    },
+    {
+      name: 'displayCloseButton',
+      type: 'boolean',
+      required: false,
+      description:
+        'If true, a close button will be displayed in the top right corner of the overlay when on fullscreen mode.',
+      defaultValue: 'true',
+    },
+    {
+      name: 'closeButtonProps',
+      type: 'Partial<ButtonProps>',
+      required: false,
+      description: 'Props to be spread on the close button in fullscreen mode.',
+      defaultValue: '{}',
+    },
+  ],
+  subcomponents: [],
+})

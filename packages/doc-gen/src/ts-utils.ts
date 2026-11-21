@@ -124,62 +124,63 @@ function getSubComponentsForSymbol(
   )
 }
 
-function getPropTypesForNode(log: Logger, checker: ts.TypeChecker, componentNode: ts.Node): Record<string, TSPropInfo> {
-  const props: Record<string, TSPropInfo> = {}
-
-  const componentType = checker.getTypeAtLocation(componentNode)
-
-  const callSignatures = componentType.getCallSignatures()
-
-  for (const callSignature of callSignatures) {
-    log.debug(`Call signature: ${checker.signatureToString(callSignature)}`)
-
-    const params = callSignature.getParameters()
-
-    if (params.length === 0 || params[0].valueDeclaration === undefined) {
+function extractProps(
+  checker: ts.TypeChecker,
+  propsType: ts.Type,
+  location: ts.Node,
+  formatType: (type: ts.Type) => string,
+): Array<TSPropInfo> {
+  const props: Array<TSPropInfo> = []
+  for (const prop of checker.getApparentType(propsType).getApparentProperties()) {
+    const source = prop.getDeclarations()?.[0]?.getSourceFile()
+    if (source && /node_modules/.test(source.fileName)) {
       continue
     }
+    const required = !(prop.getFlags() & ts.SymbolFlags.Optional)
+    let type = formatType(checker.getTypeOfSymbolAtLocation(prop, location))
+    if (!required && type.endsWith('| undefined')) {
+      type = type.slice(0, -'| undefined'.length).trim()
+    }
+    props.push({
+      name: prop.getName(),
+      type,
+      propSymbol: prop,
+      required,
+      source,
+      defaultValue: prop
+        .getJsDocTags()
+        .find(tag => tag.name === 'default')
+        ?.text?.map(part => part.text)
+        .join(' '),
+      description: ts.displayPartsToString(prop.getDocumentationComment(checker)),
+    })
+  }
+  return props
+}
 
-    log.debug(params[0].valueDeclaration!.getFullText())
+/** Extract one resolved props or configuration type without reading component metadata. */
+export function extractSourceProps(checker: ts.TypeChecker, propsType: ts.Type, location: ts.Node): Array<TSPropInfo> {
+  return extractProps(checker, propsType, location, type => {
+    return checker.typeToString(type, location, ts.TypeFormatFlags.NoTruncation)
+  })
+}
 
-    const propTypesType = checker.getTypeOfSymbolAtLocation(params[0], componentNode)
-
-    for (const prop of checker.getApparentType(propTypesType).getApparentProperties()) {
-      const propType = checker.getTypeOfSymbolAtLocation(prop, componentNode)
-
-      const propSource = prop.getDeclarations()?.[0]?.getSourceFile()
-
-      if (propSource && /node_modules/.test(propSource.fileName)) {
-        // log.warn(
-        //   `Prop ${prop.getName()} is declared in a third-party module (${propSource.fileName}). It will be ignored.`,
-        // )
-        continue
-      }
-
-      const isRequired = !(prop.getFlags() & ts.SymbolFlags.Optional)
-      let typeString = checker.typeToString(propType)
-
-      if (!isRequired && typeString.endsWith('| undefined')) {
-        typeString = typeString.slice(0, -'| undefined'.length).trim()
-      }
-
-      if (prop.getName() === 'children') {
-        typeString = 'React.ReactElement[]'
-      }
-
-      props[prop.getName()] = {
-        name: prop.getName(),
-        type: typeString,
-        propSymbol: prop,
-        required: isRequired,
-        source: propSource,
-        defaultValue: prop
-          .getJsDocTags()
-          .find(tag => tag.name === 'default')
-          ?.text?.map(t => t.text)
-          .join(' '),
-        description: ts.displayPartsToString(prop.getDocumentationComment(checker)),
-      }
+function getPropTypesForNode(log: Logger, checker: ts.TypeChecker, componentNode: ts.Node): Record<string, TSPropInfo> {
+  const props: Record<string, TSPropInfo> = {}
+  const componentType = checker.getTypeAtLocation(componentNode)
+  for (const signature of componentType.getCallSignatures()) {
+    log.debug(`Call signature: ${checker.signatureToString(signature)}`)
+    const parameter = signature.getParameters().at(0)
+    if (!parameter?.valueDeclaration) {
+      continue
+    }
+    log.debug(parameter.valueDeclaration.getFullText())
+    const propsType = checker.getTypeOfSymbolAtLocation(parameter, componentNode)
+    const extracted = extractProps(checker, propsType, componentNode, type => {
+      return checker.typeToString(type)
+    })
+    for (const prop of extracted) {
+      props[prop.name] = prop.name === 'children' ? {...prop, type: 'React.ReactElement[]'} : prop
     }
   }
 

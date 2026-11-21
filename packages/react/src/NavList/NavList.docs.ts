@@ -1,0 +1,298 @@
+import {defineComponent} from '../docs/component'
+
+export default defineComponent({
+  id: 'nav_list',
+  name: 'NavList',
+  status: 'alpha',
+  a11yReviewed: '2025-01-08',
+  stories: [
+    'components-navlist--default',
+    'components-navlist-features--expand-with-custom-items',
+    'components-navlist-features--expand-with-pages',
+    'components-navlist-features--group-with-expand-and-custom-items',
+    'components-navlist-features--with-description',
+    'components-navlist-features--with-expand',
+    'components-navlist-features--with-expand-and-icons',
+    'components-navlist-features--with-group',
+    'components-navlist-features--with-group-expand',
+    'components-navlist-features--with-group-heading-links',
+    'components-navlist-features--with-inactive-items',
+    'components-navlist-features--with-nested-sub-items',
+    'components-navlist-features--with-next-js-link',
+    'components-navlist-features--with-react-router-link',
+    'components-navlist-features--with-reloads',
+    'components-navlist-features--with-sub-items',
+    'components-navlist-features--with-trailing-action',
+    'components-navlist-features--with-trailing-action-in-sub-item',
+  ],
+  importPath: '@primer/react',
+  props: [
+    {name: 'aria-label', type: 'string', description: '', required: false},
+    {name: 'aria-labelledby', type: 'string', defaultValue: '', description: '', required: false},
+    {
+      name: 'disableItemGap',
+      type: 'boolean',
+      defaultValue: 'false',
+      description: 'Disable the gap between items when the item gap feature is enabled.',
+      required: false,
+    },
+    {
+      name: 'ref',
+      type: 'React.RefObject<HTMLElement>',
+      required: false,
+      description: 'Ref to the root <nav> element.',
+    },
+  ],
+  subcomponents: [
+    {
+      name: 'NavList.Heading',
+      props: [
+        {
+          name: 'as',
+          type: "'h2' | 'h3'",
+          defaultValue: '"h2"',
+          required: false,
+          description:
+            'Semantic heading level for the NavList. Also sets the default level for child group headings, which render one level deeper (h3 under an h2, h4 under an h3). Constrained to h2/h3 so the hierarchy stays shallow.',
+        },
+        {
+          name: 'visuallyHidden',
+          type: 'boolean',
+          defaultValue: 'false',
+          required: false,
+          description:
+            'Visually hide the heading while keeping it available to assistive technology and as the accessible name for the `nav` landmark.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          description: "The text rendered as the NavList's heading.",
+        },
+        {
+          name: 'id',
+          type: 'string',
+          description:
+            'Custom id for the heading element. When set, it is used as the `aria-labelledby` target that names the `nav` landmark; otherwise a generated id is used.',
+          required: false,
+        },
+        {name: 'className', type: 'string', description: 'Custom CSS class name.', required: false},
+        {name: 'style', type: 'React.CSSProperties', description: 'Custom CSS styles.', required: false},
+      ],
+      displayName: 'Heading',
+    },
+    {
+      name: 'NavList.Item',
+      props: [
+        {
+          name: 'href',
+          type: 'string',
+          description:
+            'The URL that the item navigates to. `href` is passed to the underlying `<a>` element. If `as` is specified, the component may need different props. If the item contains a sub-nav, the item is rendered as a `<button>` and `href` is ignored.',
+          required: false,
+        },
+        {
+          name: 'aria-current',
+          type: "| 'page' | 'step' | 'location' | 'date' | 'time' | true | false",
+          defaultValue: 'false',
+          description:
+            'Set `aria-current` to `"page"` to indicate that the item represents the current page. Set `aria-current` to `"location"` to indicate that the item represents the current location on a page. For more information about `aria-current`, see [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current).',
+          required: false,
+        },
+        {
+          name: 'defaultOpen',
+          type: 'boolean',
+          description: 'The open state of the item when it is initially rendered if the item has a SubNav.',
+          required: false,
+        },
+        {
+          name: 'inactiveText',
+          type: 'string',
+          description: 'Text to explain why this item is currently inactive and cannot be activated.',
+          required: false,
+        },
+        {
+          name: 'ref',
+          type: 'React.RefObject<HTMLAnchorElement>',
+          required: false,
+          description:
+            'Ref to the rendered link, when present. Not forwarded when the item contains a `NavList.SubNav`.',
+        },
+        {
+          name: 'as',
+          type: 'React.ElementType',
+          defaultValue: '"a"',
+          description:
+            'Element or React component to render instead of the default anchor for an item without a sub-navigation.',
+          required: false,
+        },
+      ],
+      passthrough: {element: 'a', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes'},
+      displayName: 'Item',
+    },
+    {
+      name: 'NavList.Description',
+      props: [
+        {
+          name: 'variant',
+          type: "'inline' | 'block'",
+          defaultValue: "'inline'",
+          description:
+            '`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text.',
+          required: false,
+        },
+        {
+          name: 'truncate',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: 'Whether the inline description should truncate the text on overflow.',
+          required: false,
+        },
+        {name: 'className', type: 'string', description: 'Custom CSS class name.', required: false},
+        {name: 'style', type: 'React.CSSProperties', description: 'Custom CSS styles.', required: false},
+      ],
+      displayName: 'Description',
+    },
+    {name: 'NavList.LeadingVisual', props: [], displayName: 'LeadingVisual'},
+    {name: 'NavList.TrailingVisual', props: [], displayName: 'TrailingVisual'},
+    {
+      name: 'NavList.SubNav',
+      props: [
+        {
+          name: 'ref',
+          type: 'React.RefObject<HTMLElement>',
+          required: false,
+          description: 'Ref to the underlying list element.',
+        },
+      ],
+      displayName: 'SubNav',
+    },
+    {
+      name: 'NavList.Group',
+      props: [
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          description: 'A related set of NavList.Items',
+        },
+        {
+          name: 'title',
+          type: 'string',
+          description:
+            "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\nIf both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading.",
+          required: false,
+        },
+        {
+          name: 'hideDivider',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: 'Whether to hide the divider that is rendered before the group.',
+          required: false,
+        },
+      ],
+      displayName: 'Group',
+    },
+    {
+      name: 'NavList.GroupHeading',
+      props: [
+        {
+          name: 'auxiliaryText',
+          type: 'string',
+          required: false,
+          description: 'Secondary text which provides additional information about a `Group`.',
+        },
+        {
+          name: 'variant',
+          type: "'subtle' | 'filled'",
+          required: false,
+          description:
+            'Style variations. Usage is discretionary.\n\n- `"filled"` - Superimposed on a background, offset from nearby content\n- `"subtle"` - Relatively less offset from nearby content',
+          defaultValue: '',
+        },
+        {name: 'visuallyHidden', type: 'boolean', required: false, description: '', defaultValue: ''},
+        {
+          name: 'as',
+          description:
+            'Heading level for the group heading. Sets the semantic heading tag. Defaults to one level below a `NavList.Heading` (h3 under an h2, h4 under an h3), or `h3` when there is no `NavList.Heading`.',
+          required: false,
+          type: "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+        },
+      ],
+      displayName: 'GroupHeading',
+    },
+    {name: 'NavList.Divider', props: [], displayName: 'Divider'},
+    {
+      name: 'NavList.TrailingAction',
+      props: [
+        {
+          name: 'as',
+          type: 'a | button',
+          defaultValue: 'button',
+          required: false,
+          description: 'HTML element to render as.',
+        },
+        {
+          name: 'label',
+          type: 'string',
+          defaultValue: '',
+          required: true,
+          description: 'Accessible name for the control.',
+        },
+        {
+          name: 'icon',
+          type: 'string',
+          required: true,
+          description:
+            'Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`.',
+        },
+        {
+          name: 'href',
+          type: 'string',
+          description: 'href when the TrailingAction is rendered as a link.',
+          required: false,
+        },
+      ],
+      displayName: 'TrailingAction',
+    },
+    {
+      name: 'NavList.GroupExpand',
+      props: [
+        {
+          name: 'label',
+          type: 'string',
+          defaultValue: '',
+          required: true,
+          description: 'Accessible name for the control.',
+        },
+        {
+          name: 'pages',
+          type: 'number',
+          defaultValue: '0',
+          required: false,
+          description: 'The total number of pages, used to calculate the number of items to show at a given time.',
+        },
+        {
+          name: 'items',
+          type: 'Array<GroupItems>',
+          required: true,
+          description: 'The NavList.Items to render in the group.',
+        },
+        {
+          name: 'renderItem',
+          type: '(item: {text: string}) => React.ReactNode',
+          required: false,
+          description:
+            'A function that returns a ReactNode to render in the group. If this is not provided, the group will only render the items in the array.',
+        },
+        {
+          name: 'ref',
+          type: 'React.RefObject<HTMLButtonElement>',
+          required: false,
+          description: 'Ref to the expand button when it is rendered.',
+        },
+      ],
+      displayName: 'GroupExpand',
+    },
+  ],
+})

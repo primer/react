@@ -1,0 +1,149 @@
+import {defineComponent} from '../docs/component'
+
+export default defineComponent({
+  id: 'actionbar',
+  name: 'ActionBar',
+  status: 'alpha',
+  a11yReviewed: '2025-01-08',
+  stories: ['experimental-components-actionbar--default'],
+  importPath: '@primer/react',
+  props: [
+    {
+      name: 'aria-label',
+      type: 'string',
+      required: false,
+      description: 'When provided, a label is added to the action bar',
+    },
+    {
+      name: 'aria-labelledby',
+      type: 'string',
+      required: false,
+      description: 'When provided, uses the element with that ID as the accessible name for the ActionBar',
+    },
+    {name: 'children', type: 'ReactNode', required: false, description: 'Buttons in the action bar'},
+    {
+      name: 'size',
+      type: "'small' | 'large' | 'medium'",
+      required: false,
+      defaultValue: "'medium'",
+      description: 'Size of the action bar',
+    },
+    {
+      name: 'flush',
+      type: 'boolean',
+      required: false,
+      defaultValue: 'false',
+      description: 'Allows ActionBar to be flush with the container',
+    },
+    {name: 'className', type: 'string', required: false, description: 'Custom className'},
+    {
+      name: 'gap',
+      type: "'none' | 'condensed'",
+      required: false,
+      defaultValue: "'condensed'",
+      description: 'Horizontal gap scale between items (restricted to none or condensed).',
+    },
+  ],
+  subcomponents: [
+    {
+      name: 'ActionBar.IconButton',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          required: true,
+          description: 'This will be the Button description.',
+        },
+        {
+          name: 'icon',
+          type: 'Component',
+          description: 'Provide an octicon. It will be placed in the center of the button',
+          required: true,
+        },
+        {
+          name: 'aria-label',
+          type: 'string',
+          description:
+            'Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text.',
+          required: false,
+        },
+        {
+          name: 'disabled',
+          type: 'boolean',
+          description:
+            'Provides a disabled state for the button. The button will remain focusable, and have `aria-disabled` applied.',
+          required: false,
+        },
+      ],
+      passthrough: {element: 'IconButton', url: '/react/IconButton'},
+      displayName: 'IconButton',
+    },
+    {
+      name: 'ActionBar.Button',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          required: true,
+          description: 'The text content of the button.',
+        },
+        {
+          name: 'leadingVisual',
+          type: 'Component',
+          description:
+            'Provide an octicon to render before the button text. It will also be shown when the button overflows into the menu.',
+          required: false,
+        },
+        {
+          name: 'disabled',
+          type: 'boolean',
+          description:
+            'Provides a disabled state for the button. The button will remain focusable, and have `aria-disabled` applied.',
+          required: false,
+        },
+      ],
+      passthrough: {element: 'Button', url: '/react/Button'},
+      displayName: 'Button',
+    },
+    {name: 'ActionBar.Divider', props: [], displayName: 'Divider'},
+    {
+      name: 'ActionBar.Group',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          description: 'Content rendered inside the action bar group.',
+          required: false,
+        },
+      ],
+      displayName: 'Group',
+    },
+    {
+      name: 'ActionBar.Menu',
+      props: [
+        {name: 'aria-label', type: 'string', required: true, description: 'Accessible label for the menu button.'},
+        {name: 'icon', type: 'Component', required: true, description: 'Icon for the menu button.'},
+        {
+          name: 'items',
+          type: 'Array<ActionBarMenuItemProps>',
+          required: true,
+          description: 'Array of menu items to render in the menu. Each item can be an action, group, or divider.',
+        },
+        {
+          name: 'overflowIcon',
+          type: "Component | 'none'",
+          required: false,
+          description:
+            "Icon displayed when the menu item is within the overflow menu. If 'none' is provided, no icon will be shown in the overflow menu.",
+        },
+        {
+          name: 'returnFocusRef',
+          type: 'React.RefObject<HTMLElement>',
+          required: false,
+          description: 'A ref to an element that should receive focus when the menu is closed.',
+        },
+      ],
+      displayName: 'Menu',
+    },
+  ],
+})
