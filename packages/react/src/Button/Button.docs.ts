@@ -121,7 +121,6 @@ export default defineComponent({
       type: 'boolean',
       description:
         'Avoid disabling buttons because it will make them inaccessible to users who rely on keyboard navigation. Buttons that are disabled can not be clicked, selected, or navigated through.',
-      defaultValue: '',
       required: false,
     },
   ],

@@ -15,13 +15,12 @@ export default defineComponent({
   ],
   importPath: '@primer/react',
   props: [
-    {name: 'aria-label', type: 'string', description: '', defaultValue: '', required: false},
-    {name: 'aria-labelledby', type: 'string', description: '', defaultValue: '', required: false},
+    {name: 'aria-label', type: 'string', description: '', required: false},
+    {name: 'aria-labelledby', type: 'string', description: '', required: false},
     {
       name: 'className',
       type: 'string',
       description: 'Class name(s) used to customize styles',
-      defaultValue: '',
       required: false,
     },
     {
@@ -51,13 +50,12 @@ export default defineComponent({
           description: 'The item label and any leading action, visuals, or subtree.',
         },
         {name: 'id', type: 'string', required: true, description: 'A unique identifier for the item.'},
-        {name: 'aria-label', type: 'string', description: '', defaultValue: '', required: false},
-        {name: 'aria-labelledby', type: 'string', description: '', defaultValue: '', required: false},
+        {name: 'aria-label', type: 'string', description: '', required: false},
+        {name: 'aria-labelledby', type: 'string', description: '', required: false},
         {
           name: 'className',
           type: 'string',
           description: 'Class name(s) used to customize styles',
-          defaultValue: '',
           required: false,
         },
         {

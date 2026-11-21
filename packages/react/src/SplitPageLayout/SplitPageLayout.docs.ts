@@ -32,14 +32,12 @@ export default defineComponent({
           name: 'aria-label',
           type: 'string',
           description: 'A unique label for the rendered main landmark',
-          defaultValue: '',
           required: false,
         },
         {
           name: 'aria-labelledby',
           type: 'string',
           description: 'An id to an element which uniquely labels the rendered main landmark',
-          defaultValue: '',
           required: false,
         },
         {
@@ -73,14 +71,12 @@ export default defineComponent({
           name: 'aria-label',
           type: 'string',
           description: 'A unique label for the rendered main landmark',
-          defaultValue: '',
           required: false,
         },
         {
           name: 'aria-labelledby',
           type: 'string',
           description: 'An id to an element which uniquely labels the rendered main landmark',
-          defaultValue: '',
           required: false,
         },
         {
@@ -314,14 +310,12 @@ export default defineComponent({
           name: 'aria-label',
           type: 'string',
           description: 'A unique label for the rendered main landmark',
-          defaultValue: '',
           required: false,
         },
         {
           name: 'aria-labelledby',
           type: 'string',
           description: 'An id to an element which uniquely labels the rendered main landmark',
-          defaultValue: '',
           required: false,
         },
         {

@@ -15,7 +15,6 @@ export default defineComponent({
     {
       name: 'when',
       type: "'narrow' | 'wide' | 'regular' | Array<'narrow' | 'regular' | 'wide'>",
-      defaultValue: '',
       description: 'In which viewport(s) the children are going to be hidden',
       required: true,
     },

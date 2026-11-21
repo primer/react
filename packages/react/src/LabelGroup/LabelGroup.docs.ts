@@ -27,7 +27,6 @@ export default defineComponent({
       name: 'visibleChildCount',
       description:
         "How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated.",
-      defaultValue: '',
       type: "'auto' | number",
       required: false,
     },

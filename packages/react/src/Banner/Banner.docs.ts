@@ -122,7 +122,6 @@ export default defineComponent({
           name: 'className',
           type: 'string',
           description: 'Class name(s) for custom styling.',
-          defaultValue: '',
           required: false,
         },
       ],

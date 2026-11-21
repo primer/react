@@ -161,14 +161,12 @@ export default defineComponent({
       type: 'string',
       required: false,
       description: 'Provide an id to an element which uniquely describes this table',
-      defaultValue: '',
     },
     {
       name: 'aria-labelledby',
       type: 'string',
       required: false,
       description: 'Provide an id to an element which uniquely labels this table',
-      defaultValue: '',
     },
     {
       name: 'initialSortColumn',
@@ -176,7 +174,6 @@ export default defineComponent({
       required: false,
       description:
         'Provide the id or field of the column by which the table is sorted. When\nusing this `prop`, the input data must be sorted by this column in\nascending order',
-      defaultValue: '',
     },
     {
       name: 'initialSortDirection',
@@ -199,7 +196,6 @@ export default defineComponent({
       required: false,
       description:
         'Fires when the user clicks a sortable column header or activates it with Enter or Space. Reports the sorted column ID and the new direction.',
-      defaultValue: '',
     },
   ],
   subcomponents: [
@@ -416,7 +412,6 @@ export default defineComponent({
           type: "'end' | 'start'",
           required: false,
           description: "The horizontal alignment of the cell's content",
-          defaultValue: '',
         },
         {name: 'children', type: 'React.ReactNode', description: 'Content of the column header cell.', required: false},
       ],
@@ -501,7 +496,6 @@ export default defineComponent({
           type: "'end' | 'start'",
           required: false,
           description: "The horizontal alignment of the cell's content",
-          defaultValue: '',
         },
         {name: 'children', type: 'React.ReactNode', description: 'Content of the table cell.', required: false},
         {

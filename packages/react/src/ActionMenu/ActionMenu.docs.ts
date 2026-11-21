@@ -19,7 +19,6 @@ export default defineComponent({
     {
       name: 'children',
       type: 'Array<React.ReactElement>',
-      defaultValue: '',
       required: true,
       description: 'Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`',
     },
@@ -34,7 +33,6 @@ export default defineComponent({
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
-      defaultValue: '',
       description:
         'If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.',
       required: false,
@@ -42,7 +40,6 @@ export default defineComponent({
     {
       name: 'anchorRef',
       type: 'React.RefObject<HTMLElement>',
-      defaultValue: '',
       description: 'Useful for defining an external anchor',
       required: false,
     },
@@ -50,7 +47,7 @@ export default defineComponent({
   subcomponents: [
     {
       name: 'ActionMenu.Button',
-      props: [{name: 'children', type: 'React.ReactElement', defaultValue: '', required: true, description: ''}],
+      props: [{name: 'children', type: 'React.ReactElement', required: true, description: ''}],
       passthrough: {element: 'Button', url: '/react/Button'},
       displayName: 'Button',
     },
@@ -60,7 +57,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactElement',
-          defaultValue: '',
           required: true,
           description: 'Accepts a single child element',
         },
@@ -71,7 +67,7 @@ export default defineComponent({
     {
       name: 'ActionMenu.Overlay',
       props: [
-        {name: 'children', type: 'React.ReactNode', defaultValue: '', required: true, description: ''},
+        {name: 'children', type: 'React.ReactNode', required: true, description: ''},
         {name: 'align', type: 'start | center | end', defaultValue: 'start', description: '', required: false},
         {
           name: 'side',
@@ -83,7 +79,6 @@ export default defineComponent({
         {
           name: 'onPositionChange',
           type: '({ position }: { position: AnchorPosition }) => void',
-          defaultValue: '',
           description: 'Callback that is called when the position of the overlay changes',
           required: false,
         },
@@ -100,7 +95,6 @@ export default defineComponent({
           type: 'unknown',
           required: false,
           description: 'ID to use for React testing utilities.',
-          defaultValue: '',
         },
       ],
       passthrough: {element: 'Overlay', url: '/react/Overlay'},

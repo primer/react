@@ -13,12 +13,10 @@ export default defineComponent({
       type: 'string',
       required: false,
       description: 'Additional CSS class names to apply to the breadcrumbs container',
-      defaultValue: '',
     },
     {
       name: 'children',
       type: 'Array<Breadcrumbs.Item>',
-      defaultValue: '',
       description: 'Breadcrumb items to render. Each item should be a Breadcrumbs.Item component.',
       required: false,
     },
@@ -48,7 +46,6 @@ export default defineComponent({
           required: false,
           description:
             "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to.",
-          defaultValue: '',
         },
         {
           name: 'href',

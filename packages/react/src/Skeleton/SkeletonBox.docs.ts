@@ -37,7 +37,6 @@ export default defineComponent({
       name: 'className',
       type: 'string',
       description: 'The className of the skeleton box',
-      defaultValue: '',
       required: false,
     },
   ],

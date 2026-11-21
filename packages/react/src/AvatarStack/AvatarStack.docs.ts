@@ -22,7 +22,6 @@ export default defineComponent({
       name: 'children',
       type: 'ReactNode',
       description: 'A set of Avatar components to stack',
-      defaultValue: '',
       required: true,
     },
     {
@@ -65,7 +64,6 @@ export default defineComponent({
       name: 'className',
       type: 'string',
       description: 'Class name for custom styling.',
-      defaultValue: '',
       required: false,
     },
   ],

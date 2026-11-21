@@ -22,7 +22,6 @@ export default defineComponent({
     {
       name: 'required',
       type: 'boolean',
-      defaultValue: '',
       description: 'Indicates to the user and assistive technologies that the field value is required',
       required: false,
     },
@@ -78,7 +77,6 @@ export default defineComponent({
     {
       name: 'validationStatus',
       type: "'success' | 'error' | undefined",
-      defaultValue: '',
       description: 'Style the textarea to match the current form validation status',
       required: false,
     },

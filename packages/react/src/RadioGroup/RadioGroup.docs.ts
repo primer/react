@@ -18,14 +18,12 @@ export default defineComponent({
     {
       name: 'aria-labelledby',
       type: 'string',
-      defaultValue: '',
       description: 'Used when associating the input group with a label other than RadioGroup.Label',
       required: false,
     },
     {
       name: 'children',
       type: 'RadioGroup.Label | RadioGroup.Caption | RadioGroup.Validation | FormControl',
-      defaultValue: '',
       required: true,
       description: '',
     },
@@ -47,14 +45,12 @@ export default defineComponent({
     {
       name: 'name',
       type: 'string',
-      defaultValue: '',
       required: true,
       description: 'The name used to identify this group of radios',
     },
     {
       name: 'onChange',
       type: '(selected: string | null, e?: ChangeEvent<HTMLInputElement>) => void',
-      defaultValue: '',
       description: 'An onChange handler that gets called when the selection changes',
       required: false,
     },
@@ -86,7 +82,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           description: 'The caption content',
           required: false,
         },
@@ -99,14 +94,12 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           description: 'The validation message',
           required: false,
         },
         {
           name: 'variant',
           type: "'error' | 'success'",
-          defaultValue: '',
           required: true,
           description: 'Changes the visual style to match the validation status',
         },

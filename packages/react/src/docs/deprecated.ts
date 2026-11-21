@@ -1,3 +1,5 @@
+export {default as ActionList} from '../deprecated/ActionList/ActionList.docs'
+export {default as ActionMenu} from '../deprecated/ActionMenu.docs'
 export {default as Dialog} from '../deprecated/DialogV1/Dialog.docs'
 export {default as FilteredSearch} from '../deprecated/FilteredSearch/FilteredSearch.docs'
 export {default as Flash} from '../Flash/Flash.docs'

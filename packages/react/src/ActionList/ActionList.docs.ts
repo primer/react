@@ -11,7 +11,6 @@ export default defineComponent({
     {
       name: 'children',
       type: 'Array<ActionList.Item> | Array<ActionList.LinkItem> | Array<ActionList.Group>',
-      defaultValue: '',
       required: true,
       description: '',
     },
@@ -60,7 +59,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual',
-          defaultValue: '',
           required: true,
           description: 'Primary content for an Item',
         },
@@ -81,7 +79,6 @@ export default defineComponent({
         {
           name: 'onSelect',
           type: '(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void',
-          defaultValue: '',
           description:
             'Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`. This is not called for disabled or inactive items.',
           required: false,
@@ -110,7 +107,6 @@ export default defineComponent({
         {
           name: 'inactiveText',
           type: 'string',
-          defaultValue: '',
           description:
             "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage.\nIf there is a leading visual, the alert icon will replace the leading visual.\nIf there is a trailing visual, it will replace the trailing visual.\nIf there is no visual passed, it will be shown in the trailing visual slot to preserve left alignment of item content.\nText will appear in a tooltip triggered by the alert icon in ActionList items, but text will appear below the description or title on ActionMenu items.",
           required: false,
@@ -139,7 +135,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           required: true,
           description: 'Use to give a heading to list',
         },
@@ -160,7 +155,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual',
-          defaultValue: '',
           required: true,
           description: '',
         },
@@ -198,7 +192,6 @@ export default defineComponent({
           required: false,
           description:
             "Text describing why the item is inactive. This may be used when an item's usual functionality\nis unavailable due to a system error such as a database outage.",
-          defaultValue: '',
         },
       ],
       passthrough: {element: 'a', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes'},
@@ -210,7 +203,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           required: true,
           description: 'Icon (or similar) positioned before item text.',
         },
@@ -223,7 +215,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           required: true,
           description: 'Visual positioned after item text.',
         },
@@ -243,14 +234,12 @@ export default defineComponent({
         {
           name: 'label',
           type: 'string',
-          defaultValue: '',
           required: true,
           description: 'Accessible name for the control.',
         },
         {
           name: 'icon',
           type: 'string',
-          defaultValue: '',
           required: true,
           description:
             'Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`.',
@@ -283,7 +272,7 @@ export default defineComponent({
     {
       name: 'ActionList.Description',
       props: [
-        {name: 'children', type: 'React.ReactNode', defaultValue: '', required: true, description: ''},
+        {name: 'children', type: 'React.ReactNode', required: true, description: ''},
         {
           name: 'variant',
           type: "'inline' | 'block'",
@@ -292,7 +281,7 @@ export default defineComponent({
             '`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text.',
           required: false,
         },
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'truncate',
           type: 'boolean',
@@ -309,7 +298,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           required: true,
           description: 'Use to give a heading to the groups',
         },
@@ -326,7 +314,6 @@ export default defineComponent({
           type: 'string',
           required: false,
           description: 'Secondary text which provides additional information about a `Group`.',
-          defaultValue: '',
         },
         {name: 'visuallyHidden', type: 'boolean', required: false, description: '', defaultValue: ''},
         {
@@ -346,14 +333,12 @@ export default defineComponent({
         {
           name: 'children',
           type: 'Array<ActionList.Item> | Array<ActionList.LinkItem>',
-          defaultValue: '',
           required: true,
           description: '',
         },
         {
           name: 'title',
           type: 'string',
-          defaultValue: '',
           description: 'Please use `ActionList.GroupHeading` instead.',
           deprecated: true,
           required: false,
@@ -361,7 +346,6 @@ export default defineComponent({
         {
           name: 'auxiliaryText',
           type: 'string',
-          defaultValue: '',
           description: 'Secondary text that provides additional information about the group.',
           required: false,
         },

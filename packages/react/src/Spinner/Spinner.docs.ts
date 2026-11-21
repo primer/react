@@ -27,7 +27,7 @@ export default defineComponent({
       type: 'string',
       required: false,
     },
-    {defaultValue: '', description: '', name: 'className', type: 'string', required: false},
+    {description: '', name: 'className', type: 'string', required: false},
     {
       name: 'data-*',
       type: 'string',

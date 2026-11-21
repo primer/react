@@ -27,7 +27,6 @@ export default defineComponent({
     {
       name: 'children',
       type: 'React.ReactNode',
-      defaultValue: '',
       required: true,
       description: 'This will be the Button description.',
     },
@@ -69,7 +68,6 @@ export default defineComponent({
     {
       name: 'icon',
       type: 'React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>',
-      defaultValue: '',
       description:
         'Provide an icon component or React node. It will be placed in the center of the button. Use a React element when passing an icon from a Server Component.',
       required: true,
@@ -77,7 +75,6 @@ export default defineComponent({
     {
       name: 'aria-label',
       type: 'string',
-      defaultValue: '',
       description:
         'Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text.',
       required: false,
@@ -85,7 +82,6 @@ export default defineComponent({
     {
       name: 'keyshortcuts',
       type: 'string',
-      defaultValue: '',
       deprecated: true,
       description: 'Use `keybindingHint` instead.',
       required: false,

@@ -28,7 +28,6 @@ export default defineComponent({
     {
       name: 'children',
       type: 'FormControl.Label | FormControl.Caption | FormControl.Validation | Autocomplete | TextInput | TextInputWithTokens | Select',
-      defaultValue: '',
       required: true,
       description: '',
     },
@@ -74,7 +73,6 @@ export default defineComponent({
       name: 'className',
       type: 'string',
       description: 'Class name(s) for custom styling.',
-      defaultValue: '',
       required: false,
     },
     {
@@ -138,7 +136,6 @@ export default defineComponent({
           name: 'className',
           type: 'string',
           description: 'Class name(s) for custom styling.',
-          defaultValue: '',
           required: false,
         },
       ],
@@ -157,7 +154,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           description: 'The content (usually just text) that is rendered to give contextual info about the field',
           required: false,
         },
@@ -170,7 +166,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           description:
             'The content (usually just text) that is rendered to give contextual info about the validation result for the field',
           required: false,
@@ -178,7 +173,6 @@ export default defineComponent({
         {
           name: 'variant',
           type: "'error' | 'success'",
-          defaultValue: '',
           required: true,
           description: 'Changes the visual style to match the validation status',
         },
@@ -198,7 +192,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           description: "The visual to render before the choice input's label",
           required: false,
         },

@@ -17,11 +17,10 @@ export default defineComponent({
     {
       name: 'currentPage',
       type: 'number',
-      defaultValue: '',
       required: true,
       description: 'The currently selected page.',
     },
-    {name: 'pageCount', type: 'number', defaultValue: '', required: true, description: 'The total number of pages.'},
+    {name: 'pageCount', type: 'number', required: true, description: 'The total number of pages.'},
     {
       name: 'hrefBuilder',
       type: 'function',

@@ -31,7 +31,6 @@ export default defineComponent({
     {
       name: 'onOpen',
       type: "(gesture: 'anchor-click' | 'anchor-key-press', event?: KeyboardEvent<HTMLElement> | undefined) => unknown",
-      defaultValue: '',
       description:
         'A callback that is called whenever the overlay is currently closed and an "open gesture" is detected.',
       required: false,
@@ -39,15 +38,14 @@ export default defineComponent({
     {
       name: 'onClose',
       type: "(gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown",
-      defaultValue: '',
       description:
         'A callback that is called whenever the overlay is currently open and a "close gesture" is detected.',
       required: false,
     },
     {
       name: 'renderAnchor',
+      // eslint-disable-next-line github/unescaped-html-literal -- This is a TypeScript generic, not HTML.
       type: '<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element',
-      defaultValue: '',
       description:
         'A custom function component used to render the anchor element. When renderAnchor is null, an anchorRef is required.',
       required: true,
@@ -115,7 +113,6 @@ export default defineComponent({
     {
       name: 'className',
       type: 'string',
-      defaultValue: '',
       description: 'Class name for custom styling.',
       required: false,
     },

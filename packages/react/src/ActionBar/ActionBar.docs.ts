@@ -20,7 +20,7 @@ export default defineComponent({
       required: false,
       description: 'When provided, uses the element with that ID as the accessible name for the ActionBar',
     },
-    {name: 'children', type: 'ReactNode', required: false, description: 'Buttons in the action bar', defaultValue: ''},
+    {name: 'children', type: 'ReactNode', required: false, description: 'Buttons in the action bar'},
     {
       name: 'size',
       type: "'small' | 'large' | 'medium'",
@@ -35,7 +35,7 @@ export default defineComponent({
       defaultValue: 'false',
       description: 'Allows ActionBar to be flush with the container',
     },
-    {name: 'className', type: 'string', required: false, description: 'Custom className', defaultValue: ''},
+    {name: 'className', type: 'string', required: false, description: 'Custom className'},
     {
       name: 'gap',
       type: "'none' | 'condensed'",
@@ -51,21 +51,18 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           required: true,
           description: 'This will be the Button description.',
         },
         {
           name: 'icon',
           type: 'Component',
-          defaultValue: '',
           description: 'Provide an octicon. It will be placed in the center of the button',
           required: true,
         },
         {
           name: 'aria-label',
           type: 'string',
-          defaultValue: '',
           description:
             'Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text.',
           required: false,
@@ -73,7 +70,6 @@ export default defineComponent({
         {
           name: 'disabled',
           type: 'boolean',
-          defaultValue: '',
           description:
             'Provides a disabled state for the button. The button will remain focusable, and have `aria-disabled` applied.',
           required: false,
@@ -88,14 +84,12 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           required: true,
           description: 'The text content of the button.',
         },
         {
           name: 'leadingVisual',
           type: 'Component',
-          defaultValue: '',
           description:
             'Provide an octicon to render before the button text. It will also be shown when the button overflows into the menu.',
           required: false,
@@ -103,7 +97,6 @@ export default defineComponent({
         {
           name: 'disabled',
           type: 'boolean',
-          defaultValue: '',
           description:
             'Provides a disabled state for the button. The button will remain focusable, and have `aria-disabled` applied.',
           required: false,
@@ -119,7 +112,6 @@ export default defineComponent({
         {
           name: 'children',
           type: 'React.ReactNode',
-          defaultValue: '',
           description: 'Content rendered inside the action bar group.',
           required: false,
         },

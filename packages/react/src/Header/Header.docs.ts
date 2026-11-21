@@ -15,7 +15,6 @@ export default defineComponent({
         {
           name: 'full',
           type: 'string',
-          defaultValue: '',
           description: 'Stretches item to fill the available space',
           required: false,
         },
@@ -25,7 +24,7 @@ export default defineComponent({
     {
       name: 'Header.Link',
       props: [
-        {name: 'href', type: 'string', defaultValue: '', description: 'URL to be used for the Link', required: false},
+        {name: 'href', type: 'string', description: 'URL to be used for the Link', required: false},
         {
           name: 'as',
           type: 'React.ElementType',

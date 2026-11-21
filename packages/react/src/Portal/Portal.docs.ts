@@ -16,7 +16,6 @@ export default defineComponent({
     {
       name: 'onMount',
       type: 'function',
-      defaultValue: '',
       description: 'Called when this portal is added to the DOM',
       required: false,
     },

@@ -23,14 +23,12 @@ export default defineComponent({
     {
       name: 'returnFocusRef',
       type: 'React.RefObject<HTMLElement>',
-      defaultValue: '',
       required: true,
       description: 'Ref for the element to focus when the `Overlay` is closed.',
     },
     {
       name: 'onClickOutside',
       type: 'function',
-      defaultValue: '',
       required: true,
       description:
         'Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.',
@@ -38,7 +36,6 @@ export default defineComponent({
     {
       name: 'onEscape',
       type: 'function',
-      defaultValue: '',
       required: true,
       description:
         'Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.',
@@ -46,7 +43,6 @@ export default defineComponent({
     {
       name: 'ignoreClickRefs',
       type: 'Array<React.RefObject<HTMLElement>>',
-      defaultValue: '',
       description:
         'An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice.',
       required: false,
@@ -86,7 +82,6 @@ export default defineComponent({
     {
       name: 'maxWidth',
       type: "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
-      defaultValue: '',
       description:
         'Sets the maximum width of the `Overlay`, pick from our set list of widths. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.',
       required: false,
@@ -101,7 +96,6 @@ export default defineComponent({
     {
       name: 'anchorSide',
       type: "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
-      defaultValue: '',
       description:
         'If provided, the Overlay will slide into position from the side of the anchor with a brief animation',
       required: false,
@@ -169,13 +163,12 @@ export default defineComponent({
       description: 'ARIA role to use for the overlay',
       defaultValue: '',
     },
-    {name: 'data-test-id', type: 'unknown', required: false, description: '', defaultValue: ''},
+    {name: 'data-test-id', type: 'unknown', required: false, description: ''},
     {
       name: 'responsiveVariant',
       type: "'fullscreen'",
       required: false,
       description: 'Optional prop to set responsive variant for narrow screen sizes',
-      defaultValue: '',
     },
   ],
   subcomponents: [],

@@ -22,14 +22,12 @@ export default defineComponent({
     {
       name: 'tokens',
       type: 'Array<TokenProps>',
-      defaultValue: '',
       required: true,
       description: 'The array of tokens to render',
     },
     {
       name: 'onTokenRemove',
       type: '(tokenId: string|number) => void',
-      defaultValue: '',
       required: true,
       description: 'The function that gets called when a token is removed',
     },
@@ -43,7 +41,6 @@ export default defineComponent({
     {
       name: 'maxHeight',
       type: "React.CSSProperties['maxHeight']",
-      defaultValue: '',
       description:
         'The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically',
       required: false,
@@ -72,14 +69,12 @@ export default defineComponent({
     {
       name: 'validationStatus',
       type: "'error' | 'success'",
-      defaultValue: '',
       description: 'Style the input to match the status',
       required: false,
     },
     {
       name: 'visibleTokenCount',
       type: 'number',
-      defaultValue: '',
       description: 'The number of tokens to display before truncating',
       required: false,
     },

@@ -24,7 +24,6 @@ export default defineComponent({
       type: 'Array<ItemInput>',
       required: true,
       description: 'A collection of `Item` props and `Item`-level custom `Item` renderers.',
-      defaultValue: '',
     },
     {
       name: 'title',
@@ -36,21 +35,18 @@ export default defineComponent({
     {
       name: 'subtitle',
       type: 'string | React.ReactElement',
-      defaultValue: '',
       description: 'When provided, a subtitle is displayed below the title',
       required: false,
     },
     {
       name: 'onOpenChange',
       type: "( open: boolean, gesture: | 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel' ) => void",
-      defaultValue: '',
       required: true,
       description: '',
     },
     {
       name: 'placeholder',
       type: 'string',
-      defaultValue: '',
       description: 'Text used in anchor when there are no selected items',
       required: false,
     },
@@ -72,7 +68,6 @@ export default defineComponent({
       name: 'aria-label',
       type: 'string',
       description: 'aria-label to attach to the base DOM node of the list',
-      defaultValue: '',
       required: false,
     },
     {
@@ -85,7 +80,6 @@ export default defineComponent({
     {
       name: 'selected',
       type: 'ItemInput | Array<ItemInput> | undefined',
-      defaultValue: '',
       required: true,
       description: 'Specify the selected item(s)',
     },
@@ -94,7 +88,6 @@ export default defineComponent({
       type: 'boolean',
       required: true,
       description: 'Determines whether the overlay portion of the component should be shown or not',
-      defaultValue: '',
     },
     {
       name: 'anchorId',
@@ -108,13 +101,11 @@ export default defineComponent({
       type: 'RefObject<HTMLElement>',
       description:
         'An override to the internal renderAnchor ref that will be used to position the overlay.\nWhen renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.\nAn override to the internal ref that will be spread on to the renderAnchor',
-      defaultValue: '',
       required: false,
     },
     {
       name: 'onSelectedChange',
       type: '(selected: ItemInput | Array<ItemInput>) => void',
-      defaultValue: '',
       required: true,
       description: 'Provide a callback called when the selected item(s) change',
     },
@@ -122,27 +113,23 @@ export default defineComponent({
       name: 'onFilterChange',
       type: '(value: string, e: ChangeEvent<HTMLInputElement>) => void',
       description: 'Callback when the search input changes',
-      defaultValue: '',
       required: true,
     },
     {
       name: 'onCancel',
       type: '() => void',
       description: '(Narrow screens and variant=modal) Callback when the user hits cancel or close',
-      defaultValue: '',
       required: false,
     },
     {
       name: 'overlayProps',
       type: 'Partial<OverlayProps>',
-      defaultValue: '',
       description: 'See [Overlay props](/react/Overlay#props).',
       required: false,
     },
     {
       name: 'textInputProps',
       type: "Partial<Omit<TextInputProps, 'onChange'>>",
-      defaultValue: '',
       description:
         'See [TextInput props](/react/TextInput#props). The filter input uses the normal TextInput background by default. Enable `primer_react_select_panel_legacy_contrast` to restore the previous contrast background. An explicit `textInputProps.contrast` value takes precedence over the flag: `true` enables contrast, while `false` or explicitly passing `undefined` disables it. The `contrast` prop remains deprecated.',
       required: false,

@@ -66,21 +66,18 @@ export default defineComponent({
     {
       name: 'second',
       type: "'numeric' | '2-digit'",
-      defaultValue: '',
       description: 'The format with which to render seconds',
       required: false,
     },
     {
       name: 'minute',
       type: "'numeric' | '2-digit'",
-      defaultValue: '',
       description: 'The format with which to render minutes',
       required: false,
     },
     {
       name: 'hour',
       type: "'numeric' | '2-digit'",
-      defaultValue: '',
       description: 'The format with which to render hours',
       required: false,
     },
@@ -115,7 +112,6 @@ export default defineComponent({
     {
       name: 'timeZoneName',
       type: "'long' | 'short' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'",
-      defaultValue: '',
       description: 'The format with which to render the time zone',
       required: false,
     },

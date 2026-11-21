@@ -35,7 +35,6 @@ export default defineComponent({
     {
       name: 'autoComplete',
       type: 'string',
-      defaultValue: '',
       description: 'Allows input to autofill based on value given.',
       required: false,
     },
@@ -70,7 +69,6 @@ export default defineComponent({
     {
       name: 'loading',
       type: 'boolean',
-      defaultValue: '',
       description: 'Whether to show a loading indicator in the input',
       required: false,
     },
@@ -93,7 +91,6 @@ export default defineComponent({
     {
       name: 'leadingVisual',
       type: 'string | React.ComponentType',
-      defaultValue: '',
       description: 'Visual positioned on the left edge inside the input',
       required: false,
     },
@@ -107,21 +104,18 @@ export default defineComponent({
     {
       name: 'trailingVisual',
       type: 'string | React.ComponentType',
-      defaultValue: '',
       description: 'Visual positioned on the right edge inside the input',
       required: false,
     },
     {
       name: 'trailingAction',
       type: 'React.ReactElement<HTMLProps<HTMLButtonElement>>',
-      defaultValue: '',
       description: 'A visual that renders inside the input after the typing area',
       required: false,
     },
     {
       name: 'validationStatus',
       type: "'error' | 'success'",
-      defaultValue: '',
       description: 'Style the input to match the status',
       required: false,
     },
@@ -144,7 +138,6 @@ export default defineComponent({
     {
       name: 'maxWidth',
       type: 'string | number',
-      defaultValue: '',
       deprecated: true,
       description: '(Use css modules) Set the maximum width of the input',
       required: false,
@@ -152,7 +145,6 @@ export default defineComponent({
     {
       name: 'minWidth',
       type: 'string | number',
-      defaultValue: '',
       deprecated: true,
       description: '(Use css modules) Set the minimum width of the input',
       required: false,
@@ -160,7 +152,6 @@ export default defineComponent({
     {
       name: 'icon',
       type: 'React.ComponentType',
-      defaultValue: '',
       deprecated: true,
       description:
         '(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge.',
@@ -175,7 +166,6 @@ export default defineComponent({
         {
           name: 'aria-label',
           type: 'string',
-          defaultValue: '',
           description:
             'Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies.',
           required: false,
@@ -190,7 +180,6 @@ export default defineComponent({
         {
           name: 'icon',
           type: 'React.FunctionComponent',
-          defaultValue: '',
           description: 'The icon to render inside the button',
           required: false,
         },

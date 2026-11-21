@@ -30,7 +30,6 @@ export default defineComponent({
       name: 'label',
       type: 'string',
       description: 'Used to set the `aria-label` on the top level `<nav>` element.',
-      defaultValue: '',
       required: false,
     },
     {

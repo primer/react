@@ -31,7 +31,6 @@ export default defineComponent({
     {
       name: 'placeholder',
       type: 'string',
-      defaultValue: '',
       description:
         "Placeholder text to show when no option is selected.\nThis option is hidden from the dropdown menu when the 'required' prop is set",
       required: false,
@@ -46,7 +45,6 @@ export default defineComponent({
     {
       name: 'validationStatus',
       type: "'error' | 'success'",
-      defaultValue: '',
       description: 'Style the input to match the status',
       required: false,
     },

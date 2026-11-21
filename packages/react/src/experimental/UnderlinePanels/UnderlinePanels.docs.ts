@@ -23,21 +23,18 @@ export default defineComponent({
     {
       name: 'aria-label',
       type: 'string',
-      defaultValue: '',
       description: 'Accessible name for the tab list',
       required: false,
     },
     {
       name: 'aria-labelledby',
       type: 'string',
-      defaultValue: '',
       description: 'ID of the element containing the name for the tab list',
       required: false,
     },
     {
       name: 'value',
       type: 'string',
-      defaultValue: '',
       description:
         'The value of the selected tab, keyed to each `UnderlinePanels.Tab`/`UnderlinePanels.Panel` `value`. Provide this (with `onChange`) for a controlled component where the selected tab is the single source of truth.',
       required: false,
@@ -53,7 +50,6 @@ export default defineComponent({
     {
       name: 'onChange',
       type: '({value}: {value: string}) => void',
-      defaultValue: '',
       description:
         "Callback fired whenever the selected tab changes, for every selection method — pointer, Enter/Space, and Arrow/Home/End keys. Unlike `UnderlinePanels.Tab`'s `onSelect` (which only fires on click and Enter/Space), this makes the selected value usable as a single source of truth for data-driven tabs.",
       required: false,
@@ -69,14 +65,12 @@ export default defineComponent({
     {
       name: 'children',
       type: 'Array<UnderlinePanels.Tab | UnderlinePanels.Panel>',
-      defaultValue: '',
       required: true,
       description: 'Tabs (UnderlinePanels.Tab) and panels (UnderlinePanels.Panel) to render',
     },
     {
       name: 'id',
       type: 'string',
-      defaultValue: '',
       description: 'Custom string to use when generating the IDs of tabs and `aria-labelledby` for the panels',
       required: false,
     },
@@ -119,7 +113,6 @@ export default defineComponent({
         {
           name: 'onSelect',
           type: '(event) => void',
-          defaultValue: '',
           description:
             "The handler that gets called when the tab is selected. Note: this fires only on click and Enter/Space — not on arrow-key navigation. For a callback that fires for every selection method, use the container's `onChange` prop instead.",
           required: false,
@@ -127,14 +120,12 @@ export default defineComponent({
         {
           name: 'counter',
           type: 'number | string',
-          defaultValue: '',
           description: 'Content of CounterLabel rendered after tab text label',
           required: false,
         },
         {
           name: 'icon',
           type: 'Component',
-          defaultValue: '',
           description: 'Icon rendered before the tab text label',
           required: false,
         },

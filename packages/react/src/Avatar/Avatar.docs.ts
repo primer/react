@@ -34,7 +34,7 @@ export default defineComponent({
       description: 'If true, the avatar will be square instead of circular.',
       required: false,
     },
-    {name: 'src', type: 'string', required: false, description: 'URL of the avatar image.', defaultValue: ''},
+    {name: 'src', type: 'string', required: false, description: 'URL of the avatar image.'},
   ],
   subcomponents: [],
 })

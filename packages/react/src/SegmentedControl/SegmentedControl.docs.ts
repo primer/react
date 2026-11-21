@@ -21,20 +21,18 @@ export default defineComponent({
   ],
   importPath: '@primer/react',
   props: [
-    {name: 'aria-label', type: 'string', defaultValue: '', description: '', required: false},
-    {name: 'aria-labelledby', type: 'string', defaultValue: '', description: '', required: false},
-    {name: 'aria-describedby', type: 'string', defaultValue: '', description: '', required: false},
+    {name: 'aria-label', type: 'string', description: '', required: false},
+    {name: 'aria-labelledby', type: 'string', description: '', required: false},
+    {name: 'aria-describedby', type: 'string', description: '', required: false},
     {
       name: 'fullWidth',
       type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
-      defaultValue: '',
       description: 'Whether the control fills the width of its parent',
       required: false,
     },
     {
       name: 'onChange',
       type: '(selectedIndex?: number) => void',
-      defaultValue: '',
       description: 'The handler that gets called when a segment is selected',
       required: false,
     },
@@ -60,7 +58,6 @@ export default defineComponent({
         {
           name: 'leadingVisual',
           type: 'Component',
-          defaultValue: '',
           description: 'The leading visual comes before item label',
           required: false,
         },
@@ -68,7 +65,6 @@ export default defineComponent({
           name: 'leadingIcon',
           deprecated: true,
           type: 'Component',
-          defaultValue: '',
           description: 'Deprecated: use `leadingVisual` instead. The leading icon comes before item label.',
           required: false,
         },
@@ -91,7 +87,6 @@ export default defineComponent({
         {
           name: 'count',
           type: 'number | string',
-          defaultValue: '',
           description: 'The number to display in the counter label.',
           required: false,
         },
@@ -101,11 +96,10 @@ export default defineComponent({
     {
       name: 'SegmentedControl.IconButton',
       props: [
-        {name: 'aria-label', type: 'string', defaultValue: '', required: true, description: ''},
+        {name: 'aria-label', type: 'string', required: true, description: ''},
         {
           name: 'icon',
           type: 'Component',
-          defaultValue: '',
           required: true,
           description: 'The icon that represents the segmented control item',
         },

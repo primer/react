@@ -27,7 +27,7 @@ export default defineComponent({
   ],
   importPath: '@primer/react',
   props: [
-    {name: 'aria-label', type: 'string', defaultValue: '', description: '', required: false},
+    {name: 'aria-label', type: 'string', description: '', required: false},
     {name: 'aria-labelledby', type: 'string', defaultValue: '', description: '', required: false},
     {
       name: 'disableItemGap',
@@ -87,7 +87,6 @@ export default defineComponent({
         {
           name: 'href',
           type: 'string',
-          defaultValue: '',
           description:
             'The URL that the item navigates to. `href` is passed to the underlying `<a>` element. If `as` is specified, the component may need different props. If the item contains a sub-nav, the item is rendered as a `<button>` and `href` is ignored.',
           required: false,
@@ -110,7 +109,6 @@ export default defineComponent({
           name: 'inactiveText',
           type: 'string',
           description: 'Text to explain why this item is currently inactive and cannot be activated.',
-          defaultValue: '',
           required: false,
         },
         {
@@ -177,7 +175,6 @@ export default defineComponent({
           type: 'ReactNode',
           required: true,
           description: 'A related set of NavList.Items',
-          defaultValue: '',
         },
         {
           name: 'title',
@@ -204,7 +201,6 @@ export default defineComponent({
           type: 'string',
           required: false,
           description: 'Secondary text which provides additional information about a `Group`.',
-          defaultValue: '',
         },
         {
           name: 'variant',
@@ -246,7 +242,6 @@ export default defineComponent({
         {
           name: 'icon',
           type: 'string',
-          defaultValue: '',
           required: true,
           description:
             'Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`.',

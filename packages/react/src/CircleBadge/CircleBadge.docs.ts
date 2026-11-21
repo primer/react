@@ -18,7 +18,6 @@ export default defineComponent({
     {
       name: 'size',
       type: 'number',
-      defaultValue: '',
       description: 'Sets the size of the badge in pixels. Overrides the `variant` prop when set',
       required: false,
     },

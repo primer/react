@@ -11,14 +11,12 @@ export default defineComponent({
     {
       name: 'aria-label',
       type: 'string',
-      defaultValue: '',
       description: 'Specifies the aria-label attribute, which is read verbatim by screen readers',
       required: false,
     },
     {
       name: 'icon',
       type: 'Component',
-      defaultValue: '',
       description:
         'Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the',
       required: true,

@@ -25,11 +25,10 @@ export default defineComponent({
     {
       name: 'aria-label',
       type: 'string | undefined',
-      defaultValue: '',
       description: 'A unique label for the rendered landmark',
       required: false,
     },
-    {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+    {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
     {
       name: 'role',
       type: 'AriaRole',
@@ -55,7 +54,7 @@ export default defineComponent({
     {
       name: 'PageHeader.ContextArea',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -72,12 +71,11 @@ export default defineComponent({
         {
           name: 'aria-label',
           type: 'string | undefined',
-          defaultValue: '',
           description: 'A unique label for the rendered landmark',
           required: false,
         },
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
-        {name: 'href', type: 'string', defaultValue: '', description: 'The URL to link to.', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
+        {name: 'href', type: 'string', description: 'The URL to link to.', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -91,7 +89,7 @@ export default defineComponent({
     {
       name: 'PageHeader.ContextBar',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -105,7 +103,7 @@ export default defineComponent({
     {
       name: 'PageHeader.ContextAreaActions',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -119,7 +117,7 @@ export default defineComponent({
     {
       name: 'PageHeader.TitleArea',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -141,7 +139,7 @@ export default defineComponent({
     {
       name: 'PageHeader.LeadingAction',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -155,7 +153,7 @@ export default defineComponent({
     {
       name: 'PageHeader.LeadingVisual',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -169,7 +167,7 @@ export default defineComponent({
     {
       name: 'PageHeader.Title',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -190,7 +188,7 @@ export default defineComponent({
     {
       name: 'PageHeader.TrailingVisual',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -204,7 +202,7 @@ export default defineComponent({
     {
       name: 'PageHeader.TrailingAction',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -218,7 +216,7 @@ export default defineComponent({
     {
       name: 'PageHeader.Actions',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -232,7 +230,7 @@ export default defineComponent({
     {
       name: 'PageHeader.Breadcrumbs',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -246,7 +244,7 @@ export default defineComponent({
     {
       name: 'PageHeader.Description',
       props: [
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',
@@ -280,7 +278,7 @@ export default defineComponent({
           description: 'The HTML element used to render the navigation.',
           required: false,
         },
-        {name: 'className', type: 'string | undefined', defaultValue: '', description: 'CSS string', required: false},
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
         {
           name: 'hidden',
           type: '| boolean | { narrow?: boolean regular?: boolean wide?: boolean }',

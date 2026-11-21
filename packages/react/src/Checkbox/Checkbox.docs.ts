@@ -17,21 +17,18 @@ export default defineComponent({
     {
       name: 'checked',
       type: 'boolean',
-      defaultValue: '',
       description: 'Modifies true/false value of the native checkbox',
       required: false,
     },
     {
       name: 'defaultChecked',
       type: 'boolean',
-      defaultValue: '',
       description: 'Checks the input by default in uncontrolled mode',
       required: false,
     },
     {
       name: 'disabled',
       type: 'boolean',
-      defaultValue: '',
       description: 'Modifies the native disabled state of the native checkbox',
       required: false,
     },
@@ -46,14 +43,12 @@ export default defineComponent({
     {
       name: 'onChange',
       type: '(event: React.ChangeEvent) => void',
-      defaultValue: '',
       description: 'A callback function that is triggered when the checked state has been changed',
       required: false,
     },
     {
       name: 'validationStatus',
       type: "'error' | 'success'",
-      defaultValue: '',
       description: 'Only used to inform ARIA attributes.\nIndividual checkboxes do not have validation styles.',
       required: false,
     },

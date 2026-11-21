@@ -20,12 +20,11 @@ export default defineComponent({
     {
       name: 'aria-label',
       type: 'string',
-      defaultValue: '',
       description:
         "A unique name for the rendered nav landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll _aria-label_ left/right')\n",
       required: false,
     },
-    {name: 'children', type: 'Array<UnderlineNav.Item>', defaultValue: '', required: true, description: ''},
+    {name: 'children', type: 'Array<UnderlineNav.Item>', required: true, description: ''},
     {
       name: 'loadingCounters',
       type: 'boolean',
@@ -66,7 +65,6 @@ export default defineComponent({
         {
           name: 'counter',
           type: 'number | string',
-          defaultValue: '',
           description: 'The number to display in the counter label.',
           required: false,
         },
@@ -81,7 +79,6 @@ export default defineComponent({
         {
           name: 'icon',
           type: 'Component',
-          defaultValue: '',
           description: 'The leading icon comes before item label',
           deprecated: true,
           required: false,
@@ -89,14 +86,12 @@ export default defineComponent({
         {
           name: 'leadingVisual',
           type: 'React.ReactElement',
-          defaultValue: '',
           description: 'The leading visual comes before item label',
           required: false,
         },
         {
           name: 'onSelect',
           type: '(event) => void',
-          defaultValue: '',
           description:
             "The handler that gets called when a nav link is selected. For example, a manual route binding can be done here(I.e. 'navigate(href)' for the react router.)",
           required: false,

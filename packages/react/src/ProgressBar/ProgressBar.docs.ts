@@ -62,7 +62,6 @@ export default defineComponent({
           name: 'aria-label',
           type: 'string',
           description: 'Defines a string value that labels the current element.\n@see aria-labelledby.',
-          defaultValue: '',
           required: false,
         },
         {

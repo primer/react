@@ -11,7 +11,6 @@ export default defineComponent({
     {
       name: 'href',
       type: 'string',
-      defaultValue: '',
       description:
         'URL to be used for the Link. (The `href` is passed to the underlying `<a>` element. If `as` is specified, the link behavior may need different props).',
       required: false,
@@ -34,7 +33,6 @@ export default defineComponent({
     {
       name: 'hoverColor',
       type: 'string',
-      defaultValue: '',
       description: 'Use CSS modules to style hover color.',
       deprecated: true,
       required: false,
