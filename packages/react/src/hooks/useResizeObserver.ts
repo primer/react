@@ -1,5 +1,5 @@
 import type {RefObject} from 'react'
-import {useRef, useState} from 'react'
+import {useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // https://gist.github.com/strothj/708afcf4f01dd04de8f49c92e88093c3
@@ -15,7 +15,6 @@ export function useResizeObserver<T extends HTMLElement>(
   depsArray: unknown[] = [],
   enabled: boolean = true,
 ) {
-  const [targetClientRect, setTargetClientRect] = useState<DOMRect | null>(null)
   const savedCallback = useRef(callback)
 
   useLayoutEffect(() => {
@@ -42,17 +41,15 @@ export function useResizeObserver<T extends HTMLElement>(
         observer.disconnect()
       }
     } else {
+      let targetClientRect: DOMRect | undefined
       const saveTargetDimensions = () => {
         const currTargetRect = targetEl.getBoundingClientRect()
 
-        if (currTargetRect.width !== targetClientRect?.width || currTargetRect.height !== targetClientRect.height) {
-          savedCallback.current([
-            {
-              contentRect: currTargetRect,
-            },
-          ])
+        if (currTargetRect.width === targetClientRect?.width && currTargetRect.height === targetClientRect.height) {
+          return
         }
-        setTargetClientRect(currTargetRect)
+        targetClientRect = currTargetRect
+        savedCallback.current([{contentRect: currTargetRect}])
       }
       // eslint-disable-next-line github/prefer-observers
       window.addEventListener('resize', saveTargetDimensions)
