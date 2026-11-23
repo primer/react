@@ -119,6 +119,18 @@ const config = defineConfig([
 
   // eslint-plugin-react-you-might-not-need-an-effect
   reactYouMightNotNeedAnEffect.configs.recommended,
+  {
+    linterOptions: {
+      reportUnusedDisableDirectives: 'off',
+    },
+    rules: {
+      'react-you-might-not-need-an-effect/no-adjust-state-on-prop-change': 'off',
+      'react-you-might-not-need-an-effect/no-event-handler': 'off',
+      'react-you-might-not-need-an-effect/no-pass-data-to-parent': 'off',
+      'react-you-might-not-need-an-effect/no-pass-live-state-to-parent': 'off',
+      'react-you-might-not-need-an-effect/no-reset-all-state-on-prop-change': 'off',
+    },
+  },
 
   {
     extends: fixupConfigRules(compat.extends('plugin:clsx/recommended', 'plugin:ssr-friendly/recommended')),
