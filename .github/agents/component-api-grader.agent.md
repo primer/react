@@ -25,6 +25,8 @@ For a whole-component grade, record public exports, docs maturity, package versi
 
 Return the whole-component Markdown scorecard and structured audit JSON in the response. Include every field required by the template: grade or range, status, evidence coverage, area scores, findings and candidate checks, BLOCK sensitivity, N/A/limited items, test evidence, top fixes, human-review state, and baseline calibration. In PR mode, return delta findings only.
 
+For report publication, the caller can manually dispatch the `Component API grade report` workflow with the whole-component scorecard and matching audit JSON.
+
 ## Boundaries
 
 This agent is read-only. Do not edit component code, create repository files, update scorecards, make GitHub writes, or turn a grade into a merge gate. The caller owns persistence outside the repository. An independent citation review is required before persistence. Never present agent judgment as maintainer sign-off or score unknown evidence as a pass or zero.

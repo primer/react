@@ -199,6 +199,8 @@ Complete the Layer 3 form in the scorecard template after source and runtime che
 
 ## Recording results
 
-Return whole-component scorecards and their structured JSON to the caller. Do not commit generated grades or audit results to the repository. Persistence, artifact publishing, and issue tracking belong to a future reporting workflow.
+Return whole-component scorecards and their structured JSON to the caller. To publish a completed grade, manually dispatch the `Component API grade report` workflow with that audit JSON and its rendered scorecard Markdown. For multiline input, prepare an untracked JSON file with `audit_json` and `scorecard_markdown` string fields and run `gh workflow run component-api-grade-report.yml --json < report-input.json`. The workflow revalidates the audit, confirms the scorecard component and source SHA, and uploads the scorecard, audit JSON, and calculated summary as a 90-day artifact. Generated grade files are never committed.
 
-PR reviews grade the changed diff only and return delta findings. Future nightly orchestration may fan out one grader per component and aggregate validated results; it must keep incomplete results provisional and preserve exact citations.
+The workflow maintains one program parent issue, one component child issue per graded component, and one finding child issue per check with a `GAP`, `COVERED`, candidate `GAP`, or open current-contract defect. Stable markers let retries update the same issues. Finding issues close only when their check is explicitly `PASS` and no open contract defect remains for that check. `N/A`, `NOT MEASURED`, `UNRESOLVED`, absent checks, invalid audits, and failed grading do not close issues. A partially failed API sync can be rerun safely; the uploaded artifact remains available.
+
+PR reviews grade the changed diff only and return delta findings. Automatic grade generation, scheduled component fan-out, and dispatching reports directly from grader-agent output remain future work.
