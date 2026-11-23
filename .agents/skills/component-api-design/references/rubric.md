@@ -6,17 +6,17 @@
 
 - [Purpose and authority](#purpose-and-authority), L:23
 - [Target baseline](#target-baseline), L:29
-- [Grading modes](#grading-modes), L:39
-- [Audit procedure](#audit-procedure), L:47
-- [Applicability](#applicability), L:58
-- [Check catalog](#check-catalog), L:95
-- [Candidate checks](#candidate-checks), L:131
-- [Evidence and verdicts](#evidence-and-verdicts), L:141
-- [Findings and citations](#findings-and-citations), L:158
-- [Scoring and validation](#scoring-and-validation), L:166
-- [Section anchors](#section-anchors), L:188
-- [Layer 3 human review](#layer-3-human-review), L:200
-- [Recording results](#recording-results), L:213
+- [Grading modes](#grading-modes), L:35
+- [Audit procedure](#audit-procedure), L:43
+- [Applicability](#applicability), L:54
+- [Check catalog](#check-catalog), L:91
+- [Candidate checks](#candidate-checks), L:127
+- [Evidence and verdicts](#evidence-and-verdicts), L:137
+- [Findings and citations](#findings-and-citations), L:154
+- [Scoring and validation](#scoring-and-validation), L:162
+- [Section anchors](#section-anchors), L:184
+- [Layer 3 human review](#layer-3-human-review), L:196
+- [Recording results](#recording-results), L:200
 
 This rubric evaluates a component against the accepted benchmark target. It records current-contract defects and unweighted candidate checks separately and never changes production APIs, ADR status, release status, or merge policy. Scores from 0.4.1, 0.5.0, and 0.6.0 are not comparable.
 
@@ -28,13 +28,9 @@ An accepted-target gap is a `FIX` or `NIT`. A `BLOCK` is reserved for a reachabl
 
 ## Target baseline
 
-Use the [pinned target baseline](./target-baseline.md) for all ADR inventory, gist requirements, precedence, mappings, and unresolved decisions. For the audited snapshot, every ADR file present at the pinned `origin/main` SHA is in scope regardless of its status label. The pinned composition gist is also in scope. This is a benchmark assumption and does not edit existing ADR metadata.
+Use the [pinned target baseline](./target-baseline.md) for ADR scope, composition requirements, precedence, mappings, and open decisions. It defines the benchmark for the audited snapshot without changing ADR status or asserting that a proposal has shipped. Apply shape-based exclusions from Applicability; do not infer N/A from a missing target feature.
 
-The gist requires a parts surface for every interactive component, including interactive leaf controls. Every part supports `as` and element/function `render`. New-part handlers run in this exact order: render-element consumer handler, consumer handler passed to the part, then Primer's handler. The gist defines no additional internal part-handler stage. A consumer skip method stops the remaining handlers for that event; DOM `preventDefault()` and state-transition `cancel()` are separate contracts. Consumer classes come first; consumer style and ordinary attributes win; all refs are merged; behavior props remain part-owned. The gist takes precedence over ADR-025 for new parts. ADR-025 remains in force for configured/internal merges, and existing subcomponents retain their current handler/prop behavior.
-
-New state-transition callbacks use one object with the proposed value, `reason`, originating `event` when present, and synchronous `cancel()`. Existing callback signatures remain unchanged. The gist leaves exact part names/default elements/state types, simultaneous `as` and `render`, skip-method name, and overlay coordination implementation unresolved. Never mark a required interactive part or render form N/A because the current component lacks it.
-
-Rubric 0.6.0 scores one active set of checks totaling 92 points. `PART-RENDER` remains visible as an unweighted candidate check with a proposed weight of 8; it does not change the score, active denominator, section caps, or provisional status. The five merge checks retain their 20 points and are graded from current public behavior. Promote a candidate into the active rubric only through a versioned rubric change and a full audit rerun.
+Rubric 0.6.0 scores one active set totaling 92 points. `PART-RENDER` is an unweighted candidate with proposed weight 8; it does not affect the score, denominator, caps, or status. Grade the five merge checks from current public behavior. Promote candidates only through a versioned rubric change and a full rerun.
 
 ## Grading modes
 
@@ -199,16 +195,7 @@ Anchors describe observable properties of the API and evidence. Apply the numeri
 
 ## Layer 3 human review
 
-Complete this form after source and runtime checks. Record rationale, a reachable use case, and the human reviewer. Keep each item `PENDING HUMAN` until a human answers.
-
-| Judgment item                                                                                                   | Result and rationale                                  |
-| :-------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
-| Does each proposed part boundary map to a consumer-controlled region?                                           | Pass / concern / pending / N/A — reason and use case: |
-| Is the default element suitable for the behavior and semantics it owns?                                         | Pass / concern / pending / N/A — reason and evidence: |
-| Do both `as` and `render` preserve parent context, semantic order, collection ownership, and accessible naming? | Pass / concern / pending / N/A — reason and evidence: |
-| Are shared names/defaults coherent for concepts this component shares with the audited set?                     | Pass / concern / pending / N/A — shared concepts:     |
-| Which unresolved target decisions need maintainer direction?                                                    | Decision IDs / none:                                  |
-| Is the proposed fix additive for the exact released surface?                                                    | Pass / concern / pending / N/A — package evidence:    |
+Complete the Layer 3 form in the scorecard template after source and runtime checks. Record rationale, a reachable use case, and the reviewer. Keep each item `PENDING HUMAN` until a human supplies the judgment; agent judgment is not sign-off.
 
 ## Recording results
 
