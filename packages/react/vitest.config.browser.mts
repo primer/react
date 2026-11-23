@@ -40,6 +40,7 @@ export default defineConfig({
       'src/__tests__/exports.test.ts',
       'src/__tests__/ssr.test.tsx',
       'src/__tests__/storybook.test.tsx',
+      'src/docs/component-exports.test.ts',
     ],
     include: ['src/**/*.test.?(c|m)[jt]s?(x)'],
     setupFiles: ['config/vitest/browser/setup.ts'],

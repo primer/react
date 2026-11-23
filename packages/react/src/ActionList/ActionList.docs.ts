@@ -1,0 +1,379 @@
+import {defineComponent} from '../docs/component'
+
+export default defineComponent({
+  id: 'action_list',
+  name: 'ActionList',
+  status: 'beta',
+  a11yReviewed: '2025-01-08',
+  stories: [],
+  importPath: '@primer/react',
+  props: [
+    {
+      name: 'children',
+      type: 'Array<ActionList.Item> | Array<ActionList.LinkItem> | Array<ActionList.Group>',
+      required: true,
+      description: '',
+    },
+    {
+      name: 'variant',
+      type: "'inset' | 'horizontal-inset' | 'full'",
+      defaultValue: "'inset'",
+      description:
+        '`inset` children are offset (vertically and/or horizontally) from list edges. `full` children are flush (vertically and horizontally) with list edges',
+      required: false,
+    },
+    {
+      name: 'selectionVariant',
+      type: "'single' | 'multiple'",
+      defaultValue: '',
+      description: 'Whether multiple items or a single item can be selected.',
+      required: false,
+    },
+    {
+      name: 'showDividers',
+      type: 'boolean',
+      description:
+        'Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.',
+      defaultValue: '',
+      required: false,
+    },
+    {
+      name: 'role',
+      type: 'AriaRole',
+      defaultValue: '',
+      description: 'ARIA role describing the function of the list. `listbox` and `menu` are a common values.',
+      required: false,
+    },
+    {
+      name: 'disableItemGap',
+      type: 'boolean',
+      description: 'Disable the gap between items when this `ActionList` is rendered in a `NavList`.',
+      defaultValue: 'false',
+      required: false,
+    },
+  ],
+  subcomponents: [
+    {
+      name: 'ActionList.Item',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual',
+          required: true,
+          description: 'Primary content for an Item',
+        },
+        {
+          name: 'variant',
+          type: "'default' | 'danger'",
+          defaultValue: "'default'",
+          description: '`danger` indicates that the item is destructive.',
+          required: false,
+        },
+        {
+          name: 'size',
+          type: "'small' | 'medium' | 'large'",
+          defaultValue: "'medium'",
+          description: 'The block size of the ActionList item. The `small` size also uses small body text.',
+          required: false,
+        },
+        {
+          name: 'onSelect',
+          type: '(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void',
+          description:
+            'Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`. This is not called for disabled or inactive items.',
+          required: false,
+        },
+        {
+          name: 'selected',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: 'Indicate whether the item is selected. Only applies to items that can be selected.',
+          required: false,
+        },
+        {
+          name: 'active',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: 'Indicate whether the item is active. There should never be more than one active item.',
+          required: false,
+        },
+        {
+          name: 'disabled',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: 'Items that are disabled can not be clicked, selected, or navigated to.',
+          required: false,
+        },
+        {
+          name: 'inactiveText',
+          type: 'string',
+          description:
+            "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage.\nIf there is a leading visual, the alert icon will replace the leading visual.\nIf there is a trailing visual, it will replace the trailing visual.\nIf there is no visual passed, it will be shown in the trailing visual slot to preserve left alignment of item content.\nText will appear in a tooltip triggered by the alert icon in ActionList items, but text will appear below the description or title on ActionMenu items.",
+          required: false,
+        },
+        {name: 'loading', type: 'boolean', description: 'Whether the item is loading.', required: false},
+        {
+          name: 'role',
+          type: 'AriaRole',
+          defaultValue: '',
+          description: 'ARIA role describing the function of the item. `option` is a common value.',
+          required: false,
+        },
+        {
+          name: 'id',
+          type: 'string',
+          required: false,
+          description: 'id to attach to the root element of the Item',
+          defaultValue: '',
+        },
+      ],
+      displayName: 'Item',
+    },
+    {
+      name: 'ActionList.Heading',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          required: true,
+          description: 'Use to give a heading to list',
+        },
+        {
+          name: 'as',
+          type: 'h1 | h2 | h3 | h4 | h5 | h6',
+          defaultValue: 'h3',
+          required: false,
+          description: 'The level of the heading',
+        },
+        {name: 'visuallyHidden', type: 'boolean', required: false, description: '', defaultValue: ''},
+      ],
+      displayName: 'Heading',
+    },
+    {
+      name: 'ActionList.LinkItem',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual',
+          required: true,
+          description: '',
+        },
+        {
+          name: 'active',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: 'Indicate whether the item is active. There should never be more than one active item.',
+          required: false,
+        },
+        {
+          name: 'size',
+          type: "'small' | 'medium' | 'large'",
+          defaultValue: "'medium'",
+          description: 'The block size of the ActionList item. The `small` size also uses small body text.',
+          required: false,
+        },
+        {
+          name: 'ref',
+          type: 'React.RefObject<HTMLAnchorElement>',
+          required: false,
+          description:
+            'Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).',
+        },
+        {
+          name: 'as',
+          type: 'React.ElementType',
+          defaultValue: '"a"',
+          description: 'Element or component used to render the link.',
+          required: false,
+        },
+        {
+          name: 'inactiveText',
+          type: 'string',
+          required: false,
+          description:
+            "Text describing why the item is inactive. This may be used when an item's usual functionality\nis unavailable due to a system error such as a database outage.",
+        },
+      ],
+      passthrough: {element: 'a', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes'},
+      displayName: 'LinkItem',
+    },
+    {
+      name: 'ActionList.LeadingVisual',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          required: true,
+          description: 'Icon (or similar) positioned before item text.',
+        },
+      ],
+      displayName: 'LeadingVisual',
+    },
+    {
+      name: 'ActionList.TrailingVisual',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          required: true,
+          description: 'Visual positioned after item text.',
+        },
+      ],
+      displayName: 'TrailingVisual',
+    },
+    {
+      name: 'ActionList.TrailingAction',
+      props: [
+        {
+          name: 'as',
+          type: 'a | button',
+          defaultValue: 'button',
+          required: false,
+          description: 'HTML element to render as.',
+        },
+        {
+          name: 'label',
+          type: 'string',
+          required: true,
+          description: 'Accessible name for the control.',
+        },
+        {
+          name: 'icon',
+          type: 'string',
+          required: true,
+          description:
+            'Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`.',
+        },
+        {
+          name: 'href',
+          type: 'string',
+          description: 'href when the TrailingAction is rendered as a link.',
+          required: false,
+        },
+        {
+          name: 'loading',
+          type: 'boolean',
+          defaultValue: 'false',
+          description:
+            "Whether the TrailingAction is in a loading state. When true, the TrailingAction will render a spinner instead of an icon. Only available when `as` is 'button'.",
+          required: false,
+        },
+        {
+          name: 'tooltipDirection',
+          type: "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          defaultValue: "'w'",
+          description:
+            'Direction of the tooltip shown when hovering over the TrailingAction. Only applies when `icon` is set.',
+          required: false,
+        },
+      ],
+      displayName: 'TrailingAction',
+    },
+    {
+      name: 'ActionList.Description',
+      props: [
+        {name: 'children', type: 'React.ReactNode', required: true, description: ''},
+        {
+          name: 'variant',
+          type: "'inline' | 'block'",
+          defaultValue: "'inline'",
+          description:
+            '`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text.',
+          required: false,
+        },
+        {name: 'className', type: 'string | undefined', description: 'CSS string', required: false},
+        {
+          name: 'truncate',
+          type: 'boolean',
+          defaultValue: 'false',
+          description: 'Whether the inline description should truncate the text on overflow.',
+          required: false,
+        },
+      ],
+      displayName: 'Description',
+    },
+    {
+      name: 'ActionList.GroupHeading',
+      props: [
+        {
+          name: 'children',
+          type: 'React.ReactNode',
+          required: true,
+          description: 'Use to give a heading to the groups',
+        },
+        {
+          name: 'variant',
+          type: "'filled' | 'subtle'",
+          defaultValue: "'subtle'",
+          description:
+            '`filled` style has a background color and top and bottom borders. Subtle style has no background or borders.',
+          required: false,
+        },
+        {
+          name: 'auxiliaryText',
+          type: 'string',
+          required: false,
+          description: 'Secondary text which provides additional information about a `Group`.',
+        },
+        {name: 'visuallyHidden', type: 'boolean', required: false, description: '', defaultValue: ''},
+        {
+          name: 'as',
+          type: 'h1 | h2 | h3 | h4 | h5 | h6',
+          defaultValue: 'h3',
+          required: false,
+          description:
+            'The level of the heading and it is only required (enforce by runtime warning) for lists. (i.e. not required for ActionMenu or listbox roles)',
+        },
+      ],
+      displayName: 'GroupHeading',
+    },
+    {
+      name: 'ActionList.Group',
+      props: [
+        {
+          name: 'children',
+          type: 'Array<ActionList.Item> | Array<ActionList.LinkItem>',
+          required: true,
+          description: '',
+        },
+        {
+          name: 'title',
+          type: 'string',
+          description: 'Please use `ActionList.GroupHeading` instead.',
+          deprecated: true,
+          required: false,
+        },
+        {
+          name: 'auxiliaryText',
+          type: 'string',
+          description: 'Secondary text that provides additional information about the group.',
+          required: false,
+        },
+        {
+          name: 'variant',
+          type: "'filled' | 'subtle'",
+          defaultValue: "'subtle'",
+          description:
+            '`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text.',
+          required: false,
+        },
+        {
+          name: 'selectionVariant',
+          type: "'single' | 'multiple' | false",
+          defaultValue: '',
+          description: 'Set `selectionVariant` at the group level.',
+          required: false,
+        },
+        {
+          name: 'role',
+          type: 'AriaRole',
+          defaultValue: '',
+          description:
+            'ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values.',
+          required: false,
+        },
+      ],
+      displayName: 'Group',
+    },
+  ],
+})

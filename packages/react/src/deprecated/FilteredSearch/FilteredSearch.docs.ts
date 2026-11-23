@@ -1,0 +1,19 @@
+import {defineComponent} from '../../docs/component'
+
+export default defineComponent({
+  id: 'filtered_search',
+  name: 'FilteredSearch',
+  status: 'deprecated',
+  a11yReviewed: false,
+  stories: [],
+  importPath: '@primer/react/deprecated',
+  props: [
+    {
+      name: 'children',
+      type: 'React.ReactNode',
+      description: 'FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`.',
+      required: false,
+    },
+  ],
+  subcomponents: [],
+})

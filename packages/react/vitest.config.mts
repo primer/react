@@ -20,7 +20,14 @@ export default defineConfig({
   },
   test: {
     name: '@primer/react (node)',
-    include: ['src/__tests__/exports.test.ts', 'src/__tests__/ssr.test.tsx', 'src/__tests__/storybook.test.tsx'],
+    include: [
+      'src/__tests__/exports.test.ts',
+      'src/__tests__/ssr.test.tsx',
+      'src/__tests__/storybook.test.tsx',
+      'src/docs/component-exports.test.ts',
+      'script/docs-plugin.test.ts',
+      'script/lint-component-docs.test.ts',
+    ],
     environment: 'node',
     detectAsyncLeaks: true,
     server: {
