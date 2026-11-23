@@ -16,5 +16,5 @@ For whole-component grading, use the pinned baseline, complete every per-check v
 | [Principles](../../../contributor-docs/api-design-principles.md) | Checkable API principles, authority boundaries, and applicability |
 | [Target baseline](./references/target-baseline.md) | Pinned ADR inventory, composition requirements, precedence, mappings, and unresolved decisions |
 | [Rubric](./references/rubric.md) | Grading procedure, checks, scoring, evidence rules, and human review form |
-| [Scorecard template](./references/scorecard-template.md) | Copy for recording a component or PR grade |
+| [Scorecard template](./references/scorecard-template.md) | Findings-first report card with linked area scores, stable finding anchors, and deferred evidence details |
 | [Scorecard calculator](./references/scorecard-calculator.mjs) | Validate structured audit data and compute section, overall, cap, and sensitivity results |

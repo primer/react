@@ -1,5 +1,14 @@
 # SelectPanel: current baseline vs. Tyler’s composable API
 
+## Before and after report card
+
+The table compares the configured baseline with the whole SelectPanel after the decomposition. Each area score links to its evidence and findings below.
+
+| Snapshot                                  | Overall                       | Architecture and parts                                  | Root and part substitution                                    | Prop merge behavior                                  | State and shared concepts                                  | Accessibility and evidence                                       |
+| :---------------------------------------- | :---------------------------- | :------------------------------------------------------ | :------------------------------------------------------------ | :--------------------------------------------------- | :--------------------------------------------------------- | :--------------------------------------------------------------- |
+| Current baseline · configured SelectPanel | PROVISIONAL · 39.08 / F       | [2.00/5 · 1 gap](#before-area-1-architecture-and-parts) | [1.67/5 · no gaps](#before-area-2-root-and-part-substitution) | [0.00/5 · 1 gap](#before-area-3-prop-merge-behavior) | [3.33/5 · 1 gap](#before-area-4-state-and-shared-concepts) | [4.00/5 · 1 gap](#before-area-5-accessibility-and-evidence)      |
+| Tyler’s composable · whole SelectPanel    | PROVISIONAL · 35.63–36.78 / F | [3.75/5 · 1 gap](#after-area-1-architecture-and-parts)  | [1.67/5 · 1 gap](#after-area-2-root-and-part-substitution)    | [1.20/5 · 4 gaps](#after-area-3-prop-merge-behavior) | [0.67/5 · 2 gaps](#after-area-4-state-and-shared-concepts) | [1.33–1.67/5 · 4 gaps](#after-area-5-accessibility-and-evidence) |
+
 ## Scope
 
 Before is the configured SelectPanel at `5b50bc053cab249809ef0bad0cd1aab64e8924a5`, the main snapshot immediately before #7287. After is the whole SelectPanel component at #7287 head `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`, including both the existing configured API and Tyler’s new composable API. #7240 is already in the before base; #7228 is not linked as part of #7287 and is excluded.
@@ -47,56 +56,112 @@ The whole-component grade includes gaps on both APIs. The composable surface mis
 
 Part-level documentation and stable selectors are also missing, and all runtime SelectPanel CSS Modules need the named component layer.
 
-## Runtime evidence and limits
+## Detailed scorecards
 
-Configured focused unit tests: `npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 1 file, 370 passed.`. Full component run: `npx vitest run --project '@primer/react' packages/react/src/SelectPanel — 19 files, 1681 passed and 7 failed (1688 total).`. The failures reproduced in this focused rerun: `npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.compatibility.test.tsx packages/react/src/SelectPanel/SelectPanel.composition.test.tsx packages/react/src/SelectPanel/SelectPanelOverlay.test.tsx --maxWorkers=1 --testNamePattern='opens every configured panel in SelectPanelRepositionInsideDialog without falling back|repairs removed list focus without stealing focus from search or after an explicit blur|dismisses only the supplemental dialog when clicking outside it|supports modal presentation without an anchor' — 7 failed, 2 passed; the failures reproduced without parallel workers.`.
+## SelectPanel before configured API
 
-Configured Storybook Playwright coverage passed in both snapshots: `STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast).`. The composable Storybook interaction evidence is: No composable SelectPanel Playwright scenario exists in e2e/components/SelectPanel.test.ts; configured stories were tested separately..
+**Overall:** 39.08 / 100 · F · PROVISIONAL · **BLOCKs:** 0 · **Scored findings:** 4 · **Deferred:** 1 checks / 0 findings · **Applicable weight:** 87/100 · **Evidence coverage:** 86/87 (98.85%)
 
-Type-check `npm run type-check --workspace @primer/react — not measured reliably in this shared dependency setup; the current attempt failed on unrelated files.`. This remains unmeasured because both detached snapshots reported unrelated shared-dependency errors.
+| Area                                                                                  |      Score / 5      | Open findings | Finding links                              | Issue links |
+| :------------------------------------------------------------------------------------ | :-----------------: | :-----------: | :----------------------------------------- | :---------- |
+| [Before Area 1 Architecture and parts](#before-area-1-architecture-and-parts)         | `████░░░░░░` 2.00/5 |       1       | [S-F1](#before-s-f1)                       | —           |
+| [Before Area 2 Root and part substitution](#before-area-2-root-and-part-substitution) | `███░░░░░░░` 1.67/5 |       0       | [S-F1](#before-s-f1)                       | —           |
+| [Before Area 3 Prop merge behavior](#before-area-3-prop-merge-behavior)               | `░░░░░░░░░░` 0.00/5 |       1       | [S-F4](#before-s-f4), [S-F1](#before-s-f1) | —           |
+| [Before Area 4 State and shared concepts](#before-area-4-state-and-shared-concepts)   | `███████░░░` 3.33/5 |       1       | [S-F3](#before-s-f3)                       | —           |
+| [Before Area 5 Accessibility and evidence](#before-area-5-accessibility-and-evidence) | `████████░░` 4.00/5 |       1       | [S-F5](#before-s-f5)                       | —           |
 
-## Full scorecards
+### Before Area 1 Architecture and parts
 
-## SelectPanel (before, configured API)
+**Score:** 2.00/5 · **Signal:** `████░░░░░░` · **Open findings:** 1 · **Covered checks:** 1 · **Deferred findings:** 0.
 
-### Identity and result
+Covered by [S-F1](#before-s-f1); covered rows remain scored at zero.
 
-| Field                                                         | Value                                                                                                                                                                                                                                                                                                                                                                                                       |
-| :------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Component / shape                                             | SelectPanel / config, form control, collection, overlay                                                                                                                                                                                                                                                                                                                                                     |
-| Public entry point / docs maturity                            | Configured root export; docs metadata reviewed; no stability claim inferred.                                                                                                                                                                                                                                                                                                                                |
-| Repository package version                                    | `38.46.0`                                                                                                                                                                                                                                                                                                                                                                                                   |
-| Published-package metadata                                    | Not looked up; no release-dependent default change is selected. Package version is recorded separately.                                                                                                                                                                                                                                                                                                     |
-| Mode                                                          | Whole component at a pinned commit                                                                                                                                                                                                                                                                                                                                                                          |
-| Audited source SHA                                            | `5b50bc053cab249809ef0bad0cd1aab64e8924a5`                                                                                                                                                                                                                                                                                                                                                                  |
-| Rubric                                                        | Component API compliance rubric 0.4.1                                                                                                                                                                                                                                                                                                                                                                       |
-| Accepted target                                               | All ADR files at `2128032dca65a1bd565fe382c2e91c638c6473a4`, regardless of status label, plus the pinned composition gist.                                                                                                                                                                                                                                                                                  |
-| Gist revision / file / content SHA-256                        | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2`                                                                                                                                                                                                                                                      |
-| Result status                                                 | PROVISIONAL — Layer 3 human review is pending; required check evidence is unmeasured.                                                                                                                                                                                                                                                                                                                       |
-| Accepted-target score / grade                                 | Exact numeric score: 39.08 / 100 / F                                                                                                                                                                                                                                                                                                                                                                        |
-| BLOCK cap                                                     | No open BLOCK cap.                                                                                                                                                                                                                                                                                                                                                                                          |
-| Current-contract context                                      | No separate current-contract defect was established.                                                                                                                                                                                                                                                                                                                                                        |
-| Open BLOCK count                                              | 0                                                                                                                                                                                                                                                                                                                                                                                                           |
-| Target ADR gaps / current-contract defects / raw observations | 4 / 0 / 11                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Deferred target checks / findings                             | 1 / 0                                                                                                                                                                                                                                                                                                                                                                                                       |
-| Applicable check weight / check-evidence coverage             | 87/100; 86/87 (98.85%) measured                                                                                                                                                                                                                                                                                                                                                                             |
-| BLOCK sensitivity                                             | Fix the 0 open BLOCKs, change nothing else → projected 39.08 / F.                                                                                                                                                                                                                                                                                                                                           |
-| Unverified / unresolved                                       | TYPE-01 execution evidence remains unmeasured.<br>Layer 3 human review remains pending; agent judgment is not sign-off.                                                                                                                                                                                                                                                                                     |
-| N/A / limited sections                                        | `WARN-01` — SelectPanel emits no development warning.<br>`MIG-01` — No release-dependent default change is selected. The configured merge fix remains opt-in or parallel to preserve current behavior, and any later default switch requires published-surface verification.<br>Limited: none<br>Deferred: `PART-RENDER` is excluded from scoring by rubric 0.4.1; the target requirement remains recorded. |
-| Top three fixes                                               | 1. Add an opt-in consumer-composable parts surface while preserving the configured props/data API.<br>2. Align the configured class merge with ADR-025 without changing current consumer signatures.<br>3. Align the shared open-state name/default model additively with the related component APIs.                                                                                                       |
-| Structured audit data                                         | `contributor-docs/component-api-audits/select-panel-before-after.audit-data.json`                                                                                                                                                                                                                                                                                                                           |
+#### Before S-F1
 
-### Section scores
+**Title:** Add a consumer-composable SelectPanel parts surface
 
-| Section                       | Weight | Applicable / earned / unknown check weight | Score or provisional range / 5 | Cap  | State / scope note |
-| :---------------------------- | :----: | :----------------------------------------: | :----------------------------: | :--: | :----------------- |
-| 1. Architecture and parts     |   20   |                 20 / 8 / 0                 |            2.00 / 5            | 4.00 | Scored             |
-| 2. Root and part substitution |   20   |                 12 / 4 / 0                 |            1.67 / 5            | 5.00 | Scored             |
-| 3. Prop merge behavior        |   25   |                 25 / 0 / 0                 |            0.00 / 5            | 4.00 | Scored             |
-| 4. State and shared concepts  |   15   |                15 / 10 / 0                 |            3.33 / 5            | 4.00 | Scored             |
-| 5. Accessibility and evidence |   20   |                15 / 12 / 1                 |            4.00 / 5            | 4.00 | Scored             |
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `PART-01`, section 1.
 
-### Per-check evidence matrix
+**Reachable consumer:** A consumer needs to own the trigger, panel layout, input, list, and footer actions beyond the current item/data configuration.
+
+**Observed gap:** SelectPanel exposes an item-configured component and function-only renderAnchor; docs report no subcomponents for a consumer-composable panel.
+
+**Additive fix:** Add an opt-in parts entry point while retaining the existing config/data API, renderAnchor signature, and defaults. Keep exact part names/default elements pending review.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanel.tsx:77-100` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.tsx:132-140` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.tsx:175-181` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.docs.json:248` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`
+
+### Before Area 2 Root and part substitution
+
+**Score:** 1.67/5 · **Signal:** `███░░░░░░░` · **Open findings:** 0 · **Covered checks:** 1 · **Deferred findings:** 0.
+
+No open gaps.
+
+Covered by [S-F1](#before-s-f1); covered rows remain scored at zero.
+
+### Before Area 3 Prop merge behavior
+
+**Score:** 0.00/5 · **Signal:** `░░░░░░░░░░` · **Open findings:** 1 · **Covered checks:** 5 · **Deferred findings:** 0.
+
+Covered by [S-F1](#before-s-f1); covered rows remain scored at zero.
+
+#### Before S-F4
+
+**Title:** Align configured SelectPanel class merging with ADR-025
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `MERGE-CONFIG`, section 3.
+
+**Reachable consumer:** A consumer supplies className for the action list rendered within SelectPanel.
+
+**Observed gap:** The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.
+
+**Additive fix:** Keep current configured class behavior and signatures; add an opt-in or parallel compliant merge path, and verify the published surface before recommending any default switch.
+
+**Pinned citations:** `contributor-docs/adrs/adr-025-prop-merging.md:24-50` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.tsx:1030` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`
+
+### Before Area 4 State and shared concepts
+
+**Score:** 3.33/5 · **Signal:** `███████░░░` · **Open findings:** 1 · **Covered checks:** 0 · **Deferred findings:** 0.
+
+#### Before S-F3
+
+**Title:** Align the shared open-state contract
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `NAMES-DEFAULTS`, section 4.
+
+**Reachable consumer:** Consumers use SelectPanel and ActionMenu together and need a predictable shared open-state name and default model.
+
+**Observed gap:** SelectPanel requires open while ActionMenu documents open as optional with default false.
+
+**Additive fix:** Align the new parts APIs on one open/defaultOpen model and shared default chosen by maintainers; preserve both legacy root contracts and their callbacks.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanel.tsx:77-86` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.tsx:132-140` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx:67` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/ActionMenu/ActionMenu.docs.json:39-48` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`
+
+### Before Area 5 Accessibility and evidence
+
+**Score:** 4.00/5 · **Signal:** `████████░░` · **Open findings:** 1 · **Covered checks:** 0 · **Deferred findings:** 0 · provisional evidence range.
+
+#### Before S-F5
+
+**Title:** Place SelectPanel styles in the component cascade layer
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `STYLE-01`, section 5.
+
+**Reachable consumer:** A consumer applies utility-layer styles to SelectPanel; unlayered component rules do not participate in the declared Primer layer order.
+
+**Observed gap:** The authored CSS Module contains no cascade-layer declaration, although ADR-021 and ADR-022 require component styles to use the named primer.components layer.
+
+**Additive fix:** Place the component style rules in @layer primer.components.SelectPanel; retain any globally scoped registrations and all existing selectors and declarations.
+
+**Pinned citations:** `contributor-docs/adrs/adr-021-css-layers.md:66-107` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `contributor-docs/adrs/adr-022-css-layer-names.md:28-65` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.module.css:1-236` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`
+
+### Before Current-contract defects
+
+No separate current-contract defects established.
+
+### Before Audit details
+
+<details>
+<summary>Per-check evidence matrix</summary>
 
 Scoring note: `COVERED` rows remain applicable at zero; only `N/A` and rubric-authorized `DEFERRED` rows are excluded. `PART-RENDER` is deferred by rubric 0.4.1; all other checks remain scored.
 
@@ -133,63 +198,48 @@ Scoring note: `COVERED` rows remain applicable at zero; only `N/A` and rubric-au
 | `INTERACTION-01`    | `PASS`         | EXECUTION VERIFIED | STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast).                                                                                                                                                                                                                          | —                                                                                                                                                                                                                                                                     |
 | `MIG-01`            | `N/A`          | SOURCE VERIFIED    | The configured merge recommendation preserves current behavior through an opt-in or parallel path. No default switch is selected; repository package version is recorded separately, and publication must be verified before any later default change.                                                                                                                                                                                                                 | No release-dependent default change is selected. The configured merge fix remains opt-in or parallel to preserve current behavior, and any later default switch requires published-surface verification.                                                              |
 
-### Target gaps and deferred target requirements
+</details>
 
-Findings marked `DEFERRED` remain visible but do not affect the score; other check rows linked to them remain scored.
+<details>
+<summary>Audit identity and score calculation</summary>
 
-### S-F1 — Add a consumer-composable SelectPanel parts surface
+| Field                                                         | Value                                                                                                                                                                                                                                                                                                                                                                                                       |
+| :------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Component / shape                                             | SelectPanel / config, form control, collection, overlay                                                                                                                                                                                                                                                                                                                                                     |
+| Public entry point / docs maturity                            | Configured root export; docs metadata reviewed; no stability claim inferred.                                                                                                                                                                                                                                                                                                                                |
+| Repository package version                                    | `38.46.0`                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Published-package metadata                                    | Not looked up; no release-dependent default change is selected. Package version is recorded separately.                                                                                                                                                                                                                                                                                                     |
+| Mode                                                          | Whole component at a pinned commit                                                                                                                                                                                                                                                                                                                                                                          |
+| Audited source SHA                                            | `5b50bc053cab249809ef0bad0cd1aab64e8924a5`                                                                                                                                                                                                                                                                                                                                                                  |
+| Rubric                                                        | Component API compliance rubric 0.4.1                                                                                                                                                                                                                                                                                                                                                                       |
+| Accepted target                                               | All ADR files at `2128032dca65a1bd565fe382c2e91c638c6473a4`, regardless of status label, plus the pinned composition gist.                                                                                                                                                                                                                                                                                  |
+| Gist revision / file / content SHA-256                        | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2`                                                                                                                                                                                                                                                      |
+| Result status                                                 | PROVISIONAL — Layer 3 human review is pending; required check evidence is unmeasured.                                                                                                                                                                                                                                                                                                                       |
+| Accepted-target score / grade                                 | Exact numeric score: 39.08 / 100 / F                                                                                                                                                                                                                                                                                                                                                                        |
+| BLOCK cap                                                     | No open BLOCK cap.                                                                                                                                                                                                                                                                                                                                                                                          |
+| Current-contract context                                      | No separate current-contract defect was established.                                                                                                                                                                                                                                                                                                                                                        |
+| Open BLOCK count                                              | 0                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Target ADR gaps / current-contract defects / raw observations | 4 / 0 / 11                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Deferred target checks / findings                             | 1 / 0                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Applicable check weight / check-evidence coverage             | 87/100; 86/87 (98.85%) measured                                                                                                                                                                                                                                                                                                                                                                             |
+| BLOCK sensitivity                                             | Fix the 0 open BLOCKs, change nothing else → projected 39.08 / F.                                                                                                                                                                                                                                                                                                                                           |
+| Unverified / unresolved                                       | TYPE-01 execution evidence remains unmeasured.<br>Layer 3 human review remains pending; agent judgment is not sign-off.                                                                                                                                                                                                                                                                                     |
+| N/A / limited sections                                        | `WARN-01` — SelectPanel emits no development warning.<br>`MIG-01` — No release-dependent default change is selected. The configured merge fix remains opt-in or parallel to preserve current behavior, and any later default switch requires published-surface verification.<br>Limited: none<br>Deferred: `PART-RENDER` is excluded from scoring by rubric 0.4.1; the target requirement remains recorded. |
+| Top three fixes                                               | 1. Add an opt-in consumer-composable parts surface while preserving the configured props/data API.<br>2. Align the configured class merge with ADR-025 without changing current consumer signatures.<br>3. Align the shared open-state name/default model additively with the related component APIs.                                                                                                       |
+| Structured audit data                                         | `contributor-docs/component-api-audits/select-panel-before-after.audit-data.json`                                                                                                                                                                                                                                                                                                                           |
 
-**Classification / severity / owner:** `ADR GAP` · `FIX` · `PART-01`, section 1.
+| Section                       | Weight | Applicable / earned / unknown check weight | Score or provisional range / 5 | Cap  | State / scope note |
+| :---------------------------- | :----: | :----------------------------------------: | :----------------------------: | :--: | :----------------- |
+| 1. Architecture and parts     |   20   |                 20 / 8 / 0                 |            2.00 / 5            | 4.00 | Scored             |
+| 2. Root and part substitution |   20   |                 12 / 4 / 0                 |            1.67 / 5            | 5.00 | Scored             |
+| 3. Prop merge behavior        |   25   |                 25 / 0 / 0                 |            0.00 / 5            | 4.00 | Scored             |
+| 4. State and shared concepts  |   15   |                15 / 10 / 0                 |            3.33 / 5            | 4.00 | Scored             |
+| 5. Accessibility and evidence |   20   |                15 / 12 / 1                 |            4.00 / 5            | 4.00 | Scored             |
 
-**Reachable consumer:** A consumer needs to own the trigger, panel layout, input, list, and footer actions beyond the current item/data configuration.
+</details>
 
-**Observed gap:** SelectPanel exposes an item-configured component and function-only renderAnchor; docs report no subcomponents for a consumer-composable panel.
-
-**Additive fix:** Add an opt-in parts entry point while retaining the existing config/data API, renderAnchor signature, and defaults. Keep exact part names/default elements pending review.
-
-**Pinned citations:** `packages/react/src/SelectPanel/SelectPanel.tsx:77-100` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.tsx:132-140` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.tsx:175-181` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.docs.json:248` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`
-
-### S-F3 — Align the shared open-state contract
-
-**Classification / severity / owner:** `ADR GAP` · `FIX` · `NAMES-DEFAULTS`, section 4.
-
-**Reachable consumer:** Consumers use SelectPanel and ActionMenu together and need a predictable shared open-state name and default model.
-
-**Observed gap:** SelectPanel requires open while ActionMenu documents open as optional with default false.
-
-**Additive fix:** Align the new parts APIs on one open/defaultOpen model and shared default chosen by maintainers; preserve both legacy root contracts and their callbacks.
-
-**Pinned citations:** `packages/react/src/SelectPanel/SelectPanel.tsx:77-86` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.tsx:132-140` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx:67` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/ActionMenu/ActionMenu.docs.json:39-48` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`
-
-### S-F4 — Align configured SelectPanel class merging with ADR-025
-
-**Classification / severity / owner:** `ADR GAP` · `FIX` · `MERGE-CONFIG`, section 3.
-
-**Reachable consumer:** A consumer supplies className for the action list rendered within SelectPanel.
-
-**Observed gap:** The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.
-
-**Additive fix:** Keep current configured class behavior and signatures; add an opt-in or parallel compliant merge path, and verify the published surface before recommending any default switch.
-
-**Pinned citations:** `contributor-docs/adrs/adr-025-prop-merging.md:24-50` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.tsx:1030` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`
-
-### S-F5 — Place SelectPanel styles in the component cascade layer
-
-**Classification / severity / owner:** `ADR GAP` · `FIX` · `STYLE-01`, section 5.
-
-**Reachable consumer:** A consumer applies utility-layer styles to SelectPanel; unlayered component rules do not participate in the declared Primer layer order.
-
-**Observed gap:** The authored CSS Module contains no cascade-layer declaration, although ADR-021 and ADR-022 require component styles to use the named primer.components layer.
-
-**Additive fix:** Place the component style rules in @layer primer.components.SelectPanel; retain any globally scoped registrations and all existing selectors and declarations.
-
-**Pinned citations:** `contributor-docs/adrs/adr-021-css-layers.md:66-107` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `contributor-docs/adrs/adr-022-css-layer-names.md:28-65` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`; `packages/react/src/SelectPanel/SelectPanel.module.css:1-236` @ `5b50bc053cab249809ef0bad0cd1aab64e8924a5`
-
-### Current-contract defects
-
-No separate current-contract defects established.
-
-### Layer 3 human review
+<details>
+<summary>Layer 3 human review</summary>
 
 | Judgment item                                                        | Result, rationale, reachable use case, reviewer                                                                       |
 | :------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
@@ -200,7 +250,10 @@ No separate current-contract defects established.
 | Unresolved maintainer decisions                                      | TYPE-01 execution evidence remains unmeasured.; Layer 3 human review remains pending; agent judgment is not sign-off. |
 | Release-dependent migration decisions                                | N/A — existing behavior is preserved through additive/parallel paths; no default switch is selected.                  |
 
-### Evidence, calibration, and decisions
+</details>
+
+<details>
+<summary>Evidence, calibration, and decisions</summary>
 
 | Evidence item                            | Path or result                                                                                                                                                                                                                                |
 | :--------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -481,3 +534,350 @@ No separate current-contract defects established.
 | Claims not runtime-verified              | Whether the DOM-less Root should support as/render and how it should expose a ref.; Exact part names/default elements, simultaneous as + render behavior, skip-method name, and overlay coordination implementation remain pending in the pinned gist.; Human review of part boundaries, defaults, and shared naming remains pending.                           |
 | Citation review result                   | All finding paths and line ranges were verified against the pinned source commits.                                                                                                                                                                                                                                                                              |
 | Scope                                    | One whole-component grade covers the configured API and the new composable API. Each check is assessed once across all applicable public paths; a target failure on any path is one owned gap.                                                                                                                                                                  |
+
+</details>
+
+## SelectPanel after Tyler’s decomposition
+
+**Overall:** 35.63–36.78 / 100 · F · PROVISIONAL · **BLOCKs:** 0 · **Scored findings:** 12 · **Deferred:** 1 checks / 1 findings · **Applicable weight:** 87/100 · **Evidence coverage:** 86/87 (98.85%)
+
+| Area                                                                                |        Score / 5         | Open findings | Finding links                                                                                  | Issue links |
+| :---------------------------------------------------------------------------------- | :----------------------: | :-----------: | :--------------------------------------------------------------------------------------------- | :---------- |
+| [After Area 1 Architecture and parts](#after-area-1-architecture-and-parts)         |   `████████░░` 3.75/5    |       1       | [SC-F1](#after-sc-f1)                                                                          | —           |
+| [After Area 2 Root and part substitution](#after-area-2-root-and-part-substitution) |   `███░░░░░░░` 1.67/5    |       1       | [SC-F2](#after-sc-f2), [SC-F3](#after-sc-f3)                                                   | —           |
+| [After Area 3 Prop merge behavior](#after-area-3-prop-merge-behavior)               |   `██░░░░░░░░` 1.20/5    |       4       | [SC-F4](#after-sc-f4), [SC-F5](#after-sc-f5), [SC-F6](#after-sc-f6), [S-F4](#after-s-f4)       | —           |
+| [After Area 4 State and shared concepts](#after-area-4-state-and-shared-concepts)   |   `█░░░░░░░░░` 0.67/5    |       2       | [SC-F7](#after-sc-f7), [S-F3](#after-s-f3)                                                     | —           |
+| [After Area 5 Accessibility and evidence](#after-area-5-accessibility-and-evidence) | `███░░░░░░░` 1.33–1.67/5 |       4       | [SC-F8](#after-sc-f8), [SC-F9](#after-sc-f9), [SC-F10](#after-sc-f10), [SC-F11](#after-sc-f11) | —           |
+
+### After Area 1 Architecture and parts
+
+**Score:** 3.75/5 · **Signal:** `████████░░` · **Open findings:** 1 · **Covered checks:** 0 · **Deferred findings:** 0.
+
+#### After SC-F1
+
+**Title:** Document each composable part
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `PART-DOCS`, section 1.
+
+**Reachable consumer:** A consumer assembles SelectPanel.Root with parts and needs to learn each part’s owner, props, ref behavior, and supported composition path without reverse-engineering examples.
+
+**Observed gap:** The composition stories demonstrate layouts, but SelectPanel.docs.json still declares an empty subcomponents list and there is no per-part reference for required props/state/refs.
+
+**Additive fix:** Add part-level API documentation and component metadata while keeping the configured SelectPanel docs and entry point unchanged.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanel.docs.json:248` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanel.composition.stories.tsx:14-15,96-121` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+### After Area 2 Root and part substitution
+
+**Score:** 1.67/5 · **Signal:** `███░░░░░░░` · **Open findings:** 1 · **Covered checks:** 0 · **Deferred findings:** 1.
+
+#### After SC-F2
+
+**Title:** Add as support to every part
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `PART-AS`, section 2.
+
+**Reachable consumer:** A consumer needs a custom semantic element for a trigger, content region, list, or leaf part while retaining the part behavior.
+
+**Observed gap:** Only Title exposes as; Root, Trigger, Overlay, Content, Header, Description, SearchInput, List, Item, Group, and the action/form parts do not expose a uniform as contract.
+
+**Additive fix:** Add an additive as prop to each rendered part and preserve its required props, state, accessibility attributes, and final ref; resolve the DOM-less Root contract with maintainers rather than exempting it silently.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanelParts.tsx:37-58,115-155,214-263,520-529` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanel.tsx:1171-1197` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+#### After SC-F3
+
+**Title:** Support element and function render forms on every part
+
+**Status / classification / severity / owner:** DEFERRED — `ADR GAP` · `FIX` · `PART-RENDER`, section 2.
+
+**Reachable consumer:** A consumer supplies a Button element or a state-aware render function to replace a part’s default element.
+
+**Observed gap:** Trigger accepts only a function returning an element and receives no current state; all other parts lack render, including element form.
+
+**Additive fix:** Implement both element and function render forms for every part, pass required behavior props/current state, and retain the existing Trigger function form as a compatible option.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanelParts.tsx:53-62,115-155,214-263,520-529` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+### After Area 3 Prop merge behavior
+
+**Score:** 1.20/5 · **Signal:** `██░░░░░░░░` · **Open findings:** 4 · **Covered checks:** 0 · **Deferred findings:** 0.
+
+#### After SC-F4
+
+**Title:** Separate handler skipping from preventDefault
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `MERGE-HANDLER`, section 3.
+
+**Reachable consumer:** A consumer handles Trigger, Item, or action-button events and needs to prevent Primer behavior without cancelling the browser default, or skip later handlers without changing DOM cancellation.
+
+**Observed gap:** Part handlers run consumer-first, then use event.defaultPrevented to decide whether Primer state behavior continues; the separate consumer skip contract is absent, and no render-element handler stage exists.
+
+**Additive fix:** Add one shared part merge path with the specified render-element → part-consumer → Primer order and a distinct skip method; preserve DOM preventDefault and state cancel as separate signals.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanelParts.tsx:92-113,378-400` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanelActions.tsx:35-54` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+#### After SC-F5
+
+**Title:** Put consumer classes before Primer classes on parts
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `MERGE-CLASS`, section 3.
+
+**Reachable consumer:** A consumer composes className on SelectPanel.Content, Header, Title, Description, SearchInput, List, or Footer and relies on the target class precedence.
+
+**Observed gap:** Part implementations pass Primer classes before className, so consumer classes are appended rather than placed first as the pinned gist requires.
+
+**Additive fix:** Change only the new parts’ class merge order to consumer classes first; do not alter the configured API’s ADR-025 merge order.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanelParts.tsx:115-155,181,243,529` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanelMessage.tsx:72-80` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+#### After SC-F6
+
+**Title:** Expose and merge refs consistently across parts
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `MERGE-REF`, section 3.
+
+**Reachable consumer:** A consumer needs the rendered DOM node from Root, Overlay, or Group for focus, measurement, or integration.
+
+**Observed gap:** Root and Group are ordinary function components, and Overlay accepts an overlayProps ref rather than a part-level forwarded ref; several rendered parts therefore lack a uniform consumer ref contract.
+
+**Additive fix:** Forward and merge every consumer/internal ref to its final rendered element; decide and document the Root ref behavior alongside its required render contract.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanelParts.tsx:37-45,520-525` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanelOverlay.tsx:16-23,61-65,118-119,208-220` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+#### After S-F4
+
+**Title:** Align configured SelectPanel class merging with ADR-025
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `MERGE-CONFIG`, section 3.
+
+**Reachable consumer:** A consumer supplies className for the action list rendered within SelectPanel.
+
+**Observed gap:** The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.
+
+**Additive fix:** Keep current configured class behavior and signatures; add an opt-in or parallel compliant merge path, and verify the published surface before recommending any default switch.
+
+**Pinned citations:** `contributor-docs/adrs/adr-025-prop-merging.md:24-50` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanel.tsx:1060` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+### After Area 4 State and shared concepts
+
+**Score:** 0.67/5 · **Signal:** `█░░░░░░░░░` · **Open findings:** 2 · **Covered checks:** 0 · **Deferred findings:** 0.
+
+#### After SC-F7
+
+**Title:** Add the object-shaped state transition callback contract
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `STATE-CALLBACK`, section 4.
+
+**Reachable consumer:** A consumer controls or observes open and selected state and needs the originating event, reason, and synchronous cancellation before an uncontrolled commit.
+
+**Observed gap:** The new Root callbacks are positional; onOpenChange receives (open, reason), onSelectedChange receives only the array, and requestOpenChange commits before invoking onOpenChange.
+
+**Additive fix:** Add the target object callback with value, reason, optional event, and synchronous cancel while preserving the existing configured SelectPanel callback signature and keeping callback naming explicit.
+
+**Pinned citations:** `packages/react/src/SelectPanel/useSelectPanel.ts:16-34,103-109,112-124` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+#### After S-F3
+
+**Title:** Align the shared open-state contract
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `NAMES-DEFAULTS`, section 4.
+
+**Reachable consumer:** Consumers use SelectPanel and ActionMenu together and need a predictable shared open-state name and default model.
+
+**Observed gap:** SelectPanel requires open while ActionMenu documents open as optional with default false.
+
+**Additive fix:** Align the new parts APIs on one open/defaultOpen model and shared default chosen by maintainers; preserve both legacy root contracts and their callbacks.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanel.tsx:77-86` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanel.tsx:132-140` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx:67` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/ActionMenu/ActionMenu.docs.json:39-48` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+### After Area 5 Accessibility and evidence
+
+**Score:** 1.33–1.67/5 · **Signal:** `███░░░░░░░` · **Open findings:** 4 · **Covered checks:** 1 · **Deferred findings:** 0 · provisional evidence range.
+
+Covered by [SC-F8](#after-sc-f8); covered rows remain scored at zero.
+
+#### After SC-F8
+
+**Title:** Resolve failing composable interaction behaviors
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `ACCESS-01`, section 5.
+
+**Reachable consumer:** A consumer opens an unanchored modal, removes the focused option, dismisses a nested supplemental dialog, or uses the opt-in configured adapter inside Dialog.
+
+**Observed gap:** The focused SelectPanel directory run has 7 failures among 1688 tests; rerunning the matching cases with one worker reproduces all 7 across adapter fallback, focus repair, nested dismissal, and modal visibility.
+
+**Additive fix:** Keep existing configured callbacks and props; correct the failing overlay, focus, and adapter behaviors, then rerun the focused suite until all cases pass.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanel.compatibility.test.tsx:65-75` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanel.composition.test.tsx:290-307,839-851` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanelOverlay.test.tsx:290-304` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+#### After SC-F9
+
+**Title:** Add stable selectors to each public part
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `SELECTOR-01`, section 5.
+
+**Reachable consumer:** A consumer or component test needs to identify Trigger, Content, List, Item, or other named parts without depending on generated CSS classes.
+
+**Observed gap:** The new public parts do not emit their own data-component identifiers; the only SelectPanel-prefixed selector in SelectPanelParts.tsx identifies a nested secondary-action affordance.
+
+**Additive fix:** Add stable data-component identifiers to the root element of each part and cover them in the part tests and API docs.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanelParts.tsx:115-155,214-263,443,520-529` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanel.tsx:1171-1197` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+#### After SC-F10
+
+**Title:** Place SelectPanel component styles in the named cascade layer
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `STYLE-01`, section 5.
+
+**Reachable consumer:** A consumer combines component styles with utility-layer rules and expects Primer’s declared layer order to determine precedence.
+
+**Observed gap:** The component, overlay, platform, and virtualized collection CSS Modules contain no @layer declaration.
+
+**Additive fix:** Wrap runtime component styles in @layer primer.components.SelectPanel while retaining existing selectors and declarations.
+
+**Pinned citations:** `packages/react/src/SelectPanel/SelectPanel.module.css:1-309` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanelOverlay.module.css:1-60` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/platform/PlatformSelectPanel.module.css:1-111` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/virtualization/VirtualizedSelectPanelCollection.module.css:1-25` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+#### After SC-F11
+
+**Title:** Add Storybook Playwright coverage for the composable API
+
+**Classification / severity / owner:** `ADR GAP` · `FIX` · `INTERACTION-01`, section 5.
+
+**Reachable consumer:** A consumer interacts with SelectPanel.Root and the new parts in a Storybook story and expects the keyboard, focus, and overlay behavior to remain stable.
+
+**Observed gap:** The existing SelectPanel Playwright suite visits configured stories only; the new composition stories have Vitest coverage but no Playwright interaction scenario.
+
+**Additive fix:** Add a focused Playwright test that visits a composable SelectPanel story and exercises the trigger, filtering, selection, dismissal, and focus-return path.
+
+**Pinned citations:** `e2e/components/SelectPanel.test.ts:8-24,95-143` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; `packages/react/src/SelectPanel/SelectPanel.composition.stories.tsx:14-15,96-121` @ `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`
+
+### After Current-contract defects
+
+No separate current-contract defects established.
+
+### After Audit details
+
+<details>
+<summary>Per-check evidence matrix</summary>
+
+Scoring note: `COVERED` rows remain applicable at zero; only `N/A` and rubric-authorized `DEFERRED` rows are excluded. `PART-RENDER` is deferred by rubric 0.4.1; all other checks remain scored.
+
+| Check               | Verdict        | Evidence class     | Evidence at audited SHA / command result                                                                                                                                                                                                                                                                                                                                                                                                                       | Finding ID or reason                                                                                                                                                                                                                                                  |
+| :------------------ | :------------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MOD-01`            | `PASS`         | AGENT JUDGMENT     | The configured API and named parts serve distinct consumer needs; no additional spectrum layer is required without a consumer use case.                                                                                                                                                                                                                                                                                                                        | —                                                                                                                                                                                                                                                                     |
+| `CHILD-01`          | `PASS`         | SOURCE VERIFIED    | The parts use children for consumer-owned layout/content, while item values and selection remain data/state props. SelectPanelParts.tsx:115-155,281-303.                                                                                                                                                                                                                                                                                                       | —                                                                                                                                                                                                                                                                     |
+| `PART-01`           | `PASS`         | SOURCE VERIFIED    | The component exports Root plus named trigger, overlay, content, list, item, form, and action parts on SelectPanel. SelectPanelParts.tsx:37-61; SelectPanel.tsx:1171-1197.                                                                                                                                                                                                                                                                                     | —                                                                                                                                                                                                                                                                     |
+| `PART-DOCS`         | `GAP`          | SOURCE VERIFIED    | Composition examples exist, but the docs metadata lists no subcomponents or part reference; SC-F1 owns this gap. SelectPanel.docs.json:248; SelectPanel.composition.stories.tsx:14-15,96-121.                                                                                                                                                                                                                                                                  | `SC-F1`                                                                                                                                                                                                                                                               |
+| `STRUCTURE-01`      | `PASS`         | SOURCE VERIFIED    | The implementation is in the PascalCase SelectPanel directory and the exported parts are attached as properties of SelectPanel. SelectPanel.tsx:1171-1197.                                                                                                                                                                                                                                                                                                     | —                                                                                                                                                                                                                                                                     |
+| `CUSTOM-ELEMENT-01` | `PASS`         | SOURCE VERIFIED    | The component integrates the live-region custom element for client-side announcements through announceFromElement and AriaStatus. SelectPanel.tsx:21,581-585; SelectPanelMessage.tsx:6,123-127.                                                                                                                                                                                                                                                                | —                                                                                                                                                                                                                                                                     |
+| `API-01`            | `PASS`         | SOURCE VERIFIED    | The configured composite has no single host element. Public `anchorRef` targets the trigger; `renderAnchor` receives its ref and DOM props, and the default renderer spreads them onto Button. ADR-003 limits `as` to clear polymorphism needs, which `renderAnchor` covers. ADR-022 keeps legacy `sx` compatibility outside `@primer/react`. `SelectPanel.tsx:142-150,170-176,596,953`; `AnchoredOverlay.tsx:30-33,59-61`; `styled-react/src/index.tsx:1-95`. | —                                                                                                                                                                                                                                                                     |
+| `PART-AS`           | `GAP`          | SOURCE VERIFIED    | Title alone exposes as; the other parts render fixed targets and Root has no host. SC-F2 owns the missing all-part contract. SelectPanelParts.tsx:37-58,115-155,214-263,520-529.                                                                                                                                                                                                                                                                               | `SC-F2`                                                                                                                                                                                                                                                               |
+| `PART-RENDER`       | DEFERRED       | SOURCE VERIFIED    | Trigger has a function-only render prop; other parts have no render prop and no part receives state through an element/function render contract. SC-F3 owns the gap. SelectPanelParts.tsx:53-62,115-155,214-263.                                                                                                                                                                                                                                               | Deferred from scoring by rubric 0.4.1; target retained (SC-F3)                                                                                                                                                                                                        |
+| `MERGE-CONFIG`      | `GAP`          | SOURCE VERIFIED    | Consumer className precedes FilteredActionList's component class. SelectPanel.tsx:1030                                                                                                                                                                                                                                                                                                                                                                         | `S-F4`                                                                                                                                                                                                                                                                |
+| `MERGE-HANDLER`     | `GAP`          | SOURCE VERIFIED    | Parts invoke consumer handlers before Primer behavior but use defaultPrevented as the skip signal; there is no distinct skip contract or element-render handler stage. SC-F4 owns the gap. SelectPanelParts.tsx:92-113,378-400; SelectPanelActions.tsx:35-54.                                                                                                                                                                                                  | `SC-F4`                                                                                                                                                                                                                                                               |
+| `MERGE-CLASS`       | `GAP`          | SOURCE VERIFIED    | Part CSS merges are Primer-first, for example clsx(classes.Wrapper, className), contrary to consumer-first order. SC-F5 owns this gap. SelectPanelParts.tsx:115-155,181,243,529.                                                                                                                                                                                                                                                                               | `SC-F5`                                                                                                                                                                                                                                                               |
+| `MERGE-STYLE-ATTR`  | `PASS`         | SOURCE VERIFIED    | Ordinary DOM props and styles flow through prop spreads; role, ids, disabled, and selection state are explicitly owned by the part. SelectPanelParts.tsx:115-155,228-260,340-400.                                                                                                                                                                                                                                                                              | —                                                                                                                                                                                                                                                                     |
+| `MERGE-REF`         | `GAP`          | SOURCE VERIFIED    | Root and Group do not forward refs, and Overlay has no top-level forwarded ref contract; SC-F6 owns this gap. SelectPanelParts.tsx:37-45,520-525; SelectPanelOverlay.tsx:61-65.                                                                                                                                                                                                                                                                                | `SC-F6`                                                                                                                                                                                                                                                               |
+| `MERGE-BEHAVIOR`    | `PASS`         | SOURCE VERIFIED    | Part-owned disabled, selection, role, and ARIA state are computed from SelectPanel state and written after consumer props. SelectPanelParts.tsx:340-400.                                                                                                                                                                                                                                                                                                       | —                                                                                                                                                                                                                                                                     |
+| `STATE-CALLBACK`    | `GAP`          | SOURCE VERIFIED    | New Root callbacks are positional and requestOpenChange commits before calling onOpenChange; SC-F7 owns the missing value/reason/event/cancel contract. useSelectPanel.ts:16-34,103-109.                                                                                                                                                                                                                                                                       | `SC-F7`                                                                                                                                                                                                                                                               |
+| `NAMES-DEFAULTS`    | `GAP`          | SOURCE VERIFIED    | SelectPanel requires open while ActionMenu documents open default false; shared state name/default shape is inconsistent. SelectPanel.tsx:77-86,132-140; ActionMenu.docs.json:39-48                                                                                                                                                                                                                                                                            | `S-F3`                                                                                                                                                                                                                                                                |
+| `STATE-OWNER`       | `PASS`         | SOURCE VERIFIED    | Open, selected, and filter state each use useControllableState with one internal owner and explicit controlled/default inputs. useSelectPanel.ts:48-80.                                                                                                                                                                                                                                                                                                        | —                                                                                                                                                                                                                                                                     |
+| `ACCESS-01`         | `GAP`          | EXECUTION VERIFIED | npx vitest run --project '@primer/react' packages/react/src/SelectPanel — 19 files, 1681 passed and 7 failed; the same seven failures reproduced in the one-worker focused rerun. SC-F8 owns the observed overlay/focus/adapter failures.                                                                                                                                                                                                                      | `SC-F8`                                                                                                                                                                                                                                                               |
+| `LIVE-01`           | `PASS`         | SOURCE VERIFIED    | Loading and message parts use shared AriaStatus/live-region announcement behavior. SelectPanelMessage.tsx:6,89-103,118-127.                                                                                                                                                                                                                                                                                                                                    | —                                                                                                                                                                                                                                                                     |
+| `WARN-01`           | `N/A`          | SOURCE VERIFIED    | No component-owned development warning is emitted by the composable SelectPanel surface.                                                                                                                                                                                                                                                                                                                                                                       | No component-owned development warning exists on this surface.                                                                                                                                                                                                        |
+| `SELECTOR-01`       | `GAP`          | SOURCE VERIFIED    | Public parts lack stable data-component identities; only the nested secondary action is tagged. SC-F9 owns this gap. SelectPanelParts.tsx:115-155,214-263,443,520-529.                                                                                                                                                                                                                                                                                         | `SC-F9`                                                                                                                                                                                                                                                               |
+| `STYLE-01`          | `GAP`          | SOURCE VERIFIED    | Runtime CSS Modules have no @layer declaration; SC-F10 owns this gap. SelectPanel.module.css:1-309; SelectPanelOverlay.module.css:1-60; platform/PlatformSelectPanel.module.css:1-111; virtualization/VirtualizedSelectPanelCollection.module.css:1-25.                                                                                                                                                                                                        | `SC-F10`                                                                                                                                                                                                                                                              |
+| `RESP-01`           | `PASS`         | SOURCE VERIFIED    | Overlay responsive variants use useResponsiveValue rather than JS-controlled viewport state. SelectPanelOverlay.tsx:6,122-128.                                                                                                                                                                                                                                                                                                                                 | —                                                                                                                                                                                                                                                                     |
+| `TYPE-01`           | `NOT MEASURED` | SOURCE VERIFIED    | npm run type-check --workspace @primer/react failed in both snapshots with TypeScript errors in script/components-json/build.ts and src/**tests**/exports.test.ts, including duplicate Babel type definitions. SelectPanel-specific type execution is unverified.                                                                                                                                                                                              | The package type-check command failed in both detached worktrees on unrelated existing files because the shared dependency tree resolves duplicate @babel/types copies and incompatible parser declarations; no SelectPanel-isolated type-check could be established. |
+| `EXPORT-01`         | `PASS`         | SOURCE VERIFIED    | The public SelectPanel entry exports the parent API and named part types; no internal module path is re-exported, and @primer/styled-react does not re-export SelectPanel. SelectPanel/index.ts:1-13; packages/styled-react/src/index.tsx:1-95.                                                                                                                                                                                                                | —                                                                                                                                                                                                                                                                     |
+| `TEST-01`           | `COVERED`      | EXECUTION VERIFIED | The focused unit run and one-worker rerun are execution evidence for the ACCESS-01 owner finding SC-F8; the command did not pass overall, so it is not a PASS.                                                                                                                                                                                                                                                                                                 | `SC-F8`                                                                                                                                                                                                                                                               |
+| `SNAPSHOT-01`       | `PASS`         | SOURCE VERIFIED    | No component render-tree toMatchSnapshot/toMatchInlineSnapshot calls occur in SelectPanel React tests.                                                                                                                                                                                                                                                                                                                                                         | —                                                                                                                                                                                                                                                                     |
+| `INTERACTION-01`    | `GAP`          | SOURCE VERIFIED    | The existing Playwright file lists configured stories only; composition stories are not visited by an interaction test. SC-F11 owns this gap. e2e/components/SelectPanel.test.ts:8-24,95-143; SelectPanel.composition.stories.tsx:14-15,96-121.                                                                                                                                                                                                                | `SC-F11`                                                                                                                                                                                                                                                              |
+| `MIG-01`            | `N/A`          | SOURCE VERIFIED    | The configured merge recommendation preserves current behavior through an opt-in or parallel path. No default switch is selected; repository package version is recorded separately, and publication must be verified before any later default change.                                                                                                                                                                                                         | No release-dependent default change is selected. The configured merge fix remains opt-in or parallel to preserve current behavior, and any later default switch requires published-surface verification.                                                              |
+
+</details>
+
+<details>
+<summary>Audit identity and score calculation</summary>
+
+| Field                                                         | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| :------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Component / shape                                             | SelectPanel / configured and presentational, form control, collection, overlay                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Public entry point / docs maturity                            | Whole SelectPanel at #7287: configured root plus new composable Root and named parts; #7287 describes the new API as WIP.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Repository package version                                    | `38.46.0`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Published-package metadata                                    | Not looked up; no release-dependent default change is selected. Package version is recorded separately.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Mode                                                          | Whole component at a pinned commit                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Audited source SHA                                            | `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Rubric                                                        | Component API compliance rubric 0.4.1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Accepted target                                               | All ADR files at `2128032dca65a1bd565fe382c2e91c638c6473a4`, regardless of status label, plus the pinned composition gist.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Gist revision / file / content SHA-256                        | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Result status                                                 | PROVISIONAL — Layer 3 human review is pending; required check evidence is unmeasured.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Accepted-target score / grade                                 | Provisional range: 35.63–36.78 / 100 / F                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| BLOCK cap                                                     | No open BLOCK cap.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Current-contract context                                      | No separate current-contract defect was established. The seven full-run failures on the composable path remain candidate behavior defects under SC-F8 pending maintainer triage.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Open BLOCK count                                              | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Target ADR gaps / current-contract defects / raw observations | 12 / 0 / 13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Deferred target checks / findings                             | 1 / 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Applicable check weight / check-evidence coverage             | 87/100; 86/87 (98.85%) measured                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| BLOCK sensitivity                                             | Fix the 0 open BLOCKs, change nothing else → projected 35.63–36.78 / F.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Unverified / unresolved                                       | Whether the DOM-less Root should support as/render and how it should expose a ref.<br>Exact part names/default elements, simultaneous as + render behavior, skip-method name, and overlay coordination implementation remain pending in the pinned gist.<br>Human review of part boundaries, defaults, and shared naming remains pending.                                                                                                                                                                                                                                                                                                                                                                        |
+| N/A / limited sections                                        | `WARN-01` — No component-owned development warning exists on this surface.<br>`MIG-01` — No release-dependent default change is selected. The configured merge fix remains opt-in or parallel to preserve current behavior, and any later default switch requires published-surface verification.<br>Limited: none<br>Deferred: `PART-RENDER` is excluded from scoring by rubric 0.4.1; the target requirement remains recorded.                                                                                                                                                                                                                                                                                 |
+| Top three fixes                                               | 1. **SC-F1: Document each composable part.** Add part-level API documentation and component metadata while keeping the configured SelectPanel docs and entry point unchanged.<br>2. **SC-F2: Add as support to every part.** Add an additive as prop to each rendered part and preserve its required props, state, accessibility attributes, and final ref; resolve the DOM-less Root contract with maintainers rather than exempting it silently.<br>3. **SC-F4: Separate handler skipping from preventDefault.** Add one shared part merge path with the specified render-element → part-consumer → Primer order and a distinct skip method; preserve DOM preventDefault and state cancel as separate signals. |
+| Structured audit data                                         | `contributor-docs/component-api-audits/select-panel-before-after.audit-data.json`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+
+| Section                       | Weight | Applicable / earned / unknown check weight | Score or provisional range / 5 | Cap  | State / scope note |
+| :---------------------------- | :----: | :----------------------------------------: | :----------------------------: | :--: | :----------------- |
+| 1. Architecture and parts     |   20   |                20 / 15 / 0                 |            3.75 / 5            | 4.00 | Scored             |
+| 2. Root and part substitution |   20   |                 12 / 4 / 0                 |            1.67 / 5            | 4.00 | Scored             |
+| 3. Prop merge behavior        |   25   |                 25 / 6 / 0                 |            1.20 / 5            | 3.00 | Scored             |
+| 4. State and shared concepts  |   15   |                 15 / 2 / 0                 |            0.67 / 5            | 4.00 | Scored             |
+| 5. Accessibility and evidence |   20   |                 15 / 4 / 1                 |         1.33–1.67 / 5          | 3.00 | Scored             |
+
+</details>
+
+<details>
+<summary>Layer 3 human review</summary>
+
+| Judgment item                                                        | Result, rationale, reachable use case, reviewer                                                                                                                                                                                                                                                                                       |
+| :------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Meaningful part boundaries                                           | PENDING HUMAN — assess each part against reachable composition use cases.                                                                                                                                                                                                                                                             |
+| Default elements and semantics                                       | PENDING HUMAN — validate default semantics across interactive parts.                                                                                                                                                                                                                                                                  |
+| Context, semantic order, collection ownership, and accessible naming | PENDING HUMAN — review the complete interaction and content model.                                                                                                                                                                                                                                                                    |
+| Shared names/defaults for shared concepts                            | PENDING HUMAN — review alignment across all SelectPanel use cases.                                                                                                                                                                                                                                                                    |
+| Unresolved maintainer decisions                                      | Whether the DOM-less Root should support as/render and how it should expose a ref.; Exact part names/default elements, simultaneous as + render behavior, skip-method name, and overlay coordination implementation remain pending in the pinned gist.; Human review of part boundaries, defaults, and shared naming remains pending. |
+| Release-dependent migration decisions                                | N/A — existing behavior is preserved through additive/parallel paths; no default switch is selected.                                                                                                                                                                                                                                  |
+
+</details>
+
+<details>
+<summary>Evidence, calibration, and decisions</summary>
+
+| Evidence item                            | Path or result                                                                                                                                                                                                                                                                                                                                                  |
+| :--------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Source and API review                    | Exports, types, docs, stories, and implementation were reviewed at `1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b`; finding citations are pinned to this SHA.                                                                                                                                                                                                        |
+| Configured focused unit run              | `npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 1 file, 370 passed.`                                                                                                                                                                                                                                            |
+| Full component unit run                  | `npx vitest run --project '@primer/react' packages/react/src/SelectPanel — 19 files, 1681 passed and 7 failed (1688 total).`                                                                                                                                                                                                                                    |
+| Focused rerun                            | `npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.compatibility.test.tsx packages/react/src/SelectPanel/SelectPanel.composition.test.tsx packages/react/src/SelectPanel/SelectPanelOverlay.test.tsx --maxWorkers=1 --testNamePattern='opens every configured panel in SelectPanelRepositionInsideDialog without falling back | repairs removed list focus without stealing focus from search or after an explicit blur | dismisses only the supplemental dialog when clicking outside it | supports modal presentation without an anchor' — 7 failed, 2 passed; the failures reproduced without parallel workers.` |
+| Composable Storybook Playwright evidence | No composable SelectPanel Playwright scenario exists in e2e/components/SelectPanel.test.ts; configured stories were tested separately.                                                                                                                                                                                                                          |
+| Configured Storybook Playwright evidence | STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast).                                                                                                                   |
+| Type-check command and result            | `npm run type-check --workspace @primer/react — not measured reliably in this shared dependency setup; the current attempt failed on unrelated files.`                                                                                                                                                                                                          |
+| ADR-011 snapshot-policy evidence         | Snapshot policy was inspected separately from test execution; see SNAPSHOT-01.                                                                                                                                                                                                                                                                                  |
+| Calculator and validator                 | `node .agents/skills/component-api-design/references/scorecard-calculator.mjs contributor-docs/component-api-audits/select-panel-before-after.audit-data.json — passed for both records.`                                                                                                                                                                       |
+| Claims not runtime-verified              | Whether the DOM-less Root should support as/render and how it should expose a ref.; Exact part names/default elements, simultaneous as + render behavior, skip-method name, and overlay coordination implementation remain pending in the pinned gist.; Human review of part boundaries, defaults, and shared naming remains pending.                           |
+| Citation review result                   | All finding paths and line ranges were verified against the pinned source commits.                                                                                                                                                                                                                                                                              |
+| Scope                                    | One whole-component grade covers the configured API and the new composable API. Each check is assessed once across all applicable public paths; a target failure on any path is one owned gap.                                                                                                                                                                  |
+
+</details>
+
+<details>
+<summary>Runtime evidence and limits</summary>
+
+Configured focused unit tests: `npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 1 file, 370 passed.`. Full component run: `npx vitest run --project '@primer/react' packages/react/src/SelectPanel — 19 files, 1681 passed and 7 failed (1688 total).`. The failures reproduced in this focused rerun: `npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.compatibility.test.tsx packages/react/src/SelectPanel/SelectPanel.composition.test.tsx packages/react/src/SelectPanel/SelectPanelOverlay.test.tsx --maxWorkers=1 --testNamePattern='opens every configured panel in SelectPanelRepositionInsideDialog without falling back|repairs removed list focus without stealing focus from search or after an explicit blur|dismisses only the supplemental dialog when clicking outside it|supports modal presentation without an anchor' — 7 failed, 2 passed; the failures reproduced without parallel workers.`.
+
+Configured Storybook Playwright coverage passed in both snapshots: `STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast).`. The composable Storybook interaction evidence is: No composable SelectPanel Playwright scenario exists in e2e/components/SelectPanel.test.ts; configured stories were tested separately..
+
+Type-check `npm run type-check --workspace @primer/react — not measured reliably in this shared dependency setup; the current attempt failed on unrelated files.`. This remains unmeasured because both detached snapshots reported unrelated shared-dependency errors.
+
+</details>
