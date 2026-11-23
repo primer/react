@@ -1,7 +1,7 @@
+import {page, userEvent} from 'vitest/browser'
 import React from 'react'
 import Textarea from '../Textarea'
-import {render, screen, fireEvent, act} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render, fireEvent, act} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import classes from './TextArea.module.css'
 import {implementsClassName} from '../utils/testing'
@@ -32,41 +32,41 @@ describe('Textarea', () => {
     vi.resetAllMocks()
   })
 
-  it('renders a valid textarea input', () => {
+  it('renders a valid textarea input', async () => {
     render(<Textarea />)
-    expect(screen.getByRole('textbox')).toBeInTheDocument()
+    await expect.element(page.getByRole('textbox')).toBeInTheDocument()
   })
 
   it.each([
     {label: 'true', props: {contrast: true}},
     {label: 'false', props: {contrast: false}},
     {label: 'omitted', props: {}},
-  ])('preserves deprecated contrast behavior when $label', ({props}) => {
+  ])('preserves deprecated contrast behavior when $label', async ({props}) => {
     const {container} = render(<Textarea {...props} />)
-    const textarea = screen.getByRole('textbox')
+    const textarea = page.getByRole('textbox')
+    const wrapper = container.querySelector<HTMLElement>(':first-child')
 
     if (props.contrast) {
-      expect(container.firstElementChild).toHaveAttribute('data-contrast', 'true')
+      expect(wrapper).toHaveAttribute('data-contrast', 'true')
     } else {
-      expect(container.firstElementChild).not.toHaveAttribute('data-contrast')
+      expect(wrapper).not.toHaveAttribute('data-contrast')
     }
 
-    expect(textarea).not.toHaveAttribute('contrast')
-    expect(textarea).toBeEnabled()
+    await expect.element(textarea).not.toHaveAttribute('contrast')
+    await expect.element(textarea).toBeEnabled()
   })
 
-  it('renders data-component attribute', () => {
+  it('renders data-component attribute', async () => {
     render(<Textarea />)
-    expect(screen.getByRole('textbox')).toHaveAttribute('data-component', 'Textarea')
+    await expect.element(page.getByRole('textbox')).toHaveAttribute('data-component', 'Textarea')
   })
 
-  it('renders an empty textarea by default', () => {
+  it('renders an empty textarea by default', async () => {
     render(<Textarea />)
-    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
-    expect(textareaElement.value).toEqual('')
+    await expect.element(page.getByRole('textbox')).toHaveValue('')
   })
 
-  it('renders an uncontrolled component correctly', () => {
+  it('renders an uncontrolled component correctly', async () => {
     const sideEffectValue = 'mock value 2'
 
     const MockComponent = () => {
@@ -82,8 +82,7 @@ describe('Textarea', () => {
     }
 
     render(<MockComponent />)
-    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
-    expect(textareaElement.value).toBe(sideEffectValue)
+    await expect.element(page.getByRole('textbox')).toHaveValue(sideEffectValue)
   })
 
   it('renders an optional block prop correctly', () => {
@@ -98,11 +97,11 @@ describe('Textarea', () => {
     expect(has100PercentWidth).toBe(true)
   })
 
-  it('renders default resize values correctly', () => {
+  it('renders default resize values correctly', async () => {
     render(<Textarea />)
-    const textareaElement = screen.getByRole('textbox')
+    const textareaElement = page.getByRole('textbox')
 
-    expect(textareaElement).toBeInTheDocument()
+    await expect.element(textareaElement).toBeInTheDocument()
     const rules = getCSSRules(`.${classes.TextArea}`)
     const hasResizeDeclaration = rules.some(rule => {
       return rule.style.resize && rule.style.resize === 'both'
@@ -110,11 +109,11 @@ describe('Textarea', () => {
     expect(hasResizeDeclaration).toBe(true)
   })
 
-  it('renders none resize values correctly', () => {
+  it('renders none resize values correctly', async () => {
     render(<Textarea resize="none" />)
-    const textareaElement = screen.getByRole('textbox')
+    const textareaElement = page.getByRole('textbox')
 
-    expect(textareaElement).toBeInTheDocument()
+    await expect.element(textareaElement).toBeInTheDocument()
     const rules = getCSSRules(`.${classes.TextArea}[data-resize="none"]`)
     const hasResizeDeclaration = rules.some(rule => {
       return rule.style.resize && rule.style.resize === 'none'
@@ -122,62 +121,61 @@ describe('Textarea', () => {
     expect(hasResizeDeclaration).toBe(true)
   })
 
-  it('enables automatic sizing without changing resize behavior', () => {
+  it('enables automatic sizing without changing resize behavior', async () => {
     render(<Textarea autoSize resize="vertical" />)
-    const textareaElement = screen.getByRole('textbox')
+    const textareaElement = page.getByRole('textbox')
 
-    expect(textareaElement).toHaveAttribute('data-auto-size', 'true')
-    expect(textareaElement).toHaveAttribute('data-resize', 'vertical')
+    await expect.element(textareaElement).toHaveAttribute('data-auto-size', 'true')
+    await expect.element(textareaElement).toHaveAttribute('data-resize', 'vertical')
 
     const rules = getCSSRules(`.${classes.TextArea}[data-auto-size="true"]`)
     expect(rules.some(rule => rule.style.getPropertyValue('field-sizing') === 'content')).toBe(true)
   })
 
-  it('renders a value in the textarea', () => {
+  it('renders a value in the textarea', async () => {
     const mockValue = 'mock value'
     const onChange = vi.fn()
     render(<Textarea onChange={onChange} value={mockValue} />)
 
-    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
-    expect(textareaElement.value).toEqual(mockValue)
+    await expect.element(page.getByRole('textbox')).toHaveValue(mockValue)
   })
 
   it('can render an inactive textarea', async () => {
-    const user = userEvent.setup()
     const handleChange = vi.fn()
     const {rerender} = render(<Textarea disabled onChange={handleChange} />)
 
-    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
-    expect(textareaElement.disabled).toEqual(true)
-    expect(textareaElement).toHaveAttribute('disabled')
+    const textareaElement = page.getByRole('textbox')
+    await expect.element(textareaElement).toBeDisabled()
+    await expect.element(textareaElement).toHaveAttribute('disabled')
 
-    await user.click(textareaElement)
+    // Native browser clicks wait for disabled controls to become enabled.
+    fireEvent.click(textareaElement.element())
 
     expect(handleChange).not.toHaveBeenCalled()
 
     // remove disabled attribute and retest
     rerender(<Textarea onChange={handleChange} />)
 
-    expect(textareaElement.disabled).toEqual(false)
-    expect(textareaElement).not.toHaveAttribute('disabled')
+    await expect.element(textareaElement).toBeEnabled()
+    await expect.element(textareaElement).not.toHaveAttribute('disabled')
   })
 
-  it('renders an aria-required attribute correctly', () => {
+  it('renders an aria-required attribute correctly', async () => {
     render(<Textarea required />)
-    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
-    expect(textareaElement).toHaveAttribute('aria-required', 'true')
+    const textareaElement = page.getByRole('textbox')
+    await expect.element(textareaElement).toHaveAttribute('aria-required', 'true')
   })
 
-  it('renders an invalid aria state when validation prop indicates an error', () => {
+  it('renders an invalid aria state when validation prop indicates an error', async () => {
     const {rerender} = render(<Textarea />)
-    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
-    expect(textareaElement).toHaveAttribute('aria-invalid', 'false')
+    const textareaElement = page.getByRole('textbox')
+    await expect.element(textareaElement).toHaveAttribute('aria-invalid', 'false')
 
     rerender(<Textarea validationStatus="success" />)
-    expect(textareaElement).toHaveAttribute('aria-invalid', 'false')
+    await expect.element(textareaElement).toHaveAttribute('aria-invalid', 'false')
 
     rerender(<Textarea validationStatus="error" />)
-    expect(textareaElement).toHaveAttribute('aria-invalid', 'true')
+    await expect.element(textareaElement).toHaveAttribute('aria-invalid', 'true')
   })
 
   it('renders textarea with minHeight and maxHeight styles', () => {
@@ -185,8 +183,8 @@ describe('Textarea', () => {
     const maxHeight = 200
     render(<Textarea minHeight={minHeight} maxHeight={maxHeight} />)
 
-    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
-    const style = window.getComputedStyle(textareaElement)
+    const textareaElement = page.getByRole('textbox')
+    const style = window.getComputedStyle(textareaElement.element())
 
     expect(style.minHeight).toBe(`${minHeight}px`)
     expect(style.maxHeight).toBe(`${maxHeight}px`)
@@ -204,76 +202,69 @@ describe('Textarea', () => {
       expect(container.textContent).toContain('100 characters remaining')
     })
 
-    it('derives the counter and validation state from a controlled value', () => {
-      const {rerender, container, getByRole} = render(
-        <Textarea characterLimit={10} value="Hello" onChange={() => {}} />,
-      )
+    it('derives the counter and validation state from a controlled value', async () => {
+      const {rerender, container} = render(<Textarea characterLimit={10} value="Hello" onChange={() => {}} />)
       expect(container.textContent).toContain('5 characters remaining')
-      expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'false')
+      await expect.element(page.getByRole('textbox')).toHaveAttribute('aria-invalid', 'false')
 
       rerender(<Textarea characterLimit={10} value="Hello World!" onChange={() => {}} />)
       expect(container.textContent).toContain('2 characters over')
-      expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
+      await expect.element(page.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
     })
 
     it('should update character count on input', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(<Textarea characterLimit={100} />)
-      const textarea = getByRole('textbox')
+      const {container} = render(<Textarea characterLimit={100} />)
+      const textarea = page.getByRole('textbox')
 
-      await user.type(textarea, 'Hello World')
+      await userEvent.type(textarea, 'Hello World')
       expect(container.textContent).toContain('89 characters remaining')
     })
 
     it('should show singular "character" when one character remains', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(<Textarea characterLimit={5} />)
-      const textarea = getByRole('textbox')
+      const {container} = render(<Textarea characterLimit={5} />)
+      const textarea = page.getByRole('textbox')
 
-      await user.type(textarea, 'Test')
+      await userEvent.type(textarea, 'Test')
       expect(container.textContent).toContain('1 character remaining')
     })
 
     it('should show error state when character limit is exceeded', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(<Textarea characterLimit={10} />)
-      const textarea = getByRole('textbox')
+      const {container} = render(<Textarea characterLimit={10} />)
+      const textarea = page.getByRole('textbox')
 
-      await user.type(textarea, 'This is a very long text')
+      await userEvent.type(textarea, 'This is a very long text')
       expect(container.textContent).toContain('characters over')
-      expect(textarea).toHaveAttribute('aria-invalid', 'true')
+      await expect.element(textarea).toHaveAttribute('aria-invalid', 'true')
     })
 
     it('should show alert icon when character limit is exceeded', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(<Textarea characterLimit={10} />)
-      const textarea = getByRole('textbox')
+      const {container} = render(<Textarea characterLimit={10} />)
+      const textarea = page.getByRole('textbox')
 
-      await user.type(textarea, 'This is too long')
+      await userEvent.type(textarea, 'This is too long')
       const icon = container.querySelector('svg')
       expect(icon).toBeInTheDocument()
     })
 
     it('should clear error state when back under limit', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(<Textarea characterLimit={10} />)
-      const textarea = getByRole('textbox')
+      const {container} = render(<Textarea characterLimit={10} />)
+      const textarea = page.getByRole('textbox')
 
-      await user.type(textarea, 'This is a very long text')
+      await userEvent.type(textarea, 'This is a very long text')
       expect(container.textContent).toContain('characters over')
-      expect(textarea).toHaveAttribute('aria-invalid', 'true')
+      await expect.element(textarea).toHaveAttribute('aria-invalid', 'true')
 
-      await user.clear(textarea)
-      await user.type(textarea, 'Short text')
+      await userEvent.clear(textarea)
+      await userEvent.type(textarea, 'Short text')
 
       expect(container.textContent).toContain('characters remaining')
-      expect(textarea).toHaveAttribute('aria-invalid', 'false')
+      await expect.element(textarea).toHaveAttribute('aria-invalid', 'false')
     })
 
     it('should have aria-describedby pointing to static message', () => {
-      const {getByRole, container} = render(<Textarea characterLimit={100} />)
-      const textarea = getByRole('textbox')
-      const describedBy = textarea.getAttribute('aria-describedby')
+      const {container} = render(<Textarea characterLimit={100} />)
+      const textarea = page.getByRole('textbox')
+      const describedBy = textarea.element().getAttribute('aria-describedby')
       expect(describedBy).toBeTruthy()
 
       const staticMessage = Array.from(container.querySelectorAll('[id]')).find(el =>
@@ -310,9 +301,9 @@ describe('Textarea', () => {
       // the announcement is debounced (real timers would be slow and flaky).
       vi.useFakeTimers()
       try {
-        const {getByRole} = render(<Textarea characterLimit={100} />)
+        render(<Textarea characterLimit={100} />)
 
-        fireEvent.change(getByRole('textbox'), {target: {value: 'Hello'}})
+        fireEvent.change(page.getByRole('textbox').element(), {target: {value: 'Hello'}})
         // Nothing is announced until the debounce delay elapses.
         expect(getPoliteAnnouncement()).toBe('')
 

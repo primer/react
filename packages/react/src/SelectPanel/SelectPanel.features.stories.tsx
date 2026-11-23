@@ -233,6 +233,46 @@ export const MultiSelect = () => {
   )
 }
 
+export const MultiSelectWithLongValues = () => {
+  const longItems = [
+    {id: 1, text: 'Enhancement requests that improve the experience for new contributors'},
+    {id: 2, text: 'Bugs that prevent users from completing their most important workflows'},
+    {id: 3, text: 'Good first issues with detailed instructions and support from maintainers'},
+  ]
+  const [selected, setSelected] = useState<ItemInput[]>(longItems.slice(0, 1))
+  const [filter, setFilter] = useState('')
+  const [open, setOpen] = useState(false)
+  const filteredItems = longItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={anchorProps => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            Select labels
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={
+          filteredItems.length === 0
+            ? {variant: 'empty', title: 'No labels found', body: 'Try a different search term'}
+            : undefined
+        }
+      />
+    </FormControl>
+  )
+}
+
 export const WithDisabledItem = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
