@@ -1,0 +1,1600 @@
+/* stylelint-disable primer/typography, primer/spacing, primer/responsive-widths -- Cinematic 1440x810 recording artboard, scaled by the film host. */
+.Sequence {
+  position: absolute;
+  inset: 0;
+  height: 810px;
+  overflow: hidden;
+  color: var(--fgColor-default);
+  background: var(--bgColor-default);
+}
+
+/* stylelint-disable primer/colors -- Slack chrome and macOS notifications stay independent of the Primer picker's theme. */
+.Notifications {
+  position: absolute;
+  z-index: 600;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  width: 580px;
+  max-height: 762px;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.Notification {
+  display: grid;
+  width: 100%;
+  padding: 8px 12px;
+  border: var(--borderWidth-thin) solid rgb(255 255 255 / 0.18);
+  /* stylelint-disable-next-line primer/borders -- macOS notification corner geometry, not a Primer component. */
+  border-radius: 16px;
+  color: #f5f5f7;
+  background: rgb(37 37 40 / 0.98);
+  box-shadow: var(--shadow-floating-medium);
+  box-sizing: border-box;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 12px;
+  flex-shrink: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 30px;
+  pointer-events: none;
+  animation: slack-notification 350ms cubic-bezier(0.16, 1, 0.3, 1) both paused;
+}
+
+.NotificationIcon {
+  width: 36px;
+  height: 36px;
+  padding: 5px;
+  /* stylelint-disable-next-line primer/borders -- macOS app-icon corner geometry. */
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: var(--shadow-resting-small);
+  box-sizing: border-box;
+}
+
+.NotificationContent {
+  min-width: 0;
+
+  p {
+    margin: 4px 0 0;
+  }
+}
+
+.NotificationHeader {
+  display: flex;
+  margin-bottom: 4px;
+  align-items: center;
+  gap: 8px;
+  color: #d2d2d7;
+  font-size: 14px;
+  line-height: 20px;
+
+  time {
+    margin-left: auto;
+  }
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.NotificationSender {
+  color: #f5f5f7;
+
+  span {
+    color: #b1b1b8;
+  }
+}
+
+.Chat {
+  position: absolute;
+  top: 126px;
+  left: 24px;
+  display: flex;
+  width: 448px;
+  height: 540px;
+  overflow: hidden;
+  border: var(--borderWidth-thin) solid #56265c;
+  border-radius: var(--borderRadius-large);
+  color: #1d1c1d;
+  background: #fff;
+  box-shadow: var(--shadow-floating-medium);
+  flex-direction: column;
+  font-family: Lato, Helvetica, Arial, sans-serif;
+
+  &[data-alone='true'] {
+    z-index: 200;
+    top: 40px;
+    left: 220px;
+    width: 1000px;
+    height: 730px;
+    animation: chat-open 2600ms both paused;
+    animation-delay: var(--conversation-age);
+
+    .ChatRail {
+      width: 64px;
+    }
+
+    .ChatTopBar {
+      height: 40px;
+    }
+
+    .WorkspaceSearch {
+      height: 28px;
+      font-size: 14px;
+    }
+
+    .RailItem {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .ChannelHeader {
+      min-height: 60px;
+      padding-inline: 24px;
+
+      strong {
+        font-size: 20px;
+      }
+    }
+
+    .ChatMessages {
+      padding: 16px 28px;
+      gap: 16px;
+    }
+
+    .OldMessage {
+      gap: 12px;
+      font-size: 20px;
+    }
+
+    .MessageByline {
+      gap: 10px;
+      line-height: 24px;
+
+      strong {
+        font-size: 18px;
+      }
+
+      time {
+        font-size: 15px;
+      }
+    }
+
+    .ChatMessages .Avatar {
+      width: 40px;
+      height: 40px;
+    }
+
+    .ChannelDetails {
+      height: 42px;
+      font-size: 15px;
+
+      .Avatar {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    .ChatDate span {
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    .SystemMessage {
+      font-size: 17px;
+    }
+
+    .ComposerPlaceholder {
+      font-size: 17px;
+    }
+
+    .ComposerHint {
+      height: 28px;
+      font-size: 12px;
+    }
+  }
+
+  &[data-alone='true'][data-minimizing='true'] {
+    animation: chat-minimize 300ms both paused;
+    animation-delay: var(--minimize-age);
+  }
+
+  &[data-minimizing='true'] [data-film-minimize] {
+    background: #e7ab20;
+
+    &::after {
+      position: absolute;
+      top: 4px;
+      right: 2px;
+      left: 2px;
+      height: 1px;
+      background: #734a00;
+      content: '';
+    }
+  }
+
+  &[data-returning='true'],
+  &[data-reviewing='true'] {
+    z-index: 720;
+
+    &:where([data-minimizing='false']) {
+      animation: chat-restore 600ms both paused;
+      animation-delay: var(--return-age);
+    }
+
+    .ChatMessages {
+      position: relative;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scroll-behavior: auto;
+      scrollbar-width: thin;
+    }
+
+    .OldMessage[data-new='true'] {
+      animation: slack-message 250ms ease-out both paused;
+      animation-delay: var(--message-age);
+    }
+  }
+}
+
+.ChatTopBar {
+  display: flex;
+  height: 34px;
+  padding: 0 10px;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  color: #e8d6ed;
+  background: #713679;
+}
+
+.WindowDots {
+  display: flex;
+  margin-right: 4px;
+  gap: 5px;
+
+  span {
+    position: relative;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ff6058;
+  }
+
+  span:nth-child(2) {
+    background: #ffbd2e;
+  }
+
+  span:nth-child(3) {
+    background: #28c840;
+  }
+}
+
+.WorkspaceSearch {
+  display: flex;
+  height: 22px;
+  padding-inline: 8px;
+  border: var(--borderWidth-thin) solid rgb(255 255 255 / 0.15);
+  border-radius: var(--borderRadius-medium);
+  background: rgb(255 255 255 / 0.12);
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 6px;
+  font-size: 10px;
+}
+
+.ChatBody {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+}
+
+.ChatRail {
+  display: flex;
+  width: 52px;
+  padding: 12px 0 10px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #f2e7f4;
+  background: linear-gradient(#713679, #55205c);
+}
+
+.RailItem {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 9px;
+  line-height: 12px;
+
+  > span {
+    position: relative;
+    display: grid;
+    width: 32px;
+    height: 29px;
+    border-radius: var(--borderRadius-medium);
+    place-items: center;
+  }
+
+  &[data-active='true'] > span {
+    background: rgb(255 255 255 / 0.23);
+  }
+
+  i {
+    position: absolute;
+    top: 1px;
+    right: 4px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff;
+  }
+}
+
+.RailBottom {
+  display: flex;
+  margin-top: auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.WorkspaceMark {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 4px;
+  border: var(--borderWidth-thick) solid rgb(255 255 255 / 0.45);
+  border-radius: var(--borderRadius-medium);
+  color: #fff;
+  background: #32213c;
+  font-size: 20px;
+  font-weight: 900;
+  place-items: center;
+}
+
+.Channel {
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--borderRadius-medium) 0 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.ChannelHeader {
+  display: flex;
+  min-height: 49px;
+  padding-inline: 14px;
+  border-bottom: var(--borderWidth-thin) solid #e8e8e8;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  strong {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  strong > :first-child {
+    font-size: 21px;
+    font-weight: 500;
+  }
+}
+
+.Huddle {
+  display: flex;
+  height: 27px;
+  padding-inline: 7px;
+  border: var(--borderWidth-thin) solid #ddd;
+  border-radius: var(--borderRadius-default);
+  align-items: center;
+  gap: 5px;
+  color: #616061;
+}
+
+.ChannelDetails {
+  display: flex;
+  height: 33px;
+  padding-inline: 14px;
+  border-bottom: var(--borderWidth-thin) solid #eee;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 6px;
+  color: #616061;
+  font-size: 10px;
+
+  > span:first-child {
+    display: flex;
+    padding-left: 3px;
+  }
+
+  .Avatar {
+    width: 17px;
+    height: 17px;
+    margin-left: -3px;
+    border: var(--borderWidth-thin) solid #fff;
+    border-radius: var(--borderRadius-small);
+  }
+
+  .Presence {
+    display: none;
+  }
+}
+
+.ChannelTopic {
+  padding-left: 8px;
+  border-left: var(--borderWidth-thin) solid #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.MemberOverflow {
+  padding-left: 6px;
+}
+
+.ChatMessages {
+  display: flex;
+  min-height: 0;
+  padding: 12px 14px 16px;
+  overflow: hidden;
+  flex: 1;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.ChatDate {
+  display: flex;
+  margin-inline: -14px;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0;
+
+  &::before,
+  &::after {
+    height: 1px;
+    background: #e8e8e8;
+    content: '';
+    flex: 1;
+  }
+
+  span {
+    padding: 3px 12px;
+    border: var(--borderWidth-thin) solid #ddd;
+    border-radius: var(--borderRadius-full);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+}
+
+.SystemMessage {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #616061;
+  font-size: 14px;
+  animation: channel-joined 250ms ease-out both paused;
+}
+
+@keyframes channel-joined {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.OldMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  flex: 0 0 auto;
+  font-size: 14px;
+
+  p {
+    margin: 2px 0 0;
+    line-height: 1.45;
+  }
+
+  > div {
+    min-width: 0;
+  }
+}
+
+.MessageByline {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  line-height: 18px;
+
+  > strong {
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  > time {
+    color: #616061;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+}
+
+.Reaction {
+  display: inline-flex;
+  height: 22px;
+  margin-top: 5px;
+  padding: 0 7px;
+  border: var(--borderWidth-thin) solid #c9d6f1;
+  border-radius: var(--borderRadius-large);
+  align-items: center;
+  gap: 4px;
+  color: #1264a3;
+  background: #f2f6ff;
+  font-size: 11px;
+
+  svg {
+    color: #148567;
+  }
+}
+
+.ReactionRow {
+  display: flex;
+  min-height: 36px;
+  align-items: flex-start;
+  gap: 6px;
+
+  .Reaction {
+    height: 30px;
+    padding-inline: 9px;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+    animation: reaction-pop 200ms both paused;
+    animation-delay: var(--reaction-age);
+    transform-origin: center;
+  }
+}
+
+@keyframes reaction-pop {
+  0% {
+    opacity: 0;
+    scale: 0.6;
+  }
+
+  65% {
+    opacity: 1;
+    scale: 1.15;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.Avatar {
+  --avatar-background: #d7b8cc;
+  --avatar-skin: #b77756;
+  --avatar-hair: #38252d;
+  --avatar-shirt: #436b64;
+
+  position: relative;
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--borderRadius-default);
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  &[data-person='L'] {
+    --avatar-background: #b7cfdd;
+    --avatar-skin: #e7af86;
+    --avatar-hair: #463128;
+    --avatar-shirt: #475f89;
+  }
+
+  &[data-person='S'] {
+    --avatar-background: #e6ca94;
+    --avatar-skin: #d69871;
+    --avatar-hair: #352e2b;
+    --avatar-shirt: #795b82;
+  }
+}
+
+.Presence {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 9px;
+  height: 9px;
+  border: var(--borderWidth-thick) solid #fff;
+  border-radius: 50%;
+  background: #2bac76;
+}
+
+.ChatMessages .Presence {
+  display: none;
+}
+
+.ComposerHint {
+  height: 23px;
+  padding: 3px 14px 0;
+  color: #616061;
+  font-size: 9px;
+  text-align: right;
+  flex: 0 0 auto;
+}
+
+.Composer {
+  display: flex;
+  min-height: 110px;
+  margin: 0 12px;
+  overflow: hidden;
+  border: var(--borderWidth-thin) solid #b5b5b5;
+  border-radius: var(--borderRadius-medium);
+  color: #616061;
+  flex: 0 0 auto;
+  flex-direction: column;
+}
+
+.SharedScreenshot {
+  display: block;
+  width: 300px;
+  height: auto;
+  margin-top: 8px;
+  border: var(--borderWidth-thin) solid #ddd;
+  border-radius: var(--borderRadius-medium);
+}
+
+.AttachedScreenshot {
+  width: 96px;
+  height: auto;
+  margin: 0 11px 8px;
+  border: var(--borderWidth-thin) solid #ddd;
+  border-radius: var(--borderRadius-medium);
+}
+
+.ComposerFormatting,
+.ComposerActions {
+  display: flex;
+  height: 31px;
+  padding: 0 10px;
+  align-items: center;
+  gap: 13px;
+}
+
+.ComposerFormatting {
+  background: #f8f8f8;
+
+  > span {
+    width: 1px;
+    height: 14px;
+    background: #ddd;
+  }
+}
+
+.ComposerPlaceholder {
+  padding: 9px 11px;
+  flex: 1;
+  font-size: 12px;
+
+  &[data-writing='true'] {
+    color: #1d1c1d;
+  }
+}
+
+.ComposerActions {
+  gap: 11px;
+
+  > svg:nth-last-child(2) {
+    color: #9c9b9c;
+  }
+}
+
+.ComposerSpacer {
+  flex: 1;
+}
+
+.Attach {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #eee;
+  place-items: center;
+}
+/* stylelint-enable primer/colors */
+
+.Capture {
+  position: fixed;
+  z-index: 750;
+  inset: 0;
+  background: var(--overlay-backdrop-bgColor);
+  pointer-events: none;
+
+  &[data-captured='true'] {
+    background: transparent;
+
+    .CaptureMarquee,
+    .CaptureCrosshair {
+      display: none;
+    }
+  }
+
+  &[data-captured='false'] {
+    .CapturedScreenshot,
+    .CaptureFlash {
+      display: none;
+    }
+  }
+}
+
+.CaptureRegion {
+  position: absolute;
+  top: var(--capture-top);
+  left: var(--capture-left);
+  width: var(--capture-width);
+  height: var(--capture-height);
+}
+
+.CaptureMarquee {
+  width: 100%;
+  height: 100%;
+  /* stylelint-disable-next-line primer/borders, primer/colors -- Native screen-capture selection outline. */
+  border: 2px dashed var(--fgColor-onEmphasis);
+  outline: 1px solid var(--fgColor-default);
+  transform-origin: top left;
+  animation: screenshot-selection 800ms ease-in-out both paused;
+  animation-delay: var(--capture-age);
+}
+
+.CaptureCrosshair {
+  position: absolute;
+  translate: -50% -50%;
+  animation: screenshot-crosshair 800ms ease-in-out both paused;
+  animation-delay: var(--capture-age);
+}
+
+.CapturedScreenshot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--borderRadius-medium);
+  box-shadow: var(--shadow-floating-large);
+  transform-origin: top left;
+  animation: screenshot-thumbnail 500ms cubic-bezier(0.16, 1, 0.3, 1) both paused;
+  animation-delay: var(--captured-age);
+}
+
+.CaptureFlash {
+  position: absolute;
+  inset: 0;
+  background: var(--bgColor-default);
+  animation: screenshot-flash 180ms ease-out both paused;
+  animation-delay: var(--captured-age);
+}
+
+@keyframes screenshot-selection {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes screenshot-crosshair {
+  from {
+    top: 0;
+    left: 0;
+  }
+
+  to {
+    top: 100%;
+    left: 100%;
+  }
+}
+
+@keyframes screenshot-thumbnail {
+  from {
+    transform: none;
+  }
+
+  to {
+    transform: translate(
+        calc(1408px - var(--capture-left) - var(--capture-width) * 0.5),
+        calc(778px - var(--capture-top) - var(--capture-height) * 0.5)
+      )
+      scale(0.5);
+  }
+}
+
+@keyframes screenshot-flash {
+  from {
+    opacity: 0.75;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.DraftWorkbench {
+  position: absolute;
+  inset: 0;
+}
+
+.DraftDesktop {
+  --film-time: 0ms;
+
+  position: absolute;
+  inset: 0;
+  animation: workspace-away 700ms both paused;
+  animation-delay: var(--draft-zoom-age);
+}
+
+.DraftBrowser {
+  --film-browser-chrome-height: 80px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000px;
+  height: 890px;
+  overflow: clip;
+  border-radius: var(--borderRadius-large);
+  background: var(--bgColor-default);
+  box-shadow: var(--shadow-floating-large);
+  transform-origin: top left;
+  animation: draft-browser-zoom 700ms cubic-bezier(0.3, 0.8, 0.2, 1) both paused;
+  animation-delay: var(--draft-zoom-age);
+}
+
+.DraftPage {
+  position: relative;
+  width: 1000px;
+  height: calc(100% - var(--film-browser-chrome-height));
+  overflow: clip;
+}
+
+@keyframes draft-browser-zoom {
+  from {
+    height: 740px;
+    border-radius: var(--borderRadius-large);
+    transform: translate(40px, 62px) scale(0.94);
+  }
+
+  to {
+    height: 890px;
+    border-radius: 0;
+    box-shadow: none;
+    transform: translate(-180px, -260px) scale(1.25);
+  }
+}
+
+@keyframes workspace-away {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.DraftHeading {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.DraftTarget {
+  margin: 0 8px 12px;
+}
+
+.DraftTrigger {
+  position: relative;
+}
+
+.DraftList {
+  animation: none;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.Pointer.ContinuousPointer {
+  position: fixed;
+  z-index: 800;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.Workbench {
+  position: absolute;
+  top: 100px;
+  left: 510px;
+  width: 464px;
+  height: 630px;
+  animation: workbench-in 1.2s both paused;
+  animation-delay: var(--scene-age, -1200ms);
+}
+
+.WorkbenchHeading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.WorkbenchHeading > svg {
+  color: var(--fgColor-open);
+}
+
+.IssueNumber {
+  color: var(--fgColor-muted);
+  font-weight: 400;
+}
+
+.IssuePreview {
+  display: flex;
+  gap: 24px;
+  padding-top: 24px;
+}
+
+.PreviewLines {
+  flex: 1;
+}
+
+.PreviewLines span {
+  display: block;
+  height: 8px;
+  margin-bottom: 16px;
+  background: var(--bgColor-muted);
+  border-radius: var(--borderRadius-small);
+}
+
+.PreviewLines span:nth-child(2) {
+  width: 75%;
+}
+
+.AgentField {
+  display: flex;
+  width: 320px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.AgentField > strong {
+  color: var(--fgColor-muted);
+  font-size: 12px;
+}
+
+.Assigned {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--fgColor-muted);
+  font-size: 12px;
+}
+
+.Picker {
+  --playground-row-padding-y: 8px;
+
+  animation: none;
+  transform-origin: top left;
+}
+
+.AgentList {
+  max-height: 470px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.Picker .PickerHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.PickerForm {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.Picker[data-variant='fullscreen'] .AgentList {
+  max-height: none;
+  flex: 1;
+}
+
+.Option[data-film-hovered] {
+  background-color: var(--control-transparent-bgColor-hover);
+  box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+}
+
+.Option[aria-selected='true'] [data-component='ActionList.Selection'] > div::before {
+  animation: none;
+  clip-path: inset(0);
+}
+
+.PickerFooter {
+  --insert-y: 24px;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.SelectionCount {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-normal);
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+.FooterActions {
+  display: flex;
+  margin-left: auto;
+  gap: var(--base-size-8);
+}
+
+.Insert {
+  animation: slot-in 700ms both paused;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.AgentList .Group {
+  margin-block-start: 0;
+}
+
+.Group [data-component='GroupHeadingWrap'] {
+  box-sizing: border-box;
+  overflow: hidden;
+  animation: group-heading-in 650ms cubic-bezier(0.3, 0, 0.2, 1) both paused;
+  animation-delay: var(--group-clock);
+}
+
+@keyframes group-heading-in {
+  from {
+    height: 0;
+    padding-block: 0;
+  }
+
+  to {
+    height: 30px;
+    padding-block: 6px;
+  }
+}
+
+.Description {
+  overflow: hidden;
+  animation: description-in 500ms both paused;
+}
+
+@keyframes description-in {
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: 40px;
+  }
+}
+
+.Pointer {
+  position: absolute;
+  z-index: 500;
+  filter: drop-shadow(0 3px 4px rgb(0 0 0 / 0.2));
+  pointer-events: none;
+}
+
+.MinimizePointer {
+  top: 0;
+  left: 0;
+  animation: minimize-pointer 1100ms both paused;
+  animation-delay: var(--minimize-pointer-age);
+}
+
+@keyframes minimize-pointer {
+  0% {
+    opacity: 0;
+    transform: translate(650px, 660px);
+    animation-timing-function: ease-in-out;
+  }
+
+  72%,
+  81.8% {
+    opacity: 1;
+    transform: translate(209px, 29px);
+  }
+
+  88.2% {
+    opacity: 1;
+    transform: translate(209px, 29px) scale(0.85);
+  }
+
+  94% {
+    opacity: 1;
+    transform: translate(209px, 29px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(209px, 29px);
+  }
+}
+
+.Status {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  color: var(--fgColor-muted);
+}
+
+.QueuedStatus {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--borderRadius-full);
+  background: var(--bgColor-neutral-emphasis);
+  opacity: 0.35;
+}
+
+.Status[data-state='done'] {
+  color: var(--fgColor-success);
+}
+
+.Status[data-state='working'] {
+  color: var(--fgColor-attention);
+}
+
+.Status .StatusSpinner {
+  animation: none;
+  transform: rotate(var(--status-angle));
+}
+
+.ModeSwitch {
+  position: fixed;
+  z-index: 710;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-inline: 5px;
+  border: var(--borderWidth-thin) solid var(--borderColor-accent-muted);
+  border-radius: var(--borderRadius-small);
+  background: var(--bgColor-default);
+  font-size: 12px;
+
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 28px;
+    border-top: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
+    opacity: 0.65;
+    content: '';
+  }
+}
+
+.ModeSwitch code {
+  color: var(--fgColor-accent);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ModeValue {
+  width: 94px;
+  font-family: var(--fontStack-monospace);
+  color: var(--fgColor-accent);
+}
+
+.ModeMenu {
+  animation: none;
+}
+
+.Phone {
+  &[data-active='false'] {
+    visibility: hidden;
+  }
+
+  position: absolute;
+  z-index: 400;
+  top: 32px;
+  left: 618px;
+  width: 375px;
+  height: 680px;
+  padding: 32px 0 18px;
+  overflow: hidden;
+  /* stylelint-disable primer/borders, primer/colors -- Physical phone bezel, not a component border. */
+  border: 8px solid var(--fgColor-default);
+  border-radius: 44px;
+  /* stylelint-enable primer/borders, primer/colors */
+  background: var(--bgColor-default);
+  box-shadow: var(--shadow-floating-large);
+  box-sizing: content-box;
+  animation: phone-in 900ms cubic-bezier(0.3, 0, 0.2, 1) both paused;
+  animation-delay: var(--phone-age);
+
+  iframe {
+    display: block;
+    width: 375px;
+    height: 680px;
+    border: 0;
+  }
+}
+
+.Phone[data-exiting='true'] {
+  animation: phone-out 600ms ease-in both paused;
+  animation-delay: var(--phone-exit-age);
+}
+
+.PhoneBar {
+  display: flex;
+  position: absolute;
+  top: 8px;
+  left: 26px;
+  right: 26px;
+  justify-content: space-between;
+  height: 24px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.HomeIndicator {
+  position: absolute;
+  width: 112px;
+  height: 4px;
+  left: 50%;
+  bottom: 8px;
+  border-radius: var(--borderRadius-small);
+  background: var(--bgColor-emphasis);
+  translate: -50% 0;
+}
+
+.MobileWorkbench {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0;
+  height: 680px;
+  animation: none;
+}
+
+.MobileTrigger {
+  position: relative;
+  margin: 0 8px 12px;
+}
+
+.TapIndicator {
+  position: absolute;
+  top: 50%;
+  left: 72%;
+  width: 40px;
+  height: 40px;
+  border: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
+  border-radius: var(--borderRadius-full);
+  background: var(--bgColor-accent-muted);
+  pointer-events: none;
+  animation: mobile-tap 500ms ease-out both paused;
+  animation-delay: var(--tap-age);
+
+  &[data-active='false'] {
+    visibility: hidden;
+  }
+}
+
+.MobilePicker[data-variant='bottom-sheet'] {
+  animation: mobile-sheet-in 500ms cubic-bezier(0.3, 0, 0.2, 1) both paused;
+  animation-delay: var(--mobile-sheet-age);
+}
+
+@keyframes mobile-tap {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.55);
+  }
+
+  20% {
+    opacity: 0.85;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+@keyframes mobile-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.Platform {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 88px;
+}
+
+.Platform h1 {
+  margin: 0;
+  color: var(--fgColor-default);
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  text-wrap: balance;
+}
+
+.Closing {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Closing h1 {
+  margin: 0;
+  font-size: 88px;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-align: center;
+}
+
+.ClosingSuffix {
+  animation: closing-in 3s both paused;
+  animation-delay: calc(var(--scene-age) + 600ms);
+}
+
+.Closing p {
+  margin: var(--base-size-24) 0 0;
+  color: var(--fgColor-muted);
+  font-size: 32px;
+  line-height: 1.4;
+  text-align: center;
+  animation: closing-in 3s both paused;
+  animation-delay: calc(var(--scene-age) + 1800ms);
+}
+
+@keyframes slack-notification {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes chat-minimize {
+  0%,
+  26.667% {
+    opacity: 1;
+    transform: scale(1.08);
+    transform-origin: 50% 55%;
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(90px) scale(0.42, 0.5);
+    transform-origin: 50% 100%;
+    animation-timing-function: ease-in;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(130px) scale(0.12, 0.04);
+    transform-origin: 50% 100%;
+  }
+}
+
+@keyframes chat-open {
+  0% {
+    opacity: 0;
+    transform: translateY(130px) scale(0.12, 0.04);
+    transform-origin: 50% 100%;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  25% {
+    opacity: 1;
+    transform: none;
+    transform-origin: 50% 55%;
+    animation-timing-function: ease-in-out;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.08);
+    transform-origin: 50% 55%;
+  }
+}
+
+@keyframes chat-restore {
+  from {
+    opacity: 0;
+    transform: translateY(130px) scale(0.12, 0.04);
+    transform-origin: 50% 100%;
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.08);
+    transform-origin: 50% 55%;
+  }
+}
+
+@keyframes slack-message {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes workbench-in {
+  from {
+    opacity: 0;
+    translate: 80px 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes slot-in {
+  from {
+    max-height: 0;
+    opacity: 0;
+    translate: 0 var(--insert-y, -24px);
+  }
+
+  to {
+    max-height: 90px;
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes phone-in {
+  from {
+    transform: translateY(810px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes phone-out {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(810px);
+  }
+}
+
+@keyframes closing-in {
+  0% {
+    opacity: 0;
+  }
+
+  30%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Status .StatusSpinner {
+    transform: none;
+  }
+
+  .ReactionRow .Reaction,
+  .SystemMessage,
+  .Notification,
+  .Chat,
+  .Chat[data-alone='true'],
+  .Chat[data-alone='true'][data-minimizing='true'],
+  .Chat[data-returning='true'] .OldMessage[data-new='true'],
+  .DraftDesktop,
+  .DraftBrowser,
+  .DraftList,
+  .Workbench,
+  .Picker,
+  .Group [data-component='GroupHeadingWrap'],
+  .Description,
+  .Insert,
+  .Phone,
+  .Phone[data-exiting='true'],
+  .MobilePicker[data-variant='bottom-sheet'],
+  .TapIndicator,
+  .CaptureMarquee,
+  .CaptureCrosshair,
+  .CapturedScreenshot,
+  .ClosingSuffix,
+  .Closing p {
+    animation: none;
+  }
+
+  .DraftBrowser {
+    border-radius: 0;
+    box-shadow: none;
+    transform: translate(-180px, -260px) scale(1.25);
+  }
+
+  .DraftDesktop {
+    opacity: 0;
+  }
+
+  .Group[data-grouped='false'] [data-component='GroupHeadingWrap'] {
+    height: 0;
+    padding-block: 0;
+  }
+
+  .Pointer {
+    display: none;
+  }
+
+  .CaptureCrosshair {
+    top: 100%;
+    left: 100%;
+  }
+
+  .CaptureFlash {
+    display: none;
+  }
+}

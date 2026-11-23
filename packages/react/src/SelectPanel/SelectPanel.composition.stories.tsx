@@ -1,4 +1,4 @@
-import {InfoIcon, TagIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {InfoIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import {useRef, useState, type RefObject} from 'react'
 import {ActionList} from '../ActionList'
@@ -8,10 +8,12 @@ import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import FormControl from '../FormControl'
 import {SelectPanel, type SelectPanelValue} from '../SelectPanel'
 import classes from './SelectPanel.composition.stories.module.css'
+import labelClasses from './SelectPanel.stories.module.css'
 
 const meta = {
   title: 'Components/SelectPanel/Composition',
   component: SelectPanel.Root,
+  excludeStories: ['CustomLayoutExample'],
 } satisfies Meta<typeof SelectPanel.Root>
 
 export default meta
@@ -20,18 +22,20 @@ interface LabelOption {
   id: SelectPanelValue
   name: string
   description: string
+  color: string
   disabled?: boolean
 }
 
 const items: LabelOption[] = [
-  {id: 'bug', name: 'Bug', description: 'Something is not working'},
-  {id: 'enhancement', name: 'Enhancement', description: 'A new feature or request'},
-  {id: 'design', name: 'Design', description: 'Interface and interaction design'},
-  {id: 'accessibility', name: 'Accessibility', description: 'Usable by everyone'},
+  {id: 'bug', name: 'Bug', description: 'Something is not working', color: '#d73a4a'},
+  {id: 'enhancement', name: 'Enhancement', description: 'A new feature or request', color: '#a2eeef'},
+  {id: 'design', name: 'Design', description: 'Interface and interaction design', color: '#ffd78e'},
+  {id: 'accessibility', name: 'Accessibility', description: 'Usable by everyone', color: '#0052cc'},
   {
     id: 'archived',
     name: 'Archived',
     description: 'This label is no longer available',
+    color: '#ededed',
     disabled: true,
   },
 ]
@@ -59,7 +63,7 @@ function LabelItem({option}: {option: LabelOption}) {
   return (
     <SelectPanel.Item value={option.id} disabled={option.disabled}>
       <ActionList.LeadingVisual>
-        <TagIcon />
+        <div className={labelClasses.ColorCircle} style={{backgroundColor: option.color, borderColor: option.color}} />
       </ActionList.LeadingVisual>
       {option.name}
       <ActionList.Description variant="block">{option.description}</ActionList.Description>
@@ -75,14 +79,21 @@ function NoResults() {
   )
 }
 
-function CustomLayoutExample({
+export function CustomLayoutExample({
   transactional = false,
   focusStrategy,
+  open: scriptedOpen,
+  renderTrigger,
+  focusTrapSettings,
 }: {
   transactional?: boolean
   focusStrategy?: React.ComponentProps<typeof SelectPanel.Root>['focusStrategy']
+  open?: boolean
+  renderTrigger?: React.ComponentProps<typeof SelectPanel.Trigger>['render']
+  focusTrapSettings?: React.ComponentProps<typeof SelectPanel.Overlay>['focusTrapSettings']
 }) {
-  const [open, setOpen] = useState(false)
+  const [manualOpen, setOpen] = useState(false)
+  const open = scriptedOpen ?? manualOpen
   const [committed, setCommitted] = useState<SelectPanelValue[]>(['bug'])
   const [draft, setDraft] = useState<SelectPanelValue[]>(['bug'])
   const [filter, setFilter] = useState('')
@@ -115,10 +126,12 @@ function CustomLayoutExample({
         filterValue={filter}
         onFilterChange={setFilter}
       >
-        <SelectPanel.Trigger render={props => <Button {...props} trailingAction={TriangleDownIcon} />}>
+        <SelectPanel.Trigger
+          render={renderTrigger ?? (props => <Button {...props} trailingAction={TriangleDownIcon} />)}
+        >
           Labels ({committed.length})
         </SelectPanel.Trigger>
-        <SelectPanel.Overlay>
+        <SelectPanel.Overlay focusTrapSettings={focusTrapSettings}>
           <SelectPanel.Content>
             <SelectPanel.Form className={classes.Form}>
               <SelectPanel.Header>

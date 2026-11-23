@@ -114,7 +114,24 @@ function CompositionCandidates() {
   )
 }
 
-function PlatformCapabilities({
+export function ShowcaseTypewriter({title}: {title: string}) {
+  return (
+    <span aria-hidden="true" className={classes.Typewriter}>
+      {Array.from(title).map((character, index) => (
+        <span
+          key={index}
+          className={classes.TypedCharacter}
+          style={{animationDelay: `${(index / title.length) * 750}ms`}}
+        >
+          {character}
+        </span>
+      ))}
+      <span className={classes.Caret} />
+    </span>
+  )
+}
+
+export function PlatformCapabilities({
   time,
   duration,
   reducedMotion,
@@ -288,22 +305,7 @@ export function SelectPanelShowcase({
                   className={classes.Headline}
                   aria-label={fullWidthNarrative ? title : undefined}
                 >
-                  {fullWidthNarrative ? (
-                    <span aria-hidden="true" className={classes.Typewriter}>
-                      {Array.from(title).map((character, index) => (
-                        <span
-                          key={index}
-                          className={classes.TypedCharacter}
-                          style={{animationDelay: `${(index / title.length) * 750}ms`}}
-                        >
-                          {character}
-                        </span>
-                      ))}
-                      <span className={classes.Caret} />
-                    </span>
-                  ) : (
-                    title
-                  )}
+                  {fullWidthNarrative ? <ShowcaseTypewriter title={title} /> : title}
                 </Heading>
                 {!fullWidthNarrative ? (
                   <Text as="p" className={classes.Description}>
