@@ -9,7 +9,9 @@ import {CopyToClipboardButton} from '@primer/react/experimental'
 
 `CopyToClipboardButton` composes `IconButton`, `Tooltip`, and `useCopyToClipboard`. It keeps its accessible name stable and announces success or failure after the clipboard write completes. Success changes the icon to a checkmark for two seconds. Failure leaves the copy icon available for retry and displays an error tooltip. `onCopy` runs only after success; `onCopyError` receives clipboard errors. Localize `ariaLabel`, `copiedMessage`, and `errorMessage` as needed. Avoid putting sensitive or lengthy clipboard contents in the accessible name.
 
-Other `IconButton` props are forwarded to the button, including `disabled`, `size`, `variant`, `className`, and button attributes. The default variant is `invisible`. The ref points to the button. `tooltipProps` configures tooltip presentation; the component owns its text and accessibility behavior.
+Other `IconButton` props are forwarded to the button, including `disabled`, `size`, `variant`, `className`, and button attributes. The default variant is `invisible`. The ref points to the button. `description` overrides the initial tooltip text, while `keybindingHint` and `keyshortcuts` retain tooltip hints and keyboard shortcut semantics. `tooltipProps` configures tooltip presentation; the component owns its feedback text and accessibility behavior.
+
+If writes overlap, only the most recently started write updates feedback or calls `onCopy`/`onCopyError`. Pending writes do not announce or call callbacks after the button unmounts.
 
 ## Custom controls
 

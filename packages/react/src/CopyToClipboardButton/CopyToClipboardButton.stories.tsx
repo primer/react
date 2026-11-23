@@ -19,6 +19,10 @@ export const CustomFeedback: StoryObj<typeof CopyToClipboardButton> = {
   args: {copiedMessage: 'Greeting copied', errorMessage: 'Greeting could not be copied', variant: 'default'},
 }
 
+export const WithKeyboardShortcut: StoryObj<typeof CopyToClipboardButton> = {
+  args: {description: 'Copy the greeting text', keybindingHint: 'Control+C', keyshortcuts: 'Control+C'},
+}
+
 export const WithTextInput = () => {
   const [text, setText] = useState('Hello, world!')
   return (

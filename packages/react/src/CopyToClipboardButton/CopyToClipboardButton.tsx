@@ -1,4 +1,4 @@
-import {forwardRef} from 'react'
+import {forwardRef, useEffect, useRef} from 'react'
 import {CheckIcon, CopyIcon} from '@primer/octicons-react'
 import {announce} from '@primer/live-region-element'
 import {clsx} from 'clsx'
@@ -44,6 +44,9 @@ export const CopyToClipboardButton = forwardRef<HTMLButtonElement, CopyToClipboa
       copiedMessage = 'Copied!',
       errorMessage = 'Unable to copy to clipboard',
       tooltipProps,
+      description,
+      keybindingHint,
+      keyshortcuts,
       disabled,
       className,
       ...rest
@@ -51,15 +54,26 @@ export const CopyToClipboardButton = forwardRef<HTMLButtonElement, CopyToClipboa
     ref,
   ) {
     const {copy, copied, isCopying, error} = useCopyToClipboard()
+    const request = useRef(0)
+
+    useEffect(() => {
+      const activeRequest = request
+      return () => {
+        activeRequest.current++
+      }
+    }, [])
 
     const handleCopy = async () => {
+      const currentRequest = ++request.current
       try {
         await copy(textToCopy)
       } catch (copyError) {
+        if (currentRequest !== request.current) return
         announce(errorMessage)
         onCopyError?.(copyError instanceof Error ? copyError : new Error(errorMessage, {cause: copyError}))
         return
       }
+      if (currentRequest !== request.current) return
       announce(copiedMessage)
       onCopy?.()
     }
@@ -73,6 +87,7 @@ export const CopyToClipboardButton = forwardRef<HTMLButtonElement, CopyToClipboa
         data-copy-error={Boolean(error) || undefined}
         aria-label={ariaLabel}
         aria-busy={isCopying || undefined}
+        aria-keyshortcuts={rest['aria-keyshortcuts'] ?? keyshortcuts}
         icon={copied ? CheckIcon : icon}
         variant={variant}
         disabled={disabled}
@@ -84,7 +99,12 @@ export const CopyToClipboardButton = forwardRef<HTMLButtonElement, CopyToClipboa
     return disabled ? (
       button
     ) : (
-      <Tooltip {...tooltipProps} text={copied ? copiedMessage : error ? errorMessage : ariaLabel} aria-hidden>
+      <Tooltip
+        {...tooltipProps}
+        keybindingHint={tooltipProps?.keybindingHint ?? keybindingHint ?? keyshortcuts}
+        text={copied ? copiedMessage : error ? errorMessage : (description ?? ariaLabel)}
+        aria-hidden
+      >
         {button}
       </Tooltip>
     )
