@@ -59,13 +59,6 @@
           "findingId": "T-F1"
         },
         {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Tooltip exposes no element or function renderer for consumer-composable parts. Tooltip.tsx:135-140,327-352; Tooltip.docs.json:71.",
-          "findingId": "T-F7"
-        },
-        {
           "id": "MERGE-CONFIG",
           "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
@@ -338,7 +331,22 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
-        },
+        }
+      ],
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tooltip exposes no element or function renderer for consumer-composable parts. Tooltip.tsx:135-140,327-352; Tooltip.docs.json:71.",
+          "findingId": "T-F7"
+        }
+      ],
+      "candidateFindings": [
         {
           "id": "T-F7",
           "classification": "ADR GAP",
@@ -373,11 +381,7 @@
             }
           ]
         }
-      ],
-      "contractFindings": [],
-      "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
-      "rubricVersion": "0.5.0"
+      ]
     },
     {
       "component": "ActionMenu",
@@ -433,13 +437,6 @@
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "ActionMenu.Anchor requires a consumer-supplied React element and exposes no as prop; ActionMenu's rendered parts do not expose element/function render. ActionMenu.tsx:198-209,274-282",
           "findingId": "A-F1"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "ActionMenu parts do not expose element or function render forms. ActionMenu.tsx:198-209,274-282,390-394.",
-          "findingId": "A-F9"
         },
         {
           "id": "MERGE-CONFIG",
@@ -697,7 +694,22 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
-        },
+        }
+      ],
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionMenu parts do not expose element or function render forms. ActionMenu.tsx:198-209,274-282,390-394.",
+          "findingId": "A-F9"
+        }
+      ],
+      "candidateFindings": [
         {
           "id": "A-F9",
           "classification": "ADR GAP",
@@ -737,11 +749,7 @@
             }
           ]
         }
-      ],
-      "contractFindings": [],
-      "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
-      "rubricVersion": "0.5.0"
+      ]
     },
     {
       "component": "Dialog",
@@ -799,13 +807,6 @@
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "Renderer-only subcomponents do not provide the required consumer parts substitution path; owned by D-F1.",
           "findingId": "D-F1"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Dialog does not expose a consumer-composable element/function renderer for its parts. Dialog.tsx:560-575.",
-          "findingId": "D-F6"
         },
         {
           "id": "MERGE-CONFIG",
@@ -1051,7 +1052,22 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
-        },
+        }
+      ],
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Dialog does not expose a consumer-composable element/function renderer for its parts. Dialog.tsx:560-575.",
+          "findingId": "D-F6"
+        }
+      ],
+      "candidateFindings": [
         {
           "id": "D-F6",
           "classification": "ADR GAP",
@@ -1081,11 +1097,7 @@
             }
           ]
         }
-      ],
-      "contractFindings": [],
-      "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
-      "rubricVersion": "0.5.0"
+      ]
     },
     {
       "component": "SelectPanel",
@@ -1143,13 +1155,6 @@
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "No named parts surface has as contracts; owned by S-F1.",
           "findingId": "S-F1"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The configured SelectPanel exposes renderAnchor but no uniform part element/function render contract. SelectPanel.tsx:175-181.",
-          "findingId": "S-F6"
         },
         {
           "id": "MERGE-CONFIG",
@@ -1406,7 +1411,22 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
-        },
+        }
+      ],
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The configured SelectPanel exposes renderAnchor but no uniform part element/function render contract. SelectPanel.tsx:175-181.",
+          "findingId": "S-F6"
+        }
+      ],
+      "candidateFindings": [
         {
           "id": "S-F6",
           "classification": "ADR GAP",
@@ -1441,11 +1461,7 @@
             }
           ]
         }
-      ],
-      "contractFindings": [],
-      "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
-      "rubricVersion": "0.5.0"
+      ]
     },
     {
       "component": "Button",
@@ -1500,13 +1516,6 @@
           "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "Button is a polymorphic forwardRef component and ButtonBase consumes as. Button.tsx:6-12; ButtonBase.tsx:44-45"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "ButtonProps has no element or function render prop. Button/types.ts:20-96.",
-          "findingId": "B-F1"
         },
         {
           "id": "MERGE-CONFIG",
@@ -1643,35 +1652,6 @@
       ],
       "findings": [
         {
-          "id": "B-F1",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "PART-RENDER",
-          "section": 2,
-          "status": "OPEN",
-          "title": "Add render forms to the Button leaf",
-          "reachableUseCase": "A consumer needs to supply a custom button-like element or component while retaining Button's loading, accessibility, and focus behavior.",
-          "observedGap": "ButtonProps has no element or function render prop. Button/types.ts:20-96.",
-          "additiveFix": "Add element and function render forms to the root part while preserving as, ref, existing props, and callback behavior.",
-          "citations": [
-            {
-              "path": "packages/react/src/Button/Button.tsx",
-              "line": "6-16",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/Button/types.ts",
-              "line": "20-96",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            },
-            {
-              "path": "packages/react/src/Button/ButtonBase.tsx",
-              "line": "44-66",
-              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
-            }
-          ]
-        },
-        {
           "id": "B-F5",
           "classification": "ADR GAP",
           "severity": "FIX",
@@ -1704,8 +1684,49 @@
       "contractFindings": [],
       "repositoryPackageVersion": "38.46.0",
       "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
-      "rubricVersion": "0.5.0"
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ButtonProps has no element or function render prop. Button/types.ts:20-96.",
+          "findingId": "B-F1"
+        }
+      ],
+      "candidateFindings": [
+        {
+          "id": "B-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to the Button leaf",
+          "reachableUseCase": "A consumer needs to supply a custom button-like element or component while retaining Button's loading, accessibility, and focus behavior.",
+          "observedGap": "ButtonProps has no element or function render prop. Button/types.ts:20-96.",
+          "additiveFix": "Add element and function render forms to the root part while preserving as, ref, existing props, and callback behavior.",
+          "citations": [
+            {
+              "path": "packages/react/src/Button/Button.tsx",
+              "line": "6-16",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Button/types.ts",
+              "line": "20-96",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Button/ButtonBase.tsx",
+              "line": "44-66",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        }
+      ]
     }
   ],
-  "rubricVersion": "0.5.0"
+  "rubricVersion": "0.6.0",
+  "schemaVersion": 2
 }

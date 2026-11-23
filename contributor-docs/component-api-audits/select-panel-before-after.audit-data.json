@@ -13,7 +13,7 @@
   ],
   "baseCommit": "5b50bc053cab249809ef0bad0cd1aab64e8924a5",
   "afterCommit": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b",
-  "rubricVersion": "0.5.0",
+  "rubricVersion": "0.6.0",
   "baselineSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
   "gist": {
     "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
@@ -76,13 +76,6 @@
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "No named parts surface has as contracts; owned by S-F1.",
           "findingId": "S-F1"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The configured SelectPanel exposes renderAnchor but no uniform part element/function render contract. SelectPanel.tsx:175-181.",
-          "findingId": "S-F6"
         },
         {
           "id": "MERGE-CONFIG",
@@ -339,7 +332,48 @@
               "sha": "5b50bc053cab249809ef0bad0cd1aab64e8924a5"
             }
           ]
+        }
+      ],
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "metadata": {
+        "packageVersion": "38.46.0",
+        "mode": "whole component; surface-scoped record",
+        "acceptedTarget": {
+          "adrSnapshotSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+          "adrRule": "All ADR files in the audited main snapshot are included regardless of status label; later explicit decisions control overlapping requirements.",
+          "gist": {
+            "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
+            "file": "0-2026-11-17-base-ui-foundation.md",
+            "sha256": "30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2"
+          }
         },
+        "pendingHuman": true,
+        "surface": "The only public SelectPanel surface at this snapshot is the configured props/data API.",
+        "tests": {
+          "unit": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 1 file, 185 passed.",
+          "interaction": "STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast).",
+          "typeCheck": "npm run type-check --workspace @primer/react — not measured reliably in this shared dependency setup; the current attempt failed on unrelated files."
+        },
+        "topFixes": [
+          "Add an opt-in consumer-composable parts surface while preserving the configured props/data API.",
+          "Align the configured class merge with ADR-025 without changing current consumer signatures.",
+          "Align the shared open-state name/default model additively with the related component APIs."
+        ],
+        "scopeNote": "The grade covers the whole interactive component at the pre-decomposition source. Missing part requirements are owned by the single parts-surface finding; the substitution section is limited because no parts existed."
+      },
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The configured SelectPanel exposes renderAnchor but no uniform part element/function render contract. SelectPanel.tsx:175-181.",
+          "findingId": "S-F6"
+        }
+      ],
+      "candidateFindings": [
         {
           "id": "S-F6",
           "classification": "ADR GAP",
@@ -374,37 +408,7 @@
             }
           ]
         }
-      ],
-      "contractFindings": [],
-      "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
-      "metadata": {
-        "packageVersion": "38.46.0",
-        "mode": "whole component; surface-scoped record",
-        "acceptedTarget": {
-          "adrSnapshotSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
-          "adrRule": "All ADR files in the audited main snapshot are included regardless of status label; later explicit decisions control overlapping requirements.",
-          "gist": {
-            "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
-            "file": "0-2026-11-17-base-ui-foundation.md",
-            "sha256": "30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2"
-          }
-        },
-        "pendingHuman": true,
-        "surface": "The only public SelectPanel surface at this snapshot is the configured props/data API.",
-        "tests": {
-          "unit": "npx vitest run --project '@primer/react' packages/react/src/SelectPanel/SelectPanel.test.tsx — 1 file, 185 passed.",
-          "interaction": "STORYBOOK_URL=http://127.0.0.1:6006 npx playwright test e2e/components/SelectPanel.test.ts --grep 'Filter input anchored legacy contrast false @aat light' --workers=1 — 2 Storybook Playwright tests passed (light and light_high_contrast).",
-          "typeCheck": "npm run type-check --workspace @primer/react — not measured reliably in this shared dependency setup; the current attempt failed on unrelated files."
-        },
-        "topFixes": [
-          "Add an opt-in consumer-composable parts surface while preserving the configured props/data API.",
-          "Align the configured class merge with ADR-025 without changing current consumer signatures.",
-          "Align the shared open-state name/default model additively with the related component APIs."
-        ],
-        "scopeNote": "The grade covers the whole interactive component at the pre-decomposition source. Missing part requirements are owned by the single parts-surface finding; the substitution section is limited because no parts existed."
-      },
-      "rubricVersion": "0.5.0"
+      ]
     },
     {
       "component": "SelectPanel (after #7287, whole component)",
@@ -460,13 +464,6 @@
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "Title alone exposes as; the other parts render fixed targets and Root has no host. SC-F2 owns the missing all-part contract. SelectPanelParts.tsx:37-58,115-155,214-263,520-529.",
           "findingId": "SC-F2"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Trigger has a function-only render prop; other parts have no render prop or part state renderer. SelectPanelParts.tsx:53-62,115-155,214-263.",
-          "findingId": "SC-F3"
         },
         {
           "id": "MERGE-CONFIG",
@@ -653,25 +650,6 @@
             {
               "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
               "line": "1171-1197",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            }
-          ]
-        },
-        {
-          "id": "SC-F3",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "PART-RENDER",
-          "section": 2,
-          "status": "OPEN",
-          "title": "Support element and function render forms on every part",
-          "reachableUseCase": "A consumer supplies a Button element or a state-aware render function to replace a part’s default element.",
-          "observedGap": "Trigger accepts only a function returning an element and receives no current state; all other parts lack render, including element form.",
-          "additiveFix": "Implement both element and function render forms for every part, pass required behavior props/current state, and retain the existing Trigger function form as a compatible option.",
-          "citations": [
-            {
-              "path": "packages/react/src/SelectPanel/SelectPanelParts.tsx",
-              "line": "53-62,115-155,214-263,520-529",
               "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
             }
           ]
@@ -956,7 +934,38 @@
         ],
         "currentContractContext": "No separate current-contract defect was established. The seven full-run failures on the composable path remain candidate behavior defects under SC-F8 pending maintainer triage."
       },
-      "rubricVersion": "0.5.0"
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Trigger has a function-only render prop; other parts have no render prop or part state renderer. SelectPanelParts.tsx:53-62,115-155,214-263.",
+          "findingId": "SC-F3"
+        }
+      ],
+      "candidateFindings": [
+        {
+          "id": "SC-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Support element and function render forms on every part",
+          "reachableUseCase": "A consumer supplies a Button element or a state-aware render function to replace a part’s default element.",
+          "observedGap": "Trigger accepts only a function returning an element and receives no current state; all other parts lack render, including element form.",
+          "additiveFix": "Implement both element and function render forms for every part, pass required behavior props/current state, and retain the existing Trigger function form as a compatible option.",
+          "citations": [
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanelParts.tsx",
+              "line": "53-62,115-155,214-263,520-529",
+              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
+            }
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

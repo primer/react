@@ -2,37 +2,38 @@
 
 ## Table of Contents
 
-- [Report card](#report-card), L:17
-- [Area 1 Architecture and parts](#area-1-architecture-and-parts), L:33
-- [Area 2 Root and part substitution](#area-2-root-and-part-substitution), L:53
-- [Area 3 Prop merge behavior](#area-3-prop-merge-behavior), L:59
-- [Area 4 State and shared concepts](#area-4-state-and-shared-concepts), L:66
-- [Area 5 Accessibility and evidence](#area-5-accessibility-and-evidence), L:72
-- [Current-contract defects](#current-contract-defects), L:78
-- [Audit details](#audit-details), L:94
-- [Anchor rules](#anchor-rules), L:152
+- [Report card](#report-card), L:18
+- [Area 1 Architecture and parts](#area-1-architecture-and-parts), L:34
+- [Area 2 Root and part substitution](#area-2-root-and-part-substitution), L:54
+- [Area 3 Prop merge behavior](#area-3-prop-merge-behavior), L:60
+- [Area 4 State and shared concepts](#area-4-state-and-shared-concepts), L:67
+- [Area 5 Accessibility and evidence](#area-5-accessibility-and-evidence), L:73
+- [Candidate checks](#candidate-checks), L:79
+- [Current-contract defects](#current-contract-defects), L:99
+- [Audit details](#audit-details), L:115
+- [Anchor rules](#anchor-rules), L:181
 
 Copy this layout for each whole-component grade. For PR reviews, record only changed-surface findings and omit a whole-component grade.
 
 ## Report card
 
-**Component:** Component name · **Render scored:** score / 100 · grade · **Render deferred:** score / 100 · grade · **Status:** CONCLUSIVE / PROVISIONAL / UNKNOWN
+**Component:** Component name · **Active grade:** score / 100 · letter grade · **Status:** CONCLUSIVE / PROVISIONAL / UNKNOWN
 
-**Open BLOCKs:** N · **Scored findings:** N · **Deferred checks/findings:** N / N · **Applicable weight:** N/100 · **Evidence coverage:** N/N
+**Open BLOCKs:** N · **Active findings:** N · **Candidate checks:** N (N gaps) · **Applicable active weight:** N/92 · **Active evidence coverage:** N/N
 
-| Area                                                                    |  Render scored   | Render deferred  | Open findings | Finding links | Issue links |
-| :---------------------------------------------------------------------- | :--------------: | :--------------: | :-----------: | :------------ | :---------- |
-| [Area 1 Architecture and parts](#area-1-architecture-and-parts)         | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
-| [Area 2 Root and part substitution](#area-2-root-and-part-substitution) | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
-| [Area 3 Prop merge behavior](#area-3-prop-merge-behavior)               | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
-| [Area 4 State and shared concepts](#area-4-state-and-shared-concepts)   | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
-| [Area 5 Accessibility and evidence](#area-5-accessibility-and-evidence) | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
+| Area                                                                    | Active score | Active gaps | Finding links | Issue links |
+| :---------------------------------------------------------------------- | :----------: | :---------: | :------------ | :---------- |
+| [Area 1 Architecture and parts](#area-1-architecture-and-parts)         | `5.00/5`     |             |               |             |
+| [Area 2 Root and part substitution](#area-2-root-and-part-substitution) | `5.00/5`     |             |               |             |
+| [Area 3 Prop merge behavior](#area-3-prop-merge-behavior)               | `5.00/5`     |             |               |             |
+| [Area 4 State and shared concepts](#area-4-state-and-shared-concepts)   | `5.00/5`     |             |               |             |
+| [Area 5 Accessibility and evidence](#area-5-accessibility-and-evidence) | `5.00/5`     |             |               |             |
 
-Use score intervals when either result is provisional. The bar is a visual aid; the numeric score is authoritative. Count distinct open findings owned by the area. List covered checks under their shared finding rather than counting them as extra findings. Mark the render finding deferred only in the deferred comparison. An area with no open findings says `No open gaps`. Add GitHub issue links only for issues that exist; keep untriaged findings in the scorecard without opening issues.
+The active grade uses active rubric checks only. Candidate checks are visible in their own section and never create a second grade. Use score intervals when active evidence is incomplete. Count distinct open findings owned by the area; list covered checks under their shared finding. An area with no open findings says `No open gaps`. Add issue links only for issues that exist.
 
 ## Area 1 Architecture and parts
 
-**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
+**Active score:** _ / 5 · **Open findings:** _ · **Applicable active weight:** _
 
 Write `No open gaps` when there are no open findings owned by this area.
 
@@ -52,28 +53,48 @@ Write `No open gaps` when there are no open findings owned by this area.
 
 ## Area 2 Root and part substitution
 
-**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
+**Active score:** _ / 5 · **Open findings:** _ · **Applicable active weight:** _
 
-Write `No open gaps` when there are no open findings owned by this area. Use a stable finding-ID heading for every finding.
+Write `No open gaps` when there are no active findings owned by this area. Candidate checks and findings appear in the separate Candidate checks section.
 
 ## Area 3 Prop merge behavior
 
-**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
+**Active score:** _ / 5 · **Open findings:** _ · **Applicable active weight:** _
 
-Write `No open gaps` when there are no open findings owned by this area. Link covered rows to their owning finding, including when that finding is deferred.
-Show the earned and applicable weight for each merge check so the area total is reproducible. A missing `PART-RENDER` contributes only its own weight; never attach merge-check weight to that finding.
+Write `No open gaps` when there are no open findings owned by this area. Link covered rows to their owning active finding.
+Show the earned and applicable active weight for each merge check so the area total is reproducible. `PART-RENDER` is listed as a candidate and has no active weight.
 
 ## Area 4 State and shared concepts
 
-**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
+**Active score:** _ / 5 · **Open findings:** _ · **Applicable active weight:** _
 
 Write `No open gaps` when there are no open findings owned by this area. Use a stable finding-ID heading for every finding.
 
 ## Area 5 Accessibility and evidence
 
-**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
+**Active score:** _ / 5 · **Open findings:** _ · **Applicable active weight:** _
 
 Write `No open gaps` when there are no open findings owned by this area. Keep NOT MEASURED and UNRESOLVED evidence visible as provisional score ranges.
+
+## Candidate checks
+
+Candidate results do not affect the active grade, its denominator, evidence coverage, section caps, or status. Show every candidate's verdict, proposed weight (if assigned), reason for remaining outside the active rubric, and evidence. Candidate GAPs link to their findings.
+
+| Candidate | Verdict | Proposed weight | Reason / evidence | Finding |
+| :--------- | :------ | :-------------: | :---------------- | :------ |
+| `PART-RENDER` | GAP | 8 (unweighted) | | [Candidate F1](#candidate-f1) |
+
+### Candidate F1
+
+**Title:** Candidate finding title
+
+**Reachable consumer:** Describe the consumer path.
+
+**Observed gap:** Describe the candidate requirement that is absent.
+
+**Proposed path:** Describe the additive fix.
+
+**Pinned citations:** `path:line @ full-sha`.
 
 ## Current-contract defects
 
@@ -97,11 +118,19 @@ Keep the evidence matrix, audit identity, human review, calibration, and test ev
 
 ### Per-check evidence matrix
 
-Use one row per check. `GAP` rows point to one owning target finding. Related unmet rows use `COVERED` and that finding ID; they remain in the denominator and score zero without adding distinct findings. Only `N/A` and rubric-authorized `DEFERRED` checks are excluded; provide a reason for either. `NOT MEASURED` and `UNRESOLVED` include their reason.
+Use one row per active check. `GAP` rows point to one owning target finding. Related unmet rows use `COVERED` and that finding ID; they remain in the active denominator and score zero without adding distinct findings. Only `N/A` is excluded from active weight; provide a reason. `NOT MEASURED` and `UNRESOLVED` include their reason.
 
 | Check      | Verdict | Evidence class | Evidence at audited SHA / command result | Finding ID or reason |
 | :--------- | :------ | :------------- | :--------------------------------------- | :------------------- |
 | `CHECK-ID` |         |                |                                          |                      |
+
+### Candidate check inventory
+
+Candidate checks are visible and unweighted. They do not affect the active score or provisional status.
+
+| Candidate | Verdict | Evidence class | Evidence / reason | Candidate finding |
+| :--------- | :------ | :------------- | :---------------- | :---------------- |
+| `PART-RENDER` | GAP | | | |
 
 ### Audit identity
 
@@ -113,11 +142,11 @@ Use one row per check. `GAP` rows point to one owning target finding. Related un
 | Published-package metadata (only if relevant to a release-changing recommendation) |                                                                                                                                                        |
 | Mode                                                                               | Whole component / PR review                                                                                                                            |
 | Audited source SHA                                                                 |                                                                                                                                                        |
-| Rubric                                                                             | Component API compliance rubric 0.5.0                                                                                                                  |
+| Rubric                                                                             | Component API compliance rubric 0.6.0                                                                                                                  |
 | Accepted target                                                                    | All ADR files at the audited SHA + pinned composition gist                                                                                             |
 | Gist revision / file / content SHA-256                                             | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2` |
 | BLOCK sensitivity                                                                  | Fix the _ open BLOCKs, change nothing else → projected _ / grade \_                                                                                    |
-| Render scoring modes                                                               | Scored: _ / Deferred: _                                                                                                                                |
+| Candidate checks                                                                   | N listed; N gaps; proposed weights excluded from the active 92-point rubric                                                                           |
 | Structured audit data                                                              |                                                                                                                                                        |
 
 ### Layer 3 human review

@@ -1,5 +1,5 @@
 {
-  "rubricVersion": "0.5.0",
+  "rubricVersion": "0.6.0",
   "baselineSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
   "gist": {
     "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
@@ -62,13 +62,6 @@
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "The required parts surface is not consistently polymorphic: ActionList.Item explicitly deprecates its ineffective as prop; Group, Divider, Description, and Visuals expose fixed element props, unlike the root, LinkItem, GroupHeading, and TrailingAction. ActionList/shared.ts:70-73; ActionList/Group.tsx:48-68; ActionList/Divider.tsx:6-14; ActionList/Description.tsx:8-25; ActionList/Visuals.tsx:10-17; ActionList/LinkItem.tsx:31-33; ActionList/Group.tsx:126-133 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
           "findingId": "A-F2"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No public part accepts the target element/function render contract; ActionList.Item renderItem is a different legacy callback. ActionList/shared.ts:68-73; ActionList/index.ts:27-61.",
-          "findingId": "A-F3"
         },
         {
           "id": "MERGE-CONFIG",
@@ -287,31 +280,6 @@
           ]
         },
         {
-          "id": "A-F3",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "PART-RENDER",
-          "section": 2,
-          "status": "OPEN",
-          "title": "Add render forms to ActionList parts",
-          "reachableUseCase": "A consumer needs to render an ActionList part through a supplied element or render function while forwarding its required props, current state, and ref to a custom host.",
-          "observedGap": "No public part accepts the target element/function render contract; ActionList.Item renderItem is a different legacy callback. ActionList/shared.ts:68-73; ActionList/index.ts:27-61.",
-          "additiveFix": "Add element and function render forms to the parts while retaining existing part props, callback signatures, and renderItem behavior.",
-          "coveredCheckIds": ["MERGE-HANDLER", "MERGE-CLASS", "MERGE-STYLE-ATTR", "MERGE-REF", "MERGE-BEHAVIOR"],
-          "citations": [
-            {
-              "path": "packages/react/src/ActionList/index.ts",
-              "line": "27-61",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            },
-            {
-              "path": "packages/react/src/ActionList/shared.ts",
-              "line": "68-73",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            }
-          ]
-        },
-        {
           "classification": "ADR GAP",
           "severity": "FIX",
           "checkId": "MERGE-HANDLER",
@@ -480,13 +448,49 @@
           "releaseDependentMigration": "PENDING HUMAN; preserve selector compatibility if a published-selector migration is confirmed."
         },
         "topFixes": [
-          "Add uniform as and render composition contracts while retaining current parts and preserving the explicit PART-RENDER deferral in scoring.",
+          "Add uniform as and render composition contracts while retaining current parts and listing PART-RENDER as an unweighted candidate check.",
           "Correct configured/internal event and class merge behavior without changing onSelect signatures.",
           "Complete part documentation, align GroupHeading selector, and layer all ActionList CSS Modules."
         ],
-        "scopeNote": "Audited whole ActionList public API at the requested SHA. PART-RENDER is DEFERRED only; its related merge checks remain COVERED and scored. Source citations in this record all pin to sourceSha."
+        "scopeNote": "Audited whole ActionList public API at the requested SHA. PART-RENDER is listed as an unweighted candidate with proposed weight 8; it does not affect the active score. Source citations in this record all pin to sourceSha."
       },
-      "rubricVersion": "0.5.0"
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No public part accepts the target element/function render contract; ActionList.Item renderItem is a different legacy callback. ActionList/shared.ts:68-73; ActionList/index.ts:27-61.",
+          "findingId": "A-F3"
+        }
+      ],
+      "candidateFindings": [
+        {
+          "id": "A-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to ActionList parts",
+          "reachableUseCase": "A consumer needs to render an ActionList part through a supplied element or render function while forwarding its required props, current state, and ref to a custom host.",
+          "observedGap": "No public part accepts the target element/function render contract; ActionList.Item renderItem is a different legacy callback. ActionList/shared.ts:68-73; ActionList/index.ts:27-61.",
+          "additiveFix": "Add element and function render forms to the parts while retaining existing part props, callback signatures, and renderItem behavior.",
+          "coveredCheckIds": ["MERGE-HANDLER", "MERGE-CLASS", "MERGE-STYLE-ATTR", "MERGE-REF", "MERGE-BEHAVIOR"],
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/index.ts",
+              "line": "27-61",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/shared.ts",
+              "line": "68-73",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        }
+      ]
     },
     {
       "component": "Tabs",
@@ -550,13 +554,6 @@
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "The public parts are prop-getter hooks with fixed output shapes and no as substitution option. Convenience TabList/Tab/TabPanel definitions in Tabs.tsx are not re-exported by the public Tabs/index.ts barrel. Tabs/index.ts:1-5; useTab.ts:9-10; useTabList.ts:6-7; useTabPanel.ts:5-6; types.ts:110-145; Tabs.tsx:113-114 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
           "findingId": "T-F2"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The public prop-getter hooks do not expose element or function render forms. Tabs/index.ts:1-5; useTab.ts:9-10; useTabList.ts:6-7; useTabPanel.ts:5-6.",
-          "findingId": "T-F7"
         },
         {
           "id": "MERGE-CONFIG",
@@ -884,50 +881,6 @@
               "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
             }
           ]
-        },
-        {
-          "id": "T-F7",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "status": "OPEN",
-          "checkId": "PART-RENDER",
-          "section": 2,
-          "title": "Add render forms to public Tabs parts",
-          "reachableUseCase": "A consumer builds a custom Tab around useTab or uses useTabList/useTabPanel to compose a different semantic element; the hooks provide fixed prop bags and no supported as or render API.",
-          "observedGap": "The public prop-getter hooks do not expose element or function render forms. Tabs/index.ts:1-5; useTab.ts:9-10; useTabList.ts:6-7; useTabPanel.ts:5-6.",
-          "additiveFix": "Add render-capable part APIs while retaining the existing hook exports and their return shapes.",
-          "citations": [
-            {
-              "path": "packages/react/src/experimental/Tabs/index.ts",
-              "line": "1-5",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            },
-            {
-              "path": "packages/react/src/experimental/Tabs/Tabs.tsx",
-              "line": "10-15,113-114",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            },
-            {
-              "path": "packages/react/src/experimental/Tabs/useTab.ts",
-              "line": "9-10,45-57",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            },
-            {
-              "path": "packages/react/src/experimental/Tabs/useTabList.ts",
-              "line": "6-10,67-75",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            },
-            {
-              "path": "packages/react/src/experimental/Tabs/useTabPanel.ts",
-              "line": "5-6,11-19",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            },
-            {
-              "path": "packages/react/src/experimental/Tabs/types.ts",
-              "line": "110-145",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            }
-          ]
         }
       ],
       "contractFindings": [
@@ -984,7 +937,62 @@
         "storybookMcp": "Unavailable: initialization failed connecting to http://localhost:6006; Storybook source/docs were read from the pinned worktree instead.",
         "playwright": "Not run; no Tabs Playwright story-interaction test exists in e2e/components. This absence is recorded as INTERACTION-01 GAP, not as a pass."
       },
-      "rubricVersion": "0.5.0"
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The public prop-getter hooks do not expose element or function render forms. Tabs/index.ts:1-5; useTab.ts:9-10; useTabList.ts:6-7; useTabPanel.ts:5-6.",
+          "findingId": "T-F7"
+        }
+      ],
+      "candidateFindings": [
+        {
+          "id": "T-F7",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "title": "Add render forms to public Tabs parts",
+          "reachableUseCase": "A consumer builds a custom Tab around useTab or uses useTabList/useTabPanel to compose a different semantic element; the hooks provide fixed prop bags and no supported as or render API.",
+          "observedGap": "The public prop-getter hooks do not expose element or function render forms. Tabs/index.ts:1-5; useTab.ts:9-10; useTabList.ts:6-7; useTabPanel.ts:5-6.",
+          "additiveFix": "Add render-capable part APIs while retaining the existing hook exports and their return shapes.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/index.ts",
+              "line": "1-5",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/Tabs.tsx",
+              "line": "10-15,113-114",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTab.ts",
+              "line": "9-10,45-57",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabList.ts",
+              "line": "6-10,67-75",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabPanel.ts",
+              "line": "5-6,11-19",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/types.ts",
+              "line": "110-145",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        }
+      ]
     },
     {
       "component": "TreeView",
@@ -1054,13 +1062,6 @@
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "TreeView.Item supports as, but root and target parts have no uniform as contract; the missing parts surface TV-F1 owns this. TreeView.tsx:92-100,250-253,404-421 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
           "findingId": "TV-F1"
-        },
-        {
-          "id": "PART-RENDER",
-          "verdict": "GAP",
-          "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "TreeView has no part element or function render contract. TreeView.tsx:226-239,250-253.",
-          "findingId": "TV-F3"
         },
         {
           "id": "MERGE-CONFIG",
@@ -1265,35 +1266,6 @@
           ]
         },
         {
-          "id": "TV-F3",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "PART-RENDER",
-          "section": 2,
-          "status": "OPEN",
-          "title": "Add render forms to TreeView parts",
-          "reachableUseCase": "A consumer composing a future TreeView part may need an element or render-function replacement receiving required tree behavior and current item state.",
-          "observedGap": "TreeView has no part element or function render contract. TreeView.tsx:226-239,250-253.",
-          "additiveFix": "Add element and function render forms to the parts while retaining existing tree behavior and callbacks.",
-          "citations": [
-            {
-              "path": "packages/react/src/TreeView/TreeView.tsx",
-              "line": "226-239",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            },
-            {
-              "path": "packages/react/src/TreeView/TreeView.tsx",
-              "line": "250-253",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            },
-            {
-              "path": "packages/react/src/TreeView/TreeView.docs.json",
-              "line": "63-145",
-              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
-            }
-          ]
-        },
-        {
           "classification": "ADR GAP",
           "severity": "FIX",
           "checkId": "MERGE-CLASS",
@@ -1456,7 +1428,48 @@
         "storybookPlaywright": "Not run: no TreeView interaction Playwright case exists; the file contains only visual screenshot cases. See INTERACTION-01.",
         "auditSourceSha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
       },
-      "rubricVersion": "0.5.0"
+      "rubricVersion": "0.6.0",
+      "candidateChecks": [
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView has no part element or function render contract. TreeView.tsx:226-239,250-253.",
+          "findingId": "TV-F3"
+        }
+      ],
+      "candidateFindings": [
+        {
+          "id": "TV-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to TreeView parts",
+          "reachableUseCase": "A consumer composing a future TreeView part may need an element or render-function replacement receiving required tree behavior and current item state.",
+          "observedGap": "TreeView has no part element or function render contract. TreeView.tsx:226-239,250-253.",
+          "additiveFix": "Add element and function render forms to the parts while retaining existing tree behavior and callbacks.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "226-239",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "250-253",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.docs.json",
+              "line": "63-145",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

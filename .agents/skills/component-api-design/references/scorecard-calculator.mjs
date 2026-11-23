@@ -2,7 +2,7 @@ import {readFile} from 'node:fs/promises'
 
 export const sections = {
   1: {name: 'Architecture and parts', weight: 20},
-  2: {name: 'Root and part substitution', weight: 20},
+  2: {name: 'Root and part substitution', weight: 12},
   3: {name: 'Prop merge behavior', weight: 25},
   4: {name: 'State and shared concepts', weight: 15},
   5: {name: 'Accessibility and evidence', weight: 20},
@@ -17,7 +17,6 @@ export const checks = {
   'CUSTOM-ELEMENT-01': {section: 1, weight: 1},
   'API-01': {section: 2, weight: 4},
   'PART-AS': {section: 2, weight: 8},
-  'PART-RENDER': {section: 2, weight: 8},
   'MERGE-CONFIG': {section: 3, weight: 5},
   'MERGE-HANDLER': {section: 3, weight: 8},
   'MERGE-CLASS': {section: 3, weight: 3},
@@ -41,7 +40,19 @@ export const checks = {
   'MIG-01': {section: 5, weight: 4},
 }
 
-const verdicts = new Set(['PASS', 'GAP', 'N/A', 'COVERED', 'DEFERRED', 'NOT MEASURED', 'UNRESOLVED'])
+export const candidateChecks = {
+  'PART-RENDER': {
+    section: 2,
+    proposedWeight: 8,
+    verificationClass: 'semi',
+    severity: 'FIX',
+    source: 'Pinned composition gist',
+    title: 'Element and function render forms',
+  },
+}
+
+const verdicts = new Set(['PASS', 'GAP', 'N/A', 'COVERED', 'NOT MEASURED', 'UNRESOLVED'])
+const candidateVerdicts = new Set(['PASS', 'GAP', 'N/A', 'NOT MEASURED', 'UNRESOLVED'])
 const evidenceClasses = new Set([
   'SOURCE VERIFIED',
   'EXECUTION VERIFIED',
@@ -92,6 +103,8 @@ function validateAudit(audit) {
   assert(typeof audit.pendingHuman === 'boolean', `${audit.component}: pendingHuman must be a boolean`)
   assert(Array.isArray(audit.checks), `${audit.component}: checks must be an array`)
   assert(Array.isArray(audit.findings), `${audit.component}: findings must be an array`)
+  assert(Array.isArray(audit.candidateChecks), `${audit.component}: candidateChecks must be an array`)
+  assert(Array.isArray(audit.candidateFindings), `${audit.component}: candidateFindings must be an array`)
   assert(Array.isArray(audit.contractFindings ?? []), `${audit.component}: contractFindings must be an array`)
 
   const checkRows = new Map()
@@ -128,14 +141,6 @@ function validateAudit(audit) {
       )
     }
 
-    if (row.verdict === 'DEFERRED') {
-      assert(row.id === 'PART-RENDER', `${audit.component}: only PART-RENDER may be DEFERRED`)
-      assert(
-        typeof row.reason === 'string' && row.reason.length > 0,
-        `${audit.component}: DEFERRED reason is required for ${row.id}`,
-      )
-    }
-
     if (row.verdict === 'NOT MEASURED' || row.verdict === 'UNRESOLVED') {
       assert(
         typeof row.reason === 'string' && row.reason.length > 0,
@@ -161,95 +166,146 @@ function validateAudit(audit) {
     `${audit.component}: provide exactly one row for every check ID`,
   )
 
-  const findings = new Map()
-  for (const finding of audit.findings) {
-    assert(finding && typeof finding === 'object', `${audit.component}: each target finding must be an object`)
-    assert(typeof finding.id === 'string' && finding.id.length > 0, `${audit.component}: target finding ID is required`)
-    assert(!findings.has(finding.id), `${audit.component}: duplicate target finding ID ${finding.id}`)
-    assert(finding.classification === 'ADR GAP', `${audit.component}: target findings must be ADR GAPs`)
+  const candidateRows = new Map()
+  for (const row of audit.candidateChecks) {
+    assert(row && typeof row === 'object', `${audit.component}: each candidate check must be an object`)
+    assert(candidateChecks[row.id], `${audit.component}: unknown candidate check ID ${row.id}`)
+    assert(!candidateRows.has(row.id), `${audit.component}: duplicate candidate check row ${row.id}`)
     assert(
-      severityOrder.includes(finding.severity) && finding.severity !== 'BLOCK',
-      `${audit.component}: target gaps cannot be BLOCKs`,
-    )
-    assert(checks[finding.checkId], `${audit.component}: finding ${finding.id} has unknown check ${finding.checkId}`)
-    assert(
-      finding.section === checks[finding.checkId].section,
-      `${audit.component}: finding ${finding.id} is not in its owning section`,
+      candidateVerdicts.has(row.verdict),
+      `${audit.component}: invalid candidate verdict for ${row.id}: ${row.verdict}`,
     )
     assert(
-      finding.status === 'OPEN' || finding.status === 'CLOSED' || finding.status === 'DEFERRED',
-      `${audit.component}: finding ${finding.id} needs OPEN, CLOSED, or DEFERRED status`,
+      typeof row.evidence === 'string' && row.evidence.length > 0,
+      `${audit.component}: evidence is required for candidate ${row.id}`,
     )
     assert(
-      typeof finding.title === 'string' && finding.title.length > 0,
-      `${audit.component}: finding ${finding.id} needs a title`,
+      evidenceClasses.has(row.evidenceClass),
+      `${audit.component}: valid evidenceClass is required for candidate ${row.id}`,
     )
-    assert(
-      typeof finding.reachableUseCase === 'string' && finding.reachableUseCase.length > 0,
-      `${audit.component}: finding ${finding.id} needs a reachable use case`,
-    )
-    assert(
-      typeof finding.observedGap === 'string' && finding.observedGap.length > 0,
-      `${audit.component}: finding ${finding.id} needs an observed gap`,
-    )
-    assert(
-      typeof finding.additiveFix === 'string' && finding.additiveFix.length > 0,
-      `${audit.component}: finding ${finding.id} needs an additive fix`,
-    )
-    assert(
-      Array.isArray(finding.citations) && finding.citations.length > 0,
-      `${audit.component}: finding ${finding.id} needs pinned citations`,
-    )
-    for (const citation of finding.citations) {
+
+    if (row.evidenceClass === 'PENDING HUMAN') {
       assert(
-        typeof citation.path === 'string' && citation.path.length > 0,
-        `${audit.component}: finding ${finding.id} has a citation without a path`,
-      )
-      assert(
-        typeof citation.line === 'string' && citation.line.length > 0,
-        `${audit.component}: finding ${finding.id} has a citation without a line`,
-      )
-      assert(
-        citation.sha === audit.sourceSha,
-        `${audit.component}: finding ${finding.id} citation SHA must match sourceSha`,
+        row.verdict === 'UNRESOLVED',
+        `${audit.component}: PENDING HUMAN candidate evidence must remain UNRESOLVED for ${row.id}`,
       )
     }
-    const owner = checkRows.get(finding.checkId)
-    if (finding.status === 'DEFERRED') {
+
+    if (row.verdict === 'N/A' || row.verdict === 'NOT MEASURED' || row.verdict === 'UNRESOLVED') {
       assert(
-        finding.checkId === 'PART-RENDER' && owner?.verdict === 'DEFERRED' && owner.findingId === finding.id,
-        `${audit.component}: deferred finding ${finding.id} must be owned by a DEFERRED PART-RENDER row`,
-      )
-    } else {
-      assert(
-        owner?.verdict === 'GAP' && owner.findingId === finding.id,
-        `${audit.component}: finding ${finding.id} must own one GAP row`,
+        typeof row.reason === 'string' && row.reason.length > 0,
+        `${audit.component}: reason is required for candidate ${row.id} ${row.verdict}`,
       )
     }
-    findings.set(finding.id, finding)
+
+    if (row.verdict === 'GAP') {
+      assert(
+        typeof row.findingId === 'string' && row.findingId.length > 0,
+        `${audit.component}: findingId is required for candidate ${row.id} GAP`,
+      )
+    }
+
+    candidateRows.set(row.id, row)
   }
 
-  for (const row of checkRows.values()) {
+  const expectedCandidateIds = Object.keys(candidateChecks).sort()
+  const actualCandidateIds = [...candidateRows.keys()].sort()
+  assert(
+    expectedCandidateIds.length === actualCandidateIds.length &&
+      expectedCandidateIds.every((id, index) => id === actualCandidateIds[index]),
+    `${audit.component}: provide exactly one row for every candidate check ID`,
+  )
+
+  const findings = new Map()
+  const findingGroups = [
+    {items: audit.findings, catalog: checks, owners: checkRows, label: 'target'},
+    {items: audit.candidateFindings, catalog: candidateChecks, owners: candidateRows, label: 'candidate'},
+  ]
+  for (const {items, catalog, owners, label} of findingGroups) {
+    for (const finding of items) {
+      assert(finding && typeof finding === 'object', `${audit.component}: each ${label} finding must be an object`)
+      assert(
+        typeof finding.id === 'string' && finding.id.length > 0,
+        `${audit.component}: ${label} finding ID is required`,
+      )
+      assert(!findings.has(finding.id), `${audit.component}: duplicate finding ID ${finding.id}`)
+      assert(finding.classification === 'ADR GAP', `${audit.component}: ${label} findings must be ADR GAPs`)
+      assert(
+        severityOrder.includes(finding.severity) && finding.severity !== 'BLOCK',
+        `${audit.component}: ${label} gaps cannot be BLOCKs`,
+      )
+      assert(
+        catalog[finding.checkId],
+        `${audit.component}: ${label} finding ${finding.id} has unknown check ${finding.checkId}`,
+      )
+      assert(
+        finding.section === catalog[finding.checkId].section,
+        `${audit.component}: finding ${finding.id} is not in its owning section`,
+      )
+      assert(
+        finding.status === 'OPEN' || finding.status === 'CLOSED',
+        `${audit.component}: finding ${finding.id} needs OPEN or CLOSED status`,
+      )
+      assert(
+        typeof finding.title === 'string' && finding.title.length > 0,
+        `${audit.component}: finding ${finding.id} needs a title`,
+      )
+      assert(
+        typeof finding.reachableUseCase === 'string' && finding.reachableUseCase.length > 0,
+        `${audit.component}: finding ${finding.id} needs a reachable use case`,
+      )
+      assert(
+        typeof finding.observedGap === 'string' && finding.observedGap.length > 0,
+        `${audit.component}: finding ${finding.id} needs an observed gap`,
+      )
+      assert(
+        typeof finding.additiveFix === 'string' && finding.additiveFix.length > 0,
+        `${audit.component}: finding ${finding.id} needs an additive fix`,
+      )
+      assert(
+        Array.isArray(finding.citations) && finding.citations.length > 0,
+        `${audit.component}: finding ${finding.id} needs pinned citations`,
+      )
+      for (const citation of finding.citations) {
+        assert(
+          typeof citation.path === 'string' && citation.path.length > 0,
+          `${audit.component}: finding ${finding.id} has a citation without a path`,
+        )
+        assert(
+          typeof citation.line === 'string' && citation.line.length > 0,
+          `${audit.component}: finding ${finding.id} has a citation without a line`,
+        )
+        assert(
+          citation.sha === audit.sourceSha,
+          `${audit.component}: finding ${finding.id} citation SHA must match sourceSha`,
+        )
+      }
+      const owner = owners.get(finding.checkId)
+      assert(
+        owner?.verdict === 'GAP' && owner.findingId === finding.id,
+        `${audit.component}: finding ${finding.id} must own one ${label} GAP row`,
+      )
+      findings.set(finding.id, finding)
+    }
+  }
+
+  for (const row of [...checkRows.values(), ...candidateRows.values()]) {
     if (row.verdict === 'GAP') {
       const finding = findings.get(row.findingId)
       assert(finding?.checkId === row.id, `${audit.component}: ${row.id} references no matching owning finding`)
     }
 
     if (row.verdict === 'COVERED') {
-      assert(findings.has(row.findingId), `${audit.component}: ${row.id} references no target finding`)
-    }
-
-    if (row.verdict === 'DEFERRED' && row.findingId) {
-      assert(findings.has(row.findingId), `${audit.component}: ${row.id} references no target finding`)
+      assert(
+        audit.findings.some(finding => finding.id === row.findingId),
+        `${audit.component}: active ${row.id} must reference an active target finding`,
+      )
     }
   }
 
   for (const finding of audit.contractFindings ?? []) {
     assert(finding && typeof finding === 'object', `${audit.component}: each contract finding must be an object`)
-    assert(
-      typeof finding.id === 'string' && finding.id.length > 0,
-      `${audit.component}: contract finding ID is required`,
-    )
+    assert(!findings.has(finding.id), `${audit.component}: duplicate target finding ID ${finding.id}`)
     assert(finding.classification === 'DEFECT', `${audit.component}: contract findings must be DEFECTs`)
     assert(
       severityOrder.includes(finding.severity),
@@ -300,26 +356,30 @@ function validateAudit(audit) {
     }
   }
 
-  const allFindingIds = [...audit.findings, ...(audit.contractFindings ?? [])].map(finding => finding.id)
+  const allFindingIds = [
+    ...audit.findings,
+    ...audit.candidateFindings,
+    ...(audit.contractFindings ?? []),
+  ].map(finding => finding.id)
   assert(
     new Set(allFindingIds).size === allFindingIds.length,
-    `${audit.component}: finding IDs must be unique across both finding lists`,
+    `${audit.component}: finding IDs must be unique across all finding lists`,
   )
-  const deferredFindingCount = countBy(audit.findings, finding => finding.status === 'DEFERRED')
   const rawFindingCount =
     countBy([...checkRows.values()], row => row.verdict === 'GAP' || row.verdict === 'COVERED') +
     (audit.contractFindings ?? []).length
   assert(
-    rawFindingCount + deferredFindingCount >= allFindingIds.length,
-    `${audit.component}: raw observations and deferred findings cannot be below distinct finding count`,
+    rawFindingCount + countBy([...candidateRows.values()], row => row.verdict === 'GAP') >= allFindingIds.length,
+    `${audit.component}: active and candidate observations cannot be below distinct finding count`,
   )
   return rawFindingCount
 }
 
-function summarize(audit, {sensitivity = false, renderMode = 'scored'} = {}) {
+function summarize(audit, {sensitivity = false} = {}) {
   const rawFindingCount = validateAudit(audit)
   const rows = new Map(audit.checks.map(row => [row.id, row]))
   const targetFindings = audit.findings.filter(finding => finding.status === 'OPEN')
+  const candidateFindings = audit.candidateFindings.filter(finding => finding.status === 'OPEN')
   const contractFindings = (audit.contractFindings ?? []).filter(finding => finding.status === 'OPEN')
   const allOpenFindings = [...targetFindings, ...contractFindings]
   const forcedPass = sensitivity
@@ -334,7 +394,7 @@ function summarize(audit, {sensitivity = false, renderMode = 'scored'} = {}) {
     const sectionRows = Object.entries(checks)
       .filter(([, check]) => check.section === sectionNumber)
       .map(([id]) => rows.get(id))
-    const applicableRows = sectionRows.filter(row => row.verdict !== 'N/A' && row.verdict !== 'DEFERRED')
+    const applicableRows = sectionRows.filter(row => row.verdict !== 'N/A')
     const applicableWeight = applicableRows.reduce((total, row) => total + checks[row.id].weight, 0)
     const earnedWeight = applicableRows.reduce((total, row) => {
       const fixedBySensitivity = sensitivity && row.verdict === 'GAP' && forcedPass.has(row.findingId)
@@ -419,9 +479,10 @@ function summarize(audit, {sensitivity = false, renderMode = 'scored'} = {}) {
   const cappedGradeRange =
     gradeRange && activeBlocks.length > 0 ? {min: capAtD(gradeRange.min), max: capAtD(gradeRange.max)} : gradeRange
   const applicableCheckWeight = audit.checks.reduce(
-    (total, row) => total + (!['N/A', 'DEFERRED'].includes(row.verdict) ? checks[row.id].weight : 0),
+    (total, row) => total + (row.verdict !== 'N/A' ? checks[row.id].weight : 0),
     0,
   )
+  const activeRubricWeight = Object.values(checks).reduce((total, check) => total + check.weight, 0)
   const measuredCheckWeight = audit.checks.reduce(
     (total, row) => total + (['PASS', 'GAP', 'COVERED'].includes(row.verdict) ? checks[row.id].weight : 0),
     0,
@@ -431,28 +492,33 @@ function summarize(audit, {sensitivity = false, renderMode = 'scored'} = {}) {
     audit.checks.some(row => row.verdict === 'NOT MEASURED' || row.verdict === 'UNRESOLVED') ||
     audit.pendingHuman === true
   const status = scoreRange === null ? 'UNKNOWN' : hasIncompleteEvidence ? 'PROVISIONAL' : 'CONCLUSIVE'
-  const scoredTargetFindings = (audit.findings ?? []).filter(finding => finding.status !== 'DEFERRED')
+  const scoredTargetFindings = audit.findings ?? []
   const allDistinctFindings = [...scoredTargetFindings, ...(audit.contractFindings ?? [])]
-  const sensitivityResult = sensitivity ? null : summarize(audit, {sensitivity: true, renderMode})
-
+  const sensitivityResult = sensitivity ? null : summarize(audit, {sensitivity: true})
   return {
     component: audit.component,
-    renderMode,
     status,
     overallScore,
     scoreRange,
     uncappedGrade,
     grade,
     gradeRange: cappedGradeRange,
+    activeRubricWeight,
     blockCount: allOpenFindings.filter(finding => finding.severity === 'BLOCK').length,
     distinctTargetGaps: scoredTargetFindings.length,
-    deferredTargetGaps: (audit.findings ?? []).filter(finding => finding.status === 'DEFERRED').length,
-    deferredChecks: countBy(audit.checks, row => row.verdict === 'DEFERRED'),
+    candidateGapCount: countBy(audit.candidateChecks, row => row.verdict === 'GAP'),
+    candidateFindingCount: audit.candidateFindings.length,
+    candidates: audit.candidateChecks.map(row => ({
+      ...row,
+      ...candidateChecks[row.id],
+      finding: audit.candidateFindings.find(finding => finding.id === row.findingId),
+    })),
+    candidateFindings,
     distinctDefects: (audit.contractFindings ?? []).length,
     distinctFindings: allDistinctFindings.length,
     rawFindings: rawFindingCount,
     scoredSectionWeight: scoredWeight,
-    coveragePercent: Number(scoredWeight.toFixed(2)),
+    coveragePercent: Number(((100 * scoredWeight) / activeRubricWeight).toFixed(2)),
     measuredCheckWeight,
     applicableCheckWeight,
     checkEvidenceCoveragePercent:
@@ -481,34 +547,8 @@ function summarize(audit, {sensitivity = false, renderMode = 'scored'} = {}) {
   }
 }
 
-function applyRenderMode(audit, renderMode) {
-  assert(['scored', 'deferred'].includes(renderMode), `Invalid renderMode: ${renderMode}`)
-  const renderRow = audit.checks.find(row => row.id === 'PART-RENDER')
-  if (renderMode === 'scored') {
-    assert(
-      renderRow?.verdict !== 'DEFERRED',
-      `${audit.component}: PART-RENDER cannot be DEFERRED in scored mode; use renderMode "deferred"`,
-    )
-    return audit
-  }
-
-  if (renderRow?.verdict !== 'GAP') return audit
-
-  const deferredAudit = structuredClone(audit)
-  const deferredRow = deferredAudit.checks.find(row => row.id === 'PART-RENDER')
-  deferredRow.verdict = 'DEFERRED'
-  deferredRow.reason = 'Comparative mode: PART-RENDER is excluded from scoring; the target gap remains visible.'
-  const deferredFinding = deferredAudit.findings.find(finding => finding.id === deferredRow.findingId)
-  assert(
-    deferredFinding?.checkId === 'PART-RENDER',
-    `${audit.component}: PART-RENDER must have its own finding to be deferred independently`,
-  )
-  deferredFinding.status = 'DEFERRED'
-  return deferredAudit
-}
-
-export function calculateAudit(audit, {renderMode = 'scored'} = {}) {
-  return summarize(applyRenderMode(audit, renderMode), {renderMode})
+export function calculateAudit(audit) {
+  return summarize(audit)
 }
 
 export async function readAuditData(path) {
@@ -518,32 +558,21 @@ export async function readAuditData(path) {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const [, , dataPath, ...args] = process.argv
-  let component
-  let renderMode = 'scored'
-  for (let index = 0; index < args.length; index++) {
-    if (args[index] === '--render-mode') {
-      renderMode = args[index + 1]
-      index++
-    } else if (component === undefined) {
-      component = args[index]
-    } else {
-      console.error(`Unknown argument: ${args[index]}`)
-      process.exitCode = 2
-      break
-    }
-  }
+  const [, , dataPath, component, ...args] = process.argv
   if (!dataPath) {
-    console.error('Usage: node scorecard-calculator.mjs <audit-data.json> [component] [--render-mode scored|deferred]')
+    console.error('Usage: node scorecard-calculator.mjs <audit-data.json> [component]')
     process.exitCode = 2
-  } else if (process.exitCode !== 2) {
+  } else if (args.length > 0) {
+    console.error(`Unknown argument: ${args[0]}`)
+    process.exitCode = 2
+  } else {
     try {
       const audits = await readAuditData(dataPath)
       const selectedAudits = component ? audits.filter(audit => audit.component === component) : audits
       assert(selectedAudits.length > 0, `No audit found${component ? ` for ${component}` : ''}`)
       console.log(
         JSON.stringify(
-          selectedAudits.map(audit => calculateAudit(audit, {renderMode})),
+          selectedAudits.map(audit => calculateAudit(audit)),
           null,
           2,
         ),

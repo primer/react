@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {calculateAudit, checks, letterGrade, sections} from './scorecard-calculator.mjs'
+import {calculateAudit, candidateChecks, checks, letterGrade, sections} from './scorecard-calculator.mjs'
 
 const sourceSha = '2128032dca65a1bd565fe382c2e91c638c6473a4'
 
@@ -32,6 +32,10 @@ function createAudit() {
       evidence: `Verified ${id}`,
     })),
     findings: [],
+    candidateChecks: [
+      {id: 'PART-RENDER', verdict: 'PASS', evidenceClass: 'SOURCE VERIFIED', evidence: 'Candidate requirement is present'},
+    ],
+    candidateFindings: [],
     contractFindings: [],
   }
 }
@@ -72,7 +76,7 @@ test('a limited section still scores and retains its GAP', () => {
   assert.equal(stateSection.limited, true)
   assert.equal(stateSection.score, 0)
   assert.equal(stateSection.applicableWeight, checks['NAMES-DEFAULTS'].weight)
-  assert.equal(result.scoredSectionWeight, 90)
+  assert.equal(result.scoredSectionWeight, 82)
 })
 
 test('a COVERED target check remains in the denominator without adding a distinct finding', () => {
@@ -95,56 +99,64 @@ test('a COVERED target check remains in the denominator without adding a distinc
   assert.equal(result.rawFindings, 2)
 })
 
-test('a missing render API is one independently scored gap; merge checks retain their own verdicts', () => {
+test('candidate checks remain visible without changing the grade or active denominator', () => {
   const audit = createAudit()
-  const renderCheck = audit.checks.find(row => row.id === 'PART-RENDER')
-  renderCheck.findingId = 'F-1'
-  renderCheck.verdict = 'GAP'
-  audit.findings = [createFinding({id: 'F-1', checkId: 'PART-RENDER', section: 2})]
+  const candidate = audit.candidateChecks[0]
+  candidate.verdict = 'GAP'
+  candidate.findingId = 'C-1'
+  audit.candidateFindings = [createFinding({id: 'C-1', checkId: 'PART-RENDER', section: 2})]
 
-  const scored = calculateAudit(audit)
-  const deferred = calculateAudit(audit, {renderMode: 'deferred'})
-  const scoredSubstitution = scored.sections.find(section => section.id === 2)
-  const deferredSubstitution = deferred.sections.find(section => section.id === 2)
-  const mergeSection = scored.sections.find(section => section.id === 3)
+  const result = calculateAudit(audit)
+  const substitution = result.sections.find(section => section.id === 2)
+  const mergeSection = result.sections.find(section => section.id === 3)
 
-  assert.equal(scored.renderMode, 'scored')
-  assert.equal(scoredSubstitution.applicableWeight, 20)
-  assert.equal(scoredSubstitution.score, 3)
-  assert.equal(scored.distinctTargetGaps, 1)
-  assert.equal(scored.deferredTargetGaps, 0)
+  assert.equal(result.overallScore, 100)
+  assert.equal(result.activeRubricWeight, 92)
+  assert.equal(result.applicableCheckWeight, 92)
+  assert.equal(result.distinctTargetGaps, 0)
+  assert.equal(result.candidateGapCount, 1)
+  assert.equal(result.candidates[0].proposedWeight, 8)
+  assert.equal(result.candidateFindings.length, 1)
+  assert.equal(substitution.applicableWeight, 12)
+  assert.equal(substitution.score, 5)
   assert.equal(mergeSection.applicableWeight, 25)
   assert.equal(mergeSection.earnedWeight, 25)
   assert.equal(mergeSection.score, 5)
-  assert.equal(scored.applicableCheckWeight, 100)
-
-  assert.equal(deferred.renderMode, 'deferred')
-  assert.equal(deferredSubstitution.applicableWeight, 12)
-  assert.equal(deferredSubstitution.score, 5)
-  assert.equal(deferred.distinctTargetGaps, 0)
-  assert.equal(deferred.deferredTargetGaps, 1)
-  assert.equal(deferred.deferredChecks, 1)
-  assert.equal(deferred.applicableCheckWeight, 92)
-  assert.equal(audit.checks.find(row => row.id === 'PART-RENDER').verdict, 'GAP')
 })
 
-test('only PART-RENDER can be deferred and deferred render needs a reason', () => {
+test('candidate checks must be fully represented and findings cannot enter the active score', () => {
   const audit = createAudit()
-  const unrelatedCheck = audit.checks.find(row => row.id === 'PART-AS')
-  unrelatedCheck.verdict = 'DEFERRED'
-  unrelatedCheck.reason = 'Excluded by user direction'
-  assert.throws(() => calculateAudit(audit), /only PART-RENDER may be DEFERRED/)
+  delete audit.candidateChecks[0]
+  assert.throws(() => calculateAudit(audit), /each candidate check must be an object/)
 
-  const missingReason = createAudit()
-  missingReason.checks.find(row => row.id === 'PART-RENDER').verdict = 'DEFERRED'
-  assert.throws(() => calculateAudit(missingReason, {renderMode: 'deferred'}), /DEFERRED reason is required/)
+  const missingFinding = createAudit()
+  missingFinding.candidateChecks[0].verdict = 'GAP'
+  assert.throws(() => calculateAudit(missingFinding), /findingId is required for candidate PART-RENDER GAP/)
+})
 
-  const renderGap = createAudit()
-  const renderCheck = renderGap.checks.find(row => row.id === 'PART-RENDER')
-  renderCheck.verdict = 'GAP'
-  renderCheck.findingId = 'F-1'
-  renderGap.findings = [createFinding({id: 'F-1', checkId: 'PART-RENDER', section: 2})]
-  assert.equal(calculateAudit(renderGap).distinctTargetGaps, 1)
+test('active COVERED checks cannot be owned by an unweighted candidate finding', () => {
+  const audit = createAudit()
+  audit.candidateChecks[0].verdict = 'GAP'
+  audit.candidateChecks[0].findingId = 'C-1'
+  audit.candidateFindings = [createFinding({id: 'C-1', checkId: 'PART-RENDER', section: 2})]
+  const activeCheck = audit.checks.find(row => row.id === 'PART-01')
+  activeCheck.verdict = 'COVERED'
+  activeCheck.findingId = 'C-1'
+
+  assert.throws(() => calculateAudit(audit), /active PART-01 must reference an active target finding/)
+})
+
+test('unmeasured candidate checks do not make an active grade provisional', () => {
+  const audit = createAudit()
+  const candidate = audit.candidateChecks[0]
+  candidate.verdict = 'UNRESOLVED'
+  candidate.evidenceClass = 'PENDING HUMAN'
+  candidate.reason = 'The candidate criterion needs maintainer review'
+
+  const result = calculateAudit(audit)
+  assert.equal(result.status, 'CONCLUSIVE')
+  assert.equal(result.overallScore, 100)
+  assert.equal(result.candidates[0].verdict, 'UNRESOLVED')
 })
 
 test('a GAP without a linked finding is rejected', () => {
@@ -237,9 +249,9 @@ test('NOT MEASURED remains unscored and produces a provisional score range', () 
   assert.equal(evidenceSection.score, null)
   assert.deepEqual(evidenceSection.scoreRange, {min: 4.75, max: 5})
   assert.equal(result.overallScore, null)
-  assert.deepEqual(result.scoreRange, {min: 99, max: 100})
+  assert.deepEqual(result.scoreRange, {min: 98.91, max: 100})
   assert.deepEqual(result.gradeRange, {min: 'A', max: 'A'})
-  assert.equal(result.checkEvidenceCoveragePercent, 99)
+  assert.equal(result.checkEvidenceCoveragePercent, 98.91)
   assert.equal(result.status, 'PROVISIONAL')
 })
 
@@ -299,11 +311,28 @@ test('every N/A check requires a written reason', () => {
 
 test('section weights and check weights cover the full rubric', () => {
   const sectionWeights = Object.values(sections).reduce((sum, section) => sum + section.weight, 0)
-  assert.equal(sectionWeights, 100)
+  assert.equal(sectionWeights, 92)
+  assert.equal(Object.values(candidateChecks).reduce((sum, check) => sum + check.proposedWeight, 0), 8)
   for (const [sectionId, section] of Object.entries(sections)) {
     const weight = Object.values(checks)
       .filter(check => check.section === Number(sectionId))
       .reduce((sum, check) => sum + check.weight, 0)
     assert.equal(weight, section.weight)
   }
+  assert.equal(
+    Object.values(sections).reduce((sum, section) => sum + section.weight, 0) +
+      Object.values(candidateChecks).reduce((sum, check) => sum + check.proposedWeight, 0),
+    100,
+  )
+})
+
+test('candidate checks retain their verification class, severity, and source', () => {
+  assert.deepEqual(candidateChecks['PART-RENDER'], {
+    section: 2,
+    proposedWeight: 8,
+    verificationClass: 'semi',
+    severity: 'FIX',
+    source: 'Pinned composition gist',
+    title: 'Element and function render forms',
+  })
 })
