@@ -13,7 +13,7 @@
   ],
   "baseCommit": "5b50bc053cab249809ef0bad0cd1aab64e8924a5",
   "afterCommit": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b",
-  "rubricVersion": "0.4.1",
+  "rubricVersion": "0.5.0",
   "baselineSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
   "gist": {
     "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
@@ -79,53 +79,48 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "DEFERRED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "renderAnchor is a function-only configured escape hatch, not both part render forms; owned by S-F1. SelectPanel.tsx:175-181",
-          "findingId": "S-F1",
-          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
+          "evidence": "The configured SelectPanel exposes renderAnchor but no uniform part element/function render contract. SelectPanel.tsx:175-181.",
+          "findingId": "S-F6"
         },
         {
           "id": "MERGE-CONFIG",
-          "verdict": "GAP",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Consumer className precedes FilteredActionList's component class. SelectPanel.tsx:1030",
-          "findingId": "S-F4"
+          "evidence": "The configured collection boundary and renderAnchor callback are preserved; property-specific collisions are scored in the dedicated checks. SelectPanel.tsx:175-181,628-640."
         },
         {
           "id": "MERGE-HANDLER",
-          "verdict": "COVERED",
+          "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new part handler merge boundary; owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "The configured renderAnchor callback receives the component-generated anchor props and has no separate consumer-handler input to compose. SelectPanel.tsx:628-640.",
+          "reason": "The configured renderAnchor callback receives generated handlers but accepts no separate consumer handler input to merge."
         },
         {
           "id": "MERGE-CLASS",
-          "verdict": "COVERED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new part class merge boundary; owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "The configured action list combines consumer className before its component class. SelectPanel.tsx:1030.",
+          "findingId": "S-F4"
         },
         {
           "id": "MERGE-STYLE-ATTR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new part style/attribute merge boundary; owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "The default anchor spreads generated props onto Button; component-owned selection and loading state remain controlled by SelectPanel. SelectPanel.tsx:175-181,636-640."
         },
         {
           "id": "MERGE-REF",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The existing anchor ref is merged internally; no generic part render ref contract exists. SelectPanel.tsx:598; remaining part policy owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "The configured anchor ref is passed through the default renderAnchor to Button. SelectPanel.tsx:598,636-640."
         },
         {
           "id": "MERGE-BEHAVIOR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No consumer render part exists to exercise behavior ownership; owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "Configured open, selection, and disabled behavior remains owned by SelectPanel and is passed as generated anchor/list props. SelectPanel.tsx:598-640."
         },
         {
           "id": "STATE-CALLBACK",
@@ -293,16 +288,15 @@
           ]
         },
         {
-          "id": "S-F4",
           "classification": "ADR GAP",
           "severity": "FIX",
-          "checkId": "MERGE-CONFIG",
+          "checkId": "MERGE-CLASS",
           "section": 3,
           "status": "OPEN",
-          "title": "Align configured SelectPanel class merging with ADR-025",
+          "title": "Order configured SelectPanel classes component-first",
           "reachableUseCase": "A consumer supplies className for the action list rendered within SelectPanel.",
-          "observedGap": "The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.",
-          "additiveFix": "Keep current configured class behavior and signatures; add an opt-in or parallel compliant merge path, and verify the published surface before recommending any default switch.",
+          "observedGap": "The configured FilteredActionList combines consumer className before its component class, contrary to ADR-025.",
+          "additiveFix": "Keep the current configured class behavior during migration; use the required ordering for the new parts and preserve existing public props.",
           "citations": [
             {
               "path": "contributor-docs/adrs/adr-025-prop-merging.md",
@@ -314,7 +308,8 @@
               "line": "1030",
               "sha": "5b50bc053cab249809ef0bad0cd1aab64e8924a5"
             }
-          ]
+          ],
+          "id": "S-F4"
         },
         {
           "id": "S-F5",
@@ -341,6 +336,40 @@
             {
               "path": "packages/react/src/SelectPanel/SelectPanel.module.css",
               "line": "1-236",
+              "sha": "5b50bc053cab249809ef0bad0cd1aab64e8924a5"
+            }
+          ]
+        },
+        {
+          "id": "S-F6",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to SelectPanel parts",
+          "reachableUseCase": "A consumer needs to own the trigger, panel layout, input, list, and footer actions beyond the current item/data configuration.",
+          "observedGap": "The configured SelectPanel exposes renderAnchor but no uniform part element/function render contract. SelectPanel.tsx:175-181.",
+          "additiveFix": "Add render forms to the new parts while preserving the configured renderAnchor signature, existing callbacks, and configured API.",
+          "citations": [
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "77-100",
+              "sha": "5b50bc053cab249809ef0bad0cd1aab64e8924a5"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "132-140",
+              "sha": "5b50bc053cab249809ef0bad0cd1aab64e8924a5"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "175-181",
+              "sha": "5b50bc053cab249809ef0bad0cd1aab64e8924a5"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.docs.json",
+              "line": "248",
               "sha": "5b50bc053cab249809ef0bad0cd1aab64e8924a5"
             }
           ]
@@ -374,7 +403,8 @@
           "Align the shared open-state name/default model additively with the related component APIs."
         ],
         "scopeNote": "The grade covers the whole interactive component at the pre-decomposition source. Missing part requirements are owned by the single parts-surface finding; the substitution section is limited because no parts existed."
-      }
+      },
+      "rubricVersion": "0.5.0"
     },
     {
       "component": "SelectPanel (after #7287, whole component)",
@@ -433,44 +463,42 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "DEFERRED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Trigger has a function-only render prop; other parts have no render prop and no part receives state through an element/function render contract. SC-F3 owns the gap. SelectPanelParts.tsx:53-62,115-155,214-263.",
-          "findingId": "SC-F3",
-          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
+          "evidence": "Trigger has a function-only render prop; other parts have no render prop or part state renderer. SelectPanelParts.tsx:53-62,115-155,214-263.",
+          "findingId": "SC-F3"
         },
         {
           "id": "MERGE-CONFIG",
-          "verdict": "GAP",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Consumer className precedes FilteredActionList's component class. SelectPanel.tsx:1030",
-          "findingId": "S-F4"
+          "evidence": "The whole component keeps the configured API alongside its new parts; configured and new-part merge boundaries are evaluated separately. SelectPanel.tsx:1030; SelectPanelParts.tsx:37-61."
         },
         {
           "id": "MERGE-HANDLER",
           "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Parts invoke consumer handlers before Primer behavior but use defaultPrevented as the skip signal; there is no distinct skip contract or element-render handler stage. SC-F4 owns the gap. SelectPanelParts.tsx:92-113,378-400; SelectPanelActions.tsx:35-54.",
+          "evidence": "New parts run consumer handlers before Primer behavior and use defaultPrevented as the skip signal; the pinned gist requires a separate skip contract. SelectPanelParts.tsx:92-113,378-400; SelectPanelActions.tsx:35-54.",
           "findingId": "SC-F4"
         },
         {
           "id": "MERGE-CLASS",
           "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Part CSS merges are Primer-first, for example clsx(classes.Wrapper, className), contrary to consumer-first order. SC-F5 owns this gap. SelectPanelParts.tsx:115-155,181,243,529.",
+          "evidence": "Configured SelectPanel merges consumer className before its component class; new parts also merge Primer classes before consumer classes. SelectPanel.tsx:1030; SelectPanelParts.tsx:115-155,181,243,529.",
           "findingId": "SC-F5"
         },
         {
           "id": "MERGE-STYLE-ATTR",
           "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Ordinary DOM props and styles flow through prop spreads; role, ids, disabled, and selection state are explicitly owned by the part. SelectPanelParts.tsx:115-155,228-260,340-400."
+          "evidence": "Ordinary DOM props and styles flow through prop spreads while role, ids, disabled, and selection state are part-owned. SelectPanelParts.tsx:115-155,228-260,340-400."
         },
         {
           "id": "MERGE-REF",
           "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Root and Group do not forward refs, and Overlay has no top-level forwarded ref contract; SC-F6 owns this gap. SelectPanelParts.tsx:37-45,520-525; SelectPanelOverlay.tsx:61-65.",
+          "evidence": "Root and Group do not forward refs, and Overlay has no top-level forwarded-ref contract. SelectPanelParts.tsx:37-45,520-525; SelectPanelOverlay.tsx:61-65.",
           "findingId": "SC-F6"
         },
         {
@@ -635,7 +663,7 @@
           "severity": "FIX",
           "checkId": "PART-RENDER",
           "section": 2,
-          "status": "DEFERRED",
+          "status": "OPEN",
           "title": "Support element and function render forms on every part",
           "reachableUseCase": "A consumer supplies a Button element or a state-aware render function to replace a part’s default element.",
           "observedGap": "Trigger accepts only a function returning an element and receives no current state; all other parts lack render, including element form.",
@@ -679,10 +707,10 @@
           "checkId": "MERGE-CLASS",
           "section": 3,
           "status": "OPEN",
-          "title": "Put consumer classes before Primer classes on parts",
-          "reachableUseCase": "A consumer composes className on SelectPanel.Content, Header, Title, Description, SearchInput, List, or Footer and relies on the target class precedence.",
-          "observedGap": "Part implementations pass Primer classes before className, so consumer classes are appended rather than placed first as the pinned gist requires.",
-          "additiveFix": "Change only the new parts’ class merge order to consumer classes first; do not alter the configured API’s ADR-025 merge order.",
+          "title": "Align configured and part class merging with their surface policies",
+          "reachableUseCase": "A consumer supplies className to the configured action list or to a composable SelectPanel part and expects the documented precedence for that surface.",
+          "observedGap": "The configured action list combines consumer className before its component class, while new parts put Primer classes before consumer classes. Both paths miss their respective accepted merge order.",
+          "additiveFix": "Keep the existing configured behavior available while adding an opt-in or versioned migration to ADR-025 order; use consumer-first classes on new parts. Preserve current props and callback signatures.",
           "citations": [
             {
               "path": "packages/react/src/SelectPanel/SelectPanelParts.tsx",
@@ -692,6 +720,11 @@
             {
               "path": "packages/react/src/SelectPanel/SelectPanelMessage.tsx",
               "line": "72-80",
+              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "1030",
               "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
             }
           ]
@@ -883,30 +916,6 @@
               "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
             }
           ]
-        },
-        {
-          "id": "S-F4",
-          "classification": "ADR GAP",
-          "severity": "FIX",
-          "checkId": "MERGE-CONFIG",
-          "section": 3,
-          "status": "OPEN",
-          "title": "Align configured SelectPanel class merging with ADR-025",
-          "reachableUseCase": "A consumer supplies className for the action list rendered within SelectPanel.",
-          "observedGap": "The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.",
-          "additiveFix": "Keep current configured class behavior and signatures; add an opt-in or parallel compliant merge path, and verify the published surface before recommending any default switch.",
-          "citations": [
-            {
-              "path": "contributor-docs/adrs/adr-025-prop-merging.md",
-              "line": "24-50",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            },
-            {
-              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
-              "line": "1060",
-              "sha": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b"
-            }
-          ]
         }
       ],
       "contractFindings": [],
@@ -946,7 +955,8 @@
           "Human review of part boundaries, defaults, and shared naming remains pending."
         ],
         "currentContractContext": "No separate current-contract defect was established. The seven full-run failures on the composable path remain candidate behavior defects under SC-F8 pending maintainer triage."
-      }
+      },
+      "rubricVersion": "0.5.0"
     }
   ]
 }

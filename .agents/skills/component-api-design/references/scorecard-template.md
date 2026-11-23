@@ -1,37 +1,38 @@
 # Component API scorecard
 
-## Table of contents
+## Table of Contents
 
-- [Report card](#report-card), L:16
-- [Area 1 Architecture and parts](#area-1-architecture-and-parts), L:32
-- [Area 2 Root and part substitution](#area-2-root-and-part-substitution), L:52
-- [Area 3 Prop merge behavior](#area-3-prop-merge-behavior), L:58
-- [Area 4 State and shared concepts](#area-4-state-and-shared-concepts), L:64
-- [Area 5 Accessibility and evidence](#area-5-accessibility-and-evidence), L:70
-- [Current-contract defects](#current-contract-defects), L:76
-- [Audit details](#audit-details), L:92
+- [Report card](#report-card), L:17
+- [Area 1 Architecture and parts](#area-1-architecture-and-parts), L:33
+- [Area 2 Root and part substitution](#area-2-root-and-part-substitution), L:53
+- [Area 3 Prop merge behavior](#area-3-prop-merge-behavior), L:59
+- [Area 4 State and shared concepts](#area-4-state-and-shared-concepts), L:66
+- [Area 5 Accessibility and evidence](#area-5-accessibility-and-evidence), L:72
+- [Current-contract defects](#current-contract-defects), L:78
+- [Audit details](#audit-details), L:94
+- [Anchor rules](#anchor-rules), L:152
 
 Copy this layout for each whole-component grade. For PR reviews, record only changed-surface findings and omit a whole-component grade.
 
 ## Report card
 
-**Component:** Component name · **Overall:** score / 100 · grade · **Status:** CONCLUSIVE / PROVISIONAL / UNKNOWN
+**Component:** Component name · **Render scored:** score / 100 · grade · **Render deferred:** score / 100 · grade · **Status:** CONCLUSIVE / PROVISIONAL / UNKNOWN
 
 **Open BLOCKs:** N · **Scored findings:** N · **Deferred checks/findings:** N / N · **Applicable weight:** N/100 · **Evidence coverage:** N/N
 
-| Area | Score / 5 + signal | Open findings | Finding links | Issue links |
-| :--- | :---: | :---: | :--- | :--- |
-| [Area 1 Architecture and parts](#area-1-architecture-and-parts) | `5.00/5 · █████` | | | |
-| [Area 2 Root and part substitution](#area-2-root-and-part-substitution) | `5.00/5 · █████` | | | |
-| [Area 3 Prop merge behavior](#area-3-prop-merge-behavior) | `5.00/5 · █████` | | | |
-| [Area 4 State and shared concepts](#area-4-state-and-shared-concepts) | `5.00/5 · █████` | | | |
-| [Area 5 Accessibility and evidence](#area-5-accessibility-and-evidence) | `5.00/5 · █████` | | | |
+| Area                                                                    |  Render scored   | Render deferred  | Open findings | Finding links | Issue links |
+| :---------------------------------------------------------------------- | :--------------: | :--------------: | :-----------: | :------------ | :---------- |
+| [Area 1 Architecture and parts](#area-1-architecture-and-parts)         | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
+| [Area 2 Root and part substitution](#area-2-root-and-part-substitution) | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
+| [Area 3 Prop merge behavior](#area-3-prop-merge-behavior)               | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
+| [Area 4 State and shared concepts](#area-4-state-and-shared-concepts)   | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
+| [Area 5 Accessibility and evidence](#area-5-accessibility-and-evidence) | `5.00/5 · █████` | `5.00/5 · █████` |               |               |             |
 
-Use the score interval when a result is provisional. The bar is a visual aid; the numeric score is authoritative. Count distinct open findings owned by the area. List covered checks under their shared finding rather than counting them as extra findings. Mark deferred findings separately. An area with no open findings says `No open gaps`. Add GitHub issue links only for issues that exist; keep deferred items and untriaged findings in the scorecard without opening issues.
+Use score intervals when either result is provisional. The bar is a visual aid; the numeric score is authoritative. Count distinct open findings owned by the area. List covered checks under their shared finding rather than counting them as extra findings. Mark the render finding deferred only in the deferred comparison. An area with no open findings says `No open gaps`. Add GitHub issue links only for issues that exist; keep untriaged findings in the scorecard without opening issues.
 
 ## Area 1 Architecture and parts
 
-**Score:** _ / 5 · **Open findings:** _ · **Issue links:** _
+**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
 
 Write `No open gaps` when there are no open findings owned by this area.
 
@@ -51,25 +52,26 @@ Write `No open gaps` when there are no open findings owned by this area.
 
 ## Area 2 Root and part substitution
 
-**Score:** _ / 5 · **Open findings:** _ · **Issue links:** _
+**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
 
 Write `No open gaps` when there are no open findings owned by this area. Use a stable finding-ID heading for every finding.
 
 ## Area 3 Prop merge behavior
 
-**Score:** _ / 5 · **Open findings:** _ · **Issue links:** _
+**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
 
 Write `No open gaps` when there are no open findings owned by this area. Link covered rows to their owning finding, including when that finding is deferred.
+Show the earned and applicable weight for each merge check so the area total is reproducible. A missing `PART-RENDER` contributes only its own weight; never attach merge-check weight to that finding.
 
 ## Area 4 State and shared concepts
 
-**Score:** _ / 5 · **Open findings:** _ · **Issue links:** _
+**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
 
 Write `No open gaps` when there are no open findings owned by this area. Use a stable finding-ID heading for every finding.
 
 ## Area 5 Accessibility and evidence
 
-**Score:** _ / 5 · **Open findings:** _ · **Issue links:** _
+**Score (render scored / deferred):** _ / 5 · _ / 5 · **Open findings:** _ · **Issue links:** _
 
 Write `No open gaps` when there are no open findings owned by this area. Keep NOT MEASURED and UNRESOLVED evidence visible as provisional score ranges.
 
@@ -97,54 +99,55 @@ Keep the evidence matrix, audit identity, human review, calibration, and test ev
 
 Use one row per check. `GAP` rows point to one owning target finding. Related unmet rows use `COVERED` and that finding ID; they remain in the denominator and score zero without adding distinct findings. Only `N/A` and rubric-authorized `DEFERRED` checks are excluded; provide a reason for either. `NOT MEASURED` and `UNRESOLVED` include their reason.
 
-| Check | Verdict | Evidence class | Evidence at audited SHA / command result | Finding ID or reason |
-| :--- | :--- | :--- | :--- | :--- |
-| `CHECK-ID` | | | | |
+| Check      | Verdict | Evidence class | Evidence at audited SHA / command result | Finding ID or reason |
+| :--------- | :------ | :------------- | :--------------------------------------- | :------------------- |
+| `CHECK-ID` |         |                |                                          |                      |
 
 ### Audit identity
 
-| Field | Value |
-| :--- | :--- |
-| Component / shape | |
-| Public entry point / docs maturity | |
-| Repository package version | |
-| Published-package metadata (only if relevant to a release-changing recommendation) | |
-| Mode | Whole component / PR review |
-| Audited source SHA | |
-| Rubric | Component API compliance rubric 0.4.1 |
-| Accepted target | All ADR files at the audited SHA + pinned composition gist |
-| Gist revision / file / content SHA-256 | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2` |
-| BLOCK sensitivity | Fix the _ open BLOCKs, change nothing else → projected _ / grade _ |
-| Structured audit data | |
+| Field                                                                              | Value                                                                                                                                                  |
+| :--------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Component / shape                                                                  |                                                                                                                                                        |
+| Public entry point / docs maturity                                                 |                                                                                                                                                        |
+| Repository package version                                                         |                                                                                                                                                        |
+| Published-package metadata (only if relevant to a release-changing recommendation) |                                                                                                                                                        |
+| Mode                                                                               | Whole component / PR review                                                                                                                            |
+| Audited source SHA                                                                 |                                                                                                                                                        |
+| Rubric                                                                             | Component API compliance rubric 0.5.0                                                                                                                  |
+| Accepted target                                                                    | All ADR files at the audited SHA + pinned composition gist                                                                                             |
+| Gist revision / file / content SHA-256                                             | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2` |
+| BLOCK sensitivity                                                                  | Fix the _ open BLOCKs, change nothing else → projected _ / grade \_                                                                                    |
+| Render scoring modes                                                               | Scored: _ / Deferred: _                                                                                                                                |
+| Structured audit data                                                              |                                                                                                                                                        |
 
 ### Layer 3 human review
 
 Keep the result `PENDING HUMAN` until a human reviewer supplies the judgment and rationale. Agent judgments do not count as sign-off.
 
-| Judgment item | Result, rationale, reachable use case, reviewer |
-| :--- | :--- |
-| Meaningful part boundaries | |
-| Default elements and semantics | |
-| Context, semantic order, collection ownership, and accessible naming | |
-| Shared names/defaults for shared concepts | |
-| Unresolved maintainer decisions | |
-| Release-dependent migration decisions, if any | |
+| Judgment item                                                        | Result, rationale, reachable use case, reviewer |
+| :------------------------------------------------------------------- | :---------------------------------------------- |
+| Meaningful part boundaries                                           |                                                 |
+| Default elements and semantics                                       |                                                 |
+| Context, semantic order, collection ownership, and accessible naming |                                                 |
+| Shared names/defaults for shared concepts                            |                                                 |
+| Unresolved maintainer decisions                                      |                                                 |
+| Release-dependent migration decisions, if any                        |                                                 |
 
 ### Evidence, calibration, and decisions
 
-| Evidence item | Path or result |
-| :--- | :--- |
-| Public exports, types, docs, stories, and implementation read | |
-| Focused unit/integration test execution (exact command and result) | |
-| ADR-011 snapshot-policy evidence | |
-| ADR-017 Storybook Playwright interaction evidence and test result | |
-| Type-check command and result | |
-| Calculator and validator test commands and results | |
-| Claims not runtime-verified | |
-| Published-package lookup and limitations | |
-| Prior audit score / new provisional score / reason for change | |
-| Citation review result | |
-| Assumptions | |
+| Evidence item                                                      | Path or result |
+| :----------------------------------------------------------------- | :------------- |
+| Public exports, types, docs, stories, and implementation read      |                |
+| Focused unit/integration test execution (exact command and result) |                |
+| ADR-011 snapshot-policy evidence                                   |                |
+| ADR-017 Storybook Playwright interaction evidence and test result  |                |
+| Type-check command and result                                      |                |
+| Calculator and validator test commands and results                 |                |
+| Claims not runtime-verified                                        |                |
+| Published-package lookup and limitations                           |                |
+| Prior audit score / new provisional score / reason for change      |                |
+| Citation review result                                             |                |
+| Assumptions                                                        |                |
 
 ## Anchor rules
 

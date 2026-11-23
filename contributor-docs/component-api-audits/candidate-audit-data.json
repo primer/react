@@ -1,0 +1,1462 @@
+{
+  "rubricVersion": "0.5.0",
+  "baselineSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+  "gist": {
+    "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
+    "file": "0-2026-11-17-base-ui-foundation.md",
+    "sha256": "30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2"
+  },
+  "audits": [
+    {
+      "component": "ActionList",
+      "sourceSha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+      "pendingHuman": true,
+      "checks": [
+        {
+          "id": "MOD-01",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "ActionList is a styled compound collection with a root and named composition parts; the existing consumer need is met without requiring a second config, base, or utility API. ActionList/index.ts:25-61 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "CHILD-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Free-form item/list content is provided through children; ActionList consumes only its structural Heading slot and renders remaining children, while item label content remains consumer-authored. ActionList/List.tsx:30-32,103-118; ActionList/shared.ts:12-15,138-147 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "PART-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The exported ActionList namespace provides a consumer-composable collection surface with Item, LinkItem, Group, Divider, Description, visuals, Heading, GroupHeading, and TrailingAction. ActionList/index.ts:27-61 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "PART-DOCS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Docs metadata lists numerous subcomponents but omits exported ActionList.Divider and the public ActionList.GroupHeading.TrailingAction nested part; consumers can reach both in the stories, but do not get a complete documented parts contract. ActionList/index.ts:39-61; ActionList/Group.tsx:247-251; ActionList/ActionList.docs.json:47-50,326-369; ActionList/ActionList.features.stories.tsx:1030-1048 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "A-F1"
+        },
+        {
+          "id": "STRUCTURE-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionList has its PascalCase directory under src and exported subcomponents are attached to the parent API with Object.assign. ActionList/index.ts:1-62 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f; no replacement component is in scope."
+        },
+        {
+          "id": "CUSTOM-ELEMENT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionList renders native list, item, button, and anchor elements and composes React components; no custom element is created by the component implementation. ActionList/List.tsx:103-118; ActionList/Item.tsx:323-344 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "reason": "The ActionList implementation does not involve a custom element; ADR-009 is conditional on custom-element use."
+        },
+        {
+          "id": "API-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The root has a clear semantic polymorphism use, accepts element-specific DOM props, forwards ref to the rendered root, and merges its own class before consumer class. No sx/Styled System props are required at @primer/react under ADR-022-styled-react. ActionList/shared.ts:138-167; ActionList/List.tsx:14-18,47-48,103-116; ActionList/ActionList.types.test.tsx:41-43 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "PART-AS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The required parts surface is not consistently polymorphic: ActionList.Item explicitly deprecates its ineffective as prop; Group, Divider, Description, and Visuals expose fixed element props, unlike the root, LinkItem, GroupHeading, and TrailingAction. ActionList/shared.ts:70-73; ActionList/Group.tsx:48-68; ActionList/Divider.tsx:6-14; ActionList/Description.tsx:8-25; ActionList/Visuals.tsx:10-17; ActionList/LinkItem.tsx:31-33; ActionList/Group.tsx:126-133 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "A-F2"
+        },
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No public part accepts the target element/function render contract; ActionList.Item renderItem is a different legacy callback. ActionList/shared.ts:68-73; ActionList/index.ts:27-61.",
+          "findingId": "A-F3"
+        },
+        {
+          "id": "MERGE-CONFIG",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionList exposes configured/internal prop boundaries; concrete handler, class, and behavior collisions are scored in their owning checks. Item.tsx:279-290; Group.tsx:99-104."
+        },
+        {
+          "id": "MERGE-HANDLER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Consumer onClick in Item props replaces the generated click handler because props spread after menuItemProps. Item.tsx:279-290.",
+          "findingId": "A-F4"
+        },
+        {
+          "id": "MERGE-CLASS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionList.Group combines consumer className before the component class. Group.tsx:99-104.",
+          "findingId": "A-F8"
+        },
+        {
+          "id": "MERGE-STYLE-ATTR",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Ordinary consumer attributes are spread to the rendered item; component-owned data/state attributes are written afterward. Item.tsx:279-290,323-344."
+        },
+        {
+          "id": "MERGE-REF",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing Item and List refs are forwarded to their current rendered elements. Item.tsx:323-344; List.tsx:47-48."
+        },
+        {
+          "id": "MERGE-BEHAVIOR",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Consumer props can replace generated role, tabIndex, ARIA, and selection behavior through the same props-after-menuItemProps spread as the handler. Item.tsx:279-290.",
+          "findingId": "A-F4"
+        },
+        {
+          "id": "STATE-CALLBACK",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionList.Item exposes selection via the legacy event-only onSelect signature; it has no additive transition callback carrying the proposed selected value, reason, event, and synchronous cancel. ActionList/shared.ts:17-24; ActionList/Item.tsx:114-125,147-160 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "A-F5"
+        },
+        {
+          "id": "NAMES-DEFAULTS",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "Item and LinkItem share the size concept and use the same small/medium/large scale with medium as the default. LinkItem reuses ActionListItemProps.size and docs specify medium. ActionList/shared.ts:35-36; ActionList/LinkItem.tsx:25-33; ActionList/ActionList.docs.json:64-68,163-166 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "STATE-OWNER",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Selection/active state is supplied by the consumer through selected and active props; ActionList does not keep a competing internal selection value. ActionList/shared.ts:20-28; ActionList/Item.tsx:274-275,349 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "ACCESS-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Focused ActionList unit tests passed and exercise role-based focus-zone, keyboard, and selection behavior; source associates list roles/arrow keys and generated item roles/names/descriptions with the interacting elements. npx vitest run --project '@primer/react' packages/react/src/ActionList — 6 files, 122 tests passed. ActionList/List.tsx:46-66; ActionList/Item.tsx:127-160,247-259,323-344 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "LIVE-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Loading adds visually hidden text to the item label, but ActionList does not announce changing status through a live region. ActionList/Item.tsx:359-365; ActionList/Selection.tsx:22-29 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "reason": "ActionList has no component-owned live-region/status announcement; static accessible loading label is not a changing live-region announcement."
+        },
+        {
+          "id": "WARN-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "The reachable selected-without-selectionVariant misuse emits a development-only warning; the focused suite asserts the warning. ActionList/Selection.tsx:22-27; utils/warning.ts:3-19; ActionList/ActionList.test.tsx:17-34 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f; focused test command passed."
+        },
+        {
+          "id": "SELECTOR-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Root and most public parts use stable data-component identifiers, but GroupHeading still emits GroupHeadingWrap rather than the public API name; its test codifies the legacy value. ActionList/Group.tsx:205-206,222-223; ActionList/ActionList.test.tsx:333-344 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "A-F6"
+        },
+        {
+          "id": "STYLE-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionList, Group, and Heading CSS Modules contain authored rules without the required @layer primer.components.ActionList declaration. ActionList/ActionList.module.css:1-8; ActionList/Group.module.css:1-8; ActionList/Heading.module.css:1-8 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "A-F7"
+        },
+        {
+          "id": "RESP-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The public ActionList/Item APIs expose no responsive-value props or responsive behavior; stylesheet media rules are interaction/forced-color adaptations, not viewport-responsive component values. ActionList/shared.ts:138-167; ActionList/ActionList.module.css:1-8,125-137 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "reason": "ActionList owns no responsive-value API or viewport-dependent behavior, so ADR-018 does not apply."
+        },
+        {
+          "id": "TYPE-01",
+          "verdict": "PASS",
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npm run type-check --workspace @primer/react — passed (tsc --noEmit). Focused public polymorphic type assertions include root as/ref and custom LinkItem as/ref. ActionList/ActionList.types.test.tsx:4-43 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "EXPORT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The package exports the ActionList parent and its public prop types; implementation files are not separately re-exported as module paths. ActionList/index.ts:13-25; packages/react/src/index.ts:73-86 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "TEST-01",
+          "verdict": "PASS",
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npx vitest run --project '@primer/react' packages/react/src/ActionList — passed: 6 test files, 122 tests. This is focused behavior execution evidence."
+        },
+        {
+          "id": "SNAPSHOT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "ActionList unit test files contain no render-tree toMatchSnapshot/toMatchInlineSnapshot assertions; behavior and selector assertions are explicit. packages/react/src/ActionList/*.test.tsx @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "INTERACTION-01",
+          "verdict": "NOT MEASURED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "e2e/components/ActionList.test.ts contains visual screenshot cases and only skipped focus-tooltip interaction cases; no runnable Storybook Playwright interaction test was executed. e2e/components/ActionList.test.ts:157-218 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "reason": "The only ActionList Playwright interaction cases in the source are test.skip cases; the focused unit suite is not a substitute for ADR-017 Storybook Playwright execution."
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "All proposed fixes can be additive: retain existing callback signatures and preserve the GroupHeadingWrap selector while adding the target selector/migration path. No recommendation requires changing a confirmed published API. packages/react/package.json:4 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f; ActionList/Group.tsx:205-206 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "reason": "Recommendations are additive and compatibility-preserving; no published prop/callback removal or replacement is proposed."
+        }
+      ],
+      "findings": [
+        {
+          "id": "A-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-DOCS",
+          "section": 1,
+          "status": "OPEN",
+          "title": "Document every exported ActionList part",
+          "reachableUseCase": "A consumer uses ActionList.Divider between groups or composes ActionList.GroupHeading.TrailingAction to add an action to a group heading, relying on the package documentation to discover its required props and composition location.",
+          "observedGap": "The parent API exports Divider and nests TrailingAction under GroupHeading, while ActionList.docs.json has no Divider or GroupHeading.TrailingAction entry. Those public parts therefore lack a complete documented owner/required-props/composition contract.",
+          "additiveFix": "Extend the ActionList documentation metadata and docs examples to include every exported part, including Divider and GroupHeading.TrailingAction, with required props, default element/ref behavior, and supported composition path; do not remove or rename existing exports.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/index.ts",
+              "line": "39-61",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Group.tsx",
+              "line": "247-251",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/ActionList.docs.json",
+              "line": "47-50",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/ActionList.docs.json",
+              "line": "326-369",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "A-F2",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-AS",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Make polymorphism available across the parts surface",
+          "reachableUseCase": "A consumer needs a semantic custom element or router link for a list part such as Item, Group, Divider, Description, or a Visual; current typed APIs either lack as or explicitly state that Item as has no effect.",
+          "observedGap": "The accepted target requires as on every part, but only selected parts provide useful polymorphism. ActionList.Item’s as is deprecated/no-op, while Group, Divider, Description, and Visuals expose fixed element props.",
+          "additiveFix": "Add appropriately typed as support to each part while preserving current default markup, behavior, refs, and existing props. Resolve and document target-unspecified part defaults during human rollout; do not assume one element fits every part.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/shared.ts",
+              "line": "70-73",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Group.tsx",
+              "line": "48-68",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Divider.tsx",
+              "line": "6-14",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Description.tsx",
+              "line": "8-25",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Visuals.tsx",
+              "line": "10-17",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/LinkItem.tsx",
+              "line": "31-33",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "A-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to ActionList parts",
+          "reachableUseCase": "A consumer needs to render an ActionList part through a supplied element or render function while forwarding its required props, current state, and ref to a custom host.",
+          "observedGap": "No public part accepts the target element/function render contract; ActionList.Item renderItem is a different legacy callback. ActionList/shared.ts:68-73; ActionList/index.ts:27-61.",
+          "additiveFix": "Add element and function render forms to the parts while retaining existing part props, callback signatures, and renderItem behavior.",
+          "coveredCheckIds": ["MERGE-HANDLER", "MERGE-CLASS", "MERGE-STYLE-ATTR", "MERGE-REF", "MERGE-BEHAVIOR"],
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/index.ts",
+              "line": "27-61",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/shared.ts",
+              "line": "68-73",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-HANDLER",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Preserve ActionList item handlers and behavior props",
+          "reachableUseCase": "A consumer supplies onClick to an ActionList.Item in a selectable/list context and expects the documented onSelect selection path to continue; a consumer also adds a Group className to customize its appearance.",
+          "observedGap": "Consumer props spread after menuItemProps can replace the generated onClick handler and behavior attributes, including role, tabIndex, and selection ARIA state.",
+          "additiveFix": "Keep consumer DOM attributes available while composing consumer handlers and applying ActionList-owned behavior props after the consumer spread.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/Item.tsx",
+              "line": "247-260",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Item.tsx",
+              "line": "279-290",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Group.tsx",
+              "line": "99-104",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ],
+          "id": "A-F4"
+        },
+        {
+          "id": "A-F5",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STATE-CALLBACK",
+          "section": 4,
+          "status": "OPEN",
+          "title": "Expose an additive selection transition callback",
+          "reachableUseCase": "A consumer handles pointer or keyboard activation of a selectable ActionList.Item and updates its selected prop based on the selection transition.",
+          "observedGap": "The only public selection callback is onSelect(event); it does not report the proposed selected value, reason, or synchronous cancel contract required by the target transition callback.",
+          "additiveFix": "Keep onSelect unchanged and add a separately named object callback carrying the proposed selected value, reason, originating event when present, and synchronous cancel(). Treat the callback name/coexistence shape as a pending maintainer decision.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/shared.ts",
+              "line": "17-24",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Item.tsx",
+              "line": "114-125",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Item.tsx",
+              "line": "147-160",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "A-F6",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "SELECTOR-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Align the GroupHeading stable selector with its API name",
+          "reachableUseCase": "A consumer or test selects the public ActionList.GroupHeading part using its documented stable data-component identifier.",
+          "observedGap": "GroupHeading emits data-component=\"GroupHeadingWrap\" rather than the public API name ActionList.GroupHeading; the current selector test asserts the legacy mismatch.",
+          "additiveFix": "Add data-component=\"ActionList.GroupHeading\" at the public part root and preserve GroupHeadingWrap as a compatibility alias/selector during migration; update tests and docs to identify the public selector.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/Group.tsx",
+              "line": "199-210",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Group.tsx",
+              "line": "216-229",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/ActionList.test.tsx",
+              "line": "333-344",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "A-F7",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STYLE-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Place ActionList CSS Modules in the component layer",
+          "reachableUseCase": "A consumer applies an unlayered override to ActionList and expects the component’s authored styles to participate in the documented Primer component cascade layer.",
+          "observedGap": "ActionList.module.css, Group.module.css, and Heading.module.css contain authored CSS rules without @layer primer.components.ActionList.",
+          "additiveFix": "Wrap each ActionList-owned CSS Module rule set in @layer primer.components.ActionList while retaining the existing class names and declarations.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/ActionList.module.css",
+              "line": "1-8",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Group.module.css",
+              "line": "1-8",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/ActionList/Heading.module.css",
+              "line": "1-8",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "A-F8",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-CLASS",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Order ActionList.Group classes component-first",
+          "reachableUseCase": "A consumer needs a semantic custom element or router link for a list part such as Item, Group, Divider, Description, or a Visual; current typed APIs either lack as or explicitly state that Item as has no effect.",
+          "observedGap": "ActionList.Group combines consumer className before the component class, contrary to ADR-025.",
+          "additiveFix": "Keep existing Group props and child structure; use component-first class ordering on the configured subcomponent.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionList/Group.tsx",
+              "line": "99-104",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        }
+      ],
+      "contractFindings": [],
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed API changes are additive or retain compatibility aliases, and no existing published prop/callback is recommended for removal or replacement.",
+      "metadata": {
+        "packageVersion": "38.46.0",
+        "docsMaturity": "beta (ActionList.docs.json)",
+        "mode": "whole component",
+        "acceptedTarget": {
+          "adrSnapshotSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+          "adrRule": "All ADR files in the pinned snapshot are included regardless of status label; later explicit decisions control overlapping requirements.",
+          "gist": {
+            "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
+            "file": "0-2026-11-17-base-ui-foundation.md",
+            "sha256": "30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2"
+          }
+        },
+        "pendingHuman": true,
+        "shape": ["presentational", "collection", "leaf interactive item", "form/listbox-capable"],
+        "tests": {
+          "unit": "npx vitest run --project '@primer/react' packages/react/src/ActionList — passed: 6 files, 122 tests.",
+          "typeCheck": "npm run type-check --workspace @primer/react — passed (tsc --noEmit).",
+          "interaction": "Not measured: e2e/components/ActionList.test.ts has only skipped focus-tooltip interaction cases; no runnable Storybook interaction was executed.",
+          "calculator": "node .agents/skills/component-api-design/references/scorecard-calculator.mjs /Users/adierkens/.copilot/session-state/25a8acbc-7ff9-4402-b6af-d60a5fce19de/files/component-api-grader/high-scoring-candidates/action-list.audit.json ActionList — passed; 30 check rows and score record validated."
+        },
+        "layer3HumanReview": {
+          "meaningfulPartBoundaries": "PENDING HUMAN",
+          "defaultElementsAndSemantics": "PENDING HUMAN",
+          "contextOrderCollectionOwnershipAndNaming": "PENDING HUMAN",
+          "sharedNamesAndDefaults": "PENDING HUMAN",
+          "unresolvedMaintainerDecisions": "PENDING HUMAN; callback name, part defaults, and render/as coexistence need maintainer judgment.",
+          "releaseDependentMigration": "PENDING HUMAN; preserve selector compatibility if a published-selector migration is confirmed."
+        },
+        "topFixes": [
+          "Add uniform as and render composition contracts while retaining current parts and preserving the explicit PART-RENDER deferral in scoring.",
+          "Correct configured/internal event and class merge behavior without changing onSelect signatures.",
+          "Complete part documentation, align GroupHeading selector, and layer all ActionList CSS Modules."
+        ],
+        "scopeNote": "Audited whole ActionList public API at the requested SHA. PART-RENDER is DEFERRED only; its related merge checks remain COVERED and scored. Source citations in this record all pin to sourceSha."
+      },
+      "rubricVersion": "0.5.0"
+    },
+    {
+      "component": "Tabs",
+      "sourceSha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+      "rubric": "0.4.1",
+      "mode": "WHOLE COMPONENT",
+      "shape": ["provider", "utility hooks", "headless interactive tabs/collection"],
+      "publicEntrypoint": "@primer/react/experimental",
+      "docsMaturity": "Experimental README and Storybook stories; package experimental subpath is declared.",
+      "repositoryPackageVersion": "38.46.0",
+      "pendingHuman": true,
+      "checks": [
+        {
+          "id": "MOD-01",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "Public surface uses a state/context provider plus focused part hooks; documented consumers can build custom parts (including ActionList composition), with no redundant config/presentational layer required. README.mdx:10-20,73-75 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "CHILD-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tabs accepts children for consumer-owned tablist/panel composition; tab and panel identity is expressed with value props. Tabs.tsx:17-18,57; types.ts:61,81-93 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "PART-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The public experimental barrel exports Tabs and the three part hooks useTab/useTabList/useTabPanel; docs show consumers composing custom elements around these hooks. Tabs/index.ts:1-5; experimental/index.ts:117; README.mdx:18-39 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "PART-DOCS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The README's public-hook example spreads each hook result object directly, but implementations return nested tabProps/tabListProps/tabPanelProps bags. That published composition path does not apply the role/ARIA/keyboard props; owned by T-F1. README.mdx:18-39; types.ts:115-145; useTab.ts:45-57; useTabList.ts:67-75; useTabPanel.ts:11-19 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "STRUCTURE-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tabs is implemented under src/experimental/Tabs rather than a PascalCase component directory directly under src as required by ADR-013. The experimental barrel re-exports this nested component. Tabs.tsx:17; experimental/index.ts:117 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "T-F4"
+        },
+        {
+          "id": "CUSTOM-ELEMENT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tabs and its hooks use React context and native HTML elements; no custom element is involved.",
+          "reason": "ADR-009 applies only when a custom element is involved; this component surface does not render or wrap one."
+        },
+        {
+          "id": "API-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tabs is a non-rendering provider, not a DOM root: its public props are children, selected value/default, id, activationMode, and callback. It has no root DOM props/as/ref contract to violate; public parts are supplied as hooks. types.ts:4-61; Tabs.tsx:17-18,57 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f."
+        },
+        {
+          "id": "PART-AS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The public parts are prop-getter hooks with fixed output shapes and no as substitution option. Convenience TabList/Tab/TabPanel definitions in Tabs.tsx are not re-exported by the public Tabs/index.ts barrel. Tabs/index.ts:1-5; useTab.ts:9-10; useTabList.ts:6-7; useTabPanel.ts:5-6; types.ts:110-145; Tabs.tsx:113-114 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "T-F2"
+        },
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The public prop-getter hooks do not expose element or function render forms. Tabs/index.ts:1-5; useTab.ts:9-10; useTabList.ts:6-7; useTabPanel.ts:5-6.",
+          "findingId": "T-F7"
+        },
+        {
+          "id": "MERGE-CONFIG",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The public Tabs root is a provider and has no configured DOM merge boundary; the hook outputs are scored under the existing hook contract.",
+          "reason": "The public Tabs root is a context provider with no rendered DOM props to merge."
+        },
+        {
+          "id": "MERGE-HANDLER",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Public hooks return Primer handlers and accept no consumer handler input to compose; consumer DOM event handlers are outside the current hook API.",
+          "reason": "The public hooks accept no consumer handler input to merge with Primer handlers."
+        },
+        {
+          "id": "MERGE-CLASS",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Public hooks return no className or rendered component on which to merge classes.",
+          "reason": "The public hook API has no rendered element or className prop."
+        },
+        {
+          "id": "MERGE-STYLE-ATTR",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Public hooks return no DOM style or ordinary-attribute merge surface.",
+          "reason": "The public hook API has no rendered element or DOM attribute/style props."
+        },
+        {
+          "id": "MERGE-REF",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "useTabList merges the external ref with its internal tablist ref. useTab and useTabPanel expose no separate existing refs. useTabList.ts:6-10,67-75."
+        },
+        {
+          "id": "MERGE-BEHAVIOR",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Public hooks expose required ARIA/keyboard props for consumer attachment and have no renderer that can merge render-element behavior props.",
+          "reason": "The hook API has no render-element path; behavior-prop ownership for that path is assessed under PART-RENDER."
+        },
+        {
+          "id": "STATE-CALLBACK",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The existing onValueChange callback only carries {value}; it omits reason, originating event, and synchronous cancel. Preserve this callback and add a separate transition callback. types.ts:19-22,40-43; Tabs.tsx:39-46 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "T-F3"
+        },
+        {
+          "id": "NAMES-DEFAULTS",
+          "verdict": "UNRESOLVED",
+          "evidenceClass": "PENDING HUMAN",
+          "evidence": "The API has no size prop. It uses value/defaultValue/onValueChange for one selected tab, while audited SelectPanel uses selected/onSelectedChange for item or item-array selection. Whether these are the same concept requiring common naming is a Layer 3 judgment; do not assume alignment or mismatch.",
+          "reason": "Human review must decide whether single tab identity selection and SelectPanel item selection are a shared concept before scoring naming alignment."
+        },
+        {
+          "id": "STATE-OWNER",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Controlled value and uncontrolled defaultValue are mutually exclusive in the public type union; tests verify controlled selection, uncontrolled default, and transition callback behavior. types.ts:7-43; Tabs.test.tsx:23-67,69-88 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f. Focused test command passed."
+        },
+        {
+          "id": "ACCESS-01",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The documented public-hook composition spreads wrapper result objects rather than nested prop bags, so its tab roles/ARIA and keyboard handlers do not reach the consumer elements; owned by the inaccurate part documentation finding T-F1. README.mdx:26-39; useTab.ts:45-57; useTabList.ts:67-75; useTabPanel.ts:11-19 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "T-F1"
+        },
+        {
+          "id": "LIVE-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tabs exposes selected/focus semantics through ARIA state and hidden panels; it does not announce changing status or alert content. useTab.ts:45-56; useTabPanel.ts:11-18 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "reason": "No changing status/alert announcement is owned by Tabs, so the shared live-region requirement does not apply."
+        },
+        {
+          "id": "WARN-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tabs source has no component-owned development-warning path; useTabs throws on missing provider rather than emitting a development warning.",
+          "reason": "The component emits no development warning to constrain under ADR-012."
+        },
+        {
+          "id": "SELECTOR-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Public part hooks emit role/id/ARIA attributes and a data-selected state marker, but no stable data-component identity. useTab.ts:45-56; useTabPanel.ts:11-18; useTabList.ts:67-75 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "T-F5"
+        },
+        {
+          "id": "STYLE-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The component explicitly has no styling or visual representation and has no authored Tabs CSS module. README.mdx:10-12 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "reason": "Tabs owns no CSS or styling contract; consumers choose their own elements and styles."
+        },
+        {
+          "id": "RESP-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tabs props contain no responsive values or viewport-dependent behavior. types.ts:46-61 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "reason": "No component-owned responsive-value API exists."
+        },
+        {
+          "id": "TYPE-01",
+          "verdict": "PASS",
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npm run type-check --workspace @primer/react — passed (tsc --noEmit). Public Tabs types and barrel declarations are included in the package check."
+        },
+        {
+          "id": "EXPORT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The experimental barrel exports the Tabs provider, three hooks, and public prop types only. It does not expose TabsContext/useTabs or the convenience TabList/Tab/TabPanel exports from Tabs.tsx. Tabs/index.ts:1-5; Tabs.tsx:113-114; experimental/index.ts:117 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f. No component-specific styled-react compatibility export applies."
+        },
+        {
+          "id": "TEST-01",
+          "verdict": "PASS",
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npx vitest run --project '@primer/react' packages/react/src/experimental/Tabs/Tabs.test.tsx — 1 file, 35 tests passed."
+        },
+        {
+          "id": "SNAPSHOT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Tabs.test.tsx contains no catch-all render-tree snapshot assertions; test coverage uses focused role/state/interaction assertions. Search at audited source found no toMatchSnapshot/toMatchInlineSnapshot in the Tabs directory."
+        },
+        {
+          "id": "INTERACTION-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The focused interaction suite uses Vitest Browser, while the repository has no Tabs Playwright test that visits its Storybook story and interacts with it; this fails the ADR-017 evidence policy. Tabs.test.tsx:1-7,268-289; Tabs.stories.tsx:1-23 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f.",
+          "findingId": "T-F6"
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "All proposed changes are additive (document correction, optional part capabilities, selector, and an additional callback); no existing prop or callback signature needs replacement. Repository package version is recorded separately as 38.46.0.",
+          "reason": "No recommendation changes an existing API on a confirmed published surface; additive changes do not trigger migration requirements."
+        }
+      ],
+      "findings": [
+        {
+          "id": "T-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "PART-DOCS",
+          "section": 1,
+          "title": "Documented hook composition spreads the wrong object",
+          "reachableUseCase": "A consumer follows the README and writes the shown Tab/TabList/TabPanel wrappers; each hook result is spread directly, leaving the nested role/ARIA/event props unapplied.",
+          "observedGap": "The public README tells consumers to spread hook results, but useTab/useTabList/useTabPanel return named nested prop bags. The example fails to realize the documented accessible parts contract.",
+          "additiveFix": "Correct the example to destructure tabProps, tabListProps, and tabPanelProps (or change the documented API shape additively); add a small docs typecheck/example test. Preserve current hook names and signatures.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/README.mdx",
+              "line": "18-39",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/types.ts",
+              "line": "115-145",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTab.ts",
+              "line": "45-57",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabList.ts",
+              "line": "67-75",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabPanel.ts",
+              "line": "11-19",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "T-F2",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "PART-AS",
+          "section": 2,
+          "title": "Public parts lack the uniform substitution and merge contract",
+          "reachableUseCase": "A consumer builds a custom Tab around useTab or uses useTabList/useTabPanel to compose a different semantic element; the hooks provide fixed prop bags and no supported as or render API.",
+          "observedGap": "The public parts do not support target-required as substitution, and therefore do not define the complete part-level handler/class/style/attribute/ref/behavior ownership rules. Convenience component implementations are not part of the public experimental barrel.",
+          "additiveFix": "Add a composable part API with as and the agreed render contract while preserving the existing hooks and their prop-getter signatures; define and test target merge order, consumer-first classes, consumer-winning ordinary attrs/styles, final-element refs, and part-owned behavior props.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/index.ts",
+              "line": "1-5",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/Tabs.tsx",
+              "line": "10-15,113-114",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTab.ts",
+              "line": "9-10,45-57",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabList.ts",
+              "line": "6-10,67-75",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabPanel.ts",
+              "line": "5-6,11-19",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/types.ts",
+              "line": "110-145",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "T-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "STATE-CALLBACK",
+          "section": 4,
+          "title": "Selection transitions have no additive cancellable callback",
+          "reachableUseCase": "A consumer uses controlled or uncontrolled Tabs and needs the reason/event for a selection transition or needs to synchronously cancel an uncontrolled commit.",
+          "observedGap": "onValueChange only receives {value}; it cannot report reason/event or cancel the pending internal state update.",
+          "additiveFix": "Keep onValueChange unchanged and add a separately named transition callback with value, reason, event when present, and synchronous cancel(); decide the new callback name during rollout.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/types.ts",
+              "line": "19-22,40-43",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/Tabs.tsx",
+              "line": "39-46",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "T-F4",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "STRUCTURE-01",
+          "section": 1,
+          "title": "Tabs is nested below the required source component directory level",
+          "reachableUseCase": "A maintainer navigates the component source or tooling expects one PascalCase component directory directly under packages/react/src.",
+          "observedGap": "Tabs lives at packages/react/src/experimental/Tabs rather than directly at packages/react/src/Tabs; ADR-013's component-directory placement is unmet.",
+          "additiveFix": "If retaining this experimental API, align its source ownership with the required component directory convention without changing the existing @primer/react/experimental entry point.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/Tabs.tsx",
+              "line": "17",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/index.ts",
+              "line": "116-117",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "T-F5",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "SELECTOR-01",
+          "section": 5,
+          "title": "Public part props omit stable component identity",
+          "reachableUseCase": "A consumer or test needs to select a Tabs tab/panel by a stable component selector independent of its changing selected state.",
+          "observedGap": "The hooks supply roles, IDs, and data-selected, but no stable data-component identity distinct from state.",
+          "additiveFix": "Add stable data-component identity to the public part props and document/test it separately from data-selected; preserve the existing ARIA and state attributes.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/useTab.ts",
+              "line": "45-56",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabList.ts",
+              "line": "67-75",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabPanel.ts",
+              "line": "11-18",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "T-F6",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "INTERACTION-01",
+          "section": 5,
+          "title": "Tabs lacks Storybook-backed Playwright interaction evidence",
+          "reachableUseCase": "A consumer or maintainer relies on keyboard/pointer interactions exposed by the experimental Tabs Storybook story.",
+          "observedGap": "Tabs has focused browser-mode unit interactions, but no repository Playwright test that visits the Storybook story and interacts with Tabs as required by ADR-017.",
+          "additiveFix": "Add a focused Playwright test that opens the Tabs Storybook story and exercises keyboard selection/focus plus one pointer transition; keep the existing unit suite.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/Tabs.test.tsx",
+              "line": "1-7,268-289",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/Tabs.stories.tsx",
+              "line": "1-23",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "T-F7",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "title": "Add render forms to public Tabs parts",
+          "reachableUseCase": "A consumer builds a custom Tab around useTab or uses useTabList/useTabPanel to compose a different semantic element; the hooks provide fixed prop bags and no supported as or render API.",
+          "observedGap": "The public prop-getter hooks do not expose element or function render forms. Tabs/index.ts:1-5; useTab.ts:9-10; useTabList.ts:6-7; useTabPanel.ts:5-6.",
+          "additiveFix": "Add render-capable part APIs while retaining the existing hook exports and their return shapes.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/index.ts",
+              "line": "1-5",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/Tabs.tsx",
+              "line": "10-15,113-114",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTab.ts",
+              "line": "9-10,45-57",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabList.ts",
+              "line": "6-10,67-75",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabPanel.ts",
+              "line": "5-6,11-19",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/types.ts",
+              "line": "110-145",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        }
+      ],
+      "contractFindings": [
+        {
+          "id": "T-C1",
+          "classification": "DEFECT",
+          "severity": "FIX",
+          "status": "OPEN",
+          "checkId": "ACCESS-01",
+          "section": 5,
+          "title": "README hook example does not apply the public hook prop bags",
+          "reachableUseCase": "A consumer copies the documented MyTabs/Tab/TabList/TabPanel wrappers from the public README.",
+          "observedGap": "The wrapper code spreads {tabProps}, {tabListProps}, and {tabPanelProps} objects directly onto elements instead of spreading their nested contents, so the example does not apply role/ARIA/keyboard behavior promised by the docs.",
+          "additiveFix": "Correct the example to destructure each named prop bag and add a docs example typecheck or smoke test; no public API signature change is needed.",
+          "citations": [
+            {
+              "path": "packages/react/src/experimental/Tabs/README.mdx",
+              "line": "26-39",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTab.ts",
+              "line": "45-57",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabList.ts",
+              "line": "67-75",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/experimental/Tabs/useTabPanel.ts",
+              "line": "11-19",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        }
+      ],
+      "layer3HumanReview": {
+        "status": "PENDING HUMAN",
+        "items": [
+          "Confirm whether Tabs scalar selected-tab value and SelectPanel item/item-array selected state are the same concept for naming alignment.",
+          "Confirm consumer-controlled part boundaries and default semantics for future as/render parts; current hook APIs are headless and exact target defaults remain rollout decisions.",
+          "Confirm future render-element/function behavior, semantic order, and ref behavior once the part API is selected.",
+          "Confirm additive transition callback name; preserve current onValueChange signature.",
+          "Confirm no published-surface migration is needed; recommendations in this audit are additive."
+        ]
+      },
+      "testEvidence": {
+        "focusedUnitCommand": "npx vitest run --project '@primer/react' packages/react/src/experimental/Tabs/Tabs.test.tsx",
+        "focusedUnitResult": "Passed: 1 file, 35 tests.",
+        "typeCheckCommand": "npm run type-check --workspace @primer/react",
+        "typeCheckResult": "Passed: tsc --noEmit.",
+        "storybookMcp": "Unavailable: initialization failed connecting to http://localhost:6006; Storybook source/docs were read from the pinned worktree instead.",
+        "playwright": "Not run; no Tabs Playwright story-interaction test exists in e2e/components. This absence is recorded as INTERACTION-01 GAP, not as a pass."
+      },
+      "rubricVersion": "0.5.0"
+    },
+    {
+      "component": "TreeView",
+      "sourceSha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+      "pendingHuman": true,
+      "mode": "Whole component",
+      "publicEntryPoint": "@primer/react; TreeView and useRovingTabIndex are exported",
+      "docsMaturity": "beta",
+      "repositoryPackageVersion": "38.46.0",
+      "publishedPackageMetadata": "Not assessed; all proposed remediations are additive and preserve existing callback signatures.",
+      "acceptedTarget": {
+        "adrBaselineSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
+        "gistRevision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
+        "gistFile": "0-2026-11-17-base-ui-foundation.md",
+        "gistContentSha256": "30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2"
+      },
+      "checks": [
+        {
+          "id": "MOD-01",
+          "verdict": "PASS",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "Compound TreeView composition has a concrete need for nested/async trees; the exported roving-tabindex hook is a separate reusable keyboard-management utility. No redundant public base layer is evident. TreeView.tsx:92-100,1042-1050; useRovingTabIndex.hookDocs.json:1-38 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+        },
+        {
+          "id": "CHILD-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Free-form item labels, visuals, subtree rows, and root content use children; secondary-action data and async subtree state use props. TreeView.tsx:92-100,226-239; TreeView.docs.json:63-80,184-199 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+        },
+        {
+          "id": "PART-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The compound API exposes TreeView.Item/SubTree/visual/action subcomponents, but lacks the target’s uniform consumer-composable parts surface for the root and interactive regions. TreeView.tsx:92-100,203-212,1042-1050; TreeView.docs.json:63-145 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "findingId": "TV-F1"
+        },
+        {
+          "id": "PART-DOCS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Existing compound parts have props documentation, but there is no documented target parts contract for ownership, required behavior/state/ref, and composition; owned by TV-F1. TreeView.docs.json:63-145,184-199 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "findingId": "TV-F1"
+        },
+        {
+          "id": "STRUCTURE-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView is in a PascalCase directory directly under src; exported subcomponents are attached to the TreeView parent. TreeView/index.ts:1; TreeView.tsx:1042-1050 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+        },
+        {
+          "id": "CUSTOM-ELEMENT-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView renders React/native HTML elements and no custom element is involved. TreeView.tsx:203-212,404-421 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "reason": "ADR-009 applies only when a custom element is used; none is part of this component surface."
+        },
+        {
+          "id": "API-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The root public props are narrow rather than root <ul> props, Root is not ref-forwarding, and its rendered tree element only has a private ref. TreeView.tsx:92-100,112-125,203-212 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "findingId": "TV-F2"
+        },
+        {
+          "id": "PART-AS",
+          "verdict": "COVERED",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView.Item supports as, but root and target parts have no uniform as contract; the missing parts surface TV-F1 owns this. TreeView.tsx:92-100,250-253,404-421 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "findingId": "TV-F1"
+        },
+        {
+          "id": "PART-RENDER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView has no part element or function render contract. TreeView.tsx:226-239,250-253.",
+          "findingId": "TV-F3"
+        },
+        {
+          "id": "MERGE-CONFIG",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView exposes a compound root and item API without a separate configured/internal consumer merge boundary.",
+          "reason": "The component has no configured/internal consumer DOM-prop merge boundary; property-specific root and item behavior is scored separately."
+        },
+        {
+          "id": "MERGE-HANDLER",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView.Item accepts native onKeyDown through restProps but overwrites it with handleKeyDown, so the consumer handler is not called. TreeView.tsx:226-239,404-421.",
+          "findingId": "TV-F9"
+        },
+        {
+          "id": "MERGE-CLASS",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView.Root combines consumer className before its component class. TreeView.tsx:203-212.",
+          "findingId": "TV-F4"
+        },
+        {
+          "id": "MERGE-STYLE-ATTR",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView.Root forwards consumer style to the rendered ul; TreeView.Item preserves ordinary style props. TreeView.tsx:203-212,404-421."
+        },
+        {
+          "id": "MERGE-REF",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView.Item forwards its ref to the polymorphic rendered element; TreeView.Root exposes no ref to merge. TreeView.tsx:250-253,404-421."
+        },
+        {
+          "id": "MERGE-BEHAVIOR",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView.Item writes role, aria state, and its behavior handlers after restProps. TreeView.tsx:404-421."
+        },
+        {
+          "id": "STATE-CALLBACK",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Expansion exposes onExpandedChange(expanded: boolean), not the target object callback with reason, event, and synchronous cancel. TreeView.tsx:226-239,327-333; TreeView.docs.json:123-126 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "findingId": "TV-F5"
+        },
+        {
+          "id": "NAMES-DEFAULTS",
+          "verdict": "N/A",
+          "evidenceClass": "AGENT JUDGMENT",
+          "evidence": "No same-semantic prop/default concept is shared with the audited comparison set; expanded tree-item state differs from overlay open state. TreeView.tsx:226-239 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "reason": "The check is comparative and no directly shared semantic prop concept is established for TreeView among the audited components."
+        },
+        {
+          "id": "STATE-OWNER",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "The controlled expanded/onExpandedChange path is tested, and the 86-test TreeView suite passed. TreeView.tsx:226-239,303-333; TreeView.test.tsx:2126-2159 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+        },
+        {
+          "id": "ACCESS-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "The focused suite passed and verifies tree/treeitem roles, accessible names, current/expanded state, polymorphic role/ref forwarding, and keyboard focus/navigation. TreeView.test.tsx:23-73,97-114,420-518,884-935 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+        },
+        {
+          "id": "LIVE-01",
+          "verdict": "PASS",
+          "evidenceClass": "BEHAVIOR VERIFIED",
+          "evidence": "Async loading/completion is announced through shared AriaStatus; the focused suite asserts both announcements and passed. TreeView.tsx:199-202,587-619; TreeView.test.tsx:2213-2229 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+        },
+        {
+          "id": "WARN-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "No TreeView-owned development warning is emitted in the component implementation. TreeView.tsx:1-1050 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "reason": "The check applies only to component-emitted development warnings; none is present in TreeView."
+        },
+        {
+          "id": "SELECTOR-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "The root exposes role and implementation data attributes but no stable data-component identity; no component selector is documented. TreeView.tsx:203-212; TreeView.docs.json:1-26 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "findingId": "TV-F6"
+        },
+        {
+          "id": "STYLE-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView owns an imported CSS Module, but the module has unlayered rules and no @layer primer.components.TreeView declaration. TreeView.tsx:10; TreeView.module.css:1-5,1-291 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "findingId": "TV-F7"
+        },
+        {
+          "id": "RESP-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView has no responsive-valued props or viewport breakpoint API; CSS media rules adapt touch targets to pointer capability and forced-colors behavior. TreeView.module.css:68-80,87-99 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "reason": "ADR-018 applies to component-owned responsive values; these modality/accessibility media queries are not a responsive-value API or JS-driven responsive behavior."
+        },
+        {
+          "id": "TYPE-01",
+          "verdict": "PASS",
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npm run type-check --workspace @primer/react — passed (tsc --noEmit); public TreeView and polymorphic Item types were included."
+        },
+        {
+          "id": "EXPORT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView/types are package-root exports; useRovingTabIndex has public hook documentation, while component-internal contexts/hooks are not root exports. packages/react/src/index.ts:222-230; useRovingTabIndex.hookDocs.json:1-38 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+        },
+        {
+          "id": "TEST-01",
+          "verdict": "PASS",
+          "evidenceClass": "EXECUTION VERIFIED",
+          "evidence": "npx vitest run --project '@primer/react' packages/react/src/TreeView/TreeView.test.tsx — passed: 1 file, 86 tests."
+        },
+        {
+          "id": "SNAPSHOT-01",
+          "verdict": "PASS",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Focused unit tests use behavior assertions, not render-tree snapshots; separate Playwright VRT snapshots are story-specific screenshots with direct visual change signals. TreeView.test.tsx:19-73; e2e/components/TreeView.test.ts:5-109 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+        },
+        {
+          "id": "INTERACTION-01",
+          "verdict": "GAP",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "TreeView has unit interaction tests, but its Storybook Playwright suite only captures screenshots and never interacts with the tree. TreeView.test.tsx:884-935; e2e/components/TreeView.test.ts:5-109 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "findingId": "TV-F8"
+        },
+        {
+          "id": "MIG-01",
+          "verdict": "N/A",
+          "evidenceClass": "SOURCE VERIFIED",
+          "evidence": "Recommendations are additive and preserve existing callback signatures/API; package version 38.46.0 recorded, publication need not be assessed. TreeView.tsx:92-100,226-239 @ d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f",
+          "reason": "All proposed fixes are additive and preserve existing public callbacks and composition; release-dependent migration review does not apply."
+        }
+      ],
+      "findings": [
+        {
+          "id": "TV-F1",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-01",
+          "section": 1,
+          "status": "OPEN",
+          "title": "Add a uniform consumer-composable TreeView parts surface",
+          "reachableUseCase": "A consumer using <TreeView><TreeView.Item as={CustomLink}>... needs to compose or replace an interactive tree region while retaining TreeView context, item state, required semantics, and refs; the existing compound API has only an Item-specific as path and no uniform root/part contract.",
+          "observedGap": "TreeView exposes legacy compound subcomponents, but there is no parts surface giving each interactive part its required props/state/ref and consistent composition contract.",
+          "additiveFix": "Add a target-aligned parts API alongside the current compound components; define root/item boundaries and document required behavior/state/ref. Keep exact part names/default elements pending maintainer review; preserve existing props, slots, subcomponents, and Item.as behavior.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "92-100",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "203-212",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "1042-1050",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.docs.json",
+              "line": "63-145",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "TV-F2",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "API-01",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Complete TreeView root DOM and ref conventions",
+          "reachableUseCase": "A consumer needs to focus, measure, scroll, or attach a DOM attribute such as id to the tree container while retaining role=tree and internal keyboard management.",
+          "observedGap": "TreeViewProps exposes only aria-label/labelledby, children, flat, truncate, className, and style; Root is not ref-forwarding and has only a private ref to its <ul>.",
+          "additiveFix": "Extend the root API with a forwarded ref and appropriate <ul> DOM props while keeping TreeView-owned role, keyboard handlers, and accessibility attributes authoritative. Add root as only if a reviewed semantic polymorphism use case exists.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "92-100",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "112-125",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "203-212",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "TV-F3",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to TreeView parts",
+          "reachableUseCase": "A consumer composing a future TreeView part may need an element or render-function replacement receiving required tree behavior and current item state.",
+          "observedGap": "TreeView has no part element or function render contract. TreeView.tsx:226-239,250-253.",
+          "additiveFix": "Add element and function render forms to the parts while retaining existing tree behavior and callbacks.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "226-239",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "250-253",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.docs.json",
+              "line": "63-145",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-CLASS",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Order TreeView root classes component-first",
+          "reachableUseCase": "A consumer supplies root className while TreeView adds its root reset/module class.",
+          "observedGap": "TreeView.Root combines consumer className before the component class, contrary to ADR-025.",
+          "additiveFix": "Keep the current root API and use component-first class ordering in a compatible migration.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "203-212",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ],
+          "id": "TV-F4"
+        },
+        {
+          "id": "TV-F5",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STATE-CALLBACK",
+          "section": 4,
+          "status": "OPEN",
+          "title": "Add an object-shaped expanded-state transition callback",
+          "reachableUseCase": "A controlled consumer needs to distinguish pointer, keyboard, and programmatic expansion, inspect the originating event, or synchronously cancel a proposed expansion.",
+          "observedGap": "The existing onExpandedChange callback receives only a boolean; it lacks the target reason/event/cancel contract.",
+          "additiveFix": "Add a separately named object callback carrying expanded, reason, event when present, and synchronous cancel(); preserve onExpandedChange(expanded) unchanged. Resolve the additive name during maintainer review.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "226-239",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "327-333",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.docs.json",
+              "line": "123-126",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "TV-F6",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "SELECTOR-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Add a stable public TreeView component selector",
+          "reachableUseCase": "A consumer or integration test needs a stable selector independent of private CSS-module hashes and state attributes.",
+          "observedGap": "The root has role=tree and implementation data attributes but no stable data-component identity or documented public selector.",
+          "additiveFix": "Add a stable data-component identifier to the root, document it, and test identity separately from state data attributes.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "203-212",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.docs.json",
+              "line": "1-26",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "TV-F7",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "STYLE-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Place TreeView CSS Module rules in its Primer cascade layer",
+          "reachableUseCase": "A consumer styles TreeView alongside Primer utility/component layers and expects the documented component layer ordering.",
+          "observedGap": "The authored TreeView CSS Module contains unlayered rules rather than @layer primer.components.TreeView.",
+          "additiveFix": "Wrap the TreeView component rules in @layer primer.components.TreeView without changing selectors or declarations.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.module.css",
+              "line": "1-5",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "10",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "TV-F8",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "INTERACTION-01",
+          "section": 5,
+          "status": "OPEN",
+          "title": "Add Storybook Playwright interaction coverage for TreeView",
+          "reachableUseCase": "A keyboard or pointer user expands/collapses an item, moves focus, or loads asynchronous children; these behaviors currently have unit coverage but no Storybook Playwright interaction path.",
+          "observedGap": "The TreeView Playwright suite visits stories and captures VRT screenshots only; its tests do not interact with the component.",
+          "additiveFix": "Add a Storybook Playwright test exercising a representative keyboard/pointer tree interaction and asserting focus/expanded behavior; keep unit tests and visual snapshots.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.test.tsx",
+              "line": "884-935",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "e2e/components/TreeView.test.ts",
+              "line": "5-19",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            },
+            {
+              "path": "e2e/components/TreeView.test.ts",
+              "line": "24-109",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        },
+        {
+          "id": "TV-F9",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-HANDLER",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Compose TreeView item keyboard handlers",
+          "reachableUseCase": "A consumer using <TreeView><TreeView.Item as={CustomLink}>... needs to compose or replace an interactive tree region while retaining TreeView context, item state, required semantics, and refs; the existing compound API has only an Item-specific as path and no uniform root/part contract.",
+          "observedGap": "A consumer-supplied onKeyDown is accepted in TreeView.Item props but replaced by the internal handler.",
+          "additiveFix": "Compose the consumer handler with TreeView keyboard behavior while preserving the existing onSelect and expansion callback signatures.",
+          "citations": [
+            {
+              "path": "packages/react/src/TreeView/TreeView.tsx",
+              "line": "226-239,404-421",
+              "sha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+            }
+          ]
+        }
+      ],
+      "contractFindings": [],
+      "layer3HumanReview": {
+        "status": "PENDING HUMAN",
+        "items": [
+          "Meaningful part boundaries and exact names/defaults",
+          "Default element semantics and parent context",
+          "Part substitution preservation of order/collection ownership/accessibility",
+          "Shared concepts/defaults",
+          "Additive callback naming and unresolved render decisions",
+          "Release-dependent migration decisions (none identified)"
+        ]
+      },
+      "evidenceLog": {
+        "focusedTestCommand": "npx vitest run --project '@primer/react' packages/react/src/TreeView/TreeView.test.tsx — passed; 1 file, 86 tests.",
+        "typeCheckCommand": "npm run type-check --workspace @primer/react — passed (tsc --noEmit).",
+        "storybookPlaywright": "Not run: no TreeView interaction Playwright case exists; the file contains only visual screenshot cases. See INTERACTION-01.",
+        "auditSourceSha": "d1f3c9bd4bab643bd720ba59874aaa8f63d54d7f"
+      },
+      "rubricVersion": "0.5.0"
+    }
+  ]
+}

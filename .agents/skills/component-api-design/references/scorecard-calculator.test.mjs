@@ -27,8 +27,7 @@ function createAudit() {
     pendingHuman: false,
     checks: Object.entries(checks).map(([id]) => ({
       id,
-      verdict: id === 'PART-RENDER' ? 'DEFERRED' : 'PASS',
-      ...(id === 'PART-RENDER' ? {reason: 'Excluded from scoring by user direction'} : {}),
+      verdict: 'PASS',
       evidenceClass: ['TYPE-01', 'TEST-01', 'INTERACTION-01'].includes(id) ? 'EXECUTION VERIFIED' : 'SOURCE VERIFIED',
       evidence: `Verified ${id}`,
     })),
@@ -73,7 +72,7 @@ test('a limited section still scores and retains its GAP', () => {
   assert.equal(stateSection.limited, true)
   assert.equal(stateSection.score, 0)
   assert.equal(stateSection.applicableWeight, checks['NAMES-DEFAULTS'].weight)
-  assert.equal(result.scoredSectionWeight, 82)
+  assert.equal(result.scoredSectionWeight, 90)
 })
 
 test('a COVERED target check remains in the denominator without adding a distinct finding', () => {
@@ -96,35 +95,40 @@ test('a COVERED target check remains in the denominator without adding a distinc
   assert.equal(result.rawFindings, 2)
 })
 
-test('a deferred render check is excluded while related covered checks still score zero', () => {
+test('a missing render API is one independently scored gap; merge checks retain their own verdicts', () => {
   const audit = createAudit()
   const renderCheck = audit.checks.find(row => row.id === 'PART-RENDER')
   renderCheck.findingId = 'F-1'
-  const handlerCheck = audit.checks.find(row => row.id === 'MERGE-HANDLER')
-  handlerCheck.verdict = 'COVERED'
-  handlerCheck.findingId = 'F-1'
-  const deferredFinding = createFinding({id: 'F-1', checkId: 'PART-RENDER', section: 2})
-  deferredFinding.status = 'DEFERRED'
-  audit.findings = [deferredFinding]
+  renderCheck.verdict = 'GAP'
+  audit.findings = [createFinding({id: 'F-1', checkId: 'PART-RENDER', section: 2})]
 
-  const result = calculateAudit(audit)
-  const substitutionSection = result.sections.find(section => section.id === 2)
-  const mergeSection = result.sections.find(section => section.id === 3)
+  const scored = calculateAudit(audit)
+  const deferred = calculateAudit(audit, {renderMode: 'deferred'})
+  const scoredSubstitution = scored.sections.find(section => section.id === 2)
+  const deferredSubstitution = deferred.sections.find(section => section.id === 2)
+  const mergeSection = scored.sections.find(section => section.id === 3)
 
-  assert.equal(substitutionSection.applicableWeight, 12)
-  assert.equal(substitutionSection.score, 5)
+  assert.equal(scored.renderMode, 'scored')
+  assert.equal(scoredSubstitution.applicableWeight, 20)
+  assert.equal(scoredSubstitution.score, 3)
+  assert.equal(scored.distinctTargetGaps, 1)
+  assert.equal(scored.deferredTargetGaps, 0)
   assert.equal(mergeSection.applicableWeight, 25)
-  assert.equal(mergeSection.earnedWeight, 17)
-  assert.equal(mergeSection.score, 3.4)
-  assert.equal(result.applicableCheckWeight, 92)
-  assert.equal(result.measuredCheckWeight, 92)
-  assert.equal(result.distinctTargetGaps, 0)
-  assert.equal(result.deferredTargetGaps, 1)
-  assert.equal(result.distinctFindings, 0)
-  assert.equal(result.rawFindings, 1)
+  assert.equal(mergeSection.earnedWeight, 25)
+  assert.equal(mergeSection.score, 5)
+  assert.equal(scored.applicableCheckWeight, 100)
+
+  assert.equal(deferred.renderMode, 'deferred')
+  assert.equal(deferredSubstitution.applicableWeight, 12)
+  assert.equal(deferredSubstitution.score, 5)
+  assert.equal(deferred.distinctTargetGaps, 0)
+  assert.equal(deferred.deferredTargetGaps, 1)
+  assert.equal(deferred.deferredChecks, 1)
+  assert.equal(deferred.applicableCheckWeight, 92)
+  assert.equal(audit.checks.find(row => row.id === 'PART-RENDER').verdict, 'GAP')
 })
 
-test('only PART-RENDER can be deferred and it cannot be scored as a GAP', () => {
+test('only PART-RENDER can be deferred and deferred render needs a reason', () => {
   const audit = createAudit()
   const unrelatedCheck = audit.checks.find(row => row.id === 'PART-AS')
   unrelatedCheck.verdict = 'DEFERRED'
@@ -132,14 +136,15 @@ test('only PART-RENDER can be deferred and it cannot be scored as a GAP', () => 
   assert.throws(() => calculateAudit(audit), /only PART-RENDER may be DEFERRED/)
 
   const missingReason = createAudit()
-  delete missingReason.checks.find(row => row.id === 'PART-RENDER').reason
-  assert.throws(() => calculateAudit(missingReason), /DEFERRED reason is required/)
+  missingReason.checks.find(row => row.id === 'PART-RENDER').verdict = 'DEFERRED'
+  assert.throws(() => calculateAudit(missingReason, {renderMode: 'deferred'}), /DEFERRED reason is required/)
 
   const renderGap = createAudit()
   const renderCheck = renderGap.checks.find(row => row.id === 'PART-RENDER')
   renderCheck.verdict = 'GAP'
-  renderCheck.reason = undefined
-  assert.throws(() => calculateAudit(renderGap), /PART-RENDER is deferred from scoring/)
+  renderCheck.findingId = 'F-1'
+  renderGap.findings = [createFinding({id: 'F-1', checkId: 'PART-RENDER', section: 2})]
+  assert.equal(calculateAudit(renderGap).distinctTargetGaps, 1)
 })
 
 test('a GAP without a linked finding is rejected', () => {
@@ -206,7 +211,9 @@ test('findings require citations pinned to the audited source SHA', () => {
 
 test('an open BLOCK caps the grade and sensitivity removes only that cap', () => {
   const audit = createAudit()
-  audit.contractFindings = [createFinding({id: 'C-1', checkId: 'API-01', section: 2, classification: 'DEFECT', severity: 'BLOCK'})]
+  audit.contractFindings = [
+    createFinding({id: 'C-1', checkId: 'API-01', section: 2, classification: 'DEFECT', severity: 'BLOCK'}),
+  ]
   const result = calculateAudit(audit)
   assert.equal(result.blockCount, 1)
   assert.equal(result.grade, 'D')
@@ -230,9 +237,9 @@ test('NOT MEASURED remains unscored and produces a provisional score range', () 
   assert.equal(evidenceSection.score, null)
   assert.deepEqual(evidenceSection.scoreRange, {min: 4.75, max: 5})
   assert.equal(result.overallScore, null)
-  assert.deepEqual(result.scoreRange, {min: 98.91, max: 100})
+  assert.deepEqual(result.scoreRange, {min: 99, max: 100})
   assert.deepEqual(result.gradeRange, {min: 'A', max: 'A'})
-  assert.equal(result.checkEvidenceCoveragePercent, 98.91)
+  assert.equal(result.checkEvidenceCoveragePercent, 99)
   assert.equal(result.status, 'PROVISIONAL')
 })
 

@@ -60,53 +60,48 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "DEFERRED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No element/function render API exists; owned by missing parts surface T-F1.",
-          "findingId": "T-F1",
-          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
+          "evidence": "Tooltip exposes no element or function renderer for consumer-composable parts. Tooltip.tsx:135-140,327-352; Tooltip.docs.json:71.",
+          "findingId": "T-F7"
         },
         {
           "id": "MERGE-CONFIG",
-          "verdict": "GAP",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Configured clone calls consumer touch handler before Primer close behavior; tooltip className is consumer-first. Tooltip.tsx:355-361,392-394",
-          "findingId": "T-F3"
+          "evidence": "The existing child-clone wrapper is a configured merge surface; its current property behavior is evaluated by the specific checks below. Tooltip.tsx:327-352."
         },
         {
           "id": "MERGE-HANDLER",
-          "verdict": "COVERED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No reusable part handler contract; owned by T-F1.",
-          "findingId": "T-F1"
+          "evidence": "onTouchEnd invokes the consumer before Primer dismissal; onFocus can return before invoking the consumer when the target is not focus-visible. Tooltip.tsx:355-361.",
+          "findingId": "T-F3"
         },
         {
           "id": "MERGE-CLASS",
-          "verdict": "COVERED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new part class merge path; owned by T-F1.",
-          "findingId": "T-F1"
+          "evidence": "Configured Tooltip className is combined consumer-first. Tooltip.tsx:392-394.",
+          "findingId": "T-F6"
         },
         {
           "id": "MERGE-STYLE-ATTR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new part style/attribute merge path; owned by T-F1.",
-          "findingId": "T-F1"
+          "evidence": "Ordinary consumer props reach the tooltip element; Tooltip-owned role and aria-hidden are applied after the spread. Tooltip.tsx:392-405."
         },
         {
           "id": "MERGE-REF",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Existing trigger refs are merged; no generic part render ref contract exists. Tooltip.tsx:142-145; missing part contract owned by T-F1.",
-          "findingId": "T-F1"
+          "evidence": "Trigger, forwarded, and child refs are merged onto the trigger. Tooltip.tsx:142-145."
         },
         {
           "id": "MERGE-BEHAVIOR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No part-owned render contract exists; owned by T-F1.",
-          "findingId": "T-F1"
+          "evidence": "Tooltip-owned role and aria-hidden values are applied after consumer props. Tooltip.tsx:392-405."
         },
         {
           "id": "STATE-CALLBACK",
@@ -244,16 +239,15 @@
           ]
         },
         {
-          "id": "T-F3",
           "classification": "ADR GAP",
           "severity": "FIX",
-          "checkId": "MERGE-CONFIG",
+          "checkId": "MERGE-HANDLER",
           "section": 3,
           "status": "OPEN",
-          "title": "Align configured Tooltip merging with ADR-025",
+          "title": "Preserve configured Tooltip handler order",
           "reachableUseCase": "A consumer supplies onTouchEnd and className while Tooltip adds touch dismissal and its own surface class.",
-          "observedGap": "The consumer touch handler runs before Primer dismissal, and consumer className precedes the component class, contrary to ADR-025 configured merge precedence.",
-          "additiveFix": "Keep the legacy merge behavior during transition; implement the target merge behavior on the new parts API and provide an explicit opt-in or versioned migration before changing the existing wrapper.",
+          "observedGap": "The current wrapper runs consumer onTouchEnd before Primer dismissal and can skip the consumer onFocus handler when the target is not focus-visible.",
+          "additiveFix": "Keep existing Tooltip props and callbacks; align the configured handler sequence through a compatible migration, and use the exact three-stage order for new parts.",
           "citations": [
             {
               "path": "contributor-docs/adrs/adr-025-prop-merging.md",
@@ -270,7 +264,8 @@
               "line": "392-394",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
-          ]
+          ],
+          "id": "T-F3"
         },
         {
           "id": "T-F4",
@@ -324,11 +319,65 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
+        },
+        {
+          "id": "T-F6",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-CLASS",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Order configured Tooltip classes component-first",
+          "reachableUseCase": "A consumer composes Tooltip with an interactive trigger such as ActionMenu.Button; ActionMenu has an explicit Tooltip-wrapped anchor path.",
+          "observedGap": "The configured tooltip element combines className before the component class, contrary to ADR-025.",
+          "additiveFix": "Keep the existing configured class behavior during migration; make new parts consumer-first and preserve the existing public API.",
+          "citations": [
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "392-394",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "T-F7",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to Tooltip parts",
+          "reachableUseCase": "A consumer composes Tooltip with an interactive trigger such as ActionMenu.Button; ActionMenu has an explicit Tooltip-wrapped anchor path.",
+          "observedGap": "Tooltip exposes no element or function renderer for consumer-composable parts. Tooltip.tsx:135-140,327-352; Tooltip.docs.json:71.",
+          "additiveFix": "Add element and function render forms to the new parts while retaining the existing child-based Tooltip API and callback behavior.",
+          "citations": [
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "135-140",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.tsx",
+              "line": "327-352",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/TooltipV2/Tooltip.docs.json",
+              "line": "71",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "126-140",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
         }
       ],
       "contractFindings": [],
       "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.5.0"
     },
     {
       "component": "ActionMenu",
@@ -387,52 +436,47 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "DEFERRED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Root and child parts have no element/function render contract; owned by A-F1.",
-          "findingId": "A-F1",
-          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
+          "evidence": "ActionMenu parts do not expose element or function render forms. ActionMenu.tsx:198-209,274-282,390-394.",
+          "findingId": "A-F9"
         },
         {
           "id": "MERGE-CONFIG",
           "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The configured anchor merge follows the documented legacy subcomponent exception; class merge uses anchor then consumer. ActionMenu.tsx:55-81,161-173"
+          "evidence": "ActionMenu.Anchor and Button retain their existing legacy subcomponent boundary; property-specific behavior is scored below. ActionMenu.tsx:118-139,161-173."
         },
         {
           "id": "MERGE-HANDLER",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new render part merge boundary; owned by A-F1.",
-          "findingId": "A-F1"
+          "evidence": "The existing Anchor invokes its child handler and then the anchored handler; the gist render-element stage applies only to new render parts. ActionMenu.tsx:133-139."
         },
         {
           "id": "MERGE-CLASS",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new render part class path; owned by A-F1.",
-          "findingId": "A-F1"
+          "evidence": "Generated anchor classes precede the consumer class. ActionMenu.tsx:55-81,161-173."
         },
         {
           "id": "MERGE-STYLE-ATTR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new render part style/attribute path; owned by A-F1.",
-          "findingId": "A-F1"
+          "evidence": "Anchor-owned ARIA and id props are applied on the existing clone path; ordinary child props remain on the child. ActionMenu.tsx:133-139,161-173."
         },
         {
           "id": "MERGE-REF",
-          "verdict": "COVERED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Existing anchor ref is passed to the trigger; no generic render-part ref contract exists. ActionMenu.tsx:118-120,133-139; remaining part policy owned by A-F1.",
-          "findingId": "A-F1"
+          "evidence": "Cloning ActionMenu.Anchor replaces a child ref with anchorRef rather than merging both refs. ActionMenu.tsx:133-139.",
+          "findingId": "A-F8"
         },
         {
           "id": "MERGE-BEHAVIOR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No render part exists to express behavior-prop ownership; owned by A-F1.",
-          "findingId": "A-F1"
+          "evidence": "Generated anchor behavior and ARIA props are applied after consumer props on the cloned anchor. ActionMenu.tsx:133-139."
         },
         {
           "id": "STATE-CALLBACK",
@@ -634,11 +678,70 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
+        },
+        {
+          "id": "A-F8",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "MERGE-REF",
+          "section": 3,
+          "status": "OPEN",
+          "title": "Preserve ActionMenu child refs",
+          "reachableUseCase": "A consumer needs a custom semantic trigger or overlay while retaining ActionMenu's anchor behavior, refs, and menu lifecycle.",
+          "observedGap": "ActionMenu.Anchor replaces the child element ref with the anchored-overlay ref, so a consumer ref on the child is not called.",
+          "additiveFix": "Merge the child ref with the anchor ref on the final trigger element while preserving ActionMenu.Button and Anchor behavior.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "133-139",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
+        },
+        {
+          "id": "A-F9",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to ActionMenu parts",
+          "reachableUseCase": "A consumer needs a custom semantic trigger or overlay while retaining ActionMenu's anchor behavior, refs, and menu lifecycle.",
+          "observedGap": "ActionMenu parts do not expose element or function render forms. ActionMenu.tsx:198-209,274-282,390-394.",
+          "additiveFix": "Add element and function render forms to the parts while preserving the configured ActionMenu API and its existing callback signatures.",
+          "citations": [
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "198-209",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "261-267",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "274-282",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "373-384",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/ActionMenu/ActionMenu.tsx",
+              "line": "390-394",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
         }
       ],
       "contractFindings": [],
       "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.5.0"
     },
     {
       "component": "Dialog",
@@ -699,53 +802,48 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "DEFERRED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Existing renderHeader/body/footer functions are configured renderers, not part element/function overrides; owned by D-F1.",
-          "findingId": "D-F1",
-          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
+          "evidence": "Dialog does not expose a consumer-composable element/function renderer for its parts. Dialog.tsx:560-575.",
+          "findingId": "D-F6"
         },
         {
           "id": "MERGE-CONFIG",
-          "verdict": "GAP",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The configured Dialog class merge puts consumer className before the component class. Dialog.tsx:426",
-          "findingId": "D-F3"
+          "evidence": "Dialog uses a configured/internal merge boundary; the current class collision is scored under MERGE-CLASS. Dialog.tsx:322-324,426."
         },
         {
           "id": "MERGE-HANDLER",
-          "verdict": "COVERED",
+          "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new composable part handler boundary; owned by D-F1.",
-          "findingId": "D-F1"
+          "evidence": "Dialog does not expose a consumer DOM event handler that is composed with a component-owned DOM handler; onClose is a state callback.",
+          "reason": "Dialog has no consumer DOM event handler that is composed with a component-owned DOM handler; its onClose callback is a state transition."
         },
         {
           "id": "MERGE-CLASS",
-          "verdict": "COVERED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new composable part class path; owned by D-F1.",
-          "findingId": "D-F1"
+          "evidence": "The configured Dialog combines consumer className before its component class. Dialog.tsx:426.",
+          "findingId": "D-F3"
         },
         {
           "id": "MERGE-STYLE-ATTR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new composable part style/attribute path; owned by D-F1.",
-          "findingId": "D-F1"
+          "evidence": "Consumer style is retained and Dialog writes its owned width variable after it. Dialog.tsx:426."
         },
         {
           "id": "MERGE-REF",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Dialog root refs are merged, but no generic render-part ref policy exists; missing part contract owned by D-F1. Dialog.tsx:322-324",
-          "findingId": "D-F1"
+          "evidence": "The forwarded Dialog ref is merged with the internal dialog ref. Dialog.tsx:322-324."
         },
         {
           "id": "MERGE-BEHAVIOR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No consumer render part exists to exercise behavior ownership; owned by D-F1.",
-          "findingId": "D-F1"
+          "evidence": "Dialog role and modal relationships are written by Dialog after consumer props. Dialog.tsx:426."
         },
         {
           "id": "STATE-CALLBACK",
@@ -878,16 +976,15 @@
           ]
         },
         {
-          "id": "D-F3",
           "classification": "ADR GAP",
           "severity": "FIX",
-          "checkId": "MERGE-CONFIG",
+          "checkId": "MERGE-CLASS",
           "section": 3,
           "status": "OPEN",
-          "title": "Align configured Dialog class merging with ADR-025",
+          "title": "Order configured Dialog classes component-first",
           "reachableUseCase": "A consumer supplies className to style the documented Dialog root.",
-          "observedGap": "The configured Dialog combines consumer className before its component class, reversing ADR-025's component-first order.",
-          "additiveFix": "Preserve existing Dialog class behavior during transition; apply the target merge policy on the new parts API and use an opt-in or versioned migration before changing the configured root.",
+          "observedGap": "The configured Dialog combines consumer className before the component class, contrary to ADR-025.",
+          "additiveFix": "Keep the existing configured class behavior during migration; use component-first ordering for configured merges and preserve current public props.",
           "citations": [
             {
               "path": "contributor-docs/adrs/adr-025-prop-merging.md",
@@ -899,7 +996,8 @@
               "line": "414-431",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
-          ]
+          ],
+          "id": "D-F3"
         },
         {
           "id": "D-F4",
@@ -953,11 +1051,41 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
+        },
+        {
+          "id": "D-F6",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to Dialog parts",
+          "reachableUseCase": "A consumer needs to arrange dialog title, body, footer, trigger, and close behavior without supplying a custom renderer.",
+          "observedGap": "Dialog does not expose a consumer-composable element/function renderer for its parts. Dialog.tsx:560-575.",
+          "additiveFix": "Add element and function render forms to new parts while retaining the existing Dialog API, render callbacks, and callback signatures.",
+          "citations": [
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "316-320",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.tsx",
+              "line": "560-575",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/Dialog/Dialog.docs.json",
+              "line": "58-70",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
         }
       ],
       "contractFindings": [],
       "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.5.0"
     },
     {
       "component": "SelectPanel",
@@ -1018,53 +1146,48 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "DEFERRED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "renderAnchor is a function-only configured escape hatch, not both part render forms; owned by S-F1. SelectPanel.tsx:175-181",
-          "findingId": "S-F1",
-          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
+          "evidence": "The configured SelectPanel exposes renderAnchor but no uniform part element/function render contract. SelectPanel.tsx:175-181.",
+          "findingId": "S-F6"
         },
         {
           "id": "MERGE-CONFIG",
-          "verdict": "GAP",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Consumer className precedes FilteredActionList's component class. SelectPanel.tsx:1030",
-          "findingId": "S-F4"
+          "evidence": "The configured collection boundary and renderAnchor callback are preserved; property-specific collisions are scored in the dedicated checks. SelectPanel.tsx:175-181,628-640."
         },
         {
           "id": "MERGE-HANDLER",
-          "verdict": "COVERED",
+          "verdict": "N/A",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new part handler merge boundary; owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "The configured renderAnchor callback receives the component-generated anchor props and has no separate consumer-handler input to compose. SelectPanel.tsx:628-640.",
+          "reason": "The configured renderAnchor callback receives generated handlers but accepts no separate consumer handler input to merge."
         },
         {
           "id": "MERGE-CLASS",
-          "verdict": "COVERED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new part class merge boundary; owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "The configured action list combines consumer className before its component class. SelectPanel.tsx:1030.",
+          "findingId": "S-F4"
         },
         {
           "id": "MERGE-STYLE-ATTR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new part style/attribute merge boundary; owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "The default anchor spreads generated props onto Button; component-owned selection and loading state remain controlled by SelectPanel. SelectPanel.tsx:175-181,636-640."
         },
         {
           "id": "MERGE-REF",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "The existing anchor ref is merged internally; no generic part render ref contract exists. SelectPanel.tsx:598; remaining part policy owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "The configured anchor ref is passed through the default renderAnchor to Button. SelectPanel.tsx:598,636-640."
         },
         {
           "id": "MERGE-BEHAVIOR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No consumer render part exists to exercise behavior ownership; owned by S-F1.",
-          "findingId": "S-F1"
+          "evidence": "Configured open, selection, and disabled behavior remains owned by SelectPanel and is passed as generated anchor/list props. SelectPanel.tsx:598-640."
         },
         {
           "id": "STATE-CALLBACK",
@@ -1232,16 +1355,15 @@
           ]
         },
         {
-          "id": "S-F4",
           "classification": "ADR GAP",
           "severity": "FIX",
-          "checkId": "MERGE-CONFIG",
+          "checkId": "MERGE-CLASS",
           "section": 3,
           "status": "OPEN",
-          "title": "Align configured SelectPanel class merging with ADR-025",
+          "title": "Order configured SelectPanel classes component-first",
           "reachableUseCase": "A consumer supplies className for the action list rendered within SelectPanel.",
-          "observedGap": "The consumer class is combined before FilteredActionList's component class, reversing ADR-025's component-first order.",
-          "additiveFix": "Keep current config class behavior during transition; apply the required new-part merge policy on the additive composition API and define an explicit opt-in or versioned migration for the configured root.",
+          "observedGap": "The configured FilteredActionList combines consumer className before its component class, contrary to ADR-025.",
+          "additiveFix": "Keep the current configured class behavior during migration; use the required ordering for the new parts and preserve existing public props.",
           "citations": [
             {
               "path": "contributor-docs/adrs/adr-025-prop-merging.md",
@@ -1253,7 +1375,8 @@
               "line": "1030",
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
-          ]
+          ],
+          "id": "S-F4"
         },
         {
           "id": "S-F5",
@@ -1283,11 +1406,46 @@
               "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
             }
           ]
+        },
+        {
+          "id": "S-F6",
+          "classification": "ADR GAP",
+          "severity": "FIX",
+          "checkId": "PART-RENDER",
+          "section": 2,
+          "status": "OPEN",
+          "title": "Add render forms to SelectPanel parts",
+          "reachableUseCase": "A consumer needs to own the trigger, panel layout, input, list, and footer actions beyond the current item/data configuration.",
+          "observedGap": "The configured SelectPanel exposes renderAnchor but no uniform part element/function render contract. SelectPanel.tsx:175-181.",
+          "additiveFix": "Add render forms to the new parts while preserving the configured renderAnchor signature, existing callbacks, and configured API.",
+          "citations": [
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "77-100",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "132-140",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.tsx",
+              "line": "175-181",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            },
+            {
+              "path": "packages/react/src/SelectPanel/SelectPanel.docs.json",
+              "line": "248",
+              "sha": "2128032dca65a1bd565fe382c2e91c638c6473a4"
+            }
+          ]
         }
       ],
       "contractFindings": [],
       "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.5.0"
     },
     {
       "component": "Button",
@@ -1345,52 +1503,46 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "DEFERRED",
+          "verdict": "GAP",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "ButtonProps has no element or function render prop. Button/types.ts:20-96",
-          "findingId": "B-F1",
-          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
+          "evidence": "ButtonProps has no element or function render prop. Button/types.ts:20-96.",
+          "findingId": "B-F1"
         },
         {
           "id": "MERGE-CONFIG",
           "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Button component class precedes consumer class and the forwarded/internal refs are merged. ButtonBase.tsx:68-70,108-115"
+          "evidence": "Button has a configured root; property-specific collisions are checked below. ButtonBase.tsx:68-70,108-115."
         },
         {
           "id": "MERGE-HANDLER",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No new render override handler chain exists; missing render path is owned by B-F1.",
-          "findingId": "B-F1"
+          "evidence": "Consumer onClick passes through when enabled; Button owns the loading guard. ButtonBase.tsx:68-70,108-115."
         },
         {
           "id": "MERGE-CLASS",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No render-part class merge path exists; missing render path is owned by B-F1.",
-          "findingId": "B-F1"
+          "evidence": "Component class precedes consumer class. ButtonBase.tsx:68-70,108-115."
         },
         {
           "id": "MERGE-STYLE-ATTR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No render-part style/attribute merge path exists; missing render path is owned by B-F1.",
-          "findingId": "B-F1"
+          "evidence": "Consumer DOM props are spread before Button-owned attributes. ButtonBase.tsx:108-115."
         },
         {
           "id": "MERGE-REF",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "Existing refs are merged; no render-part ref contract exists. ButtonBase.tsx:68-70; missing render path owned by B-F1.",
-          "findingId": "B-F1"
+          "evidence": "The forwarded and internal refs are merged to the rendered Button element. ButtonBase.tsx:68-70."
         },
         {
           "id": "MERGE-BEHAVIOR",
-          "verdict": "COVERED",
+          "verdict": "PASS",
           "evidenceClass": "SOURCE VERIFIED",
-          "evidence": "No render element exists to exercise behavior-prop ownership; missing render path is owned by B-F1.",
-          "findingId": "B-F1"
+          "evidence": "Loading, disabled, data-state, and click behavior are written by Button after the consumer spread. ButtonBase.tsx:108-135."
         },
         {
           "id": "STATE-CALLBACK",
@@ -1496,11 +1648,11 @@
           "severity": "FIX",
           "checkId": "PART-RENDER",
           "section": 2,
-          "status": "DEFERRED",
-          "title": "Add both render forms to the Button leaf part",
+          "status": "OPEN",
+          "title": "Add render forms to the Button leaf",
           "reachableUseCase": "A consumer needs to supply a custom button-like element or component while retaining Button's loading, accessibility, and focus behavior.",
-          "observedGap": "Button supports as but has no render-element or render-function API.",
-          "additiveFix": "Add element and function render forms to the root part while preserving as, ref, and existing props. Decide how simultaneous as and render values interact before shipping.",
+          "observedGap": "ButtonProps has no element or function render prop. Button/types.ts:20-96.",
+          "additiveFix": "Add element and function render forms to the root part while preserving as, ref, existing props, and callback behavior.",
           "citations": [
             {
               "path": "packages/react/src/Button/Button.tsx",
@@ -1551,8 +1703,9 @@
       ],
       "contractFindings": [],
       "repositoryPackageVersion": "38.46.0",
-      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
+      "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API.",
+      "rubricVersion": "0.5.0"
     }
   ],
-  "rubricVersion": "0.4.1"
+  "rubricVersion": "0.5.0"
 }
