@@ -20,6 +20,9 @@ test.describe('CopyToClipboardButton', () => {
       await expect(button).toHaveAttribute(failed ? 'data-copy-error' : 'data-copied', 'true')
       await expect(button).toHaveAccessibleName('Copy greeting')
       await expect(button).toBeFocused()
+      await expect(page.locator('live-region [aria-live="polite"]')).toContainText(
+        failed ? 'Unable to copy to clipboard' : 'Copied!',
+      )
       await expect(page).toHaveNoViolations()
     })
   }
