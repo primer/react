@@ -118,3 +118,9 @@ export * from './Tabs'
 
 export {TopicTag} from '../TopicTag'
 export type {TopicTagProps, TopicTagGroupProps} from '../TopicTag'
+
+export {CopyToClipboardButton} from '../CopyToClipboardButton'
+export type {CopyToClipboardButtonProps} from '../CopyToClipboardButton'
+export {useCopyToClipboard} from '../hooks/useCopyToClipboard'
+export type {UseCopyToClipboardOptions, UseCopyToClipboardResult} from '../hooks/useCopyToClipboard'
+export {copyText} from '../utils/copyText'

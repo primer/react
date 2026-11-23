@@ -1,0 +1,9 @@
+.Button {
+  &[data-copied] {
+    color: var(--fgColor-success);
+  }
+
+  &[data-copy-error] {
+    color: var(--fgColor-danger);
+  }
+}
