@@ -41,7 +41,7 @@ export const checks = {
   'MIG-01': {section: 5, weight: 4},
 }
 
-const verdicts = new Set(['PASS', 'GAP', 'N/A', 'COVERED', 'NOT MEASURED', 'UNRESOLVED'])
+const verdicts = new Set(['PASS', 'GAP', 'N/A', 'COVERED', 'DEFERRED', 'NOT MEASURED', 'UNRESOLVED'])
 const evidenceClasses = new Set([
   'SOURCE VERIFIED',
   'EXECUTION VERIFIED',
@@ -119,6 +119,15 @@ function validateAudit(audit) {
       assert(typeof row.reason === 'string' && row.reason.length > 0, `${audit.component}: N/A reason is required for ${row.id}`)
     }
 
+    if (row.verdict === 'DEFERRED') {
+      assert(row.id === 'PART-RENDER', `${audit.component}: only PART-RENDER may be DEFERRED`)
+      assert(typeof row.reason === 'string' && row.reason.length > 0, `${audit.component}: DEFERRED reason is required for ${row.id}`)
+    }
+
+    if (row.id === 'PART-RENDER') {
+      assert(row.verdict === 'DEFERRED', `${audit.component}: PART-RENDER is deferred from scoring in rubric 0.4.1`)
+    }
+
     if (row.verdict === 'NOT MEASURED' || row.verdict === 'UNRESOLVED') {
       assert(typeof row.reason === 'string' && row.reason.length > 0, `${audit.component}: reason is required for ${row.id} ${row.verdict}`)
     }
@@ -147,7 +156,10 @@ function validateAudit(audit) {
     assert(severityOrder.includes(finding.severity) && finding.severity !== 'BLOCK', `${audit.component}: target gaps cannot be BLOCKs`)
     assert(checks[finding.checkId], `${audit.component}: finding ${finding.id} has unknown check ${finding.checkId}`)
     assert(finding.section === checks[finding.checkId].section, `${audit.component}: finding ${finding.id} is not in its owning section`)
-    assert(finding.status === 'OPEN' || finding.status === 'CLOSED', `${audit.component}: finding ${finding.id} needs OPEN or CLOSED status`)
+    assert(
+      finding.status === 'OPEN' || finding.status === 'CLOSED' || finding.status === 'DEFERRED',
+      `${audit.component}: finding ${finding.id} needs OPEN, CLOSED, or DEFERRED status`,
+    )
     assert(typeof finding.title === 'string' && finding.title.length > 0, `${audit.component}: finding ${finding.id} needs a title`)
     assert(typeof finding.reachableUseCase === 'string' && finding.reachableUseCase.length > 0, `${audit.component}: finding ${finding.id} needs a reachable use case`)
     assert(typeof finding.observedGap === 'string' && finding.observedGap.length > 0, `${audit.component}: finding ${finding.id} needs an observed gap`)
@@ -159,7 +171,14 @@ function validateAudit(audit) {
       assert(citation.sha === audit.sourceSha, `${audit.component}: finding ${finding.id} citation SHA must match sourceSha`)
     }
     const owner = checkRows.get(finding.checkId)
-    assert(owner?.verdict === 'GAP' && owner.findingId === finding.id, `${audit.component}: finding ${finding.id} must own one GAP row`)
+    if (finding.status === 'DEFERRED') {
+      assert(
+        finding.checkId === 'PART-RENDER' && owner?.verdict === 'DEFERRED' && owner.findingId === finding.id,
+        `${audit.component}: deferred finding ${finding.id} must be owned by a DEFERRED PART-RENDER row`,
+      )
+    } else {
+      assert(owner?.verdict === 'GAP' && owner.findingId === finding.id, `${audit.component}: finding ${finding.id} must own one GAP row`)
+    }
     findings.set(finding.id, finding)
   }
 
@@ -170,6 +189,10 @@ function validateAudit(audit) {
     }
 
     if (row.verdict === 'COVERED') {
+      assert(findings.has(row.findingId), `${audit.component}: ${row.id} references no target finding`)
+    }
+
+    if (row.verdict === 'DEFERRED' && row.findingId) {
       assert(findings.has(row.findingId), `${audit.component}: ${row.id} references no target finding`)
     }
   }
@@ -196,10 +219,14 @@ function validateAudit(audit) {
 
   const allFindingIds = [...audit.findings, ...(audit.contractFindings ?? [])].map(finding => finding.id)
   assert(new Set(allFindingIds).size === allFindingIds.length, `${audit.component}: finding IDs must be unique across both finding lists`)
+  const deferredFindingCount = countBy(audit.findings, finding => finding.status === 'DEFERRED')
   const rawFindingCount =
     countBy([...checkRows.values()], row => row.verdict === 'GAP' || row.verdict === 'COVERED') +
     (audit.contractFindings ?? []).length
-  assert(rawFindingCount >= allFindingIds.length, `${audit.component}: raw observations cannot be below distinct finding count`)
+  assert(
+    rawFindingCount + deferredFindingCount >= allFindingIds.length,
+    `${audit.component}: raw observations and deferred findings cannot be below distinct finding count`,
+  )
   return rawFindingCount
 }
 
@@ -221,7 +248,7 @@ function summarize(audit, {sensitivity = false} = {}) {
     const sectionRows = Object.entries(checks)
       .filter(([, check]) => check.section === sectionNumber)
       .map(([id]) => rows.get(id))
-    const applicableRows = sectionRows.filter(row => row.verdict !== 'N/A')
+    const applicableRows = sectionRows.filter(row => row.verdict !== 'N/A' && row.verdict !== 'DEFERRED')
     const applicableWeight = applicableRows.reduce((total, row) => total + checks[row.id].weight, 0)
     const earnedWeight = applicableRows.reduce((total, row) => {
       const fixedBySensitivity = sensitivity && row.verdict === 'GAP' && forcedPass.has(row.findingId)
@@ -309,7 +336,7 @@ function summarize(audit, {sensitivity = false} = {}) {
       ? {min: capAtD(gradeRange.min), max: capAtD(gradeRange.max)}
       : gradeRange
   const applicableCheckWeight = audit.checks.reduce(
-    (total, row) => total + (row.verdict !== 'N/A' ? checks[row.id].weight : 0),
+    (total, row) => total + (!['N/A', 'DEFERRED'].includes(row.verdict) ? checks[row.id].weight : 0),
     0,
   )
   const measuredCheckWeight = audit.checks.reduce(
@@ -322,7 +349,8 @@ function summarize(audit, {sensitivity = false} = {}) {
     audit.pendingHuman === true
   const status =
     scoreRange === null ? 'UNKNOWN' : hasIncompleteEvidence ? 'PROVISIONAL' : 'CONCLUSIVE'
-  const allDistinctFindings = [...(audit.findings ?? []), ...(audit.contractFindings ?? [])]
+  const scoredTargetFindings = (audit.findings ?? []).filter(finding => finding.status !== 'DEFERRED')
+  const allDistinctFindings = [...scoredTargetFindings, ...(audit.contractFindings ?? [])]
   const sensitivityResult = sensitivity
     ? null
     : summarize(audit, {sensitivity: true})
@@ -336,7 +364,9 @@ function summarize(audit, {sensitivity = false} = {}) {
     grade,
     gradeRange: cappedGradeRange,
     blockCount: allOpenFindings.filter(finding => finding.severity === 'BLOCK').length,
-    distinctTargetGaps: (audit.findings ?? []).length,
+    distinctTargetGaps: scoredTargetFindings.length,
+    deferredTargetGaps: (audit.findings ?? []).filter(finding => finding.status === 'DEFERRED').length,
+    deferredChecks: countBy(audit.checks, row => row.verdict === 'DEFERRED'),
     distinctDefects: (audit.contractFindings ?? []).length,
     distinctFindings: allDistinctFindings.length,
     rawFindings: rawFindingCount,

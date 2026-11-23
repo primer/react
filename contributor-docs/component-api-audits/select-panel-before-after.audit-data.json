@@ -13,7 +13,7 @@
   ],
   "baseCommit": "5b50bc053cab249809ef0bad0cd1aab64e8924a5",
   "afterCommit": "1cfa586ebda34edb33c01b9ffb6932b3bc7bd53b",
-  "rubricVersion": "0.4.0",
+  "rubricVersion": "0.4.1",
   "baselineSha": "2128032dca65a1bd565fe382c2e91c638c6473a4",
   "gist": {
     "revision": "0f385c865492b0752f19931cc2ae5c7254ef0ad2",
@@ -79,10 +79,11 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "COVERED",
+          "verdict": "DEFERRED",
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "renderAnchor is a function-only configured escape hatch, not both part render forms; owned by S-F1. SelectPanel.tsx:175-181",
-          "findingId": "S-F1"
+          "findingId": "S-F1",
+          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
         },
         {
           "id": "MERGE-CONFIG",
@@ -432,10 +433,11 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "GAP",
+          "verdict": "DEFERRED",
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "Trigger has a function-only render prop; other parts have no render prop and no part receives state through an element/function render contract. SC-F3 owns the gap. SelectPanelParts.tsx:53-62,115-155,214-263.",
-          "findingId": "SC-F3"
+          "findingId": "SC-F3",
+          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
         },
         {
           "id": "MERGE-CONFIG",
@@ -633,7 +635,7 @@
           "severity": "FIX",
           "checkId": "PART-RENDER",
           "section": 2,
-          "status": "OPEN",
+          "status": "DEFERRED",
           "title": "Support element and function render forms on every part",
           "reachableUseCase": "A consumer supplies a Button element or a state-aware render function to replace a part’s default element.",
           "observedGap": "Trigger accepts only a function returning an element and receives no current state; all other parts lack render, including element form.",

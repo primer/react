@@ -60,10 +60,11 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "COVERED",
+          "verdict": "DEFERRED",
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "No element/function render API exists; owned by missing parts surface T-F1.",
-          "findingId": "T-F1"
+          "findingId": "T-F1",
+          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
         },
         {
           "id": "MERGE-CONFIG",
@@ -386,10 +387,11 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "COVERED",
+          "verdict": "DEFERRED",
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "Root and child parts have no element/function render contract; owned by A-F1.",
-          "findingId": "A-F1"
+          "findingId": "A-F1",
+          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
         },
         {
           "id": "MERGE-CONFIG",
@@ -697,10 +699,11 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "COVERED",
+          "verdict": "DEFERRED",
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "Existing renderHeader/body/footer functions are configured renderers, not part element/function overrides; owned by D-F1.",
-          "findingId": "D-F1"
+          "findingId": "D-F1",
+          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
         },
         {
           "id": "MERGE-CONFIG",
@@ -1015,10 +1018,11 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "COVERED",
+          "verdict": "DEFERRED",
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "renderAnchor is a function-only configured escape hatch, not both part render forms; owned by S-F1. SelectPanel.tsx:175-181",
-          "findingId": "S-F1"
+          "findingId": "S-F1",
+          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
         },
         {
           "id": "MERGE-CONFIG",
@@ -1341,10 +1345,11 @@
         },
         {
           "id": "PART-RENDER",
-          "verdict": "GAP",
+          "verdict": "DEFERRED",
           "evidenceClass": "SOURCE VERIFIED",
           "evidence": "ButtonProps has no element or function render prop. Button/types.ts:20-96",
-          "findingId": "B-F1"
+          "findingId": "B-F1",
+          "reason": "Temporarily excluded from scoring by user direction; keep the target requirement and evidence visible."
         },
         {
           "id": "MERGE-CONFIG",
@@ -1491,7 +1496,7 @@
           "severity": "FIX",
           "checkId": "PART-RENDER",
           "section": 2,
-          "status": "OPEN",
+          "status": "DEFERRED",
           "title": "Add both render forms to the Button leaf part",
           "reachableUseCase": "A consumer needs to supply a custom button-like element or component while retaining Button's loading, accessibility, and focus behavior.",
           "observedGap": "Button supports as but has no render-element or render-function API.",
@@ -1549,5 +1554,5 @@
       "publishedPackageMetadata": "Not assessed; all proposed fixes add new surfaces and none changes a released API."
     }
   ],
-  "rubricVersion": "0.4.0"
+  "rubricVersion": "0.4.1"
 }

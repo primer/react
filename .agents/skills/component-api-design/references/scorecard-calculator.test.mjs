@@ -27,7 +27,8 @@ function createAudit() {
     pendingHuman: false,
     checks: Object.entries(checks).map(([id]) => ({
       id,
-      verdict: 'PASS',
+      verdict: id === 'PART-RENDER' ? 'DEFERRED' : 'PASS',
+      ...(id === 'PART-RENDER' ? {reason: 'Excluded from scoring by user direction'} : {}),
       evidenceClass: ['TYPE-01', 'TEST-01', 'INTERACTION-01'].includes(id) ? 'EXECUTION VERIFIED' : 'SOURCE VERIFIED',
       evidence: `Verified ${id}`,
     })),
@@ -72,7 +73,7 @@ test('a limited section still scores and retains its GAP', () => {
   assert.equal(stateSection.limited, true)
   assert.equal(stateSection.score, 0)
   assert.equal(stateSection.applicableWeight, checks['NAMES-DEFAULTS'].weight)
-  assert.equal(result.scoredSectionWeight, 90)
+  assert.equal(result.scoredSectionWeight, 82)
 })
 
 test('a COVERED target check remains in the denominator without adding a distinct finding', () => {
@@ -93,6 +94,52 @@ test('a COVERED target check remains in the denominator without adding a distinc
   assert.equal(architectureSection.score, 2)
   assert.equal(result.distinctTargetGaps, 1)
   assert.equal(result.rawFindings, 2)
+})
+
+test('a deferred render check is excluded while related covered checks still score zero', () => {
+  const audit = createAudit()
+  const renderCheck = audit.checks.find(row => row.id === 'PART-RENDER')
+  renderCheck.findingId = 'F-1'
+  const handlerCheck = audit.checks.find(row => row.id === 'MERGE-HANDLER')
+  handlerCheck.verdict = 'COVERED'
+  handlerCheck.findingId = 'F-1'
+  const deferredFinding = createFinding({id: 'F-1', checkId: 'PART-RENDER', section: 2})
+  deferredFinding.status = 'DEFERRED'
+  audit.findings = [deferredFinding]
+
+  const result = calculateAudit(audit)
+  const substitutionSection = result.sections.find(section => section.id === 2)
+  const mergeSection = result.sections.find(section => section.id === 3)
+
+  assert.equal(substitutionSection.applicableWeight, 12)
+  assert.equal(substitutionSection.score, 5)
+  assert.equal(mergeSection.applicableWeight, 25)
+  assert.equal(mergeSection.earnedWeight, 17)
+  assert.equal(mergeSection.score, 3.4)
+  assert.equal(result.applicableCheckWeight, 92)
+  assert.equal(result.measuredCheckWeight, 92)
+  assert.equal(result.distinctTargetGaps, 0)
+  assert.equal(result.deferredTargetGaps, 1)
+  assert.equal(result.distinctFindings, 0)
+  assert.equal(result.rawFindings, 1)
+})
+
+test('only PART-RENDER can be deferred and it cannot be scored as a GAP', () => {
+  const audit = createAudit()
+  const unrelatedCheck = audit.checks.find(row => row.id === 'PART-AS')
+  unrelatedCheck.verdict = 'DEFERRED'
+  unrelatedCheck.reason = 'Excluded by user direction'
+  assert.throws(() => calculateAudit(audit), /only PART-RENDER may be DEFERRED/)
+
+  const missingReason = createAudit()
+  delete missingReason.checks.find(row => row.id === 'PART-RENDER').reason
+  assert.throws(() => calculateAudit(missingReason), /DEFERRED reason is required/)
+
+  const renderGap = createAudit()
+  const renderCheck = renderGap.checks.find(row => row.id === 'PART-RENDER')
+  renderCheck.verdict = 'GAP'
+  renderCheck.reason = undefined
+  assert.throws(() => calculateAudit(renderGap), /PART-RENDER is deferred from scoring/)
 })
 
 test('a GAP without a linked finding is rejected', () => {
@@ -183,9 +230,9 @@ test('NOT MEASURED remains unscored and produces a provisional score range', () 
   assert.equal(evidenceSection.score, null)
   assert.deepEqual(evidenceSection.scoreRange, {min: 4.75, max: 5})
   assert.equal(result.overallScore, null)
-  assert.deepEqual(result.scoreRange, {min: 99, max: 100})
+  assert.deepEqual(result.scoreRange, {min: 98.91, max: 100})
   assert.deepEqual(result.gradeRange, {min: 'A', max: 'A'})
-  assert.equal(result.checkEvidenceCoveragePercent, 99)
+  assert.equal(result.checkEvidenceCoveragePercent, 98.91)
   assert.equal(result.status, 'PROVISIONAL')
 })
 

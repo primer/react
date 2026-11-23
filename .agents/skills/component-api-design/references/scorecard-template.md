@@ -3,12 +3,12 @@
 ## Table of contents
 
 - [Identity and result](#identity-and-result), L:15
-- [Section scores](#section-scores), L:41
-- [Per-check evidence matrix](#per-check-evidence-matrix), L:51
-- [Target gaps](#target-gaps), L:88
-- [Current-contract defects](#current-contract-defects), L:104
-- [Layer 3 human review](#layer-3-human-review), L:118
-- [Evidence, calibration, and decisions](#evidence-calibration-and-decisions), L:131
+- [Section scores](#section-scores), L:42
+- [Per-check evidence matrix](#per-check-evidence-matrix), L:52
+- [Target gaps](#target-gaps), L:89
+- [Current-contract defects](#current-contract-defects), L:105
+- [Layer 3 human review](#layer-3-human-review), L:119
+- [Evidence, calibration, and decisions](#evidence-calibration-and-decisions), L:132
 
 Copy this template for each whole-component grade. For PR reviews, record only changed-surface findings and omit whole-component scores and ledger metadata.
 
@@ -22,7 +22,7 @@ Copy this template for each whole-component grade. For PR reviews, record only c
 | Published-package metadata (only if relevant to a release-changing recommendation) | |
 | Mode | Whole component / PR review |
 | Audited source SHA | |
-| Rubric | Component API compliance rubric 0.4.0 |
+| Rubric | Component API compliance rubric 0.4.1 |
 | Accepted target | All ADR files at the audited SHA + pinned composition gist |
 | Gist revision / file / content SHA-256 | `0f385c865492b0752f19931cc2ae5c7254ef0ad2` / `0-2026-11-17-base-ui-foundation.md` / `30d60a7e9a5f84e9256ccd2cc2d1e681607257a16d4cb2b739a0fbd6e6cd22e2` |
 | Result status | CONCLUSIVE / PROVISIONAL / UNKNOWN |
@@ -31,6 +31,7 @@ Copy this template for each whole-component grade. For PR reviews, record only c
 | Current-contract context | No defects / list below |
 | Open BLOCK count | _ |
 | Target ADR gaps / current-contract defects / raw observations | _ / _ / _ |
+| Deferred target checks / findings | |
 | Applicable/scored check weight / check-evidence coverage | _ / 100; _ / _ applicable check weight |
 | BLOCK sensitivity | Fix the _ open BLOCKs, change nothing else → projected _ / grade _ |
 | Unverified / unresolved | |
@@ -50,7 +51,7 @@ Copy this template for each whole-component grade. For PR reviews, record only c
 
 ## Per-check evidence matrix
 
-Use one row per check. `GAP` rows point to one owning target finding. Related unmet rows use `COVERED` and that finding ID; they remain in the denominator and score zero without adding distinct findings. Only `N/A` excludes a check's weight. `N/A`, `NOT MEASURED`, and `UNRESOLVED` include their reason.
+Use one row per check. `GAP` rows point to one owning target finding. Related unmet rows use `COVERED` and that finding ID; they remain in the denominator and score zero without adding distinct findings. Only `N/A` and rubric-authorized `DEFERRED` checks are excluded; provide a reason for either. In rubric 0.4.1, `DEFERRED` is reserved for `PART-RENDER`. `NOT MEASURED` and `UNRESOLVED` include their reason.
 
 | Check | Verdict | Evidence class | Evidence at audited SHA / command result | Finding ID or reason |
 | :--- | :--- | :--- | :--- | :--- |
@@ -87,7 +88,7 @@ Use one row per check. `GAP` rows point to one owning target finding. Related un
 
 ## Target gaps
 
-Each target finding includes one primary check and owning section, a reachable consumer path, an additive fix, and citations to the full audited SHA. Repeat this block for each finding.
+List scored target findings here. Each finding includes one primary check and owning section, a reachable consumer path, an additive fix, and citations to the full audited SHA. Retain any deferred target findings at the end of this section, label them `DEFERRED`, and state that they do not affect the score.
 
 ### F1 — Finding title
 
