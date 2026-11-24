@@ -8,6 +8,16 @@
   "importPath": "@primer/react",
   "props": [
     {
+      "name": "onSubmit",
+      "type": "(selected: (string | number)[]) => void",
+      "description": "Called by SubmitButton or an owned Form. Consumer commits selection."
+    },
+    {
+      "name": "onCancel",
+      "type": "() => void",
+      "description": "Called by CancelButton. Consumer restores any transactional selection."
+    },
+    {
       "name": "children",
       "type": "React.ReactNode",
       "description": "Compose Trigger, Overlay and accessible content in consumer-authored order."

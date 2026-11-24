@@ -43,3 +43,29 @@ identifiers; this avoids silently replacing another component's stable selector.
 Configured message rendering and announcements stay on their legacy path until
 the default-off compatibility adapter is introduced. The new Message and Loading
 parts provide polite status announcements, including compact inline content.
+
+## Explicit actions and forms
+
+SubmitButton submits current selection; CancelButton invokes cancellation. Neither
+owns transaction rollback: the consumer snapshots committed selection and restores
+it when canceling. BackButton dismisses with `back`. ClearSearchButton resets the
+query and returns input focus; ClearSelectionButton clears only selection.
+
+Form is opt-in. A SubmitButton uses browser constraint validation and form submit
+only when its native form owner matches the Form from the same Root. Portaled
+buttons and nested Roots must not submit an unrelated outer form. Omit Form when
+embedding the panel in an existing form and handle selection submission explicitly.
+
+Supplemental actions are opt-in via Item `secondaryActions`. They do not put
+focusable controls inside an option: pointer affordances are hidden from AT.
+Cmd/Ctrl+Shift+U invokes a single enabled action or opens a separately focused
+dialog for multiple actions. This shortcut is an extension, not an APG-required
+listbox key. Disabled, loading and inactive items do not advertise or invoke it.
+Consumers label actions and supply their implementations; nested details are
+composed with the existing Dialog or another SelectPanel.Root.
+
+| Requirement                                 | Presentational parts        | Consumer                                                                       |
+| ------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------ |
+| Native form validation and submit ownership | Form and SubmitButton       | Use Form only when appropriate; provide constraints and submit callbacks       |
+| Selection transaction rollback              | CancelButton calls onCancel | Snapshot and restore committed values                                          |
+| Supplemental shortcut and return focus      | Item and Dialog             | Give each action a meaningful label; do not nest focusable controls in options |

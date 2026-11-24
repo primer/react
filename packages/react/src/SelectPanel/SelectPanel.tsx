@@ -51,6 +51,14 @@ import {
   SelectPanelFooter,
 } from './SelectPanelParts'
 import {SelectPanelCloseButton} from './SelectPanelCloseButton'
+import {
+  SelectPanelSubmitButton,
+  SelectPanelCancelButton,
+  SelectPanelBackButton,
+  SelectPanelClearSearchButton,
+  SelectPanelClearSelectionButton,
+  SelectPanelForm,
+} from './SelectPanelActions'
 import {ComposableSelectPanelMessage, SelectPanelLoading} from './ComposableSelectPanelMessage'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
@@ -1128,6 +1136,12 @@ export const SelectPanel = Object.assign(Panel, {
   Group: SelectPanelGroup,
   Footer: SelectPanelFooter,
   CloseButton: SelectPanelCloseButton,
+  SubmitButton: SelectPanelSubmitButton,
+  CancelButton: SelectPanelCancelButton,
+  BackButton: SelectPanelBackButton,
+  ClearSearchButton: SelectPanelClearSearchButton,
+  ClearSelectionButton: SelectPanelClearSelectionButton,
+  Form: SelectPanelForm,
   Loading: SelectPanelLoading,
   Message: ComposableSelectPanelMessage,
 })
