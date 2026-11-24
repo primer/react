@@ -1,5 +1,7 @@
 /* Base styles */
 .ButtonBase {
+  --kbdChord-marginInlineEnd: calc(var(--base-size-6) - var(--control-medium-paddingInline-normal));
+
   display: flex;
   min-width: max-content;
   height: var(--control-medium-size);
@@ -23,11 +25,6 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--base-size-8);
-
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:has([data-kbd-chord]) {
-    padding-inline-end: var(--base-size-6);
-  }
 
   &:hover {
     transition-duration: 80ms;
@@ -175,8 +172,14 @@
     grid-area: text;
   }
 
-  & :where([data-component='trailingVisual']) {
+    & :where([data-component='trailingVisual']) {
     grid-area: trailingVisual;
+  }
+
+  /* stylelint-disable-next-line selector-max-compound-selectors -- Keep the offset scoped to the final chord in trailingVisual */
+  & :where(.ButtonContent:last-child) > :where([data-component='trailingVisual']) [data-kbd-chord]:last-child {
+    /* stylelint-disable-next-line primer/spacing -- Calculated offset preserves the original end padding */
+    margin-inline-end: var(--kbdChord-marginInlineEnd);
   }
 
   & :where([data-component='trailingAction']) {
@@ -186,6 +189,8 @@
   /* Size */
 
   &:where([data-size='small']) {
+    --kbdChord-marginInlineEnd: calc(var(--base-size-6) - var(--control-small-paddingInline-condensed));
+
     height: var(--control-small-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-small-paddingInline-condensed);
@@ -203,6 +208,8 @@
   }
 
   &:where([data-size='large']) {
+    --kbdChord-marginInlineEnd: calc(var(--base-size-8) - var(--control-large-paddingInline-spacious));
+
     height: var(--control-large-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-large-paddingInline-spacious);
@@ -211,11 +218,6 @@
     & .ButtonContent > :not(:last-child) {
       /* stylelint-disable-next-line primer/spacing */
       margin-right: var(--control-large-gap);
-    }
-
-    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-    &:has([data-kbd-chord]) {
-      padding-inline-end: var(--base-size-8);
     }
   }
 
