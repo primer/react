@@ -1,4 +1,4 @@
-.Button {
+.Button:where([data-variant='default'], [data-variant='invisible']) {
   &[data-copied] {
     color: var(--fgColor-success);
   }

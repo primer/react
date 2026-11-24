@@ -3,6 +3,8 @@ import {act, render} from '@testing-library/react'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {page, userEvent} from 'vitest/browser'
 import {announce} from '@primer/live-region-element'
+import {CopyIcon} from '@primer/octicons-react'
+import {IconButton} from '../Button'
 import {CopyToClipboardButton} from './CopyToClipboardButton'
 import {implementsClassName} from '../utils/testing'
 import classes from './CopyToClipboardButton.module.css'
@@ -159,6 +161,53 @@ describe('CopyToClipboardButton', () => {
     await expect.element(button).toHaveAttribute('id', 'copy-button')
     await expect.element(button).toHaveClass('custom')
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith('keyboard')
+  })
+
+  it.each([
+    {variant: 'primary', outcome: 'success'},
+    {variant: 'primary', outcome: 'failure'},
+    {variant: 'danger', outcome: 'success'},
+    {variant: 'danger', outcome: 'failure'},
+  ] as const)('keeps the $variant foreground after $outcome', async ({variant, outcome}) => {
+    if (outcome === 'failure') {
+      vi.mocked(navigator.clipboard.writeText).mockRejectedValue(new Error('Permission denied'))
+    }
+    render(
+      <>
+        <IconButton icon={CopyIcon} aria-label="Reference" variant={variant} />
+        <CopyToClipboardButton textToCopy="hello" variant={variant} />
+      </>,
+    )
+    const reference = page.getByRole('button', {name: 'Reference', exact: true})
+    const button = page.getByRole('button', {name: 'Copy to clipboard', exact: true})
+    const color = (locator: typeof button) => getComputedStyle(locator.element()).color
+    await userEvent.click(button)
+    await expect.element(button).toHaveAttribute(outcome === 'success' ? 'data-copied' : 'data-copy-error')
+
+    await userEvent.hover(reference)
+    await expect.poll(() => color(button)).toBe(color(reference))
+    const hoveredReferenceColor = color(reference)
+    await userEvent.hover(button)
+    await expect.poll(() => color(button)).toBe(hoveredReferenceColor)
+  })
+
+  it.each(['default', 'invisible'] as const)('uses outcome colors for the %s variant', async variant => {
+    vi.mocked(navigator.clipboard.writeText).mockRejectedValueOnce(new Error('Permission denied'))
+    render(
+      <>
+        <span data-testid="success" style={{color: 'var(--fgColor-success)'}} />
+        <span data-testid="danger" style={{color: 'var(--fgColor-danger)'}} />
+        <CopyToClipboardButton textToCopy="hello" variant={variant} />
+      </>,
+    )
+    const button = page.getByRole('button', {name: 'Copy to clipboard', exact: true})
+    const color = (element: Element) => getComputedStyle(element).color
+    await userEvent.click(button)
+    await expect.element(button).toHaveAttribute('data-copy-error')
+    await expect.poll(() => color(button.element())).toBe(color(page.getByTestId('danger').element()))
+    await userEvent.click(button)
+    await expect.element(button).toHaveAttribute('data-copied')
+    await expect.poll(() => color(button.element())).toBe(color(page.getByTestId('success').element()))
   })
 
   it('keeps a disabled button named without copying or displaying a tooltip', async () => {
