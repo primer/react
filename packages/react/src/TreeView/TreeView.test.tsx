@@ -1,6 +1,5 @@
 import {page, userEvent} from 'vitest/browser'
-import {fireEvent, render, act, screen} from '@testing-library/react'
-import rtlUserEvent from '@testing-library/user-event'
+import {fireEvent, render, act} from '@testing-library/react'
 import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
@@ -1733,7 +1732,7 @@ describe('Keyboard interactions', () => {
   })
 
   describe('Typeahead', () => {
-    it.each(['z', 'c'])('ignores rapid "%s" key presses from a nested button', key => {
+    it.each(['z', 'c'])('ignores rapid "%s" key presses from a nested button', async key => {
       vi.useFakeTimers()
       const onKeyDown = vi.fn()
       render(
@@ -1749,9 +1748,9 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const apple = screen.getByRole('treeitem', {name: 'Apple'})
-      const button = screen.getByRole('button', {name: 'Nested action'})
-      const cherry = screen.getByRole('treeitem', {name: 'Cherry'})
+      const apple = page.getByRole('treeitem', {name: 'Apple', exact: true}).element()
+      const button = page.getByRole('button', {name: 'Nested action', exact: true}).element()
+      const cherry = page.getByRole('treeitem', {name: 'Cherry', exact: true}).element()
 
       act(() => apple.focus())
       act(() => button.focus())
@@ -1763,12 +1762,11 @@ describe('Keyboard interactions', () => {
       expect(onKeyDown).toHaveBeenCalledTimes(2)
 
       act(() => apple.focus())
-      fireEvent.keyDown(apple, {key: 'c'})
+      await userEvent.keyboard('c')
       expect(cherry).toHaveFocus()
     })
 
     it('allows typing in a nested input without moving focus', async () => {
-      const user = rtlUserEvent.setup()
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple" aria-label="Apple">
@@ -1780,15 +1778,15 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const input = screen.getByRole('textbox', {name: 'Filter'})
+      const input = page.getByRole('textbox', {name: 'Filter', exact: true})
 
-      await user.type(input, 'ch')
+      await userEvent.type(input, 'ch')
 
-      expect(input).toHaveValue('ch')
-      expect(input).toHaveFocus()
+      await expect.element(input).toHaveValue('ch')
+      await expect.element(input).toHaveFocus()
     })
 
-    it('does not add nested-control keystrokes to an ongoing search', () => {
+    it('does not add nested-control keystrokes to an ongoing search', async () => {
       vi.useFakeTimers()
       render(
         <TreeView aria-label="Test tree">
@@ -1803,13 +1801,13 @@ describe('Keyboard interactions', () => {
         </TreeView>,
       )
 
-      const apple = screen.getByRole('treeitem', {name: 'Apple'})
-      const button = screen.getByRole('button', {name: 'Nested action'})
-      const cherry = screen.getByRole('treeitem', {name: 'Cherry'})
-      const cantalope = screen.getByRole('treeitem', {name: 'Cantalope'})
+      const apple = page.getByRole('treeitem', {name: 'Apple', exact: true}).element()
+      const button = page.getByRole('button', {name: 'Nested action', exact: true}).element()
+      const cherry = page.getByRole('treeitem', {name: 'Cherry', exact: true}).element()
+      const cantalope = page.getByRole('treeitem', {name: 'Cantalope', exact: true}).element()
 
       act(() => apple.focus())
-      fireEvent.keyDown(apple, {key: 'c'})
+      await userEvent.keyboard('c')
       expect(cherry).toHaveFocus()
 
       act(() => button.focus())
@@ -1817,7 +1815,7 @@ describe('Keyboard interactions', () => {
       expect(button).toHaveFocus()
 
       act(() => cherry.focus())
-      fireEvent.keyDown(cherry, {key: 'a'})
+      await userEvent.keyboard('a')
       expect(cantalope).toHaveFocus()
     })
 
@@ -1909,6 +1907,10 @@ describe('Keyboard interactions', () => {
         name: 'Cantalope 1',
         exact: true,
       })
+      const cherry = page.getByRole('treeitem', {
+        name: 'Cherry',
+        exact: true,
+      })
 
       act(() => {
         // Focus first item
@@ -1917,11 +1919,55 @@ describe('Keyboard interactions', () => {
 
       // Press C + A + N
       await userEvent.keyboard('c')
+      expect(cherry.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(299)
+      })
       await userEvent.keyboard('a')
+      expect(cantalope.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(299)
+      })
       await userEvent.keyboard('n')
 
       // Cantalope should be focused
       await expect.element(cantalope).toHaveFocus()
+    })
+
+    it('starts a new search after the typeahead timeout', async () => {
+      vi.useFakeTimers()
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="apple">Apple</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+          <TreeView.Item id="cantalope">Cantalope</TreeView.Item>
+        </TreeView>,
+      )
+
+      const apple = page.getByRole('treeitem', {
+        name: 'Apple',
+        exact: true,
+      })
+      const cherry = page.getByRole('treeitem', {
+        name: 'Cherry',
+        exact: true,
+      })
+
+      act(() => {
+        apple.element().focus()
+      })
+
+      await userEvent.keyboard('c')
+      expect(cherry.element()).toHaveFocus()
+
+      act(() => {
+        vi.advanceTimersByTime(300)
+      })
+      await userEvent.keyboard('a')
+
+      expect(apple.element()).toHaveFocus()
     })
 
     it('prioritizes items following the current aria-activedescendant', async () => {
