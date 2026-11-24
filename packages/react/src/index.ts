@@ -174,6 +174,17 @@ export type {SelectProps} from './Select'
 export {SelectPanel} from './SelectPanel'
 export type {
   SelectPanelProps,
+  SelectPanelRootProps,
+  SelectPanelTriggerProps,
+  SelectPanelSearchInputProps,
+  SelectPanelOverlayProps,
+  SelectPanelOptionProps,
+  SelectPanelOpenChangeReason,
+  SelectPanelValue,
+  SelectPanelDismissReason,
+  SelectPanelCloseButtonProps,
+  ComposableSelectPanelMessageProps,
+  SelectPanelLoadingProps,
   ItemProps as SelectPanelItemProps,
   GroupedListProps as SelectPanelGroupedListProps,
   ItemInput as SelectPanelItemInput,

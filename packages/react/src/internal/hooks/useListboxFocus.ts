@@ -89,12 +89,16 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
     }
 
     const handleBlur = (event: FocusEvent) => {
-      if (
-        event.relatedTarget instanceof Node
-          ? !container.contains(event.relatedTarget)
-          : event.target instanceof HTMLElement && getListboxOptions(container).includes(event.target)
-      ) {
-        focusWithin = false
+      if (event.relatedTarget instanceof Node) {
+        focusWithin = container.contains(event.relatedTarget)
+      } else {
+        const target = event.target
+        // Removing a focused option fires blur before the browser detaches it.
+        queueMicrotask(() => {
+          if (target instanceof HTMLElement && getListboxOptions(container).includes(target)) {
+            focusWithin = false
+          }
+        })
       }
     }
 
