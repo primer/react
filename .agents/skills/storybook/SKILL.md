@@ -1,16 +1,84 @@
 ---
 name: storybook
-description: 'Use when: starting, checking, or using the Storybook dev server; looking up Primer React component stories, props, or documentation; previewing component variants; writing or verifying Storybook stories; using the primer-storybook MCP to explore components. Covers starting Storybook, checking if it is running, and using MCP tools (list-all-documentation, get-documentation, get-storybook-story-instructions, preview-stories) to look up components.'
+description: 'Use when starting or checking Storybook; looking up component stories, props, or documentation; writing, reviewing, or linting stories; or adding Storybook conventions. Covers story file/title naming, Default and Playground stories, controls, and the primer-storybook MCP. Do not use for component implementation without story changes or Storybook usage.'
 ---
 
-# Storybook — Start Server & Use MCP
+# Storybook
 
 ## When to Use
 
 - You need to look up a component's stories, props, or usage examples
 - You are writing or editing a Storybook story
 - You want to preview a component variant at a URL
-- Any task that benefits from live Storybook documentation
+- You are reviewing story conventions or introducing a new convention
+
+## Writing stories
+
+This skill is the source of truth for Storybook authoring conventions. When adding
+or changing a convention, detail it here in the same change, including the file
+pattern, title scheme, and an example. Keep the linter and its tests consistent
+with conventions that can be checked statically.
+
+Colocate stories with their component, usually in
+`packages/react/src/<ComponentName>/`. Use these file names and CSF `title` values:
+
+| Purpose                      | File                                   | Title                                 |
+| ---------------------------- | -------------------------------------- | ------------------------------------- |
+| Component                    | `<ComponentName>.stories.tsx`          | `Components/<ComponentName>`          |
+| Feature coverage             | `<ComponentName>.features.stories.tsx` | `Components/<ComponentName>/Features` |
+| Usage examples and scenarios | `<ComponentName>.examples.stories.tsx` | `Components/<ComponentName>/Examples` |
+| Development-only cases       | `<ComponentName>.dev.stories.tsx`      | `Components/<ComponentName>/Dev`      |
+
+For example, `Button.examples.stories.tsx` uses
+`title: 'Components/Button/Examples'`.
+
+- The component file must export `Default` and `Playground`. `Default` shows the
+  simplest representative usage; `Playground` exposes controls for configurable
+  props. Pass its `args` to the component so changing controls updates the preview.
+- Configure controls with `argTypes` on the meta or Playground, or let Storybook
+  infer them from `component` and nonempty `args`. Do not disable controls on the
+  Playground. Both CSF object stories and function stories with `.args` and
+  `.argTypes` assignments are supported.
+- Feature stories isolate supported variants, states, and behaviors. Examples
+  demonstrate compositions or realistic scenarios. Neither replaces the
+  component file's `Default` and `Playground`.
+- Dev stories are for debugging, stress tests, and internal fixtures. The
+  `*.dev.stories.tsx` suffix matters: production Storybook excludes these files,
+  regardless of their title.
+- Preserve existing `Experimental/`, `Deprecated/`, or `Private/` title prefixes
+  and component groups such as `Components/Skeleton/SkeletonBox`.
+- When splitting a category, use `<ComponentName>.<topic>.features.stories.tsx`
+  (or `.examples.stories.tsx` / `.dev.stories.tsx`) with a title under that
+  category, for example `Components/Button/Features/Loading`.
+- Existing stress-test files use `<ComponentName>.stress.dev.stories.tsx` and
+  `StressTests/Components/<ComponentName>`. Keep this development-only exception.
+- Use descriptive PascalCase named story exports, such as `WithLeadingVisual`.
+  The required component exports are exactly `Default` and `Playground`.
+
+### Linting conventions
+
+Run from the repository root; no running Storybook server is required:
+
+```bash
+npm run lint:storybook
+npm run lint:storybook -- 'packages/react/src/Button/*.stories.tsx'
+node --test script/lint-storybook.test.mts
+```
+
+The opt-in linter checks story extensions, file/title naming, required component
+exports, and statically configured Playground controls. It exits nonzero for
+violations or unmatched patterns. The default scans `packages/react/src`; legacy
+violations are reported, not automatically migrated or added to the main lint
+command. The non-component namespaces `Behaviors/`, `Hooks/`, and `Octicons/`
+are outside its scope.
+
+Keep meta, args, and argTypes statically readable (inline objects or local
+variables, including `as` / `satisfies`). The linter does not execute imported
+helpers or imported spreads; it reports controls it cannot verify. It also cannot
+infer the full component prop surface or verify that a render function actually
+uses its args. Controls checks honor explicit disabling and static
+`parameters.controls.include` / `exclude` arrays or regular expressions. Preview
+the Playground and change controls to verify the interaction.
 
 ---
 
