@@ -101,4 +101,35 @@ describe('SelectPanel core composition', () => {
     expect(dialog.element()).not.toHaveAttribute('aria-describedby')
     expect(page.getByRole('listbox', {name: 'Options', exact: true}).element()).not.toHaveAttribute('role', 'region')
   })
+
+  it('repairs removed option focus without stealing it after leaving the collection', async () => {
+    function DynamicList({values}: {values: string[]}) {
+      return (
+        <SelectPanel.Root focusStrategy="roving">
+          <SelectPanel.SearchInput aria-label="Filter" />
+          <SelectPanel.List aria-label="Results">
+            {values.map(value => (
+              <SelectPanel.Item key={value} value={value}>
+                {value}
+              </SelectPanel.Item>
+            ))}
+          </SelectPanel.List>
+          <button type="button">After collection</button>
+        </SelectPanel.Root>
+      )
+    }
+    const {rerender} = render(<DynamicList values={['Apple', 'Banana']} />)
+    await userEvent.click(page.getByRole('option', {name: 'Banana', exact: true}))
+    rerender(<DynamicList values={['Apple']} />)
+    await expect.element(page.getByRole('option', {name: 'Apple', exact: true})).toHaveFocus()
+    rerender(<DynamicList values={[]} />)
+    await expect.element(page.getByRole('textbox', {name: 'Filter', exact: true})).toHaveFocus()
+
+    rerender(<DynamicList values={['Apple']} />)
+    await userEvent.click(page.getByRole('option', {name: 'Apple', exact: true}))
+    await userEvent.tab()
+    await expect.element(page.getByRole('button', {name: 'After collection', exact: true})).toHaveFocus()
+    rerender(<DynamicList values={[]} />)
+    await expect.element(page.getByRole('button', {name: 'After collection', exact: true})).toHaveFocus()
+  })
 })
