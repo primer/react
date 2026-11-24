@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {IconButton, Button} from '../Button'
 import Link from '../Link'
 import {ActionMenu} from '../ActionMenu'
@@ -222,3 +223,15 @@ export const WithLongDelay = () => (
     </Tooltip>
   </div>
 )
+
+// An empty `text` turns the tooltip off without unmounting the trigger, so the trigger keeps focus
+export const ConditionalText = () => {
+  const [showTooltip, setShowTooltip] = useState(true)
+  return (
+    <div className={classes.PaddedContainer}>
+      <Tooltip text={showTooltip ? 'Press to turn this tooltip off' : ''}>
+        <Button onClick={() => setShowTooltip(!showTooltip)}>Toggle tooltip</Button>
+      </Tooltip>
+    </div>
+  )
+}
