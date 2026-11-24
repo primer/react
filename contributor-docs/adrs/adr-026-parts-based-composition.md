@@ -11,7 +11,7 @@ Date: 2026-11-17 · Updated: 2026-11-23
 
 ## Context
 
-GitHub teams tell us they're reaching for libraries like Base UI when a design is hard to build with Primer, often due to APIs that are inconsistent or too locked down to properly experiment with new combinations, This often leads to re-implementations of common patterns, and risks regressions for a11y or performance.
+GitHub teams tell us they're reaching for libraries like Base UI when a design is hard to build with Primer, often due to APIs that are inconsistent or too locked down to properly experiment with new combinations. This often leads to re-implementations of common patterns, and risks regressions for a11y or performance.
 
 With Base UI, teams get a consistent way to compose components and combine their behavior. We want teams to be able to do that in Primer.
 
