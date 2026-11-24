@@ -37,11 +37,11 @@ export const TrailingAction = forwardRef(
   ) => {
     // Use context from ActionList
     const {selectionVariant} = useContext(ActionListContainerContext)
-    // TODO: Rename
     const withinMenu = selectionVariant === 'single' || selectionVariant === 'multiple'
 
     if (withinMenu) {
-      console.log(
+      // eslint-disable-next-line no-console
+      console.warn(
         'Warning: ActionList.TrailingAction should not be used within selectable ActionLists. Please remove it to avoid unexpected behavior.',
       )
     }

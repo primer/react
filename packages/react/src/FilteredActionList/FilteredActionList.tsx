@@ -98,7 +98,6 @@ export function FilteredActionListContent({
   const isVirtualized = virtualized && !groupMetadata?.length
 
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
-
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value

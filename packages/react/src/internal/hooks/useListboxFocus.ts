@@ -62,6 +62,7 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
           option.removeAttribute('data-is-active-descendant')
         }
       }
+
       for (const option of originalTabIndices.keys()) {
         if (!container.contains(option)) originalTabIndices.delete(option)
       }
@@ -86,6 +87,7 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
       focusWithin = event.target instanceof Node && container.contains(event.target)
       synchronize()
     }
+
     const handleBlur = (event: FocusEvent) => {
       if (
         event.relatedTarget instanceof Node
@@ -95,6 +97,7 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
         focusWithin = false
       }
     }
+
     const handlePointer = (event: MouseEvent) => {
       if (!isListboxInputAvailable(input) || !(event.target instanceof Element)) return
       const option = event.target.closest<HTMLElement>('[role="option"]')
@@ -104,6 +107,7 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
         synchronize()
       }
     }
+
     const observer = new MutationObserver(synchronize)
     observer.observe(container, {
       childList: true,
@@ -111,7 +115,9 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
       attributes: true,
       attributeFilter: ['aria-disabled', 'disabled', 'hidden', 'inert'],
     })
+
     if (input) observer.observe(input, {attributes: true, attributeFilter: ['disabled', 'hidden', 'inert']})
+
     document.addEventListener('focusin', handleFocus, true)
     input?.addEventListener('blur', synchronize)
     container.addEventListener('focusout', handleBlur)
@@ -155,6 +161,7 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
     if (event.altKey || event.ctrlKey || event.metaKey) return
     const current = fromInput ? activeOption.current : event.target
     const index = options.findIndex(option => option === current)
+
     if (!fromInput && index === -1) return
     let next: HTMLElement | undefined
     switch (event.key) {
@@ -178,6 +185,7 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
         return
     }
     event.preventDefault()
+
     if (fromInput) {
       activeOption.current?.removeAttribute('data-is-active-descendant')
       activeOption.current = next
