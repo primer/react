@@ -1,9 +1,9 @@
-import {page} from 'vitest/browser'
 import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
+import {page, userEvent} from 'vitest/browser'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {fireEvent, render as HTMLRender} from '@testing-library/react'
+import {act, fireEvent, render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
@@ -13,8 +13,7 @@ import {XIcon} from '@primer/octicons-react'
 import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
-import {createRef, forwardRef, useImperativeHandle} from 'react'
-import {FeatureFlags} from '../../FeatureFlags'
+import {createRef, forwardRef, useImperativeHandle, useState} from 'react'
 import {implementsClassName, withExpectedConsoleError, withExpectedConsoleWarning} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
@@ -238,6 +237,154 @@ describe('Tooltip', () => {
   })
 })
 
+describe('Tooltip with empty text', () => {
+  const getTooltipElement = (container: HTMLElement) =>
+    container.querySelector<HTMLElement>('[data-component="Tooltip"]')!
+
+  it('does not describe the trigger', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent text="" />)
+    expect(getByRole('button')).not.toHaveAttribute('aria-describedby')
+  })
+
+  it('does not label the trigger when the tooltip type is label', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent text="" type="label" />)
+    const trigger = getByRole('button')
+    expect(trigger).not.toHaveAttribute('aria-labelledby')
+    expect(trigger).toHaveAccessibleName('Button Text')
+  })
+
+  it("keeps the trigger's own aria-describedby", () => {
+    const {getByRole} = HTMLRender(<TooltipComponentWithExistingDescription text="" />)
+    expect(getByRole('button')).toHaveAttribute('aria-describedby', 'external-description')
+  })
+
+  it('still labels the trigger when a keybinding hint is provided', () => {
+    const {getByRole, container} = HTMLRender(<TooltipComponent text="" type="label" keybindingHint="Control+K" />)
+    expect(getByRole('button')).toHaveAttribute(
+      'aria-labelledby',
+      getTooltipElement(container).querySelector('[id]')!.id,
+    )
+  })
+
+  it('does not open on keyboard focus', async () => {
+    const {container} = HTMLRender(<TooltipComponent text="" />)
+    await userEvent.tab()
+    expect(page.getByRole('button', {name: 'Button Text', exact: true}).element()).toHaveFocus()
+    expect(getTooltipElement(container).matches(':popover-open')).toBe(false)
+  })
+
+  it.each([' ', '\t\n', '\u00a0'])('treats whitespace-only text as empty: %j', async text => {
+    const {container} = HTMLRender(<TooltipComponentWithExistingDescription text={text} />)
+    const trigger = page.getByRole('button', {name: 'Button Text', exact: true})
+    await userEvent.tab()
+    expect(trigger.element()).toHaveFocus()
+    expect(trigger.element()).toHaveAttribute('aria-describedby', 'external-description')
+    expect(getTooltipElement(container).matches(':popover-open')).toBe(false)
+  })
+
+  it('closes and removes the label when text becomes whitespace-only', async () => {
+    const {container, rerender} = HTMLRender(<TooltipComponent type="label" />)
+    const tooltip = getTooltipElement(container)
+    await userEvent.tab()
+    expect(tooltip.matches(':popover-open')).toBe(true)
+
+    rerender(<TooltipComponent type="label" text=" " />)
+    await expect.poll(() => tooltip.matches(':popover-open')).toBe(false)
+    expect(page.getByRole('button', {name: 'Button Text', exact: true}).element()).not.toHaveAttribute(
+      'aria-labelledby',
+    )
+  })
+
+  it('opens and labels the trigger for whitespace-only text with a keybinding hint', async () => {
+    const {container} = HTMLRender(<TooltipComponent type="label" text=" " keybindingHint="Control+K" />)
+    await userEvent.tab()
+    const trigger = page.getByRole('button', {name: '(control k)', exact: true})
+    expect(trigger.element()).toHaveFocus()
+    expect(trigger.element()).toHaveAttribute('aria-labelledby')
+    expect(getTooltipElement(container).matches(':popover-open')).toBe(true)
+  })
+
+  it('closes an open tooltip when the text becomes empty', async () => {
+    const {container, rerender} = HTMLRender(<TooltipComponent />)
+    const tooltip = getTooltipElement(container)
+    await userEvent.tab()
+    expect(tooltip.matches(':popover-open')).toBe(true)
+
+    rerender(<TooltipComponent text="" />)
+    await expect.poll(() => tooltip.matches(':popover-open')).toBe(false)
+    expect(getTooltipElement(container)).toBe(tooltip)
+  })
+
+  it('opens from a pending hover when the text returns before the delay elapses', () => {
+    vi.useFakeTimers()
+    try {
+      const {container, rerender, getByRole} = HTMLRender(<TooltipComponent />)
+      const tooltip = getTooltipElement(container)
+
+      fireEvent.mouseOver(getByRole('button'))
+      rerender(<TooltipComponent text="" />)
+      rerender(<TooltipComponent text="Back again" />)
+      act(() => {
+        vi.advanceTimersByTime(100)
+      })
+
+      expect(tooltip.matches(':popover-open')).toBe(true)
+      expect(tooltip).toHaveTextContent('Back again')
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it.each(['', ' \t'])('does not open from a pending hover when the text is still empty: %j', text => {
+    vi.useFakeTimers()
+    try {
+      const {container, rerender, getByRole} = HTMLRender(<TooltipComponent />)
+      const tooltip = getTooltipElement(container)
+
+      fireEvent.mouseOver(getByRole('button'))
+      rerender(<TooltipComponent text={text} />)
+      act(() => {
+        vi.advanceTimersByTime(100)
+      })
+
+      expect(tooltip.matches(':popover-open')).toBe(false)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('keeps the trigger mounted and focused when the text is toggled', async () => {
+    function ConditionalTooltip() {
+      const [allowed, setAllowed] = useState(false)
+      return (
+        <Tooltip text={allowed ? '' : 'Not allowed'}>
+          <Button onClick={() => setAllowed(value => !value)}>Toggle</Button>
+        </Tooltip>
+      )
+    }
+    const {container} = HTMLRender(<ConditionalTooltip />)
+    const button = page.getByRole('button', {name: 'Toggle', exact: true})
+    const trigger = button.element()
+    const tooltip = getTooltipElement(container)
+
+    await userEvent.tab()
+    expect(trigger).toHaveFocus()
+    expect(tooltip.matches(':popover-open')).toBe(true)
+    expect(trigger).toHaveAccessibleDescription('Not allowed')
+
+    await userEvent.keyboard('{Enter}')
+    await expect.element(button).not.toHaveAttribute('aria-describedby')
+    await expect.poll(() => tooltip.matches(':popover-open')).toBe(false)
+    expect(button.element()).toBe(trigger)
+    expect(trigger).toHaveFocus()
+
+    await userEvent.keyboard('{Enter}')
+    await expect.element(button).toHaveAccessibleDescription('Not allowed')
+    expect(button.element()).toBe(trigger)
+    expect(trigger).toHaveFocus()
+  })
+})
+
 describe('Tooltip data-component attributes', () => {
   it('renders Tooltip with data-component attribute', async () => {
     HTMLRender(<TooltipComponent />)
@@ -252,80 +399,66 @@ describe('Tooltip data-component attributes', () => {
   })
 })
 
-describe('Tooltip forwarded ref (primer_react_merged_forwarded_refs)', () => {
-  for (const enabled of [true, false]) {
-    describe(`with the flag ${enabled ? 'enabled' : 'disabled'}`, () => {
-      it('forwards a ref object to the trigger element', () => {
-        const ref = createRef<HTMLButtonElement>()
-        HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Tooltip text="Tooltip text" ref={ref}>
-              <Button>Button Text</Button>
-            </Tooltip>
-          </FeatureFlags>,
-        )
-        expect(ref.current).toBeInstanceOf(HTMLButtonElement)
-        expect(ref.current).toHaveTextContent('Button Text')
-      })
+describe('Tooltip forwarded ref', () => {
+  it('forwards a ref object to the trigger element', () => {
+    const ref = createRef<HTMLButtonElement>()
+    HTMLRender(
+      <Tooltip text="Tooltip text" ref={ref}>
+        <Button>Button Text</Button>
+      </Tooltip>,
+    )
+    expect(ref.current).toBeInstanceOf(HTMLButtonElement)
+    expect(ref.current).toHaveTextContent('Button Text')
+  })
 
-      it('calls a callback ref with the trigger element', () => {
-        const refCallback = vi.fn()
-        HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Tooltip text="Tooltip text" ref={refCallback}>
-              <Button>Button Text</Button>
-            </Tooltip>
-          </FeatureFlags>,
-        )
-        const button = page.getByRole('button')
-        expect(refCallback).toHaveBeenCalledWith(button.element())
-      })
+  it('calls a callback ref with the trigger element', () => {
+    const refCallback = vi.fn()
+    HTMLRender(
+      <Tooltip text="Tooltip text" ref={refCallback}>
+        <Button>Button Text</Button>
+      </Tooltip>,
+    )
+    const button = page.getByRole('button')
+    expect(refCallback).toHaveBeenCalledWith(button.element())
+  })
 
-      it("preserves trigger element's own ref", () => {
-        const buttonRefCallback = vi.fn()
+  it("preserves trigger element's own ref", () => {
+    const buttonRefCallback = vi.fn()
 
-        HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Tooltip text="Tooltip text">
-              <Button ref={buttonRefCallback}>Button Text</Button>
-            </Tooltip>
-          </FeatureFlags>,
-        )
+    HTMLRender(
+      <Tooltip text="Tooltip text">
+        <Button ref={buttonRefCallback}>Button Text</Button>
+      </Tooltip>,
+    )
 
-        const button = page.getByRole('button')
-        expect(buttonRefCallback).toHaveBeenCalledWith(button.element())
-      })
+    const button = page.getByRole('button')
+    expect(buttonRefCallback).toHaveBeenCalledWith(button.element())
+  })
 
-      it.skipIf(!enabled)("merges trigger's own ref with tooltip ref", () => {
-        const buttonRefCallback = vi.fn()
-        const tooltipRefCallback = vi.fn()
+  it("merges trigger's own ref with tooltip ref", () => {
+    const buttonRefCallback = vi.fn()
+    const tooltipRefCallback = vi.fn()
 
-        HTMLRender(
-          <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-            <Tooltip text="Tooltip text" ref={tooltipRefCallback}>
-              <Button ref={buttonRefCallback}>Button Text</Button>
-            </Tooltip>
-          </FeatureFlags>,
-        )
+    HTMLRender(
+      <Tooltip text="Tooltip text" ref={tooltipRefCallback}>
+        <Button ref={buttonRefCallback}>Button Text</Button>
+      </Tooltip>,
+    )
 
-        const button = page.getByRole('button')
-        expect(buttonRefCallback).toHaveBeenCalledWith(button.element())
-        expect(tooltipRefCallback).toHaveBeenCalledWith(button.element())
-      })
+    const button = page.getByRole('button')
+    expect(buttonRefCallback).toHaveBeenCalledWith(button.element())
+    expect(tooltipRefCallback).toHaveBeenCalledWith(button.element())
+  })
 
-      it('warns without crashing when a custom trigger ref does not resolve to an HTML element', () => {
-        withExpectedConsoleWarning(() => {
-          HTMLRender(
-            <FeatureFlags flags={{primer_react_merged_forwarded_refs: enabled}}>
-              <Tooltip text="Tooltip text">
-                <InvalidRefTrigger>Button Text</InvalidRefTrigger>
-              </Tooltip>
-            </FeatureFlags>,
-          )
+  it('warns without crashing when a custom trigger ref does not resolve to an HTML element', () => {
+    withExpectedConsoleWarning(() => {
+      HTMLRender(
+        <Tooltip text="Tooltip text">
+          <InvalidRefTrigger>Button Text</InvalidRefTrigger>
+        </Tooltip>,
+      )
 
-          expect(() => fireEvent.focus(page.getByRole('button', {name: 'Button Text'}).element())).not.toThrow()
-        })
-      })
+      expect(() => fireEvent.focus(page.getByRole('button', {name: 'Button Text'}).element())).not.toThrow()
     })
-  }
+  })
 })

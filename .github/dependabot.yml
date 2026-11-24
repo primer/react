@@ -65,3 +65,6 @@ updates:
         patterns:
           - 'actions/upload-artifact'
           - 'actions/download-artifact'
+      gh-aw:
+        patterns:
+          - 'github/gh-aw-actions/*'
