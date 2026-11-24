@@ -344,10 +344,13 @@ describe('useAnnouncements', () => {
     end.textContent = 'End date'
     list.append(start, end)
 
+    const intermediateItems = [{text: 'Start date'}, {text: 'End date', selected: true}, {text: 'Due date'}]
+    const finalItems = [{text: 'Start date'}, {text: 'End date', selected: true}]
+
     const {rerender} = renderHook(
-      ({filterValue}) =>
+      ({filterValue, items}) =>
         useAnnouncements(
-          [{text: 'Start date'}, {text: 'End date', selected: true}],
+          items,
           {current: list},
           {current: null},
           true,
@@ -356,14 +359,20 @@ describe('useAnnouncements', () => {
           'active-descendant',
           filterValue,
         ),
-      {initialProps: {filterValue: ''}},
+      {initialProps: {filterValue: '', items: intermediateItems}},
     )
 
-    rerender({filterValue: 's'})
+    // Each superseded update gets to run its frame and start its delay
+    // before the next keystroke replaces it.
+    rerender({filterValue: 's', items: intermediateItems})
     act(() => vi.advanceTimersToNextFrame())
     act(() => vi.advanceTimersByTime(100))
-    rerender({filterValue: 'st'})
-    rerender({filterValue: 'sta'})
+    rerender({filterValue: 'st', items: intermediateItems})
+    act(() => vi.advanceTimersToNextFrame())
+    act(() => vi.advanceTimersByTime(100))
+    expect(announce).not.toHaveBeenCalled()
+
+    rerender({filterValue: 'sta', items: finalItems})
     act(() => vi.advanceTimersToNextFrame())
 
     start.removeAttribute('data-is-active-descendant')
