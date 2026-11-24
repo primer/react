@@ -2,6 +2,7 @@ import {page, userEvent} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
 import {act, fireEvent, render} from '@testing-library/react'
+import {StrictMode, useState} from 'react'
 
 describe('Table.Pagination', () => {
   beforeEach(async () => {
@@ -27,6 +28,87 @@ describe('Table.Pagination', () => {
     expect(getCurrentPage()).toHaveTextContent('2')
     rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={0} />)
     expect(getPages().some(button => button.hasAttribute('aria-current'))).toBe(false)
+  })
+
+  it('notifies the parent after clamping so it can display the remaining rows', () => {
+    const onChange = vi.fn()
+    function PaginatedRows({totalCount}: {totalCount: number}) {
+      const [pageIndex, setPageIndex] = useState(3)
+      const rows = Array.from({length: totalCount}, (_, index) => `Row ${index + 1}`)
+      return (
+        <>
+          <div>{rows.slice(pageIndex * 25, (pageIndex + 1) * 25).join(', ')}</div>
+          <Pagination
+            aria-label="Pagination"
+            defaultPageIndex={3}
+            totalCount={totalCount}
+            onChange={state => {
+              onChange(state)
+              setPageIndex(state.pageIndex)
+            }}
+          />
+        </>
+      )
+    }
+
+    const {rerender} = render(
+      <StrictMode>
+        <PaginatedRows totalCount={100} />
+      </StrictMode>,
+    )
+    expect(page.getByText('Row 76', {exact: false}).element()).toBeInTheDocument()
+    rerender(
+      <StrictMode>
+        <PaginatedRows totalCount={40} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(onChange).toHaveBeenLastCalledWith({pageIndex: 1})
+    expect(page.getByText('Row 26', {exact: false}).element()).toBeInTheDocument()
+    expect(getCurrentPage()).toHaveTextContent('2')
+
+    rerender(
+      <StrictMode>
+        <PaginatedRows totalCount={0} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledTimes(2)
+    expect(onChange).toHaveBeenLastCalledWith({pageIndex: 0})
+
+    rerender(
+      <StrictMode>
+        <PaginatedRows totalCount={100} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledTimes(2)
+    expect(page.getByText('Row 1', {exact: false}).element()).toBeInTheDocument()
+    expect(getCurrentPage()).toHaveTextContent('1')
+  })
+
+  it('applies a valid default page reset when the row count shrinks at the same time', () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />,
+    )
+
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={40} onChange={onChange} />)
+
+    expect(getCurrentPage()).toHaveTextContent('1')
+    expect(getPageRange()).toEqual('1 through 25 of 40')
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({pageIndex: 0})
+  })
+
+  it('notifies when the default page changes to the selected page', async () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={100} onChange={onChange} />,
+    )
+    await userEvent.click(getPage(1))
+    onChange.mockClear()
+
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={1} totalCount={100} onChange={onChange} />)
+
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({pageIndex: 1})
   })
 
   it('should set the initial selected page to the first page', () => {

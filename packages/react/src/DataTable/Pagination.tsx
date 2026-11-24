@@ -1,6 +1,6 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type React from 'react'
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {Button} from '../internal/components/ButtonReset'
 import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -343,16 +343,28 @@ function usePagination(config: PaginationConfig): PaginationResult {
     return 0
   })
   const [storedPageIndex, setPageIndex] = useState(defaultIndex)
+  const previousPageIndex = useRef(storedPageIndex)
+  const previousDefaultIndex = useRef(defaultIndex)
   const validDefaultPageCount = defaultPageIndex !== undefined && defaultPageIndex >= 0 && defaultPageIndex < pageCount
-  if (validDefaultPageCount && defaultIndex !== defaultPageIndex) {
+  const defaultPageIndexChanged = validDefaultPageCount && defaultIndex !== defaultPageIndex
+  const pageIndex = defaultPageIndexChanged ? defaultPageIndex : Math.min(storedPageIndex, Math.max(0, pageCount - 1))
+  if (defaultPageIndexChanged) {
     setDefaultIndex(defaultPageIndex)
-    setPageIndex(defaultPageIndex)
-    onChange?.({pageIndex: defaultPageIndex})
   }
-  const pageIndex = Math.min(storedPageIndex, Math.max(0, pageCount - 1))
   if (pageIndex !== storedPageIndex) {
     setPageIndex(pageIndex)
   }
+  useEffect(() => {
+    // Prop changes can update parent state only after this component commits.
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (previousPageIndex.current !== pageIndex || previousDefaultIndex.current !== defaultIndex) {
+      previousPageIndex.current = pageIndex
+      previousDefaultIndex.current = defaultIndex
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-live-state-to-parent, react-you-might-not-need-an-effect/no-pass-data-to-parent
+      onChange?.({pageIndex})
+    }
+  }, [defaultIndex, onChange, pageIndex])
+
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min((pageIndex + 1) * pageSize, totalCount)
   const hasNextPage = pageIndex + 1 < pageCount
@@ -361,6 +373,7 @@ function usePagination(config: PaginationConfig): PaginationResult {
   function selectPage(newPageIndex: number) {
     if (pageIndex !== newPageIndex) {
       setPageIndex(newPageIndex)
+      previousPageIndex.current = newPageIndex
       onChange?.({pageIndex: newPageIndex})
     }
   }
