@@ -11,7 +11,7 @@ Date: 2026-11-17 · Updated: 2026-11-23
 
 ## Context
 
-GitHub teams tell us they're reaching for libraries like Base UI when a design is hard to build with Primer, often due to APIs that are inconsistent or too locked down to properly experiment with new combinations, This often leads to re-implementations of common patterns, and risks regressions for a11y or performance. 
+GitHub teams tell us they're reaching for libraries like Base UI when a design is hard to build with Primer, often due to APIs that are inconsistent or too locked down to properly experiment with new combinations, This often leads to re-implementations of common patterns, and risks regressions for a11y or performance.
 
 With Base UI, teams get a consistent way to compose components and combine their behavior. We want teams to be able to do that in Primer.
 
@@ -107,6 +107,7 @@ We'll work through these questions in later ADRs or as we add parts to each comp
 We'll roll out new Composable API one component at a time, adding them alongside the existing configured API and keeping it as backward compatible as possible. Teams should be able to upgrade without changing their code, then adopt parts where they need a custom layout or interaction. If a breaking change can't be avoided, we'll document the migration path and follow [Primer's versioning policy](https://github.com/primer/react/blob/main/contributor-docs/versioning.md).
 
 For each component, we'll document:
+
 - which parts render an element, their default elements, what `as` and `render` accept, and whether the root only provides state and context
 - which props, attributes, and ARIA relationships Primer controls, and which pass through to the rendered element
 - the state passed to `render` functions, and any `data-*` state attributes consumers can style against
@@ -146,9 +147,7 @@ type RenderOptions<Props, State> =
   | {as?: React.ElementType; render?: never}
   | {
       as?: never
-      render:
-        | React.ReactElement
-        | ((props: Props, state: State) => React.ReactElement)
+      render: React.ReactElement | ((props: Props, state: State) => React.ReactElement)
     }
 ```
 
@@ -180,15 +179,13 @@ type StateChange<ValueFields, Reason extends string> = ValueFields & {
   event?: Event
 }
 
-type OpenChange<Reason extends string> =
-  StateChange<{open: boolean}, Reason>
+type OpenChange<Reason extends string> = StateChange<{open: boolean}, Reason>
 
 type CancelableChange<Change> = Change & {
   cancel(): void
 }
 
-type OpenChangeHandler<Reason extends string> =
-  (change: CancelableChange<OpenChange<Reason>>) => void
+type OpenChangeHandler<Reason extends string> = (change: CancelableChange<OpenChange<Reason>>) => void
 ```
 
 A checked-state callback would use `{checked: boolean}` in place of `{open: boolean}`. Callbacks without cancellation leave out the `CancelableChange` wrapper. These helper names are just for the type sketches.
@@ -203,11 +200,11 @@ The after examples use the experimental package's names and callback signatures.
 
 The experimental package changed behavior internals and styling as well as the API. We'll need to build these examples on Primer's current implementation as we add parts to each component.
 
-| Interaction | Current Primer in the experiment | Experimental parts API |
-| --- | --- | --- |
-| Hover submenu | The caller managed open state and mouse-enter handling. | `Submenu` and `SubmenuTrigger` handled the interaction. |
-| Tooltip and popover on one badge | The caller connected refs, suppressed the Tooltip, and restored focus by hand. | `Popover.Trigger` composed with an `IconButton` that supplied its own description. |
-| Single-choice menu with descriptions | Each list item checked whether it was selected and supplied an `onSelect` handler. | A `RadioGroup` owned selection, and each `RadioItem` supplied its value. |
+| Interaction                          | Current Primer in the experiment                                                   | Experimental parts API                                                             |
+| ------------------------------------ | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Hover submenu                        | The caller managed open state and mouse-enter handling.                            | `Submenu` and `SubmenuTrigger` handled the interaction.                            |
+| Tooltip and popover on one badge     | The caller connected refs, suppressed the Tooltip, and restored focus by hand.     | `Popover.Trigger` composed with an `IconButton` that supplied its own description. |
+| Single-choice menu with descriptions | Each list item checked whether it was selected and supplied an `onSelect` handler. | A `RadioGroup` owned selection, and each `RadioItem` supplied its value.           |
 
 <details>
 <summary>Before and after examples</summary>
@@ -216,36 +213,25 @@ The experimental package changed behavior internals and styling as well as the A
 
 The menu needs to open a submenu when the pointer moves over an item. With the existing API, the caller controls the open state and adds a mouse-enter handler.
 
-**Before: current Primer**
+#### Before: current Primer (hover submenu)
 
 ```tsx
-<ActionMenu
-  open={openCategory === 'status'}
-  onOpenChange={open => setOpenCategory(open ? 'status' : null)}
->
+<ActionMenu open={openCategory === 'status'} onOpenChange={open => setOpenCategory(open ? 'status' : null)}>
   <ActionMenu.Anchor>
-    <ActionList.Item onMouseEnter={() => setOpenCategory('status')}>
-      Status
-    </ActionList.Item>
+    <ActionList.Item onMouseEnter={() => setOpenCategory('status')}>Status</ActionList.Item>
   </ActionMenu.Anchor>
   <ActionMenu.Overlay>{/* submenu items */}</ActionMenu.Overlay>
 </ActionMenu>
 ```
 
-**After: experimental parts API**
+#### After: experimental parts API (hover submenu)
 
 ```tsx
 <ActionMenu.Submenu>
-  <ActionMenu.SubmenuTrigger
-    aria-label="Status"
-    delay={0}
-    closeDelay={200}
-  >
+  <ActionMenu.SubmenuTrigger aria-label="Status" delay={0} closeDelay={200}>
     Status
   </ActionMenu.SubmenuTrigger>
-  <ActionMenu.Content aria-label="Status">
-    {/* submenu items */}
-  </ActionMenu.Content>
+  <ActionMenu.Content aria-label="Status">{/* submenu items */}</ActionMenu.Content>
 </ActionMenu.Submenu>
 ```
 
@@ -255,7 +241,7 @@ The menu needs to open a submenu when the pointer moves over an item. With the e
 
 The badge shows a short description on hover and opens details when clicked. The first version uses the Tooltip's ref to connect the button to the popup and restores focus by hand when the popup closes.
 
-**Before: current Primer**
+#### Before: current Primer (Tooltip and popover)
 
 ```tsx
 function closeAndReturnFocus() {
@@ -263,21 +249,14 @@ function closeAndReturnFocus() {
   badgeRef.current?.focus()
 }
 
-<Tooltip
-  ref={badgeRef}
-  text={finding.shortExplanation}
-  _privateDisableTooltip={open}
->
-  <IconButton
-    icon={riskIcons[finding.riskLevel]}
-    aria-label={`${finding.title}: ${finding.riskLevel} risk`}
-  />
+;<Tooltip ref={badgeRef} text={finding.shortExplanation} _privateDisableTooltip={open}>
+  <IconButton icon={riskIcons[finding.riskLevel]} aria-label={`${finding.title}: ${finding.riskLevel} risk`} />
 </Tooltip>
 ```
 
 The popup code, omitted here, also adds an Escape listener and moves focus into the details.
 
-**After: experimental parts API**
+#### After: experimental parts API (Tooltip and popover)
 
 ```tsx
 <Popover>
@@ -290,13 +269,7 @@ The popup code, omitted here, also adds an Escape listener and moves focus into 
       />
     }
   />
-  <Popover.Content
-    align="start"
-    side="bottom"
-    portal={false}
-    initialFocus={false}
-    finalFocus
-  >
+  <Popover.Content align="start" side="bottom" portal={false} initialFocus={false} finalFocus>
     {/* details */}
   </Popover.Content>
 </Popover>
@@ -310,40 +283,27 @@ Current Primer's IconButton also has a built-in Tooltip, which the first version
 
 Both APIs can build a single-choice menu with descriptions. With the existing API, each item checks whether it's selected and supplies its own change handler.
 
-**Before: current Primer**
+#### Before: current Primer (menu selection)
 
 ```tsx
 <ActionList selectionVariant="single">
   {options.map(option => (
-    <ActionList.Item
-      key={option.id}
-      selected={option.id === mode}
-      onSelect={() => setMode(option.id)}
-    >
+    <ActionList.Item key={option.id} selected={option.id === mode} onSelect={() => setMode(option.id)}>
       {option.label}
-      <ActionList.Description variant="block">
-        {option.description}
-      </ActionList.Description>
+      <ActionList.Description variant="block">{option.description}</ActionList.Description>
     </ActionList.Item>
   ))}
 </ActionList>
 ```
 
-**After: experimental parts API**
+#### After: experimental parts API (menu selection)
 
 ```tsx
 <ActionMenu.RadioGroup value={mode} onValueChange={setMode}>
   {options.map(option => (
-    <ActionMenu.RadioItem
-      key={option.id}
-      value={option.id}
-      label={option.label}
-    >
+    <ActionMenu.RadioItem key={option.id} value={option.id} label={option.label}>
       <span id={`power-mode-${option.id}-label`}>{option.label}</span>
-      <ActionMenu.Description
-        id={`power-mode-${option.id}-description`}
-        variant="block"
-      >
+      <ActionMenu.Description id={`power-mode-${option.id}-description`} variant="block">
         {option.description}
       </ActionMenu.Description>
     </ActionMenu.RadioItem>
