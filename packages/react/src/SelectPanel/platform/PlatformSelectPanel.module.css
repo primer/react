@@ -1,0 +1,111 @@
+.Dialog {
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  color: var(--fgColor-default);
+  background: var(--overlay-bgColor);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+
+  &::backdrop {
+    background: var(--overlay-backdrop-bgColor);
+  }
+}
+
+.NativeLayer {
+  /* Isolate the top-layer host from parent layout rules without adding a layout box. */
+  display: contents;
+}
+
+.NativeHost {
+  position: absolute;
+  inset: auto;
+  width: fit-content;
+  max-width: calc(100dvw - var(--base-size-32));
+  max-height: calc(100dvh - var(--base-size-32));
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  color: var(--fgColor-default);
+  background: transparent;
+  border: 0;
+
+  &:where([data-variant='anchored']) {
+    /* stylelint-disable-next-line primer/spacing */
+    top: var(--native-top, 0);
+    /* stylelint-disable-next-line primer/spacing */
+    left: var(--native-left, 0);
+  }
+
+  &:where([data-variant='modal']) {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  &:where([data-variant='fullscreen']) {
+    position: fixed;
+    inset: 0;
+    width: 100dvw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+  }
+
+  &:where([data-variant='bottom-sheet']) {
+    position: fixed;
+    inset: auto 0 0;
+    width: 100dvw;
+    max-width: none;
+  }
+
+  &:where([data-variant='anchored'], [data-variant='fullscreen'])::backdrop {
+    /* Override unlayered application dialog backdrop styles. */
+    background: transparent !important;
+  }
+
+  &:where([data-variant='modal'], [data-variant='bottom-sheet'])::backdrop {
+    background: var(--overlay-backdrop-bgColor);
+  }
+}
+
+.ConfiguredContent {
+  min-height: 0;
+  overflow: hidden;
+  flex: 1;
+
+  > * {
+    flex-shrink: 0;
+  }
+}
+
+.ConfiguredContent > .ConfiguredCollection {
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  flex: 1 1 auto;
+}
+
+.NativeSurface {
+  position: relative;
+  display: flex;
+  max-height: inherit;
+  flex-direction: column;
+
+  &:where([data-variant='fullscreen']) {
+    width: 100dvw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    border-radius: 0;
+  }
+
+  &:where([data-variant='bottom-sheet']) {
+    width: 100dvw;
+    max-width: none;
+    max-height: calc(100dvh - var(--base-size-64));
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

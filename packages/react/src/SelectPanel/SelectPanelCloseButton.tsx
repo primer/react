@@ -2,6 +2,7 @@ import React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import {IconButton, type IconButtonProps} from '../Button'
 import {useSelectPanelContext} from './SelectPanelContext'
+import {NativeSelectPanelDismissContext} from './platform/NativeSelectPanelContext'
 
 export type SelectPanelCloseButtonProps = Omit<
   IconButtonProps,
@@ -24,6 +25,8 @@ export const SelectPanelCloseButton = React.forwardRef<HTMLButtonElement, Select
     ref,
   ) {
     const state = useSelectPanelContext()
+    const host = React.useContext(NativeSelectPanelDismissContext)
+    const dismiss = host?.id === state.id ? host.dismiss : state.dismiss
     return (
       <IconButton
         {...props}
@@ -36,7 +39,7 @@ export const SelectPanelCloseButton = React.forwardRef<HTMLButtonElement, Select
           onClick?.(event)
           if (!event.defaultPrevented && !props.disabled) {
             event.preventDefault()
-            state.dismiss('close')
+            dismiss('close', event.nativeEvent)
           }
         }}
       />

@@ -33,6 +33,10 @@ import {SelectPanelContext} from './SelectPanelContext'
 import {useSelectPanel} from './useSelectPanel'
 import {ConfiguredSelectPanelOverlay} from './SelectPanelOverlay'
 import {ConfiguredSelectPanelCollection} from './ConfiguredSelectPanelAdapter'
+import {useConfiguredNativeOverlay} from './platform/configuredNativeCompatibility'
+import {NativeSelectPanelProvider} from './platform/NativeSelectPanelProvider'
+import {useNativeSelectPanel} from './platform/NativeSelectPanelContext'
+import nativeClasses from './platform/PlatformSelectPanel.module.css'
 import {areItemsEqual, isMultiSelectVariant, getSelectedItems} from '../internal/selectPanelSelection'
 import {
   SelectPanelRoot,
@@ -199,6 +203,7 @@ function Panel({
   composable?: boolean
   validationStatus?: TextInputProps['validationStatus']
 }): JSX.Element {
+  const native = useNativeSelectPanel()
   const titleId = useId()
   const subtitleId = useId()
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -425,7 +430,7 @@ function Panel({
   // disable body scroll when the panel is open in modal mode or on narrow screens
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (open && (variant === 'modal' || (isNarrowScreenSize && usingFullScreenOnNarrow))) {
+    if (!native.dialog && open && (variant === 'modal' || (isNarrowScreenSize && usingFullScreenOnNarrow))) {
       const bodyOverflowStyle = document.body.style.overflow || ''
       // If the body is already set to overflow: hidden, it likely means
       // that there is already a modal open. In that case, we should bail
@@ -440,7 +445,7 @@ function Panel({
         document.body.style.overflow = bodyOverflowStyle
       }
     }
-  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
+  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant, native.dialog])
 
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
@@ -894,7 +899,7 @@ function Panel({
       'aria-labelledby': titleId,
       'aria-describedby': subtitle ? subtitleId : undefined,
       ...overlayProps,
-      ...(variant === 'modal'
+      ...(variant === 'modal' && !native.dialog
         ? {
             top: '50vh' as const,
             left: '50vw' as const,
@@ -902,7 +907,8 @@ function Panel({
           }
         : {}),
       style: {
-        transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+        transform: variant === 'modal' && !native.dialog ? 'translate(-50%, -50%)' : undefined,
+        ...(native.dialog ? overlayProps?.style : {}),
         ...(isKeyboardVisible
           ? {
               maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
@@ -911,12 +917,23 @@ function Panel({
       } as React.CSSProperties,
       onKeyDown: onOverlayKeyDown,
     }),
-    [titleId, subtitle, subtitleId, overlayProps, variant, isKeyboardVisible, availablePanelHeight, onOverlayKeyDown],
+    [
+      titleId,
+      subtitle,
+      subtitleId,
+      overlayProps,
+      variant,
+      isKeyboardVisible,
+      availablePanelHeight,
+      onOverlayKeyDown,
+      native.dialog,
+    ],
   )
 
   const content = (
     <>
       <ConfiguredSelectPanelOverlay
+        configuredVariant={variant}
         open={open}
         renderAnchor={renderMenuAnchor}
         anchorRef={anchorRef}
@@ -941,7 +958,11 @@ function Panel({
           disable: variant === 'modal' || cssAnchorPositioningSettings?.disable,
         }}
       >
-        <SelectPanelContent data-variant={variant} data-component="SelectPanel">
+        <SelectPanelContent
+          data-variant={variant}
+          data-component="SelectPanel"
+          className={native.dialog ? nativeClasses.ConfiguredContent : undefined}
+        >
           <SelectPanelHeader data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
             <div>
               {composable ? (
@@ -1022,7 +1043,7 @@ function Panel({
                   : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
             }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
-            className={clsx(className, classes.FilteredActionList)}
+            className={clsx(className, classes.FilteredActionList, native.dialog && nativeClasses.ConfiguredCollection)}
             focusPrependedElements={focusPrependedElements}
             virtualized={virtualized}
           />
@@ -1096,7 +1117,9 @@ function Panel({
           ) : null}
         </SelectPanelContent>
       </ConfiguredSelectPanelOverlay>
-      {variant === 'modal' && open ? <div className={classes.Backdrop} data-component="SelectPanel.Backdrop" /> : null}
+      {variant === 'modal' && open && !native.dialog ? (
+        <div className={classes.Backdrop} data-component="SelectPanel.Backdrop" />
+      ) : null}
     </>
   )
   return composable ? <SelectPanelContext.Provider value={panelState}>{content}</SelectPanelContext.Provider> : content
@@ -1120,12 +1143,15 @@ const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
 
 function ConfiguredSelectPanel(props: SelectPanelProps) {
   const composable = useFeatureFlag('primer_react_select_panel_composable_adapter')
+  const nativeCompatible = useConfiguredNativeOverlay(props)
   return (
-    <Panel
-      {...props}
-      composable={composable}
-      Collection={composable ? ConfiguredSelectPanelCollection : FilteredActionList}
-    />
+    <NativeSelectPanelProvider enabled={composable && nativeCompatible}>
+      <Panel
+        {...props}
+        composable={composable}
+        Collection={composable ? ConfiguredSelectPanelCollection : FilteredActionList}
+      />
+    </NativeSelectPanelProvider>
   )
 }
 

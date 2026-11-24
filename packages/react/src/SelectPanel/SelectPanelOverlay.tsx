@@ -13,6 +13,8 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {useBodyScrollLock} from '../internal/hooks/useBodyScrollLock'
 import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {warning} from '../utils/warning'
+import {useNativeSelectPanel} from './platform/NativeSelectPanelContext'
+import {NativeSelectPanelOverlay} from './platform/NativeSelectPanelOverlay'
 
 export interface SelectPanelOverlayProps
   extends Omit<
@@ -38,6 +40,7 @@ interface ConfiguredSelectPanelOverlayProps
     Pick<AnchoredOverlayProps, 'open'> {
   anchorRef: React.RefObject<HTMLElement | null>
   variant?: AnchoredOverlayProps['variant']
+  configuredVariant?: 'anchored' | 'modal'
 }
 
 interface SelectPanelOverlayImplementationProps extends SelectPanelOverlayProps {
@@ -57,11 +60,18 @@ function restoreParentFocus(
 }
 
 export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = props => {
+  const native = useNativeSelectPanel()
+  if (native.dialog) return <NativeSelectPanelOverlay {...props} />
   return <SelectPanelOverlayImplementation {...props} isLegacy={false} />
 }
 
 // Keep the configured component's positioning, callbacks, and narrow-screen defaults intact.
-export const ConfiguredSelectPanelOverlay: React.FC<ConfiguredSelectPanelOverlayProps> = ({open, ...props}) => {
+export const ConfiguredSelectPanelOverlay: React.FC<ConfiguredSelectPanelOverlayProps> = ({
+  configuredVariant,
+  open,
+  ...props
+}) => {
+  const native = useNativeSelectPanel()
   const composable = useFeatureFlag('primer_react_select_panel_composable_adapter')
   if (!composable) {
     return (
@@ -70,6 +80,18 @@ export const ConfiguredSelectPanelOverlay: React.FC<ConfiguredSelectPanelOverlay
         renderAnchor={props.renderAnchor ?? null}
         open={open}
         focusZoneSettings={{disabled: true}}
+      />
+    )
+  }
+  if (native.dialog) {
+    return (
+      <NativeSelectPanelOverlay
+        {...props}
+        configured
+        variant={{
+          regular: configuredVariant === 'modal' ? 'modal' : 'anchored',
+          narrow: props.variant?.narrow,
+        }}
       />
     )
   }
