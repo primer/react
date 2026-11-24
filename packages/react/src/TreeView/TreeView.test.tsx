@@ -1891,8 +1891,6 @@ describe('Keyboard interactions', () => {
     })
 
     it('supports multiple typed characters', async () => {
-      vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
-
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">Apple</TreeView.Item>
@@ -1923,7 +1921,7 @@ describe('Keyboard interactions', () => {
       await userEvent.keyboard('n')
 
       // Cantalope should be focused
-      expect(cantalope.element()).toHaveFocus()
+      await expect.element(cantalope).toHaveFocus()
     })
 
     it('prioritizes items following the current aria-activedescendant', async () => {
