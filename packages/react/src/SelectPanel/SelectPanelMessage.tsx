@@ -1,9 +1,11 @@
-import type React from 'react'
+import React from 'react'
 import Text from '../Text'
 import Octicon from '../Octicon'
 import {AlertIcon, type IconProps} from '@primer/octicons-react'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import {ComposableSelectPanelMessage} from './ComposableSelectPanelMessage'
 
 export type SelectPanelMessageProps = {
   children: React.ReactNode
@@ -25,18 +27,28 @@ export type SelectPanelMessageProps = {
   action?: React.ReactElement<any>
 }
 
-export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
-  variant,
-  title,
-  children,
-  className,
-  icon: CustomIcon,
-  action,
-}) => {
+export const SelectPanelMessage = React.forwardRef<HTMLDivElement, SelectPanelMessageProps>(function SelectPanelMessage(
+  {variant, title, children, className, icon: CustomIcon, action},
+  ref,
+) {
+  const composable = useFeatureFlag('primer_react_select_panel_composable_adapter')
+  if (composable)
+    return (
+      <ComposableSelectPanelMessage
+        variant={variant}
+        title={title}
+        className={className}
+        icon={CustomIcon}
+        action={action}
+        ref={ref}
+      >
+        {children}
+      </ComposableSelectPanelMessage>
+    )
   const IconComponent = CustomIcon || (variant !== 'empty' ? AlertIcon : undefined)
 
   return (
-    <div className={clsx(classes.Message, className)} data-component="SelectPanel.Message">
+    <div ref={ref} className={clsx(classes.Message, className)} data-component="SelectPanel.Message">
       {IconComponent && (
         <Octicon
           icon={IconComponent}
@@ -58,4 +70,4 @@ export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
       )}
     </div>
   )
-}
+})

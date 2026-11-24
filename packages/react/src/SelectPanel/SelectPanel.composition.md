@@ -44,6 +44,14 @@ Configured message rendering and announcements stay on their legacy path until
 the default-off compatibility adapter is introduced. The new Message and Loading
 parts provide polite status announcements, including compact inline content.
 
+The configured API can opt in through
+`primer_react_select_panel_composable_adapter`. The flag defaults to false and
+switches the existing call sites to shared parts without changing their props.
+Both paths retain AnchoredOverlay, configured narrow-screen defaults and modal
+Save/Cancel behavior. Turning the flag off restores the original collection,
+message markup and selection rules. Explicit composition does not depend on this
+flag. Native hosting and invokers are not included in this adapter.
+
 ## Explicit actions and forms
 
 SubmitButton submits current selection; CancelButton invokes cancellation. Neither

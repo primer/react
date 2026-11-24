@@ -1,7 +1,7 @@
 import React from 'react'
 import {clsx} from 'clsx'
 import {SearchIcon} from '@primer/octicons-react'
-import {ActionList, type ActionListItemProps, type ActionListGroupProps} from '../ActionList'
+import {ActionList, type ActionListItemProps, type ActionListGroupProps, type ActionListProps} from '../ActionList'
 import {Button, type ButtonProps} from '../Button'
 import buttonClasses from '../Button/ButtonBase.module.css'
 import {Dialog} from '../Dialog/Dialog'
@@ -106,8 +106,8 @@ export const SelectPanelContent = React.forwardRef<HTMLElement, React.ComponentP
   function SelectPanelContent({className, ...props}, ref) {
     return (
       <div
-        {...props}
         data-component="SelectPanel.Content"
+        {...props}
         className={clsx(classes.Wrapper, className)}
         ref={ref as React.Ref<HTMLDivElement>}
       />
@@ -161,8 +161,8 @@ export const SelectPanelDescription = React.forwardRef<HTMLElement, React.Compon
     const mergedRef = useMergedRefs(ref, registerDescription)
     return (
       <div
-        {...props}
         data-component="SelectPanel.Description"
+        {...props}
         id={id}
         className={clsx(classes.Subtitle, className)}
         ref={mergedRef as React.Ref<HTMLDivElement>}
@@ -182,10 +182,7 @@ export const SelectPanelSearchInput = React.forwardRef<HTMLInputElement, SelectP
     const ref = useMergedRefs(forwardedRef, state.registerInput)
     const activeDescendant = state.focusStrategy === 'active-descendant'
     return (
-      <TextInput
-        block
-        contrast
-        leadingVisual={SearchIcon}
+      <SelectPanelSearchInputBase
         placeholder={placeholder}
         aria-label={placeholder}
         {...props}
@@ -243,7 +240,7 @@ export const SelectPanelList = React.forwardRef<HTMLUListElement, React.Componen
       }
     }, [setCollectionKeyDown, onNavigationKeyDown])
     return (
-      <ActionList
+      <SelectPanelListBase
         {...props}
         ref={ref}
         id={props.id ?? state.listId}
@@ -269,6 +266,18 @@ export const SelectPanelList = React.forwardRef<HTMLUListElement, React.Componen
         }}
       />
     )
+  },
+)
+
+export const SelectPanelSearchInputBase = React.forwardRef<HTMLInputElement, TextInputProps>(
+  function SelectPanelSearchInputBase(props, ref) {
+    return <TextInput block contrast leadingVisual={SearchIcon} {...props} ref={ref} />
+  },
+)
+
+export const SelectPanelListBase = React.forwardRef<HTMLUListElement, ActionListProps>(
+  function SelectPanelListBase(props, ref) {
+    return <ActionList role="listbox" disableFocusZone {...props} ref={ref} />
   },
 )
 

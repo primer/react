@@ -1,12 +1,18 @@
 import {forwardRef} from 'react'
-import {ActionList} from '../../ActionList'
+import {ActionList, type ActionListItemProps} from '../../ActionList'
 import {renderActionListItemContent} from './ActionListItemContent'
 import type {ItemInput, RenderItemFn} from '../../FilteredActionList/types'
 
-export const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?: RenderItemFn}>((item, ref) => {
+export const MappedActionListItem = forwardRef<
+  HTMLLIElement,
+  ItemInput & {
+    renderItem?: RenderItemFn
+    ItemComponent?: React.ComponentType<React.PropsWithoutRef<ActionListItemProps> & React.RefAttributes<HTMLLIElement>>
+  }
+>(({ItemComponent = ActionList.Item, renderItem, ...item}, ref) => {
   // keep backward compatibility for renderItem
   // escape hatch for custom Item rendering
-  if (typeof item.renderItem === 'function') return item.renderItem(item)
+  if (typeof renderItem === 'function') return renderItem(item)
 
   const {
     id,
@@ -23,7 +29,7 @@ export const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {rende
   } = item
 
   return (
-    <ActionList.Item
+    <ItemComponent
       role="option"
       // @ts-ignore - for now
       onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
@@ -44,6 +50,6 @@ export const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {rende
         trailingText,
         children,
       })}
-    </ActionList.Item>
+    </ItemComponent>
   )
 })
