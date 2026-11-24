@@ -25,7 +25,7 @@ With Base UI, teams get a consistent way to compose components and combine their
 
 ## Decision
 
-We'll adopt Base UI's approach to composition as a starting point for Primer's parts-based API. Interactive components will expose the parts consumers need to arrange their own layouts and combine interactions. Those parts will follow the same conventions across Primer.
+We'll adopt Base UI's approach to composition as a starting point for Primer's parts-based API. All Primer components will follow the same API conventions. Components will expose parts where consumers need to arrange their own layouts or combine behavior. Simpler components may not need parts.
 
 Parts and configured components will share Primer's existing implementation. Teams can keep using configured components for standard patterns and use parts when they need more control. Primer will define and maintain the public API, even if we change the implementation later.
 
