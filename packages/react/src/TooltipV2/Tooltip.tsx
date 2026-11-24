@@ -147,7 +147,7 @@ export const Tooltip: ForwardRefExoticComponent<
 
     // Normalize keybindingHint to an array for uniform rendering
     const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
-    const hasText = Boolean(text.trim())
+    const hasText = typeof text === 'string' && text.trim().length > 0
     const hasContent = hasText || keybindingHints.length > 0
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
