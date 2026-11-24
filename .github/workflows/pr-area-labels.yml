@@ -35,37 +35,21 @@ jobs:
             }
 
             const areas = [
-              {name: 'area: react', description: 'Changes to the React package', matches: path => path.startsWith('packages/react/')},
-              {name: 'area: styled-react', description: 'Changes to the legacy styled React package', matches: path => path.startsWith('packages/styled-react/')},
-              {name: 'area: docs', description: 'Changes to documentation or documentation tooling', matches: path => /^(docs|contributor-docs|packages\/doc-gen)\//.test(path) || /(^|\/)README\.md$/.test(path) || /\.docs\.json$/.test(path)},
-              {name: 'area: ci', description: 'Changes to Actions workflows or CI scripts', matches: path => path.startsWith('.github/workflows/') || path.startsWith('.github/actions/') || path.startsWith('.github/scripts/') || path.startsWith('script/')},
-              {name: 'area: storybook', description: 'Changes to Storybook configuration or stories', matches: path => /(^|\/)\.storybook\//.test(path) || /\.stories\.[^/]+$/.test(path)},
-              {name: 'area: mcp', description: 'Changes to the MCP package', matches: path => path.startsWith('packages/mcp/')},
-              {name: 'area: tooling', description: 'Changes to shared build or development tooling', matches: path => /^packages\/(rolldown-plugin-[^/]+|postcss-preset-primer|react-compiler-check|vitest-config)\//.test(path) || /^(package(-lock)?\.json|turbo\.json|[^/]*config[^/]*|\.[^/]+rc)$/.test(path)},
-              {name: 'area: tests', description: 'Changes to tests, fixtures, or snapshots', matches: path => path.startsWith('e2e/') || /\.(test|spec)\.[^/]+$/.test(path) || /(^|\/)(__tests__|__snapshots__|fixtures)\//.test(path)},
-              {name: 'area: examples', description: 'Changes to example applications', matches: path => path.startsWith('examples/')},
-              {name: 'area: canvas', description: 'Changes to the Canvas package', matches: path => path.startsWith('packages/canvas/')},
-              {name: 'area: release', description: 'Changes to release metadata or changesets', matches: path => path.startsWith('.changeset/') || /(^|\/)CHANGELOG\.md$/.test(path)},
+              {name: 'area: react', matches: path => path.startsWith('packages/react/')},
+              {name: 'area: styled-react', matches: path => path.startsWith('packages/styled-react/')},
+              {name: 'area: docs', matches: path => /^(docs|contributor-docs|packages\/doc-gen)\//.test(path) || /(^|\/)README\.md$/.test(path) || /\.docs\.json$/.test(path)},
+              {name: 'area: ci', matches: path => path.startsWith('.github/workflows/') || path.startsWith('.github/actions/') || path.startsWith('.github/scripts/') || path.startsWith('script/')},
+              {name: 'area: storybook', matches: path => /(^|\/)\.storybook\//.test(path) || /\.stories\.[^/]+$/.test(path)},
+              {name: 'area: mcp', matches: path => path.startsWith('packages/mcp/')},
+              {name: 'area: tooling', matches: path => /^packages\/(rolldown-plugin-[^/]+|postcss-preset-primer|react-compiler-check|vitest-config)\//.test(path) || /^(package(-lock)?\.json|turbo\.json|[^/]*config[^/]*|\.[^/]+rc)$/.test(path)},
+              {name: 'area: tests', matches: path => path.startsWith('e2e/') || /\.(test|spec)\.[^/]+$/.test(path) || /(^|\/)(__tests__|__snapshots__|fixtures)\//.test(path)},
+              {name: 'area: examples', matches: path => path.startsWith('examples/')},
+              {name: 'area: canvas', matches: path => path.startsWith('packages/canvas/')},
+              {name: 'area: release', matches: path => path.startsWith('.changeset/') || /(^|\/)CHANGELOG\.md$/.test(path)},
             ]
             // A rename touches both its old and new areas.
             const paths = files.flatMap(file => [file.filename, file.previous_filename].filter(Boolean))
             const desired = areas.filter(area => paths.some(area.matches))
-            const labels = await github.paginate(github.rest.issues.listLabelsForRepo, {...repo, per_page: 100})
-            for (const area of desired) {
-              if (!labels.some(label => label.name === area.name)) {
-                try {
-                  await github.rest.issues.createLabel({
-                    ...repo, name: area.name, color: 'd4c5f9', description: area.description,
-                  })
-                } catch (error) {
-                  if (error.status !== 422 || !error.response?.data?.errors?.some(item => item.code === 'already_exists' && item.resource === 'Label')) {
-                    throw error
-                  }
-                  core.info(`Label ${area.name} was created by another run`)
-                }
-              }
-            }
-
             // Recheck freshness immediately before changing PR labels.
             const {data: current} = await github.rest.pulls.get({...repo, pull_number})
             if (current.state !== 'open' || current.head.sha !== pr.head.sha) return

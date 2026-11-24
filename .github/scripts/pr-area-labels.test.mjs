@@ -14,10 +14,9 @@ async function run({
   head = 'head',
   currentHead = head,
   changedFiles = files.length,
-  knownLabels = [],
-  createError,
+  addError,
 } = {}) {
-  const calls = {added: [], removed: [], created: []}
+  const calls = {added: [], removed: []}
   let reads = 0
   const github = {
     rest: {
@@ -33,35 +32,31 @@ async function run({
         listFiles: 'files',
       },
       issues: {
-        listLabelsForRepo: 'labels',
-        createLabel: async ({name}) => {
-          if (createError) throw createError
-          calls.created.push(name)
+        addLabels: async ({labels: additions}) => {
+          if (addError) throw addError
+          calls.added.push(...additions)
         },
-        addLabels: async ({labels: additions}) => calls.added.push(...additions),
         removeLabel: async ({name}) => calls.removed.push(name),
       },
     },
     paginate: async method => {
-      assert.ok(method === 'files' || method === 'labels')
-      return method === 'files' ? files : knownLabels.map(name => ({name}))
+      assert.equal(method, 'files')
+      return files
     },
   }
   const context = {
     repo: {owner: 'primer', repo: 'react'},
     payload: {pull_request: {number: 1, head: {sha: 'head'}}},
   }
-  await vm.runInNewContext(`(async () => {${script}\n})()`, {github, context, core: {info: () => {}}})
+  await vm.runInNewContext(`(async () => {${script}\n})()`, {github, context})
   return calls
 }
 
-test('labels overlapping areas and creates only missing labels', async () => {
+test('labels overlapping areas', async () => {
   const calls = await run({
     files: [{filename: 'packages/react/src/Button/Button.stories.tsx'}],
-    knownLabels: ['area: react'],
   })
   assert.deepEqual(calls.added, ['area: react', 'area: storybook'])
-  assert.deepEqual(calls.created, ['area: storybook'])
 })
 
 test('counts both paths of a rename and deleted files', async () => {
@@ -78,18 +73,16 @@ test('removes only stale managed labels and preserves risk and human labels', as
   const calls = await run({
     files: [{filename: 'packages/mcp/src/example.ts'}],
     labels: ['area: react', 'area: mcp', 'area: custom', 'risk: high', 'bug'],
-    knownLabels: ['area: mcp'],
   })
-  assert.deepEqual(calls, {added: [], removed: ['area: react'], created: []})
+  assert.deepEqual(calls, {added: [], removed: ['area: react']})
 })
 
-test('does not re-add or recreate existing labels', async () => {
+test('does not re-add existing labels', async () => {
   const calls = await run({
     files: [{filename: '.github/workflows/ci.yml'}],
     labels: ['area: ci'],
-    knownLabels: ['area: ci'],
   })
-  assert.deepEqual(calls, {added: [], removed: [], created: []})
+  assert.deepEqual(calls, {added: [], removed: []})
 })
 
 test('classifies documentation, tooling, tests, examples, packages, and releases', async () => {
@@ -120,7 +113,7 @@ test('classifies documentation, tooling, tests, examples, packages, and releases
 
 test('leaves unmapped files unlabeled and clears stale areas', async () => {
   const calls = await run({files: [{filename: 'LICENSE'}], labels: ['area: react', 'bug']})
-  assert.deepEqual(calls, {added: [], removed: ['area: react'], created: []})
+  assert.deepEqual(calls, {added: [], removed: ['area: react']})
 })
 
 test('refuses to update labels for closed or stale PRs', async () => {
@@ -128,9 +121,8 @@ test('refuses to update labels for closed or stale PRs', async () => {
     const calls = await run({
       ...options,
       files: [{filename: 'packages/react/src/index.ts'}],
-      knownLabels: ['area: react'],
     })
-    assert.deepEqual(calls, {added: [], removed: [], created: []})
+    assert.deepEqual(calls, {added: [], removed: []})
   }
 })
 
@@ -141,14 +133,7 @@ test('fails explicitly without writes when GitHub returns an incomplete file lis
   )
 })
 
-test('tolerates only an already-created label race and surfaces other API failures', async () => {
-  const options = {files: [{filename: '.github/workflows/ci.yml'}]}
-  const calls = await run({
-    ...options,
-    createError: {status: 422, response: {data: {errors: [{code: 'already_exists', resource: 'Label'}]}}},
-  })
-  assert.deepEqual(calls.added, ['area: ci'])
-  for (const createError of [new Error('API unavailable'), {status: 422, response: {data: {errors: []}}}]) {
-    await assert.rejects(run({...options, createError}), error => error === createError)
-  }
+test('surfaces label API failures', async () => {
+  const addError = new Error('API unavailable')
+  await assert.rejects(run({files: [{filename: '.github/workflows/ci.yml'}], addError}), error => error === addError)
 })

@@ -8,8 +8,8 @@ They are advisory, not release approvals or substitutes for human review.
 
 `PR area labels` deterministically matches changed paths. A PR can have multiple
 `area:` labels, such as `area: react` and `area: storybook` for a React story.
-Renames count both the old and new paths. The workflow creates missing labels and
-removes stale labels from its own set, preserving unrelated labels.
+Renames count both the old and new paths. The workflow assumes area labels already
+exist and removes stale labels from its own set, preserving unrelated labels.
 
 Mappings live in `.github/workflows/pr-area-labels.yml`. The managed areas are
 react, styled-react, docs, ci, storybook, mcp, tooling, tests, examples, canvas, and
@@ -19,7 +19,7 @@ release. Paths outside these mappings receive no area label.
 
 `PR public impact` uses Copilot to inspect the diff and relevant manifests,
 exports, source, and build configuration without executing PR code. It owns
-exactly one of these labels:
+exactly one of these existing labels:
 
 | Label          | Consumer risk                                                                 |
 | -------------- | ----------------------------------------------------------------------------- |

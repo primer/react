@@ -31,7 +31,6 @@ tools:
 safe-outputs:
   add-labels:
     allowed: ['risk: high', 'risk: medium', 'risk: low', 'risk: none']
-    create-if-missing: true
     max: 1
     max-labels: 1
     target: triggering
