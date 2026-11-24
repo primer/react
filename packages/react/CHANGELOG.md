@@ -1,5 +1,67 @@
 # @primer/react
 
+## 38.47.0
+
+### Minor Changes
+
+- [#8688](https://github.com/primer/react/pull/8688) [`92a1fca`](https://github.com/primer/react/commit/92a1fca80cd63c2b729141a38a4a93ec27c47a43) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - DataTable: Describe group selection checkboxes with the member count. Add count-label formatters for localizing checkbox and disclosure descriptions in DataTable and Table.Group.
+
+- [#8768](https://github.com/primer/react/pull/8768) [`31c717c`](https://github.com/primer/react/commit/31c717c3901f0940af23c40e0c54de9f54f9036c) Thanks [@adierkens](https://github.com/adierkens)! - PageHeader: Forward standard heading attributes from `PageHeader.Title`.
+
+- [#8563](https://github.com/primer/react/pull/8563) [`998b471`](https://github.com/primer/react/commit/998b471a4ad78c7c23426038ef0c4a5261fc41cf) Thanks [@joshblack](https://github.com/joshblack)! - ActionMenu: Improve rendering performance with React Compiler support.
+
+- [#8746](https://github.com/primer/react/pull/8746) [`d2dd516`](https://github.com/primer/react/commit/d2dd516adc1eb82657df80a07e91b9a86a295165) Thanks [@Archanachaurasiya30](https://github.com/Archanachaurasiya30)! - Remove the unused hsluv dependency and move react-intersection-observer to devDependencies.
+
+- [#8742](https://github.com/primer/react/pull/8742) [`5817eb9`](https://github.com/primer/react/commit/5817eb9d2ec60193a933f09bfb3446eb479950cc) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Timeline: Always render an ordered list with list items, removing the list-semantics opt-out. Refs now target list elements instead of divs.
+
+### Patch Changes
+
+- [#8750](https://github.com/primer/react/pull/8750) [`4fc8b82`](https://github.com/primer/react/commit/4fc8b82cd8f2dbc0fcc0fd1ded8393abf7fbba41) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Breadcrumbs: In `menu` and `menu-with-root` overflow modes, collapse crumbs as soon as they no longer fit beside sibling content in a flex row, so the collapse point no longer depends on crumb length or resize direction.
+
+- [#8761](https://github.com/primer/react/pull/8761) [`24ce6b2`](https://github.com/primer/react/commit/24ce6b2c48dc3e301f03717f565a1427dc15d9d0) Thanks [@nemo-crypto](https://github.com/nemo-crypto)! - Fix TreeView PageUp and PageDown navigation targeting items hidden inside collapsed subtrees. Paging now counts only visible tree items and moves at least one item when the scroll container is shorter than a row.
+
+- [#8709](https://github.com/primer/react/pull/8709) [`1588875`](https://github.com/primer/react/commit/15888757f6681f615efcf88e0218b70c2165c390) Thanks [@TheoGoulart333](https://github.com/TheoGoulart333)! - ActionMenu: Fix a memory leak when opening and closing menus.
+
+- [#8548](https://github.com/primer/react/pull/8548) [`6075e98`](https://github.com/primer/react/commit/6075e98c6ea8fefb1d20f3918a0c133e77a68c9a) Thanks [@llastflowers](https://github.com/llastflowers)! - Ref handling: Preserve forwarded refs while maintaining internal component refs.
+
+- [#8708](https://github.com/primer/react/pull/8708) [`16c41d3`](https://github.com/primer/react/commit/16c41d3e57bb7358d887c613aaeb22aaea3a0d97) Thanks [@vivanvv](https://github.com/vivanvv)! - Pagination: Disable Next for empty results when page numbers are hidden.
+
+- [#8801](https://github.com/primer/react/pull/8801) [`77a8d08`](https://github.com/primer/react/commit/77a8d088f1528d8b2101254d45ddf880b1e317dd) Thanks [@llastflowers](https://github.com/llastflowers)! - Fix PageLayout.Sidebar ignoring its padding prop
+
+- [#8731](https://github.com/primer/react/pull/8731) [`cb71c93`](https://github.com/primer/react/commit/cb71c93fada0adb063905e1894fe1667c0e3c3fa) Thanks [@dependabot](https://github.com/apps/dependabot)! - PageLayout and TreeView: Preserve pane resizing and keyboard focus behavior
+
+- [#8740](https://github.com/primer/react/pull/8740) [`f0918eb`](https://github.com/primer/react/commit/f0918eb4ed19fe94a336840041d844857bddab23) Thanks [@tay1orjones](https://github.com/tay1orjones)! - Tooltip: Empty or whitespace-only text no longer opens a tooltip or labels or describes the trigger when there is no keybinding hint.
+
+- [#8656](https://github.com/primer/react/pull/8656) [`78abbdf`](https://github.com/primer/react/commit/78abbdf9d3c7bdef81bb54814288cc4f84aaf3ac) Thanks [@RafaelHDSV](https://github.com/RafaelHDSV)! - UnderlineNav and TabNav: skip the loading-counter pulse when prefers-reduced-motion is reduce.
+
+## 38.46.0
+
+### Minor Changes
+
+- [#8592](https://github.com/primer/react/pull/8592) [`0ae18d3`](https://github.com/primer/react/commit/0ae18d38f09044c40c1a181288c2783e93629b4e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Card: Add optional shadows, regular (16px) and spacious (24px) padding in either layout, and heading links and buttons with opt-in full-card hit areas using fullCardHitArea. Existing normal padding and defaults are unchanged.
+
+- [#8692](https://github.com/primer/react/pull/8692) [`918d7cf`](https://github.com/primer/react/commit/918d7cf82d3884ab134e9b074e0a595198a1c033) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Stack: Add `balance` as a value for the `wrap` prop.
+
+### Patch Changes
+
+- [#8748](https://github.com/primer/react/pull/8748) [`324b0aa`](https://github.com/primer/react/commit/324b0aa0f1e4cc12c61a8a36b5790357e428dccc) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Breadcrumbs: Collapse crumbs that render more than one element (such as a link with a sibling button) when they no longer fit, instead of overflowing the container.
+
+- [#8683](https://github.com/primer/react/pull/8683) [`32d5061`](https://github.com/primer/react/commit/32d50618c58cceddf66d83716ac9742c2134b790) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Breadcrumbs: Improve the performance of `overflow="menu"` and `"menu-with-root"` on mount, resize and navigation. Server-rendered markup now applies the collapse rules before hydration, and the overflow menu trigger is a `<button>`.
+
+- [#8592](https://github.com/primer/react/pull/8592) [`0ae18d3`](https://github.com/primer/react/commit/0ae18d38f09044c40c1a181288c2783e93629b4e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Card: Improve shrinking and equal-height layouts, keep secondary controls accessible in custom whole-card compositions, and keep images edge-to-edge across padding options.
+
+- [#8679](https://github.com/primer/react/pull/8679) [`dbf2ac1`](https://github.com/primer/react/commit/dbf2ac1d758a0aae69f37ad1bd789480ce58ff4c) Thanks [@llastflowers](https://github.com/llastflowers)! - Breadcrumbs: Close the overflow menu when Escape is pressed while its tooltip is open.
+
+- [#8628](https://github.com/primer/react/pull/8628) [`41f29c8`](https://github.com/primer/react/commit/41f29c845663936043618af29dcb71de4c9384b2) Thanks [@joshblack](https://github.com/joshblack)! - SkeletonAvatar, SkeletonText: Preserve the requested size and shape regardless of stylesheet load order
+
+- [#8681](https://github.com/primer/react/pull/8681) [`8a9013e`](https://github.com/primer/react/commit/8a9013ea48359ad60a60e194783c865c08d3b7db) Thanks [@mattcosta7](https://github.com/mattcosta7)! - SkeletonBox, SkeletonText, SkeletonAvatar, ProgressBar: Run the loading shimmer animation on the compositor to reduce main-thread work while skeletons are visible
+
+- [#8562](https://github.com/primer/react/pull/8562) [`ee46232`](https://github.com/primer/react/commit/ee46232fafa24701415b21eed60cca68e589cf1c) Thanks [@joshblack](https://github.com/joshblack)! - useOnEscapePress, useOnOutsideClick: Improve performance when callbacks change between renders.
+
+- [#8609](https://github.com/primer/react/pull/8609) [`da90227`](https://github.com/primer/react/commit/da9022741a8109195480d7e6ccdf80cd723d6199) Thanks [@tay1orjones](https://github.com/tay1orjones)! - ActionList.LinkItem, NavList.Item: Preserve keyboard focus and running child animations when links rerender.
+
+- [#8684](https://github.com/primer/react/pull/8684) [`35ff497`](https://github.com/primer/react/commit/35ff4972b1d62810df69f606c6785bc7f123d5d5) Thanks [@mattcosta7](https://github.com/mattcosta7)! - TreeView: Reduce mount and hydration cost for large trees. Server-rendered trees now have a single tab stop and named subtrees before hydration.
+
 ## 38.45.0
 
 ### Minor Changes

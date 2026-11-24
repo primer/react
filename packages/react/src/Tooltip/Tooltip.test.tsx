@@ -1,6 +1,7 @@
+import {page} from 'vitest/browser'
 import type {TooltipProps} from './Tooltip'
 import Tooltip from './Tooltip'
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import {CodeIcon} from '@primer/octicons-react'
 import {implementsClassName} from '../utils/testing'
@@ -46,7 +47,7 @@ describe('Tooltip', () => {
     expect(container.firstChild).toHaveClass('tooltipped-multiline')
   })
 
-  it('should label the link', () => {
+  it('should label the link', async () => {
     render(
       <Tooltip aria-label="Tooltip text" id="tooltip-unique-id">
         <a aria-labelledby="tooltip-unique-id" href="#href">
@@ -54,6 +55,6 @@ describe('Tooltip', () => {
         </a>
       </Tooltip>,
     )
-    expect(screen.getByRole('link')).toHaveAccessibleName('Tooltip text')
+    await expect.element(page.getByRole('link')).toHaveAccessibleName('Tooltip text')
   })
 })

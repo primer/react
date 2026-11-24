@@ -146,6 +146,8 @@ type DataTableBaseProps<Data extends UniqueRow> = {
    */
   collapsibleGroups?: boolean
 
+  getGroupRowCountLabel?: (rowCount: number) => string
+
   /**
    * Controls the expanded group IDs.
    */
@@ -209,6 +211,7 @@ function DataTableImplementation<Data extends UniqueRow>({
   isRowSelectable,
   getSelectionAnnouncement = defaultSelectionAnnouncement,
   collapsibleGroups = false,
+  getGroupRowCountLabel,
   expandedGroups,
   defaultExpandedGroups,
   onExpandedGroupsChange,
@@ -423,6 +426,7 @@ function DataTableImplementation<Data extends UniqueRow>({
             id={body.id}
             label={body.label}
             rowCount={body.rows.length}
+            getRowCountLabel={getGroupRowCountLabel}
             colSpan={headers.length + (rowSelection ? 1 : 0)}
             aria-label={body['aria-label']}
             collapsible={collapsibleGroups}
