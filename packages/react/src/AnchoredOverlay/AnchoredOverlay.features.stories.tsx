@@ -1,6 +1,7 @@
 import type React from 'react'
 import {useEffect, useRef, useState, type JSX} from 'react'
-import type {Args, Meta} from '@storybook/react-vite'
+import type {Args, Meta, StoryObj} from '@storybook/react-vite'
+import {expect, userEvent, waitFor, within} from 'storybook/test'
 import {FocusKeys} from '@primer/behaviors'
 import Avatar from '../Avatar'
 import {Dialog} from '../Dialog'
@@ -14,6 +15,7 @@ import {registerPortalRoot} from '../Portal'
 import {Playground} from './AnchoredOverlay.stories'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 import {Stack} from '../Stack/Stack'
+import {FeatureFlags} from '../FeatureFlags'
 import classes from './AnchoredOverlay.features.stories.module.css'
 
 export default {
@@ -93,6 +95,39 @@ export const PortalInsideScrollingElement = (args: Args) => {
       </table>
     </HeaderAndLayout>
   )
+}
+
+export const CustomPopoverId: StoryObj<typeof AnchoredOverlay> = {
+  render: function CustomPopoverId() {
+    const [open, setOpen] = useState(true)
+    return (
+      <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAs="popover"
+          renderAnchor={props => <Button {...props}>Custom popover</Button>}
+          overlayProps={{id: 'consumer.popover', role: 'dialog', 'aria-label': 'Custom popover'}}
+        >
+          <Button>Focusable child</Button>
+        </AnchoredOverlay>
+      </FeatureFlags>
+    )
+  },
+  play: async ({canvas, canvasElement}) => {
+    const anchor = canvas.getByRole('button', {name: 'Custom popover'})
+    const dialog = within(canvasElement.ownerDocument.body).getByRole('dialog', {
+      name: 'Custom popover',
+    })
+    await waitFor(async () => {
+      await expect(dialog).toBeVisible()
+    })
+    await expect(dialog).toHaveAttribute('id', 'consumer.popover')
+    await expect(anchor).toHaveAttribute('popovertarget', 'consumer.popover')
+    await userEvent.click(anchor)
+    await expect(dialog).not.toBeInTheDocument()
+  },
 }
 
 export const CustomAnchorId = () => {
