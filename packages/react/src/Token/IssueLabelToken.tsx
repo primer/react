@@ -27,6 +27,12 @@ export interface IssueLabelTokenProps extends TokenBaseProps {
  * renders a `span`, `a` (with `href`) or `button` (with `onClick`) based on the props provided.
  * It has no `text`, `size`, `isSelected`, `onRemove` or `hideRemoveButton` props: pass the label text as `children`
  * and render your own remove control if one is needed. `id` is forwarded to the root element, so convert numeric ids to strings.
+ *
+ * Not drop-in replaceable:
+ * - `TextInputWithTokens` passes `text` and `onRemove` (not `children`) to its `tokenComponent`, so passing `IssueLabel`
+ *   there directly renders an empty label with no removal. Migrating that usage needs an adapter component that renders
+ *   `text` as children and its own remove control.
+ * - `IssueLabel` does not accept a `ref`. Consumers that rely on a ref to `IssueLabelToken` must wrap `IssueLabel` in an element they can ref.
  */
 const IssueLabelToken = forwardRef((props, forwardedRef) => {
   const {
