@@ -95,7 +95,8 @@
   max-height: inherit;
 }
 
-.Message {
+.Message,
+.Loading {
   display: flex;
   height: 100%;
   padding: var(--base-size-24);
@@ -105,11 +106,65 @@
   align-items: center;
   flex-grow: 1;
   gap: var(--base-size-4);
+}
 
+.Message {
   a {
     color: inherit;
     text-decoration: underline;
   }
+}
+
+.MessageContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--base-size-4);
+}
+
+.Message:where([data-size='inline']),
+.Loading:where([data-size='inline']) {
+  height: auto;
+  padding: var(--base-size-8) var(--base-size-16);
+  text-align: left;
+  flex-grow: 0;
+  gap: var(--base-size-8);
+}
+
+.Message:where([data-size='inline']) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+
+  &:where([data-has-icon]) {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .MessageContent {
+    grid-column: -2 / -1;
+    align-items: flex-start;
+  }
+
+  .MessageIcon {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 0;
+  }
+
+  .MessageAction {
+    grid-column: -2 / -1;
+    margin-top: 0;
+  }
+}
+
+.Loading:where([data-size='inline']) {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.Message:where([hidden]),
+.Loading:where([hidden]) {
+  display: none;
 }
 
 .MessageTitle {
@@ -233,4 +288,15 @@
 
 .TextInput {
   margin: var(--base-size-8);
+}
+
+.SearchInput {
+  min-width: 0;
+  max-width: calc(100% - var(--base-size-16));
+}
+
+.List {
+  min-height: 0;
+  overflow: auto;
+  flex: 1;
 }

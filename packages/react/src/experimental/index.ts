@@ -83,6 +83,16 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
+export type {
+  SelectPanelRootProps,
+  SelectPanelTriggerProps,
+  SelectPanelSearchInputProps,
+  ComposableSelectPanelItemProps,
+  SelectPanelOverlayProps,
+  SelectPanelCloseButtonProps,
+  ComposableSelectPanelMessageProps,
+  SelectPanelLoadingProps,
+} from '../SelectPanel'
 export {Tooltip} from '../TooltipV2'
 export type {TooltipProps} from '../TooltipV2'
 export * from '../ActionBar'
