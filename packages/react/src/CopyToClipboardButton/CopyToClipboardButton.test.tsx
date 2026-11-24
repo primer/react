@@ -53,7 +53,7 @@ describe('CopyToClipboardButton', () => {
     await expect.poll(() => onCopy.mock.calls.length).toBe(1)
   })
 
-  it('ignores stale announcements and callbacks when overlapping writes finish out of order', async () => {
+  it('keeps the newer success when an older overlapping write fails', async () => {
     const first = Promise.withResolvers<void>()
     const second = Promise.withResolvers<void>()
     vi.mocked(navigator.clipboard.writeText).mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise)
@@ -73,6 +73,9 @@ describe('CopyToClipboardButton', () => {
     expect(onCopy).toHaveBeenCalledOnce()
     expect(onCopyError).not.toHaveBeenCalled()
     await expect.element(button).not.toHaveAttribute('data-copy-error')
+    await userEvent.unhover(button)
+    await userEvent.hover(button)
+    await expect.element(page.getByText('Copied!', {exact: true})).toBeVisible()
   })
 
   it('does not announce or call callbacks for a write that finishes after unmount', async () => {
@@ -107,6 +110,7 @@ describe('CopyToClipboardButton', () => {
     if (keyshortcuts) {
       await expect.element(button).toHaveAttribute('aria-keyshortcuts', keyshortcuts)
     }
+    await expect.element(button).toHaveAccessibleDescription('Copy the greeting text')
     const descriptionId = button.element().getAttribute('aria-describedby')
     if (descriptionId === null) throw new Error('Expected a tooltip description')
     expect(document.getElementById(descriptionId)).toHaveTextContent('Copy the greeting text')
