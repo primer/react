@@ -324,9 +324,13 @@ function usePagination(config: PaginationConfig): PaginationResult {
   const {defaultPageIndex, onChange, pageSize, totalCount} = config
   const calculatedPageCount = Math.ceil(totalCount / pageSize)
   const pageCount = Number.isFinite(calculatedPageCount) ? calculatedPageCount : 0
+  const validDefaultPageIndex =
+    defaultPageIndex !== undefined &&
+    defaultPageIndex >= 0 &&
+    (defaultPageIndex < pageCount || (defaultPageIndex === 0 && pageCount === 0))
   const [defaultIndex, setDefaultIndex] = useState(() => {
     if (defaultPageIndex !== undefined) {
-      if (defaultPageIndex >= 0 && defaultPageIndex < pageCount) {
+      if (validDefaultPageIndex) {
         return defaultPageIndex
       }
 
@@ -347,8 +351,7 @@ function usePagination(config: PaginationConfig): PaginationResult {
   const previousPageIndex = useRef(storedPageIndex)
   const previousDefaultIndex = useRef(defaultIndex)
   const lastClampedPageIndex = useRef<number | undefined>(undefined)
-  const validDefaultPageCount = defaultPageIndex !== undefined && defaultPageIndex >= 0 && defaultPageIndex < pageCount
-  const defaultPageIndexChanged = validDefaultPageCount && defaultIndex !== defaultPageIndex
+  const defaultPageIndexChanged = validDefaultPageIndex && defaultIndex !== defaultPageIndex
   const pageIndex = defaultPageIndexChanged ? defaultPageIndex : Math.min(storedPageIndex, Math.max(0, pageCount - 1))
   if (defaultPageIndexChanged) {
     setDefaultIndex(defaultPageIndex)
@@ -358,7 +361,6 @@ function usePagination(config: PaginationConfig): PaginationResult {
   }
   useEffect(() => {
     // Prop changes can update parent state only after this component commits.
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (previousPageIndex.current !== pageIndex || previousDefaultIndex.current !== defaultIndex) {
       const pageChanged = previousPageIndex.current !== pageIndex
       const defaultChanged = previousDefaultIndex.current !== defaultIndex
@@ -372,8 +374,11 @@ function usePagination(config: PaginationConfig): PaginationResult {
         // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-live-state-to-parent, react-you-might-not-need-an-effect/no-pass-data-to-parent
         onChange?.({pageIndex})
       }
+    } else {
+      // Only suppress an echo during the next commit after a clamp.
+      lastClampedPageIndex.current = undefined
     }
-  }, [defaultIndex, onChange, pageIndex])
+  })
 
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min((pageIndex + 1) * pageSize, totalCount)

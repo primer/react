@@ -2,7 +2,7 @@ import {page, userEvent} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
 import {act, fireEvent, render} from '@testing-library/react'
-import {StrictMode, useState} from 'react'
+import {StrictMode, useCallback, useState} from 'react'
 
 describe('Table.Pagination', () => {
   beforeEach(async () => {
@@ -143,6 +143,68 @@ describe('Table.Pagination', () => {
       </StrictMode>,
     )
     expect(onChange).toHaveBeenCalledTimes(2)
+    expect(getCurrentPage()).toHaveTextContent('1')
+  })
+
+  it('reports a later default change to the clamped page after an unrelated commit', () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />,
+    )
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={40} onChange={onChange} />)
+    rerender(
+      <Pagination aria-label="Pagination" id="updated" defaultPageIndex={3} totalCount={40} onChange={onChange} />,
+    )
+    rerender(
+      <Pagination aria-label="Pagination" id="updated" defaultPageIndex={1} totalCount={40} onChange={onChange} />,
+    )
+
+    expect(onChange.mock.calls).toEqual([[{pageIndex: 1}], [{pageIndex: 1}]])
+  })
+
+  it('accepts an empty-table default before returning to a later page', () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />,
+    )
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={0} onChange={onChange} />)
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={0} onChange={onChange} />)
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({pageIndex: 0})
+
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />)
+    expect(getCurrentPage()).toHaveTextContent('4')
+    expect(onChange).toHaveBeenLastCalledWith({pageIndex: 3})
+  })
+
+  it('accepts page zero as the default for an empty table', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    render(<Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={0} />)
+    expect(warn).not.toHaveBeenCalled()
+  })
+
+  it('reports a clamp when selecting a page also shrinks the row count', async () => {
+    const onChange = vi.fn()
+    function PaginationWithShrinkingRows() {
+      const [totalCount, setTotalCount] = useState(50)
+      const [parentPageIndex, setParentPageIndex] = useState(0)
+      const handleChange = useCallback((state: {pageIndex: number}) => {
+        onChange(state)
+        setParentPageIndex(state.pageIndex)
+        setTotalCount(25)
+      }, [])
+      return (
+        <>
+          <div>Parent page {parentPageIndex + 1}</div>
+          <Pagination aria-label="Pagination" totalCount={totalCount} onChange={handleChange} />
+        </>
+      )
+    }
+
+    render(<PaginationWithShrinkingRows />)
+    await userEvent.click(getPage(1))
+
+    expect(onChange.mock.calls).toEqual([[{pageIndex: 1}], [{pageIndex: 0}]])
+    expect(page.getByText('Parent page 1', {exact: true}).element()).toBeInTheDocument()
     expect(getCurrentPage()).toHaveTextContent('1')
   })
 
