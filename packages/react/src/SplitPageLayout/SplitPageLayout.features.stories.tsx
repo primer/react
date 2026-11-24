@@ -42,7 +42,7 @@ export const SettingsPage: StoryFn<typeof SplitPageLayout> = () => (
 
 export const WithSidebarStart: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar position="start" aria-label="Inspector sidebar" style={{height: 'auto'}}>
+    <SplitPageLayout.Sidebar padding="none" position="start" aria-label="Inspector sidebar" style={{height: 'auto'}}>
       <div className={classes.SidebarContent}>
         <p className={classes.SidebarHeading}>Sidebar</p>
         <p className={classes.SidebarText}>
@@ -86,7 +86,7 @@ export const WithSidebarStart: StoryFn<typeof SplitPageLayout> = () => (
 
 export const WithSidebarEnd: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar position="end" aria-label="Inspector sidebar" style={{height: 'auto'}}>
+    <SplitPageLayout.Sidebar padding="none" position="end" aria-label="Inspector sidebar" style={{height: 'auto'}}>
       <div className={classes.SidebarContent}>
         <p className={classes.SidebarHeading}>Inspector</p>
         <p className={classes.SidebarText}>
@@ -121,7 +121,13 @@ export const WithSidebarEnd: StoryFn<typeof SplitPageLayout> = () => (
 
 export const WithResizableSidebar: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar resizable position="start" aria-label="Resizable sidebar" style={{height: 'auto'}}>
+    <SplitPageLayout.Sidebar
+      padding="none"
+      resizable
+      position="start"
+      aria-label="Resizable sidebar"
+      style={{height: 'auto'}}
+    >
       <div className={classes.SidebarContent}>
         <p className={classes.SidebarHeading}>Resizable Sidebar</p>
         <p className={classes.SidebarText}>
@@ -146,7 +152,13 @@ export const WithResizableSidebar: StoryFn<typeof SplitPageLayout> = () => (
 
 export const WithSidebarAndResizablePane: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar resizable position="start" aria-label="Navigation sidebar" style={{height: 'auto'}}>
+    <SplitPageLayout.Sidebar
+      padding="none"
+      resizable
+      position="start"
+      aria-label="Navigation sidebar"
+      style={{height: 'auto'}}
+    >
       <div className={classes.SidebarContent}>
         <p className={classes.SidebarHeading}>Sidebar</p>
         <p className={classes.SidebarText}>Full-height resizable sidebar</p>
@@ -178,7 +190,7 @@ export const WithSidebarAndResizablePane: StoryFn<typeof SplitPageLayout> = () =
 
 export const WithStickySidebar: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar sticky position="start" aria-label="Sticky sidebar">
+    <SplitPageLayout.Sidebar padding="none" sticky position="start" aria-label="Sticky sidebar">
       <div className={classes.SidebarContent}>
         <p className={classes.SidebarHeading}>Sticky Sidebar</p>
         <p className={classes.SidebarText}>This sidebar stays fixed in the viewport as you scroll the page content.</p>
@@ -207,6 +219,7 @@ export const WithStickySidebar: StoryFn<typeof SplitPageLayout> = () => (
 export const SidebarFullscreenResponsiveVariant: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
     <SplitPageLayout.Sidebar
+      padding="none"
       position="start"
       responsiveVariant="fullscreen"
       aria-label="Fullscreen sidebar"

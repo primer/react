@@ -28,6 +28,15 @@ const turndownService = new TurndownService()
 // Load all tokens with guidelines from primitives
 const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
 
+function hasRedirectedToDifferentPage(response: Response, url: URL): boolean {
+  if (!response.url) {
+    return false
+  }
+
+  const finalUrl = new URL(response.url)
+  return finalUrl.origin !== url.origin || finalUrl.pathname.replace(/\/$/, '') !== url.pathname.replace(/\/$/, '')
+}
+
 function createServer() {
   const server = new McpServer({
     name: 'Primer',
@@ -316,13 +325,18 @@ ${text}`,
 
       const url = new URL(`/product/components/${match.slug}/guidelines`, 'https://primer.style')
       const response = await fetch(url)
-      if (!response.ok) {
-        if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
+      const redirected = hasRedirectedToDifferentPage(response, url)
+      if (!response.ok || redirected) {
+        if (
+          redirected ||
+          (response.status >= 400 && response.status < 500) ||
+          (response.status >= 300 && response.status < 400)
+        ) {
           return {
             content: [
               {
                 type: 'text',
-                text: `There are no accessibility guidelines for the \`${name}\` component in the @primer/react package.`,
+                text: `There are no usage guidelines for the \`${name}\` component in the @primer/react package.`,
               },
             ],
           }
@@ -389,8 +403,13 @@ ${text}`,
 
       const url = new URL(`/product/components/${match.slug}/accessibility`, 'https://primer.style')
       const response = await fetch(url)
-      if (!response.ok) {
-        if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
+      const redirected = hasRedirectedToDifferentPage(response, url)
+      if (!response.ok || redirected) {
+        if (
+          redirected ||
+          (response.status >= 400 && response.status < 500) ||
+          (response.status >= 300 && response.status < 400)
+        ) {
           return {
             content: [
               {
