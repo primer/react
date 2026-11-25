@@ -4,6 +4,7 @@ import {page} from 'vitest/browser'
 
 import {KeybindingHint, getAccessibleKeybindingHintString} from '../KeybindingHint'
 import {implementsClassName} from '../utils/testing'
+import {PlatformOverrideProvider, type Platform} from './platform'
 
 describe('KeybindingHint', () => {
   implementsClassName(props => <KeybindingHint keys="Control" {...props} />)
@@ -48,6 +49,27 @@ describe('KeybindingHint', () => {
       .elements()
       .map(el => el.textContent)
     expect(names).toEqual(namesInOrder)
+  })
+
+  it.each<{
+    platform: Platform
+    expected: string[]
+  }>([
+    {platform: 'apple', expected: ['Control', 'Command', 'Command', 'Option', 'Shift', 'K']},
+    {platform: 'windows', expected: ['Control', 'Control', 'Windows', 'Alt', 'Shift', 'K']},
+    {platform: 'other', expected: ['Control', 'Control', 'Meta', 'Alt', 'Shift', 'K']},
+  ])('sorts Mod like its resolved modifier on $platform', ({platform, expected}) => {
+    render(
+      <PlatformOverrideProvider value={platform}>
+        <KeybindingHint format="full" keys="Meta+Shift+mOd+Alt+Control+K" />
+      </PlatformOverrideProvider>,
+    )
+    const names = page
+      .getByText(/^(Command|Control|Windows|Meta|Alt|Option|Shift|K)$/)
+      .elements()
+      .filter(el => el.hasAttribute('aria-hidden'))
+      .map(el => el.textContent)
+    expect(names).toEqual(expected)
   })
 
   it('capitalizes other keys', async () => {
@@ -102,6 +124,17 @@ describe('getAccessibleKeybindingHintString', () => {
 
   it('sorts modifiers in standard order', () =>
     expect(getAccessibleKeybindingHintString('Alt+Shift+Command+%', false)).toBe('alt shift command percent'))
+
+  it.each<{
+    platform: Platform
+    expected: string
+  }>([
+    {platform: 'apple', expected: 'control command command option shift k then command shift p'},
+    {platform: 'windows', expected: 'control control Windows alt shift k then control shift p'},
+    {platform: 'other', expected: 'control control meta alt shift k then control shift p'},
+  ])('sorts Mod in accessible sequences on $platform', ({platform, expected}) => {
+    expect(getAccessibleKeybindingHintString('Meta+Shift+mOd+Alt+Control+K Shift+Mod+P', platform)).toBe(expected)
+  })
 
   it('joins chords in a sequence with "then"', () =>
     expect(getAccessibleKeybindingHintString('Alt+9 x y', false)).toBe('alt 9 then x then y'))
