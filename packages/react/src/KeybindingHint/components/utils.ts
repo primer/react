@@ -15,22 +15,23 @@ const keySortPriorities: Partial<Record<string, number>> = {
   function: 6,
 }
 
-const keySortPriority = (priority: string) => keySortPriorities[priority] ?? Infinity
-
-const compareLowercaseKeys = (a: string, b: string) => keySortPriority(a) - keySortPriority(b)
+const keySortPriority = (key: string, platform: Platform) => {
+  const resolvedKey = key === 'mod' ? (platform === 'apple' ? 'meta' : 'control') : key
+  return keySortPriorities[resolvedKey] ?? Infinity
+}
 
 /** Split and sort the chord keys in standard order. */
-export const splitChord = (chord: string) =>
+export const splitChord = (chord: string, platform: Platform) =>
   chord
     .split('+')
     .map(k => k.toLowerCase())
-    .sort(compareLowercaseKeys)
+    .sort((a, b) => keySortPriority(a, platform) - keySortPriority(b, platform))
 
 const splitSequence = (sequence: string) => sequence.split(' ')
 
 /** Plain string version of `Chord` for use in `aria` string attributes. */
 export const accessibleChordString = (chord: string, platform: Platform) =>
-  splitChord(chord)
+  splitChord(chord, platform)
     .map(key => accessibleKeyName(key, platform))
     .join(' ')
 
