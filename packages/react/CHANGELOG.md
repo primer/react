@@ -1,5 +1,25 @@
 # @primer/react
 
+## 38.48.0
+
+### Minor Changes
+
+- [#8812](https://github.com/primer/react/pull/8812) [`b058990`](https://github.com/primer/react/commit/b05899093d1e33f9243faa4c98a0978f0c18f1dd) Thanks [@tay1orjones](https://github.com/tay1orjones)! - Deprecate `IssueLabelToken` in favor of `IssueLabel` from `@primer/react/experimental`.
+
+### Patch Changes
+
+- [#8795](https://github.com/primer/react/pull/8795) [`7cf064c`](https://github.com/primer/react/commit/7cf064cd860065c0614d575d78fe1632a0634e5d) Thanks [@nemo-crypto](https://github.com/nemo-crypto)! - AvatarStack: Fix incorrect layouts, including the 3+ layout, when optional avatars are not rendered.
+
+- [#8707](https://github.com/primer/react/pull/8707) [`56a4e4d`](https://github.com/primer/react/commit/56a4e4dd5df6f3e39256ee6e8d940bedae6d9d2f) Thanks [@vivanvv](https://github.com/vivanvv)! - Breadcrumbs: Remove the default list indentation in right-to-left layouts.
+
+- [#8762](https://github.com/primer/react/pull/8762) [`9a2135f`](https://github.com/primer/react/commit/9a2135fcefb8d78534b1915d54262c13a9c684d8) Thanks [@siddharthkp](https://github.com/siddharthkp)! - KeybindingHint: Sort Mod alongside Command on Apple platforms and Control elsewhere in displayed shortcuts and accessible descriptions.
+
+- [#8769](https://github.com/primer/react/pull/8769) [`570c7d4`](https://github.com/primer/react/commit/570c7d420556cc17de69b55b79b0f681d3bf3dcb) Thanks [@Ultroncn](https://github.com/Ultroncn)! - SelectPanel: Debounce screen reader announcements for list updates so rapid keystrokes while filtering don't queue up duplicate messages
+
+- [#8798](https://github.com/primer/react/pull/8798) [`8aaf2ad`](https://github.com/primer/react/commit/8aaf2ad9ee0ae37dbbb291f15722608948671a27) Thanks [@nemo-crypto](https://github.com/nemo-crypto)! - DataTable: Keep pagination on an available page when the total number of rows decreases.
+
+- [#8814](https://github.com/primer/react/pull/8814) [`6126942`](https://github.com/primer/react/commit/6126942fa619ec8ab3bfde288bf30d9883750176) Thanks [@rickyzhangca](https://github.com/rickyzhangca)! - Tooltip: Guard against missing `text` values at runtime when checking whether a tooltip has content.
+
 ## 38.47.0
 
 ### Minor Changes
