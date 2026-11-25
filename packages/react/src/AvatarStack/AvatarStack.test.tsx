@@ -39,17 +39,31 @@ describe('AvatarStack', () => {
     })
   })
 
-  it('counts only rendered avatars when optional children are omitted', async () => {
+  it.each([
+    {variant: 'cascade', count: 1, minimumWidth: '40px'},
+    {variant: 'cascade', count: 2, minimumWidth: '58px'},
+    {variant: 'cascade', count: 3, minimumWidth: '64px'},
+    {variant: 'stack', count: 1, minimumWidth: '40px'},
+    {variant: 'stack', count: 2, minimumWidth: '58px'},
+    {variant: 'stack', count: 3, minimumWidth: '76px'},
+  ] as const)('uses the $variant layout for $count avatars when optional children are omitted', async ({
+    variant,
+    count,
+    minimumWidth,
+  }) => {
     const {container} = render(
-      <AvatarStack>
-        <img src="/avatar.png" alt="" />
+      <AvatarStack size={40} variant={variant}>
+        {['one', 'two', 'three'].slice(0, count).map(name => (
+          <img key={name} src="/avatar.png" alt="" />
+        ))}
+        {null}
         {null}
         {false}
       </AvatarStack>,
     )
-    await expect
-      .element(container.querySelector<HTMLElement>('[data-component="AvatarStack"]'))
-      .toHaveAttribute('data-avatar-count', '1')
+    const root = container.querySelector<HTMLElement>('[data-component="AvatarStack"]')
+    await expect.element(root).toHaveAttribute('data-avatar-count', String(count))
+    await expect.poll(() => (root ? getComputedStyle(root).minWidth : null)).toBe(minimumWidth)
   })
 
   it('respects alignRight props', async () => {
