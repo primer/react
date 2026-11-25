@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Component docs: Add experimental `@primer/react/docs` entrypoints to access typed component metadata, including props, from tooling.
+Component docs: Add experimental `@primer/react/docs` entrypoints and publish component props and Storybook examples as Markdown.

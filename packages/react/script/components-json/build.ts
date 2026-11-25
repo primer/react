@@ -16,6 +16,7 @@ import type {LintError} from 'markdownlint'
 import {lint as mdLint} from 'markdownlint/sync'
 import componentSchema from './component.schema.json'
 import outputSchema from './output.schema.json'
+import {renderExamples} from './render-examples'
 
 const args = parseArgs({
   options: {
@@ -223,6 +224,15 @@ if (!fs.existsSync('generated')) {
 
 // Write components.json file
 fs.writeFileSync('generated/components.json', JSON.stringify(data, null, 2))
+
+for (const component of components) {
+  const examples = renderExamples(component)
+  if (examples) {
+    const filepath = path.join('dist', examples.fileName)
+    fs.mkdirSync(path.dirname(filepath), {recursive: true})
+    fs.writeFileSync(filepath, examples.source)
+  }
+}
 
 // Print success message
 // eslint-disable-next-line no-console
