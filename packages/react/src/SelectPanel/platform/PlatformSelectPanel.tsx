@@ -126,6 +126,7 @@ export function PlatformSelectPanelTestFixture({
   onCloseClick,
 }: PlatformSelectPanelTestFixtureProps) {
   const nativeDialogFlag = useFeatureFlag('primer_react_select_panel_native_dialog')
+  const nativeInvokersFlag = useFeatureFlag('primer_react_select_panel_native_invokers')
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   const capabilities = React.useSyncExternalStore(
     subscribeToCapabilities,
@@ -140,6 +141,7 @@ export function PlatformSelectPanelTestFixture({
   const narrowViewport = useMedia(viewportRanges.narrow, false)
   const [selected, setSelected] = React.useState<SelectPanelValue[]>([])
   const nativeDialog = nativeDialogFlag && capabilities !== 'unsupported'
+  const invokers = nativeDialog && nativeInvokersFlag && capabilities === 'invokers'
   const popover =
     renderAs === 'popover' && cssAnchorPositioningFlag && supportsNativeAnchorPositioning && !narrowViewport
   const overlayStatus =
@@ -154,7 +156,7 @@ export function PlatformSelectPanelTestFixture({
             : 'Native Popover API active.'
   return (
     <div
-      data-platform-mode={nativeDialog ? 'native-dialog' : 'standard-overlay'}
+      data-platform-mode={nativeDialog ? (invokers ? 'native-invokers' : 'native-dialog') : 'standard-overlay'}
       data-platform-overlay={nativeDialog ? undefined : popover ? 'popover' : 'portal'}
     >
       <p role="status">
@@ -162,7 +164,11 @@ export function PlatformSelectPanelTestFixture({
           ? 'Standard SelectPanel overlay (native dialog flag off).'
           : capabilities === 'unsupported'
             ? 'Native dialog unsupported; using the standard SelectPanel overlay.'
-            : 'Native dialog with JavaScript controls.'}
+            : invokers
+              ? 'Native dialog with browser command invokers.'
+              : nativeInvokersFlag
+                ? 'Native command invokers unsupported; using JavaScript controls with native dialog.'
+                : 'Native dialog with JavaScript controls (invokers flag off).'}
         {!nativeDialog ? ` ${overlayStatus}` : null}
       </p>
       <SelectPanel.Root

@@ -24,6 +24,8 @@ import {
   useSelectPanelSelection,
 } from './SelectPanelContext'
 import {useSelectPanel, type SelectPanelStateOptions, type SelectPanelValue} from './useSelectPanel'
+import {useNativeSelectPanel} from './platform/NativeSelectPanelContext'
+import {nativeInvokerProps} from './platform/nativeInvokerProps'
 import {NativeSelectPanelProvider} from './platform/NativeSelectPanelProvider'
 import classes from './SelectPanel.module.css'
 
@@ -60,6 +62,8 @@ export interface SelectPanelTriggerProps extends ButtonProps {
 export const SelectPanelTrigger = React.forwardRef<HTMLButtonElement, SelectPanelTriggerProps>(
   function SelectPanelTrigger({render, onClick, onKeyDown, ...props}, forwardedRef) {
     const {open, requestOpenChange, dismiss, anchorRef, panelId} = useSelectPanelContext()
+    const native = useNativeSelectPanel()
+    const invokers = native.invokers && native.targetId === panelId
     const formControlProps = useFormControlForwardedProps(props)
     const setAnchor = React.useCallback(
       (element: HTMLButtonElement | null) => {
@@ -78,6 +82,9 @@ export const SelectPanelTrigger = React.forwardRef<HTMLButtonElement, SelectPane
       'aria-haspopup': 'dialog',
       'aria-expanded': open,
       'aria-controls': open ? panelId : undefined,
+      ...(invokers
+        ? nativeInvokerProps(panelId, native.modal ? (open ? 'close' : 'show-modal') : 'toggle-popover')
+        : {}),
       onClick: event => {
         if (formControlProps.disabled) {
           event.preventDefault()
@@ -85,6 +92,7 @@ export const SelectPanelTrigger = React.forwardRef<HTMLButtonElement, SelectPane
         }
         onClick?.(event)
         if (!event.defaultPrevented) {
+          if (invokers) return
           if (open) dismiss('anchor-click')
           else requestOpenChange(true, 'anchor-click')
         }

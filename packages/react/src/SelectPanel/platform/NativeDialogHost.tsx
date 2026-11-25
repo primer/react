@@ -18,6 +18,9 @@ interface NativeDialogHostProps {
   anchorRef?: React.RefObject<HTMLElement | null>
   returnFocusRef?: React.RefObject<HTMLElement | null>
   initialFocusRef?: React.RefObject<HTMLElement | null>
+  previousFocusRef?: React.RefObject<HTMLElement | null>
+  transitionRef?: React.RefObject<boolean>
+  dismissRef?: React.MutableRefObject<((reason: SelectPanelDismissReason, event?: Event) => void) | null>
   ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
   onDismiss?: (reason: SelectPanelDismissReason, event?: Event) => void
 }
@@ -70,6 +73,9 @@ export function NativeDialogHost({
   anchorRef: externalAnchorRef,
   returnFocusRef,
   initialFocusRef: externalInitialFocusRef,
+  previousFocusRef,
+  transitionRef,
+  dismissRef,
   ignoreClickRefs,
   onDismiss,
 }: NativeDialogHostProps) {
@@ -87,7 +93,7 @@ export function NativeDialogHost({
   const restoreFocusOnClose = React.useRef(true)
   const focusReturnTarget = () => {
     restoreFocus(
-      returnFocusRef?.current ?? anchorRef.current ?? previousFocus.current,
+      returnFocusRef?.current ?? anchorRef.current ?? previousFocusRef?.current ?? previousFocus.current,
       parent?.inputRef,
       parent?.anchorRef,
     )
@@ -117,7 +123,14 @@ export function NativeDialogHost({
   useLayoutEffect(() => {
     latestState.current = state
     latestHandlers.current = {dismiss, modal, initialFocusRef}
+    if (dismissRef) dismissRef.current = dismiss
   })
+
+  useLayoutEffect(() => {
+    return () => {
+      if (dismissRef) dismissRef.current = null
+    }
+  }, [dismissRef])
 
   useLayoutEffect(() => {
     const dialog = dialogRef.current
@@ -147,7 +160,7 @@ export function NativeDialogHost({
       const activeElement = dialog.ownerDocument.activeElement
       const focusedChild =
         nativeOpen && activeElement instanceof HTMLElement && dialog.contains(activeElement) ? activeElement : null
-      if (!wasOpen.current) {
+      if (!wasOpen.current && !transitionRef?.current) {
         previousFocus.current = activeElement instanceof HTMLElement ? activeElement : null
       }
       if (popoverOpen) dialog.hidePopover()
@@ -191,6 +204,9 @@ export function NativeDialogHost({
       escapeKey = undefined
     }
     const nativeChange = () => {
+      // An optional enhancement may still be completing a native transition.
+      // Its owner schedules reconciliation after the browser default action.
+      if (transitionRef?.current) return
       reconcile()
     }
     const documentKeydown = (event: KeyboardEvent) => {
@@ -220,16 +236,16 @@ export function NativeDialogHost({
       dialog.removeEventListener('toggle', nativeChange)
       dialog.ownerDocument.removeEventListener('keydown', documentKeydown)
     }
-  }, [])
+  }, [transitionRef])
 
   const parentInputRef = parent?.inputRef
   const parentAnchorRef = parent?.anchorRef
   React.useEffect(() => {
-    const anchor = returnFocusRef?.current ?? anchorRef.current ?? previousFocus.current
+    const anchor = returnFocusRef?.current ?? anchorRef.current ?? previousFocusRef?.current ?? previousFocus.current
     return () => {
       if (wasOpen.current && restoreFocusOnClose.current) restoreFocus(anchor, parentInputRef, parentAnchorRef)
     }
-  }, [anchorRef, returnFocusRef, parentInputRef, parentAnchorRef])
+  }, [anchorRef, returnFocusRef, previousFocusRef, parentInputRef, parentAnchorRef])
 
   return (
     <div ref={layerRef} className={classes.NativeLayer}>
