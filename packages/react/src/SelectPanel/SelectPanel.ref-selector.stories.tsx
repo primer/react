@@ -1,6 +1,7 @@
 import {GitBranchIcon, TagIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {useState} from 'react'
+import {expect, userEvent, waitFor, within} from 'storybook/test'
 import {ActionList} from '../ActionList'
 import {UnderlinePanels} from '../experimental'
 import Label from '../Label'
@@ -155,6 +156,23 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => <RefSelectorExample />,
+  play: async ({canvasElement}) => {
+    const canvas = within(canvasElement)
+    const body = within(canvasElement.ownerDocument.body)
+    await userEvent.click(canvas.getByRole('button', {name: 'main'}))
+    const search = await body.findByRole('combobox', {name: 'Find a branch or tag'})
+    await waitFor(() => expect(search).toHaveFocus())
+    await userEvent.click(body.getByRole('tab', {name: /^Tags\b/}))
+    await userEvent.type(search, 'v36.7')
+    await waitFor(() => expect(body.getAllByRole('option')).toHaveLength(2))
+    await userEvent.keyboard('{PageUp}')
+    await waitFor(() =>
+      expect(search).toHaveAttribute('aria-activedescendant', body.getByRole('option', {name: 'v36.7.1'}).id),
+    )
+    await userEvent.keyboard('{Enter}')
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument())
+    await expect(canvas.getByRole('button', {name: 'v36.7.1'})).toHaveFocus()
+  },
   parameters: {
     docs: {
       description: {

@@ -152,7 +152,7 @@
   gap: var(--base-size-4);
 }
 
-.Theme .Header[data-compact='true'] {
+.Theme .Header:where([data-compact='true']) {
   display: contents;
   padding: 0;
   border: 0;
@@ -177,7 +177,7 @@
     display: inline-flex;
   }
 
-  .Theme .Header[data-compact='true']:has(> .ResponsiveClose) {
+  .Theme .Header:where([data-compact='true'][data-responsive-close='true']) {
     display: flex;
     padding: var(--base-size-4);
   }
@@ -232,7 +232,7 @@
   overflow-wrap: anywhere;
 }
 
-.Theme .Action[data-variant='primary'] {
+.Theme .Action:where([data-variant='primary']) {
   /* stylelint-disable primer/colors -- The primary action interpolates green, black, and classic grey. */
   color: var(--playground-action-text);
   background: var(--playground-action-bg);
@@ -244,6 +244,8 @@
 }
 
 .Theme .Search {
+  --control-fgColor-placeholder: var(--playground-muted);
+
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -268,19 +270,6 @@
   /* stylelint-enable primer/box-shadow */
 }
 
-.Theme .Search input {
-  min-width: 0;
-  /* stylelint-disable-next-line primer/spacing -- Skin search density is continuously interpolated. */
-  padding-block: var(--playground-row-padding-y);
-  font: inherit;
-  color: inherit;
-}
-
-.Theme .Search input::placeholder {
-  /* stylelint-disable-next-line primer/colors -- Placeholder follows the original skin palette. */
-  color: var(--playground-muted);
-}
-
 .Theme .Search:focus-within {
   /* stylelint-disable-next-line primer/colors -- Each skin supplies its own visible focus color. */
   border-color: var(--playground-focus);
@@ -293,6 +282,9 @@
   --text-body-size-small: var(--playground-meta-size);
   --bgColor-default: var(--playground-panel-bg);
   --fgColor-muted: var(--playground-muted);
+  --control-fgColor-rest: var(--playground-text);
+  --control-medium-paddingBlock: var(--playground-row-padding-y);
+  --control-medium-paddingInline-condensed: var(--playground-row-padding-x);
 
   min-width: 0;
   min-height: 0;
@@ -313,8 +305,8 @@
   border-radius: var(--playground-row-radius);
 }
 
-/* ActionList owns its checkmark; only its inspected content wrapper and text inherit the skin. */
-.Theme .Option > [data-size] {
+/* Preserve the approved skin density across shared ActionList content changes. */
+.Theme .Option > :where([data-size]) {
   min-height: var(--playground-row-min-height);
   /* stylelint-disable-next-line primer/spacing -- Skin row density is continuously interpolated. */
   padding: var(--playground-row-padding-y) var(--playground-row-padding-x);
@@ -324,16 +316,16 @@
   align-items: center;
 }
 
-.Theme .Option:hover:not([aria-disabled='true']) {
+.Theme .Option:hover:where(:not([aria-disabled='true'])) {
   background: var(--playground-hover-bg);
   box-shadow: none;
 }
 
-.List[data-secondary-actions='true']:where(:not([aria-multiselectable='true'])) .Option[aria-selected='true'] {
+.List:where([data-secondary-actions='true']:not([aria-multiselectable='true'])) .Option:where([aria-selected='true']) {
   background: var(--control-transparent-bgColor-selected);
 }
 
-.Theme .List:where(:not([aria-multiselectable='true'])) .Option[aria-selected='true'] {
+.Theme .List:where(:not([aria-multiselectable='true'])) .Option:where([aria-selected='true']) {
   --playground-metadata-color: var(--playground-selected-text);
   --fgColor-default: var(--playground-selected-text);
   --fgColor-muted: var(--playground-selected-text);
@@ -382,7 +374,12 @@
   font-size: var(--text-body-size-small);
 }
 
-.Option [data-component='SelectPanel.Item.SecondaryAction'] {
+.Option {
+  /* Size the supplied action through inherited control tokens, not private markup. */
+  --control-small-size: var(--base-size-24);
+}
+
+.Option :where([data-component='SelectPanel.Item.SecondaryAction']) {
   width: var(--base-size-24);
   min-width: var(--base-size-24);
   height: var(--base-size-24);
@@ -391,14 +388,14 @@
   margin-block: calc(-1 * var(--base-size-4));
 }
 
-.Theme .Option [data-component='SelectPanel.Item.SecondaryAction'] {
+.Theme .Option :where([data-component='SelectPanel.Item.SecondaryAction']) {
   color: inherit;
   background: transparent;
   border-color: transparent;
   box-shadow: none;
 }
 
-.Theme .Option [data-component='SelectPanel.Item.SecondaryAction']:hover:where(:not([data-disabled='true'])) {
+.Theme .Option :where([data-component='SelectPanel.Item.SecondaryAction']:hover:not([data-disabled='true'])) {
   /* stylelint-disable-next-line primer/colors -- Hover text must contrast with the skin's hover background. */
   color: var(--playground-text);
 }
@@ -418,21 +415,21 @@
 .Theme .Trigger:focus-visible,
 .Theme .Action:focus-visible,
 .Theme .Option:focus-visible,
-.Theme .Option[data-is-active-descendant='activated-directly'] {
+.Theme .Option:where([data-is-active-descendant='activated-directly']) {
   outline: var(--borderWidth-thick) solid var(--playground-focus);
   outline-offset: var(--borderWidth-thick);
 }
 
 .Theme .Option:focus-visible,
-.Theme .Option[data-is-active-descendant='activated-directly'] {
+.Theme .Option:where([data-is-active-descendant='activated-directly']) {
   outline-color: currentColor;
   outline-offset: calc(-1 * var(--borderWidth-thick));
 }
 
-.Theme .Option[aria-disabled='true'],
+.Theme .Option:where([aria-disabled='true']),
 .Theme .Trigger:disabled,
 .Theme .Action:disabled,
-.Theme .Option [data-component='SelectPanel.Item.SecondaryAction'][data-disabled='true'] {
+.Theme .Option :where([data-component='SelectPanel.Item.SecondaryAction'][data-disabled='true']) {
   /* stylelint-disable-next-line primer/colors -- Disabled text follows the original skin palette. */
   color: var(--playground-disabled);
   cursor: not-allowed;
@@ -492,7 +489,7 @@
   box-shadow: inset 0 0 0 1px var(--playground-border);
 }
 
-.Terminal .Option [data-component='SelectPanel.Item.SecondaryAction']:hover:where(:not([data-disabled='true'])) {
+.Terminal .Option :where([data-component='SelectPanel.Item.SecondaryAction']:hover:not([data-disabled='true'])) {
   color: var(--playground-selected-text);
   background: var(--playground-selected-bg);
 }
@@ -531,6 +528,9 @@
 }
 
 .GitHubApp .Search {
+  --playground-input-height: 100%;
+  --playground-input-padding-y: 0px;
+
   height: var(--base-size-36);
   min-height: var(--base-size-36);
   padding-inline: var(--base-size-12);
@@ -542,11 +542,6 @@
   &:focus-within {
     outline-offset: calc(-1 * var(--borderWidth-thick));
   }
-}
-
-.GitHubApp .Search input {
-  height: 100%;
-  padding-block: 0;
 }
 
 .GitHubApp .Header {
@@ -561,7 +556,7 @@
 }
 
 /* Keep dialog close controls in DOM focus order; only popups and inline pickers move the label below search. */
-:where(.GitHubApp.Stage, .GitHubApp.Overlay[data-variant='anchored']) .Panel:has(> .Search) {
+:where(.GitHubApp.Stage, .GitHubApp.Overlay:where([data-variant='anchored'])) .Panel:where([data-has-search='true']) {
   > .Search {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
@@ -600,8 +595,8 @@
 .Theme .Action,
 .Theme .Search,
 .Theme .Option,
-.Theme .Option > [data-size],
+.Theme .Option > :where([data-size]),
 .Theme .Header > button,
-.Theme .Option [data-component='SelectPanel.Item.SecondaryAction'] {
+.Theme .Option :where([data-component='SelectPanel.Item.SecondaryAction']) {
   transition: none;
 }

@@ -56,8 +56,8 @@ export function getExample(config: PlaygroundConfig): string {
           </SelectPanel.Message>
         ) : (${list})}`
   // eslint-disable-next-line github/unescaped-html-literal -- Generated TSX is displayed as text, never inserted as HTML.
-  const content = `<SelectPanel.Content className={${isPrimer && inline ? "[styles.Panel, styles.InlinePanel].join(' ')" : 'styles.Panel'}}>
-        <SelectPanel.Header className={styles.Header} data-compact={${!showHeader}}>
+  const content = `<SelectPanel.Content className={${isPrimer && inline ? "[styles.Panel, styles.InlinePanel].join(' ')" : 'styles.Panel'}} data-has-search={${config.search}}>
+        <SelectPanel.Header className={styles.Header} data-compact={${!showHeader}} data-responsive-close={${!inline && !needsSave && config.presentation !== 'modal'}}>
           <div${showHeader ? '' : ' className={styles.VisuallyHidden}'}>
             <SelectPanel.Title className={styles.Title}>Choose repositories</SelectPanel.Title>
             ${
@@ -77,7 +77,7 @@ export function getExample(config: PlaygroundConfig): string {
         ${
           config.search
             ? // eslint-disable-next-line github/unescaped-html-literal -- Generated TSX is displayed as text, never inserted as HTML.
-              `<SelectPanel.SearchInput className={styles.Search} placeholder="Search repositories..." aria-label="Search repositories"${isPrimer ? '' : ' leadingVisual={null}'} />`
+              `<SelectPanel.SearchInput className={styles.Search} placeholder="Search repositories..." aria-label="Search repositories"${isPrimer ? '' : ` leadingVisual={null} style={{minWidth: 0, font: 'inherit', color: 'inherit', height: 'var(--playground-input-height, auto)', paddingBlock: 'var(--playground-input-padding-y, var(--playground-row-padding-y))'}}`} />`
             : ''
         }
         ${results}

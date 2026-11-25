@@ -8,11 +8,32 @@ import {defaultConfig} from './model'
 
 const secondaryActionSelector = '[data-component="SelectPanel.Item.SecondaryAction"]'
 
-function getSecondaryAction(option: HTMLElement) {
+function getSecondaryAction(option: Element) {
   return option.querySelector<HTMLElement>(secondaryActionSelector)!
 }
 
 describe('SelectPanel demo footer and actions', () => {
+  it.each([0, 1, 2, 3, 4, 5])('preserves compact supplemental actions at appearance %s', appearance => {
+    render(
+      <SelectPanelDemo
+        config={{...defaultConfig, appearance, actions: true, multiple: true, presentation: 'inline'}}
+        resetKey={0}
+      />,
+    )
+    const option = page.getByRole('option', {name: /copilot-app/}).element()
+    const referenceRowHeights = [32, 32, 28, 28, 32, 32]
+    expect(option.getBoundingClientRect().height).toBe(referenceRowHeights[appearance])
+    const action = getSecondaryAction(option)
+    const bounds = action.getBoundingClientRect()
+    expect(bounds.width).toBe(24)
+    expect(bounds.height).toBe(24)
+    expect(getComputedStyle(action).marginBlock).toBe('-4px')
+    if (appearance === 2) {
+      expect(option.querySelector('[data-component="ActionList.Selection"]')!.getBoundingClientRect().width).toBe(14)
+      expect(action.querySelector('svg')!.getBoundingClientRect().width).toBe(14)
+    }
+  })
+
   it.each([0, 1, 2, 3, 4, 5].flatMap(appearance => [375, 1000].map(width => ({appearance, width}))))(
     'keeps the modal close button beside its heading at appearance $appearance and $width px',
     async ({appearance, width}) => {

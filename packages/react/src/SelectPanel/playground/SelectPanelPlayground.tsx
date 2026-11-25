@@ -291,6 +291,7 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
                   <pre
                     className={classes.Code}
                     role="region"
+                    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Read-only source must support keyboard scrolling and selection.
                     tabIndex={0}
                     aria-label={sourceTab === 'react' ? 'React example' : 'Picker CSS'}
                   >
@@ -338,6 +339,7 @@ export function SelectPanelPlayground({renderPreview, skinSource}: SelectPanelPl
                   />
                 </div>
               </div>
+              {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- The desktop preview can overflow horizontally; keyboard users need to scroll this named region. */}
               <div className={classes.PreviewCanvas} role="region" aria-label="Interactive preview canvas" tabIndex={0}>
                 <div className={classes.PreviewViewport} data-mobile={mobile}>
                   {renderPreview ? renderPreview(previewProps) : <SelectPanelDemo {...previewProps} />}

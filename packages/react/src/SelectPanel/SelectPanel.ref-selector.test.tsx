@@ -95,6 +95,21 @@ describe('SelectPanel RefSelector example', () => {
       .toHaveAttribute('aria-selected', 'false')
   })
 
+  it('selects the first of multiple matching tags using collection navigation from search', async () => {
+    renderExample()
+    await userEvent.click(page.getByRole('button', {name: 'main', exact: true}))
+    const search = page.getByRole('combobox', {name: 'Find a branch or tag'})
+    await userEvent.click(page.getByRole('tab', {name: /^Tags\b/}))
+    await userEvent.fill(search, 'v36.7')
+    await expect.poll(() => page.getByRole('option').all().length).toBe(2)
+    const first = page.getByRole('option', {name: 'v36.7.1', exact: true})
+    await userEvent.keyboard('{PageUp}')
+    await expect.element(search).toHaveAttribute('aria-activedescendant', first.element().id)
+    await userEvent.keyboard('{Enter}')
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
+    await expect.element(page.getByRole('button', {name: 'v36.7.1', exact: true})).toHaveFocus()
+  })
+
   it.each(['close button', 'Escape'] as const)('dismisses using %s and restores focus', async method => {
     renderExample()
     const trigger = page.getByRole('button', {name: 'main', exact: true})

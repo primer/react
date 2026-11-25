@@ -162,8 +162,14 @@ function RepositoryPicker({config}: {config: PlaygroundConfig}) {
     <SelectPanel.Content
       {...mark('Content')}
       className={clsx(classes.Panel, isPrimer && inline && classes.InlinePanel)}
+      data-has-search={config.search}
     >
-      <SelectPanel.Header {...mark('Header')} className={classes.Header} data-compact={!showHeader}>
+      <SelectPanel.Header
+        {...mark('Header')}
+        className={classes.Header}
+        data-compact={!showHeader}
+        data-responsive-close={!inline && !needsSave && config.presentation !== 'modal'}
+      >
         <div className={showHeader ? undefined : classes.VisuallyHidden}>
           <SelectPanel.Title {...mark('Title')} className={classes.Title}>
             Choose repositories
@@ -189,6 +195,17 @@ function RepositoryPicker({config}: {config: PlaygroundConfig}) {
           placeholder="Search repositories..."
           leadingVisual={isPrimer ? <SearchIcon {...mark('SearchInput.leadingVisual')} /> : null}
           aria-label="Search repositories"
+          style={
+            isPrimer
+              ? undefined
+              : {
+                  minWidth: 0,
+                  font: 'inherit',
+                  color: 'inherit',
+                  height: 'var(--playground-input-height, auto)',
+                  paddingBlock: 'var(--playground-input-padding-y, var(--playground-row-padding-y))',
+                }
+          }
         />
       ) : null}
       {config.previewState === 'loading' ? (
