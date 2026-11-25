@@ -369,6 +369,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onPositionChange={onPositionChange}
       variant={variant}
       displayInViewport={displayInViewport !== undefined ? displayInViewport : isInsideDialog}
+      _PrivateManageDetachedAnchorAria
     >
       <div
         ref={containerRef}
