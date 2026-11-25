@@ -36,6 +36,22 @@ import {
   doesItemsIncludeItem,
   getSelectedItems,
 } from '../internal/selectPanelSelection'
+import {
+  SelectPanelRoot,
+  SelectPanelTrigger,
+  SelectPanelOverlay,
+  SelectPanelContent,
+  SelectPanelHeader,
+  SelectPanelTitle,
+  SelectPanelDescription,
+  SelectPanelSearchInput,
+  SelectPanelList,
+  SelectPanelItem,
+  SelectPanelGroup,
+  SelectPanelFooter,
+} from './SelectPanelParts'
+import {SelectPanelCloseButton} from './SelectPanelCloseButton'
+import {ComposableSelectPanelMessage, SelectPanelLoading} from './ComposableSelectPanelMessage'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -1099,5 +1115,19 @@ export const SelectPanel = Object.assign(Panel, {
   __SLOT__: Symbol('SelectPanel'),
   SecondaryActionButton: SecondaryButton,
   SecondaryActionLink: SecondaryLink,
-  Message: SelectPanelMessage,
+  Root: SelectPanelRoot,
+  Trigger: SelectPanelTrigger,
+  Overlay: SelectPanelOverlay,
+  Content: SelectPanelContent,
+  Header: SelectPanelHeader,
+  Title: SelectPanelTitle,
+  Description: SelectPanelDescription,
+  SearchInput: SelectPanelSearchInput,
+  List: SelectPanelList,
+  Item: SelectPanelItem,
+  Group: SelectPanelGroup,
+  Footer: SelectPanelFooter,
+  CloseButton: SelectPanelCloseButton,
+  Loading: SelectPanelLoading,
+  Message: ComposableSelectPanelMessage,
 })

@@ -1,0 +1,56 @@
+.Backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: transparent;
+
+  &[data-variant='modal'],
+  &[data-variant='bottom-sheet'] {
+    background-color: var(--overlay-backdrop-bgColor);
+  }
+}
+
+.Overlay {
+  display: flex;
+  flex-direction: column;
+
+  &[data-variant='anchored'][data-anchor-position='false'] {
+    /* stylelint-disable-next-line primer/spacing */
+    top: var(--top, auto);
+    /* stylelint-disable-next-line primer/spacing */
+    left: var(--left, auto);
+  }
+
+  &[data-variant='modal'] {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    max-width: calc(100dvw - var(--base-size-32));
+    max-height: calc(100dvh - var(--base-size-64));
+    transform: translate(-50%, -50%);
+  }
+
+  &[data-variant='fullscreen'] {
+    position: fixed;
+    inset: 0;
+    width: 100dvw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  &[data-variant='bottom-sheet'] {
+    position: fixed;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100dvw;
+    max-width: none;
+    max-height: calc(100dvh - var(--base-size-64));
+    margin: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
