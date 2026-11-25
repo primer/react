@@ -31,6 +31,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
 ) {
   const focusedAction = useRef<HTMLElement | null>(null)
   const focusObserver = useRef<MutationObserver | null>(null)
+  const onFocusReturnRef = useRef(onFocusReturn)
   const active = selectedCount > 0
 
   function recoverFocus() {
@@ -40,7 +41,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
       focusObserver.current?.disconnect()
       const document = element.ownerDocument
       if (document.activeElement === document.body) {
-        onFocusReturn?.()
+        onFocusReturnRef.current?.()
       }
     }
   }
@@ -56,12 +57,15 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
   }
 
   useLayoutEffect(() => {
+    onFocusReturnRef.current = onFocusReturn
     recoverFocus()
-    observeFocusedAction()
+  })
+
+  useLayoutEffect(() => {
     return () => {
       focusObserver.current?.disconnect()
     }
-  })
+  }, [])
 
   const count = (
     <AriaStatus as="span" className={classes.Count} announceOnShow={active}>
