@@ -3,7 +3,6 @@ import {act, render} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {page, userEvent} from 'vitest/browser'
 import BaseStyles from '../../BaseStyles'
-import {FeatureFlags} from '../../FeatureFlags'
 import {SelectPanel, type SelectPanelRootProps} from '..'
 import {VirtualizedSelectPanelCollection, type VirtualSelectPanelItem} from './VirtualizedSelectPanelCollection'
 
@@ -13,12 +12,7 @@ const items = Array.from({length: 10_000}, (_, index) => ({
   disabled: [0, 1, 96, 9999].includes(index),
 }))
 
-function Picker({
-  options = items,
-  native = false,
-  invokers = false,
-  ...props
-}: SelectPanelRootProps & {options?: readonly VirtualSelectPanelItem[]; native?: boolean; invokers?: boolean}) {
+function Picker({options = items, ...props}: SelectPanelRootProps & {options?: readonly VirtualSelectPanelItem[]}) {
   const [query, setQuery] = React.useState('')
   const filtered = React.useMemo(
     () => options.filter(item => item.label.toLowerCase().includes(query.toLowerCase())),
@@ -26,31 +20,24 @@ function Picker({
   )
   return (
     <BaseStyles>
-      <FeatureFlags
-        flags={{
-          primer_react_select_panel_native_dialog: native,
-          primer_react_select_panel_native_invokers: invokers,
-        }}
+      <SelectPanel.Root
+        focusStrategy="roving"
+        selectionMode="multiple"
+        {...props}
+        filterValue={query}
+        onFilterChange={setQuery}
       >
-        <SelectPanel.Root
-          focusStrategy="roving"
-          selectionMode="multiple"
-          {...props}
-          filterValue={query}
-          onFilterChange={setQuery}
-        >
-          <SelectPanel.Trigger>Open virtual picker</SelectPanel.Trigger>
-          <SelectPanel.Overlay>
-            <SelectPanel.Content>
-              <SelectPanel.Header>
-                <SelectPanel.Title>Virtual picker</SelectPanel.Title>
-                <SelectPanel.CloseButton />
-              </SelectPanel.Header>
-              <VirtualizedSelectPanelCollection items={filtered} />
-            </SelectPanel.Content>
-          </SelectPanel.Overlay>
-        </SelectPanel.Root>
-      </FeatureFlags>
+        <SelectPanel.Trigger>Open virtual picker</SelectPanel.Trigger>
+        <SelectPanel.Overlay>
+          <SelectPanel.Content>
+            <SelectPanel.Header>
+              <SelectPanel.Title>Virtual picker</SelectPanel.Title>
+              <SelectPanel.CloseButton />
+            </SelectPanel.Header>
+            <VirtualizedSelectPanelCollection items={filtered} />
+          </SelectPanel.Content>
+        </SelectPanel.Overlay>
+      </SelectPanel.Root>
     </BaseStyles>
   )
 }
@@ -71,13 +58,9 @@ afterEach(async () => {
 })
 
 describe('internal virtualized SelectPanel collection', () => {
-  it.each([
-    {native: false, invokers: false},
-    {native: true, invokers: false},
-    {native: true, invokers: true},
-  ])('navigates and selects offscreen items with native=$native, invokers=$invokers', async flags => {
+  it('navigates and selects offscreen items with the capabilities core', async () => {
     const onSelectedChange = vi.fn()
-    render(<Picker {...flags} onSelectedChange={onSelectedChange} />)
+    render(<Picker onSelectedChange={onSelectedChange} />)
     await open()
     expect(list().element().querySelectorAll('[role="option"]').length).toBeLessThan(40)
     await userEvent.keyboard('{ArrowDown}')
