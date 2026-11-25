@@ -24,6 +24,7 @@ import {
   useSelectPanelSelection,
 } from './SelectPanelContext'
 import {useSelectPanel, type SelectPanelStateOptions, type SelectPanelValue} from './useSelectPanel'
+import {NativeSelectPanelProvider} from './platform/NativeSelectPanelProvider'
 import classes from './SelectPanel.module.css'
 
 export {SelectPanelOverlay, type SelectPanelOverlayProps} from './SelectPanelOverlay'
@@ -39,7 +40,9 @@ export const SelectPanelRoot: React.FC<SelectPanelRootProps> = ({children, ...op
     <ParentPanelContext.Provider value={parent}>
       <SelectPanelContext.Provider value={state}>
         <SelectPanelSelectionContext.Provider value={state}>
-          <SelectPanelDialogContext.Provider value={false}>{children}</SelectPanelDialogContext.Provider>
+          <SelectPanelDialogContext.Provider value={false}>
+            <NativeSelectPanelProvider>{children}</NativeSelectPanelProvider>
+          </SelectPanelDialogContext.Provider>
         </SelectPanelSelectionContext.Provider>
       </SelectPanelContext.Provider>
     </ParentPanelContext.Provider>
