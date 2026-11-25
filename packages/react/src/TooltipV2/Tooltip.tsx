@@ -263,6 +263,7 @@ export const Tooltip: ForwardRefExoticComponent<
         'The `Tooltip` component expects its trigger ref to resolve to an HTML element. Ensure the trigger forwards its ref to a single interactive element instead of a React Fragment.',
       )
       if (isInvalidTrigger) return
+      if (__DEV__) {
       /*
        * ACCESSIBILITY CHECKS
        */
@@ -295,6 +296,8 @@ export const Tooltip: ForwardRefExoticComponent<
         )
       }
 
+      }
+
       // SSR safe polyfill apply
       if (typeof window !== 'undefined') {
         if (!isSupported()) {
@@ -317,6 +320,7 @@ export const Tooltip: ForwardRefExoticComponent<
         }
       },
       [isPopoverOpen, _privateDisableTooltip],
+      isPopoverOpen,
     )
 
     const platform = usePlatform()
