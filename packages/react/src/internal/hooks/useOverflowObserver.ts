@@ -37,7 +37,11 @@ export function useIsClipped(ref: RefObject<HTMLElement | null>, options?: {disa
         }
       }
 
-      return observe(element, updateOverflowState)
+      const unobserve = observe(element, updateOverflowState)
+      return () => {
+        unobserve()
+        isOverflowingRef.current = false
+      }
     },
     [ref, observe, disabled],
   )
