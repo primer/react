@@ -194,6 +194,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     })
 
     useEffect(() => {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (height === 'initial' && overlayRef.current?.clientHeight) {
         overlayRef.current.style.height = `${overlayRef.current.clientHeight}px`
       }

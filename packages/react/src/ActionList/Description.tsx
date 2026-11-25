@@ -41,7 +41,9 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
       const textContent = el.textContent || ''
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setComputedTitle(textContent)
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (setTruncatedText) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
         setTruncatedText(
           el.scrollWidth > el.clientWidth
             ? typeof props.children === 'string'

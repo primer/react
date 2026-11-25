@@ -67,8 +67,10 @@ export function createDescendantRegistry<T>() {
 
     const id = useId()
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     useEffect(() => register(id), [register, id, key])
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     useEffect(() => updateValue(id, value), [updateValue, id, value, key])
 
     return id

@@ -569,14 +569,18 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
     // that has been loaded in.
     if (state === undefined || state === 'done') {
       if (!isSubTreeEmpty && !children) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
         setIsSubTreeEmpty(true)
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       } else if (isSubTreeEmpty && children) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
         setIsSubTreeEmpty(false)
       }
     }
   }, [state, isSubTreeEmpty, setIsSubTreeEmpty, children])
 
   // Handle transition from loading to done state
+  // eslint-disable-next-line react-you-might-not-need-an-effect/no-reset-all-state-on-prop-change
   React.useEffect(() => {
     const isDoneLoading = previousState === 'loading' && state === 'done'
     if (!isDoneLoading && state !== 'loading') return
@@ -589,8 +593,10 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
       const parentName = getAccessibleName(parentElement)
 
       if (ref.current?.childElementCount) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
         announceUpdate(`${parentName} content loaded`)
       } else {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
         announceUpdate(`${parentName} is empty`)
       }
 
@@ -610,11 +616,12 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
           })
         }
 
-        // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
+        // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setLoadingFocused(false)
       }
     } else if (state === 'loading') {
       const parentName = getAccessibleName(parentElement)
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
       announceUpdate(`${parentName} content loading`)
     }
   }, [loadingFocused, previousState, state, itemId, announceUpdate, ref, safeSetTimeout])

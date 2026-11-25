@@ -283,7 +283,6 @@ export function FilteredActionList({
     [onListContainerRefChanged],
   )
   useEffect(() => {
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     onInputRefChanged?.(inputRef)
   }, [onInputRefChanged])
 

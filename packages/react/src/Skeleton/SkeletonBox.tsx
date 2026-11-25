@@ -23,6 +23,7 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
   const [isVisible, setIsVisible] = useState(!delay)
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (delay) {
       const timeoutId = setTimeout(
         () => {

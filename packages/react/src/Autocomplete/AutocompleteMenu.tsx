@@ -317,8 +317,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   useEffect(() => {
     // Use deferredInputValue to avoid running this effect on every keystroke
     // The Input component guards against stale suggestions
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent, react-you-might-not-need-an-effect/no-pass-live-state-to-parent
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-live-state-to-parent
     if (highlightedItem?.text?.startsWith(deferredInputValue) && !selectedItemIds.includes(highlightedItem.id)) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-live-state-to-parent
       setAutocompleteSuggestion(highlightedItem.text)
     } else {
       setAutocompleteSuggestion('')
