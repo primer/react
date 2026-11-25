@@ -1,5 +1,13 @@
 # @primer/mcp
 
+## 1.1.3
+
+### Patch Changes
+
+- [#8784](https://github.com/primer/react/pull/8784) [`13d5ff6`](https://github.com/primer/react/commit/13d5ff6748035c94260818ba220935f583c648bd) Thanks [@joshblack](https://github.com/joshblack)! - Guidelines: Avoid returning homepage content when a component has no guidelines page.
+- Updated dependencies [[`4fc8b82`](https://github.com/primer/react/commit/4fc8b82cd8f2dbc0fcc0fd1ded8393abf7fbba41), [`92a1fca`](https://github.com/primer/react/commit/92a1fca80cd63c2b729141a38a4a93ec27c47a43), [`24ce6b2`](https://github.com/primer/react/commit/24ce6b2c48dc3e301f03717f565a1427dc15d9d0), [`1588875`](https://github.com/primer/react/commit/15888757f6681f615efcf88e0218b70c2165c390), [`6075e98`](https://github.com/primer/react/commit/6075e98c6ea8fefb1d20f3918a0c133e77a68c9a), [`16c41d3`](https://github.com/primer/react/commit/16c41d3e57bb7358d887c613aaeb22aaea3a0d97), [`31c717c`](https://github.com/primer/react/commit/31c717c3901f0940af23c40e0c54de9f54f9036c), [`998b471`](https://github.com/primer/react/commit/998b471a4ad78c7c23426038ef0c4a5261fc41cf), [`d2dd516`](https://github.com/primer/react/commit/d2dd516adc1eb82657df80a07e91b9a86a295165), [`5817eb9`](https://github.com/primer/react/commit/5817eb9d2ec60193a933f09bfb3446eb479950cc), [`77a8d08`](https://github.com/primer/react/commit/77a8d088f1528d8b2101254d45ddf880b1e317dd), [`cb71c93`](https://github.com/primer/react/commit/cb71c93fada0adb063905e1894fe1667c0e3c3fa), [`f0918eb`](https://github.com/primer/react/commit/f0918eb4ed19fe94a336840041d844857bddab23), [`78abbdf`](https://github.com/primer/react/commit/78abbdf9d3c7bdef81bb54814288cc4f84aaf3ac)]:
+  - @primer/react@38.47.0
+
 ## 1.1.2
 
 ### Patch Changes

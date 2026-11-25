@@ -1889,7 +1889,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('supports multiple typed characters', async () => {
-      vi.useFakeTimers()
+      vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
 
       render(
         <TreeView aria-label="Test tree">

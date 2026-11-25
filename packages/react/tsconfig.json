@@ -13,6 +13,7 @@
     "script/**/*.ts",
     "rolldown.config.ts",
     "vitest.config.mts",
+    "vitest.config.rsc.mts",
     "config/**/*.ts",
     ".storybook/**/*.ts",
     ".storybook/**/*.tsx"

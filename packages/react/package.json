@@ -1,7 +1,7 @@
 {
   "name": "@primer/react",
   "type": "module",
-  "version": "38.46.0",
+  "version": "38.47.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -178,6 +178,7 @@
     "unist-util-find": "3.0.0",
     "unist-util-find-before": "4.0.0",
     "unist-util-flat-filter": "2.0.0",
+    "vitest-plugin-rsc": "^0.3.0",
     "yaml": "2.7.0"
   },
   "peerDependencies": {

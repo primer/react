@@ -37,6 +37,7 @@ export default defineConfig({
       '**/*.figma.tsx',
       '**/*.types.test.ts',
       '**/*.types.test.tsx',
+      '**/*.rsc.test.tsx',
       'src/__tests__/exports.test.ts',
       'src/__tests__/ssr.test.tsx',
       'src/__tests__/storybook.test.tsx',
