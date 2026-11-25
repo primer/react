@@ -6,6 +6,7 @@ import {describe, expect, it} from 'vitest'
 import {renderToString} from 'react-dom/server'
 import Portal from '../Portal'
 import Breadcrumbs from '../Breadcrumbs'
+import {CopyToClipboardButton} from '../CopyToClipboardButton'
 
 describe('server rendering', () => {
   it('has no DOM available', () => {
@@ -16,6 +17,12 @@ describe('server rendering', () => {
     // React's server renderer throws when it encounters a portal, so `Portal` must
     // render nothing, and must not create its host element, while server rendering.
     expect(renderToString(<Portal>portal content</Portal>)).toEqual('')
+  })
+
+  it('renders a copy button without accessing the clipboard', () => {
+    const html = renderToString(<CopyToClipboardButton textToCopy="hello" ariaLabel="Copy greeting" />)
+    expect(html).toContain('aria-label="Copy greeting"')
+    expect(html).not.toContain('data-copied')
   })
 
   it('renders the Breadcrumbs overflow menu without layout', () => {

@@ -91,6 +91,12 @@ const usageGuidelineRoutes: ReadonlyArray<UsageGuidelineRoute> = [
     publication: 'unpublished',
   },
   {
+    name: 'CopyToClipboardButton',
+    expectedPath: '/product/components/copy-to-clipboard-button/guidelines',
+    rawIdPath: '/product/components/copy_to_clipboard_button/guidelines',
+    publication: 'unpublished',
+  },
+  {
     name: 'DataTable',
     expectedPath: '/product/components/data-table/guidelines',
     rawIdPath: '/product/components/data_table/guidelines',

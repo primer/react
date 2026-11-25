@@ -1,0 +1,9 @@
+.Button:where([data-variant='default'], [data-variant='invisible']) {
+  &[data-copied] {
+    color: var(--fgColor-success);
+  }
+
+  &[data-copy-error] {
+    color: var(--fgColor-danger);
+  }
+}

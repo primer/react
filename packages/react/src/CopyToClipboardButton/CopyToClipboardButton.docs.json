@@ -1,0 +1,48 @@
+{
+  "id": "copy_to_clipboard_button",
+  "name": "CopyToClipboardButton",
+  "status": "draft",
+  "a11yReviewed": false,
+  "importPath": "@primer/react/experimental",
+  "stories": [],
+  "props": [
+    {"name": "textToCopy", "type": "string", "required": true, "description": "Plain text to copy to the clipboard"},
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "defaultValue": "Copy to clipboard",
+      "description": "Stable accessible name and initial tooltip"
+    },
+    {
+      "name": "icon",
+      "type": "IconButtonProps['icon']",
+      "defaultValue": "CopyIcon",
+      "description": "Icon shown before copying"
+    },
+    {"name": "onCopy", "type": "() => void", "description": "Called after a successful clipboard write"},
+    {"name": "onCopyError", "type": "(error: Error) => void", "description": "Called after a failed clipboard write"},
+    {
+      "name": "copiedMessage",
+      "type": "string",
+      "defaultValue": "Copied!",
+      "description": "Success tooltip and screen-reader announcement"
+    },
+    {
+      "name": "errorMessage",
+      "type": "string",
+      "defaultValue": "Unable to copy to clipboard",
+      "description": "Failure tooltip and screen-reader announcement"
+    },
+    {
+      "name": "tooltipProps",
+      "type": "TooltipProps",
+      "description": "Tooltip presentation props; text and accessibility attributes are managed by the component"
+    },
+    {
+      "name": "variant",
+      "type": "IconButtonProps['variant']",
+      "defaultValue": "invisible",
+      "description": "Button appearance"
+    }
+  ]
+}

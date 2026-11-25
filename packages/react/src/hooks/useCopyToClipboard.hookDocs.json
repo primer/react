@@ -1,0 +1,16 @@
+{
+  "name": "useCopyToClipboard",
+  "importPath": "@primer/react/experimental",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "options",
+      "type": "UseCopyToClipboardOptions",
+      "description": "Optional resetDelayMs (default 2000) controls how long copied remains true"
+    }
+  ],
+  "returns": {
+    "type": "UseCopyToClipboardResult",
+    "description": "copy(text): Promise<void> resolves on success and rejects on failure; copied, isCopying, and error describe the latest request. The hook does not announce feedback."
+  }
+}
