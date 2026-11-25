@@ -1,9 +1,8 @@
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {scrollIntoView, FocusKeys} from '@primer/behaviors'
+import {scrollIntoView, FocusKeys, type ScrollIntoViewOptions} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
-import {ActionList} from '../ActionList'
+import {ActionList, type ActionListProps} from '../ActionList'
 import type {FilteredActionListProps, ItemInput} from './types'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
@@ -14,17 +13,38 @@ import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './Fi
 import classes from './FilteredActionList.module.css'
 import Checkbox from '../Checkbox'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import {MappedActionListItem} from '../internal/components/MappedActionListItem'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {useMergedRefs} from '../hooks'
-import {FilteredActionListInput} from './FilteredActionListInput'
+import {FilteredActionListInput, type FilteredActionListInputProps} from './FilteredActionListInput'
+
+import {MappedActionListItem} from '../internal/components/MappedActionListItem'
+import {activateDescendant} from '../internal/hooks/useListboxFocus'
+
 export type {FilteredActionListProps} from './types'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-export function FilteredActionList({
+interface FilteredActionListRenderers {
+  Input?: React.ComponentType<FilteredActionListInputProps>
+  List?: React.ComponentType<React.PropsWithoutRef<ActionListProps> & React.RefAttributes<HTMLUListElement>>
+  Item?: typeof MappedActionListItem
+}
+
+function getDefaultItemKey(item: ItemInput, index: number) {
+  return item.id?.toString() ?? index.toString()
+}
+
+export function FilteredActionList(props: FilteredActionListProps): JSX.Element {
+  return <FilteredActionListContent {...props} />
+}
+
+// Share the compatibility behavior without requiring its configured renderer.
+export function FilteredActionListContent({
+  components,
+  getItemKey = getDefaultItemKey,
+  componentName = 'FilteredActionList',
   loading = false,
   placeholderText,
   filterValue: externalFilterValue,
@@ -54,8 +74,16 @@ export function FilteredActionList({
   focusPrependedElements,
   scrollBehavior,
   virtualized = false,
+  renderItem,
   ...listProps
-}: FilteredActionListProps): JSX.Element {
+}: FilteredActionListProps & {
+  components?: FilteredActionListRenderers
+  getItemKey?: (item: ItemInput, index: number) => string
+  componentName?: 'FilteredActionList' | 'SelectPanel.Collection'
+}): JSX.Element {
+  const Input = components?.Input ?? FilteredActionListInput
+  const List = components?.List ?? ActionList
+  const Item = components?.Item ?? MappedActionListItem
   if (__DEV__) {
     if (virtualized && groupMetadata?.length) {
       // eslint-disable-next-line no-console
@@ -156,16 +184,10 @@ export function FilteredActionList({
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && activeDescendantRef.current) {
-        event.preventDefault()
-        event.nativeEvent.stopImmediatePropagation()
-
-        // Forward Enter key press to active descendant so that item gets activated
-        const activeDescendantEvent = new KeyboardEvent(event.type, event.nativeEvent)
-        activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
-      }
+      if (components && (event.defaultPrevented || !activeDescendantRef.current?.isConnected)) return
+      activateDescendant(event, activeDescendantRef.current)
     },
-    [activeDescendantRef],
+    [activeDescendantRef, components],
   )
 
   const listContainerRefCallback = useCallback(
@@ -199,7 +221,7 @@ export function FilteredActionList({
       // so guard against `items[index]` being undefined.
       const item = items[index] as ItemInput | undefined
       if (!item) return index.toString()
-      return item.key ?? item.id?.toString() ?? index.toString()
+      return item.key ?? getItemKey(item, index)
     },
     measureElement: el => (el as HTMLElement).scrollHeight,
   })
@@ -343,15 +365,15 @@ export function FilteredActionList({
                 {group.header?.title ? group.header.title : `Group ${group.groupId}`}
               </ActionList.GroupHeading>
               {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
-                const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
+                const key = itemKey ?? getItemKey(item, itemIndex)
                 return (
-                  <MappedActionListItem
+                  <Item
                     key={key}
                     className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                     data-input-focused={isInputFocused ? '' : undefined}
                     data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
                     {...item}
-                    renderItem={listProps.renderItem}
+                    renderItem={renderItem}
                   />
                 )
               })}
@@ -362,9 +384,9 @@ export function FilteredActionList({
 
       if (isVirtualized && virtualizedItemEntries) {
         return virtualizedItemEntries.map(({virtualItem, item: {key: itemKey, ...item}, index}) => {
-          const key = itemKey ?? item.id?.toString() ?? index.toString()
+          const key = itemKey ?? getItemKey(item, index)
           return (
-            <MappedActionListItem
+            <Item
               key={key}
               className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
               data-input-focused={isInputFocused ? '' : undefined}
@@ -383,32 +405,33 @@ export function FilteredActionList({
                 transform: `translateY(${virtualItem.start}px)`,
               }}
               {...item}
-              renderItem={listProps.renderItem}
+              renderItem={renderItem}
             />
           )
         })
       }
 
       return items.map(({key: itemKey, ...item}, index) => {
-        const key = itemKey ?? item.id?.toString() ?? index.toString()
+        const key = itemKey ?? getItemKey(item, index)
         return (
-          <MappedActionListItem
+          <Item
             key={key}
             className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
             data-input-focused={isInputFocused ? '' : undefined}
             data-first-child={index === 0 ? '' : undefined}
             {...item}
-            renderItem={listProps.renderItem}
+            renderItem={renderItem}
           />
         )
       })
     }
 
     const actionListContent = (
-      <ActionList
+      <List
         ref={usingRovingTabindex ? listRef : listContainerRefCallback}
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
+        disableFocusZone={components?.List ? !usingRovingTabindex : undefined}
         {...listProps}
         {...actionListProps}
         role="listbox"
@@ -430,7 +453,7 @@ export function FilteredActionList({
         }
       >
         {renderListItems()}
-      </ActionList>
+      </List>
     )
 
     // Use ActionListContainerContext.Provider only for the old behavior (when feature flag is disabled)
@@ -458,9 +481,9 @@ export function FilteredActionList({
       ref={inputAndListContainerRef}
       className={clsx(className, classes.Root)}
       data-testid="filtered-action-list"
-      data-component="FilteredActionList"
+      data-component={componentName}
     >
-      <FilteredActionListInput
+      <Input
         inputRef={mergedInputRef}
         onInputFocus={onInputFocus}
         value={filterValue}

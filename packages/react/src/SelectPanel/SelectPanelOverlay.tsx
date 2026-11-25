@@ -9,9 +9,10 @@ import Portal from '../Portal'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {ParentPanelContext, SelectPanelDialogContext, useSelectPanelContext} from './SelectPanelContext'
 import classes from './SelectPanelOverlay.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
+import {useBodyScrollLock} from '../internal/hooks/useBodyScrollLock'
 import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {warning} from '../utils/warning'
-import {useBodyScrollLock} from '../internal/hooks/useBodyScrollLock'
 
 export interface SelectPanelOverlayProps
   extends Omit<
@@ -32,6 +33,17 @@ export interface SelectPanelOverlayProps
   children?: React.ReactNode
 }
 
+interface ConfiguredSelectPanelOverlayProps
+  extends Omit<SelectPanelOverlayProps, 'variant' | 'anchorRef'>,
+    Pick<AnchoredOverlayProps, 'open'> {
+  anchorRef: React.RefObject<HTMLElement | null>
+  variant?: AnchoredOverlayProps['variant']
+}
+
+interface SelectPanelOverlayImplementationProps extends SelectPanelOverlayProps {
+  isLegacy: boolean
+}
+
 function restoreParentFocus(
   anchor: HTMLElement | null,
   overlayRef: React.RefObject<HTMLElement | null>,
@@ -44,7 +56,27 @@ function restoreParentFocus(
   }
 }
 
-export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = ({
+export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = props => {
+  return <SelectPanelOverlayImplementation {...props} isLegacy={false} />
+}
+
+// Keep the configured component's positioning, callbacks, and narrow-screen defaults intact.
+export const ConfiguredSelectPanelOverlay: React.FC<ConfiguredSelectPanelOverlayProps> = ({open, ...props}) => {
+  const composable = useFeatureFlag('primer_react_select_panel_composable_adapter')
+  if (!composable) {
+    return (
+      <AnchoredOverlay
+        {...props}
+        renderAnchor={props.renderAnchor ?? null}
+        open={open}
+        focusZoneSettings={{disabled: true}}
+      />
+    )
+  }
+  return <SelectPanelOverlayImplementation {...props} isLegacy />
+}
+
+const SelectPanelOverlayImplementation: React.FC<SelectPanelOverlayImplementationProps> = ({
   children,
   renderAnchor = null,
   anchorRef: suppliedAnchorRef,
@@ -54,6 +86,7 @@ export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = ({
   focusTrapSettings,
   variant,
   className,
+  isLegacy,
   cssAnchorPositioningSettings,
   ...props
 }) => {
@@ -61,7 +94,7 @@ export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = ({
   const parent = React.useContext(ParentPanelContext)
   const anchorRef = suppliedAnchorRef ?? state.anchorRef
   const overlayRef = React.useRef<HTMLDivElement>(null)
-  useBodyScrollLock(overlayRef, state.open)
+  useBodyScrollLock(overlayRef, state.open && !isLegacy)
   const ref = useMergedRefs(overlayRef, overlayProps?.ref ?? null)
   const panelId = overlayProps?.id ?? `${state.id}-panel`
   const {setPanelId, dismiss, requestOpenChange} = state
@@ -69,20 +102,20 @@ export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = ({
   const parentAnchorRef = parent?.anchorRef
   const responsiveVariant = {
     regular: variant?.regular ?? 'anchored',
-    narrow: variant?.narrow ?? 'fullscreen',
+    narrow: variant?.narrow ?? (isLegacy ? 'anchored' : 'fullscreen'),
   }
   const currentVariant = useResponsiveValue(responsiveVariant, 'anchored')
-  const positionedByViewport = currentVariant !== 'anchored'
+  const positionedByViewport = !isLegacy && currentVariant !== 'anchored'
   useDevOnlyEffect(() => {
     const element = overlayRef.current
-    if (!state.open || !element) return
+    if (!state.open || !element || isLegacy) return
     const label = element.getAttribute('aria-label')
     const title = state.labelledByRef.current ?? element.getAttribute('aria-labelledby')
     warning(
       !label && !(title && element.ownerDocument.getElementById(title)?.textContent.trim()),
       'SelectPanel: No accessible name provided. Render a Title, or pass overlayProps aria-label.',
     )
-  }, [state.open, state.labelledBy, state.labelledByRef])
+  }, [state.open, state.labelledBy, state.labelledByRef, isLegacy])
 
   useLayoutEffect(() => {
     if (state.panelId !== panelId) {
@@ -109,9 +142,10 @@ export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = ({
   const handleClose = React.useCallback<NonNullable<AnchoredOverlayProps['onClose']>>(
     (...args) => {
       if (onClose) return onClose(...args)
+      if (isLegacy) return requestOpenChange(false, args[0] === 'close' ? 'cancel' : args[0])
       return dismiss(args[0])
     },
-    [onClose, dismiss],
+    [onClose, isLegacy, requestOpenChange, dismiss],
   )
   const handleEscape = (event: KeyboardEvent) => {
     if (overlayProps?.onEscape) overlayProps.onEscape(event)
@@ -127,7 +161,7 @@ export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = ({
 
   return (
     <>
-      {state.open ? (
+      {state.open && !isLegacy ? (
         <Portal containerName={overlayProps?.portalContainerName}>
           <div
             aria-hidden="true"
@@ -164,21 +198,20 @@ export const SelectPanelOverlay: React.FC<SelectPanelOverlayProps> = ({
         overlayProps={{
           id: panelId,
           role: 'dialog',
-          'aria-modal': true,
+          'aria-modal': isLegacy ? undefined : true,
           'aria-labelledby': overlayProps?.['aria-label'] ? undefined : state.labelledBy,
           'aria-describedby': state.describedBy,
           initialFocusRef: state.inputRef,
           ...(positionedByViewport ? {visibility: 'visible', anchorSide: undefined} : {}),
           ...overlayProps,
-          ...{'data-variant': currentVariant},
-          className: clsx(classes.Overlay, overlayProps?.className ?? className),
+          ...(!isLegacy ? {'data-variant': currentVariant} : {}),
+          className: clsx(!isLegacy && classes.Overlay, overlayProps?.className ?? className),
           ref,
-          onEscape: handleEscape,
-          onClickOutside: handleClickOutside,
+          ...(!isLegacy ? {onEscape: handleEscape, onClickOutside: handleClickOutside} : {}),
         }}
       >
         <SelectPanelDialogContext.Provider value={true}>
-          <FormControlContext.Provider value={null}>{children}</FormControlContext.Provider>
+          {isLegacy ? children : <FormControlContext.Provider value={null}>{children}</FormControlContext.Provider>}
         </SelectPanelDialogContext.Provider>
       </AnchoredOverlay>
     </>
