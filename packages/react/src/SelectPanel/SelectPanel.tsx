@@ -29,6 +29,13 @@ import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
 import {isAlphabetKey} from '../hooks/useMnemonics'
 import {useFormControlContext} from '../FormControl/_FormControlContext'
+import type {SelectPanelSingleSelection, SelectPanelMultiSelection, InitialLoadingType} from './types'
+import {
+  isMultiSelectVariant,
+  areItemsEqual,
+  doesItemsIncludeItem,
+  getSelectedItems,
+} from '../internal/selectPanelSelection'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -59,17 +66,7 @@ async function announceLoading() {
   await announceText('Loading.')
 }
 
-interface SelectPanelSingleSelection {
-  selected: ItemInput | undefined
-  onSelectedChange: (selected: ItemInput | undefined) => void
-}
-
-interface SelectPanelMultiSelection {
-  selected: ItemInput[]
-  onSelectedChange: (selected: ItemInput[]) => void
-}
-
-export type InitialLoadingType = 'spinner' | 'skeleton'
+export type {InitialLoadingType} from './types'
 export type SelectPanelSecondaryAction =
   | React.ReactElement<typeof SecondaryButton>
   | React.ReactElement<typeof SecondaryLink>
@@ -139,38 +136,12 @@ export type SelectPanelProps = SelectPanelBaseProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
 
-function isMultiSelectVariant(
-  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
-): selected is SelectPanelMultiSelection['selected'] {
-  return Array.isArray(selected)
-}
-
 const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
   disabled: true,
 }
 
 const closeButtonProps = {'aria-label': 'Cancel and close'}
-
-const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
-  // prefer checking equivality by item.id
-  if (typeof itemA.id !== 'undefined') return itemA.id === itemB.id
-  else return itemA === itemB
-}
-
-const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
-  return items.some(i => areItemsEqual(i, item))
-}
-
-const getSelectedItems = (
-  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
-): ItemInput[] => {
-  if (isMultiSelectVariant(selected)) {
-    return selected
-  }
-
-  return selected ? [selected] : []
-}
 
 const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
   const {children, ...rest} = props
