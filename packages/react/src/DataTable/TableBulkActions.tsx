@@ -1,6 +1,7 @@
 import React, {useRef} from 'react'
 import {clsx} from 'clsx'
 import {AriaStatus} from '../live-region'
+import {TableSelectionAnnouncementContext, defaultSelectedCountLabel} from './TableSelectionAnnouncementContext'
 import VisuallyHidden from '../_VisuallyHidden'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import classes from './TableBulkActions.module.css'
@@ -9,10 +10,6 @@ export type TableBulkActionsProps = Omit<React.ComponentPropsWithoutRef<'div'>, 
   selectedCount: number
   onFocusReturn?: () => void
   getSelectedCountLabel?: (selectedCount: number) => string
-}
-
-function defaultSelectedCountLabel(selectedCount: number) {
-  return `${selectedCount} selected`
 }
 
 const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>(function TableBulkActions(
@@ -32,6 +29,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
   const focusedAction = useRef<HTMLElement | null>(null)
   const focusObserver = useRef<MutationObserver | null>(null)
   const active = selectedCount > 0
+  const selectionAnnounced = React.useContext(TableSelectionAnnouncementContext)
 
   function recoverFocus() {
     const element = focusedAction.current
@@ -64,7 +62,7 @@ const TableBulkActions = React.forwardRef<HTMLDivElement, TableBulkActionsProps>
   })
 
   const count = (
-    <AriaStatus as="span" className={classes.Count} announceOnShow={active}>
+    <AriaStatus as="span" className={classes.Count} hidden={selectionAnnounced} delayMs={150}>
       {getSelectedCountLabel(selectedCount)}
     </AriaStatus>
   )

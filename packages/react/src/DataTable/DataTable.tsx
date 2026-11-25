@@ -1,4 +1,4 @@
-import {useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
+import {useEffect, useId, useRef, type ReactElement, type ReactNode, type RefObject} from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
@@ -17,13 +17,34 @@ import {
 } from './Table'
 import {TableGroup} from './TableGroup'
 import {TableBulkActions, type TableBulkActionsProps} from './TableBulkActions'
+import {TableSelectionAnnouncementContext} from './TableSelectionAnnouncementContext'
 import classes from './TableBulkActions.module.css'
 import VisuallyHidden from '../_VisuallyHidden'
+import {useAnnounce} from '../internal/hooks/useAnnounce'
 
 export interface DataTableBulkActionsContext {
   selectedRows: ReadonlySet<DataTableRowId>
   selectedCount: number
   clearSelection: () => void
+}
+
+export interface DataTableSelectionAnnouncementContext {
+  selectedCount: number
+  /**
+   * Whether the active bulk-action toolbar contains rendered content.
+   */
+  bulkActionsAvailable: boolean
+}
+
+function defaultSelectionAnnouncement({selectedCount, bulkActionsAvailable}: DataTableSelectionAnnouncementContext) {
+  const message =
+    selectedCount === 0 ? 'Selection cleared' : `${selectedCount} ${selectedCount === 1 ? 'row' : 'rows'} selected`
+
+  if (bulkActionsAvailable && selectedCount > 0) {
+    return `${message}, additional bulk actions available`
+  }
+
+  return message
 }
 
 // ----------------------------------------------------------------------------
@@ -116,6 +137,11 @@ type DataTableBaseProps<Data extends UniqueRow> = {
   isRowSelectable?: (row: Data) => boolean
 
   /**
+   * Formats the live announcement after the selected row count changes.
+   */
+  getSelectionAnnouncement?: (context: DataTableSelectionAnnouncementContext) => string
+
+  /**
    * Whether groups have disclosure controls. Groups are expanded by default.
    */
   collapsibleGroups?: boolean
@@ -183,6 +209,7 @@ function DataTableImplementation<Data extends UniqueRow>({
   defaultSelectedRows,
   onSelectionChange,
   isRowSelectable,
+  getSelectionAnnouncement = defaultSelectionAnnouncement,
   collapsibleGroups = false,
   getGroupRowCountLabel,
   expandedGroups,
@@ -194,6 +221,7 @@ function DataTableImplementation<Data extends UniqueRow>({
 }: DataTableProps<Data>) {
   const selectionCheckboxRef = useRef<HTMLInputElement>(null)
   const tableRef = useRef<HTMLTableElement>(null)
+  const bulkActionsRef = useRef<HTMLDivElement>(null)
   const bulkActionsId = useId()
   const table = useTable({
     data,
@@ -215,6 +243,13 @@ function DataTableImplementation<Data extends UniqueRow>({
   const {headers, bodies, actions, selection, gridTemplateColumns} = table
   const hasBulkActions = Boolean(rowSelection && renderBulkActions)
   const bulkActionsActive = hasBulkActions && selection.selectedCount > 0
+  const renderedBulkActions = bulkActionsActive
+    ? renderBulkActions?.({
+        selectedRows: new Set(selection.selectedRows),
+        selectedCount: selection.selectedCount,
+        clearSelection: actions.clearSelection,
+      })
+    : null
 
   const renderRow = (row: (typeof bodies)[number]['rows'][number]) => (
     <TableRow key={`${typeof row.selectionId}:${row.selectionId}`}>
@@ -243,6 +278,32 @@ function DataTableImplementation<Data extends UniqueRow>({
       ))}
     </TableRow>
   )
+
+  const selectedCountForAnnouncement = rowSelection ? selection.selectedCount : null
+  const previousSelectedCount = useRef(selectedCountForAnnouncement)
+  const {announce, cancel} = useAnnounce(tableRef, {delayMs: 150})
+  useEffect(() => {
+    const previous = previousSelectedCount.current
+    previousSelectedCount.current = selectedCountForAnnouncement
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- Controlled selection changes also need announcements.
+    if (selectedCountForAnnouncement === null) {
+      cancel()
+      return
+    }
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- Controlled selection changes also need announcements.
+    if (previous === null || previous === selectedCountForAnnouncement) {
+      return
+    }
+
+    // Read committed content: a React element may render no actions.
+    const actions = bulkActionsRef.current?.querySelector(`.${classes.Actions}`)
+    announce(
+      getSelectionAnnouncement({
+        selectedCount: selectedCountForAnnouncement,
+        bulkActionsAvailable: Boolean(actions && (actions.children.length > 0 || actions.textContent.trim())),
+      }),
+    )
+  }, [selectedCountForAnnouncement, getSelectionAnnouncement, announce, cancel])
 
   return (
     <Table
@@ -327,7 +388,7 @@ function DataTableImplementation<Data extends UniqueRow>({
           })}
         </TableRow>
         {hasBulkActions ? (
-          <TableRow className={classes.HeaderRow}>
+          <TableRow className={classes.HeaderRow} aria-hidden={!bulkActionsActive}>
             <VisuallyHidden
               as="td"
               isVisible={bulkActionsActive}
@@ -335,28 +396,25 @@ function DataTableImplementation<Data extends UniqueRow>({
               role="cell"
               className={bulkActionsActive ? classes.BulkActionsCell : undefined}
             >
-              <TableBulkActions
-                {...bulkActionsProps}
-                selectedCount={selection.selectedCount}
-                onFocusReturn={() => {
-                  const target = bulkActionsReturnFocusRef?.current
-                  if (target?.isConnected) {
-                    target.focus()
-                  } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
-                    selectionCheckboxRef.current.focus()
-                  } else {
-                    tableRef.current?.focus()
-                  }
-                }}
-              >
-                {bulkActionsActive
-                  ? renderBulkActions?.({
-                      selectedRows: new Set(selection.selectedRows),
-                      selectedCount: selection.selectedCount,
-                      clearSelection: actions.clearSelection,
-                    })
-                  : null}
-              </TableBulkActions>
+              <TableSelectionAnnouncementContext.Provider value={true}>
+                <TableBulkActions
+                  {...bulkActionsProps}
+                  ref={bulkActionsRef}
+                  selectedCount={selection.selectedCount}
+                  onFocusReturn={() => {
+                    const target = bulkActionsReturnFocusRef?.current
+                    if (target?.isConnected) {
+                      target.focus()
+                    } else if (selectionCheckboxRef.current && !selectionCheckboxRef.current.disabled) {
+                      selectionCheckboxRef.current.focus()
+                    } else {
+                      tableRef.current?.focus()
+                    }
+                  }}
+                >
+                  {renderedBulkActions}
+                </TableBulkActions>
+              </TableSelectionAnnouncementContext.Provider>
             </VisuallyHidden>
           </TableRow>
         ) : null}
