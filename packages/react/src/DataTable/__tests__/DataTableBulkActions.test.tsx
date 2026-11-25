@@ -38,6 +38,31 @@ describe('DataTable bulk actions', () => {
   afterEach(() => {
     getLiveRegion().remove()
   })
+  it('does not recreate the focus observer on rerender', () => {
+    const observeSpy = vi.spyOn(MutationObserver.prototype, 'observe')
+
+    const props = {
+      data: rows,
+      columns,
+      rowSelection: true,
+      defaultSelectedRows: new Set<DataTableRowId>([1]),
+      renderBulkActions: renderActions,
+    }
+
+    const {rerender} = render(<DataTable {...props} />)
+
+    act(() => {
+      screen.getByRole('button', {name: 'Apply to 1'}).focus()
+    })
+
+    const observeCallsBeforeRerender = observeSpy.mock.calls.length
+
+    rerender(<DataTable {...props} />)
+
+    expect(observeSpy).toHaveBeenCalledTimes(observeCallsBeforeRerender)
+
+    observeSpy.mockRestore()
+  })
 
   it.each(['flat', 'grouped', 'mixed'] as const)('uses effective IDs and counts (%s)', async mode => {
     const user = userEvent.setup()
