@@ -20,7 +20,7 @@
       "name": "caret",
       "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
       "defaultValue": "'top'",
-      "description": "Controls the position of the caret"
+      "description": "Preserves content alignment for 'top-left', 'bottom-left', 'top-right', and 'bottom-right'. No caret is rendered."
     },
     {
       "name": "open",
