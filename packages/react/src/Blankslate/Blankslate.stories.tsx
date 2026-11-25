@@ -59,7 +59,7 @@ Playground.args = {
 Playground.argTypes = {
   size: {
     controls: {
-      options: ['small', 'medium', 'large'],
+      options: ['medium', 'large'],
     },
   },
 }

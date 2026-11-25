@@ -43,7 +43,7 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
 ]
 
 const scenarios = matrix({
-  size: ['small', 'medium', 'large'],
+  size: ['medium', 'large'],
   spacious: [true, false],
   border: [true, false],
 })
