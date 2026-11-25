@@ -8,6 +8,7 @@ import type {ItemInput} from '../SelectPanel'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
+const listUpdateDelayMs = 250
 
 const getInputLabel = (input: HTMLInputElement | null) => {
   if (!input) return
@@ -93,6 +94,14 @@ export const useAnnouncements = (
     [enabled],
   )
 
+  const pendingListAnnouncement = useRef<(() => void) | null>(null)
+  const cancelPendingListAnnouncement = useCallback(() => {
+    pendingListAnnouncement.current?.()
+    pendingListAnnouncement.current = null
+  }, [])
+
+  useEffect(() => cancelPendingListAnnouncement, [cancelPendingListAnnouncement, enabled, usingRovingTabindex])
+
   const onInputFocus = useCallback(() => {
     if (usingRovingTabindex) {
       const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
@@ -129,45 +138,64 @@ export const useAnnouncements = (
       if (previousAnnouncementState.current === announcementState) return
       previousAnnouncementState.current = announcementState
 
+      cancelPendingListAnnouncement()
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler -- Updates can come from props, independently of input events.
+      if (!enabled) return
+
       liveRegion?.clear() // clear previous announcements
+
+      let frameId: number | undefined
+      let timeoutId: number | undefined
+      let delivery: ReturnType<typeof announce>
+      pendingListAnnouncement.current = () => {
+        if (frameId !== undefined) window.cancelAnimationFrame(frameId)
+        if (timeoutId !== undefined) window.clearTimeout(timeoutId)
+        delivery?.cancel()
+      }
+
+      const schedule = (getText: () => string | undefined, options: Parameters<typeof liveRegionAnnounce>[1]) => {
+        timeoutId = window.setTimeout(() => {
+          const text = getText()
+          if (text !== undefined) delivery = announce(text, options)
+        }, listUpdateDelayMs)
+      }
 
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !loading) {
-        announce(`${message?.title}. ${message?.description}`, {delayMs})
+        schedule(() => `${message?.title}. ${message?.description}`, {delayMs})
         return
       }
 
+      const options = {delayMs, from: liveRegion ?? undefined}
       if (usingRovingTabindex) {
-        const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
-
-        announce(announcementText, {
-          delayMs,
-          from: liveRegion ? liveRegion : undefined,
-        })
+        schedule(
+          () => `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`,
+          options,
+        )
       } else {
-        // give @primer/behaviors a moment to update active-descendant
-        window.requestAnimationFrame(() => {
-          const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-          if (!activeItem) return
-          const {index, text, selected} = activeItem
+        // Give @primer/behaviors a frame to update active-descendant, then
+        // read focus when the delay ends so intervening navigation is included.
+        frameId = window.requestAnimationFrame(() => {
+          schedule(() => {
+            const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+            if (!activeItem) return
+            const {index, text, selected} = activeItem
 
-          const announcementText = [
-            `List updated`,
-            `Focused item: ${text}`,
-            `${selected ? 'selected' : 'not selected'}`,
-            `${index + 1} of ${items.length}`,
-          ].join(', ')
-
-          announce(announcementText, {
-            delayMs,
-            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-          })
+            return [
+              'List updated',
+              `Focused item: ${text}`,
+              selected ? 'selected' : 'not selected',
+              `${index + 1} of ${items.length}`,
+            ].join(', ')
+          }, options)
         })
       }
     },
     [
       announce,
       announcementState,
+      cancelPendingListAnnouncement,
+      enabled,
       items,
       listContainerRef,
       liveRegion,
