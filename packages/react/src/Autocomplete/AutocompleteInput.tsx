@@ -6,6 +6,7 @@ import TextInput from '../TextInput'
 import {useMergedRefs} from '../hooks/useMergedRefs'
 import type {ComponentProps} from '../utils/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,6 +48,11 @@ const AutocompleteInput = React.forwardRef(
     const mergedRef = useMergedRefs(forwardedRef, inputRef)
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
     const {safeSetTimeout} = useSafeTimeout()
+
+    // Read the latest highlighting state without reapplying a suggestion on Backspace keyup.
+    const shouldHighlightRemainingText = useEffectCallback(() => {
+      return highlightRemainingText
+    })
 
     const handleInputFocus: FocusEventHandler<HTMLInputElement> = event => {
       onFocus?.(event)
@@ -158,8 +164,7 @@ const AutocompleteInput = React.forwardRef(
 
       if (
         isInputFocused &&
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-        highlightRemainingText &&
+        shouldHighlightRemainingText() &&
         autocompleteSuggestion &&
         (inputValue || isMenuDirectlyActivated)
       ) {
@@ -169,9 +174,7 @@ const AutocompleteInput = React.forwardRef(
           inputRef.current.setSelectionRange(inputValue.length, autocompleteSuggestion.length)
         }
       }
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated])
+    }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated, shouldHighlightRemainingText])
 
     useEffect(() => {
       setInputValue(typeof value !== 'undefined' ? value.toString() : '')
