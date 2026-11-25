@@ -3,7 +3,12 @@ import {clsx} from 'clsx'
 import {SearchIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps, type ActionListGroupProps} from '../ActionList'
 import {Button, type ButtonProps} from '../Button'
+import buttonClasses from '../Button/ButtonBase.module.css'
+import {Dialog} from '../Dialog/Dialog'
 import {useId} from '../hooks/useId'
+import {useSlots} from '../hooks/useSlots'
+import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import VisuallyHidden from '../_VisuallyHidden'
 import {useFormControlForwardedProps} from '../FormControl/_FormControlContext'
 import Heading from '../Heading'
 import TextInput, {type TextInputProps} from '../TextInput'
@@ -267,8 +272,16 @@ export const SelectPanelList = React.forwardRef<HTMLUListElement, React.Componen
   },
 )
 
+export interface SelectPanelItemAction {
+  label: string
+  icon: React.ElementType
+  onClick: () => void
+  disabled?: boolean
+}
+const noItemActions: readonly SelectPanelItemAction[] = []
 export type SelectPanelItemProps = Omit<ActionListItemProps, 'selected' | 'value'> & {
   value: SelectPanelValue
+  secondaryActions?: readonly SelectPanelItemAction[]
 }
 
 export const SelectPanelItem = React.forwardRef<HTMLLIElement, SelectPanelItemProps>(function SelectPanelItem(
@@ -289,6 +302,7 @@ export const SelectPanelItem = React.forwardRef<HTMLLIElement, SelectPanelItemPr
 
 interface SelectPanelItemBaseProps extends ActionListItemProps {
   selectionValue?: SelectPanelValue
+  secondaryActions?: readonly SelectPanelItemAction[]
   onSelectItem?: () => void
 }
 
@@ -299,6 +313,7 @@ export const SelectPanelItemBase = React.forwardRef<HTMLLIElement, SelectPanelIt
       selected,
       onSelectItem,
       children,
+      secondaryActions = noItemActions,
       onSelect,
       onClick,
       onKeyDown,
@@ -308,9 +323,30 @@ export const SelectPanelItemBase = React.forwardRef<HTMLLIElement, SelectPanelIt
     },
     forwardedRef,
   ) {
+    const itemRef = React.useRef<HTMLLIElement>(null)
+    const panel = React.useContext(SelectPanelContext)
+    const returnFocusRef =
+      panel?.focusStrategy === 'active-descendant' && isListboxInputAvailable(panel.inputElement)
+        ? panel.inputRef
+        : itemRef
+    const ref = useMergedRefs(itemRef, forwardedRef)
     const itemId = useId(props.id)
+    const shortcutId = useId()
+    const [slots, childrenWithoutSlots] = useSlots(children, {
+      description: ActionList.Description,
+      trailingVisual: ActionList.TrailingVisual,
+    })
+    const [actionsOpen, setActionsOpen] = React.useState(false)
     const disabled = Boolean(suppliedDisabled || props['aria-disabled'] === true || props['aria-disabled'] === 'true')
     const unavailable = disabled || props.loading || Boolean(props.inactiveText)
+    const hasActions = secondaryActions.length > 0
+    const shortcutAvailable = !unavailable && secondaryActions.some(action => !action.disabled)
+    const closeActions = () => setActionsOpen(false)
+    const activateAction = (action: SelectPanelItemAction) => {
+      if (unavailable || action.disabled) return
+      returnFocusRef.current?.focus()
+      action.onClick()
+    }
     const select = (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
       if (
         unavailable ||
@@ -324,48 +360,169 @@ export const SelectPanelItemBase = React.forwardRef<HTMLLIElement, SelectPanelIt
       if (!event.isDefaultPrevented()) onSelectItem?.()
     }
     return (
-      <ActionList.Item
-        {...props}
-        ref={forwardedRef}
-        id={itemId}
-        role="option"
-        {...(selectionValue !== undefined ? {'data-id': selectionValue} : {})}
-        disabled={disabled}
-        aria-disabled={disabled || undefined}
-        {...(disabled ? {tabIndex: -1} : {})}
-        selected={selected}
-        aria-selected={selected}
-        onClick={event => {
-          if (unavailable) return
-          onClick?.(event)
-          select(event)
-        }}
-        onKeyDown={event => {
-          if (unavailable) return
-          onKeyDown?.(event)
-          if (event.defaultPrevented) return
-          if (event.target !== event.currentTarget) return
-          if (event.key === 'Enter' || event.key === ' ') {
-            if (!event.repeat) select(event)
-            event.preventDefault()
-          }
-        }}
-        onKeyPress={event => {
-          if (unavailable) return
-          onKeyPress?.(event)
-          if (event.defaultPrevented) return
-          // Configured comboboxes forward activation to the active option as a keypress.
-          if (event.key === 'Enter' || event.key === ' ') {
+      <>
+        <ActionList.Item
+          {...props}
+          ref={ref}
+          id={itemId}
+          role="option"
+          {...(selectionValue !== undefined ? {'data-id': selectionValue} : {})}
+          disabled={disabled}
+          aria-disabled={disabled || undefined}
+          {...(disabled ? {tabIndex: -1} : {})}
+          selected={selected}
+          aria-selected={selected}
+          {...(shortcutAvailable
+            ? {
+                'aria-describedby': [
+                  props['aria-describedby'],
+                  slots.description?.props.variant === 'block' ? `${itemId}--block-description` : undefined,
+                  shortcutId,
+                ]
+                  .filter(Boolean)
+                  .join(' '),
+              }
+            : {})}
+          aria-keyshortcuts={shortcutAvailable ? 'Meta+Shift+U Control+Shift+U' : undefined}
+          onClick={event => {
+            if (unavailable) return
+            onClick?.(event)
             select(event)
-            event.preventDefault()
-          }
-        }}
-      >
-        {children}
-      </ActionList.Item>
+          }}
+          onKeyDown={event => {
+            if (unavailable) return
+            onKeyDown?.(event)
+            if (event.defaultPrevented) return
+            if (event.target !== event.currentTarget) return
+            if (
+              shortcutAvailable &&
+              event.key.toLowerCase() === 'u' &&
+              event.shiftKey &&
+              (event.metaKey || event.ctrlKey) &&
+              !event.altKey
+            ) {
+              event.preventDefault()
+              event.stopPropagation()
+              if (event.repeat) return
+              if (secondaryActions.length === 1) activateAction(secondaryActions[0])
+              else setActionsOpen(true)
+              return
+            }
+            if (event.key === 'Enter' || event.key === ' ') {
+              if (!event.repeat) select(event)
+              event.preventDefault()
+            }
+          }}
+          onKeyPress={event => {
+            if (unavailable) return
+            onKeyPress?.(event)
+            if (event.defaultPrevented) return
+            // Configured comboboxes forward activation to the active option as a keypress.
+            if (event.key === 'Enter' || event.key === ' ') {
+              select(event)
+              event.preventDefault()
+            }
+          }}
+        >
+          {childrenWithoutSlots}
+          {slots.description}
+          {shortcutAvailable ? (
+            <VisuallyHidden id={shortcutId} aria-hidden="true">
+              Press Cmd/Ctrl+Shift+U for more actions.
+            </VisuallyHidden>
+          ) : null}
+          {hasActions ? (
+            <ActionList.TrailingVisual {...slots.trailingVisual?.props}>
+              {slots.trailingVisual?.props.children}
+              <span
+                className={classes.ItemActions}
+                aria-hidden="true"
+                onClick={event => event.stopPropagation()}
+                onKeyDown={event => event.stopPropagation()}
+                onKeyPress={event => event.stopPropagation()}
+                onMouseDown={event => event.preventDefault()}
+              >
+                {/* Even a tabindex=-1 button would be a focusable descendant of the option. */}
+                {secondaryActions.map((action, index) => (
+                  // eslint-disable-next-line github/a11y-no-title-attribute -- Pointer-only hint; keyboard and AT access use the option shortcut.
+                  <span
+                    key={index}
+                    data-component="SelectPanel.Item.SecondaryAction"
+                    className={clsx(buttonClasses.ButtonBase, buttonClasses.IconButton)}
+                    aria-hidden="true"
+                    data-disabled={Boolean(unavailable || action.disabled) || undefined}
+                    data-inactive={Boolean(unavailable || action.disabled) || undefined}
+                    title={action.label}
+                    data-variant="invisible"
+                    data-size="small"
+                    data-no-visuals="true"
+                    onClick={() => activateAction(action)}
+                  >
+                    <action.icon />
+                  </span>
+                ))}
+              </span>
+            </ActionList.TrailingVisual>
+          ) : (
+            slots.trailingVisual
+          )}
+        </ActionList.Item>
+        {actionsOpen && !unavailable ? (
+          <SelectPanelItemActionDialog actions={secondaryActions} onClose={closeActions} itemRef={returnFocusRef} />
+        ) : null}
+      </>
     )
   },
 )
+
+function SelectPanelItemActionDialog({
+  actions,
+  onClose,
+  itemRef,
+}: {
+  actions: readonly SelectPanelItemAction[]
+  onClose: () => void
+  itemRef: React.RefObject<HTMLElement | null>
+}) {
+  const dialogRef = React.useRef<HTMLDivElement>(null)
+  const initialFocusRef = React.useRef<HTMLLIElement>(null)
+  const firstEnabledIndex = actions.findIndex(action => !action.disabled)
+  useOnOutsideClick({
+    containerRef: dialogRef,
+    onClickOutside: event => {
+      event.preventDefault()
+      onClose()
+    },
+  })
+  return (
+    <Dialog
+      ref={dialogRef}
+      title="Supplemental actions"
+      onClose={onClose}
+      initialFocusRef={initialFocusRef}
+      returnFocusRef={itemRef}
+    >
+      <ActionList>
+        {actions.map((action, index) => (
+          <ActionList.Item
+            ref={index === firstEnabledIndex ? initialFocusRef : undefined}
+            key={index}
+            disabled={action.disabled}
+            onSelect={() => {
+              onClose()
+              action.onClick()
+            }}
+          >
+            <ActionList.LeadingVisual>
+              <action.icon />
+            </ActionList.LeadingVisual>
+            {action.label}
+          </ActionList.Item>
+        ))}
+      </ActionList>
+    </Dialog>
+  )
+}
 
 export const SelectPanelGroup: React.FC<ActionListGroupProps & {label: string}> = ({label, children, ...props}) => (
   <ActionList.Group {...props}>

@@ -1,0 +1,54 @@
+.Story {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: var(--base-size-8);
+}
+
+.Form {
+  display: flex;
+  min-height: 0;
+  max-height: inherit;
+  flex-direction: column;
+}
+
+.Footer {
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--base-size-8);
+}
+
+.FooterActions {
+  display: flex;
+  gap: var(--base-size-8);
+}
+
+.ActionHeader {
+  align-items: center;
+  gap: var(--base-size-8);
+}
+
+.HeaderCopy {
+  min-width: 0;
+}
+
+.HeaderActions {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  flex-shrink: 0;
+}
+
+.Muted {
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.InlinePanel {
+  width: 24rem;
+  max-width: 100%;
+  background-color: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}

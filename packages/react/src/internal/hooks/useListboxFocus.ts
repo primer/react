@@ -153,7 +153,10 @@ export function useListboxFocus({container, input, fallbackFocusRef, scrollConta
     if (fromInput) {
       const active =
         activeOption.current && options.includes(activeOption.current) ? activeOption.current : options.at(0)
-      if (event.key === 'Enter') {
+      if (
+        event.key === 'Enter' ||
+        (event.key.toLowerCase() === 'u' && event.shiftKey && (event.metaKey || event.ctrlKey) && !event.altKey)
+      ) {
         event.preventDefault()
         if (active) active.dispatchEvent(new KeyboardEvent(event.type, event.nativeEvent))
         return

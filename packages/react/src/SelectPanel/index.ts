@@ -10,7 +10,9 @@ export type {
 } from './SelectPanelParts'
 export type {SelectPanelOverlayProps} from './SelectPanelOverlay'
 export type {SelectPanelCloseButtonProps} from './SelectPanelCloseButton'
-export type {ComposableSelectPanelMessageProps, SelectPanelLoadingProps} from './ComposableSelectPanelMessage'
+export type {SelectPanelItemAction} from './SelectPanelParts'
+export type {SelectPanelFormProps} from './SelectPanelActions'
 export type {SelectPanelValue, SelectPanelDismissReason, SelectPanelOpenChangeReason} from './useSelectPanel'
+export type {ComposableSelectPanelMessageProps, SelectPanelLoadingProps} from './ComposableSelectPanelMessage'
 
 export type {ItemProps, ItemInput, GroupedListProps, ListPropsBase} from '../FilteredActionList'

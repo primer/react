@@ -92,6 +92,12 @@ export type {
   SelectPanelCloseButtonProps,
   ComposableSelectPanelMessageProps,
   SelectPanelLoadingProps,
+  SelectPanelFormProps,
+  SelectPanelItemAction,
+  SelectPanelOptionProps,
+  SelectPanelValue,
+  SelectPanelDismissReason,
+  SelectPanelOpenChangeReason,
 } from '../SelectPanel'
 export {Tooltip} from '../TooltipV2'
 export type {TooltipProps} from '../TooltipV2'
