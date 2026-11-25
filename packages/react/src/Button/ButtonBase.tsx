@@ -12,8 +12,19 @@ import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
 import {isElement, isValidElementType} from 'react-is'
 import {useFeatureFlag} from '../FeatureFlags'
+import {isOcticon} from '@primer/octicons-react'
 
 const BUTTON_LOADING_DISABLED_STYLES_FEATURE_FLAG = 'primer_react_button_loading_disabled_styles'
+
+const renderVisual = (Visual: NonNullable<ButtonProps['leadingVisual']>, size?: number) => {
+  if (isElement(Visual)) {
+    return size !== undefined && isOcticon(Visual.type) && Visual.props.size === undefined
+      ? React.cloneElement(Visual, {size})
+      : Visual
+  }
+
+  return size !== undefined && isOcticon(Visual) ? <Visual size={size} /> : <Visual />
+}
 
 const renderModuleVisual = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,6 +32,7 @@ const renderModuleVisual = (
   loading: boolean,
   visualName: string,
   counterLabel: boolean,
+  iconSize?: number,
 ) => (
   <span
     data-component={visualName}
@@ -30,7 +42,7 @@ const renderModuleVisual = (
       loading ? classes.LoadingSpinner : classes.VisualWrap,
     )}
   >
-    {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
+    {loading ? <Spinner size="small" /> : renderVisual(Visual, iconSize)}
   </span>
 )
 
@@ -68,6 +80,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   const innerRef = React.useRef<HTMLButtonElement>(null)
   const mergedRef = useMergedRefs(forwardedRef, innerRef)
   const loadingDisabledStylesEnabled = useFeatureFlag(BUTTON_LOADING_DISABLED_STYLES_FEATURE_FLAG)
+  const defaultVisualSize = size === 'small' ? 14 : undefined
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
@@ -156,7 +169,8 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
               {
                 /* Render a leading visual unless the button is in a loading state.
                      Then replace the leading visual with a loading spinner. */
-                LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual', false)
+                LeadingVisual &&
+                  renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual', false, defaultVisualSize)
               }
               {children && (
                 <span data-component="text" className={classes.Label} id={loading ? `${uuid}-label` : undefined}>
@@ -180,7 +194,13 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
                       true,
                     )
                   : TrailingVisual
-                    ? renderModuleVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual', false)
+                    ? renderModuleVisual(
+                        TrailingVisual,
+                        Boolean(loading) && !LeadingVisual,
+                        'trailingVisual',
+                        false,
+                        defaultVisualSize,
+                      )
                     : null
               }
             </span>

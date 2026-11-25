@@ -52,6 +52,10 @@ const stories = [
     id: 'components-button-features--trailing-visual',
   },
   {
+    title: 'Visual Sizes',
+    id: 'components-button-features--visual-sizes',
+  },
+  {
     title: 'Inactive',
     id: 'components-button-features--inactive',
   },
