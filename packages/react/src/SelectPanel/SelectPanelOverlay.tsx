@@ -9,9 +9,12 @@ import Portal from '../Portal'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {ParentPanelContext, SelectPanelDialogContext, useSelectPanelContext} from './SelectPanelContext'
 import classes from './SelectPanelOverlay.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
+import {useBodyScrollLock} from '../internal/hooks/useBodyScrollLock'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
+import {warning} from '../utils/warning'
 import {useNativeSelectPanel} from './platform/NativeSelectPanelContext'
 import {NativeSelectPanelOverlay} from './platform/NativeSelectPanelOverlay'
-import {useFeatureFlag} from '../FeatureFlags'
 
 export interface SelectPanelOverlayProps
   extends Omit<
@@ -24,8 +27,6 @@ export interface SelectPanelOverlayProps
   onClose?: AnchoredOverlayProps['onClose']
   /**
    * Defaults to anchored on regular viewports and fullscreen on narrow viewports.
-   * With the native adapter, anchored overlays are non-modal popovers; modal,
-   * bottom-sheet, and fullscreen variants use a modal dialog.
    */
   variant?: {
     regular?: 'anchored' | 'modal'
@@ -115,6 +116,7 @@ const SelectPanelOverlayImplementation: React.FC<SelectPanelOverlayImplementatio
   const parent = React.useContext(ParentPanelContext)
   const anchorRef = suppliedAnchorRef ?? state.anchorRef
   const overlayRef = React.useRef<HTMLDivElement>(null)
+  useBodyScrollLock(overlayRef, state.open && !isLegacy)
   const ref = useMergedRefs(overlayRef, overlayProps?.ref ?? null)
   const panelId = overlayProps?.id ?? `${state.id}-panel`
   const {setPanelId, dismiss, requestOpenChange} = state
@@ -126,6 +128,16 @@ const SelectPanelOverlayImplementation: React.FC<SelectPanelOverlayImplementatio
   }
   const currentVariant = useResponsiveValue(responsiveVariant, 'anchored')
   const positionedByViewport = !isLegacy && currentVariant !== 'anchored'
+  useDevOnlyEffect(() => {
+    const element = overlayRef.current
+    if (!state.open || !element || isLegacy) return
+    const label = element.getAttribute('aria-label')
+    const title = state.labelledByRef.current ?? element.getAttribute('aria-labelledby')
+    warning(
+      !label && !(title && element.ownerDocument.getElementById(title)?.textContent.trim()),
+      'SelectPanel: No accessible name provided. Render a Title, or pass overlayProps aria-label.',
+    )
+  }, [state.open, state.labelledBy, state.labelledByRef, isLegacy])
 
   useLayoutEffect(() => {
     if (state.panelId !== panelId) {

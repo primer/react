@@ -14,7 +14,9 @@ import {useSelectPanelContext} from '../SelectPanelContext'
 import type {SelectPanelOverlayProps} from '../SelectPanelOverlay'
 import type {SelectPanelDismissReason} from '../useSelectPanel'
 import {NativeDialogHost} from './NativeDialogHost'
-import {nativeInvokerProps, useNativeSelectPanel} from './NativeSelectPanelContext'
+import {NativeSelectPanelDismissContext, useNativeSelectPanel} from './NativeSelectPanelContext'
+import {nativeInvokerProps} from './nativeInvokerProps'
+import {useNativeSelectPanelInvokers} from './useNativeSelectPanelInvokers'
 import classes from './PlatformSelectPanel.module.css'
 
 export function NativeSelectPanelOverlay({
@@ -44,12 +46,12 @@ export function NativeSelectPanelOverlay({
   const state = useSelectPanelContext()
   const {invokers, setTargetId, setModal} = useNativeSelectPanel()
   const dialogRef = React.useRef<HTMLDialogElement>(null)
+  const dismissRef = React.useRef<((reason: SelectPanelDismissReason, event?: Event) => void) | null>(null)
   const [portalRevision, onPortalMount] = React.useReducer((revision: number) => revision + 1, 0)
   const anchorRef = suppliedAnchorRef ?? state.anchorRef
   const [anchorElement, setAnchorElement] = React.useState<HTMLElement | null>(null)
   const renderAnchorRef = useMergedRefs(anchorRef, setAnchorElement)
-  // Command invokers only work on buttons. Custom links and external anchors
-  // retain their JavaScript controls rather than receiving inert command props.
+  // Commands work only on buttons; custom links keep JavaScript activation.
   const anchorInvokers = invokers && anchorElement?.tagName === 'BUTTON'
   const panelId = overlayProps?.id ?? `${state.id}-panel`
   const responsiveVariant: ResponsiveValue<'anchored' | 'modal', 'anchored' | 'modal' | 'fullscreen' | 'bottom-sheet'> =
@@ -112,6 +114,19 @@ export function NativeSelectPanelOverlay({
       state.dismiss(reason)
     }
   }
+  const dismiss = (reason: SelectPanelDismissReason, event?: Event) => {
+    if (dismissRef.current) dismissRef.current(reason, event)
+    else handleDismiss(reason, event)
+  }
+  const {transitionRef, previousFocusRef} = useNativeSelectPanelInvokers({
+    enabled: invokers,
+    open: state.open,
+    modal,
+    dialogRef,
+    anchorRef,
+    onOpen: handleOpen,
+    onDismiss: dismiss,
+  })
   const surfaceProps = {...overlayProps}
   for (const key of [
     'id',
@@ -138,14 +153,15 @@ export function NativeSelectPanelOverlay({
   const host = (
     <NativeDialogHost
       dialogRef={dialogRef}
-      invokers={invokers}
       modal={modal}
+      transitionRef={transitionRef}
+      previousFocusRef={previousFocusRef}
+      dismissRef={dismissRef}
       anchorRef={anchorRef}
       returnFocusRef={overlayProps?.returnFocusRef}
       initialFocusRef={focusTrapSettings?.initialFocusRef ?? overlayProps?.initialFocusRef ?? state.inputRef}
       ignoreClickRefs={overlayProps?.ignoreClickRefs}
       onDismiss={handleDismiss}
-      onCommandOpen={handleOpen}
       dialogProps={{
         id: panelId,
         role: overlayProps?.role,
@@ -195,12 +211,14 @@ export function NativeSelectPanelOverlay({
                   : {'aria-label': closeButtonProps?.['aria-label'] ?? 'Close', 'aria-labelledby': undefined})}
                 onClick={event => {
                   closeButtonProps?.onClick?.(event)
-                  if (!event.defaultPrevented && !invokers) handleDismiss('close')
+                  if (!event.defaultPrevented && !invokers) dismiss('close', event.nativeEvent)
                 }}
               />
             </div>
           ) : null}
-          {children}
+          <NativeSelectPanelDismissContext.Provider value={{id: state.id, dismiss}}>
+            {children}
+          </NativeSelectPanelDismissContext.Provider>
         </BaseOverlay>
       ) : null}
     </NativeDialogHost>

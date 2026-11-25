@@ -92,7 +92,12 @@ export function useSelectPanel<T = SelectPanelValue>({
   const [collectionElement, updateCollectionElement] = React.useState<HTMLElement | null>(null)
   const collectionRef = React.useRef<HTMLElement | null>(null)
   const [panelId, setPanelId] = React.useState(`${id}-panel`)
-  const [labelledBy, setLabelledBy] = React.useState(`${id}-title`)
+  const [labelledBy, updateLabelledBy] = React.useState<string>()
+  const labelledByRef = React.useRef<string>()
+  const setLabelledBy = React.useCallback((id: string | undefined) => {
+    labelledByRef.current = id
+    updateLabelledBy(id)
+  }, [])
   const [describedBy, setDescribedBy] = React.useState<string>()
 
   invariant(
@@ -196,6 +201,7 @@ export function useSelectPanel<T = SelectPanelValue>({
     titleId: `${id}-title`,
     descriptionId: `${id}-description`,
     labelledBy,
+    labelledByRef,
     setLabelledBy,
     describedBy,
     setDescribedBy,

@@ -205,7 +205,9 @@ export const AboveTallBody = () => {
 }
 
 export const HeightVariationsAndScroll = () => {
-  const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
+  const longItems = Array.from({length: 8}, (_, page) =>
+    items.map(item => ({...item, id: `${page}-${item.id}`})),
+  ).flat()
   const [filter, setFilter] = useState('')
   // Example A
   const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(longItems[0])

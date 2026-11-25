@@ -141,13 +141,11 @@ describe.each([false, true])('configured SelectPanel rollback with adapter=%s', 
   })
 })
 
-it('retains the original overlay even when native flags are enabled without the adapter', async () => {
+it('retains the original overlay when the adapter is disabled', async () => {
   render(
     <FeatureFlags
       flags={{
         primer_react_select_panel_composable_adapter: false,
-        primer_react_select_panel_native_dialog: true,
-        primer_react_select_panel_native_invokers: true,
       }}
     >
       <SelectPanel

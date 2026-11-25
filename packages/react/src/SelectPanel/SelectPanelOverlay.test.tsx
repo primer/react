@@ -229,7 +229,7 @@ describe('SelectPanel.Overlay presentation', () => {
     expect(nestedInput).toBeEnabled()
   })
 
-  it('is an anchored modal dialog with a level-one title and custom IDs by default', async () => {
+  it('is an anchored modal dialog with a consumer-specified title level and custom IDs by default', async () => {
     const user = userEvent.setup()
     render(<Picker overlay={{overlayProps: {id: 'custom-panel'}}} />)
     const trigger = screen.getByRole('button', {name: 'Open picker'})
@@ -240,7 +240,7 @@ describe('SelectPanel.Overlay presentation', () => {
     expect(dialog).toHaveAttribute('data-variant', 'anchored')
     expect(dialog).toHaveAccessibleDescription('Choose your favorite fruit')
     expect(trigger).toHaveAttribute('aria-controls', 'custom-panel')
-    expect(within(dialog).getByRole('heading', {name: 'Choose a fruit', level: 1})).toBeInTheDocument()
+    expect(within(dialog).getByRole('heading', {name: 'Choose a fruit', level: 3})).toBeInTheDocument()
     expect(within(dialog).queryByRole('button', {name: 'Close'})).not.toBeInTheDocument()
     await waitFor(() => expect(screen.getByRole('combobox')).toHaveFocus())
 
@@ -299,7 +299,7 @@ describe('SelectPanel.Overlay presentation', () => {
       </BaseStyles>,
     )
     const dialog = screen.getByRole('dialog', {name: 'Unanchored modal'})
-    expect(dialog).toBeVisible()
+    await expect.element(page.getByRole('dialog', {name: 'Unanchored modal'})).toBeVisible()
     expect(dialog).toHaveAttribute('data-variant', 'modal')
     expect(dialog).toHaveAttribute('aria-modal', 'true')
     expect(dialog).toHaveStyle({position: 'fixed'})

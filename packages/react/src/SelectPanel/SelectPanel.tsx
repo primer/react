@@ -7,7 +7,8 @@ import {FilteredActionList} from '../FilteredActionList'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './'
-import {ComposableSelectPanelMessage, SelectPanelLoading, SelectPanelMessage} from './SelectPanelMessage'
+import {SelectPanelMessage} from './SelectPanelMessage'
+import {ComposableSelectPanelMessage, SelectPanelLoading} from './ComposableSelectPanelMessage'
 import Heading from '../Heading'
 
 import {Button, IconButton, LinkButton} from '../Button'
@@ -32,10 +33,11 @@ import {SelectPanelContext} from './SelectPanelContext'
 import {useSelectPanel} from './useSelectPanel'
 import {ConfiguredSelectPanelOverlay} from './SelectPanelOverlay'
 import {ConfiguredSelectPanelCollection} from './ConfiguredSelectPanelAdapter'
-import {supportsConfiguredNativeOverlay} from './platform/configuredNativeCompatibility'
+import {useConfiguredNativeOverlay} from './platform/configuredNativeCompatibility'
 import {NativeSelectPanelProvider} from './platform/NativeSelectPanelProvider'
 import {useNativeSelectPanel} from './platform/NativeSelectPanelContext'
 import nativeClasses from './platform/PlatformSelectPanel.module.css'
+import {areItemsEqual, isMultiSelectVariant, getSelectedItems} from '../internal/selectPanelSelection'
 import {
   SelectPanelRoot,
   SelectPanelTrigger,
@@ -61,11 +63,6 @@ import {
 } from './SelectPanelActions'
 
 export type {InitialLoadingType} from './types'
-
-// eslint-disable-next-line react-refresh/only-export-components -- Internal export for selection regression tests; not part of the package API.
-export function areItemsEqual(first: ItemInput, second: ItemInput) {
-  return first.id !== undefined ? first.id === second.id : first === second
-}
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const LONG_DELAY_MS = 1000
@@ -149,23 +146,7 @@ export type SelectPanelProps = SelectPanelBaseProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
 
-function isMultiSelectVariant(
-  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
-): selected is SelectPanelMultiSelection['selected'] {
-  return Array.isArray(selected)
-}
-
 const closeButtonProps = {'aria-label': 'Cancel and close'}
-
-const getSelectedItems = (
-  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
-): ItemInput[] => {
-  if (isMultiSelectVariant(selected)) {
-    return selected
-  }
-
-  return selected ? [selected] : []
-}
 
 const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
   const {children, ...rest} = props
@@ -215,8 +196,13 @@ function Panel({
   virtualized,
   displayInViewport,
   cssAnchorPositioningSettings,
+  validationStatus: _validationStatus,
   ...listProps
-}: SelectPanelProps & {Collection?: React.ComponentType<FilteredActionListProps>; composable?: boolean}): JSX.Element {
+}: SelectPanelProps & {
+  Collection?: React.ComponentType<FilteredActionListProps>
+  composable?: boolean
+  validationStatus?: TextInputProps['validationStatus']
+}): JSX.Element {
   const native = useNativeSelectPanel()
   const titleId = useId()
   const subtitleId = useId()
@@ -937,18 +923,18 @@ function Panel({
       subtitleId,
       overlayProps,
       variant,
-      native.dialog,
       isKeyboardVisible,
       availablePanelHeight,
       onOverlayKeyDown,
+      native.dialog,
     ],
   )
 
   const content = (
     <>
       <ConfiguredSelectPanelOverlay
-        open={open}
         configuredVariant={variant}
+        open={open}
         renderAnchor={renderMenuAnchor}
         anchorRef={anchorRef}
         align={align}
@@ -1157,8 +1143,9 @@ const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
 
 function ConfiguredSelectPanel(props: SelectPanelProps) {
   const composable = useFeatureFlag('primer_react_select_panel_composable_adapter')
+  const nativeCompatible = useConfiguredNativeOverlay(props)
   return (
-    <NativeSelectPanelProvider enabled={composable && supportsConfiguredNativeOverlay(props)}>
+    <NativeSelectPanelProvider enabled={composable && nativeCompatible}>
       <Panel
         {...props}
         composable={composable}

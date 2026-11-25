@@ -2,7 +2,7 @@ import {act, renderHook} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import type {ItemInput} from '../FilteredActionList'
 import {getSelectedItems, useSelectPanel, type SelectPanelValue} from './useSelectPanel'
-import {areItemsEqual} from './SelectPanel'
+import {areItemsEqual} from '../internal/selectPanelSelection'
 
 const first: ItemInput = {id: 'first', text: 'First'}
 
@@ -26,7 +26,7 @@ describe('SelectPanel selection state', () => {
   it('keeps numeric and string ids distinct', () => {
     const numeric = {id: 1, text: 'Numeric'}
     const string = {id: '1', text: 'String'}
-    expect(getSelectedItems([numeric], string, 'multiple', areItemsEqual)).toEqual([numeric, string])
+    expect(getSelectedItems<ItemInput>([numeric], string, 'multiple', areItemsEqual)).toEqual([numeric, string])
     expect(getSelectedItems<SelectPanelValue>([1], '1', 'multiple')).toEqual([1, '1'])
   })
 

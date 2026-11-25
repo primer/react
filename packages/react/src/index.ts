@@ -185,7 +185,7 @@ export type {
   SelectPanelDismissReason,
   SelectPanelFormProps,
   SelectPanelCloseButtonProps,
-  SelectPanelMessageProps,
+  ComposableSelectPanelMessageProps,
   SelectPanelLoadingProps,
   ItemProps as SelectPanelItemProps,
   GroupedListProps as SelectPanelGroupedListProps,

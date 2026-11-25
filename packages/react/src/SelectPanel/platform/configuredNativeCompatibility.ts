@@ -1,6 +1,16 @@
+import React from 'react'
+import {DialogContext} from '../../Dialog/DialogContext'
 import type {SelectPanelProps} from '../SelectPanel'
 
 const positionProps = ['position', 'top', 'left', 'right', 'bottom'] as const
+
+export function useConfiguredNativeOverlay(props: SelectPanelProps) {
+  // Legacy Dialog's focus trap and document Escape registry still own the
+  // configured adapter's lifecycle. Do not mix that ownership with a native
+  // host until nesting parity is established. Explicit composition is ungated.
+  const legacyDialog = React.useContext(DialogContext)
+  return legacyDialog === undefined && supportsConfiguredNativeOverlay(props)
+}
 
 // Keep focus opt-outs, outside-click exceptions, and legacy positioning/reflow
 // options on the compatibility host until their native parity is established.

@@ -1,60 +1,15 @@
 import React from 'react'
-import {ChevronLeftIcon, XIcon} from '@primer/octicons-react'
-import {Button, IconButton, type ButtonProps, type IconButtonProps} from '../Button'
+import {ChevronLeftIcon} from '@primer/octicons-react'
+import {Button, type ButtonProps} from '../Button'
 import {useMergedRefs} from '../hooks/useMergedRefs'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {useSelectPanelContext} from './SelectPanelContext'
-import {nativeInvokerProps, useNativeSelectPanel} from './platform/NativeSelectPanelContext'
+export {SelectPanelCloseButton, type SelectPanelCloseButtonProps} from './SelectPanelCloseButton'
 
 const SelectPanelFormContext = React.createContext<{
   rootId: string
   formRef: React.RefObject<HTMLFormElement>
 } | null>(null)
-
-export type SelectPanelCloseButtonProps = Omit<
-  IconButtonProps,
-  'icon' | 'aria-label' | 'aria-labelledby' | 'children'
-> & {
-  'aria-label'?: string
-  'aria-labelledby'?: string
-}
-
-export const SelectPanelCloseButton = React.forwardRef<HTMLButtonElement, SelectPanelCloseButtonProps>(
-  function SelectPanelCloseButton(
-    {
-      onClick,
-      'aria-label': ariaLabel = 'Close',
-      'aria-labelledby': ariaLabelledBy,
-      type = 'button',
-      variant = 'invisible',
-      ...props
-    },
-    ref,
-  ) {
-    const state = useSelectPanelContext()
-    const native = useNativeSelectPanel()
-    const invokers = native.invokers && native.targetId === state.panelId && type === 'button'
-    return (
-      <IconButton
-        {...props}
-        icon={XIcon}
-        {...(ariaLabelledBy ? {'aria-labelledby': ariaLabelledBy, 'aria-label': undefined} : {'aria-label': ariaLabel})}
-        variant={variant}
-        type={props.loading ? 'button' : type}
-        ref={ref}
-        {...(invokers ? nativeInvokerProps(state.panelId, native.modal ? 'close' : 'hide-popover') : {})}
-        onClick={event => {
-          onClick?.(event)
-          if (!event.defaultPrevented && !props.disabled) {
-            if (invokers) return
-            event.preventDefault()
-            state.dismiss('close')
-          }
-        }}
-      />
-    )
-  },
-)
 
 export const SelectPanelCancelButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function SelectPanelCancelButton({onClick, children = 'Cancel', type = 'button', ...props}, ref) {
@@ -205,6 +160,7 @@ export const SelectPanelForm = React.forwardRef<HTMLFormElement, SelectPanelForm
     <SelectPanelFormContext.Provider value={context}>
       <form
         {...props}
+        data-component="SelectPanel.Form"
         ref={mergedRef}
         onSubmit={event => {
           if (event.target !== event.currentTarget) return

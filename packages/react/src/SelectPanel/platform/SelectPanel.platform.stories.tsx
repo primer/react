@@ -1,11 +1,11 @@
 import {useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {expect, waitFor} from 'storybook/test'
-import {Button} from '../Button'
-import {FeatureFlags} from '../FeatureFlags'
-import {SelectPanel} from './SelectPanel'
-import {nativeSelectPanelCapabilities} from './platform/NativeSelectPanelContext'
-import {PlatformSelectPanel} from './platform/PlatformSelectPanel'
+import {Button} from '../../Button'
+import {FeatureFlags} from '../../FeatureFlags'
+import {SelectPanel} from '../SelectPanel'
+import {nativeSelectPanelCapabilities} from './NativeSelectPanelContext'
+import {PlatformSelectPanel} from './PlatformSelectPanel'
 
 interface PlatformStoryArgs {
   nativeDialog: boolean
@@ -25,14 +25,14 @@ const meta = {
     },
     invokers: {
       control: 'boolean',
-      description: 'Opt into primer_react_select_panel_native_invokers when the native dialog is enabled.',
+      description: 'Opt into primer_react_select_panel_native_invokers when native hosting is enabled.',
     },
   },
   parameters: {
     docs: {
       description: {
         component:
-          'Web platform proofs of concept. Native dialog and invoker adapters are internal implementations of the composable parts, enabled by default-off feature flags. These stories use local Controls to override the global toolbar flags. Toggle the controls to compare with the existing overlay; unsupported browser features display an explicit fallback notice.',
+          'Web platform proofs of concept. Native hosting and optional command invokers are internal implementations of the composable parts, enabled by default-off feature flags. These stories use local Controls to override the global toolbar flags. Toggle the controls to compare with the existing overlay; unsupported browser features display an explicit fallback notice.',
       },
     },
   },
@@ -134,7 +134,7 @@ export const NativeAnchored: Story = {
     docs: {
       description: {
         story:
-          'Anchored native panels use a manual top-layer popover with dialog semantics, without making the page inert or locking background scrolling. Tab can leave the panel, Escape dismisses it, and clicking a background control preserves its focus. Native invokers use toggle-popover and hide-popover, not show-modal. Turning nativeDialog off retains the compatibility implementation.',
+          'Anchored native panels use a manual top-layer popover with dialog semantics, without making the page inert or locking background scrolling. Tab can leave the panel, Escape dismisses it, and clicking a background control preserves its focus. Optional native invokers use toggle-popover and hide-popover, not show-modal. Turning nativeDialog off retains the compatibility implementation.',
       },
     },
   },
@@ -172,7 +172,7 @@ export const Invokers: Story = {
     docs: {
       description: {
         story:
-          'Opt-in native command/commandfor buttons target a persistently mounted dialog. The browser performs show-modal and close; the adapter synchronizes those commands with SelectPanel state. Disable invokers to retain the native dialog with JavaScript activation, or disable nativeDialog to return to the existing overlay.',
+          'Opt-in native command/commandfor buttons target a persistently mounted dialog. The browser performs show-modal and close; a separate internal enhancement reconciles commands after their default action with authoritative SelectPanel state. Disable invokers to retain native hosting with JavaScript activation.',
       },
     },
   },
@@ -190,4 +190,14 @@ export const Invokers: Story = {
       <PlatformSelectPanel />
     </FeatureFlags>
   ),
+  play: async ({canvas, userEvent, args}) => {
+    if (!args.nativeDialog || nativeSelectPanelCapabilities() === 'unsupported') return
+    const trigger = canvas.getByRole('button', {name: 'Labels'})
+    await userEvent.click(trigger)
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'))
+    await expect(canvas.getByRole('combobox', {name: 'Filter labels'})).toHaveFocus()
+    await userEvent.click(canvas.getByRole('button', {name: 'Close picker'}))
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
+    await expect(trigger).toHaveFocus()
+  },
 }

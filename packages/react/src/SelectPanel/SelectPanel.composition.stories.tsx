@@ -1,5 +1,6 @@
 import {InfoIcon, TagIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
+import {expect, userEvent, within} from 'storybook/test'
 import {useRef, useState, type RefObject} from 'react'
 import {ActionList} from '../ActionList'
 import {Button} from '../Button'
@@ -58,10 +59,12 @@ function selectionLabel(selected: SelectPanelValue[]) {
 function LabelItem({option}: {option: LabelOption}) {
   return (
     <SelectPanel.Item value={option.id} disabled={option.disabled}>
+      {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item delegates these slots to ActionList.Item. */}
       <ActionList.LeadingVisual>
         <TagIcon />
       </ActionList.LeadingVisual>
       {option.name}
+      {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item delegates these slots to ActionList.Item. */}
       <ActionList.Description variant="block">{option.description}</ActionList.Description>
     </SelectPanel.Item>
   )
@@ -169,6 +172,15 @@ function CustomLayoutExample({
 }
 
 export const CustomLayout = () => <CustomLayoutExample />
+CustomLayout.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  await userEvent.click(canvas.getByRole('button', {name: 'Labels (1)'}))
+  const body = within(canvasElement.ownerDocument.body)
+  await userEvent.click(await body.findByRole('option', {name: /Enhancement/}))
+  await expect(body.getByRole('option', {name: /Enhancement/})).toHaveAttribute('aria-selected', 'true')
+  await userEvent.click(body.getByRole('button', {name: 'Done'}))
+  await expect(canvas.getByText('Saved labels: Bug, Enhancement')).toBeVisible()
+}
 
 CustomLayout.parameters = {
   docs: {
@@ -263,6 +275,7 @@ function LabelDetails({item, returnFocusRef}: {item: LabelOption; returnFocusRef
         secondaryActions={[{label: `Details for ${item.name}`, icon: InfoIcon, onClick: () => setOpen(true)}]}
       >
         {item.name}
+        {/* eslint-disable-next-line primer-react/direct-slot-children -- SelectPanel.Item delegates these slots to ActionList.Item. */}
         <ActionList.Description variant="block">{item.description}</ActionList.Description>
       </SelectPanel.Item>
       {open ? <LabelDetailsDialog item={item} returnFocusRef={returnFocusRef} onClose={() => setOpen(false)} /> : null}

@@ -16,10 +16,10 @@ export function NativeSelectPanelProvider({children, enabled = true}: {children:
       value={{
         dialog: enabled && dialogFlag && capabilities !== 'unsupported',
         invokers: enabled && dialogFlag && invokersFlag && capabilities === 'invokers',
-        modal,
-        setModal,
         targetId,
         setTargetId,
+        modal,
+        setModal,
       }}
     >
       {children}

@@ -5,12 +5,14 @@ export type {
   SelectPanelRootProps,
   SelectPanelTriggerProps,
   SelectPanelSearchInputProps,
-  SelectPanelOverlayProps,
+  SelectPanelItemProps as ComposableSelectPanelItemProps,
   SelectPanelItemProps as SelectPanelOptionProps,
-  SelectPanelItemAction,
 } from './SelectPanelParts'
+export type {SelectPanelOverlayProps} from './SelectPanelOverlay'
+export type {SelectPanelCloseButtonProps} from './SelectPanelCloseButton'
+export type {SelectPanelItemAction} from './SelectPanelParts'
+export type {SelectPanelFormProps} from './SelectPanelActions'
 export type {SelectPanelValue, SelectPanelDismissReason, SelectPanelOpenChangeReason} from './useSelectPanel'
-export type {SelectPanelFormProps, SelectPanelCloseButtonProps} from './SelectPanelActions'
-export type {SelectPanelMessageProps, SelectPanelLoadingProps} from './SelectPanelMessage'
+export type {ComposableSelectPanelMessageProps, SelectPanelLoadingProps} from './ComposableSelectPanelMessage'
 
 export type {ItemProps, ItemInput, GroupedListProps, ListPropsBase} from '../FilteredActionList'

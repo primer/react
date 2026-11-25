@@ -1,5 +1,4 @@
-/** Behaviors */
-import {scrollIntoView, FocusKeys} from '@primer/behaviors'
+import {scrollIntoView, FocusKeys, type ScrollIntoViewOptions} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
@@ -20,11 +19,12 @@ import {useVirtualizer} from '@tanstack/react-virtual'
 import {useMergedRefs} from '../hooks'
 import {FilteredActionListInput, type FilteredActionListInputProps} from './FilteredActionListInput'
 
-import {MappedActionListItem} from './components/MappedActionListItem'
-import {menuScrollMargins} from './utils'
+import {MappedActionListItem} from '../internal/components/MappedActionListItem'
 import {activateDescendant} from '../internal/hooks/useListboxFocus'
 
 export type {FilteredActionListProps} from './types'
+
+const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 interface FilteredActionListRenderers {
   Input?: React.ComponentType<FilteredActionListInputProps>
@@ -74,6 +74,7 @@ export function FilteredActionListContent({
   focusPrependedElements,
   scrollBehavior,
   virtualized = false,
+  renderItem,
   ...listProps
 }: FilteredActionListProps & {
   components?: FilteredActionListRenderers
@@ -372,7 +373,7 @@ export function FilteredActionListContent({
                     data-input-focused={isInputFocused ? '' : undefined}
                     data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
                     {...item}
-                    renderItem={listProps.renderItem}
+                    renderItem={renderItem}
                   />
                 )
               })}
@@ -404,7 +405,7 @@ export function FilteredActionListContent({
                 transform: `translateY(${virtualItem.start}px)`,
               }}
               {...item}
-              renderItem={listProps.renderItem}
+              renderItem={renderItem}
             />
           )
         })
@@ -419,7 +420,7 @@ export function FilteredActionListContent({
             data-input-focused={isInputFocused ? '' : undefined}
             data-first-child={index === 0 ? '' : undefined}
             {...item}
-            renderItem={listProps.renderItem}
+            renderItem={renderItem}
           />
         )
       })

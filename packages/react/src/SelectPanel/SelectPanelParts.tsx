@@ -24,7 +24,8 @@ import {
   useSelectPanelSelection,
 } from './SelectPanelContext'
 import {useSelectPanel, type SelectPanelStateOptions, type SelectPanelValue} from './useSelectPanel'
-import {nativeInvokerProps, useNativeSelectPanel} from './platform/NativeSelectPanelContext'
+import {useNativeSelectPanel} from './platform/NativeSelectPanelContext'
+import {nativeInvokerProps} from './platform/nativeInvokerProps'
 import {NativeSelectPanelProvider} from './platform/NativeSelectPanelProvider'
 import classes from './SelectPanel.module.css'
 
@@ -112,57 +113,76 @@ export const SelectPanelTrigger = React.forwardRef<HTMLButtonElement, SelectPane
   },
 )
 
-export const SelectPanelContent = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
+export const SelectPanelContent = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<'div'>>(
   function SelectPanelContent({className, ...props}, ref) {
-    return <div {...props} className={clsx(classes.Wrapper, className)} ref={ref} />
-  },
-)
-
-export const SelectPanelHeader = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
-  function SelectPanelHeader({className, ...props}, ref) {
-    return <div {...props} className={clsx(classes.Header, className)} ref={ref} />
-  },
-)
-
-export const SelectPanelTitle = React.forwardRef<HTMLHeadingElement, React.ComponentPropsWithoutRef<typeof Heading>>(
-  function SelectPanelTitle({id: suppliedId, className, as, ...props}, ref) {
-    const {titleId, setLabelledBy} = useSelectPanelContext()
-    const inDialog = React.useContext(SelectPanelDialogContext)
-    const id = suppliedId ?? titleId
-    useLayoutEffect(() => {
-      setLabelledBy(id)
-    }, [id, setLabelledBy])
     return (
-      <Heading
+      <div
+        data-component="SelectPanel.Content"
         {...props}
-        as={inDialog ? 'h1' : (as ?? 'h2')}
-        id={id}
-        className={clsx(classes.Title, className)}
-        ref={ref}
+        className={clsx(classes.Wrapper, className)}
+        ref={ref as React.Ref<HTMLDivElement>}
       />
     )
   },
 )
 
-export const SelectPanelDescription = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
+export const SelectPanelHeader = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<'div'>>(
+  function SelectPanelHeader({className, ...props}, ref) {
+    return (
+      <div
+        {...props}
+        data-component="SelectPanel.Header"
+        className={clsx(classes.Header, className)}
+        ref={ref as React.Ref<HTMLDivElement>}
+      />
+    )
+  },
+)
+
+export const SelectPanelTitle = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<typeof Heading>>(
+  function SelectPanelTitle({id: suppliedId, className, as, ...props}, ref) {
+    const {titleId, setLabelledBy} = useSelectPanelContext()
+    const inDialog = React.useContext(SelectPanelDialogContext)
+    const id = suppliedId ?? titleId
+    const registerTitle = React.useCallback(
+      (node: HTMLElement | null) => setLabelledBy(node ? id : undefined),
+      [id, setLabelledBy],
+    )
+    const mergedRef = useMergedRefs(ref, registerTitle)
+    return (
+      <Heading
+        {...props}
+        as={as ?? (inDialog ? 'h1' : 'h2')}
+        id={id}
+        className={clsx(classes.Title, className)}
+        ref={mergedRef}
+      />
+    )
+  },
+)
+
+export const SelectPanelDescription = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<'div'>>(
   function SelectPanelDescription({id: suppliedId, className, ...props}, ref) {
     const {descriptionId, setDescribedBy} = useSelectPanelContext()
     const id = suppliedId ?? descriptionId
-    useLayoutEffect(() => {
-      setDescribedBy(id)
-      return () => setDescribedBy(undefined)
-    }, [id, setDescribedBy])
-    return <div {...props} id={id} className={clsx(classes.Subtitle, className)} ref={ref} />
+    const registerDescription = React.useCallback(
+      (node: HTMLElement | null) => setDescribedBy(node ? id : undefined),
+      [id, setDescribedBy],
+    )
+    const mergedRef = useMergedRefs(ref, registerDescription)
+    return (
+      <div
+        data-component="SelectPanel.Description"
+        {...props}
+        id={id}
+        className={clsx(classes.Subtitle, className)}
+        ref={mergedRef as React.Ref<HTMLDivElement>}
+      />
+    )
   },
 )
 
 export type SelectPanelSearchInputProps = Omit<TextInputProps, 'value' | 'defaultValue'>
-
-export const SelectPanelSearchInputBase = React.forwardRef<HTMLInputElement, TextInputProps>(
-  function SelectPanelSearchInputBase(props, ref) {
-    return <TextInput block contrast leadingVisual={SearchIcon} {...props} ref={ref} />
-  },
-)
 
 export const SelectPanelSearchInput = React.forwardRef<HTMLInputElement, SelectPanelSearchInputProps>(
   function SelectPanelSearchInput(
@@ -257,6 +277,12 @@ export const SelectPanelList = React.forwardRef<HTMLUListElement, React.Componen
         }}
       />
     )
+  },
+)
+
+export const SelectPanelSearchInputBase = React.forwardRef<HTMLInputElement, TextInputProps>(
+  function SelectPanelSearchInputBase(props, ref) {
+    return <TextInput block contrast leadingVisual={SearchIcon} {...props} ref={ref} />
   },
 )
 
@@ -430,6 +456,7 @@ export const SelectPanelItemBase = React.forwardRef<HTMLLIElement, SelectPanelIt
               {slots.trailingVisual?.props.children}
               <span
                 className={classes.ItemActions}
+                aria-hidden="true"
                 onClick={event => event.stopPropagation()}
                 onKeyDown={event => event.stopPropagation()}
                 onKeyPress={event => event.stopPropagation()}
@@ -524,8 +551,15 @@ export const SelectPanelGroup: React.FC<ActionListGroupProps & {label: string}> 
   </ActionList.Group>
 )
 
-export const SelectPanelFooter = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
+export const SelectPanelFooter = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<'div'>>(
   function SelectPanelFooter({className, ...props}, ref) {
-    return <div {...props} className={clsx(classes.Footer, className)} ref={ref} />
+    return (
+      <div
+        {...props}
+        data-component="SelectPanel.Footer"
+        className={clsx(classes.Footer, className)}
+        ref={ref as React.Ref<HTMLDivElement>}
+      />
+    )
   },
 )

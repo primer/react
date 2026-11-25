@@ -81,8 +81,25 @@ function PickerHost({
   const state = useSelectPanelContext()
   return (
     <>
-      <SelectPanel.Trigger onClick={onTriggerClick}>Labels</SelectPanel.Trigger>
+      {!popover || nativeDialog ? <SelectPanel.Trigger onClick={onTriggerClick}>Labels</SelectPanel.Trigger> : null}
       <SelectPanel.Overlay
+        // The legacy CSS-popover comparison uses the host's own browser
+        // invoker target. Its generated ID is not the external Root's panel ID.
+        renderAnchor={
+          popover && !nativeDialog
+            ? props => (
+                <Button
+                  {...props}
+                  onClick={event => {
+                    onTriggerClick?.(event)
+                    if (!event.defaultPrevented) props.onClick?.(event)
+                  }}
+                >
+                  Labels
+                </Button>
+              )
+            : undefined
+        }
         renderAs={renderAs}
         variant={nativeDialog ? {regular: 'modal'} : undefined}
         overlayProps={{_PrivateDisablePortal: popover}}

@@ -9,10 +9,6 @@
   }
 }
 
-:global(body):has(.Backdrop) {
-  overflow: hidden;
-}
-
 .Overlay {
   display: flex;
   flex-direction: column;

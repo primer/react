@@ -62,13 +62,12 @@ function Picker({overlay, onTriggerClick, onCloseClick, configured, ...props}: P
   )
 }
 
-function fixture(children: React.ReactNode, dialog = true, invokers = true) {
+function fixture(children: React.ReactNode, dialog = true) {
   return (
     <BaseStyles>
       <FeatureFlags
         flags={{
           primer_react_select_panel_native_dialog: dialog,
-          primer_react_select_panel_native_invokers: invokers,
         }}
       >
         {children}
@@ -97,11 +96,8 @@ beforeEach(async () => {
 })
 
 describe('composable SelectPanel native platform flags', () => {
-  it.each([
-    {dialog: false, invokers: false},
-    {dialog: false, invokers: true},
-  ])('retains the existing overlay with dialog=$dialog, invokers=$invokers', async flags => {
-    const {container} = render(fixture(<Picker />, flags.dialog, flags.invokers))
+  it('retains the existing overlay with the native dialog flag off', async () => {
+    const {container} = render(fixture(<Picker />, false))
     expect(container.querySelector('dialog')).toBeNull()
     expect(trigger().element()).not.toHaveAttribute('command')
     await userEvent.click(trigger())
@@ -110,7 +106,7 @@ describe('composable SelectPanel native platform flags', () => {
     await expect.element(trigger()).toHaveFocus()
   })
 
-  it.each([false, true])('uses a real modal with invokers=%s and preserves list behavior', async invokers => {
+  it('uses a real modal and preserves list behavior', async () => {
     const onOpenChange = vi.fn()
     const onSelectedChange = vi.fn()
     const {container} = render(
@@ -121,7 +117,6 @@ describe('composable SelectPanel native platform flags', () => {
           overlay={{variant: {regular: 'modal'}}}
         />,
         true,
-        invokers,
       ),
     )
     const dialog = nativeDialog(container)
@@ -152,39 +147,7 @@ describe('composable SelectPanel native platform flags', () => {
     ])
   })
 
-  it('lets browser invokers open and close without duplicate imperative calls', async () => {
-    const showModal = vi.spyOn(HTMLDialogElement.prototype, 'showModal')
-    const closeDialog = vi.spyOn(HTMLDialogElement.prototype, 'close')
-    const onOpenChange = vi.fn()
-    const {container} = render(
-      fixture(
-        <Picker
-          onOpenChange={onOpenChange}
-          overlay={{variant: {regular: 'modal'}, overlayProps: {id: 'custom-native-panel'}}}
-        />,
-      ),
-    )
-    const dialog = nativeDialog(container)
-    const commands: string[] = []
-    dialog.addEventListener('command', event => {
-      if (event instanceof CommandEvent && event.isTrusted) commands.push(event.command)
-    })
-    expect(trigger().element()).toHaveAttribute('command', 'show-modal')
-    expect(trigger().element()).toHaveAttribute('commandfor', 'custom-native-panel')
-    await userEvent.click(trigger())
-    await expect.element(close()).toHaveAttribute('command', 'close')
-    await userEvent.click(close())
-    await expect.poll(() => dialog.open).toBe(false)
-    expect(commands).toEqual(['show-modal', 'close'])
-    expect(showModal).not.toHaveBeenCalled()
-    expect(closeDialog).not.toHaveBeenCalled()
-    expect(onOpenChange.mock.calls).toEqual([
-      [true, 'anchor-click'],
-      [false, 'close'],
-    ])
-  })
-
-  it('honors canceled clicks and canceled browser commands', async () => {
+  it('honors canceled clicks', async () => {
     const onOpenChange = vi.fn()
     const {container, rerender} = render(
       fixture(<Picker onOpenChange={onOpenChange} onTriggerClick={preventDefault} />),
@@ -194,11 +157,6 @@ describe('composable SelectPanel native platform flags', () => {
     expect(dialog.matches(':popover-open')).toBe(false)
     expect(onOpenChange).not.toHaveBeenCalled()
     rerender(fixture(<Picker onOpenChange={onOpenChange} onCloseClick={preventDefault} />))
-    dialog.addEventListener('command', preventDefault)
-    await userEvent.click(trigger())
-    expect(dialog.matches(':popover-open')).toBe(false)
-    expect(onOpenChange).not.toHaveBeenCalled()
-    dialog.removeEventListener('command', preventDefault)
     await userEvent.click(trigger())
     await expect.poll(() => dialog.matches(':popover-open')).toBe(true)
     await userEvent.click(close())
@@ -206,14 +164,14 @@ describe('composable SelectPanel native platform flags', () => {
     expect(onOpenChange).toHaveBeenCalledExactlyOnceWith(true, 'anchor-click')
   })
 
-  it('uses native commands for an explicitly requested automatic close control', async () => {
+  it('supports an explicitly requested automatic close control', async () => {
     await page.viewport(390, 844)
     const onOpenChange = vi.fn()
     const {container} = render(fixture(<Picker onOpenChange={onOpenChange} overlay={{displayCloseButton: true}} />))
     await userEvent.click(trigger())
     await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true')
     const automaticClose = page.getByRole('button', {name: 'Close', exact: true})
-    await expect.element(automaticClose).toHaveAttribute('command', 'close')
+    expect(automaticClose.element()).not.toHaveAttribute('command')
     await userEvent.click(automaticClose)
     await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false')
     expect(nativeDialog(container).open).toBe(false)
@@ -225,7 +183,7 @@ describe('composable SelectPanel native platform flags', () => {
 
   it.each([false, true])('preserves automatic close visibility and placement with native=%s', async native => {
     await page.viewport(1200, 900)
-    render(fixture(<Picker overlay={{displayCloseButton: true}} />, native, native))
+    render(fixture(<Picker overlay={{displayCloseButton: true}} />, native))
     await userEvent.click(trigger())
     await expect.element(search()).toHaveFocus()
     const automaticClose = page.getByRole('button', {name: 'Close', exact: true, includeHidden: true})
@@ -246,7 +204,7 @@ describe('composable SelectPanel native platform flags', () => {
     await expect.element(trigger()).toHaveFocus()
   })
 
-  it('reconciles rejected controlled commands and Escape', async () => {
+  it('preserves rejected controlled opening, closing and Escape', async () => {
     const onOpenChange = vi.fn()
     const {container, rerender} = render(fixture(<Picker open={false} onOpenChange={onOpenChange} />))
     const dialog = nativeDialog(container)
@@ -315,7 +273,7 @@ describe('composable SelectPanel native platform flags', () => {
     await expect.poll(() => dialog.matches(':popover-open')).toBe(true)
   })
 
-  it('leaves configured overlays unchanged even when both flags are enabled', async () => {
+  it('leaves the legacy configured overlay unchanged with native hosting enabled', async () => {
     const {container} = render(fixture(<Picker configured />))
     expect(trigger().element()).not.toHaveAttribute('command')
     await userEvent.click(trigger())
@@ -323,26 +281,19 @@ describe('composable SelectPanel native platform flags', () => {
     await expect.element(page.getByRole('dialog', {name: 'Choose labels'})).toBeVisible()
   })
 
-  it('falls back when native dialog or native commands are unsupported', async () => {
+  it('falls back when native dialog is unsupported', async () => {
     vi.stubGlobal('HTMLDialogElement', undefined)
-    const {container, unmount} = render(fixture(<Picker />))
+    const {container} = render(fixture(<Picker />))
     expect(container.querySelector('dialog')).toBeNull()
     expect(trigger().element()).not.toHaveAttribute('command')
     await userEvent.click(trigger())
     await expect.element(page.getByRole('dialog', {name: 'Choose labels'})).toBeVisible()
-    unmount()
-    vi.unstubAllGlobals()
-    vi.stubGlobal('CommandEvent', undefined)
-    const next = render(fixture(<Picker />))
-    expect(trigger().element()).not.toHaveAttribute('command')
-    await userEvent.click(trigger())
-    expect(nativeDialog(next.container).matches(':popover-open')).toBe(true)
   })
 
   it('upgrades the existing HeaderActions composition without story-specific adapters', async () => {
     const {container} = render(fixture(<HeaderActions />))
     const button = page.getByRole('button', {name: 'Labels with header actions (1)', exact: true})
-    await expect.element(button).toHaveAttribute('command', 'toggle-popover')
+    expect(button.element()).not.toHaveAttribute('command')
     await userEvent.click(button)
     const dialog = nativeDialog(container)
     await expect.poll(() => dialog.matches(':popover-open')).toBe(true)
@@ -353,7 +304,7 @@ describe('composable SelectPanel native platform flags', () => {
       .element(page.getByRole('option', {name: 'Archived', exact: true}))
       .toHaveAttribute('aria-selected', 'false')
     const closeButton = page.getByRole('button', {name: 'Close label picker', exact: true})
-    await expect.element(closeButton).toHaveAttribute('command', 'hide-popover')
+    expect(closeButton.element()).not.toHaveAttribute('command')
     await userEvent.click(closeButton)
     await expect.poll(() => dialog.matches(':popover-open')).toBe(false)
     await expect.element(page.getByRole('button', {name: 'Labels with header actions (4)', exact: true})).toHaveFocus()
@@ -363,15 +314,15 @@ describe('composable SelectPanel native platform flags', () => {
   })
 
   it('switches implementations when global flags change without resetting selection', async () => {
-    const {container, rerender} = render(fixture(<Picker />, false, false))
+    const {container, rerender} = render(fixture(<Picker />, false))
     await userEvent.click(trigger())
     await userEvent.click(page.getByRole('option', {name: 'Bug', exact: true}))
     rerender(fixture(<Picker />))
     const dialog = nativeDialog(container)
     await expect.poll(() => dialog.matches(':popover-open')).toBe(true)
     await expect.element(page.getByRole('option', {name: 'Bug', exact: true})).toHaveAttribute('aria-selected', 'true')
-    await expect.element(trigger()).toHaveAttribute('command', 'toggle-popover')
-    rerender(fixture(<Picker />, false, false))
+    expect(trigger().element()).not.toHaveAttribute('command')
+    rerender(fixture(<Picker />, false))
     expect(container.querySelector('dialog')).toBeNull()
     await expect.element(page.getByRole('dialog', {name: 'Choose labels'})).toBeVisible()
     expect(trigger().element()).not.toHaveAttribute('command')
@@ -395,9 +346,9 @@ describe('composable SelectPanel native platform flags', () => {
     else expect(Math.round(dialog.getBoundingClientRect().bottom)).toBe(844)
   })
 
-  it.each([false, true])('centers a FormControl modal with invokers=%s', async invokers => {
+  it('centers a FormControl modal', async () => {
     await page.viewport(1200, 900)
-    const {container} = render(fixture(<ResponsiveImmediateSelection />, true, invokers))
+    const {container} = render(fixture(<ResponsiveImmediateSelection />))
     const button = page.getByRole('button', {name: 'Primary label', exact: true})
     await userEvent.click(button)
     const dialog = nativeDialog(container)
@@ -472,7 +423,7 @@ describe('composable SelectPanel native platform flags', () => {
     expect(trigger().element()).not.toHaveAttribute('command')
   })
 
-  it('keeps nested native commands scoped to their owning picker', async () => {
+  it('keeps nested native panels scoped to their owning picker', async () => {
     const onOpenChange = vi.fn()
     render(
       fixture(
@@ -500,7 +451,7 @@ describe('composable SelectPanel native platform flags', () => {
     await expect.poll(() => document.body.style.overflow).not.toBe('hidden')
   })
 
-  it.each([false, true])('keeps anchored panels non-modal with invokers=%s', async invokers => {
+  it('keeps anchored panels non-modal', async () => {
     await page.viewport(1200, 900)
     const showModal = vi.spyOn(HTMLDialogElement.prototype, 'showModal')
     const onOpenChange = vi.fn()
@@ -513,7 +464,6 @@ describe('composable SelectPanel native platform flags', () => {
           </button>
         </>,
         true,
-        invokers,
       ),
     )
     await userEvent.click(trigger())
@@ -537,7 +487,7 @@ describe('composable SelectPanel native platform flags', () => {
     ])
   })
 
-  it.each([false, true])('preserves clicked background focus with invokers=%s', async invokers => {
+  it('preserves clicked background focus', async () => {
     await page.viewport(1200, 900)
     const onDismiss = vi.fn()
     const onOpenChange = vi.fn()
@@ -550,7 +500,6 @@ describe('composable SelectPanel native platform flags', () => {
           </button>
         </>,
         true,
-        invokers,
       ),
     )
     await userEvent.click(trigger())
@@ -566,7 +515,7 @@ describe('composable SelectPanel native platform flags', () => {
     ])
   })
 
-  it('lets native popover commands toggle the anchor without duplicate imperative calls', async () => {
+  it('toggles an anchored native popover with JavaScript controls', async () => {
     await page.viewport(1200, 900)
     const show = vi.spyOn(HTMLElement.prototype, 'showPopover')
     const hide = vi.spyOn(HTMLElement.prototype, 'hidePopover')
@@ -574,9 +523,9 @@ describe('composable SelectPanel native platform flags', () => {
     const onDismiss = vi.fn()
     const {container} = render(fixture(<Picker onOpenChange={onOpenChange} onDismiss={onDismiss} />))
     const dialog = nativeDialog(container)
-    await expect.element(trigger()).toHaveAttribute('command', 'toggle-popover')
+    expect(trigger().element()).not.toHaveAttribute('command')
     await userEvent.click(trigger())
-    await expect.element(trigger()).toHaveAttribute('command', 'toggle-popover')
+    expect(trigger().element()).not.toHaveAttribute('command')
     await userEvent.click(trigger())
     await expect.poll(() => dialog.matches(':popover-open')).toBe(false)
     expect(onDismiss).toHaveBeenCalledExactlyOnceWith('anchor-click')
@@ -584,8 +533,8 @@ describe('composable SelectPanel native platform flags', () => {
       [true, 'anchor-click'],
       [false, 'anchor-click'],
     ])
-    expect(show).not.toHaveBeenCalled()
-    expect(hide).not.toHaveBeenCalled()
+    expect(show).toHaveBeenCalledTimes(1)
+    expect(hide).toHaveBeenCalledTimes(1)
   })
 
   it.each(['anchored', 'modal'] as const)('dismisses only the nested panel inside a %s parent', async regular => {
@@ -636,7 +585,7 @@ describe('composable SelectPanel native platform flags', () => {
     expect(dialog).toHaveAttribute('aria-modal', 'true')
     expect(document.body.style.overflow).toBe('hidden')
     await expect.element(search()).toHaveFocus()
-    await expect.element(trigger()).toHaveAttribute('command', 'close')
+    expect(trigger().element()).not.toHaveAttribute('command')
     await page.viewport(1200, 900)
     await expect.poll(() => dialog.matches(':popover-open')).toBe(true)
     expect(dialog.matches(':modal')).toBe(false)
@@ -644,7 +593,7 @@ describe('composable SelectPanel native platform flags', () => {
     expect(document.body.style.overflow).not.toBe('hidden')
     expect(search().element()).toBe(input)
     await expect.element(search()).toHaveFocus()
-    await expect.element(trigger()).toHaveAttribute('command', 'toggle-popover')
+    expect(trigger().element()).not.toHaveAttribute('command')
     expect(onOpenChange).toHaveBeenCalledExactlyOnceWith(true, 'anchor-click')
     expect(onDismiss).not.toHaveBeenCalled()
   })

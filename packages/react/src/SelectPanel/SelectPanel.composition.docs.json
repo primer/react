@@ -1,0 +1,50 @@
+{
+  "id": "select-panel-composition",
+  "docsId": "select_panel",
+  "name": "SelectPanel.Root",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "onSubmit",
+      "type": "(selected: (string | number)[]) => void",
+      "description": "Called by SubmitButton or an owned Form. Consumer commits selection."
+    },
+    {
+      "name": "onCancel",
+      "type": "() => void",
+      "description": "Called by CancelButton. Consumer restores any transactional selection."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "description": "Compose Trigger, Overlay and accessible content in consumer-authored order."
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "Controlled open state. Use defaultOpen for uncontrolled state."
+    },
+    {
+      "name": "selected",
+      "type": "(string | number)[]",
+      "description": "Controlled selected values, including values outside rendered results."
+    },
+    {"name": "selectionMode", "type": "'single' | 'multiple'", "defaultValue": "'single'"},
+    {
+      "name": "focusStrategy",
+      "type": "'active-descendant' | 'roving'",
+      "defaultValue": "'active-descendant'",
+      "description": "Active descendant keeps input focus; roving moves DOM focus between options."
+    },
+    {
+      "name": "filterValue",
+      "type": "string",
+      "description": "Controlled query. Consumers filter their composed children."
+    },
+    {"name": "onSelectedChange", "type": "(selected: (string | number)[]) => void"},
+    {"name": "onOpenChange", "type": "(open: boolean, reason: SelectPanelOpenChangeReason) => void"}
+  ]
+}

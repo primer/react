@@ -1,5 +1,5 @@
 import React from 'react'
-import {reactMajorVersion} from '../../utils/environment'
+import type {SelectPanelDismissReason} from '../useSelectPanel'
 
 interface NativeSelectPanelState {
   dialog: boolean
@@ -17,6 +17,11 @@ export const NativeSelectPanelContext = React.createContext<NativeSelectPanelSta
   setTargetId: (_id: string | undefined) => {},
   setModal: (_modal: boolean) => {},
 })
+
+export const NativeSelectPanelDismissContext = React.createContext<{
+  id: string
+  dismiss: (reason: SelectPanelDismissReason, event?: Event) => void
+} | null>(null)
 
 export function nativeSelectPanelCapabilities() {
   if (
@@ -40,14 +45,4 @@ export function nativeSelectPanelCapabilities() {
 
 export function useNativeSelectPanel() {
   return React.useContext(NativeSelectPanelContext)
-}
-
-export function nativeInvokerProps(
-  targetId: string,
-  command: 'show-modal' | 'close' | 'toggle-popover' | 'hide-popover',
-) {
-  return {
-    command,
-    ...(reactMajorVersion >= 19 ? {commandFor: targetId} : {commandfor: targetId}),
-  }
 }

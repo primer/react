@@ -26,6 +26,7 @@ export function renderActionListItemContent({
 }: ActionListItemContentProps): React.ReactNode[] {
   return React.Children.toArray([
     LeadingVisual ? (
+      // eslint-disable-next-line primer-react/direct-slot-children -- callers materialize this array directly inside ActionList.Item
       <ActionList.LeadingVisual key="leadingVisual">
         <LeadingVisual />
       </ActionList.LeadingVisual>
@@ -33,15 +34,18 @@ export function renderActionListItemContent({
     children,
     text,
     description ? (
+      // eslint-disable-next-line primer-react/direct-slot-children -- callers materialize this array directly inside ActionList.Item
       <ActionList.Description key="description" variant={descriptionVariant}>
         {description}
       </ActionList.Description>
     ) : null,
     TrailingVisual ? (
+      // eslint-disable-next-line primer-react/direct-slot-children -- callers materialize this array directly inside ActionList.Item
       <ActionList.TrailingVisual key="trailingVisual">
         {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? <TrailingVisual /> : TrailingVisual}
       </ActionList.TrailingVisual>
     ) : TrailingIcon || trailingText ? (
+      // eslint-disable-next-line primer-react/direct-slot-children -- callers materialize this array directly inside ActionList.Item
       <ActionList.TrailingVisual key="trailingVisual">
         {trailingText}
         {TrailingIcon && <TrailingIcon />}

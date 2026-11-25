@@ -1241,7 +1241,9 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
           await expect.element(page.getByTestId('filtered-action-list-spinner')).toBeInTheDocument()
           await userEvent.keyboard('{Escape}')
           await userEvent.click(page.getByText('Select items', {exact: true}))
-          await expect.element(page.getByText('No items available', {exact: true})).toBeInTheDocument()
+          await expect
+            .element(page.getByRole('dialog').getByText('No items available', {exact: true}))
+            .toBeInTheDocument()
         })
         it('should display the custom empty state message when there is no matching item after filtering', async () => {
           renderWithProp(
@@ -2501,6 +2503,7 @@ describe.each([false, true])('Configured SelectPanel (composable adapter: %s)', 
 
         return (
           <div
+            role="presentation"
             onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
               const isAlphabetKey = e.key.length === 1 && /[a-z\d]/i.test(e.key)
               const container = e.currentTarget
