@@ -1,10 +1,16 @@
-import type React from 'react'
+import React from 'react'
 import {clsx} from 'clsx'
 import TextInput from '../TextInput'
 import type {TextInputProps} from '../TextInput'
 import classes from './FilteredActionList.module.css'
+import {useMergedRefs} from '../hooks/useMergedRefs'
+
+const DefaultInput = React.forwardRef<HTMLInputElement, TextInputProps>(function DefaultInput(props, ref) {
+  return <TextInput {...props} ref={ref} />
+})
 
 export interface FilteredActionListInputProps extends Partial<Omit<TextInputProps, 'onChange' | 'onKeyDown'>> {
+  InputComponent?: React.ComponentType<TextInputProps & React.RefAttributes<HTMLInputElement>>
   inputRef: React.Ref<HTMLInputElement | null>
   onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onInputFocus?: React.FocusEventHandler<HTMLInputElement>
@@ -19,6 +25,7 @@ export interface FilteredActionListInputProps extends Partial<Omit<TextInputProp
 }
 
 export function FilteredActionListInput({
+  InputComponent = DefaultInput,
   inputRef,
   value,
   onInputChange,
@@ -34,11 +41,11 @@ export function FilteredActionListInput({
   onFocus,
   ...restTextInputProps
 }: FilteredActionListInputProps): React.JSX.Element {
+  const ref = useMergedRefs<HTMLInputElement>(inputRef, undefined)
   return (
     <div className={classes.Header} data-component="FilteredActionList.Header">
-      <TextInput
-        // @ts-expect-error it needs a non nullable ref
-        ref={inputRef}
+      <InputComponent
+        ref={ref}
         block
         width="auto"
         color="fg.default"

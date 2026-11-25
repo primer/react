@@ -1,10 +1,11 @@
 import type React from 'react'
-import {forwardRef} from 'react'
+import {forwardRef, useContext} from 'react'
 import {Button, IconButton} from '../Button'
 import type {IconButtonProps} from '../Button/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
+import {ActionListContainerContext} from './ActionListContainerContext'
 
 type ElementProps =
   | {
@@ -34,6 +35,17 @@ export const TrailingAction = forwardRef(
     {as = 'button', icon, label, href = null, className, style, loading, tooltipDirection = 'w', ...props},
     forwardedRef,
   ) => {
+    // Use context from ActionList
+    const {selectionVariant} = useContext(ActionListContainerContext)
+    // TODO: Rename
+    const withinMenu = selectionVariant === 'single' || selectionVariant === 'multiple'
+
+    if (withinMenu) {
+      console.log(
+        'Warning: ActionList.TrailingAction should not be used within selectable ActionLists. Please remove it to avoid unexpected behavior.',
+      )
+    }
+
     return (
       <span
         className={clsx(className, classes.TrailingAction)}
@@ -53,6 +65,8 @@ export const TrailingAction = forwardRef(
             // @ts-expect-error StyledButton wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
+            aria-hidden={!withinMenu ? 'true' : undefined}
+            tabIndex={!withinMenu ? -1 : undefined}
             {...props}
           />
         ) : (
@@ -66,6 +80,7 @@ export const TrailingAction = forwardRef(
             data-has-label="true"
             ref={forwardedRef}
             className={classes.TrailingActionButton}
+            aria-hidden={withinMenu ? 'true' : undefined}
             {...props}
           >
             {label}
