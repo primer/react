@@ -9,6 +9,7 @@
     - [Tools we use](#tools-we-use)
     - [File structure](#file-structure)
     - [Component patterns](#component-patterns)
+    - [Component API design](#component-api-design)
     - [SSR compatibility](#ssr-compatibility)
     - [Adding the `className` prop](#adding-the-classname-prop)
     - [Linting](#linting)
@@ -133,6 +134,10 @@ Component.displayName = 'Component'
 
 export default Component
 ```
+
+### Component API design
+
+Use the [component API design skill](../.agents/skills/component-api-design/SKILL.md) when a change affects what consumers can compose, configure, observe, or control. It links the proposed principles and grading rubric, which separate shipped-contract defects from gaps against proposed ADRs.
 
 ### SSR compatibility
 

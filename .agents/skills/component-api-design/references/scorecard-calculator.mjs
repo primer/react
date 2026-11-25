@@ -1,0 +1,585 @@
+import {readFile} from 'node:fs/promises'
+
+export const sections = {
+  1: {name: 'Architecture and parts', weight: 20},
+  2: {name: 'Root and part substitution', weight: 12},
+  3: {name: 'Prop merge behavior', weight: 25},
+  4: {name: 'State and shared concepts', weight: 15},
+  5: {name: 'Accessibility and evidence', weight: 20},
+}
+
+export const checks = {
+  'MOD-01': {section: 1, weight: 3},
+  'CHILD-01': {section: 1, weight: 3},
+  'PART-01': {section: 1, weight: 7},
+  'PART-DOCS': {section: 1, weight: 5},
+  'STRUCTURE-01': {section: 1, weight: 1},
+  'CUSTOM-ELEMENT-01': {section: 1, weight: 1},
+  'API-01': {section: 2, weight: 4},
+  'PART-AS': {section: 2, weight: 8},
+  'MERGE-CONFIG': {section: 3, weight: 5},
+  'MERGE-HANDLER': {section: 3, weight: 8},
+  'MERGE-CLASS': {section: 3, weight: 3},
+  'MERGE-STYLE-ATTR': {section: 3, weight: 4},
+  'MERGE-REF': {section: 3, weight: 3},
+  'MERGE-BEHAVIOR': {section: 3, weight: 2},
+  'STATE-CALLBACK': {section: 4, weight: 8},
+  'NAMES-DEFAULTS': {section: 4, weight: 5},
+  'STATE-OWNER': {section: 4, weight: 2},
+  'ACCESS-01': {section: 5, weight: 4},
+  'LIVE-01': {section: 5, weight: 1},
+  'WARN-01': {section: 5, weight: 1},
+  'SELECTOR-01': {section: 5, weight: 2},
+  'STYLE-01': {section: 5, weight: 2},
+  'RESP-01': {section: 5, weight: 1},
+  'TYPE-01': {section: 5, weight: 1},
+  'EXPORT-01': {section: 5, weight: 1},
+  'TEST-01': {section: 5, weight: 1},
+  'SNAPSHOT-01': {section: 5, weight: 1},
+  'INTERACTION-01': {section: 5, weight: 1},
+  'MIG-01': {section: 5, weight: 4},
+}
+
+export const candidateChecks = {
+  'PART-RENDER': {
+    section: 2,
+    proposedWeight: 8,
+    verificationClass: 'semi',
+    severity: 'FIX',
+    source: 'Pinned composition gist',
+    title: 'Element and function render forms',
+  },
+}
+
+const verdicts = new Set(['PASS', 'GAP', 'N/A', 'COVERED', 'NOT MEASURED', 'UNRESOLVED'])
+const candidateVerdicts = new Set(['PASS', 'GAP', 'N/A', 'NOT MEASURED', 'UNRESOLVED'])
+const evidenceClasses = new Set([
+  'SOURCE VERIFIED',
+  'EXECUTION VERIFIED',
+  'BEHAVIOR VERIFIED',
+  'AGENT JUDGMENT',
+  'PENDING HUMAN',
+])
+const severityOrder = ['NIT', 'FIX', 'BLOCK']
+
+function assert(condition, message) {
+  if (!condition) throw new Error(message)
+}
+
+function countBy(items, predicate) {
+  return items.filter(predicate).length
+}
+
+function calculateSectionCap(findings) {
+  const blocks = countBy(findings, finding => finding.severity === 'BLOCK')
+  if (blocks >= 4) return 1
+  if (blocks === 3) return 2
+  if (blocks === 2) return 2.5
+  if (blocks === 1) return 3
+
+  const fixesAndNits = countBy(findings, finding => finding.severity === 'FIX' || finding.severity === 'NIT')
+  if (fixesAndNits >= 5) return 2
+  if (fixesAndNits >= 3) return 3
+  if (fixesAndNits >= 1) return 4
+  return 5
+}
+
+export function letterGrade(score) {
+  if (score >= 90) return 'A'
+  if (score >= 80) return 'B'
+  if (score >= 70) return 'C'
+  if (score >= 60) return 'D'
+  return 'F'
+}
+
+function capAtD(grade) {
+  return ['A', 'B', 'C'].includes(grade) ? 'D' : grade
+}
+
+function validateAudit(audit) {
+  assert(audit && typeof audit === 'object', 'Audit must be an object')
+  assert(typeof audit.component === 'string' && audit.component.length > 0, 'Audit component is required')
+  assert(/^[0-9a-f]{40}$/i.test(audit.sourceSha), `${audit.component}: sourceSha must be a full Git commit SHA`)
+  assert(typeof audit.pendingHuman === 'boolean', `${audit.component}: pendingHuman must be a boolean`)
+  assert(Array.isArray(audit.checks), `${audit.component}: checks must be an array`)
+  assert(Array.isArray(audit.findings), `${audit.component}: findings must be an array`)
+  assert(Array.isArray(audit.candidateChecks), `${audit.component}: candidateChecks must be an array`)
+  assert(Array.isArray(audit.candidateFindings), `${audit.component}: candidateFindings must be an array`)
+  assert(Array.isArray(audit.contractFindings ?? []), `${audit.component}: contractFindings must be an array`)
+
+  const checkRows = new Map()
+  for (const row of audit.checks) {
+    assert(row && typeof row === 'object', `${audit.component}: each check row must be an object`)
+    assert(checks[row.id], `${audit.component}: unknown check ID ${row.id}`)
+    assert(!checkRows.has(row.id), `${audit.component}: duplicate check row ${row.id}`)
+    assert(verdicts.has(row.verdict), `${audit.component}: invalid verdict for ${row.id}: ${row.verdict}`)
+    assert(
+      typeof row.evidence === 'string' && row.evidence.length > 0,
+      `${audit.component}: evidence is required for ${row.id}`,
+    )
+    assert(evidenceClasses.has(row.evidenceClass), `${audit.component}: valid evidenceClass is required for ${row.id}`)
+
+    if (row.evidenceClass === 'PENDING HUMAN') {
+      assert(
+        row.verdict === 'UNRESOLVED',
+        `${audit.component}: PENDING HUMAN evidence must remain UNRESOLVED for ${row.id}`,
+      )
+      assert(audit.pendingHuman, `${audit.component}: pendingHuman must be true when ${row.id} awaits human review`)
+    }
+
+    if (row.verdict === 'PASS' && ['TYPE-01', 'TEST-01', 'INTERACTION-01'].includes(row.id)) {
+      assert(
+        row.evidenceClass === 'EXECUTION VERIFIED',
+        `${audit.component}: ${row.id} PASS requires EXECUTION VERIFIED evidence`,
+      )
+    }
+
+    if (row.verdict === 'N/A') {
+      assert(
+        typeof row.reason === 'string' && row.reason.length > 0,
+        `${audit.component}: N/A reason is required for ${row.id}`,
+      )
+    }
+
+    if (row.verdict === 'NOT MEASURED' || row.verdict === 'UNRESOLVED') {
+      assert(
+        typeof row.reason === 'string' && row.reason.length > 0,
+        `${audit.component}: reason is required for ${row.id} ${row.verdict}`,
+      )
+    }
+
+    if (row.verdict === 'GAP' || row.verdict === 'COVERED') {
+      assert(
+        typeof row.findingId === 'string' && row.findingId.length > 0,
+        `${audit.component}: findingId is required for ${row.id} ${row.verdict}`,
+      )
+    }
+
+    checkRows.set(row.id, row)
+  }
+
+  const expectedCheckIds = Object.keys(checks).sort()
+  const actualCheckIds = [...checkRows.keys()].sort()
+  assert(
+    expectedCheckIds.length === actualCheckIds.length &&
+      expectedCheckIds.every((id, index) => id === actualCheckIds[index]),
+    `${audit.component}: provide exactly one row for every check ID`,
+  )
+
+  const candidateRows = new Map()
+  for (const row of audit.candidateChecks) {
+    assert(row && typeof row === 'object', `${audit.component}: each candidate check must be an object`)
+    assert(candidateChecks[row.id], `${audit.component}: unknown candidate check ID ${row.id}`)
+    assert(!candidateRows.has(row.id), `${audit.component}: duplicate candidate check row ${row.id}`)
+    assert(
+      candidateVerdicts.has(row.verdict),
+      `${audit.component}: invalid candidate verdict for ${row.id}: ${row.verdict}`,
+    )
+    assert(
+      typeof row.evidence === 'string' && row.evidence.length > 0,
+      `${audit.component}: evidence is required for candidate ${row.id}`,
+    )
+    assert(
+      evidenceClasses.has(row.evidenceClass),
+      `${audit.component}: valid evidenceClass is required for candidate ${row.id}`,
+    )
+
+    if (row.evidenceClass === 'PENDING HUMAN') {
+      assert(
+        row.verdict === 'UNRESOLVED',
+        `${audit.component}: PENDING HUMAN candidate evidence must remain UNRESOLVED for ${row.id}`,
+      )
+    }
+
+    if (row.verdict === 'N/A' || row.verdict === 'NOT MEASURED' || row.verdict === 'UNRESOLVED') {
+      assert(
+        typeof row.reason === 'string' && row.reason.length > 0,
+        `${audit.component}: reason is required for candidate ${row.id} ${row.verdict}`,
+      )
+    }
+
+    if (row.verdict === 'GAP') {
+      assert(
+        typeof row.findingId === 'string' && row.findingId.length > 0,
+        `${audit.component}: findingId is required for candidate ${row.id} GAP`,
+      )
+    }
+
+    candidateRows.set(row.id, row)
+  }
+
+  const expectedCandidateIds = Object.keys(candidateChecks).sort()
+  const actualCandidateIds = [...candidateRows.keys()].sort()
+  assert(
+    expectedCandidateIds.length === actualCandidateIds.length &&
+      expectedCandidateIds.every((id, index) => id === actualCandidateIds[index]),
+    `${audit.component}: provide exactly one row for every candidate check ID`,
+  )
+
+  const findings = new Map()
+  const findingGroups = [
+    {items: audit.findings, catalog: checks, owners: checkRows, label: 'target'},
+    {items: audit.candidateFindings, catalog: candidateChecks, owners: candidateRows, label: 'candidate'},
+  ]
+  for (const {items, catalog, owners, label} of findingGroups) {
+    for (const finding of items) {
+      assert(finding && typeof finding === 'object', `${audit.component}: each ${label} finding must be an object`)
+      assert(
+        typeof finding.id === 'string' && finding.id.length > 0,
+        `${audit.component}: ${label} finding ID is required`,
+      )
+      assert(!findings.has(finding.id), `${audit.component}: duplicate finding ID ${finding.id}`)
+      assert(finding.classification === 'ADR GAP', `${audit.component}: ${label} findings must be ADR GAPs`)
+      assert(
+        severityOrder.includes(finding.severity) && finding.severity !== 'BLOCK',
+        `${audit.component}: ${label} gaps cannot be BLOCKs`,
+      )
+      assert(
+        catalog[finding.checkId],
+        `${audit.component}: ${label} finding ${finding.id} has unknown check ${finding.checkId}`,
+      )
+      assert(
+        finding.section === catalog[finding.checkId].section,
+        `${audit.component}: finding ${finding.id} is not in its owning section`,
+      )
+      assert(
+        finding.status === 'OPEN' || finding.status === 'CLOSED',
+        `${audit.component}: finding ${finding.id} needs OPEN or CLOSED status`,
+      )
+      assert(
+        typeof finding.title === 'string' && finding.title.length > 0,
+        `${audit.component}: finding ${finding.id} needs a title`,
+      )
+      assert(
+        typeof finding.reachableUseCase === 'string' && finding.reachableUseCase.length > 0,
+        `${audit.component}: finding ${finding.id} needs a reachable use case`,
+      )
+      assert(
+        typeof finding.observedGap === 'string' && finding.observedGap.length > 0,
+        `${audit.component}: finding ${finding.id} needs an observed gap`,
+      )
+      assert(
+        typeof finding.additiveFix === 'string' && finding.additiveFix.length > 0,
+        `${audit.component}: finding ${finding.id} needs an additive fix`,
+      )
+      assert(
+        Array.isArray(finding.citations) && finding.citations.length > 0,
+        `${audit.component}: finding ${finding.id} needs pinned citations`,
+      )
+      for (const citation of finding.citations) {
+        assert(
+          typeof citation.path === 'string' && citation.path.length > 0,
+          `${audit.component}: finding ${finding.id} has a citation without a path`,
+        )
+        assert(
+          typeof citation.line === 'string' && citation.line.length > 0,
+          `${audit.component}: finding ${finding.id} has a citation without a line`,
+        )
+        assert(
+          citation.sha === audit.sourceSha,
+          `${audit.component}: finding ${finding.id} citation SHA must match sourceSha`,
+        )
+      }
+      const owner = owners.get(finding.checkId)
+      assert(
+        owner?.verdict === 'GAP' && owner.findingId === finding.id,
+        `${audit.component}: finding ${finding.id} must own one ${label} GAP row`,
+      )
+      findings.set(finding.id, finding)
+    }
+  }
+
+  for (const row of [...checkRows.values(), ...candidateRows.values()]) {
+    if (row.verdict === 'GAP') {
+      const finding = findings.get(row.findingId)
+      assert(finding?.checkId === row.id, `${audit.component}: ${row.id} references no matching owning finding`)
+    }
+
+    if (row.verdict === 'COVERED') {
+      assert(
+        audit.findings.some(finding => finding.id === row.findingId),
+        `${audit.component}: active ${row.id} must reference an active target finding`,
+      )
+    }
+  }
+
+  for (const finding of audit.contractFindings ?? []) {
+    assert(finding && typeof finding === 'object', `${audit.component}: each contract finding must be an object`)
+    assert(!findings.has(finding.id), `${audit.component}: duplicate target finding ID ${finding.id}`)
+    assert(finding.classification === 'DEFECT', `${audit.component}: contract findings must be DEFECTs`)
+    assert(
+      severityOrder.includes(finding.severity),
+      `${audit.component}: invalid severity for contract finding ${finding.id}`,
+    )
+    assert(checks[finding.checkId], `${audit.component}: contract finding ${finding.id} has unknown check`)
+    assert(
+      finding.section === checks[finding.checkId].section,
+      `${audit.component}: contract finding ${finding.id} has the wrong owning section`,
+    )
+    assert(
+      finding.status === 'OPEN' || finding.status === 'CLOSED',
+      `${audit.component}: contract finding ${finding.id} needs OPEN or CLOSED status`,
+    )
+    assert(
+      typeof finding.title === 'string' && finding.title.length > 0,
+      `${audit.component}: contract finding ${finding.id} needs a title`,
+    )
+    assert(
+      typeof finding.reachableUseCase === 'string' && finding.reachableUseCase.length > 0,
+      `${audit.component}: contract finding ${finding.id} needs a reachable use case`,
+    )
+    assert(
+      typeof finding.observedGap === 'string' && finding.observedGap.length > 0,
+      `${audit.component}: contract finding ${finding.id} needs an observed defect`,
+    )
+    assert(
+      typeof finding.additiveFix === 'string' && finding.additiveFix.length > 0,
+      `${audit.component}: contract finding ${finding.id} needs a compatible fix`,
+    )
+    assert(
+      Array.isArray(finding.citations) && finding.citations.length > 0,
+      `${audit.component}: contract finding ${finding.id} needs pinned citations`,
+    )
+    for (const citation of finding.citations) {
+      assert(
+        typeof citation.path === 'string' && citation.path.length > 0,
+        `${audit.component}: contract finding ${finding.id} has a citation without a path`,
+      )
+      assert(
+        typeof citation.line === 'string' && citation.line.length > 0,
+        `${audit.component}: contract finding ${finding.id} has a citation without a line`,
+      )
+      assert(
+        citation.sha === audit.sourceSha,
+        `${audit.component}: contract finding ${finding.id} citation SHA must match sourceSha`,
+      )
+    }
+  }
+
+  const allFindingIds = [
+    ...audit.findings,
+    ...audit.candidateFindings,
+    ...(audit.contractFindings ?? []),
+  ].map(finding => finding.id)
+  assert(
+    new Set(allFindingIds).size === allFindingIds.length,
+    `${audit.component}: finding IDs must be unique across all finding lists`,
+  )
+  const rawFindingCount =
+    countBy([...checkRows.values()], row => row.verdict === 'GAP' || row.verdict === 'COVERED') +
+    (audit.contractFindings ?? []).length
+  assert(
+    rawFindingCount + countBy([...candidateRows.values()], row => row.verdict === 'GAP') >= allFindingIds.length,
+    `${audit.component}: active and candidate observations cannot be below distinct finding count`,
+  )
+  return rawFindingCount
+}
+
+function summarize(audit, {sensitivity = false} = {}) {
+  const rawFindingCount = validateAudit(audit)
+  const rows = new Map(audit.checks.map(row => [row.id, row]))
+  const targetFindings = audit.findings.filter(finding => finding.status === 'OPEN')
+  const candidateFindings = audit.candidateFindings.filter(finding => finding.status === 'OPEN')
+  const contractFindings = (audit.contractFindings ?? []).filter(finding => finding.status === 'OPEN')
+  const allOpenFindings = [...targetFindings, ...contractFindings]
+  const forcedPass = sensitivity
+    ? new Set(contractFindings.filter(finding => finding.severity === 'BLOCK').map(finding => finding.id))
+    : new Set()
+  const activeBlocks = sensitivity
+    ? allOpenFindings.filter(finding => finding.severity === 'BLOCK' && !forcedPass.has(finding.id))
+    : allOpenFindings.filter(finding => finding.severity === 'BLOCK')
+
+  const sectionResults = Object.entries(sections).map(([sectionId, section]) => {
+    const sectionNumber = Number(sectionId)
+    const sectionRows = Object.entries(checks)
+      .filter(([, check]) => check.section === sectionNumber)
+      .map(([id]) => rows.get(id))
+    const applicableRows = sectionRows.filter(row => row.verdict !== 'N/A')
+    const applicableWeight = applicableRows.reduce((total, row) => total + checks[row.id].weight, 0)
+    const earnedWeight = applicableRows.reduce((total, row) => {
+      const fixedBySensitivity = sensitivity && row.verdict === 'GAP' && forcedPass.has(row.findingId)
+      return total + (row.verdict === 'PASS' || fixedBySensitivity ? checks[row.id].weight : 0)
+    }, 0)
+    const unknownWeight = applicableRows.reduce(
+      (total, row) => total + (['NOT MEASURED', 'UNRESOLVED'].includes(row.verdict) ? checks[row.id].weight : 0),
+      0,
+    )
+    const limited = applicableWeight < section.weight / 2
+    const sectionFindings = allOpenFindings.filter(
+      finding => finding.section === sectionNumber && !(sensitivity && forcedPass.has(finding.id)),
+    )
+    const rawScoreRange =
+      applicableWeight === 0
+        ? null
+        : {
+            min: (5 * earnedWeight) / applicableWeight,
+            max: (5 * (earnedWeight + unknownWeight)) / applicableWeight,
+          }
+    const cap = calculateSectionCap(sectionFindings)
+    const scoreRange =
+      rawScoreRange === null
+        ? null
+        : {
+            min: Math.min(rawScoreRange.min, cap),
+            max: Math.min(rawScoreRange.max, cap),
+          }
+    const score = scoreRange && unknownWeight === 0 ? scoreRange.min : null
+    return {
+      id: sectionNumber,
+      name: section.name,
+      weight: section.weight,
+      applicableWeight,
+      earnedWeight,
+      unknownWeight,
+      limited,
+      cap,
+      score,
+      scoreRange,
+      findings: sectionFindings.length,
+    }
+  })
+
+  const scoredSections = sectionResults.filter(section => section.scoreRange !== null)
+  const scoredWeight = scoredSections.reduce((total, section) => total + section.applicableWeight, 0)
+  const overallScoreRange =
+    scoredWeight === 0
+      ? null
+      : {
+          min:
+            (100 *
+              scoredSections.reduce(
+                (total, section) => total + (section.applicableWeight * section.scoreRange.min) / 5,
+                0,
+              )) /
+            scoredWeight,
+          max:
+            (100 *
+              scoredSections.reduce(
+                (total, section) => total + (section.applicableWeight * section.scoreRange.max) / 5,
+                0,
+              )) /
+            scoredWeight,
+        }
+  const scoreRange =
+    overallScoreRange === null
+      ? null
+      : {
+          min: Number(overallScoreRange.min.toFixed(2)),
+          max: Number(overallScoreRange.max.toFixed(2)),
+        }
+  const overallScore = scoreRange && scoreRange.min === scoreRange.max ? scoreRange.min : null
+  const uncappedGrade = overallScore === null ? null : letterGrade(overallScore)
+  const gradeRange = scoreRange
+    ? {
+        min: letterGrade(scoreRange.min),
+        max: letterGrade(scoreRange.max),
+      }
+    : null
+  const grade = uncappedGrade && activeBlocks.length > 0 ? capAtD(uncappedGrade) : uncappedGrade
+  const cappedGradeRange =
+    gradeRange && activeBlocks.length > 0 ? {min: capAtD(gradeRange.min), max: capAtD(gradeRange.max)} : gradeRange
+  const applicableCheckWeight = audit.checks.reduce(
+    (total, row) => total + (row.verdict !== 'N/A' ? checks[row.id].weight : 0),
+    0,
+  )
+  const activeRubricWeight = Object.values(checks).reduce((total, check) => total + check.weight, 0)
+  const measuredCheckWeight = audit.checks.reduce(
+    (total, row) => total + (['PASS', 'GAP', 'COVERED'].includes(row.verdict) ? checks[row.id].weight : 0),
+    0,
+  )
+  const hasIncompleteEvidence =
+    sectionResults.some(section => section.limited) ||
+    audit.checks.some(row => row.verdict === 'NOT MEASURED' || row.verdict === 'UNRESOLVED') ||
+    audit.pendingHuman === true
+  const status = scoreRange === null ? 'UNKNOWN' : hasIncompleteEvidence ? 'PROVISIONAL' : 'CONCLUSIVE'
+  const scoredTargetFindings = audit.findings ?? []
+  const allDistinctFindings = [...scoredTargetFindings, ...(audit.contractFindings ?? [])]
+  const sensitivityResult = sensitivity ? null : summarize(audit, {sensitivity: true})
+  return {
+    component: audit.component,
+    status,
+    overallScore,
+    scoreRange,
+    uncappedGrade,
+    grade,
+    gradeRange: cappedGradeRange,
+    activeRubricWeight,
+    blockCount: allOpenFindings.filter(finding => finding.severity === 'BLOCK').length,
+    distinctTargetGaps: scoredTargetFindings.length,
+    candidateGapCount: countBy(audit.candidateChecks, row => row.verdict === 'GAP'),
+    candidateFindingCount: audit.candidateFindings.length,
+    candidates: audit.candidateChecks.map(row => ({
+      ...row,
+      ...candidateChecks[row.id],
+      finding: audit.candidateFindings.find(finding => finding.id === row.findingId),
+    })),
+    candidateFindings,
+    distinctDefects: (audit.contractFindings ?? []).length,
+    distinctFindings: allDistinctFindings.length,
+    rawFindings: rawFindingCount,
+    scoredSectionWeight: scoredWeight,
+    coveragePercent: Number(((100 * scoredWeight) / activeRubricWeight).toFixed(2)),
+    measuredCheckWeight,
+    applicableCheckWeight,
+    checkEvidenceCoveragePercent:
+      applicableCheckWeight === 0 ? null : Number(((100 * measuredCheckWeight) / applicableCheckWeight).toFixed(2)),
+    sections: sectionResults.map(section => ({
+      ...section,
+      score: section.score === null ? null : Number(section.score.toFixed(2)),
+      scoreRange:
+        section.scoreRange === null
+          ? null
+          : {
+              min: Number(section.scoreRange.min.toFixed(2)),
+              max: Number(section.scoreRange.max.toFixed(2)),
+            },
+    })),
+    sensitivity: sensitivityResult
+      ? {
+          blockCount: allOpenFindings.filter(finding => finding.severity === 'BLOCK').length,
+          overallScore: sensitivityResult.overallScore,
+          scoreRange: sensitivityResult.scoreRange,
+          grade: sensitivityResult.grade,
+          gradeRange: sensitivityResult.gradeRange,
+          status: sensitivityResult.status,
+        }
+      : undefined,
+  }
+}
+
+export function calculateAudit(audit) {
+  return summarize(audit)
+}
+
+export async function readAuditData(path) {
+  const data = JSON.parse(await readFile(path, 'utf8'))
+  assert(data && Array.isArray(data.audits), 'Audit data file must contain an audits array')
+  return data.audits
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const [, , dataPath, component, ...args] = process.argv
+  if (!dataPath) {
+    console.error('Usage: node scorecard-calculator.mjs <audit-data.json> [component]')
+    process.exitCode = 2
+  } else if (args.length > 0) {
+    console.error(`Unknown argument: ${args[0]}`)
+    process.exitCode = 2
+  } else {
+    try {
+      const audits = await readAuditData(dataPath)
+      const selectedAudits = component ? audits.filter(audit => audit.component === component) : audits
+      assert(selectedAudits.length > 0, `No audit found${component ? ` for ${component}` : ''}`)
+      console.log(
+        JSON.stringify(
+          selectedAudits.map(audit => calculateAudit(audit)),
+          null,
+          2,
+        ),
+      )
+    } catch (error) {
+      console.error(error instanceof Error ? error.message : String(error))
+      process.exitCode = 1
+    }
+  }
+}
