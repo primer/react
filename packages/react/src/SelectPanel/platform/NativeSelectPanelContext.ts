@@ -3,10 +3,19 @@ import type {SelectPanelDismissReason} from '../useSelectPanel'
 
 interface NativeSelectPanelState {
   dialog: boolean
+  invokers: boolean
+  modal: boolean
+  targetId?: string
+  setTargetId: (id: string | undefined) => void
+  setModal: (modal: boolean) => void
 }
 
 export const NativeSelectPanelContext = React.createContext<NativeSelectPanelState>({
   dialog: false,
+  invokers: false,
+  modal: false,
+  setTargetId: (_id: string | undefined) => {},
+  setModal: (_modal: boolean) => {},
 })
 
 export const NativeSelectPanelDismissContext = React.createContext<{
@@ -27,7 +36,11 @@ export function nativeSelectPanelCapabilities() {
   ) {
     return 'unsupported'
   }
-  return 'dialog'
+  return typeof CommandEvent !== 'undefined' &&
+    'command' in HTMLButtonElement.prototype &&
+    'commandForElement' in HTMLButtonElement.prototype
+    ? 'invokers'
+    : 'dialog'
 }
 
 export function useNativeSelectPanel() {

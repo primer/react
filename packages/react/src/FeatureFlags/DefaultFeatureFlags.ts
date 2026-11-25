@@ -4,6 +4,7 @@ export const DefaultFeatureFlags = FeatureFlagScope.create({
   primer_react_css_anchor_positioning: false,
   primer_react_select_panel_composable_adapter: false,
   primer_react_select_panel_native_dialog: false,
+  primer_react_select_panel_native_invokers: false,
   primer_react_select_panel_fullscreen_on_narrow: false,
   primer_react_select_panel_legacy_contrast: false,
   primer_react_select_panel_order_selected_at_top: false,

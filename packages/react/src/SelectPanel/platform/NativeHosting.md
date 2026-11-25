@@ -43,3 +43,21 @@ host. Do not introduce a custom positioning helper to bypass that boundary.
 Consumers extend content, order and layout with the existing presentational
 parts and children. The internal host and compatibility hook are not public
 utilities; exposing another API type is deferred until there is a concrete need.
+
+## Optional command enhancement
+
+`primer_react_select_panel_native_invokers` is separately default-off and requires
+native hosting and browser command support. `useNativeSelectPanelInvokers` is an
+internal utility composed by the overlay, not a public behavior hook. It owns
+command validation, consumer cancellation, pending tasks and controlled-state
+reconciliation. The host accepts generic pending-transition, saved-focus and
+dismissal references; it contains no command listener or invoker capability gate.
+
+Browser commands perform their own default action. Reconciliation uses
+`setTimeout`, never a microtask: a browser dispatch can checkpoint microtasks
+between listeners before consumer cancellation is known. Every accepted or
+rejected transition returns to the authoritative React state. Unsupported
+commands and custom non-button anchors keep JavaScript controls.
+
+The configured legacy-Dialog fallback applies regardless of the invoker flag.
+Invokers do not change modality, add a Tab trap, or bypass compatibility gates.

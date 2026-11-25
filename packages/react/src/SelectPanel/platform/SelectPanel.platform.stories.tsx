@@ -9,24 +9,30 @@ import {PlatformSelectPanel} from './PlatformSelectPanel'
 
 interface PlatformStoryArgs {
   nativeDialog: boolean
+  invokers: boolean
 }
 
 const meta = {
   title: 'Components/SelectPanel/Platform',
   args: {
     nativeDialog: false,
+    invokers: false,
   },
   argTypes: {
     nativeDialog: {
       control: 'boolean',
       description: 'Opt into the internal primer_react_select_panel_native_dialog adapter for composable parts.',
     },
+    invokers: {
+      control: 'boolean',
+      description: 'Opt into primer_react_select_panel_native_invokers when native hosting is enabled.',
+    },
   },
   parameters: {
     docs: {
       description: {
         component:
-          'Web platform proofs of concept. Native hosting is an internal implementation of the composable parts, enabled by a default-off feature flag. These stories use local Controls to override the global toolbar flags. Toggle the controls to compare with the existing overlay; unsupported browser features display an explicit fallback notice.',
+          'Web platform proofs of concept. Native hosting and optional command invokers are internal implementations of the composable parts, enabled by default-off feature flags. These stories use local Controls to override the global toolbar flags. Toggle the controls to compare with the existing overlay; unsupported browser features display an explicit fallback notice.',
       },
     },
   },
@@ -37,7 +43,7 @@ type Story = StoryObj<PlatformStoryArgs>
 
 export const Popover: Story = {
   parameters: {
-    controls: {exclude: ['nativeDialog']},
+    controls: {exclude: ['nativeDialog', 'invokers']},
     docs: {
       description: {
         story:
@@ -56,6 +62,7 @@ export const Popover: Story = {
       flags={{
         primer_react_css_anchor_positioning: true,
         primer_react_select_panel_native_dialog: false,
+        primer_react_select_panel_native_invokers: false,
       }}
     >
       <p>
@@ -70,6 +77,7 @@ export const Popover: Story = {
 export const NativeDialog: Story = {
   args: {nativeDialog: true},
   parameters: {
+    controls: {exclude: ['invokers']},
     docs: {
       description: {
         story:
@@ -81,6 +89,7 @@ export const NativeDialog: Story = {
     <FeatureFlags
       flags={{
         primer_react_select_panel_native_dialog: nativeDialog,
+        primer_react_select_panel_native_invokers: false,
       }}
     >
       <p>
@@ -120,19 +129,20 @@ function NativeAnchoredPicker() {
 }
 
 export const NativeAnchored: Story = {
-  args: {nativeDialog: true},
+  args: {nativeDialog: true, invokers: true},
   parameters: {
     docs: {
       description: {
         story:
-          'Anchored native panels use a manual top-layer popover with dialog semantics, without making the page inert or locking background scrolling. Tab can leave the panel, Escape dismisses it, and clicking a background control preserves its focus. JavaScript controls opening and dismissal. Turning nativeDialog off retains the compatibility implementation.',
+          'Anchored native panels use a manual top-layer popover with dialog semantics, without making the page inert or locking background scrolling. Tab can leave the panel, Escape dismisses it, and clicking a background control preserves its focus. Optional native invokers use toggle-popover and hide-popover, not show-modal. Turning nativeDialog off retains the compatibility implementation.',
       },
     },
   },
-  render: ({nativeDialog}) => (
+  render: ({nativeDialog, invokers}) => (
     <FeatureFlags
       flags={{
         primer_react_select_panel_native_dialog: nativeDialog,
+        primer_react_select_panel_native_invokers: invokers,
       }}
     >
       <div style={{minHeight: '140vh'}}>
@@ -153,5 +163,41 @@ export const NativeAnchored: Story = {
     await userEvent.click(background)
     await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
     await expect(background).toHaveFocus()
+  },
+}
+
+export const Invokers: Story = {
+  args: {nativeDialog: true, invokers: true},
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Opt-in native command/commandfor buttons target a persistently mounted dialog. The browser performs show-modal and close; a separate internal enhancement reconciles commands after their default action with authoritative SelectPanel state. Disable invokers to retain native hosting with JavaScript activation.',
+      },
+    },
+  },
+  render: ({nativeDialog, invokers}) => (
+    <FeatureFlags
+      flags={{
+        primer_react_select_panel_native_dialog: nativeDialog,
+        primer_react_select_panel_native_invokers: invokers,
+      }}
+    >
+      <p>
+        Native <code>command=&quot;show-modal&quot;</code> and <code>command=&quot;close&quot;</code> buttons target the
+        dialog using <code>commandfor</code>. Toggle <strong>invokers</strong> in Controls to compare activation paths.
+      </p>
+      <PlatformSelectPanel />
+    </FeatureFlags>
+  ),
+  play: async ({canvas, userEvent, args}) => {
+    if (!args.nativeDialog || nativeSelectPanelCapabilities() === 'unsupported') return
+    const trigger = canvas.getByRole('button', {name: 'Labels'})
+    await userEvent.click(trigger)
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'))
+    await expect(canvas.getByRole('combobox', {name: 'Filter labels'})).toHaveFocus()
+    await userEvent.click(canvas.getByRole('button', {name: 'Close picker'}))
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
+    await expect(trigger).toHaveFocus()
   },
 }
