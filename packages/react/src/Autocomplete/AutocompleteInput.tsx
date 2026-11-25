@@ -146,10 +146,12 @@ const AutocompleteInput = React.forwardRef(
     )
 
     useEffect(() => {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (!inputRef.current) {
         return
       }
 
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (!autocompleteSuggestion) {
         inputRef.current.value = inputValue
       }
@@ -157,14 +159,18 @@ const AutocompleteInput = React.forwardRef(
       const isInputFocused = document.activeElement === inputRef.current
 
       if (
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         isInputFocused &&
         // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         highlightRemainingText &&
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         autocompleteSuggestion &&
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         (inputValue || isMenuDirectlyActivated)
       ) {
         inputRef.current.value = autocompleteSuggestion
 
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         if (autocompleteSuggestion.toLowerCase().indexOf(inputValue.toLowerCase()) === 0) {
           inputRef.current.setSelectionRange(inputValue.length, autocompleteSuggestion.length)
         }

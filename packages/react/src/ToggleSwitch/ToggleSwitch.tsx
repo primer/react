@@ -124,9 +124,10 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
     [disabled, isControlled, loading, onClick, onChange, setIsOn, isOn],
   )
 
+  // eslint-disable-next-line react-you-might-not-need-an-effect/no-reset-all-state-on-prop-change
   useEffect(() => {
     if (!loading && isLoadingLabelVisible) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setIsLoadingLabelVisible(false)
       // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     } else if (loading && !isLoadingLabelVisible) {
