@@ -305,6 +305,17 @@
   border-radius: var(--playground-row-radius);
 }
 
+/* Preserve the approved skin density across shared ActionList content changes. */
+.Theme .Option > :where([data-size]) {
+  min-height: var(--playground-row-min-height);
+  /* stylelint-disable-next-line primer/spacing -- Skin row density is continuously interpolated. */
+  padding: var(--playground-row-padding-y) var(--playground-row-padding-x);
+  font: inherit;
+  color: inherit;
+  border-radius: inherit;
+  align-items: center;
+}
+
 .Theme .Option:hover:where(:not([aria-disabled='true'])) {
   background: var(--playground-hover-bg);
   box-shadow: none;
@@ -368,6 +379,27 @@
   --control-small-size: var(--base-size-24);
 }
 
+.Option :where([data-component='SelectPanel.Item.SecondaryAction']) {
+  width: var(--base-size-24);
+  min-width: var(--base-size-24);
+  height: var(--base-size-24);
+  min-height: var(--base-size-24);
+  padding: 0;
+  margin-block: calc(-1 * var(--base-size-4));
+}
+
+.Theme .Option :where([data-component='SelectPanel.Item.SecondaryAction']) {
+  color: inherit;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.Theme .Option :where([data-component='SelectPanel.Item.SecondaryAction']:hover:not([data-disabled='true'])) {
+  /* stylelint-disable-next-line primer/colors -- Hover text must contrast with the skin's hover background. */
+  color: var(--playground-text);
+}
+
 .Theme .Footer {
   display: flex;
   /* stylelint-disable-next-line primer/spacing -- Skin footer density is continuously interpolated. */
@@ -396,7 +428,8 @@
 
 .Theme .Option:where([aria-disabled='true']),
 .Theme .Trigger:disabled,
-.Theme .Action:disabled {
+.Theme .Action:disabled,
+.Theme .Option :where([data-component='SelectPanel.Item.SecondaryAction'][data-disabled='true']) {
   /* stylelint-disable-next-line primer/colors -- Disabled text follows the original skin palette. */
   color: var(--playground-disabled);
   cursor: not-allowed;
@@ -454,6 +487,11 @@
 
 .Terminal .Option:hover {
   box-shadow: inset 0 0 0 1px var(--playground-border);
+}
+
+.Terminal .Option :where([data-component='SelectPanel.Item.SecondaryAction']:hover:not([data-disabled='true'])) {
+  color: var(--playground-selected-text);
+  background: var(--playground-selected-bg);
 }
 
 .Paper .Title,
@@ -534,6 +572,16 @@
   padding: var(--base-size-4);
 }
 
+.GitHubApp [data-component='ActionList.Selection'] {
+  width: 14px;
+}
+
+.GitHubApp [data-component='ActionList.Selection'] > *,
+.GitHubApp [data-component='SelectPanel.Item.SecondaryAction'] svg {
+  width: 14px;
+  height: 14px;
+}
+
 .GitHubApp .Status {
   padding: var(--base-size-12);
 }
@@ -547,6 +595,8 @@
 .Theme .Action,
 .Theme .Search,
 .Theme .Option,
-.Theme .Header > button {
+.Theme .Option > :where([data-size]),
+.Theme .Header > button,
+.Theme .Option :where([data-component='SelectPanel.Item.SecondaryAction']) {
   transition: none;
 }

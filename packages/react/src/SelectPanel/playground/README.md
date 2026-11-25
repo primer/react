@@ -18,9 +18,11 @@ The approved preserved integration at
 `66b5f424d07e1a4d152799c408fa3d5f76ada9d9` is the visual reference for the six
 appearance presets. Primer mode keeps the existing component styling; other
 presets demonstrate example-only CSS, not production themes or a styling
-contract. Skins use supplied classes, inline input styles, and inherited design
-tokens, not `data-component` selectors or private ActionList wrappers. Inherited
-control sizing leaves selection indicators and action visuals owned by Primer.
+contract. Skins primarily use supplied classes, inline input styles, and inherited
+design tokens. A few demo-scoped ActionList content, selection, and supplemental
+action overrides deliberately preserve the approved row density, icon sizes, and
+hover appearance. These are reference-preservation exceptions, not a new public
+styling API or a reason to depend on internal markup in production.
 
 The anatomy inspector uses example-owned `data-select-panel-*` markers, including
 visuals authored by the example. It does not redefine Primer's component

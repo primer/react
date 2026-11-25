@@ -165,7 +165,11 @@ export const Default: Story = {
     await userEvent.click(body.getByRole('tab', {name: /^Tags\b/}))
     await userEvent.type(search, 'v36.7')
     await waitFor(() => expect(body.getAllByRole('option')).toHaveLength(2))
-    await userEvent.keyboard('{ArrowDown}{Home}{Enter}')
+    await userEvent.keyboard('{PageUp}')
+    await waitFor(() =>
+      expect(search).toHaveAttribute('aria-activedescendant', body.getByRole('option', {name: 'v36.7.1'}).id),
+    )
+    await userEvent.keyboard('{Enter}')
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument())
     await expect(canvas.getByRole('button', {name: 'v36.7.1'})).toHaveFocus()
   },
