@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
 import {page, userEvent} from 'vitest/browser'
 import Details from '..'
@@ -91,6 +91,59 @@ describe('Details', () => {
     await userEvent.click(page.getByRole('button', {name: 'test', exact: true}))
 
     await expect.element(page.getByTestId('summary')).toHaveTextContent('Open')
+  })
+
+  function NestedDetails({
+    closeOnOutsideClick = true,
+    onClickOutside,
+  }: {
+    closeOnOutsideClick?: boolean
+    onClickOutside?: (event: MouseEvent) => void
+  }) {
+    const {getDetailsProps} = useDetails({defaultOpen: true, closeOnOutsideClick, onClickOutside})
+    return (
+      <>
+        <Details {...getDetailsProps()} data-testid="outer-details">
+          <Details.Summary>Outer summary</Details.Summary>
+          <details open data-testid="inner-details">
+            <summary>Inner summary</summary>
+            <button type="button">Inner action</button>
+          </details>
+        </Details>
+        <button type="button">Outside action</button>
+      </>
+    )
+  }
+
+  it('does not treat a click inside nested details as an outside click', async () => {
+    const onClickOutside = vi.fn()
+    render(<NestedDetails onClickOutside={onClickOutside} />)
+
+    await page.getByRole('button', {name: 'Inner action'}).click()
+
+    expect(onClickOutside).not.toHaveBeenCalled()
+    await expect.element(page.getByTestId('outer-details')).toHaveAttribute('open')
+
+    await page.getByRole('button', {name: 'Outside action'}).click()
+    expect(onClickOutside).toHaveBeenCalledTimes(1)
+    await expect.element(page.getByTestId('outer-details')).not.toHaveAttribute('open')
+  })
+
+  it('does not synchronize the outer open state with a nested toggle', async () => {
+    render(<NestedDetails closeOnOutsideClick={false} />)
+
+    await page.getByText('Inner summary', {exact: true}).click()
+
+    await expect.element(page.getByTestId('inner-details')).not.toHaveAttribute('open')
+    await expect.element(page.getByTestId('outer-details')).toHaveAttribute('open')
+  })
+
+  it('allows an outside-click handler to prevent closing', async () => {
+    render(<NestedDetails onClickOutside={event => event.preventDefault()} />)
+
+    await page.getByRole('button', {name: 'Outside action'}).click()
+
+    await expect.element(page.getByTestId('outer-details')).toHaveAttribute('open')
   })
 
   describe('Details.Summary', () => {
