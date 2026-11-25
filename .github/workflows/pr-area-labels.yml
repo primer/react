@@ -1,0 +1,67 @@
+name: PR area labels
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions: {}
+
+concurrency:
+  group: pr-area-labels-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      # Do not check out PR code in this privileged workflow.
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
+        with:
+          script: |
+            const repo = context.repo
+            const pull_number = context.payload.pull_request.number
+            const {data: pr} = await github.rest.pulls.get({...repo, pull_number})
+            if (pr.state !== 'open' || pr.head.sha !== context.payload.pull_request.head.sha) return
+
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              ...repo, pull_number, per_page: 100,
+            })
+            if (files.length !== pr.changed_files) {
+              throw new Error('Incomplete changed-file list; refusing to update area labels')
+            }
+
+            const areas = [
+              {name: 'area: react', matches: path => path.startsWith('packages/react/')},
+              {name: 'area: styled-react', matches: path => path.startsWith('packages/styled-react/')},
+              {name: 'area: docs', matches: path => /^(docs|contributor-docs|packages\/doc-gen)\//.test(path) || /(^|\/)README\.md$/.test(path) || /\.docs\.json$/.test(path)},
+              {name: 'area: ci', matches: path => path.startsWith('.github/workflows/') || path.startsWith('.github/actions/') || path.startsWith('.github/scripts/') || path.startsWith('script/')},
+              {name: 'area: storybook', matches: path => /(^|\/)\.storybook\//.test(path) || /\.stories\.[^/]+$/.test(path)},
+              {name: 'area: mcp', matches: path => path.startsWith('packages/mcp/')},
+              {name: 'area: tooling', matches: path => /^packages\/(rolldown-plugin-[^/]+|postcss-preset-primer|react-compiler-check|vitest-config)\//.test(path) || /^(package(-lock)?\.json|turbo\.json|[^/]*config[^/]*|\.[^/]+rc)$/.test(path)},
+              {name: 'area: tests', matches: path => path.startsWith('e2e/') || /\.(test|spec)\.[^/]+$/.test(path) || /(^|\/)(__tests__|__snapshots__|fixtures)\//.test(path)},
+              {name: 'area: examples', matches: path => path.startsWith('examples/')},
+              {name: 'area: canvas', matches: path => path.startsWith('packages/canvas/')},
+              {name: 'area: release', matches: path => path.startsWith('.changeset/') || /(^|\/)CHANGELOG\.md$/.test(path)},
+            ]
+            // A rename touches both its old and new areas.
+            const paths = files.flatMap(file => [file.filename, file.previous_filename].filter(Boolean))
+            const desired = areas.filter(area => paths.some(area.matches))
+            // Recheck freshness immediately before changing PR labels.
+            const {data: current} = await github.rest.pulls.get({...repo, pull_number})
+            if (current.state !== 'open' || current.head.sha !== pr.head.sha) return
+            const wanted = new Set(desired.map(area => area.name))
+            const managed = new Set(areas.map(area => area.name))
+            const existing = new Set(current.labels.map(label => label.name))
+            const additions = [...wanted].filter(name => !existing.has(name))
+            if (additions.length) {
+              await github.rest.issues.addLabels({...repo, issue_number: pull_number, labels: additions})
+            }
+            for (const name of existing) {
+              if (managed.has(name) && !wanted.has(name)) {
+                await github.rest.issues.removeLabel({...repo, issue_number: pull_number, name})
+              }
+            }

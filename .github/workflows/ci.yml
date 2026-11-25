@@ -106,6 +106,8 @@ jobs:
         run: npm run lint:css
       - name: Lint markdown
         run: npm run lint:md
+      - name: Test PR area labeling
+        run: node --test .github/scripts/pr-area-labels.test.mjs
       - name: Lint npm packages
         run: npx turbo run lint:npm
       - name: Check className test coverage
