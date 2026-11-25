@@ -149,4 +149,26 @@ export const CountDownTimer: StoryFn = args => {
 CountDownTimer.args = {date: new Date('2038-01-19T03:14:08Z'), format: 'elapsed', day: '', month: ''}
 CountDownTimer.argTypes = {date: {control: false}, format: {control: false}}
 
+export const CompactAbsoluteFormat: StoryFn = () => {
+  const today = new Date()
+
+  return (
+    <dl>
+      <dt>Compact today</dt>
+      <dd>
+        <RelativeTime date={today} format="datetime" absoluteFormat="compact" />
+      </dd>
+      <dt>Compact on another day</dt>
+      <dd>
+        <RelativeTime datetime="2020-01-01T00:00:00Z" format="datetime" absoluteFormat="compact" />
+      </dd>
+      <dt>Standard absolute time today</dt>
+      <dd>
+        <RelativeTime date={today} format="datetime" hour="numeric" minute="2-digit" timeZoneName="short" />
+      </dd>
+    </dl>
+  )
+}
+CompactAbsoluteFormat.parameters = {controls: {disable: true}}
+
 export default meta
