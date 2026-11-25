@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Count rendered AvatarStack children when selecting the one-, two-, or three-avatar layout.
+AvatarStack: Fix incorrect layouts, including the 3+ layout, when optional avatars are not rendered.
