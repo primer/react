@@ -56,8 +56,9 @@ export function useAnchoredPosition(
   const enabled = settings?.enabled ?? true
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
+  // The latest position computed by updatePosition, which can be ahead of rendered state.
+  const positionRef = React.useRef<AnchorPosition | undefined>(undefined)
+  const prevHeightRef = React.useRef<{element: Element; height: number} | undefined>(undefined)
 
   const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
     return (
@@ -68,52 +69,108 @@ export function useAnchoredPosition(
     )
   }
 
-  const updateElementHeight = () => {
-    let heightUpdated = false
-    setPrevHeight(prevHeight => {
-      // if the element is trying to shrink in height, restore to old height to prevent it from jumping
-      if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
-        requestAnimationFrame(() => {
-          ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
-        })
-        heightUpdated = true
-      }
-      return prevHeight
-    })
-    return heightUpdated
+  const pinFrameRef = React.useRef<number | undefined>(undefined)
+  // The height a scheduled restore will apply, so further shrinks before the frame runs keep targeting it.
+  const pendingRestoreRef = React.useRef<{element: Element; height: number} | undefined>(undefined)
+
+  const cancelPinFrame = () => {
+    if (pinFrameRef.current !== undefined) cancelAnimationFrame(pinFrameRef.current)
+    pinFrameRef.current = undefined
+    pendingRestoreRef.current = undefined
+  }
+
+  const updateElementHeight = (prevHeight: number | undefined, element: Element | null) => {
+    const pending = pendingRestoreRef.current
+    const targetHeight = pending && pending.element === element ? pending.height : prevHeight
+    // if the element is trying to shrink in height, restore to old height to prevent it from jumping
+    if (element && targetHeight && targetHeight > element.clientHeight) {
+      cancelPinFrame()
+      pendingRestoreRef.current = {element, height: targetHeight}
+      pinFrameRef.current = requestAnimationFrame(() => {
+        pinFrameRef.current = undefined
+        pendingRestoreRef.current = undefined
+        // The element may have been replaced or unmounted, or may have grown back, while the frame was pending.
+        if (floatingElementRef.current === element && element.clientHeight < targetHeight) {
+          ;(element as HTMLElement).style.height = `${targetHeight}px`
+        }
+      })
+      return true
+    }
+    return false
   }
 
   const updatePosition = React.useCallback(
     () => {
       if (!enabled) return
+      // A restore scheduled while pinned must not undo the height once pinning is turned off.
+      if (!settings?.pinPosition) cancelPinFrame()
+      // Captured before the ref is updated below: state updaters can run later, during render.
+      // Ignored when it was measured on another element, e.g. the previous session of a reopened overlay.
+      const prevMeasured = prevHeightRef.current
+      const floatingElement = floatingElementRef.current
+      const prevHeight = prevMeasured?.element === floatingElement ? prevMeasured.height : undefined
+      // Once the element has grown back to the pending height, that target is stale and a later shrink must use the new measurement.
+      const pending = pendingRestoreRef.current
+      if (pending && pending.element === floatingElement && floatingElement.clientHeight >= pending.height) {
+        cancelPinFrame()
+      }
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
-        setPosition(prev => {
-          if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
-            const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
-            const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
+        // Side effects run here rather than in a state updater, which React may replay during a later render.
+        const prev = positionRef.current
+        let heldByPin = false
+        if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
+          const anchorTop = anchorElementRef.current.getBoundingClientRect().top
+          const elementStillFitsOnTop = anchorTop > floatingElementRef.current.clientHeight
+          heldByPin = elementStillFitsOnTop && updateElementHeight(prevHeight, floatingElement)
+        }
 
-            if (elementStillFitsOnTop && updateElementHeight()) {
-              return prev
-            }
-          }
-
+        if (!heldByPin) {
           if (prev && prev.anchorSide === newPosition.anchorSide) {
-            // if the position hasn't changed, don't update
             savedOnPositionChange.current?.(newPosition)
           }
 
-          return newPosition
-        })
+          // Keeping the previous object lets React bail out of re-rendering.
+          const unchanged =
+            prev &&
+            prev.top === newPosition.top &&
+            prev.left === newPosition.left &&
+            prev.anchorSide === newPosition.anchorSide &&
+            prev.anchorAlign === newPosition.anchorAlign
+          if (!unchanged) {
+            positionRef.current = newPosition
+            setPosition(newPosition)
+          }
+        }
       } else {
+        positionRef.current = undefined
         setPosition(undefined)
         savedOnPositionChange.current?.(undefined)
       }
-      setPrevHeight(floatingElementRef.current?.clientHeight)
+      prevHeightRef.current = floatingElementRef.current
+        ? {element: floatingElementRef.current, height: floatingElementRef.current.clientHeight}
+        : undefined
     },
+    // The primitive settings are listed instead of `settings` because callers pass inline objects.
     // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-    [floatingElementRef, anchorElementRef, enabled, ...dependencies],
+    [
+      floatingElementRef,
+      anchorElementRef,
+      enabled,
+      settings?.side,
+      settings?.align,
+      settings?.anchorOffset,
+      settings?.alignmentOffset,
+      settings?.allowOutOfBounds,
+      settings?.displayInViewport,
+      settings?.pinPosition,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      ...dependencies,
+    ],
   )
+
+  // Drops a pending height restoration when the hook is disabled or unmounts.
+  React.useEffect(() => cancelPinFrame, [enabled])
 
   useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange
@@ -139,7 +196,18 @@ export function useAnchoredPosition(
     }
   }, [updatePosition])
 
-  useResizeObserver(updatePosition, undefined, [], enabled) // watches for changes in window size
+  // Watches the document element, so content above the anchor that shifts it is picked up even though no scroll event fires.
+  useResizeObserver(updatePosition, undefined, [], enabled)
+
+  // The document element only resizes with the viewport height when the page is as tall as the viewport,
+  // so listen for window resizes to reposition on viewport changes.
+  React.useEffect(() => {
+    if (!enabled) return
+    // eslint-disable-next-line github/prefer-observers -- the document element observer does not fire for every viewport size change
+    window.addEventListener('resize', updatePosition)
+    return () => window.removeEventListener('resize', updatePosition)
+  }, [enabled, updatePosition])
+
   useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>, [], enabled) // watches for changes in floating element size
 
   // Caches the scrollable-ancestor walk (which calls getComputedStyle on every
