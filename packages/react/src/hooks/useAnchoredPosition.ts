@@ -107,6 +107,11 @@ export function useAnchoredPosition(
       const prevMeasured = prevHeightRef.current
       const floatingElement = floatingElementRef.current
       const prevHeight = prevMeasured?.element === floatingElement ? prevMeasured.height : undefined
+      // Once the element has grown back to the pending height, that target is stale and a later shrink must use the new measurement.
+      const pending = pendingRestoreRef.current
+      if (pending && pending.element === floatingElement && floatingElement.clientHeight >= pending.height) {
+        cancelPinFrame()
+      }
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
         setPosition(prev => {

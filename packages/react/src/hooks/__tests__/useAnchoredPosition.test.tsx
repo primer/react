@@ -457,6 +457,25 @@ describe('re-render behavior', () => {
       expect(getFloating().style.height).toBe('120px')
     })
 
+    it('restores the newly measured height when it grew past the pending height and shrinks again', async () => {
+      const {runFrames, requestedFrames, topBefore} = await shrinkWhilePinned()
+
+      getFloating().style.height = '120px'
+      // An outside-top overlay grows upwards, so its top moves up by the added height
+      await expect.poll(() => Number(readTop())).toBe(Number(topBefore) - 20)
+      const topGrown = readTop()
+      const requestedBefore = requestedFrames()
+
+      getFloating().style.height = '110px'
+      await expect.poll(requestedFrames).toBeGreaterThan(requestedBefore)
+      expect(readTop()).toBe(topGrown)
+
+      runFrames()
+
+      expect(getFloating().style.height).toBe('120px')
+      expect(readTop()).toBe(topGrown)
+    })
+
     it('keeps the shrunk height and repositions when pinning is turned off before the frame runs', async () => {
       const {runFrames, rerenderWith, topBefore} = await shrinkWhilePinned()
 
