@@ -56,6 +56,8 @@ export function useAnchoredPosition(
   const enabled = settings?.enabled ?? true
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
+  // The latest position computed by updatePosition, which can be ahead of rendered state.
+  const positionRef = React.useRef<AnchorPosition | undefined>(undefined)
   const prevHeightRef = React.useRef<{element: Element; height: number} | undefined>(undefined)
 
   const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
@@ -114,34 +116,34 @@ export function useAnchoredPosition(
       }
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
-        setPosition(prev => {
-          if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
-            const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
-            const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
+        // Side effects run here rather than in a state updater, which React may replay during a later render.
+        const prev = positionRef.current
+        let heldByPin = false
+        if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
+          const anchorTop = anchorElementRef.current.getBoundingClientRect().top
+          const elementStillFitsOnTop = anchorTop > floatingElementRef.current.clientHeight
+          heldByPin = elementStillFitsOnTop && updateElementHeight(prevHeight, floatingElement)
+        }
 
-            if (elementStillFitsOnTop && updateElementHeight(prevHeight, floatingElement)) {
-              return prev
-            }
-          }
-
+        if (!heldByPin) {
           if (prev && prev.anchorSide === newPosition.anchorSide) {
             savedOnPositionChange.current?.(newPosition)
           }
 
-          // Returning the previous object lets React bail out of re-rendering.
-          if (
+          // Keeping the previous object lets React bail out of re-rendering.
+          const unchanged =
             prev &&
             prev.top === newPosition.top &&
             prev.left === newPosition.left &&
             prev.anchorSide === newPosition.anchorSide &&
             prev.anchorAlign === newPosition.anchorAlign
-          ) {
-            return prev
+          if (!unchanged) {
+            positionRef.current = newPosition
+            setPosition(newPosition)
           }
-
-          return newPosition
-        })
+        }
       } else {
+        positionRef.current = undefined
         setPosition(undefined)
         savedOnPositionChange.current?.(undefined)
       }

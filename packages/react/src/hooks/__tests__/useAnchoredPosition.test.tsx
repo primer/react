@@ -1,7 +1,8 @@
 import {render, waitFor, act} from '@testing-library/react'
 import {it, expect, vi, describe, beforeEach, afterEach} from 'vitest'
 import {page} from 'vitest/browser'
-import React from 'react'
+import React, {startTransition} from 'react'
+import {flushSync} from 'react-dom'
 import type {ProfilerOnRenderCallback} from 'react'
 import type {AnchorPosition, AnchorSide} from '@primer/behaviors'
 import {useAnchoredPosition} from '../../hooks/useAnchoredPosition'
@@ -484,6 +485,86 @@ describe('re-render behavior', () => {
 
       expect(getFloating().style.height).toBe('50px')
       await expect.poll(() => Number(readTop())).toBe(Number(topBefore) + 50)
+    })
+  })
+
+  describe('low-priority recompute replayed after pinning is turned off', () => {
+    let setPinned: (pinned: boolean) => void = () => {}
+    let setBump: (n: number) => void = () => {}
+    const TransitionFixture = () => {
+      const [pinned, setPinnedState] = React.useState(true)
+      const [bump, setBumpState] = React.useState(0)
+      React.useEffect(() => {
+        setPinned = setPinnedState
+        setBump = setBumpState
+      }, [])
+      const floatingElementRef = React.useRef<HTMLDivElement>(null)
+      const anchorElementRef = React.useRef<HTMLDivElement>(null)
+      const {position} = useAnchoredPosition({
+        floatingElementRef,
+        anchorElementRef,
+        side: 'outside-top',
+        pinPosition: pinned,
+      })
+      return (
+        <div style={{position: 'relative', display: 'flow-root'}}>
+          <div ref={anchorElementRef} style={{marginTop: 200, width: 100, height: 20}} />
+          <div
+            data-testid="floating"
+            data-bump={bump}
+            data-top={position?.top}
+            ref={floatingElementRef}
+            style={{position: 'absolute', top: position?.top, left: position?.left, width: 50, height: 100}}
+          />
+        </div>
+      )
+    }
+
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    it('does not restore the old height after pinning was turned off', async () => {
+      await page.viewport(1000, 800)
+      render(<TransitionFixture />)
+      await expect.poll(readTop).not.toBeNull()
+      // Lets the viewport change and the resize observers' initial notifications settle, so none lands inside the block below.
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      const queued = new Map<number, FrameRequestCallback>()
+      let nextId = 1
+      vi.spyOn(window, 'requestAnimationFrame').mockImplementation(callback => {
+        queued.set(nextId, callback)
+        return nextId++
+      })
+      vi.spyOn(window, 'cancelAnimationFrame').mockImplementation(id => {
+        queued.delete(id)
+      })
+
+      const floating = getFloating()
+      const previous = (globalThis as {IS_REACT_ACT_ENVIRONMENT?: boolean}).IS_REACT_ACT_ENVIRONMENT
+      ;(globalThis as {IS_REACT_ACT_ENVIRONMENT?: boolean}).IS_REACT_ACT_ENVIRONMENT = false
+      try {
+        // One synchronous block so nothing low-priority renders in between.
+        flushSync(() => {})
+        floating.style.height = '50px'
+        // A pending transition on the same component keeps the next position update from being computed eagerly.
+        startTransition(() => setBump(1))
+        startTransition(() => {
+          window.dispatchEvent(new Event('resize'))
+        })
+        flushSync(() => setPinned(false))
+
+        // Wait for the transition to render and commit.
+        await expect.poll(() => floating.getAttribute('data-bump')).toBe('1')
+        await new Promise(resolve => setTimeout(resolve, 50))
+      } finally {
+        ;(globalThis as {IS_REACT_ACT_ENVIRONMENT?: boolean}).IS_REACT_ACT_ENVIRONMENT = previous
+      }
+
+      for (const callback of [...queued.values()]) callback(performance.now())
+
+      expect(floating.style.height).toBe('50px')
     })
   })
 
