@@ -136,7 +136,6 @@ export default defineComponent({
       required: false,
       defaultValue: "'none'",
     },
-    {name: 'data-test-id', type: 'unknown', description: '', required: false},
     {
       name: 'responsiveVariant',
       type: "'fullscreen'",
@@ -152,12 +151,6 @@ export default defineComponent({
     {name: 'children', type: 'React.ReactNode', description: 'Content rendered in the overlay.', required: false},
     {name: 'className', type: 'string', description: 'Class name for custom styling.', required: false},
     {name: 'style', type: 'React.CSSProperties', description: 'Inline styles for the overlay.', required: false},
-    {
-      name: 'data-component',
-      type: 'string',
-      description: 'Component identifier on the rendered element.',
-      required: false,
-    },
   ],
   subcomponents: [],
   usage: {

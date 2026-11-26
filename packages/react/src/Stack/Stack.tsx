@@ -153,7 +153,7 @@ const StackItem = forwardRef(({as: Component = 'div', children, grow, shrink, cl
       {children}
     </Component>
   )
-}) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
+}) as PolymorphicForwardRefComponent<ElementType, StackItemProps<ElementType>>
 
 export {Stack, StackItem}
 export type {StackProps, StackItemProps}

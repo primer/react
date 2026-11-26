@@ -81,6 +81,8 @@ jobs:
         run: npm run test:classname-coverage
       - name: Check react compiler coverage
         run: npx turbo run lint:react-compiler
+      - name: Check component docs metadata
+        run: npm run docs:check -w @primer/react
 
   test:
     runs-on: ubuntu-latest

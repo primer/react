@@ -58,7 +58,6 @@ export default defineComponent({
       description: 'Whether this checkbox must be checked.',
       required: false,
     },
-    {name: 'data-component', type: 'string', description: '', required: false, defaultValue: 'Checkbox'},
   ],
   subcomponents: [],
   usage: {

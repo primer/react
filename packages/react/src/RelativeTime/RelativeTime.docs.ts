@@ -109,12 +109,6 @@ export default defineComponent({
       required: false,
     },
     {
-      name: 'ref',
-      type: 'React.Ref<RelativeTimeElement>',
-      description: 'Ref to the custom element.',
-      required: false,
-    },
-    {
       name: 'noTitle',
       type: 'boolean',
       description: 'Suppresses the generated title tooltip.',

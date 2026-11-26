@@ -102,6 +102,8 @@ export default defineComponent({
           description: 'Chooses the control rendered inside SelectPanel.Footer.',
           required: true,
         },
+        {name: 'id', type: 'string', description: '', required: false},
+        {name: 'children', type: 'React.ReactNode', description: '', required: true},
       ],
     },
     {

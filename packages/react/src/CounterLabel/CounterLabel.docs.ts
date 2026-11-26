@@ -27,13 +27,6 @@ export default defineComponent({
     },
     {name: 'className', type: 'string', description: 'Class name for custom styling.', required: false},
     {name: 'children', type: 'React.ReactNode', description: 'Count to display.', required: false},
-    {
-      name: 'data-component',
-      type: 'string',
-      description: 'Overrides the component identifier on the visible count.',
-      required: false,
-      defaultValue: "'CounterLabel'",
-    },
   ],
   subcomponents: [],
   usage: {

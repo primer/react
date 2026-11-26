@@ -182,7 +182,6 @@ export default defineComponent({
           required: false,
           defaultValue: 'false',
         },
-        {name: 'data-test-id', type: 'unknown', description: '', required: false},
         {
           name: 'variant',
           type: "{narrow?: 'anchored' | 'fullscreen'; regular?: 'anchored'; wide?: 'anchored'}",

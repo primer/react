@@ -36,7 +36,6 @@ export default defineComponent({
       required: false,
     },
     {name: 'className', type: 'string', description: '', required: false},
-    {name: 'data-*', type: 'unknown', description: 'Custom data attributes.', required: false},
     {
       name: 'delay',
       type: "boolean | 'short' | 'long' | number",

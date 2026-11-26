@@ -33,13 +33,6 @@ export default defineComponent({
       defaultValue: '1rem',
     },
     {name: 'className', type: 'string', description: 'Class name for custom styling.', required: false},
-    {
-      name: 'data-component',
-      type: 'string',
-      description: 'Overrides the component identifier.',
-      required: false,
-      defaultValue: "'SkeletonBox'",
-    },
   ],
   subcomponents: [],
   usage: {

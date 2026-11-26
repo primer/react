@@ -211,10 +211,33 @@ export default defineComponent({
       displayName: 'SelectPanel.SecondaryActionLink',
       props: [
         {name: 'children', type: 'React.ReactNode', description: 'Link label.', required: false},
-        {name: 'href', type: 'string', description: 'Destination URL.', required: true},
+        {name: 'href', type: 'string', description: 'Destination URL.', required: false},
       ],
     },
-    {name: 'SelectPanel.Message', displayName: 'SelectPanel.Message', props: []},
+    {
+      name: 'SelectPanel.Message',
+      displayName: 'SelectPanel.Message',
+      props: [
+        {name: 'children', type: 'React.ReactNode', description: '', required: true},
+        {name: 'title', type: 'string', description: '', required: true},
+        {name: 'variant', type: "'empty' | 'error' | 'warning'", description: '', required: true},
+        {name: 'className', type: 'string', description: '', required: false},
+        {
+          name: 'icon',
+          type: 'React.ComponentType<IconProps>',
+          description:
+            'Custom icon to display above the title. When not provided, uses AlertIcon for error/warning states and no icon for empty state.',
+          required: false,
+        },
+        {
+          name: 'action',
+          type: 'React.ReactElement',
+          description:
+            'Custom action element to display below the message body. This can be used to render interactive elements like buttons or links. Ensure the action element is accessible by providing appropriate ARIA attributes and making it keyboard-navigable.',
+          required: false,
+        },
+      ],
+    },
   ],
   usage: {
     // Source: https://primer.style/product/components/select-panel/

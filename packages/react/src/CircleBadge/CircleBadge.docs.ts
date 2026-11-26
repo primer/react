@@ -23,12 +23,6 @@ export default defineComponent({
     },
     {name: 'inline', type: 'boolean', description: 'Renders the badge inline.', required: false, defaultValue: 'false'},
     {
-      name: 'ref',
-      type: 'React.ComponentPropsWithRef<As>["ref"]',
-      description: 'Ref forwarded to the rendered element.',
-      required: false,
-    },
-    {
       name: 'as',
       type: 'React.ElementType',
       description: 'Element or component to render.',

@@ -39,6 +39,7 @@ export default defineComponent({
       description: 'Use `true` to allow text within tooltip to wrap.',
       required: false,
     },
+    {name: 'text', type: 'string', description: '', required: false},
   ],
   subcomponents: [],
   usage: {

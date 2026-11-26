@@ -151,6 +151,7 @@ export default defineComponent({
     },
     {name: 'Dialog.Footer', displayName: 'Dialog.Footer', props: []},
     {name: 'Dialog.Header', displayName: 'Dialog.Header', props: []},
+    {name: 'Dialog.Subtitle', displayName: 'Dialog.Subtitle', props: []},
     {name: 'Dialog.Title', displayName: 'Dialog.Title', props: []},
     {
       // Preserve the legacy grouping for the footer button configuration type.

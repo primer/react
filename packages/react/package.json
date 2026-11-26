@@ -61,6 +61,8 @@
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "tsx script/components-json/build.ts",
     "build:hooks.json": "tsx script/hooks-json/build.ts",
+    "docs:check": "tsx script/sync-component-docs.ts --check",
+    "docs:sync": "tsx script/sync-component-docs.ts --write",
     "lint:npm": "publint --types",
     "lint:react-compiler": "node script/lint-react-compiler.ts",
     "storybook": "storybook",

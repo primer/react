@@ -69,7 +69,7 @@ export default defineComponent({
         },
         {
           name: 'icon',
-          type: 'Component',
+          type: 'React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>',
           description: 'Provide an octicon. It will be placed in the center of the button',
           required: true,
         },
@@ -107,7 +107,7 @@ export default defineComponent({
         },
         {
           name: 'leadingVisual',
-          type: 'Component',
+          type: 'React.ElementType | React.ReactElement | null',
           description:
             'Provide an octicon to render before the button text. It will also be shown when the button overflows into the menu.',
           required: false,
@@ -150,7 +150,7 @@ export default defineComponent({
         },
         {
           name: 'icon',
-          type: 'Component',
+          type: 'React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps>',
           description: 'Icon for the menu button.',
           required: true,
         },
@@ -162,7 +162,7 @@ export default defineComponent({
         },
         {
           name: 'overflowIcon',
-          type: "Component | 'none'",
+          type: "React.ReactNode | React.ComponentType<IconProps> | React.ExoticComponent<IconProps> | 'none'",
           description:
             "Icon displayed when the menu item is within the overflow menu. If 'none' is provided, no icon will be shown in the overflow menu.",
           required: false,

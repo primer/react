@@ -88,13 +88,6 @@ export default defineComponent({
           required: false,
         },
         {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'SplitPageLayout.Header',
-        },
-        {
           name: 'children',
           type: 'ReactNode',
           description: 'Header content.',
@@ -157,13 +150,6 @@ export default defineComponent({
           type: 'React.CSSProperties',
           description: '',
           required: false,
-        },
-        {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'SplitPageLayout.Content',
         },
         {
           name: 'children',
@@ -304,13 +290,6 @@ export default defineComponent({
           required: false,
         },
         {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'SplitPageLayout.Pane',
-        },
-        {
           name: 'children',
           type: 'ReactNode',
           description: 'Pane content.',
@@ -434,13 +413,6 @@ export default defineComponent({
           required: false,
         },
         {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'SplitPageLayout.Sidebar',
-        },
-        {
           name: 'children',
           type: 'ReactNode',
           description: 'Sidebar content.',
@@ -503,13 +475,6 @@ export default defineComponent({
           type: 'React.CSSProperties',
           description: '',
           required: false,
-        },
-        {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'SplitPageLayout.Footer',
         },
         {
           name: 'children',

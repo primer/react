@@ -71,13 +71,6 @@ export default defineComponent({
       required: false,
     },
     {
-      name: 'data-component',
-      type: 'string',
-      description: '',
-      required: false,
-      defaultValue: 'PageLayout',
-    },
-    {
       name: 'children',
       type: 'ReactNode',
       description: 'Regions to arrange in the page layout.',
@@ -142,13 +135,6 @@ export default defineComponent({
           required: false,
         },
         {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'PageLayout.Header',
-        },
-        {
           name: 'children',
           type: 'ReactNode',
           description: 'Header content.',
@@ -211,13 +197,6 @@ export default defineComponent({
           type: 'React.CSSProperties',
           description: '',
           required: false,
-        },
-        {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'PageLayout.Content',
         },
         {
           name: 'children',
@@ -358,13 +337,6 @@ export default defineComponent({
           required: false,
         },
         {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'PageLayout.Pane',
-        },
-        {
           name: 'ref',
           type: 'React.Ref<HTMLDivElement>',
           description: 'Ref to the pane.',
@@ -494,13 +466,6 @@ export default defineComponent({
           required: false,
         },
         {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'PageLayout.Sidebar',
-        },
-        {
           name: 'ref',
           type: 'React.Ref<HTMLDivElement>',
           description: 'Ref to the sidebar.',
@@ -569,13 +534,6 @@ export default defineComponent({
           type: 'React.CSSProperties',
           description: '',
           required: false,
-        },
-        {
-          name: 'data-component',
-          type: 'string',
-          description: '',
-          required: false,
-          defaultValue: 'PageLayout.Footer',
         },
         {
           name: 'children',

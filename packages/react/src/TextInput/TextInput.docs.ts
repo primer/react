@@ -131,13 +131,6 @@ export default defineComponent({
       required: false,
     },
     {name: 'ref', type: 'React.Ref<HTMLInputElement>', description: 'Ref to the underlying input.', required: false},
-    {
-      name: 'data-component',
-      type: 'string',
-      description: 'Overrides the component identifier on the input.',
-      required: false,
-      defaultValue: "'input'",
-    },
   ],
   subcomponents: [
     {

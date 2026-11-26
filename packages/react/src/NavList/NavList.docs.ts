@@ -321,7 +321,7 @@ export default defineComponent({
           type: "'div' | 'li'",
           description: 'Element used to wrap the heading.',
           required: false,
-          defaultValue: 'div',
+          defaultValue: "'li'",
         },
         {
           name: 'id',
