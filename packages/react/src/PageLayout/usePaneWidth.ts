@@ -359,7 +359,7 @@ export function usePaneWidth({
   useIsomorphicLayoutEffect(() => {
     if (!resizable) return
 
-    let lastViewportWidth = window.innerWidth
+    const viewportState = {lastWidth: window.innerWidth}
 
     // Full sync of refs, ARIA, and state (debounced, runs when resize stops)
     const syncAll = () => {
@@ -367,11 +367,11 @@ export function usePaneWidth({
 
       // Only update the cached diff value if we crossed the breakpoint
       const crossedBreakpoint =
-        (lastViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+        (viewportState.lastWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
           currentViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT) ||
-        (lastViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+        (viewportState.lastWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
           currentViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT)
-      lastViewportWidth = currentViewportWidth
+      viewportState.lastWidth = currentViewportWidth
 
       if (crossedBreakpoint) {
         maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
@@ -437,29 +437,31 @@ export function usePaneWidth({
     // Throttle approach for window resize - provides immediate visual feedback for small DOMs
     // while still limiting update frequency
     const THROTTLE_MS = 16 // ~60fps
-    let lastUpdateTime = 0
-    let pendingUpdate = false
-    let rafId: number | null = null
-    let lastResizeViewportWidth = window.innerWidth
+    const resizeState = {
+      lastUpdateTime: 0,
+      pendingUpdate: false,
+      rafId: null as number | null,
+      lastViewportWidth: window.innerWidth,
+    }
 
     const handleResize = () => {
       // The max width only depends on the viewport width, so ignore height-only resizes
       // (mobile URL bar, on-screen keyboard). Reading before any DOM write keeps this read
       // from forcing an extra layout.
       const viewportWidth = window.innerWidth
-      if (viewportWidth === lastResizeViewportWidth) return
-      lastResizeViewportWidth = viewportWidth
+      if (viewportWidth === resizeState.lastViewportWidth) return
+      resizeState.lastViewportWidth = viewportWidth
 
       const now = Date.now()
-      if (now - lastUpdateTime >= THROTTLE_MS) {
-        lastUpdateTime = now
+      if (now - resizeState.lastUpdateTime >= THROTTLE_MS) {
+        resizeState.lastUpdateTime = now
         syncAll()
-      } else if (!pendingUpdate) {
-        pendingUpdate = true
-        rafId = requestAnimationFrame(() => {
-          pendingUpdate = false
-          rafId = null
-          lastUpdateTime = Date.now()
+      } else if (!resizeState.pendingUpdate) {
+        resizeState.pendingUpdate = true
+        resizeState.rafId = requestAnimationFrame(() => {
+          resizeState.pendingUpdate = false
+          resizeState.rafId = null
+          resizeState.lastUpdateTime = Date.now()
           syncAll()
         })
       }
@@ -468,7 +470,7 @@ export function usePaneWidth({
     // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
-      if (rafId !== null) cancelAnimationFrame(rafId)
+      if (resizeState.rafId !== null) cancelAnimationFrame(resizeState.rafId)
       window.removeEventListener('resize', handleResize)
     }
   }, [resizable, customMaxWidth, constrainToViewport, minPaneWidth, paneRef, handleRef])

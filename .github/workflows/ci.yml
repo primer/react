@@ -33,11 +33,44 @@ jobs:
       - name: Check for unformatted files
         run: npm run format:diff
 
+  agentic-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Set up gh-aw
+        uses: github/gh-aw-actions/setup-cli@dfe97a19c8249d41e2adfc95f92db2b8facea58f # v1.3.1
+        with:
+          version: v1.3.1
+      - name: Check agentic workflows
+        run: |
+          gh aw compile --validate
+
+          paths=(
+            .gitattributes
+            .github/aw
+            .github/dependabot.yml
+            '.github/workflows/*.lock.yml'
+            .github/workflows/agentics-maintenance.yml
+          )
+          changes="$(git status --short --untracked-files=all -- "${paths[@]}")"
+
+          if [ -n "$changes" ]; then
+            printf '%s\n' "$changes"
+            git --no-pager diff -- "${paths[@]}"
+            printf '%s\n' "::error::Agentic workflow files are out of date. Run 'gh aw compile' and commit the changes."
+            exit 1
+          fi
+
   internal-mirror:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
       - name: Check lockfiles for internal package feed URLs
         shell: bash
         run: |
@@ -46,6 +79,14 @@ jobs:
             echo "::error::A lockfile contains internal package feed URLs. Replace them with public registry URLs using script/update-registry-download-urls."
             exit 1
           fi
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: '.nvmrc'
+      - name: Check new locked packages are at least 7 days old
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha || github.event.before }}
+        run: node script/check-package-release-age.mts --diff "$BASE_REF"
 
   lint:
     runs-on: ubuntu-latest
@@ -101,9 +142,18 @@ jobs:
         run: npm run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Run tests defined in vitest
-        uses: docker://mcr.microsoft.com/playwright:v1.65.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.64.1-jammy
         with:
-          args: npm test
+          args: npm test -- --retry=1 --reporter=default --reporter=github-actions --reporter=./packages/vitest-config/src/flaky-test-reporter.ts
+      - name: Upload flaky test evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: vitest-flaky-tests-${{ matrix.react-version }}
+          path: .test/vitest-flaky-tests.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
 
   type-check:
     runs-on: ubuntu-latest

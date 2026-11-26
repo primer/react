@@ -2,6 +2,7 @@ import {page, userEvent} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
 import {act, fireEvent, render} from '@testing-library/react'
+import {StrictMode, useCallback, useState} from 'react'
 
 describe('Table.Pagination', () => {
   beforeEach(async () => {
@@ -18,6 +19,231 @@ describe('Table.Pagination', () => {
         }),
       )
       .toBeInTheDocument()
+  })
+
+  it('keeps the current page in bounds when the row count shrinks', () => {
+    const {rerender} = render(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} />)
+    expect(getCurrentPage()).toHaveTextContent('4')
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={40} />)
+    expect(getCurrentPage()).toHaveTextContent('2')
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={0} />)
+    expect(getPages().some(button => button.hasAttribute('aria-current'))).toBe(false)
+    expect(getPageRange()).toEqual('0 through 0 of 0')
+    expect(page.getByText('Showing 0 through 0 of 0', {exact: true}).element()).toBeInTheDocument()
+  })
+
+  it.each([
+    {totalCount: 0, pageSize: 0},
+    {totalCount: 25, pageSize: 0},
+    {totalCount: Number.NaN, pageSize: 25},
+  ])('does not re-render indefinitely for an invalid page count: $totalCount / $pageSize', props => {
+    render(<Pagination aria-label="Pagination" {...props} />)
+    expect(page.getByRole('navigation', {name: 'Pagination', exact: true}).element()).toBeInTheDocument()
+    expect(getPages()).toHaveLength(0)
+  })
+
+  it('notifies the parent after clamping so it can display the remaining rows', () => {
+    const onChange = vi.fn()
+    function PaginatedRows({totalCount}: {totalCount: number}) {
+      const [pageIndex, setPageIndex] = useState(3)
+      const rows = Array.from({length: totalCount}, (_, index) => `Row ${index + 1}`)
+      return (
+        <>
+          <div>{rows.slice(pageIndex * 25, (pageIndex + 1) * 25).join(', ')}</div>
+          <Pagination
+            aria-label="Pagination"
+            defaultPageIndex={3}
+            totalCount={totalCount}
+            onChange={state => {
+              onChange(state)
+              setPageIndex(state.pageIndex)
+            }}
+          />
+        </>
+      )
+    }
+
+    const {rerender} = render(
+      <StrictMode>
+        <PaginatedRows totalCount={100} />
+      </StrictMode>,
+    )
+    expect(page.getByText('Row 76', {exact: false}).element()).toBeInTheDocument()
+    rerender(
+      <StrictMode>
+        <PaginatedRows totalCount={40} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(onChange).toHaveBeenLastCalledWith({pageIndex: 1})
+    expect(page.getByText('Row 26', {exact: false}).element()).toBeInTheDocument()
+    expect(getCurrentPage()).toHaveTextContent('2')
+
+    rerender(
+      <StrictMode>
+        <PaginatedRows totalCount={0} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledTimes(2)
+    expect(onChange).toHaveBeenLastCalledWith({pageIndex: 0})
+
+    rerender(
+      <StrictMode>
+        <PaginatedRows totalCount={100} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledTimes(2)
+    expect(
+      page.getByText(Array.from({length: 25}, (_, index) => `Row ${index + 1}`).join(', '), {exact: true}).element(),
+    ).toBeInTheDocument()
+    expect(getCurrentPage()).toHaveTextContent('1')
+  })
+
+  it('does not report a clamped index again when the parent echoes it as the default', () => {
+    const onChange = vi.fn()
+    function PaginationWithEcho({totalCount}: {totalCount: number}) {
+      const [pageIndex, setPageIndex] = useState(3)
+      return (
+        <Pagination
+          aria-label="Pagination"
+          defaultPageIndex={pageIndex}
+          totalCount={totalCount}
+          onChange={state => {
+            onChange(state)
+            setPageIndex(state.pageIndex)
+          }}
+        />
+      )
+    }
+
+    const {rerender} = render(
+      <StrictMode>
+        <PaginationWithEcho totalCount={100} />
+      </StrictMode>,
+    )
+    rerender(
+      <StrictMode>
+        <PaginationWithEcho totalCount={40} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({pageIndex: 1})
+    expect(getCurrentPage()).toHaveTextContent('2')
+
+    rerender(
+      <StrictMode>
+        <PaginationWithEcho totalCount={0} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledTimes(2)
+    expect(onChange).toHaveBeenLastCalledWith({pageIndex: 0})
+
+    rerender(
+      <StrictMode>
+        <PaginationWithEcho totalCount={100} />
+      </StrictMode>,
+    )
+    expect(onChange).toHaveBeenCalledTimes(2)
+    expect(getCurrentPage()).toHaveTextContent('1')
+  })
+
+  it('reports a later default change to the clamped page after an unrelated commit', () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />,
+    )
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={40} onChange={onChange} />)
+    rerender(
+      <Pagination aria-label="Pagination" id="updated" defaultPageIndex={3} totalCount={40} onChange={onChange} />,
+    )
+    rerender(
+      <Pagination aria-label="Pagination" id="updated" defaultPageIndex={1} totalCount={40} onChange={onChange} />,
+    )
+
+    expect(onChange.mock.calls).toEqual([[{pageIndex: 1}], [{pageIndex: 1}]])
+  })
+
+  it('accepts an empty-table default before returning to a later page', () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />,
+    )
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={0} onChange={onChange} />)
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={0} onChange={onChange} />)
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({pageIndex: 0})
+
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />)
+    expect(getCurrentPage()).toHaveTextContent('4')
+    expect(onChange).toHaveBeenLastCalledWith({pageIndex: 3})
+  })
+
+  it('accepts page zero as the default for an empty table', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    render(<Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={0} />)
+    expect(warn).not.toHaveBeenCalled()
+  })
+
+  it('reports a clamp when selecting a page also shrinks the row count', async () => {
+    const onChange = vi.fn()
+    function PaginationWithShrinkingRows() {
+      const [totalCount, setTotalCount] = useState(50)
+      const [parentPageIndex, setParentPageIndex] = useState(0)
+      const handleChange = useCallback((state: {pageIndex: number}) => {
+        onChange(state)
+        setParentPageIndex(state.pageIndex)
+        setTotalCount(25)
+      }, [])
+      return (
+        <>
+          <div>Parent page {parentPageIndex + 1}</div>
+          <Pagination aria-label="Pagination" totalCount={totalCount} onChange={handleChange} />
+        </>
+      )
+    }
+
+    render(<PaginationWithShrinkingRows />)
+    await userEvent.click(getPage(1))
+
+    expect(onChange.mock.calls).toEqual([[{pageIndex: 1}], [{pageIndex: 0}]])
+    expect(page.getByText('Parent page 1', {exact: true}).element()).toBeInTheDocument()
+    expect(getCurrentPage()).toHaveTextContent('1')
+  })
+
+  it('applies a valid default page reset when the row count shrinks at the same time', () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />,
+    )
+
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={40} onChange={onChange} />)
+
+    expect(getCurrentPage()).toHaveTextContent('1')
+    expect(getPageRange()).toEqual('1 through 25 of 40')
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({pageIndex: 0})
+  })
+
+  it('reports an independent default page reset after clamping', () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={100} onChange={onChange} />,
+    )
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={3} totalCount={40} onChange={onChange} />)
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={40} onChange={onChange} />)
+
+    expect(onChange.mock.calls).toEqual([[{pageIndex: 1}], [{pageIndex: 0}]])
+    expect(getCurrentPage()).toHaveTextContent('1')
+  })
+
+  it('notifies when the default page changes to the selected page', async () => {
+    const onChange = vi.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Pagination" defaultPageIndex={0} totalCount={100} onChange={onChange} />,
+    )
+    await userEvent.click(getPage(1))
+    onChange.mockClear()
+
+    rerender(<Pagination aria-label="Pagination" defaultPageIndex={1} totalCount={100} onChange={onChange} />)
+
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({pageIndex: 1})
   })
 
   it('should set the initial selected page to the first page', () => {

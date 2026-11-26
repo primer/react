@@ -1,6 +1,6 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type React from 'react'
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {Button} from '../internal/components/ButtonReset'
 import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -179,7 +179,7 @@ type RangeProps = {
 }
 
 function Range({pageStart, pageEnd, totalCount}: RangeProps) {
-  const start = pageStart + 1
+  const start = totalCount === 0 ? 0 : pageStart + 1
   const end = pageEnd
   return (
     <>
@@ -322,10 +322,15 @@ type PaginationResult = {
 
 function usePagination(config: PaginationConfig): PaginationResult {
   const {defaultPageIndex, onChange, pageSize, totalCount} = config
-  const pageCount = Math.ceil(totalCount / pageSize)
+  const calculatedPageCount = Math.ceil(totalCount / pageSize)
+  const pageCount = Number.isFinite(calculatedPageCount) ? calculatedPageCount : 0
+  const validDefaultPageIndex =
+    defaultPageIndex !== undefined &&
+    defaultPageIndex >= 0 &&
+    (defaultPageIndex < pageCount || (defaultPageIndex === 0 && pageCount === 0))
   const [defaultIndex, setDefaultIndex] = useState(() => {
     if (defaultPageIndex !== undefined) {
-      if (defaultPageIndex >= 0 && defaultPageIndex < pageCount) {
+      if (validDefaultPageIndex) {
         return defaultPageIndex
       }
 
@@ -342,13 +347,39 @@ function usePagination(config: PaginationConfig): PaginationResult {
 
     return 0
   })
-  const [pageIndex, setPageIndex] = useState(defaultIndex)
-  const validDefaultPageCount = defaultPageIndex !== undefined && defaultPageIndex >= 0 && defaultPageIndex < pageCount
-  if (validDefaultPageCount && defaultIndex !== defaultPageIndex) {
+  const [storedPageIndex, setPageIndex] = useState(defaultIndex)
+  const previousPageIndex = useRef(storedPageIndex)
+  const previousDefaultIndex = useRef(defaultIndex)
+  const lastClampedPageIndex = useRef<number | undefined>(undefined)
+  const defaultPageIndexChanged = validDefaultPageIndex && defaultIndex !== defaultPageIndex
+  const pageIndex = defaultPageIndexChanged ? defaultPageIndex : Math.min(storedPageIndex, Math.max(0, pageCount - 1))
+  if (defaultPageIndexChanged) {
     setDefaultIndex(defaultPageIndex)
-    setPageIndex(defaultPageIndex)
-    onChange?.({pageIndex: defaultPageIndex})
   }
+  if (pageIndex !== storedPageIndex) {
+    setPageIndex(pageIndex)
+  }
+  useEffect(() => {
+    // Prop changes can update parent state only after this component commits.
+    if (previousPageIndex.current !== pageIndex || previousDefaultIndex.current !== defaultIndex) {
+      const pageChanged = previousPageIndex.current !== pageIndex
+      const defaultChanged = previousDefaultIndex.current !== defaultIndex
+      // The parent can echo the last clamped index through defaultPageIndex.
+      const echoedClamp = defaultChanged && !pageChanged && defaultIndex === lastClampedPageIndex.current
+      previousPageIndex.current = pageIndex
+      previousDefaultIndex.current = defaultIndex
+      lastClampedPageIndex.current = pageChanged && !defaultChanged && onChange ? pageIndex : undefined
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (!echoedClamp) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-live-state-to-parent, react-you-might-not-need-an-effect/no-pass-data-to-parent
+        onChange?.({pageIndex})
+      }
+    } else {
+      // Only suppress an echo during the next commit after a clamp.
+      lastClampedPageIndex.current = undefined
+    }
+  })
+
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min((pageIndex + 1) * pageSize, totalCount)
   const hasNextPage = pageIndex + 1 < pageCount
@@ -357,6 +388,8 @@ function usePagination(config: PaginationConfig): PaginationResult {
   function selectPage(newPageIndex: number) {
     if (pageIndex !== newPageIndex) {
       setPageIndex(newPageIndex)
+      previousPageIndex.current = newPageIndex
+      lastClampedPageIndex.current = undefined
       onChange?.({pageIndex: newPageIndex})
     }
   }

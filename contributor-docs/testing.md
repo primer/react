@@ -11,6 +11,7 @@
   - [Browser locator pilot](#browser-locator-pilot)
   - [Snapshots](#snapshots)
   - [Running Tests](#running-tests)
+  - [React Server Component Tests](#react-server-component-tests)
 - [Interaction Tests](#interaction-tests)
   - [As A Part Of Unit Tests](#as-a-part-of-unit-tests)
 - [Visual Regression Tests](#visual-regression-tests)
@@ -123,6 +124,10 @@ We are slowly moving away from using snapshots as a way to test visual changes o
 | Update snapshots    | `npm test -- -u`         |
 
 By default, Vitest fails when tests emit unexpected console output in CI. For local debugging, it is disabled unless you opt in with `VITEST_FAIL_ON_CONSOLE=true`.
+
+### React Server Component Tests
+
+Tests named `*.rsc.test.tsx` render components inside a React Server Component boundary using [`vitest-plugin-rsc`](https://github.com/storybookjs/vitest-plugin-rsc). They run in their own `@primer/react (rsc)` Vitest project (`packages/react/vitest.config.rsc.mts`) because the plugin needs browser mode, and they are excluded from the main browser project. Server Components require React 19, so the project has no tests when React 18 is installed and runs in the React 19 CI job.
 
 ## Interaction Tests
 
