@@ -67,11 +67,21 @@ export function useAnchoredPosition(
     )
   }
 
-  const updateElementHeight = (prevHeight: number | undefined) => {
+  const pinFrameRef = React.useRef<number | undefined>(undefined)
+
+  const cancelPinFrame = () => {
+    if (pinFrameRef.current !== undefined) cancelAnimationFrame(pinFrameRef.current)
+    pinFrameRef.current = undefined
+  }
+
+  const updateElementHeight = (prevHeight: number | undefined, element: Element | null) => {
     // if the element is trying to shrink in height, restore to old height to prevent it from jumping
-    if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
-      requestAnimationFrame(() => {
-        ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
+    if (element && prevHeight && prevHeight > element.clientHeight) {
+      cancelPinFrame()
+      pinFrameRef.current = requestAnimationFrame(() => {
+        pinFrameRef.current = undefined
+        // The element may have been replaced or unmounted while the frame was pending.
+        if (floatingElementRef.current === element) (element as HTMLElement).style.height = `${prevHeight}px`
       })
       return true
     }
@@ -84,7 +94,8 @@ export function useAnchoredPosition(
       // Captured before the ref is updated below: state updaters can run later, during render.
       // Ignored when it was measured on another element, e.g. the previous session of a reopened overlay.
       const prevMeasured = prevHeightRef.current
-      const prevHeight = prevMeasured?.element === floatingElementRef.current ? prevMeasured.height : undefined
+      const floatingElement = floatingElementRef.current
+      const prevHeight = prevMeasured?.element === floatingElement ? prevMeasured.height : undefined
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
         setPosition(prev => {
@@ -92,7 +103,7 @@ export function useAnchoredPosition(
             const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
             const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
 
-            if (elementStillFitsOnTop && updateElementHeight(prevHeight)) {
+            if (elementStillFitsOnTop && updateElementHeight(prevHeight, floatingElement)) {
               return prev
             }
           }
@@ -139,6 +150,9 @@ export function useAnchoredPosition(
       ...dependencies,
     ],
   )
+
+  // Drops a pending height restoration when the hook is disabled or unmounts.
+  React.useEffect(() => cancelPinFrame, [enabled])
 
   useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange

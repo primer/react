@@ -171,6 +171,7 @@ type FixtureProps = {
   pinPosition?: boolean
   enabled?: boolean
   floatingKey?: string
+  floatingMounted?: boolean
   onPositionChange?: (position: AnchorPosition | undefined) => void
 }
 
@@ -183,6 +184,7 @@ const Fixture = ({
   pinPosition,
   enabled,
   floatingKey,
+  floatingMounted = true,
   onPositionChange,
 }: FixtureProps) => {
   const floatingElementRef = React.useRef<HTMLDivElement>(null)
@@ -203,15 +205,17 @@ const Fixture = ({
         ref={anchorElementRef}
         style={{marginTop: 200, width: 100, height: 20, ...anchorStyle}}
       />
-      <div
-        key={floatingKey}
-        data-testid="floating"
-        ref={floatingElementRef}
-        data-top={position?.top}
-        data-left={position?.left}
-        data-side={position?.anchorSide}
-        style={{position: 'absolute', top: position?.top, left: position?.left, width: 50, height: floatingHeight}}
-      />
+      {floatingMounted ? (
+        <div
+          key={floatingKey}
+          data-testid="floating"
+          ref={floatingElementRef}
+          data-top={position?.top}
+          data-left={position?.left}
+          data-side={position?.anchorSide}
+          style={{position: 'absolute', top: position?.top, left: position?.left, width: 50, height: floatingHeight}}
+        />
+      ) : null}
     </div>
   )
 }
@@ -358,6 +362,62 @@ describe('re-render behavior', () => {
     await new Promise(resolve => requestAnimationFrame(resolve))
     // The fixture renders the new height inline, so anything else is a pin to the old height
     expect(getFloating().style.height).toBe('50px')
+  })
+
+  describe('closing before the pinned height is restored', () => {
+    // Holds back animation frames scheduled after this call so the test decides when they run.
+    const holdAnimationFrames = () => {
+      const queued: FrameRequestCallback[] = []
+      vi.spyOn(window, 'requestAnimationFrame').mockImplementation(callback => queued.push(callback))
+      return {
+        pending: () => queued.length,
+        run: () => {
+          for (const callback of queued.splice(0)) callback(performance.now())
+        },
+      }
+    }
+
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    const shrinkWhilePinned = async () => {
+      const result = await renderSettled({side: 'outside-top', floatingHeight: 100, pinPosition: true})
+      const frames = holdAnimationFrames()
+      const runFrames = frames.run
+      getFloating().style.height = '50px'
+      // The shrink is detected and the height restoration is scheduled, but has not run yet
+      await expect.poll(frames.pending).toBeGreaterThan(0)
+      const rerenderWith = (props: FixtureProps) =>
+        result.rerender(
+          <Harness
+            side="outside-top"
+            pinPosition
+            onPositionChange={result.onPositionChange}
+            onCommit={result.onCommit}
+            {...props}
+          />,
+        )
+      return {runFrames, rerenderWith}
+    }
+
+    it('does not throw when the overlay closes before the frame runs', async () => {
+      const {runFrames, rerenderWith} = await shrinkWhilePinned()
+
+      rerenderWith({enabled: false, floatingMounted: false})
+
+      expect(() => runFrames()).not.toThrow()
+    })
+
+    it('does not resize a replacement element when the overlay reopens before the frame runs', async () => {
+      const {runFrames, rerenderWith} = await shrinkWhilePinned()
+
+      rerenderWith({enabled: false, floatingMounted: false})
+      rerenderWith({enabled: true, floatingHeight: 30, floatingKey: 'second'})
+      runFrames()
+
+      expect(getFloating().style.height).toBe('30px')
+    })
   })
 
   it('repositions when side changes while open', async () => {
