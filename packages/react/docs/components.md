@@ -7,10 +7,4 @@ directly in this folder. For other entrypoints:
 - `@primer/react/experimental`: `/dist/docs/components/experimental/`
 - `@primer/react/next`: `/dist/docs/components/next/`
 
-Each component is a folder that contains a collection of markdown files on the
-following topics:
-
-| Topic      | Description                                                       | Required |
-| :--------- | :---------------------------------------------------------------- | :------- |
-| `props.md` | Lists the component's public props, their types, and descriptions | ✅       |
-| `usage.md` | Provides guidance on how to use the component                     |          |
+Each component has a `{ComponentName}.md` file containing usage guidance (when available) and its public props, types, defaults, and descriptions.

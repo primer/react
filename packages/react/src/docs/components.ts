@@ -118,7 +118,29 @@ function propsTable(props: Array<ComponentProp>) {
   )
 }
 
-function serializeComponentDocs(component: ComponentDocs): {props: string; usage: string} {
+function serializeComponentDocs(component: ComponentDocs): string {
+  const sections = [`# ${component.displayName}`]
+
+  if (component.usage.description.trim()) {
+    sections.push(component.usage.description.trim())
+  }
+  if (component.usage.bestPractices.length > 0) {
+    const practices = component.usage.bestPractices.map(({guidance, description}) => {
+      const label = guidance ? 'Do' : "Don't"
+      return `- **${label}:** ${description.replace(/\r\n?|\n/g, '\n  ')}`
+    })
+    sections.push(`## Best practices\n\n${practices.join('\n')}`)
+  }
+  if (component.usage.anatomy.length > 0) {
+    const anatomy = markdownTable(
+      ['Name', 'Description', 'Required'],
+      component.usage.anatomy.map(part => {
+        return [part.name, part.description, part.required ? 'Yes' : 'No']
+      }),
+    )
+    sections.push(`## Anatomy\n\n${anatomy}`)
+  }
+
   const props: Array<string> = []
   if (component.props.length > 0) {
     props.push(propsTable(component.props))
@@ -129,34 +151,10 @@ function serializeComponentDocs(component: ComponentDocs): {props: string; usage
     }
   }
   if (props.length > 0) {
-    props.unshift('## Props')
+    sections.push(`## Props\n\n${props.join('\n\n')}`)
   }
 
-  const usage: Array<string> = []
-  if (component.usage.description.trim()) {
-    usage.push(component.usage.description)
-  }
-  if (component.usage.bestPractices.length > 0) {
-    const practices = component.usage.bestPractices.map(({guidance, description}) => {
-      const label = guidance ? 'Do' : "Don't"
-      return `- **${label}:** ${description.replace(/\r\n?|\n/g, '\n  ')}`
-    })
-    usage.push(`## Best practices\n\n${practices.join('\n')}`)
-  }
-  if (component.usage.anatomy.length > 0) {
-    const anatomy = markdownTable(
-      ['Name', 'Description', 'Required'],
-      component.usage.anatomy.map(part => {
-        return [part.name, part.description, part.required ? 'Yes' : 'No']
-      }),
-    )
-    usage.push(`## Anatomy\n\n${anatomy}`)
-  }
-
-  return {
-    props: props.join('\n\n'),
-    usage: usage.join('\n\n'),
-  }
+  return `${sections.join('\n\n')}\n`
 }
 
 export {defineComponent, serializeComponentDocs}

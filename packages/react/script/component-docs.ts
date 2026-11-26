@@ -11,15 +11,6 @@ const directoryByStatus = new Map([
   ['deprecated', 'deprecated/'],
 ])
 
-export function getComponentDocAssets(directory: string, component: ComponentDocs) {
-  return Object.entries(serializeComponentDocs(component)).map(([section, content]) => {
-    return {
-      fileName: `${directory}/${section}.md`,
-      source: content.trim() ? `# ${component.displayName}\n\n${content}\n` : undefined,
-    }
-  })
-}
-
 export function componentDocs(): Plugin {
   let generation = 0
   const ownedFileNames = new Set<string>()
@@ -37,14 +28,14 @@ export function componentDocs(): Plugin {
       }
 
       try {
-        const assets = new Map<string, {file: string; directory: string; component: ComponentDocs}>()
-        const registerDirectory = (file: string, directory: string, component: ComponentDocs) => {
-          const key = directory.toLowerCase()
+        const assets = new Map<string, {file: string; fileName: string; component: ComponentDocs}>()
+        const registerAsset = (file: string, fileName: string, component: ComponentDocs) => {
+          const key = fileName.toLowerCase()
           const previous = assets.get(key)
           if (previous) {
-            throw new Error(`Component docs path collision at ${directory}: ${previous.file} and ${file}`)
+            throw new Error(`Component docs path collision at ${fileName}: ${previous.file} and ${file}`)
           }
-          assets.set(key, {file, directory, component})
+          assets.set(key, {file, fileName, component})
         }
         for (const file of files) {
           this.addWatchFile(path.join(sourceDir, file))
@@ -56,7 +47,7 @@ export function componentDocs(): Plugin {
           if (group === undefined) {
             throw new Error(`Invalid component docs status in ${file}: ${component.status}`)
           }
-          registerDirectory(file, `docs/components/${group}${component.name}`, component)
+          registerAsset(file, `docs/components/${group}${component.name}.md`, component)
         }
 
         const entries = [...assets.values()]
@@ -77,20 +68,14 @@ export function componentDocs(): Plugin {
 
         for (const {component} of entries) {
           // A component may no longer be on Next after a scoped rebuild.
-          ownedFileNames.add(`docs/components/next/${component.name}/props.md`)
-          ownedFileNames.add(`docs/components/next/${component.name}/usage.md`)
+          ownedFileNames.add(`docs/components/next/${component.name}.md`)
         }
         for (const {file, component} of nextEntries) {
-          registerDirectory(file, `docs/components/next/${component.name}`, component)
+          registerAsset(file, `docs/components/next/${component.name}.md`, component)
         }
-        for (const {directory, component} of assets.values()) {
-          ownedFileNames.add(`${directory}.md`)
-          for (const {fileName, source} of getComponentDocAssets(directory, component)) {
-            ownedFileNames.add(fileName)
-            if (source !== undefined) {
-              this.emitFile({type: 'asset', fileName, source})
-            }
-          }
+        for (const {fileName, component} of assets.values()) {
+          ownedFileNames.add(fileName)
+          this.emitFile({type: 'asset', fileName, source: serializeComponentDocs(component)})
         }
       } finally {
         await loader.unregister()
