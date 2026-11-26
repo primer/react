@@ -441,6 +441,49 @@ describe('Breadcrumbs overflow regressions (real layout)', () => {
     }
   })
 
+  it('does not oscillate between layouts for a crumb with a sibling and whitespace (#8790)', async () => {
+    // Regression test for https://github.com/primer/react/issues/8790 — a space between the link
+    // and the sibling button takes width in the plain (inline-block) li but not in the menu
+    // (inline-grid) li, so the crumb measured wider in the plain layout. The fit check
+    // flip-flopped until React threw "Maximum update depth exceeded" and unmounted the tree.
+    const errors: string[] = []
+    const consoleError = vi.spyOn(console, 'error').mockImplementation((...args: unknown[]) => {
+      errors.push(args.map(String).join(' '))
+    })
+    function CrumbWithPicker() {
+      return (
+        <>
+          <Breadcrumbs.Item href="#repository" selected>
+            repository
+          </Breadcrumbs.Item>{' '}
+          <button type="button" style={{width: 24}}>
+            Switch
+          </button>
+        </>
+      )
+    }
+    const ui = (width: number) => (
+      <div style={{width}}>
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item key="owner" href="#owner">
+            organization-with-a-long-name
+          </Breadcrumbs.Item>
+          <CrumbWithPicker key="repository" />
+        </Breadcrumbs>
+      </div>
+    )
+    // 334-337px is the oscillation window in Chromium on Linux; sweep around it.
+    for (const width of [330, 334, 336, 337, 340]) {
+      const {unmount} = render(ui(width))
+      await nextFrame()
+      expect(screen.getByRole('navigation', {name: 'Breadcrumbs'})).toBeInTheDocument()
+      expect(visibleLinks().at(-1)).toBe('repository')
+      unmount()
+    }
+    consoleError.mockRestore()
+    expect(errors.join('\n')).not.toMatch(/Maximum update depth exceeded/)
+  })
+
   it('collapses when it shares a flex row with a sibling that can shrink', async () => {
     // Mirrors a header region where the crumbs sit beside a search field. If the nav kept its
     // crumbs' width, the sibling would absorb the squeeze and the crumbs would always measure as
