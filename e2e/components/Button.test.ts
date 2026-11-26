@@ -175,6 +175,18 @@ test.describe('Button', () => {
     await expect(preferenceOffVisualLabel).toHaveCSS('text-decoration-line', 'none')
   })
 
+  test('only adjusts the last keybinding hint in a sequence', async ({page}) => {
+    await visit(page, {
+      id: 'components-button-features--keybinding-hint-sequence',
+    })
+
+    const chords = page.locator('[data-component="trailingVisual"] [data-kbd-chord]')
+
+    await expect(chords).toHaveCount(2)
+    await expect(chords.first()).toHaveCSS('margin-inline-end', '0px')
+    await expect(chords.last()).toHaveCSS('margin-inline-end', '-6px')
+  })
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
