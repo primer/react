@@ -12,6 +12,11 @@ const stories = [
     id: 'components-avatar-features--size',
   },
   {
+    title: 'CSS Size Override Regression',
+    id: 'components-avatar-dev--css-size-override-regression',
+    expectedSize: 16,
+  },
+  {
     title: 'Size Responsive',
     id: 'components-avatar-features--size-responsive',
   },
@@ -34,8 +39,14 @@ test.describe('Avatar', () => {
               },
             })
 
-            // Default state
-            await expect(page).toHaveScreenshot(`Avatar.${story.title}.${theme}.png`)
+            if ('expectedSize' in story) {
+              const avatar = page.getByRole('img')
+              await expect(avatar).toHaveCSS('width', `${story.expectedSize}px`)
+              await expect(avatar).toHaveCSS('height', `${story.expectedSize}px`)
+            } else {
+              // Default state
+              await expect(page).toHaveScreenshot(`Avatar.${story.title}.${theme}.png`)
+            }
           })
         })
       }
