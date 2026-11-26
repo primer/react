@@ -68,20 +68,29 @@ export function useAnchoredPosition(
   }
 
   const pinFrameRef = React.useRef<number | undefined>(undefined)
+  // The height a scheduled restore will apply, so further shrinks before the frame runs keep targeting it.
+  const pendingRestoreRef = React.useRef<{element: Element; height: number} | undefined>(undefined)
 
   const cancelPinFrame = () => {
     if (pinFrameRef.current !== undefined) cancelAnimationFrame(pinFrameRef.current)
     pinFrameRef.current = undefined
+    pendingRestoreRef.current = undefined
   }
 
   const updateElementHeight = (prevHeight: number | undefined, element: Element | null) => {
+    const pending = pendingRestoreRef.current
+    const targetHeight = pending && pending.element === element ? pending.height : prevHeight
     // if the element is trying to shrink in height, restore to old height to prevent it from jumping
-    if (element && prevHeight && prevHeight > element.clientHeight) {
+    if (element && targetHeight && targetHeight > element.clientHeight) {
       cancelPinFrame()
+      pendingRestoreRef.current = {element, height: targetHeight}
       pinFrameRef.current = requestAnimationFrame(() => {
         pinFrameRef.current = undefined
-        // The element may have been replaced or unmounted while the frame was pending.
-        if (floatingElementRef.current === element) (element as HTMLElement).style.height = `${prevHeight}px`
+        pendingRestoreRef.current = undefined
+        // The element may have been replaced or unmounted, or may have grown back, while the frame was pending.
+        if (floatingElementRef.current === element && element.clientHeight < targetHeight) {
+          ;(element as HTMLElement).style.height = `${targetHeight}px`
+        }
       })
       return true
     }
@@ -91,6 +100,8 @@ export function useAnchoredPosition(
   const updatePosition = React.useCallback(
     () => {
       if (!enabled) return
+      // A restore scheduled while pinned must not undo the height once pinning is turned off.
+      if (!settings?.pinPosition) cancelPinFrame()
       // Captured before the ref is updated below: state updaters can run later, during render.
       // Ignored when it was measured on another element, e.g. the previous session of a reopened overlay.
       const prevMeasured = prevHeightRef.current

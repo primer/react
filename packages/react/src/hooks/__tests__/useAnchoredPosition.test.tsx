@@ -367,12 +367,22 @@ describe('re-render behavior', () => {
   describe('closing before the pinned height is restored', () => {
     // Holds back animation frames scheduled after this call so the test decides when they run.
     const holdAnimationFrames = () => {
-      const queued: FrameRequestCallback[] = []
-      vi.spyOn(window, 'requestAnimationFrame').mockImplementation(callback => queued.push(callback))
+      const queued = new Map<number, FrameRequestCallback>()
+      let nextId = 1
+      vi.spyOn(window, 'requestAnimationFrame').mockImplementation(callback => {
+        queued.set(nextId, callback)
+        return nextId++
+      })
+      vi.spyOn(window, 'cancelAnimationFrame').mockImplementation(id => {
+        queued.delete(id)
+      })
       return {
-        pending: () => queued.length,
+        pending: () => queued.size,
+        requested: () => nextId - 1,
         run: () => {
-          for (const callback of queued.splice(0)) callback(performance.now())
+          const callbacks = [...queued.values()]
+          queued.clear()
+          for (const callback of callbacks) callback(performance.now())
         },
       }
     }
@@ -385,6 +395,8 @@ describe('re-render behavior', () => {
       const result = await renderSettled({side: 'outside-top', floatingHeight: 100, pinPosition: true})
       const frames = holdAnimationFrames()
       const runFrames = frames.run
+      const requestedFrames = frames.requested
+      const topBefore = readTop()
       getFloating().style.height = '50px'
       // The shrink is detected and the height restoration is scheduled, but has not run yet
       await expect.poll(frames.pending).toBeGreaterThan(0)
@@ -398,7 +410,7 @@ describe('re-render behavior', () => {
             {...props}
           />,
         )
-      return {runFrames, rerenderWith}
+      return {runFrames, requestedFrames, rerenderWith, topBefore, ...result}
     }
 
     it('does not throw when the overlay closes before the frame runs', async () => {
@@ -417,6 +429,42 @@ describe('re-render behavior', () => {
       runFrames()
 
       expect(getFloating().style.height).toBe('30px')
+    })
+
+    it('restores the original height and keeps the top when it shrinks again before the frame runs', async () => {
+      const {runFrames, requestedFrames, topBefore, onCommit} = await shrinkWhilePinned()
+      const commitsBefore = onCommit.mock.calls.length
+      const requestedBefore = requestedFrames()
+
+      getFloating().style.height = '30px'
+      // The recompute for the second shrink schedules its own restoration
+      await expect.poll(requestedFrames).toBeGreaterThan(requestedBefore)
+      expect(readTop()).toBe(topBefore)
+      expect(onCommit).toHaveBeenCalledTimes(commitsBefore)
+
+      runFrames()
+
+      expect(getFloating().style.height).toBe('100px')
+      expect(readTop()).toBe(topBefore)
+    })
+
+    it('does not shrink a floating element that grew back before the frame runs', async () => {
+      const {runFrames} = await shrinkWhilePinned()
+
+      getFloating().style.height = '120px'
+      runFrames()
+
+      expect(getFloating().style.height).toBe('120px')
+    })
+
+    it('keeps the shrunk height and repositions when pinning is turned off before the frame runs', async () => {
+      const {runFrames, rerenderWith, topBefore} = await shrinkWhilePinned()
+
+      rerenderWith({pinPosition: false, floatingHeight: 100})
+      runFrames()
+
+      expect(getFloating().style.height).toBe('50px')
+      await expect.poll(() => Number(readTop())).toBe(Number(topBefore) + 50)
     })
   })
 
