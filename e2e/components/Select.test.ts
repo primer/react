@@ -50,6 +50,36 @@ const stories = [
 ] as const
 
 test.describe('Select', () => {
+  for (const disabled of [false, true]) {
+    test(`arrow uses the ${disabled ? 'disabled' : 'enabled'} system color in forced colors @vrt`, async ({page}) => {
+      await page.emulateMedia({forcedColors: 'active'})
+      await visit(page, {
+        id: disabled ? 'components-select-features--disabled' : 'components-select--default',
+      })
+
+      const select = page.getByRole('combobox')
+      if (disabled) {
+        await expect(select).toBeDisabled()
+      } else {
+        await expect(select).toBeEnabled()
+      }
+
+      const expectedFill = await page.evaluate(
+        color => {
+          const reference = document.createElement('span')
+          reference.style.color = color
+          document.body.append(reference)
+          const result = getComputedStyle(reference).color
+          reference.remove()
+          return result
+        },
+        disabled ? 'GrayText' : 'FieldText',
+      )
+
+      await expect(select.locator('..').locator('svg')).toHaveCSS('fill', expectedFill)
+    })
+  }
+
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
