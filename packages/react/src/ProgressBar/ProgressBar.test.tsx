@@ -90,6 +90,51 @@ describe('ProgressBar', () => {
     await expect.element(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0')
   })
 
+  it('defaults `aria-valuemin` to 0 and `aria-valuemax` to 100', async () => {
+    render(<ProgressBar progress={50} aria-label="Upload text.png" />)
+
+    const progressbar = page.getByRole('progressbar')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemin', '0')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemax', '100')
+  })
+
+  it('passes `aria-valuemin` and `aria-valuemax` down to the progress bar', async () => {
+    render(<ProgressBar progress={25} aria-valuenow={3} aria-valuemin={0} aria-valuemax={12} aria-label="Tasks done" />)
+
+    const progressbar = page.getByRole('progressbar')
+    await expect.element(progressbar).toHaveAttribute('aria-valuenow', '3')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemin', '0')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemax', '12')
+  })
+
+  it('scales the derived `aria-valuenow` into a custom range when it is not provided', async () => {
+    render(<ProgressBar progress={25} aria-valuemin={0} aria-valuemax={12} aria-label="Tasks done" />)
+
+    const progressbar = page.getByRole('progressbar')
+    await expect.element(progressbar).toHaveAttribute('aria-valuenow', '3')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemin', '0')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemax', '12')
+  })
+
+  it('does not override `aria-valuemin` and `aria-valuemax` provided to ProgressBar.Item', async () => {
+    render(
+      <ProgressBar>
+        <ProgressBar.Item
+          progress={(3 / 12) * 100}
+          aria-label="Tasks done"
+          aria-valuenow={3}
+          aria-valuemin={0}
+          aria-valuemax={12}
+        />
+      </ProgressBar>,
+    )
+
+    const progressbar = page.getByRole('progressbar')
+    await expect.element(progressbar).toHaveAttribute('aria-valuenow', '3')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemin', '0')
+    await expect.element(progressbar).toHaveAttribute('aria-valuemax', '12')
+  })
+
   describe('bg prop', () => {
     it('applies default success bg color when no bg prop is provided', () => {
       render(<ProgressBar progress={50} aria-label="Upload test.png" />)
