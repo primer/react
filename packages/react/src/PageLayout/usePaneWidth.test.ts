@@ -920,7 +920,48 @@ describe('usePaneWidth', () => {
       addEventListenerSpy.mockRestore()
     })
 
-    it('should apply and remove containment attributes during resize', async () => {
+    it('should ignore height-only resizes', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1000)
+      vi.stubGlobal('innerHeight', 800)
+      const refs = createMockRefs()
+      const setPropertySpy = vi.spyOn(refs.paneRef.current!.style, 'setProperty')
+      const setAttributeSpy = vi.spyOn(refs.handleRef.current!, 'setAttribute')
+      let renderCount = 0
+
+      renderHook(() => {
+        renderCount += 1
+        return usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-height-only',
+          ...refs,
+        })
+      })
+
+      setPropertySpy.mockClear()
+      setAttributeSpy.mockClear()
+      const renderCountAfterMount = renderCount
+
+      // Mobile URL bar / on-screen keyboard: only the height changes
+      await act(async () => {
+        for (const height of [700, 500, 800]) {
+          vi.stubGlobal('innerHeight', height)
+          window.dispatchEvent(new Event('resize'))
+        }
+        await vi.runAllTimersAsync()
+      })
+
+      expect(setPropertySpy).not.toHaveBeenCalled()
+      expect(setAttributeSpy).not.toHaveBeenCalled()
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(renderCount).toBe(renderCountAfterMount)
+
+      vi.useRealTimers()
+    })
+
+    it('should not toggle containment attributes on viewport resize', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -935,73 +976,45 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Initially no data-dragging attribute
-      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
-      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
-
-      // Fire resize
       vi.stubGlobal('innerWidth', 1000)
       act(() => {
         window.dispatchEvent(new Event('resize'))
       })
 
-      // Attribute should be applied immediately on first resize
-      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
-      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
-
-      // Fire another resize event immediately (simulating continuous resize)
-      vi.stubGlobal('innerWidth', 900)
-      act(() => {
-        window.dispatchEvent(new Event('resize'))
-      })
-
-      // Attribute should still be present (containment stays on during continuous resize)
-      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
-      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
-
-      // Wait for the debounce timeout (150ms) to complete after resize stops
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(150)
-      })
-
-      // Attribute should be removed after debounce completes
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
       expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('489px')
 
       vi.useRealTimers()
     })
 
-    it('should cleanup containment attributes on unmount during resize', async () => {
+    it('should keep drag containment when the viewport resizes during a drag', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
 
-      const {unmount} = renderHook(() =>
+      renderHook(() =>
         usePaneWidth({
           width: 'medium',
           minWidth: 256,
           resizable: true,
-          widthStorageKey: 'test-cleanup-containment',
+          widthStorageKey: 'test-drag-containment',
           ...refs,
         }),
       )
 
-      // Fire resize
+      // DragHandle applies containment while the pointer drag is active
+      refs.paneRef.current?.setAttribute('data-dragging', 'true')
+      refs.contentWrapperRef.current?.setAttribute('data-dragging', 'true')
+
       vi.stubGlobal('innerWidth', 1000)
-      act(() => {
+      await act(async () => {
         window.dispatchEvent(new Event('resize'))
+        await vi.advanceTimersByTimeAsync(500)
       })
 
-      // Attribute should be applied
-      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
-      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
-
-      // Unmount immediately (before debounce timer fires)
-      unmount()
-
-      // Attribute should be cleaned up on unmount regardless of timing
-      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
-      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.paneRef.current?.getAttribute('data-dragging')).toBe('true')
+      expect(refs.contentWrapperRef.current?.getAttribute('data-dragging')).toBe('true')
 
       vi.useRealTimers()
     })
