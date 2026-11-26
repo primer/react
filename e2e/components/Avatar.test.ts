@@ -19,6 +19,10 @@ const stories = [
     title: 'Square',
     id: 'components-avatar-features--square',
   },
+  {
+    title: 'Text Placeholder',
+    id: 'components-avatar-features--text-placeholder',
+  },
 ] as const
 
 test.describe('Avatar', () => {

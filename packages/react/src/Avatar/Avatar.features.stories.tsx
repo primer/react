@@ -79,3 +79,12 @@ export const SizeResponsive = () => (
     />
   </div>
 )
+
+export const TextPlaceholder = () => (
+  <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
+    <Avatar placeholder="NS" alt="Naveed Sajjad" size={20} />
+    <Avatar placeholder="NS" alt="Naveed Sajjad" size={32} />
+    <Avatar placeholder="NS" alt="Naveed Sajjad" size={48} />
+    <Avatar placeholder="NS" alt="Naveed Sajjad" size={64} square />
+  </div>
+)
