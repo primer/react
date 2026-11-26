@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 
 /**
  * Mirrors `:focus-within` onto the tree root as `data-focus-within`.
@@ -8,8 +8,16 @@ import {useEffect} from 'react'
  * `:focus-within` rule on the root restyles every level line on each arrow key press. This
  * attribute only changes when focus enters or leaves the tree. It is written to the DOM
  * directly so the tree doesn't re-render.
+ *
+ * Removing the focused element from the DOM doesn't dispatch `focusout` in every engine, so the
+ * returned `resync` lets an unmounting item re-read `:focus-within`.
  */
 export function useFocusWithinAttribute(containerRef: React.RefObject<HTMLElement | null>) {
+  const resync = useCallback(() => {
+    const root = containerRef.current
+    root?.toggleAttribute('data-focus-within', root.matches(':focus-within'))
+  }, [containerRef])
+
   useEffect(() => {
     const root = containerRef.current
     if (!root) return
@@ -30,4 +38,6 @@ export function useFocusWithinAttribute(containerRef: React.RefObject<HTMLElemen
       root.removeAttribute('data-focus-within')
     }
   }, [containerRef])
+
+  return resync
 }
