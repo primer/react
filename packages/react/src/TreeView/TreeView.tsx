@@ -19,6 +19,7 @@ import {useSlots} from '../hooks/useSlots'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement} from './useRovingTabIndex'
 import {useTreeRovingTabIndex} from './useTreeRovingTabIndex'
+import {useFocusWithinAttribute} from './useFocusWithinAttribute'
 import {useTypeahead} from './useTypeahead'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {SkeletonText} from '../SkeletonText'
@@ -45,12 +46,14 @@ const RootContext = React.createContext<{
   expandedStateCache: React.RefObject<Map<string, boolean> | null>
   scrollElementIntoView: (element: Element | null | undefined) => void
   trailingActionShortcutText: string
+  resyncFocusWithin: () => void
 }>({
   isWithinTree: false,
   announceUpdate: () => {},
   expandedStateCache: {current: new Map()},
   scrollElementIntoView: () => {},
   trailingActionShortcutText: '',
+  resyncFocusWithin: () => {},
 })
 
 const ItemContext = React.createContext<{
@@ -141,6 +144,7 @@ const Root: React.FC<TreeViewProps> = ({
   }, [])
 
   useTreeRovingTabIndex({containerRef, mouseDownRef})
+  const resyncFocusWithin = useFocusWithinAttribute(containerRef)
   useTypeahead({
     containerRef,
     onFocusChange: element => {
@@ -194,6 +198,7 @@ const Root: React.FC<TreeViewProps> = ({
         expandedStateCache,
         scrollElementIntoView,
         trailingActionShortcutText,
+        resyncFocusWithin,
       }}
     >
       <>
@@ -287,8 +292,11 @@ const ItemImpl = fixedForwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
     })
-    const {isWithinTree, expandedStateCache, scrollElementIntoView, trailingActionShortcutText} =
+    const {isWithinTree, expandedStateCache, scrollElementIntoView, trailingActionShortcutText, resyncFocusWithin} =
       React.useContext(RootContext)
+
+    // Passive cleanup runs after the item's DOM is removed, so `:focus-within` is up to date.
+    React.useEffect(() => resyncFocusWithin, [resyncFocusWithin])
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()

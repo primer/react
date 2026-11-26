@@ -580,6 +580,86 @@ describe('SubTree accessible name', () => {
   })
 })
 
+describe('Focus within', () => {
+  it('sets data-focus-within on the root only while focus is inside the tree', async () => {
+    render(
+      <>
+        <button type="button">Before</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+          <TreeView.Item id="item-2">Item 2</TreeView.Item>
+        </TreeView>
+        <button type="button">After</button>
+      </>,
+    )
+    const root = page.getByRole('tree').element()
+
+    expect(root).not.toHaveAttribute('data-focus-within')
+
+    act(() => page.getByRole('button', {name: 'Before'}).element().focus())
+    await userEvent.keyboard('{Tab}')
+    expect(root).toHaveAttribute('data-focus-within')
+
+    await userEvent.keyboard('{ArrowDown}')
+    await expect.element(page.getByRole('treeitem', {name: 'Item 2'})).toHaveFocus()
+    expect(root).toHaveAttribute('data-focus-within')
+
+    await userEvent.keyboard('{Tab}')
+    await expect.element(page.getByRole('button', {name: 'After'})).toHaveFocus()
+    expect(root).not.toHaveAttribute('data-focus-within')
+  })
+})
+
+describe('Level line visibility', () => {
+  it('hides level lines when the focused treeitem is removed and the pointer is elsewhere', async () => {
+    // Some engines (WebKit) do not dispatch `focusout` when the focused element is removed from the DOM.
+    function Example() {
+      const [showFocused, setShowFocused] = React.useState(true)
+      return (
+        <>
+          <button type="button" onClick={() => setShowFocused(false)}>
+            Remove
+          </button>
+          <TreeView aria-label="Test tree">
+            <TreeView.Item id="parent" defaultExpanded>
+              Parent
+              <TreeView.SubTree>
+                {showFocused && <TreeView.Item id="child-1">Child 1</TreeView.Item>}
+                <TreeView.Item id="child-2">Child 2</TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView>
+        </>
+      )
+    }
+    render(<Example />)
+
+    const line = () => {
+      const el = document.querySelector('[role="tree"] .PRIVATE_TreeView-item-level-line')
+      if (!el) throw new Error('no level line')
+      return getComputedStyle(el).borderRightColor
+    }
+    const transparent = 'rgba(0, 0, 0, 0)'
+
+    // Precondition: the media query must apply, otherwise lines are always visible.
+    expect(window.matchMedia('(hover: hover)').matches).toBe(true)
+    expect(line()).toBe(transparent)
+
+    // Focus the child (pointer-free), lines become visible.
+    act(() => document.getElementById('child-1')!.focus())
+    await expect.element(page.getByRole('treeitem', {name: 'Child 1'})).toHaveFocus()
+    expect(line()).not.toBe(transparent)
+
+    // Remove the focused item programmatically; focus leaves the tree without a focusout.
+    act(() => document.querySelector<HTMLButtonElement>('button')!.click())
+    expect(document.getElementById('child-1')).toBeNull()
+    expect(document.activeElement).not.toBe(document.getElementById('child-2'))
+    expect(document.querySelector('[role="tree"]')!.matches(':focus-within')).toBe(false)
+
+    expect(line()).toBe(transparent)
+  })
+})
+
 describe('Tab order', () => {
   const getTabStops = (container: Element) =>
     Array.from(container.querySelectorAll('[tabindex="0"]')).map(element => element.id || element.textContent)
