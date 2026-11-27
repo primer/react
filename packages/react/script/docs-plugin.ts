@@ -1,12 +1,15 @@
 import type {Plugin} from 'rolldown'
 import ts from 'typescript'
-import type {ComponentDocs} from '../src/docs/component'
+import type {BuiltInBehavior, ComponentDocs, DefaultBehavior, UsageGuideline} from '../src/docs/component'
 
 type Prop = ComponentDocs['props'][number]
 type Table = Pick<ComponentDocs, 'name' | 'props' | 'passthrough'>
 type PropsDocs = Pick<ComponentDocs, 'name' | 'importPath' | 'props' | 'passthrough'> & {
   subcomponents: Array<Table>
   relatedTypes: Array<Table>
+  builtInBehaviors: Array<BuiltInBehavior>
+  defaultBehaviors: Array<DefaultBehavior>
+  usageGuidelines: Array<UsageGuideline>
 }
 
 type Literal = string | boolean | Array<Literal> | LiteralObject
@@ -94,6 +97,74 @@ function readTable(value: Literal | undefined, field: string): Table {
   }
 }
 
+function readNonEmptyString(value: Literal | undefined, field: string) {
+  const result = string(value, field)
+  if (result.length === 0) {
+    throw new Error(`Expected a nonempty string for ${field}.`)
+  }
+  return result
+}
+
+function readOptionalStringArray(value: Literal | undefined, field: string): Array<string> | undefined {
+  if (value === undefined) {
+    return undefined
+  }
+  return array(value, field).map((item, index) => readNonEmptyString(item, `${field}[${index}]`))
+}
+
+function readBuiltInBehaviors(value: Literal | undefined): Array<BuiltInBehavior> {
+  if (value === undefined) {
+    return []
+  }
+  return array(value, 'builtInBehaviors').map((entry, index) => {
+    const data = object(entry, `builtInBehaviors[${index}]`)
+    const id = readNonEmptyString(data.id, `builtInBehaviors[${index}].id`)
+    const description = readNonEmptyString(data.description, `builtInBehaviors[${index}].description`)
+    const related = readOptionalStringArray(data.related, `builtInBehaviors[${index}].related`)
+    return related ? {id, description, related} : {id, description}
+  })
+}
+
+function readDefaultBehaviors(value: Literal | undefined): Array<DefaultBehavior> {
+  if (value === undefined) {
+    return []
+  }
+  return array(value, 'defaultBehaviors').map((entry, index) => {
+    const data = object(entry, `defaultBehaviors[${index}]`)
+    const id = readNonEmptyString(data.id, `defaultBehaviors[${index}].id`)
+    const description = readNonEmptyString(data.description, `defaultBehaviors[${index}].description`)
+    const overriddenBy = array(data.overriddenBy, `defaultBehaviors[${index}].overriddenBy`).map((prop, propIndex) =>
+      readNonEmptyString(prop, `defaultBehaviors[${index}].overriddenBy[${propIndex}]`),
+    )
+    if (overriddenBy.length === 0) {
+      throw new Error(`Expected at least one entry in defaultBehaviors[${index}].overriddenBy.`)
+    }
+    const related = readOptionalStringArray(data.related, `defaultBehaviors[${index}].related`)
+    return related ? {id, description, overriddenBy, related} : {id, description, overriddenBy}
+  })
+}
+
+function readUsageGuidelines(value: Literal | undefined): Array<UsageGuideline> {
+  if (value === undefined) {
+    return []
+  }
+  return array(value, 'usageGuidelines').map((entry, index) => {
+    const data = object(entry, `usageGuidelines[${index}]`)
+    const id = readNonEmptyString(data.id, `usageGuidelines[${index}].id`)
+    const guidance = string(data.guidance, `usageGuidelines[${index}].guidance`)
+    if (guidance !== 'do' && guidance !== 'dont') {
+      throw new Error(`Expected "do" or "dont" for usageGuidelines[${index}].guidance.`)
+    }
+    const check = string(data.check, `usageGuidelines[${index}].check`)
+    if (check !== 'runtime' && check !== 'review') {
+      throw new Error(`Expected "runtime" or "review" for usageGuidelines[${index}].check.`)
+    }
+    const description = readNonEmptyString(data.description, `usageGuidelines[${index}].description`)
+    const related = readOptionalStringArray(data.related, `usageGuidelines[${index}].related`)
+    return related ? {id, guidance, check, description, related} : {id, guidance, check, description}
+  })
+}
+
 function readPropsDocs(code: string, id: string): PropsDocs {
   const source = ts.createSourceFile(id, code, ts.ScriptTarget.Latest, true)
   const assignment = source.statements.find(ts.isExportAssignment)
@@ -120,20 +191,23 @@ function readPropsDocs(code: string, id: string): PropsDocs {
         : array(data.relatedTypes, 'relatedTypes').map(value => {
             return readTable(value, 'related type')
           }),
+    builtInBehaviors: readBuiltInBehaviors(data.builtInBehaviors),
+    defaultBehaviors: readDefaultBehaviors(data.defaultBehaviors),
+    usageGuidelines: readUsageGuidelines(data.usageGuidelines),
   }
 }
 
-function fileName({name, importPath}: PropsDocs) {
+function fileName({name, importPath}: PropsDocs, topic: 'props.md' | 'guidelines.md') {
   if (!/^[A-Z][A-Za-z0-9]*$/.test(name)) {
     throw new Error(`Unsafe component name: ${JSON.stringify(name)}.`)
   }
   switch (importPath) {
     case '@primer/react':
-      return `docs/components/${name}/props.md`
+      return `docs/components/${name}/${topic}`
     case '@primer/react/deprecated':
     case '@primer/react/experimental':
     case '@primer/react/next':
-      return `docs/${importPath.slice('@primer/react/'.length)}/components/${name}/props.md`
+      return `docs/${importPath.slice('@primer/react/'.length)}/components/${name}/${topic}`
     default:
       throw new Error(`Unsupported component importPath: ${JSON.stringify(importPath)}.`)
   }
@@ -167,7 +241,18 @@ function inlineCode(value: string) {
     .join(markdownLineBreak)
 }
 
-function proseText(value: string) {
+function proseText(value: string, escapePipes: boolean) {
+  if (!escapePipes) {
+    return value.replace(/[<>]|\r\n?|\n/g, match => {
+      if (match === '<') {
+        return '&lt;'
+      }
+      if (match === '>') {
+        return '&gt;'
+      }
+      return markdownLineBreak
+    })
+  }
   return value.replace(/(\\*)\||[<>]|\r\n?|\n/g, (match, escapes: string | undefined) => {
     if (escapes !== undefined) {
       return escapes.length % 2 ? match : `${escapes}\\|`
@@ -182,7 +267,7 @@ function proseText(value: string) {
   })
 }
 
-function prose(value: string) {
+function prose(value: string, {escapePipes = true}: {escapePipes?: boolean} = {}) {
   const openers = /(\\*)(`+)/g
   const closers = /`+/g
   const parts: Array<string> = []
@@ -204,16 +289,18 @@ function prose(value: string) {
       continue
     }
     const line = value.slice(openers.lastIndex, closing.index).replace(/\r\n?|\n/g, ' ')
-    parts.push(proseText(value.slice(start, openers.lastIndex - fence.length)))
-    if (line.includes('\\|')) {
+    parts.push(proseText(value.slice(start, openers.lastIndex - fence.length), escapePipes))
+    if (escapePipes && line.includes('\\|')) {
       const normalized = /^ .* $/.test(line) && /[^ ]/.test(line) ? line.slice(1, -1) : line
       parts.push(escapedCode(normalized))
-    } else {
+    } else if (escapePipes) {
       parts.push(`${fence}${line.replaceAll('|', '\\|')}${fence}`)
+    } else {
+      parts.push(`${fence}${line}${fence}`)
     }
     start = openers.lastIndex = closers.lastIndex
   }
-  parts.push(proseText(value.slice(start)))
+  parts.push(proseText(value.slice(start), escapePipes))
   return parts.join('')
 }
 
@@ -259,8 +346,44 @@ function render(docs: PropsDocs) {
   return lines.join('\n')
 }
 
+function renderGuidelines(docs: PropsDocs): string | null {
+  if (!docs.builtInBehaviors.length && !docs.defaultBehaviors.length && !docs.usageGuidelines.length) {
+    return null
+  }
+  const lines = [`# ${docs.name} guidelines`, '']
+  if (docs.builtInBehaviors.length) {
+    lines.push('## Built-in behaviors', '')
+    for (const behavior of docs.builtInBehaviors) {
+      lines.push(`- **${inlineCode(behavior.id)}**: ${prose(behavior.description, {escapePipes: false})}`)
+    }
+    lines.push('')
+  }
+  if (docs.defaultBehaviors.length) {
+    lines.push('## Default behaviors', '', '| ID | Behavior | Override |', '| --- | --- | --- |')
+    for (const behavior of docs.defaultBehaviors) {
+      const overrides = behavior.overriddenBy.map(inlineCode).join(', ')
+      lines.push(`| ${inlineCode(behavior.id)} | ${prose(behavior.description)} | ${overrides} |`)
+    }
+    lines.push('')
+  }
+  if (docs.usageGuidelines.length) {
+    const ordered = [
+      ...docs.usageGuidelines.filter(item => item.guidance === 'do'),
+      ...docs.usageGuidelines.filter(item => item.guidance === 'dont'),
+    ]
+    lines.push('## Usage guidelines', '', '| Rule | Guidance | Check | Description |', '| --- | --- | --- | --- |')
+    for (const rule of ordered) {
+      const guidance = rule.guidance === 'do' ? 'Do' : "Don't"
+      const check = rule.check === 'runtime' ? 'Runtime' : 'Review'
+      lines.push(`| ${inlineCode(rule.id)} | ${guidance} | ${check} | ${prose(rule.description)} |`)
+    }
+    lines.push('')
+  }
+  return lines.join('\n')
+}
+
 export function docs(): Plugin {
-  const assets = new Map<string, {name: string; source: string}>()
+  const assets = new Map<string, Array<{name: string; source: string}>>()
   return {
     name: 'primer-docs',
     transform: {
@@ -268,7 +391,12 @@ export function docs(): Plugin {
       handler(code, id) {
         try {
           const metadata = readPropsDocs(code, id)
-          assets.set(id, {name: fileName(metadata), source: render(metadata)})
+          const emitted = [{name: fileName(metadata, 'props.md'), source: render(metadata)}]
+          const guidelines = renderGuidelines(metadata)
+          if (guidelines !== null) {
+            emitted.push({name: fileName(metadata, 'guidelines.md'), source: guidelines})
+          }
+          assets.set(id, emitted)
         } catch (error) {
           this.error(`${id}: ${error instanceof Error ? error.message : String(error)}`)
         }
@@ -279,17 +407,19 @@ export function docs(): Plugin {
       const names = new Map<string, string>()
       // The current graph excludes removed modules, while cached transforms can still supply assets.
       for (const id of [...this.getModuleIds()].sort()) {
-        const asset = assets.get(id)
-        if (!asset) {
+        const moduleAssets = assets.get(id)
+        if (!moduleAssets) {
           continue
         }
-        const key = asset.name.toLowerCase()
-        const previous = names.get(key)
-        if (previous !== undefined) {
-          this.error(`Conflicting props documentation path ${asset.name}: ${previous} and ${id}.`)
+        for (const asset of moduleAssets) {
+          const key = asset.name.toLowerCase()
+          const previous = names.get(key)
+          if (previous !== undefined) {
+            this.error(`Conflicting props documentation path ${asset.name}: ${previous} and ${id}.`)
+          }
+          names.set(key, id)
+          this.emitFile({type: 'asset', fileName: asset.name, source: asset.source})
         }
-        names.set(key, id)
-        this.emitFile({type: 'asset', fileName: asset.name, source: asset.source})
       }
     },
   }

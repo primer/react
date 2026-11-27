@@ -32,6 +32,9 @@
     },
     {
       "id": "components-tooltipv2-features--on-action-menu-anchor"
+    },
+    {
+      "id": "components-tooltipv2-features--parts-composition"
     }
   ],
   "props": [
@@ -63,7 +66,131 @@
       "type": "'short' | 'medium' | 'long'",
       "defaultValue": "short",
       "description": "Sets the delay before showing the tooltip. `short` is 50ms (default), `medium` is 400ms, and `long` is 1200ms."
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "Controlled open state of the tooltip."
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Initial open state when uncontrolled."
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(change: TooltipOpenChange) => void",
+      "description": "Called when the tooltip open state changes. Call `change.cancel()` to prevent the transition."
     }
   ],
-  "subcomponents": []
+  "subcomponents": [
+    {
+      "name": "Tooltip.Root",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The trigger and popup parts rendered within the tooltip root context. `Tooltip.Root` renders no DOM element (state and context only)."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Optional ID used to link `Tooltip.Trigger` and `Tooltip.Popup` deterministically during SSR."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "description": "Controlled open state of the tooltip."
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Initial open state when uncontrolled."
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(change: TooltipOpenChange) => void",
+          "description": "Called when the tooltip open state changes. Call `change.cancel()` to prevent the transition."
+        },
+        {
+          "name": "delay",
+          "type": "'short' | 'medium' | 'long'",
+          "defaultValue": "short",
+          "description": "Delay before showing the tooltip on hover (`short` 50ms, `medium` 400ms, `long` 1200ms)."
+        },
+        {
+          "name": "type",
+          "type": "'label' | 'description'",
+          "defaultValue": "description",
+          "description": "Whether the tooltip labels or describes its trigger element."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Prevents the tooltip from opening and closes it if currently open."
+        }
+      ]
+    },
+    {
+      "name": "Tooltip.Trigger",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "description": "Render the trigger as a different element or component instead of the default `<button type=\"button\">`. `ref` forwards to the rendered trigger `HTMLElement`, and `data-open` is set while open. Cannot be combined with `render`."
+        },
+        {
+          "name": "render",
+          "type": "React.ReactElement | ((props: TooltipTriggerRenderProps, state: TooltipTriggerState) => React.ReactElement)",
+          "description": "Replace the default `<button type=\"button\">` trigger element with a custom element or render function receiving merged props (including `ref` to the rendered trigger `HTMLElement` and `data-open` when open) and state. Cannot be combined with `as`."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Content rendered inside the trigger element (defaults to `<button type=\"button\">` with `ref` pointing to the rendered trigger `HTMLElement` and `data-open` when open)."
+        },
+        {
+          "name": "type",
+          "type": "'button' | 'submit' | 'reset'",
+          "defaultValue": "button",
+          "description": "Button type attribute used when rendering the default native `<button>` element."
+        }
+      ]
+    },
+    {
+      "name": "Tooltip.Popup",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "description": "Render the popup as a different element or component instead of the default `<span>`. `ref` forwards to the rendered popup `HTMLElement`, with `data-direction` and `data-open` state attributes. Cannot be combined with `render`."
+        },
+        {
+          "name": "render",
+          "type": "React.ReactElement | ((props: TooltipPopupRenderProps, state: TooltipPopupState) => React.ReactElement)",
+          "description": "Replace the default `<span>` popup element with a custom element or render function receiving merged props (including `ref` to the rendered popup `HTMLElement`, `data-direction`, and `data-open`) and state. Cannot be combined with `as`."
+        },
+        {
+          "name": "direction",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "s",
+          "description": "Sets where the tooltip renders in relation to its trigger. Reflected and collision-adjusted via `data-direction` on the rendered popup."
+        },
+        {
+          "name": "keybindingHint",
+          "type": "string | Array<string>",
+          "description": "Optional keybinding hint displayed next to the tooltip content."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Non-interactive content rendered inside the tooltip popup (defaults to `<span>` with `ref` pointing to the rendered popup `HTMLElement` and `data-direction`/`data-open` state attributes)."
+        }
+      ]
+    }
+  ]
 }

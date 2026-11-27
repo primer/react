@@ -215,4 +215,69 @@ describe('typed component docs coverage', () => {
     expect(() => selectDocs(['src/missing.docs.ts'])).toThrow('No regular typed docs file')
     expect(() => selectDocs([file, file])).toThrow('Expected zero arguments or one')
   })
+
+  it('validates guardrail ids, defaultBehaviors overriddenBy references, and usageGuidelines ordering', () => {
+    const valid = `export default defineComponent({
+      id: 'fixture',
+      name: 'Widget',
+      status: 'stable',
+      a11yReviewed: false,
+      importPath: '@primer/react',
+      stories: [],
+      props: [
+        {name: 'title', type: 'string', description: 'Title.', required: true},
+        {name: 'enabled', type: 'boolean', description: 'Enables the widget.', required: false, defaultValue: 'false'},
+      ],
+      subcomponents: [],
+      builtInBehaviors: [{id: 'auto-focus', description: 'Manages focus.'}],
+      defaultBehaviors: [{id: 'disabled-by-default', description: 'Off by default.', overriddenBy: ['enabled']}],
+      usageGuidelines: [
+        {id: 'prefer-title', guidance: 'do', check: 'review', description: 'Provide a clear title.'},
+        {id: 'avoid-empty', guidance: 'dont', check: 'runtime', description: 'Do not pass empty titles.'},
+      ],
+    })`
+    expect(lint(simple, valid)).toEqual([])
+
+    const invalid = `export default defineComponent({
+      id: 'fixture',
+      name: 'Widget',
+      status: 'stable',
+      a11yReviewed: false,
+      importPath: '@primer/react',
+      stories: [],
+      props: [
+        {name: 'title', type: 'string', description: 'Title.', required: true},
+        {name: 'enabled', type: 'boolean', description: 'Enables the widget.', required: false, defaultValue: 'false'},
+      ],
+      subcomponents: [],
+      builtInBehaviors: [{id: 'dup-id', description: 'Behavior.'}],
+      defaultBehaviors: [{id: 'dup-id', description: 'Default.', overriddenBy: ['renamedProp']}],
+      usageGuidelines: [
+        {id: 'dont-first', guidance: 'dont', check: 'runtime', description: 'Dont rule.'},
+        {id: 'do-after-dont', guidance: 'do', check: 'invalid-check', description: 'Do rule.'},
+      ],
+    })`
+    expect(lint(simple, invalid)).toEqual([
+      {
+        kind: 'invalid',
+        subject: 'Widget.defaultBehaviors.dup-id',
+        message: 'Duplicate guardrail id.',
+      },
+      {
+        kind: 'invalid',
+        subject: 'Widget.defaultBehaviors.dup-id.overriddenBy',
+        message: 'Unknown prop reference "renamedProp".',
+      },
+      {
+        kind: 'invalid',
+        subject: 'Widget.usageGuidelines.do-after-dont',
+        message: "Place 'do' guidelines before 'dont' guidelines.",
+      },
+      {
+        kind: 'invalid',
+        subject: 'Widget.usageGuidelines.do-after-dont.check',
+        message: 'Expected "runtime" or "review".',
+      },
+    ])
+  })
 })

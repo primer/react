@@ -222,3 +222,14 @@ export const WithLongDelay = () => (
     </Tooltip>
   </div>
 )
+
+export const PartsComposition = () => (
+  <div className={classes.PaddedContainer}>
+    <Tooltip.Root>
+      <Tooltip.Trigger render={<Button>Save draft</Button>} />
+      <Tooltip.Popup direction="n" keybindingHint="Mod+S">
+        Save changes locally
+      </Tooltip.Popup>
+    </Tooltip.Root>
+  </div>
+)
