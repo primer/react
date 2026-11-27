@@ -1,6 +1,28 @@
+type BuiltInBehavior = {
+  id: string
+  description: string
+  related?: Array<string>
+}
+
+type DefaultBehavior = {
+  id: string
+  description: string
+  overriddenBy: Array<string>
+  related?: Array<string>
+}
+
+type UsageGuideline = {
+  id: string
+  guidance: 'do' | 'dont'
+  check: 'runtime' | 'review'
+  description: string
+  related?: Array<string>
+}
+
 type ComponentDocs = {
   id: string
   name: string
+  docsId?: string
   status: ComponentStatus
   a11yReviewed: boolean | string
   importPath: string
@@ -13,6 +35,9 @@ type ComponentDocs = {
   }>
   stories: Array<string>
   passthrough?: Passthrough
+  builtInBehaviors?: Array<BuiltInBehavior>
+  defaultBehaviors?: Array<DefaultBehavior>
+  usageGuidelines?: Array<UsageGuideline>
 }
 
 type ComponentStatus = 'stable' | 'draft' | 'alpha' | 'beta' | 'deprecated'
@@ -42,4 +67,4 @@ function defineComponent<const T extends ComponentDocs>(component: T): T {
 }
 
 export {defineComponent}
-export type {ComponentDocs}
+export type {BuiltInBehavior, ComponentDocs, DefaultBehavior, UsageGuideline}

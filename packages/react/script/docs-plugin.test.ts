@@ -187,4 +187,91 @@ describe('component props Markdown', () => {
   ])('rejects unsafe output paths or nonliteral metadata', async (code, message) => {
     await expect(bundle({'\0Widget.docs.ts': code}, docs())).rejects.toThrow(message)
   })
+
+  it('emits guidelines.md when three-part behavior guardrails are defined', async () => {
+    const output = await bundle(
+      {
+        '\0Tooltip.docs.ts': metadata('Tooltip', '@primer/react/next', [], {
+          builtInBehaviors: [{id: 'escape-dismiss', description: 'Pressing `Escape` closes the tooltip.'}],
+          defaultBehaviors: [
+            {
+              id: 'short-delay',
+              description: 'Waits 50ms before opening.',
+              overriddenBy: ['delay', 'Tooltip.Root.delay'],
+            },
+          ],
+          usageGuidelines: [
+            {
+              id: 'no-disabled-trigger',
+              guidance: 'dont',
+              check: 'runtime',
+              description: 'Avoid disabled triggers.',
+            },
+            {
+              id: 'use-render-prop',
+              guidance: 'do',
+              check: 'review',
+              description: 'Compose custom buttons with `render`.',
+            },
+          ],
+        }),
+      },
+      docs(),
+    )
+
+    const guidelines = output.find(asset => asset.fileName === 'docs/next/components/Tooltip/guidelines.md')
+    expect(guidelines).toMatchObject({
+      type: 'asset',
+      source: [
+        '# Tooltip guidelines',
+        '',
+        '## Built-in behaviors',
+        '',
+        '- **`escape-dismiss`**: Pressing `Escape` closes the tooltip.',
+        '',
+        '## Default behaviors',
+        '',
+        '| ID | Behavior | Override |',
+        '| --- | --- | --- |',
+        '| `short-delay` | Waits 50ms before opening. | `delay`, `Tooltip.Root.delay` |',
+        '',
+        '## Usage guidelines',
+        '',
+        '| Rule | Guidance | Check | Description |',
+        '| --- | --- | --- | --- |',
+        '| `use-render-prop` | Do | Review | Compose custom buttons with `render`. |',
+        "| `no-disabled-trigger` | Don't | Runtime | Avoid disabled triggers. |",
+        '',
+      ].join('\n'),
+    })
+  })
+
+  it('escapes raw angle brackets and newlines in builtInBehaviors without escaping pipes in list items', async () => {
+    const output = await bundle(
+      {
+        '\0Tooltip.docs.ts': metadata('Tooltip', '@primer/react/next', [], {
+          builtInBehaviors: [
+            {
+              id: 'html-escape',
+              description: 'Wraps <div> or `<span>` with `A | B` | plain.\nSecond line.',
+            },
+          ],
+        }),
+      },
+      docs(),
+    )
+
+    const guidelines = output.find(asset => asset.fileName === 'docs/next/components/Tooltip/guidelines.md')
+    expect(guidelines).toMatchObject({
+      type: 'asset',
+      source: [
+        '# Tooltip guidelines',
+        '',
+        '## Built-in behaviors',
+        '',
+        '- **`html-escape`**: Wraps &lt;div&gt; or `<span>` with `A | B` | plain.<br>Second line.',
+        '',
+      ].join('\n'),
+    })
+  })
 })

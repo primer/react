@@ -20,10 +20,24 @@ interface Table {
   props: Map<string, LiteralObject>
 }
 
+interface DefaultBehaviorMetadata {
+  id: string
+  overriddenBy: Array<string>
+}
+
+interface UsageGuidelineMetadata {
+  id: string
+  guidance: string
+  check: string
+}
+
 interface Metadata extends Table {
   importPath: string
   subcomponents: Array<Table>
   relatedTypes: Array<Table>
+  builtInBehaviors: Array<{id: string}>
+  defaultBehaviors: Array<DefaultBehaviorMetadata>
+  usageGuidelines: Array<UsageGuidelineMetadata>
 }
 
 interface Finding {
@@ -155,6 +169,105 @@ function tables(value: Literal | undefined, subject: 'subcomponents' | 'relatedT
   })
 }
 
+function validateOptionalRelated(value: Literal | undefined, subject: string) {
+  if (value !== undefined) {
+    for (const item of array(value, subject)) {
+      string(item, subject)
+    }
+  }
+}
+
+function readBuiltInBehaviors(value: Literal | undefined, findings: Array<Finding>, componentName: string) {
+  if (value === undefined) {
+    return []
+  }
+  const items: Array<{id: string}> = []
+  for (const [index, entry] of array(value, 'builtInBehaviors').entries()) {
+    const item = object(entry, `builtInBehaviors[${index}]`)
+    const id = string(item.id, `builtInBehaviors[${index}].id`)
+    if (typeof item.description !== 'string' || item.description.length === 0) {
+      findings.push({
+        kind: 'invalid',
+        subject: `${componentName}.builtInBehaviors.${id}.description`,
+        message: 'Expected a nonempty string.',
+      })
+    }
+    validateOptionalRelated(item.related, `${componentName}.builtInBehaviors.${id}.related`)
+    items.push({id})
+  }
+  return items
+}
+
+function readDefaultBehaviors(value: Literal | undefined, findings: Array<Finding>, componentName: string) {
+  if (value === undefined) {
+    return []
+  }
+  const items: Array<DefaultBehaviorMetadata> = []
+  for (const [index, entry] of array(value, 'defaultBehaviors').entries()) {
+    const item = object(entry, `defaultBehaviors[${index}]`)
+    const id = string(item.id, `defaultBehaviors[${index}].id`)
+    if (typeof item.description !== 'string' || item.description.length === 0) {
+      findings.push({
+        kind: 'invalid',
+        subject: `${componentName}.defaultBehaviors.${id}.description`,
+        message: 'Expected a nonempty string.',
+      })
+    }
+    const overriddenBy: Array<string> = []
+    const rawOverrides = array(item.overriddenBy, `${componentName}.defaultBehaviors.${id}.overriddenBy`)
+    if (rawOverrides.length === 0) {
+      findings.push({
+        kind: 'invalid',
+        subject: `${componentName}.defaultBehaviors.${id}.overriddenBy`,
+        message: 'Expected at least one prop reference.',
+      })
+    }
+    for (const ref of rawOverrides) {
+      overriddenBy.push(string(ref, `${componentName}.defaultBehaviors.${id}.overriddenBy`))
+    }
+    validateOptionalRelated(item.related, `${componentName}.defaultBehaviors.${id}.related`)
+    items.push({id, overriddenBy})
+  }
+  return items
+}
+
+function readUsageGuidelines(value: Literal | undefined, findings: Array<Finding>, componentName: string) {
+  if (value === undefined) {
+    return []
+  }
+  const items: Array<UsageGuidelineMetadata> = []
+  for (const [index, entry] of array(value, 'usageGuidelines').entries()) {
+    const item = object(entry, `usageGuidelines[${index}]`)
+    const id = string(item.id, `usageGuidelines[${index}].id`)
+    const guidance = typeof item.guidance === 'string' ? item.guidance : ''
+    const check = typeof item.check === 'string' ? item.check : ''
+    if (guidance !== 'do' && guidance !== 'dont') {
+      findings.push({
+        kind: 'invalid',
+        subject: `${componentName}.usageGuidelines.${id}.guidance`,
+        message: 'Expected "do" or "dont".',
+      })
+    }
+    if (check !== 'runtime' && check !== 'review') {
+      findings.push({
+        kind: 'invalid',
+        subject: `${componentName}.usageGuidelines.${id}.check`,
+        message: 'Expected "runtime" or "review".',
+      })
+    }
+    if (typeof item.description !== 'string' || item.description.length === 0) {
+      findings.push({
+        kind: 'invalid',
+        subject: `${componentName}.usageGuidelines.${id}.description`,
+        message: 'Expected a nonempty string.',
+      })
+    }
+    validateOptionalRelated(item.related, `${componentName}.usageGuidelines.${id}.related`)
+    items.push({id, guidance, check})
+  }
+  return items
+}
+
 function readDocs(source: ts.SourceFile, findings: Array<Finding>): Metadata {
   const assignment = source.statements.find(ts.isExportAssignment)
   if (
@@ -179,11 +292,66 @@ function readDocs(source: ts.SourceFile, findings: Array<Finding>): Metadata {
     throw new Error('stories: expected strings.')
   }
   validatePassthrough(docs.passthrough, 'passthrough')
+  const mainTable = table(docs, findings)
   return {
-    ...table(docs, findings),
+    ...mainTable,
     importPath: string(docs.importPath, 'importPath'),
     subcomponents: tables(docs.subcomponents, 'subcomponents', findings),
     relatedTypes: docs.relatedTypes === undefined ? [] : tables(docs.relatedTypes, 'relatedTypes', findings),
+    builtInBehaviors: readBuiltInBehaviors(docs.builtInBehaviors, findings, mainTable.name),
+    defaultBehaviors: readDefaultBehaviors(docs.defaultBehaviors, findings, mainTable.name),
+    usageGuidelines: readUsageGuidelines(docs.usageGuidelines, findings, mainTable.name),
+  }
+}
+
+function validateGuardrails(docs: Metadata, documentedComponents: Map<string, Table>, findings: Array<Finding>) {
+  const seenIds = new Set<string>()
+  const checkUniqueId = (section: string, id: string) => {
+    if (seenIds.has(id)) {
+      findings.push({
+        kind: 'invalid',
+        subject: `${docs.name}.${section}.${id}`,
+        message: 'Duplicate guardrail id.',
+      })
+    } else {
+      seenIds.add(id)
+    }
+  }
+
+  for (const behavior of docs.builtInBehaviors) {
+    checkUniqueId('builtInBehaviors', behavior.id)
+  }
+
+  for (const behavior of docs.defaultBehaviors) {
+    checkUniqueId('defaultBehaviors', behavior.id)
+    for (const ref of behavior.overriddenBy) {
+      const lastDot = ref.lastIndexOf('.')
+      const exists =
+        lastDot === -1
+          ? docs.props.has(ref)
+          : Boolean(documentedComponents.get(ref.slice(0, lastDot))?.props.has(ref.slice(lastDot + 1)))
+      if (!exists) {
+        findings.push({
+          kind: 'invalid',
+          subject: `${docs.name}.defaultBehaviors.${behavior.id}.overriddenBy`,
+          message: `Unknown prop reference "${ref}".`,
+        })
+      }
+    }
+  }
+
+  let sawDont = false
+  for (const guideline of docs.usageGuidelines) {
+    checkUniqueId('usageGuidelines', guideline.id)
+    if (guideline.guidance === 'dont') {
+      sawDont = true
+    } else if (guideline.guidance === 'do' && sawDont) {
+      findings.push({
+        kind: 'invalid',
+        subject: `${docs.name}.usageGuidelines.${guideline.id}`,
+        message: "Place 'do' guidelines before 'dont' guidelines.",
+      })
+    }
   }
 }
 
@@ -482,6 +650,7 @@ export function lintSource(
   }
 
   const documentedComponents = new Map([docs, ...docs.subcomponents].map(item => [item.name, item]))
+  validateGuardrails(docs, documentedComponents, findings)
   const visited = new Set<string>()
   function visit(name: string, parents = new Set<ts.Type>()) {
     if (visited.has(name)) {
