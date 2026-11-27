@@ -111,12 +111,17 @@ export function useTable<Data extends UniqueRow>({
   onExpandedGroupsChange,
 }: TableConfig<Data>): Table<Data> {
   const tableId = useId()
-  const [rowOrder, setRowOrder] = useState<DataTableData<Data>>(data)
-  const [prevData, setPrevData] = useState(data)
-  const [prevColumns, setPrevColumns] = useState(columns)
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
+  const [rowOrder, setRowOrder] = useState<DataTableData<Data>>(() => {
+    if (externalSorting || sortByColumn === null) {
+      return data
+    }
+    return getSortedRowOrder(data, columns, sortByColumn)
+  })
+  const [prevData, setPrevData] = useState(data)
+  const [prevColumns, setPrevColumns] = useState(columns)
   const [selectedRows, setSelectedRows] = useControllableState<ReadonlySet<DataTableRowId>>({
     name: 'DataTable selectedRows',
     value: controlledSelectedRows,
@@ -197,99 +202,9 @@ export function useTable<Data extends UniqueRow>({
     if (externalSorting || state === null) {
       setRowOrder(rows)
     } else {
-      const sortedRows = getSortedRowOrder(rows, state)
+      const sortedRows = getSortedRowOrder(rows, columns, state)
       setRowOrder(sortedRows)
     }
-  }
-
-  /**
-   * Blank values are ordered last regardless of the sort direction.
-   */
-  function getSortedRowOrder(
-    currentRowOrder: DataTableData<Data>,
-    state: Exclude<ColumnSortState, null>,
-  ): DataTableData<Data> {
-    const header = headers.find(header => {
-      return header.id === state.id
-    })
-    if (!header) {
-      throw new Error(`Unable to find header with id: ${state.id}`)
-    }
-
-    if (header.column.sortBy === false || header.column.sortBy === undefined) {
-      throw new Error(`The column for this header is not sortable`)
-    }
-    const column = header.column
-
-    const sortMethod =
-      column.sortBy === true
-        ? strategies.basic
-        : typeof column.sortBy === 'string'
-          ? strategies[column.sortBy]
-          : column.sortBy
-
-    function sortData(rows: Array<Data>) {
-      return rows.slice().sort((a, b) => {
-        if (column.field === undefined) {
-          return 0
-        }
-
-        // Custom sort functions operate on the row versus the field
-        if (typeof column.sortBy === 'function') {
-          if (state.direction === SortDirection.ASC) {
-            // @ts-ignore todo
-            return sortMethod(a, b)
-          }
-          // @ts-ignore todo
-          return sortMethod(b, a)
-        }
-
-        const valueA = get(a, column.field)
-        const valueB = get(b, column.field)
-
-        const valueAIsBlank = isBlankValue(valueA)
-        const valueBIsBlank = isBlankValue(valueB)
-
-        if (!valueAIsBlank && !valueBIsBlank) {
-          if (state.direction === SortDirection.ASC) {
-            // @ts-ignore todo
-            return sortMethod(valueA, valueB)
-          }
-          // @ts-ignore todo
-          return sortMethod(valueB, valueA)
-        }
-
-        if (!valueAIsBlank) {
-          return -1
-        }
-
-        if (!valueBIsBlank) {
-          return 1
-        }
-        return 0
-      })
-    }
-
-    const sorted: DataTableData<Data> = []
-    let ungroupedRows: Array<Data> = []
-
-    function appendUngroupedRows() {
-      for (const row of sortData(ungroupedRows)) {
-        sorted.push(row)
-      }
-      ungroupedRows = []
-    }
-
-    for (const item of currentRowOrder) {
-      if (isDataTableRowGroup(item)) {
-        appendUngroupedRows()
-        sorted.push({...item, rows: sortData(item.rows)})
-      } else {
-        ungroupedRows.push(item)
-      }
-    }
-    appendUngroupedRows()
-    return sorted
   }
 
   function createRow(row: Data, rowIndex: number): Row<Data> {
@@ -456,6 +371,96 @@ export function useTable<Data extends UniqueRow>({
   }
 }
 
+/**
+ * Blank values are ordered last regardless of the sort direction.
+ */
+function getSortedRowOrder<Data extends UniqueRow>(
+  currentRowOrder: DataTableData<Data>,
+  columns: Array<Column<Data>>,
+  state: Exclude<ColumnSortState, null>,
+): DataTableData<Data> {
+  const column = columns.find(column => {
+    return (column.id ?? column.field) === state.id
+  })
+  if (!column) {
+    throw new Error(`Unable to find column with id: ${state.id}`)
+  }
+
+  if (column.sortBy === false || column.sortBy === undefined) {
+    throw new Error(`The column with id: ${state.id} is not sortable`)
+  }
+
+  const sortMethod =
+    column.sortBy === true
+      ? strategies.basic
+      : typeof column.sortBy === 'string'
+        ? strategies[column.sortBy]
+        : column.sortBy
+
+  const sortData = (rows: Array<Data>) => {
+    return rows.slice().sort((a, b) => {
+      if (column.field === undefined) {
+        return 0
+      }
+
+      // Custom sort functions operate on the row versus the field
+      if (typeof column.sortBy === 'function') {
+        if (state.direction === SortDirection.ASC) {
+          // @ts-ignore todo
+          return sortMethod(a, b)
+        }
+        // @ts-ignore todo
+        return sortMethod(b, a)
+      }
+
+      const valueA = get(a, column.field)
+      const valueB = get(b, column.field)
+
+      const valueAIsBlank = isBlankValue(valueA)
+      const valueBIsBlank = isBlankValue(valueB)
+
+      if (!valueAIsBlank && !valueBIsBlank) {
+        if (state.direction === SortDirection.ASC) {
+          // @ts-ignore todo
+          return sortMethod(valueA, valueB)
+        }
+        // @ts-ignore todo
+        return sortMethod(valueB, valueA)
+      }
+
+      if (!valueAIsBlank) {
+        return -1
+      }
+
+      if (!valueBIsBlank) {
+        return 1
+      }
+      return 0
+    })
+  }
+
+  const sorted: DataTableData<Data> = []
+  let ungroupedRows: Array<Data> = []
+
+  function appendUngroupedRows() {
+    for (const row of sortData(ungroupedRows)) {
+      sorted.push(row)
+    }
+    ungroupedRows = []
+  }
+
+  for (const item of currentRowOrder) {
+    if (isDataTableRowGroup(item)) {
+      appendUngroupedRows()
+      sorted.push({...item, rows: sortData(item.rows)})
+    } else {
+      ungroupedRows.push(item)
+    }
+  }
+  appendUngroupedRows()
+  return sorted
+}
+
 function isDataTableRowGroup<Data extends UniqueRow>(
   item: Data | DataTableRowGroup<Data>,
 ): item is DataTableRowGroup<Data> {
@@ -493,7 +498,7 @@ function getInitialSortState<Data extends UniqueRow>(
     }
 
     return {
-      id: `${initialSortColumn}`,
+      id: column.id ?? column.field ?? `${initialSortColumn}`,
       direction: initialSortDirection ?? DEFAULT_SORT_DIRECTION,
     }
   }

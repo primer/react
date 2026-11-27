@@ -190,7 +190,7 @@
       "name": "initialSortColumn",
       "type": "string | number",
       "required": false,
-      "description": "Provide the id or field of the column by which the table is sorted. When\nusing this `prop`, the input data must be sorted by this column in\nascending order",
+      "description": "Provide the id or field of the column by which the table is sorted. The\nrows are sorted by this column on the first render, so the input data\ndoes not need to be sorted beforehand. With `externalSorting`, the table\ndoes not sort the rows, and the input data must arrive in the desired order",
       "defaultValue": ""
     },
     {
