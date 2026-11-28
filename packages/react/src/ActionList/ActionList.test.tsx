@@ -617,6 +617,37 @@ describe('ActionList with role="tree"', () => {
 
     expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
   })
+
+  it.each(['ltr', 'rtl'] as const)('spaces item visuals on the inline end in %s layouts', direction => {
+    const {container} = HTMLRender(
+      <div dir={direction}>
+        <ActionList>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>L</ActionList.LeadingVisual>
+            Repositories
+            <ActionList.TrailingVisual>12</ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </div>,
+    )
+
+    const rect = (selector: string) => container.querySelector(selector)!.getBoundingClientRect()
+    const leading = rect('[data-component="ActionList.LeadingVisual"]')
+    const label = rect('[data-component="ActionList.Item.Label"]')
+    const trailing = rect('[data-component="ActionList.TrailingVisual"]')
+    const content = container.querySelector<HTMLElement>(`.${classes.ActionListContent}`)!
+    const contentBox = content.getBoundingClientRect()
+    const paddingInline = parseFloat(getComputedStyle(content).paddingInlineStart)
+
+    // Distances measured from the inline start, so both directions should match
+    const fromStart = (r: DOMRect) => (direction === 'rtl' ? contentBox.right - r.right : r.left - contentBox.left)
+    const fromStartEnd = (r: DOMRect) => (direction === 'rtl' ? contentBox.right - r.left : r.right - contentBox.left)
+
+    expect(fromStart(leading)).toBeCloseTo(paddingInline, 1)
+    expect(fromStart(label) - fromStartEnd(leading)).toBeCloseTo(8, 1)
+    expect(fromStart(trailing) - fromStartEnd(label)).toBeCloseTo(8, 1)
+    expect(getComputedStyle(content).textAlign).not.toBe(direction === 'rtl' ? 'left' : 'right')
+  })
 })
 
 describe('ActionList forwarded ref', () => {
