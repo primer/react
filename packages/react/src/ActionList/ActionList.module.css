@@ -505,7 +505,7 @@
   display: grid;
   width: 100%;
   color: var(--control-fgColor-rest);
-  text-align: left;
+  text-align: start;
   user-select: none;
   background-color: transparent;
   border: none;
@@ -525,7 +525,7 @@
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
   & > :not(:last-child, .Spacer) {
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--control-medium-gap);
+    margin-inline-end: var(--control-medium-gap);
   }
 
   &:hover {
@@ -608,7 +608,7 @@
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
   & > :not(:last-child) {
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--control-medium-gap);
+    margin-inline-end: var(--control-medium-gap);
   }
 }
 
